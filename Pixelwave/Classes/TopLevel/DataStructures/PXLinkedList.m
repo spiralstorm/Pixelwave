@@ -95,7 +95,44 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *	There are 3 (count 'em) ways to loop through a linked list:
  *	<br/>
  *	
- *	1. (Not recommended) The first method is using a simple for loop. It's the most obvious way to go
+ *	1. <b>(Recommended)</b> Using Objective-C's fast enumeration. This method
+ *	is both cleaner and (much) faster than the previous one. It is the
+ *	@b encouraged way to loop through linked lists. Here's a code example:
+ *
+ *	@code
+ * PXLinkedList *list = ...
+ *
+ * for(NSObject *item in list){
+ *	NSLog("Item = %@", item);
+ * }
+ *	@endcode
+ *
+ *	2. <b>(For optimization only)</b> This is the @b fastest way to loop through
+ *	linked lists. (According to tests it could be as fast as looping through
+ *	a plain C array). The downside is that it's not as clean as the recommended
+ *	fast enumeration method and requires you to write a bit more code.
+ *	Here's a code example:
+ *
+ *	@code
+ * PXLinkedList *list = ...
+ * 
+ * // It's essential that this variable be declared before the loop
+ * NSObject *item = nil;
+ *
+ * PXLinkedListForEach(list, item){
+ *	NSLog("Item = %@", item);
+ * }
+ *	@endcode
+ *
+ *	We recommend only using this method of iteration for <b>very large lists</b>
+ *	and/or lists that require one or more iterations <i>every frame</i> (such
+ *	as a list of all the entities in the world). For short lists, or one-time
+ *	operations you should stick to the fast enumeration method (#2 above).
+ *
+ *	@see #PXLinkedListForEach
+ *	@see #PXLinkedListForEachReverse
+ *
+ *	3. (Not recommended) The n00bish way. It's the most obvious way to go
  *	but also the slowest. It's strongly @b discouraged to loop through a list
  *	this way. Here's an example to show you what <b>not to do</b>:
  *
@@ -109,44 +146,6 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *	NSLog("Item %i = %@", i, item);
  * }
  *	@endcode
- *	
- *	2. (Recommended) The second method is to use Objective-C's fast enumeration. This method
- *	is both cleaner and (much) faster than the previous one. It is the
- *	@b encouraged way to loop through linked lists. Here's a code example:
- *
- *	@code
- * PXLinkedList *list = ...
- *
- * for(NSObject *item in list){
- *	NSLog("Item = %@", item);
- * }
- *	@endcode
- *
- *	3. (For optimization only) The third method is the @b fastest way to loop through
- *	linked lists. (According to tests it could be as fast as looping through
- *	a plain C array). The downside is that it's not as clean as the recommended
- *	fast enumeration method and requires you to write a bit more code.
- *	Here's a code example:
- *
- *	@code
- * PXLinkedList *list = ...
- * 
- * NSObject *obj = nil;
- * NSObject *item = nil;
- *
- * PXLinkedListForEach(list, obj){
- *	item = (NSObject *)obj;
- *	NSLog("Item = %@", item);
- * }
- *	@endcode
- *
- *	We recommend only using this method of iteration for <b>very large lists</b>
- *	and/or lists that require one or more iterations <i>every frame</i> (such
- *	as a list of all the entities in the world). For short lists, or one-time
- *	operations you should stick to the fast enumeration method (#2 above).
- *
- *	@see #PXLinkedListForEach(_list_,_obj_)
- *	@see #PXLinkedListForEachReverse
  */
 @implementation PXLinkedList
 
@@ -558,9 +557,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *	<i><b>Complexity:</b> O(1)</i>
  *	
  *	@param object
- *		The object to add to the end of the list. Must be a descendant of the
- *		<code>NSObject</code> class.
- *
+ *		The object to add to the end of the list.
  *	@b Example:
  *	@code
  *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
@@ -744,6 +741,9 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	}
 }
 
+/*
+ *	Internal
+ */
 - (void) addObject:(PXGenericObject)object beforeNode:(_PXLLNode *)nodeToAddBefore
 {
 	//head and tail must both be null or both be non-null

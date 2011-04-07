@@ -1,15 +1,19 @@
 Version 0.10.1 (In progress)
 ==============
 NEW:
-- Prior to _renderGL the 'gl state' is reset to the default - thus you do not need to enable/disable anything you aren't using prior to rendering.
-- PXDisplayObject now has _glState which is a preset to define your glEnable's and glClientStateEnable's prior to each render call.
+- Revamped the way OpenGL is wrapped by Pixelwave:
+	- Prior to _renderGL the 'gl state' is reset to the default - thus you do not need to enable/disable anything you aren't using prior to rendering.
+	- PXDisplayObject now has _glState which is a preset to define your glEnable's and glClientStateEnable's prior to each render call.
+
 CHANGED:
-- Removed the 'white' flash upon load of the app.
-- Changed NSObject * to PXGenericObject where ever possible.
-- Implemented the double tap event.
+- Changed NSObject* to id where ever possible. (Thanks Bekenn)
+
 FIXED:
-- Fixed Box2D bug
-- Fixed the touch cancel bug.
+- Implemented fix for removing the 'white' flash upon load of the app. (Thanks Bekenn)
+- Implemented the (missing) "doubleTap" event (PX_TOUCH_EVENT_DOUBLE_TAP). (Thanks Alex)
+- Fixed Box2D bug described in: http://www.box2d.org/forum/viewtopic.php?f=4&t=5269 (Thanks sumiguchi)
+- Fixed the touch cancel bug. (Thanks Bekenn)
+- Fixed touch positions being calculated incorrectly for iOS 3.x (Thanks makzan)
 
 Version 0.10.0 (Mar. 8, 2011)
 ==============

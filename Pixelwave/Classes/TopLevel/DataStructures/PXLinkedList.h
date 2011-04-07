@@ -46,6 +46,17 @@
  *	@ingroup TopLevel
  *
  *	Used to efficiently traverse the items in a linked list.
+ *
+ *	@code
+ * PXLinkedList *list = ...
+ * 
+ * // It's essential that this variable be declared before the loop
+ * NSObject *item = nil;
+ *
+ * PXLinkedListForEach(list, item){
+ *	NSLog("Item = %@", item);
+ * }
+ *	@endcode
  */
 #define PXLinkedListForEach(_list_,_obj_) \
         _PXLLNode *PX_UNIQUE_VAR(_node_) = (_list_)->_head; \
@@ -60,6 +71,17 @@
  *
  *	Used to efficiently traverse the items in a linked list from the end to the
  *	start.
+ *
+ *	@code
+ * PXLinkedList *list = ...
+ * 
+ * // It's essential that this variable be declared before the loop
+ * NSObject *item = nil;
+ *
+ * PXLinkedListForEachReverse(list, item){
+ *	NSLog("Item = %@", item);
+ * }
+ *	@endcode
  */
 #define PXLinkedListForEachReverse(_list_,_obj_) \
         _PXLLNode *PX_UNIQUE_VAR(_node_) = (_list_)->_tail; \
