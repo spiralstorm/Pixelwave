@@ -1,12 +1,13 @@
-Version 0.10.1 (In progress)
+Version 0.10.1 (Apr. 7, 2011)
 ==============
 NEW:
-- Revamped the way OpenGL is wrapped by Pixelwave:
+- Revamped the way OpenGL is wrapped by Pixelwave (This is an internal change):
 	- Prior to _renderGL the 'gl state' is reset to the default - thus you do not need to enable/disable anything you aren't using prior to rendering.
 	- PXDisplayObject now has _glState which is a preset to define your glEnable's and glClientStateEnable's prior to each render call.
 
 CHANGED:
-- Changed NSObject* to id where ever possible. (Thanks Bekenn)
+- Changed NSObject* parameters and return-types to id where ever possible. (Thanks Bekenn)
+- Removed the project version from the source comment-block headers (It got a bit annoying changing them every time…)
 
 FIXED:
 - Implemented fix for removing the 'white' flash upon load of the app. (Thanks Bekenn)
