@@ -1,0 +1,20 @@
+info face="Digital-7" size=200 bold=0 italic=0 charset="" unicode=0 stretchH=100 smooth=1 aa=1 padding=0,0,0,0 spacing=3,3
+common lineHeight=238 base=145 scaleW=512 scaleH=512 pages=1 packed=0
+page id=0 file="myFont.png"
+chars count=16
+char id=48 x=3 y=2 width=95 height=149 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="0"
+char id=53 x=101 y=2 width=95 height=149 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="5"
+char id=54 x=199 y=2 width=95 height=149 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="6"
+char id=56 x=297 y=2 width=95 height=149 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="8"
+char id=57 x=395 y=2 width=95 height=149 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="9"
+char id=51 x=3 y=154 width=95 height=149 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="3"
+char id=50 x=101 y=154 width=95 height=149 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="2"
+char id=66 x=199 y=154 width=95 height=149 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="B"
+char id=55 x=297 y=154 width=95 height=148 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="7"
+char id=65 x=395 y=154 width=95 height=148 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="A"
+char id=77 x=3 y=306 width=95 height=148 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="M"
+char id=80 x=101 y=306 width=95 height=148 xoffset=9 yoffset=5 xadvance=95 page=0 chnl=0 letter="P"
+char id=52 x=199 y=306 width=95 height=147 xoffset=9 yoffset=6 xadvance=95 page=0 chnl=0 letter="4"
+char id=49 x=297 y=306 width=33 height=147 xoffset=71 yoffset=6 xadvance=95 page=0 chnl=0 letter="1"
+char id=58 x=333 y=306 width=33 height=120 xoffset=9 yoffset=34 xadvance=33 page=0 chnl=0 letter=":"
+char id=32 x=369 y=306 width=0 height=0 xoffset=55 yoffset=165 xadvance=55 page=0 chnl=0 letter=" "

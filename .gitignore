@@ -1,0 +1,28 @@
+# OSX #
+#######
+.DS_Store?
+.DS_Store
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.lo
+*.la
+*.a
+
+# Xcode files #
+###############
+*.pbxuser
+*.mode1v3
+
+# Specifics #
+#############
+Docs/output/

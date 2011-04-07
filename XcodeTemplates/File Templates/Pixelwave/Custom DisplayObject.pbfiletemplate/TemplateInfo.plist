@@ -1,0 +1,5 @@
+{
+	MainTemplateFile = "class.m";
+	"CounterpartTemplateFile" = "class.h";
+	Description = "An extension of the DisplayObject class which allows for specifying custom OpenGL rendering code.";
+}

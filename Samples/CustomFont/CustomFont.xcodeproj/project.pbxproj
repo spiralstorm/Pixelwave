@@ -1,0 +1,378 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
+		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		2D2E619511418A9F00B99228 /* libPixelwave.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D2E618C11418A9800B99228 /* libPixelwave.a */; };
+		2D3754F712BBF10E00FA7A59 /* CustomFontAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3754F512BBF10E00FA7A59 /* CustomFontAppDelegate.m */; };
+		2D37558A12BBF3B400FA7A59 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D37558912BBF3B400FA7A59 /* MainWindow.xib */; };
+		2D7E9119107B896900B98F2B /* CustomFontRoot.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D7E9118107B896900B98F2B /* CustomFontRoot.m */; };
+		2D7E91D2107B8F7400B98F2B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7E91D0107B8F7400B98F2B /* QuartzCore.framework */; };
+		2D7E91D3107B8F7400B98F2B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7E91D1107B8F7400B98F2B /* OpenGLES.framework */; };
+		2D9D19C51326A0480096276B /* myFont.fnt in Resources */ = {isa = PBXBuildFile; fileRef = 2D9D19C31326A0480096276B /* myFont.fnt */; };
+		2D9D19C61326A0480096276B /* myFont.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D9D19C41326A0480096276B /* myFont.png */; };
+		2D9D1C501326D31E0096276B /* TimeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D9D1C4F1326D31E0096276B /* TimeLabel.m */; };
+		2DA288B212BBFD9E009E6FDE /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DA288B012BBFD9E009E6FDE /* Default.png */; };
+		2DA288B312BBFD9E009E6FDE /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DA288B112BBFD9E009E6FDE /* Icon.png */; };
+		52ABDD711256746000AB0756 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52ABDD701256746000AB0756 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		52DAB9431278A90E002894E7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DAB9421278A90E002894E7 /* AVFoundation.framework */; };
+		52DAB9491278A91D002894E7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DAB9481278A91D002894E7 /* AudioToolbox.framework */; };
+		52DAB94D1278A927002894E7 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DAB94C1278A927002894E7 /* OpenAL.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		2D2E618B11418A9800B99228 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D7E9077107B872300B98F2B /* Pixelwave.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = Pixelwave;
+		};
+		2D2E619611418AA500B99228 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2D7E9077107B872300B98F2B /* Pixelwave.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = D2AAC07D0554694100DB518D;
+			remoteInfo = Pixelwave;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D6058910D05DD3D006BFB54 /* CustomFont.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomFont.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		2D3754F412BBF10E00FA7A59 /* CustomFontAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFontAppDelegate.h; sourceTree = "<group>"; };
+		2D3754F512BBF10E00FA7A59 /* CustomFontAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFontAppDelegate.m; sourceTree = "<group>"; };
+		2D37558912BBF3B400FA7A59 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
+		2D7E9077107B872300B98F2B /* Pixelwave.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pixelwave.xcodeproj; sourceTree = PIXELWAVE_SRC; };
+		2D7E9117107B896900B98F2B /* CustomFontRoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFontRoot.h; sourceTree = "<group>"; };
+		2D7E9118107B896900B98F2B /* CustomFontRoot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomFontRoot.m; sourceTree = "<group>"; };
+		2D7E91D0107B8F7400B98F2B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2D7E91D1107B8F7400B98F2B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		2D9D19C31326A0480096276B /* myFont.fnt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = myFont.fnt; sourceTree = "<group>"; };
+		2D9D19C41326A0480096276B /* myFont.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = myFont.png; sourceTree = "<group>"; };
+		2D9D1C4E1326D31E0096276B /* TimeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeLabel.h; sourceTree = "<group>"; };
+		2D9D1C4F1326D31E0096276B /* TimeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeLabel.m; sourceTree = "<group>"; };
+		2D9D1D2F1326EA4B0096276B /* ColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorUtil.h; sourceTree = "<group>"; };
+		2DA288B012BBFD9E009E6FDE /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		2DA288B112BBFD9E009E6FDE /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		2DD6221B12BA912E00F200F1 /* CustomFont-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CustomFont-Info.plist"; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* CustomFont_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomFont_Prefix.pch; sourceTree = "<group>"; };
+		52ABDD701256746000AB0756 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		52DAB9421278A90E002894E7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		52DAB9481278A91D002894E7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		52DAB94C1278A927002894E7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D2E619511418A9F00B99228 /* libPixelwave.a in Frameworks */,
+				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				2D7E91D2107B8F7400B98F2B /* QuartzCore.framework in Frameworks */,
+				2D7E91D3107B8F7400B98F2B /* OpenGLES.framework in Frameworks */,
+				52ABDD711256746000AB0756 /* CoreText.framework in Frameworks */,
+				52DAB9431278A90E002894E7 /* AVFoundation.framework in Frameworks */,
+				52DAB9491278A91D002894E7 /* AudioToolbox.framework in Frameworks */,
+				52DAB94D1278A927002894E7 /* OpenAL.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				2D3754F412BBF10E00FA7A59 /* CustomFontAppDelegate.h */,
+				2D3754F512BBF10E00FA7A59 /* CustomFontAppDelegate.m */,
+				2D7E9117107B896900B98F2B /* CustomFontRoot.h */,
+				2D7E9118107B896900B98F2B /* CustomFontRoot.m */,
+				2D9D1C4E1326D31E0096276B /* TimeLabel.h */,
+				2D9D1C4F1326D31E0096276B /* TimeLabel.m */,
+				2D9D1D2F1326EA4B0096276B /* ColorUtil.h */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1D6058910D05DD3D006BFB54 /* CustomFont.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
+			isa = PBXGroup;
+			children = (
+				2D7E9077107B872300B98F2B /* Pixelwave.xcodeproj */,
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = CustomTemplate;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				32CA4F630368D1EE00C91783 /* CustomFont_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2D37558912BBF3B400FA7A59 /* MainWindow.xib */,
+				2DD6221B12BA912E00F200F1 /* CustomFont-Info.plist */,
+				2DD624E612BAD4BF00F200F1 /* Media */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2D7E91D0107B8F7400B98F2B /* QuartzCore.framework */,
+				2D7E91D1107B8F7400B98F2B /* OpenGLES.framework */,
+				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
+				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+				52ABDD701256746000AB0756 /* CoreText.framework */,
+				52DAB9421278A90E002894E7 /* AVFoundation.framework */,
+				52DAB9481278A91D002894E7 /* AudioToolbox.framework */,
+				52DAB94C1278A927002894E7 /* OpenAL.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2D2E618811418A9800B99228 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				2D2E618C11418A9800B99228 /* libPixelwave.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		2DD624E612BAD4BF00F200F1 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				2D9D19C31326A0480096276B /* myFont.fnt */,
+				2D9D19C41326A0480096276B /* myFont.png */,
+				2DA288B012BBFD9E009E6FDE /* Default.png */,
+				2DA288B112BBFD9E009E6FDE /* Icon.png */,
+			);
+			path = Media;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1D6058900D05DD3D006BFB54 /* CustomFont */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "CustomFont" */;
+			buildPhases = (
+				1D60588D0D05DD3D006BFB54 /* Resources */,
+				1D60588E0D05DD3D006BFB54 /* Sources */,
+				1D60588F0D05DD3D006BFB54 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				2D2E619711418AA500B99228 /* PBXTargetDependency */,
+			);
+			name = CustomFont;
+			productName = CustomFont;
+			productReference = 1D6058910D05DD3D006BFB54 /* CustomFont.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CustomFont" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
+			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 2D2E618811418A9800B99228 /* Products */;
+					ProjectRef = 2D7E9077107B872300B98F2B /* Pixelwave.xcodeproj */;
+				},
+			);
+			projectRoot = "";
+			targets = (
+				1D6058900D05DD3D006BFB54 /* CustomFont */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		2D2E618C11418A9800B99228 /* libPixelwave.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libPixelwave.a;
+			remoteRef = 2D2E618B11418A9800B99228 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2D37558A12BBF3B400FA7A59 /* MainWindow.xib in Resources */,
+				2DA288B212BBFD9E009E6FDE /* Default.png in Resources */,
+				2DA288B312BBFD9E009E6FDE /* Icon.png in Resources */,
+				2D9D19C51326A0480096276B /* myFont.fnt in Resources */,
+				2D9D19C61326A0480096276B /* myFont.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1D60588E0D05DD3D006BFB54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				2D7E9119107B896900B98F2B /* CustomFontRoot.m in Sources */,
+				2D3754F712BBF10E00FA7A59 /* CustomFontAppDelegate.m in Sources */,
+				2D9D1C501326D31E0096276B /* TimeLabel.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		2D2E619711418AA500B99228 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Pixelwave;
+			targetProxy = 2D2E619611418AA500B99228 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1D6058940D05DD3E006BFB54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = CustomFont_Prefix.pch;
+				INFOPLIST_FILE = "CustomFont-Info.plist";
+				PRODUCT_NAME = CustomFont;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1D6058950D05DD3E006BFB54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = CustomFont_Prefix.pch;
+				INFOPLIST_FILE = "CustomFont-Info.plist";
+				PRODUCT_NAME = CustomFont;
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = 4.2;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "$(PIXELWAVE_SRC)/**";
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_UNIVERSAL_IPHONE_OS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COMPRESS_PNG_FILES = NO;
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = 4.2;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.2;
+				PREBINDING = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				USER_HEADER_SEARCH_PATHS = "$(PIXELWAVE_SRC)/**";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "CustomFont" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1D6058940D05DD3E006BFB54 /* Debug */,
+				1D6058950D05DD3E006BFB54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "CustomFont" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

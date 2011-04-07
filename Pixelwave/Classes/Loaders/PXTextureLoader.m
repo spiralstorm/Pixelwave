@@ -1,0 +1,490 @@
+/*
+ *  _____                       ___                                            
+ * /\  _ `\  __                /\_ \                                           
+ * \ \ \L\ \/\_\   __  _    ___\//\ \    __  __  __    ___     __  __    ___   
+ *  \ \  __/\/\ \ /\ \/ \  / __`\\ \ \  /\ \/\ \/\ \  / __`\  /\ \/\ \  / __`\ 
+ *   \ \ \/  \ \ \\/>  </ /\  __/ \_\ \_\ \ \_/ \_/ \/\ \L\ \_\ \ \_/ |/\  __/ 
+ *    \ \_\   \ \_\/\_/\_\\ \____\/\____\\ \___^___ /\ \__/|\_\\ \___/ \ \____\
+ *     \/_/    \/_/\//\/_/ \/____/\/____/ \/__//__ /  \/__/\/_/ \/__/   \/____/
+ *       
+ *           www.pixelwave.org + www.spiralstormgames.com
+ *                            ~;   
+ *                           ,/|\.           
+ *                         ,/  |\ \.                 Core Team: Oz Michaeli
+ *                       ,/    | |  \                           John Lattin
+ *                     ,/      | |   |
+ *                   ,/        |/    |
+ *                 ./__________|----'  .
+ *            ,(   ___.....-,~-''-----/   ,(            ,~            ,(        
+ * _.-~-.,.-'`  `_.\,.',.-'`  )_.-~-./.-'`  `_._,.',.-'`  )_.-~-.,.-'`  `_._._,.
+ * 
+ * Copyright (c) 2011 Spiralstorm Games http://www.spiralstormgames.com
+ * 
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ * 
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ */
+
+#import "PXTextureLoader.h"
+
+#import "PXEngine.h"
+#import "PXMathUtils.h"
+
+#import "PXTextureData.h"
+#import "PXTextureParser.h"
+
+/// @cond DX_IGNORE
+@interface PXTextureLoader(Private)
+- (id) initWithContentsOfFile:(NSString *)path
+						orURL:(NSURL *)url
+					modifier:(id<PXTextureModifier>)_modifier;
+- (NSString *)updatePath:(NSString *)path;
+@end
+/// @endcond
+
+/**
+ *	@ingroup Loaders
+ *
+ *	A PXTextureLoader loads images synchronously and creates PXTextureData
+ *	objects.
+ *
+ *	Once instantiated with a valid file path, objects of the PXTextureLoader
+ *	class hold a copy of the loaded data and can be used to generate
+ *	PXTextureData instances.
+ *
+ *	For most uses generating more than one PXTextureData object is unnecessary
+ *	as a single PXTextureData may be shared among many PXTexture display
+ *	objects.
+ *
+ *	Once a PXTextureData instance has been created, the PXTextureLoader instance
+ *	may be safely deallocated by calling <code>release</code>.
+ *	Since PXTextureLoader keeps a copy of the loaded data, it is
+ *	advisable to release all unneeded instances as soon as a PXTextureData
+ *	object has been created in order to free up memory.
+ *
+ *	The following image formats are supported natively:
+ *	- .tiff and .tif
+ *	- .jpeg and .jpg
+ *	- .bmp and .BMPf
+ *	- .ico
+ *	- .cur
+ *	- .xmb
+ *	- .png (uses libpng)
+ *	- .pvr
+ *	- .pvrtc
+ *
+ *	<b>Example</b>:
+ *	The following code sample loads a png file and renders it to the screen:
+ *	
+ *	@code
+ *	// Create a loader object to load and parse the png from the application
+ *	// bundle.
+ *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"logo.png"];
+ *	// Turn the loaded data to an OpenGL texture
+ *	PXTextureData *textureData = [loader newTextureData];
+ *	// The loader is no longer needed
+ *	[loader release];
+ *	loader = nil;
+ *
+ *	// Create a PXTexture display object to render the texture data to the
+ *	// screen.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[textureData release];
+ *	textureData = nil;
+ *
+ *	// Add the display object to the display list so it can be rendered
+ *	[self addChild:texture];
+ *	[texture release];
+ *	@endcode
+ */
+@implementation PXTextureLoader
+
+/**
+ *	Creates a new PXTextureLoader instance containing the loaded image data.
+ *	Returns <code>nil</code> if the file could not be found, or the image format
+ *	isn't supported.
+ *
+ *	@param path
+ *		The path of the image file to load. The file path may be absolute or
+ *		relative to	the application bundle.
+ *
+ *	@b Example:
+ *	@code
+ *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"image.png"];
+ *	PXTextureData *textureData = [textureLoader newTextureData];
+ *
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
+ *
+ *	[textureData release];
+ *	[textureLoader release];
+ *	@endcode
+ */
+- (id) initWithContentsOfFile:(NSString *)path
+{
+	return [self initWithContentsOfFile:path orURL:nil modifier:nil];
+}
+/**
+ *	Creates a new PXTextureLoader instance containing the loaded image data.
+ *	Returns <code>nil</code> if the file could not be found, or the image format
+ *	isn't supported.
+ *
+ *	@param path
+ *		The path of the image file to load. The file path may be absolute or
+ *		relative to	the application bundle.
+ *	@param modifier
+ *		A modifier is used to modify the loaded bytes, a backup is kept so can
+ *		set this to <code>nil</code> after getting a new sound, and still have
+ *		your previously loaded data.
+ *
+ *	@b Example:
+ *	@code
+ *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"image.png"
+ *	                                                                        modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
+ *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
+ *	// red, green, and blue and only 1 byte for alpha.
+ *	PXTextureData *textureData = [textureLoader newTextureData];
+ *
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
+ *
+ *	[textureData release];
+ *	[textureLoader release];
+ *	@endcode
+ */
+- (id) initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)_modifier
+{
+	return [self initWithContentsOfFile:path orURL:nil modifier:_modifier];
+}
+
+/**
+ *	Creates a new PXTextureLoader instance containing the loaded image data.
+ *	Returns <code>nil</code> if the file at the url could not be found, or the
+ *	image format isn't supported.
+ *
+ *	@param url
+ *		The url of the image to load.
+ *
+ *	@b Example:
+ *	@code
+ *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
+ *	PXTextureData *textureData = [textureLoader newTextureData];
+ *
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
+ *
+ *	[textureData release];
+ *	[textureLoader release];
+ *	@endcode
+ */
+- (id) initWithContentsOfURL:(NSURL *)url
+{
+	return [self initWithContentsOfFile:nil orURL:url modifier:nil];
+}
+/**
+ *	Creates a new PXTextureLoader instance containing the loaded image data.
+ *	Returns <code>nil</code> if the file at the url could not be found, or the
+ *	image format isn't supported.
+ *
+ *	@param url
+ *		The url of the image to load.
+ *	@param modifier
+ *		A modifier is used to modify the loaded bytes, a backup is kept so can
+ *		set this to <code>nil</code> after getting a new sound, and still have
+ *		your previously loaded data.
+ *
+ *	@b Example:
+ *	@code
+ *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]
+ *	                                                                       modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
+ *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
+ *	// red, green, and blue and only 1 byte for alpha.
+ *	PXTextureData *textureData = [textureLoader newTextureData];
+ *
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
+ *
+ *	[textureData release];
+ *	[textureLoader release];
+ *	@endcode
+ */
+- (id) initWithContentsOfURL:(NSURL *)url modifier:(id<PXTextureModifier>)_modifier
+{
+	return [self initWithContentsOfFile:nil orURL:url modifier:_modifier];
+}
+
+- (id) initWithContentsOfFile:(NSString *)path
+						orURL:(NSURL *)url
+					modifier:(id<PXTextureModifier>)modifier
+{
+	if (self = [super _initWithContentsOfFile:path orURL:url])
+	{
+		// Initialize the content scale factor
+		contentScaleFactor = 1.0f;
+
+		if (path)
+		{
+			[self _setOrigin:[self updatePath:path]];
+		}
+
+		if (![self _load])
+		{
+			[self release];
+			return nil;
+		}
+
+		// Make a new texture parser
+		textureParser = [[PXTextureParser alloc] initWithData:data
+													 modifier:modifier
+													   origin:origin];
+
+		// If this is nil, then we couldn't load the data
+		if (!textureParser)
+		{
+			[self release];
+			return nil;
+		}
+
+		// Set the content scale factor
+		textureParser.contentScaleFactor = contentScaleFactor;
+	}
+
+	return self;
+}
+
+- (void) dealloc
+{
+	// Release the parser
+	[textureParser release];
+	textureParser = nil;
+
+	// Release the modifier
+	self.modifier = nil;
+
+	[super dealloc];
+}
+
+- (void) setModifier:(id<PXTextureModifier>)_modifier
+{
+	textureParser.modifier = _modifier;
+}
+
+- (id<PXTextureModifier>)modifier
+{
+	return textureParser.modifier;
+}
+
+- (NSString *)updatePath:(NSString *)path
+{
+	int screenScaleFactor = PXEngineGetMainScreenScale();
+	float engineContentScaleFactor = PXEngineGetContentScaleFactor();
+
+	// If the screen scale factor is larger then 1, then we should check for
+	// alternate images.
+	if (screenScaleFactor > 1)
+	{
+		// Find the extension for the file, and the part before the extension so
+		// that we can add the @yx in front of it, where y is a variable that is
+		// the content scaling factor (in integer form), and x stands for the
+		// multiple value (it is a hard x, not a variable).  This is apples
+		// convention for file naming.  The xPath is the combination of these
+		// strings.
+		NSString *extension = [path pathExtension];
+		NSString *preExtension = [path stringByDeletingPathExtension];
+		NSString *appendString = [NSString stringWithFormat:@"@%dx.", screenScaleFactor];
+		NSString *xPath = [[preExtension stringByAppendingString:appendString] stringByAppendingString:extension];
+
+		// If we find a file with this naming convetion, we need to use that
+		// file instead, however if we don't, then use the original.
+		BOOL changePath = NO;
+		if ([xPath isAbsolutePath])
+		{
+			NSFileManager *manager = [NSFileManager new];
+			if ([manager fileExistsAtPath:xPath])
+			{
+				changePath = YES;
+			}
+			[manager release];
+		}
+		else
+		{
+			if ([[NSBundle mainBundle] pathForResource:xPath ofType:nil])
+			{
+				changePath = YES;
+			}
+		}
+
+		// The file was found, so use it!
+		if (changePath)
+		{
+			path = xPath;
+			contentScaleFactor = engineContentScaleFactor;
+		}
+	}
+
+	return path;
+}
+
+/**
+ *	Creates a new PXTextureData object containing a copy of the loaded image
+ *	data. Note that all returned copies must be released by the caller.
+ *
+ *	@return
+ *		The new texture data.
+ */
+- (PXTextureData *)newTextureData
+{
+	return [textureParser newTextureData];
+}
+
+/**
+ *	Creates a PXTextureLoader instance containing the loaded image data. Returns
+ *	<code>nil</code> if the file could not be found, or the image format isn't
+ *	supported.
+ *
+ *	@param path
+ *		The path of the image file to load. The file path may be absolute or
+ *		relative to	the application bundle.
+ *
+ *	@return
+ *		The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ *
+ *
+ *	@b Example:
+ *	@code
+ *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"];
+ *	PXTextureData *textureData = [textureLoader newTextureData];
+ *
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
+ *
+ *	[textureData release];
+ *	@endcode
+ */
++ (PXTextureLoader *)textureLoaderWithContentsOfFile:(NSString *)path
+{
+	return [[[PXTextureLoader alloc] initWithContentsOfFile:path] autorelease];
+}
+/**
+ *	Creates a PXTextureLoader instance containing the loaded image data. Returns
+ *	<code>nil</code> if the file could not be found, or the image format isn't
+ *	supported.
+ *
+ *	@param path
+ *		The path of the image file to load. The file path may be absolute or
+ *		relative to	the application bundle.
+ *	@param modifier
+ *		A modifier is used to modify the loaded bytes, a backup is kept so can
+ *		set this to <code>nil</code> after getting a new sound, and still have
+ *		your previously loaded data.
+ *
+ *	@return
+ *		The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ *
+ *	@b Example:
+ *	@code
+ *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"
+ *	                                                                         modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
+ *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
+ *	// red, green, and blue and only 1 byte for alpha.
+ *	PXTextureData *textureData = [textureLoader newTextureData];
+ *
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
+ *
+ *	[textureData release];
+ *	@endcode
+ */
++ (PXTextureLoader *)textureLoaderWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
+{
+	return [[[PXTextureLoader alloc] initWithContentsOfFile:path modifier:modifier] autorelease];
+}
+/**
+ *	Creates a PXTextureLoader instance containing the loaded image data. Returns
+ *	<code>nil</code> if the file at the url could not be found, or the image
+ *	format isn't supported.
+ *
+ *	@param url
+ *		The url of the image to load.
+ *
+ *	@return
+ *		The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ *
+ *	@b Example:
+ *	@code
+ *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
+ *	PXTextureData *textureData = [textureLoader newTextureData];
+ *
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
+ *
+ *	[textureData release];
+ *	@endcode
+ */
++ (PXTextureLoader *)textureLoaderWithContentsOfURL:(NSURL *)url
+{
+	return [[[PXTextureLoader alloc] initWithContentsOfURL:url] autorelease];
+}
+/**
+ *	Creates a PXTextureLoader instance containing the loaded image data. Returns
+ *	<code>nil</code> if the file at the url could not be found, or the image
+ *	format isn't supported.
+ *
+ *	@param url
+ *		The url of the image to load.
+ *	@param modifier
+ *		A modifier is used to modify the loaded bytes, a backup is kept so can
+ *		set this to <code>nil</code> after getting a new sound, and still have
+ *		your previously loaded data.
+ *
+ *	@return
+ *		The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ *
+ *	@b Example:
+ *	@code
+ *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]
+ *	                                                                        modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
+ *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
+ *	// red, green, and blue and only 1 byte for alpha.
+ *	PXTextureData *textureData = [textureLoader newTextureData];
+ *
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
+ *
+ *	[textureData release];
+ *	@endcode
+ */
++ (PXTextureLoader *)textureLoaderWithContentsOfURL:(NSURL *)url modifier:(id<PXTextureModifier>)modifier
+{
+	return [[[PXTextureLoader alloc] initWithContentsOfURL:url modifier:modifier] autorelease];
+}
+
+@end

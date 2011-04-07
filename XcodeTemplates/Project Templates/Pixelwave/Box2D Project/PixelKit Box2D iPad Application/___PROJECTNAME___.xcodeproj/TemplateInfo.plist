@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Description</key>
+	<string>An iPad project that includes bindings to the Pixelwave and PixelKit sources. It sets up a basic Box2D world along with physics listeners and callbacks, and uses PixelKit&apos;s Box2DDebugLayer display object to render the simulation.</string>
+</dict>
+</plist>

@@ -1,0 +1,248 @@
+/*
+ *  _____                       ___                                            
+ * /\  _ `\  __                /\_ \                                           
+ * \ \ \L\ \/\_\   __  _    ___\//\ \    __  __  __    ___     __  __    ___   
+ *  \ \  __/\/\ \ /\ \/ \  / __`\\ \ \  /\ \/\ \/\ \  / __`\  /\ \/\ \  / __`\ 
+ *   \ \ \/  \ \ \\/>  </ /\  __/ \_\ \_\ \ \_/ \_/ \/\ \L\ \_\ \ \_/ |/\  __/ 
+ *    \ \_\   \ \_\/\_/\_\\ \____\/\____\\ \___^___ /\ \__/|\_\\ \___/ \ \____\
+ *     \/_/    \/_/\//\/_/ \/____/\/____/ \/__//__ /  \/__/\/_/ \/__/   \/____/
+ *       
+ *           www.pixelwave.org + www.spiralstormgames.com
+ *                            ~;   
+ *                           ,/|\.           
+ *                         ,/  |\ \.                 Core Team: Oz Michaeli
+ *                       ,/    | |  \                           John Lattin
+ *                     ,/      | |   |
+ *                   ,/        |/    |
+ *                 ./__________|----'  .
+ *            ,(   ___.....-,~-''-----/   ,(            ,~            ,(        
+ * _.-~-.,.-'`  `_.\,.',.-'`  )_.-~-./.-'`  `_._,.',.-'`  )_.-~-.,.-'`  `_._._,.
+ * 
+ * Copyright (c) 2011 Spiralstorm Games http://www.spiralstormgames.com
+ * 
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ * 
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ */
+
+#import "PXSound.h"
+
+#include "PXSoundEngine.h"
+
+#import "PXExceptionUtils.h"
+
+#import "PXSoundChannel.h"
+#import "PXSoundTransform.h"
+#import "PXSoundLoader.h"
+
+#include "PXSoundModifier.h"
+#import "PXSoundParser.h"
+
+/**
+ *	@ingroup Media
+ *
+ *	A PXSound object represents a loaded sound.  Sounds should never be
+ *	initialized manually, however through a <code>PXSoundLoader</code> using the
+ *	<code>newSound</code> method.
+ *
+ *	@see PXSoundLoader::newSound
+ */
+@implementation PXSound
+
+@synthesize length;
+
+- (id) init
+{
+	//return [self _initWithLength:0];
+	PXThrow(PXException, @"Sound objects should not be initialized directly. Use SoundLoader instead");
+	
+	[self release];
+	return nil;
+}
+
+- (id) _initWithLength:(unsigned)_length
+{
+	if (self = [super init])
+	{
+		length = _length;
+	}
+
+	return self;
+}
+
+- (id) initWithData:(NSData *)data
+{
+	return [self initWithData:data modifier:nil];
+}
+
+- (id) initWithData:(NSData *)data modifier:(id<PXSoundModifier>)modifier
+{
+	if (self = [super init])
+	{
+		PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data
+																  modifier:modifier];
+		PXSound *newSound = [soundParser newSound];
+
+		[soundParser release];
+
+		[self release];
+
+		if (self = newSound)
+		{
+		}
+	}
+
+	return self;
+}
+
+#pragma mark -
+#pragma mark Properties
+
+- (BOOL) is3DReady
+{
+	return NO;
+}
+
+#pragma mark -
+#pragma mark Methods
+
+/**
+ *	Plays a sound from the start, doesn't loop and has a volume and pitch of
+ *	1.0f.
+ *
+ *	@return
+ *		The reference to the sound channel that will be playing.
+ *
+ *	@b Example:
+ *	@code
+ *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ *	PXSoundChannel *channel = [sound play];
+ *	// The sound will begin playing, and channel will be your reference.
+ *	@endcode
+ */
+- (PXSoundChannel *)play
+{
+	return [self playWithStartTime:0 loopCount:0 soundTransform:nil];
+}
+
+/**
+ *	Plays a sound from the start, doesn't loop and has a volume and pitch of
+ *	1.0f.
+ *
+ *	@param startTime
+ *		The time in milliseconds for the sound to begin.  Each loop will also
+ *		begin at this time.  You should not set a start time for larger then the
+ *		length of the sound.
+ *	@param loopCount
+ *		The quantity of times you wish the sound to loop.  If 0 is stated, the
+ *		sound only plays once.  If 10 is stated, the sound plays 11 times.  If
+ *		<code>PX_SOUND_INFINITE_LOOPS</code> is stated, then the sound plays for
+ *		infinate times.
+ *	@param soundTransform
+ *		The the transform for the sound.
+ *
+ *	@return
+ *		The reference to the sound channel that will be playing.
+ *
+ *	@b Example:
+ *	@code
+ *	PXSoundLoader *soundLoader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav"];
+ *	PXSound *sound = [soundLoader newSound];
+ *
+ *	PXSoundTransform3D *soundTransform3D = [[PXSoundTransform3D alloc] initWithVolume:1.2f andPitch:0.8f];
+ *	soundTransform3D.x = 40.0f;
+ *	soundTransform3D.y = 15.0f;
+ *	// The sound can only be 3D if it is mono and the correct file type.  To
+ *	// check for this, you can use the <code>is3DReady</code> method.
+ *
+ *	PXSoundChannel *channel = [sound playWithStartTime:4500 loopCount:PX_SOUND_INFINITE_LOOPS soundTransform:soundTransform3D];
+ *	// The sound will begin at, and loop from, 4.5 seconds for an indefinite
+ *	// quantity of time.  It's volume will be 120% and pitch 80% at position
+ *	// [40.0f,15.0f,0.0f] with velocity [0.0f,0.0f,0.0f].
+ *
+ *	// Release the memory
+ *	[soundTransform3D release];
+ *	[soundLoader release];
+ *	[sound release];
+ *	@endcode
+ *
+ *	@see PXSoundTransform, PXSound::is3DReady:
+ */
+- (PXSoundChannel *)playWithStartTime:(unsigned)startTime
+							loopCount:(int)loopCount
+					   soundTransform:(PXSoundTransform *)soundTransform
+{
+	PXSoundEngineInit();
+
+	return nil;
+}
+
+#pragma mark -
+#pragma mark Static Methods
+
+/**
+ *	Creates a sound by loading the file at the given path.
+ *
+ *	@param filePath
+ *		The path of the file.
+ *
+ *	@return
+ *		The loaded sound, if the sound fails loading then <code>nil</code> is
+ *		returned instead.
+ *
+ *	@b Example:
+ *	@code
+ *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ *	// Sound is loaded and ready to go.
+ *	@endcode
+ */
++ (PXSound *)soundWithContentsOfFile:(NSString *)path
+{
+	return [PXSound soundWithContentsOfFile:path modifier:nil];
+}
+
++ (PXSound *)soundWithContentsOfFile:(NSString *)path modifier:(id<PXSoundModifier>)modifier
+{
+	PXSoundLoader *soundLoader = [[PXSoundLoader alloc] initWithContentsOfFile:path modifier:modifier];
+	PXSound *sound = [soundLoader newSound];
+	[soundLoader release];
+
+	return [sound autorelease];
+}
+
++ (PXSound *)soundWithContentsOfURL:(NSURL *)url
+{
+	return [PXSound soundWithContentsOfURL:url modifier:nil];
+}
+
++ (PXSound *)soundWithContentsOfURL:(NSURL *)url modifier:(id<PXSoundModifier>)modifier
+{
+	PXSoundLoader *soundLoader = [[PXSoundLoader alloc] initWithContentsOfURL:url modifier:modifier];
+	PXSound *sound = [soundLoader newSound];
+	[soundLoader release];
+
+	return [sound autorelease];
+}
+
++ (PXSound *)soundWithData:(NSData *)data
+{
+	return [[[PXSound alloc] initWithData:data] autorelease];
+}
++ (PXSound *)soundWithData:(NSData *)data modifier:(id<PXSoundModifier>)modifier
+{
+	return [[[PXSound alloc] initWithData:data modifier:modifier] autorelease];
+}
+
+@end

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Checkboxes</key>
+	<array>
+		<dict>
+			<key>Key</key>
+			<string>Placeholder</string>
+			<key>Title</key>
+			<string>Not used</string>
+		</dict>
+	</array>
+	<key>OptionsLabel</key>
+	<string>Product</string>
+	<key>PopupMenu</key>
+	<array>
+		<dict>
+			<key>Key</key>
+			<string>iPhone</string>
+			<key>Title</key>
+			<string>iPhone</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>iPad</string>
+			<key>Title</key>
+			<string>iPad</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>Universal</string>
+			<key>Title</key>
+			<string>Universal</string>
+		</dict>
+	</array>
+	<key>TemplateSelection</key>
+	<dict>
+		<key></key>
+		<string>PixelKit Box2D Universal Application</string>
+		<key>iPad</key>
+		<string>PixelKit Box2D iPad Application</string>
+		<key>iPhone</key>
+		<string>PixelKit Box2D iPhone Application</string>
+		<key>Universal</key>
+		<string>PixelKit Box2D Universal Application</string>
+	</dict>
+</dict>
+</plist>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Checkboxes</key>
+	<array>
+		<dict>
+			<key>Key</key>
+			<string>Placeholder</string>
+			<key>Title</key>
+			<string>Not used</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>PixelKit</string>
+			<key>Title</key>
+			<string>Include PixelKit for game developers</string>
+		</dict>
+	</array>
+	<key>OptionsLabel</key>
+	<string>Product</string>
+	<key>PopupMenu</key>
+	<array>
+		<dict>
+			<key>Key</key>
+			<string>iPhone</string>
+			<key>Title</key>
+			<string>iPhone</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>iPad</string>
+			<key>Title</key>
+			<string>iPad</string>
+		</dict>
+		<dict>
+			<key>Key</key>
+			<string>Universal</string>
+			<key>Title</key>
+			<string>Universal</string>
+		</dict>
+	</array>
+	<key>TemplateSelection</key>
+	<dict>
+		<key></key>
+		<string>Blank Pixelwave Universal Application</string>
+		<key>iPad</key>
+		<string>Blank Pixelwave iPad Application</string>
+		<key>iPadPixelKit</key>
+		<string>Blank PixelKit iPad Application</string>
+		<key>iPhone</key>
+		<string>Blank Pixelwave iPhone Application</string>
+		<key>iPhonePixelKit</key>
+		<string>Blank PixelKit iPhone Application</string>
+		<key>Universal</key>
+		<string>Blank Pixelwave Universal Application</string>
+		<key>UniversalPixelKit</key>
+		<string>Blank PixelKit Universal Application</string>
+	</dict>
+</dict>
+</plist>
