@@ -914,6 +914,7 @@ static unsigned _pxDisplayObjectCount = 0;
  */
 - (BOOL) hitTestPointWithX:(float)x andY:(float)y shapeFlag:(BOOL)shapeFlag
 {
+	// Convert from global to local
 	CGPoint globalPoint = CGPointMake(x, y);
 	globalPoint = PXUtilsGlobalToLocal(self, globalPoint);
 	return [self _hitTestPointWithLocalX:globalPoint.x andLocalY:globalPoint.y shapeFlag:shapeFlag];

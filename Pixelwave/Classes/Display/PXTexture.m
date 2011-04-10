@@ -199,7 +199,7 @@
 {
 	if (!textureData) return;
 	
-	contentWidth  = width;
+	contentWidth = width;
 	contentHeight = height;
 	
 	float contentScaleFactor = textureData.contentScaleFactor;
