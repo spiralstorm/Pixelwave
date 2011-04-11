@@ -180,7 +180,7 @@
 
 - (void) setOrientation:(PXStageOrientation)orient
 {
-	UIInterfaceOrientation interfaceOrientation;
+	UIInterfaceOrientation interfaceOrientation = UIInterfaceOrientationPortrait;
 
 	switch (orient)
 	{

@@ -8,13 +8,14 @@
 
 #import "PXGL.h"
 
-@interface PXClipRect : NSObject {
+@interface PXClipRect : NSObject <NSCopying> {
 @private
 	ushort x, y;
 	ushort width, height;
 	float rotation;
 	
 	BOOL invalidated;
+	BOOL _padding1, _padding2, _padding3;
 
 @public
 	ushort _contentWidth, _contentHeight;
@@ -35,8 +36,14 @@
  */
 @property (nonatomic) float rotation;
 
-//- (id)initWithX:(ushort)x andY:(ushort)y andWidth:(ushort)width andHeight:(ushort)height;
+// When making a version of this method without rotation, the compiler freaks
+// out because it can't tell the differnce between it and the similarly named
+// method in PXRectangle
 - (id)initWithX:(ushort)x andY:(ushort)y andWidth:(ushort)width andHeight:(ushort)height rotation:(float)rotation;
+
+// Utility
++ (PXClipRect *)clipRectWithX:(ushort)x andY:(ushort)y andWidth:(ushort)width andHeight:(ushort)height;
++ (PXClipRect *)clipRectWithX:(ushort)x andY:(ushort)y andWidth:(ushort)width andHeight:(ushort)height rotation:(float)rotation;
 
 @end
 

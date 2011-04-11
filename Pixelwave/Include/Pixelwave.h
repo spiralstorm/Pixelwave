@@ -124,13 +124,19 @@ extern "C" {
 #import "PXSoundLoader.h"
 #import "PXFontLoader.h"
 
-// Modifiers
+// Utils
+
+// - TextureAtlas
+#import "PXTextureAtlas.h"
+#import "PXAtlasFrame.h"
+	
+// - Modifiers
 #import "PXSoundModifier.h"
 #import "PXTextureModifier.h"
 #import "PXSoundModifiers.h"
 #import "PXTextureModifiers.h"
 
-// Regex
+// - Regex
 #import "PXRegexMatcher.h"
 #import "PXRegexPattern.h"
 

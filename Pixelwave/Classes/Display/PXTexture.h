@@ -43,7 +43,7 @@
 @class PXClipRect;
 @protocol PXTextureModifier;
 
-@interface PXTexture : PXDisplayObject//<NSCopying>
+@interface PXTexture : PXDisplayObject
 {
 	/// @cond DX_IGNORE
 @private
@@ -61,6 +61,7 @@
 	// Invalidation
 	BOOL anchorsInvalidated;
 	BOOL resetClipFlag;
+	BOOL _padding1;
 	
 	// GL data
 	unsigned char numVerts;
