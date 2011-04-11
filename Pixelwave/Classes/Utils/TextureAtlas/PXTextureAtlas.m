@@ -76,9 +76,9 @@
 // Functions
 //
 
-#pragma mark Standard atlas methods (add/remove/read)
+#pragma mark Standard container methods (add/remove/read)
 
-- (void) addFrame:(PXAtlasFrame *)frame named:(NSString *)name
+- (void) addFrame:(PXAtlasFrame *)frame withName:(NSString *)name
 {
 	// If one already exists, remove it
 	[self removeFrame:name];
@@ -94,7 +94,7 @@
 	[frames removeObjectForKey:name];
 }
 
-- (PXAtlasFrame *)frameNamed:(NSString *)name
+- (PXAtlasFrame *)frameWithName:(NSString *)name
 {
 	return (PXAtlasFrame *)[frames objectForKey:name];
 }
@@ -106,33 +106,33 @@
 /////////////
 
 // Adding
-- (PXAtlasFrame *)addFrameNamed:(NSString *)name
-					   clipRect:(PXClipRect *)clipRect
-					textureData:(PXTextureData *)textureData
+- (PXAtlasFrame *)addFrameWithName:(NSString *)name
+						  clipRect:(PXClipRect *)clipRect
+					   textureData:(PXTextureData *)textureData
 {
 	PXAtlasFrame *frame = [[PXAtlasFrame alloc] initWithClipRect:clipRect
 													 textureData:textureData
 														  anchor:nil];
 	
-	[self addFrame:frame named:name];
+	[self addFrame:frame withName:name];
 	
 	[frame release];
 	
 	return frame;
 }
 
-- (PXAtlasFrame *)addFrameNamed:(NSString *)name
-					   clipRect:(PXClipRect *)clipRect
-					textureData:(PXTextureData *)textureData
-						anchorX:(float)anchorX
-						anchorY:(float)anchorY
+- (PXAtlasFrame *)addFrameWithName:(NSString *)name
+						  clipRect:(PXClipRect *)clipRect
+					   textureData:(PXTextureData *)textureData
+						   anchorX:(float)anchorX
+						   anchorY:(float)anchorY
 {
 	PXPoint *anchor = [[PXPoint alloc] initWithX:anchorX andY:anchorY];
 	PXAtlasFrame *frame = [[PXAtlasFrame alloc] initWithClipRect:clipRect
 													 textureData:textureData
 														  anchor:anchor];
 	
-	[self addFrame:frame named:name];
+	[self addFrame:frame withName:name];
 	
 	[frame release];
 	[anchor release];
@@ -145,7 +145,7 @@
 
 - (PXTexture *)textureForFrame:(NSString *)name
 {
-	PXAtlasFrame *frame = [self frameNamed:name];
+	PXAtlasFrame *frame = [self frameWithName:name];
 	if(!frame) return nil;
 	
 	PXTexture *texture = [PXTexture texture];
@@ -156,7 +156,7 @@
 
 - (void) setFrame:(NSString *)name toTexture:(PXTexture *)texture
 {
-	PXAtlasFrame *frame = [self frameNamed:name];
+	PXAtlasFrame *frame = [self frameWithName:name];
 	if(!frame) return;
 	
 	[frame setToTexture:texture];
