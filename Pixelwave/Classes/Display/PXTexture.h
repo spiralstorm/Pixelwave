@@ -40,29 +40,37 @@
 #import "PXDisplayObject.h"
 
 @class PXTextureData;
-@class PXRectangle;
+@class PXClipRect;
 @protocol PXTextureModifier;
 
 @interface PXTexture : PXDisplayObject//<NSCopying>
 {
-/// @cond DX_IGNORE
+	/// @cond DX_IGNORE
 @private
 	PXTextureData *textureData;
-
+	
+	// Info from the clip rect
 	ushort contentWidth;
 	ushort contentHeight;
-
-	PXGLTextureVertex verts[4];	
-
+	float contentRotation;
+	
 	// Anchors, saved in percent values
 	float anchorX;
 	float anchorY;
-
+	
+	// Invalidation
+	BOOL anchorsInvalidated;
+	BOOL resetClipFlag;
+	
+	// GL data
+	unsigned char numVerts;
+	PXGLTextureVertex *verts;
+	
 	// Either GL_LINEAR or GL_NEAREST
 	unsigned short smoothingType;
 	// Either GL_REPEAT or GL_CLAMP_TO_EDGE
 	unsigned short wrapType;
-/// @endcond
+	/// @endcond
 }
 
 /**
@@ -70,11 +78,18 @@
  */
 @property (nonatomic, assign) PXTextureData *textureData;
 /**
- *	The clip area of the texture data that this texture is representing.  Thus
- *	if the texture is 256x256 pixels, and you only want a 32x64 segment, the
- *	clip rect is what would be set to achieve this.
+ *	The clip area of the texture data that this texture is representing. To
+ *	show the entire image, set this property to nil.
+ *
+ *	Since the clip rectangle is closely tied to the textureData, if the
+ *	textureData property is nil, this property will remain nil.
+ *	Also, setting the textureData property wipes out the current clipRect, so
+ *	make sure to set the clipRect AFTER setting the textureData property.
+ *	
+ *	Thus if the texture is 256x256 pixels, and you only want a 32x64 segment,
+ *	the	clip rect is what would be set to achieve this.
  */
-@property (nonatomic, copy) PXRectangle *clipRect;
+@property (nonatomic, copy) PXClipRect *clipRect;
 
 /**
  *	The horizontal anchor position in percent.  If the texture was 32x64 and you
@@ -117,8 +132,22 @@
  */
 @property (nonatomic, readonly) ushort contentHeight;
 
+/**
+ *	The rotation offset of the content, as defined by the texture's
+ *	clip rectangle. The default value is 0.
+ */
+@property (nonatomic, readonly) float contentRotation;
+
 //-- ScriptName: Texture
 - (id) initWithTextureData:(PXTextureData *)textureData;
+
+//-- ScriptName: setAnchor
+- (void) setAnchorWithX:(float)x andY:(float)y;
+//-- ScriptName: setAnchorWithPoints
+- (void) setAnchorWithPointX:(float)x andPointY:(float)y;
+
+
+// TODO: Should we keep these, deprecate them, or get rid of them?
 
 //-- ScriptIgnore
 - (void) setClipRectWithX:(int)x
@@ -140,11 +169,9 @@
 			 usingAnchorX:(float)anchorX
 			   andAnchorY:(float)anchorY;
 
-//-- ScriptName: setAnchor
-- (void) setAnchorWithX:(float)x andY:(float)y;
-//-- ScriptName: setAnchorWithPoints
-- (void) setAnchorWithPointX:(float)x andPointY:(float)y;
+////
 
++ (PXTexture *)texture;
 //-- ScriptName: make
 + (PXTexture *)textureWithTextureData:(PXTextureData *)textureData;
 //-- ScriptIgnore
