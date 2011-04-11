@@ -18,7 +18,6 @@
 	PXClipRect *clipRect;
 }
 
-// TODO: Make sure that textureData and clipRect are never set to nil
 @property (nonatomic, retain) PXTextureData *textureData;
 @property (nonatomic, copy) PXClipRect *clipRect;
 @property (nonatomic, copy) PXPoint *anchor;
