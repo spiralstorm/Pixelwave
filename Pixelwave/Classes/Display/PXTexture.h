@@ -53,6 +53,7 @@
 	ushort contentWidth;
 	ushort contentHeight;
 	float contentRotation;
+	ushort contentPadding[4];
 	
 	// Anchors, saved in percent values
 	float anchorX;
@@ -61,7 +62,10 @@
 	// Invalidation
 	BOOL anchorsInvalidated;
 	BOOL resetClipFlag;
-	BOOL _padding1;
+	
+	// This is positioned here for padding purposes, should be under
+	// contentPadding[4] above
+	BOOL contentPaddingEnabled;
 	
 	// GL data
 	unsigned char numVerts;
@@ -107,6 +111,11 @@
  */
 @property (nonatomic, assign) float anchorY;
 
+@property (nonatomic, readonly) ushort paddingTop;
+@property (nonatomic, readonly) ushort paddingRight;
+@property (nonatomic, readonly) ushort paddingBottom;
+@property (nonatomic, readonly) ushort paddingLeft;
+
 /**
  *	Determines whether pixel smoothing will be turned on when the texture is
  *	scaled or rotated.
@@ -142,11 +151,24 @@
 //-- ScriptName: Texture
 - (id) initWithTextureData:(PXTextureData *)textureData;
 
+////////////
+// Anchor //
+////////////
+
 //-- ScriptName: setAnchor
 - (void) setAnchorWithX:(float)x andY:(float)y;
 //-- ScriptName: setAnchorWithPoints
 - (void) setAnchorWithPointX:(float)x andPointY:(float)y;
 
+/////////////
+// Padding //
+/////////////
+
+/*
+- (void) setPadding(ushort *)padding;
+- (void) setPaddingWithTop:(ushort)top
+andRight:(ushort)right
+*/
 
 // TODO: Should we keep these, deprecate them, or get rid of them?
 

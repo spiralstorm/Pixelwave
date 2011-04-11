@@ -11,16 +11,29 @@
 
 @implementation PXClipRect
 
-@synthesize x, y, width, height, rotation;
+@synthesize x, y, width, height, rotation = _contentRotation;
 
 - (id)init
 {
 	return [self initWithX:0 andY:0
 				  andWidth:0 andHeight:0
-				  rotation:0.0f];
+				  rotation:0.0f
+				   padding:0];
 }
 
-- (id)initWithX:(ushort)_x andY:(ushort)_y andWidth:(ushort)_width andHeight:(ushort)_height rotation:(float)_rotation
+- (id)initWithX:(ushort)_x andY:(ushort)_y
+	   andWidth:(ushort)_width andHeight:(ushort)_height
+	   rotation:(float)_rotation
+{
+	return [self initWithX:_x andY:_y andWidth:_width andHeight:_height
+				  rotation:_rotation
+				   padding:0];
+}
+
+- (id)initWithX:(ushort)_x andY:(ushort)_y
+	   andWidth:(ushort)_width andHeight:(ushort)_height
+	   rotation:(float)_rotation
+		padding:(ushort *)_padding;
 {
 	if(self = [super init])
 	{
@@ -28,7 +41,11 @@
 		y = _y;
 		width = _width;
 		height = _height;
-		rotation = _rotation;
+		
+		_contentRotation = _rotation;
+		_contentPadding = 0;
+		
+		[self setPadding:_padding];
 		
 		_numVertices = 0;
 		_vertices = 0;
@@ -47,15 +64,21 @@
 		_vertices = 0;
 	}
 	
+	if(_contentPadding)
+	{
+		free(_contentPadding);
+		_contentPadding = 0;
+	}
+	
 	// Just in case...
 	_numVertices = 0;
 	
 	[super dealloc];
 }
 
-///
-///
-///
+//
+// Properties
+//
 
 - (void) setX:(ushort)val
 {
@@ -79,13 +102,53 @@
 }
 - (void) setRotation:(float)val
 {
-	rotation = val;
+	_contentRotation = val;
 	invalidated = YES;
 }
 
-///
-///
-///
+- (ushort)paddingTop
+{
+	if(!_contentPadding) return 0;
+	return _contentPadding[0];
+}
+- (ushort)paddingRight
+{
+	if(!_contentPadding) return 0;
+	return _contentPadding[1];
+}
+- (ushort)paddingBottom
+{
+	if(!_contentPadding) return 0;
+	return _contentPadding[2];
+}
+- (ushort)paddingLeft
+{
+	if(!_contentPadding) return 0;
+	return _contentPadding[3];
+}
+
+//
+// Methods
+//
+
+- (void)setPadding:(ushort *)val
+{
+	if(val)
+	{
+		const sizeOfPadding = sizeof(ushort) * 4;
+		
+		if(!_contentPadding)
+		{
+			_contentPadding = malloc(sizeOfPadding);
+		}
+		memcpy(_contentPadding, val, sizeOfPadding);
+	}
+	else if(_contentPadding)
+	{
+		free(_contentPadding);
+		_contentPadding = nil;
+	}
+}
 
 - (void)_validate
 {
@@ -130,7 +193,7 @@
 		int i;
 
 		// Simple case: no rotation
-		if(PXMathIsZero(rotation))
+		if(PXMathIsZero(_contentRotation))
 		{
 			for(i = 0, vert = &_vertices[0]; i < _numVertices; ++i, ++vert)
 			{
@@ -144,7 +207,7 @@
 		{
 			// Construct a rotation matrix
 			
-			float rad = -rotation * M_PI / 180.0f;
+			float rad = -_contentRotation * M_PI / 180.0f;
 			
 			float cosVal = cosf(rad);
 			float sinVal = sinf(rad);
@@ -180,7 +243,8 @@
 																andY:y
 															andWidth:width
 														   andHeight:height
-															rotation:rotation];
+															rotation:_contentRotation
+															 padding:_contentPadding];
 	
 	return newRect;
 }
