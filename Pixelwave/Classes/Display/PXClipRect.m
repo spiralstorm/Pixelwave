@@ -20,15 +20,6 @@
 				  rotation:0.0f];
 }
 
-/*
-- (id)initWithX:(ushort)_x andY:(ushort)_y andWidth:(ushort)_width andHeight:(ushort)_height
-{
-	return [self initWithX:_x andY:_y
-				  andWidth:_width andHeight:_height
-				  rotation:0.0f];
-}
-*/
-
 - (id)initWithX:(ushort)_x andY:(ushort)_y andWidth:(ushort)_width andHeight:(ushort)_height rotation:(float)_rotation
 {
 	if(self = [super init])
@@ -55,6 +46,9 @@
 		free(_vertices);
 		_vertices = 0;
 	}
+	
+	// Just in case...
+	_numVertices = 0;
 	
 	[super dealloc];
 }
@@ -176,6 +170,38 @@
 	}
 	
 	invalidated = NO;
+}
+
+#pragma mark NSCopying
+
+- (id)copyWithZone:(NSZone *)zone
+{
+	PXClipRect *newRect = [[PXClipRect allocWithZone:zone] initWithX:x
+																andY:y
+															andWidth:width
+														   andHeight:height
+															rotation:rotation];
+	
+	return newRect;
+}
+
+#pragma mark Utility
+
++ (PXClipRect *)clipRectWithX:(ushort)x andY:(ushort)y
+					 andWidth:(ushort)width andHeight:(ushort)height
+{
+	return [[[PXClipRect alloc] initWithX:x andY:y
+								 andWidth:width andHeight:height
+								 rotation:0.0f] autorelease];
+}
+
++ (PXClipRect *)clipRectWithX:(ushort)x andY:(ushort)y
+					 andWidth:(ushort)width andHeight:(ushort)height
+					 rotation:(float)rotation
+{
+	return [[[PXClipRect alloc] initWithX:x andY:y
+								 andWidth:width andHeight:height
+								 rotation:rotation] autorelease];
 }
 
 @end

@@ -135,6 +135,9 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect 
 		verts = 0;
 	}
 	
+	// Just in case
+	numVerts = 0;
+	
 	[super dealloc];
 }
 
@@ -645,26 +648,6 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect 
 	
 	return [texture autorelease];
 }
-
-/*- (id) copyWithZone:(NSZone *)zone
- {
- PXTexture *tex = [[[self class] allocWithZone:zone] initWithTextureData:textureData];
- 
- tex.smoothing = self.smoothing;
- tex.repeat = self.repeat;
- tex.anchorX = self.anchorX;
- tex.anchorY = self.anchorY;
- 
- tex.x = self.x;
- tex.y = self.y;
- tex.width = self.width;
- tex.height = self.height;
- tex.rotation = self.rotation;
- 
- tex.transform = self.transform;
- 
- return tex;
- }*/
 
 @end
 
