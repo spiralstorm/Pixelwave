@@ -81,12 +81,12 @@
 - (void) addFrame:(PXAtlasFrame *)frame named:(NSString *)name
 {
 	// If one already exists, remove it
-	[self removeFrameNamed:name];
+	[self removeFrame:name];
 	
 	[frames setObject:frame forKey:name];
 }
 
-- (void) removeFrameNamed:(NSString *)name
+- (void) removeFrame:(NSString *)name
 {
 	PXAtlasFrame *frame = (PXAtlasFrame *)[frames objectForKey:name];
 	if(!frame) return;
@@ -154,7 +154,7 @@
 	return texture;
 }
 
-- (void) setTexture:(PXTexture *)texture toFrame:(NSString *)name
+- (void) setFrame:(NSString *)name toTexture:(PXTexture *)texture
 {
 	PXAtlasFrame *frame = [self frameNamed:name];
 	if(!frame) return;

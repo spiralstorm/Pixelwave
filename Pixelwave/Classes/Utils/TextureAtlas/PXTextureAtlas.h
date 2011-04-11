@@ -57,7 +57,7 @@
 @property (nonatomic, readonly) NSArray *allFrames;
 
 - (void) addFrame:(PXAtlasFrame *)frame named:(NSString *)name;
-- (void) removeFrameNamed:(NSString *)name;
+- (void) removeFrame:(NSString *)name;
 
 - (PXAtlasFrame *)frameNamed:(NSString *)name;
 
@@ -78,7 +78,7 @@
 
 // Reading
 - (PXTexture *)textureForFrame:(NSString *)name;
-- (void) setTexture:(PXTexture *)texture toFrame:(NSString *)name;
+- (void) setFrame:(NSString *)name toTexture:(PXTexture *)texture;
 
 // Creation methods
 + (PXTextureAtlas *)textureAtlas;
