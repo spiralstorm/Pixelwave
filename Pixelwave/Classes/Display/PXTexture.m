@@ -54,7 +54,7 @@
 - (void)validateVertices;
 @end
 
-void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect *retRect);
+void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort *padding, CGRect *retRect);
 
 /**
  *	@ingroup Display
@@ -102,9 +102,13 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect 
 		_PXGLStateEnable(&_glState, GL_TEXTURE_2D);
 		_PXGLStateEnableClientState(&_glState, GL_TEXTURE_COORD_ARRAY);
 		
+		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
+		
 		contentWidth = 0;
 		contentHeight = 0;
 		contentRotation = 0.0f;
+		
+		contentPaddingEnabled = NO;
 		
 		anchorX = anchorY = 0.0f;
 		
@@ -239,7 +243,17 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect 
 	// Set the read-only properties
 	contentWidth = clipRect->_contentWidth;
 	contentHeight = clipRect->_contentHeight;
-	contentRotation = clipRect.rotation;
+	contentRotation = clipRect->_contentRotation;
+	
+	if(clipRect->_contentPadding)
+	{
+		contentPaddingEnabled = YES;
+		memcpy(contentPadding, clipRect->_contentPadding, sizeof(contentPadding));
+	}
+	else
+	{
+		contentPaddingEnabled = NO;
+	}
 	
 	// Set up my vertices array
 	if(numVerts != clipRect->_numVertices)
@@ -314,6 +328,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect 
 											andWidth:contentWidth
 										   andHeight:contentHeight
 											rotation:contentRotation];
+	[rect setPadding:contentPadding];
 	
 	return [rect autorelease];
 }
@@ -441,12 +456,12 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect 
 	// Calculate the aabb
 	
 	CGRect aabb;
-	PXTextureCalcAABB(verts, numVerts, &aabb);
+	PXTextureCalcAABB(verts, numVerts, (contentPaddingEnabled ? contentPadding : 0), &aabb);
 	
 	// Now shift all the vertices to align with the new anchor
 	
-	float shiftX = -(aabb.size.width) * anchorX - aabb.origin.x;
-	float shiftY = -(aabb.size.height) * anchorY - aabb.origin.y;
+	float shiftX = -aabb.origin.x - (aabb.size.width) * anchorX;
+	float shiftY = -aabb.origin.y - (aabb.size.height) * anchorY;
 	
 	int i;
 	PXGLTextureVertex *vert = &verts[0];
@@ -504,7 +519,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect 
 	// Make sure the vertices are up to date
 	[self validateVertices];
 	
-	PXTextureCalcAABB(verts, numVerts, retBounds);
+	PXTextureCalcAABB(verts, numVerts, (contentPaddingEnabled ? contentPadding : 0), retBounds);
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
@@ -516,7 +531,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect 
 	[self validateVertices];
 	
 	CGRect aabb;
-	PXTextureCalcAABB(verts, numVerts, &aabb);
+	PXTextureCalcAABB(verts, numVerts, (contentPaddingEnabled ? contentPadding : 0), &aabb);
 	
 	BOOL b = ((x >= aabb.origin.x) &&
 			  (x <= aabb.origin.x + aabb.size.width) &&
@@ -654,7 +669,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect 
 #pragma mark Utility
 
 // Utility
-void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect *retRect)
+void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort *padding, CGRect *retRect)
 {
 	PXGLTextureVertex *vert;
 	float x, y;
@@ -684,8 +699,16 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect 
 		if(y > maxY) maxY = y;
 	}
 	
+	if(padding)
+	{
+		minY -= padding[0]; // top
+		maxX += padding[1]; // right
+		maxY += padding[2]; // bottom
+		minX -= padding[3]; // left
+	}
+	
 	retRect->origin.x = minX;
 	retRect->origin.y = minY;
-	retRect->size.width = maxX - minX;
-	retRect->size.height = maxY - minY;
+	retRect->size.width = (maxX - minX);
+	retRect->size.height = (maxY - minY);
 }
