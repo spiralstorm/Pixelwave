@@ -41,9 +41,20 @@
 #import "PXTextureData.h"
 
 #import "PXTexture.h"
+#import "PXClipRect.h"
 
 #include "PXEngine.h"
 #include "PXGL.h"
+
+#include <CoreGraphics/CoreGraphics.h>
+
+@interface PXTexture(Private)
+- (void)validateAnchors;
+- (void)resetClip;
+- (void)validateVertices;
+@end
+
+void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect *retRect);
 
 /**
  *	@ingroup Display
@@ -59,32 +70,11 @@
 
 @synthesize textureData;//, smoothing, repeat;
 @synthesize anchorX = anchorX, anchorY = anchorY;
-@synthesize contentWidth, contentHeight;
+@synthesize contentWidth, contentHeight, contentRotation;
 
 - (id) init
 {
-	if (self = [super init])
-	{
-		// Only have to do this once, alternatively, you could just call the
-		// normal PXGLEnable and PXGLEnableClient state every frame.
-		_PXGLStateEnable(&_glState, GL_TEXTURE_2D);
-		_PXGLStateEnableClientState(&_glState, GL_TEXTURE_COORD_ARRAY);
-
-		contentWidth = 0;
-		contentHeight = 0;
-
-		anchorX = anchorY = 0.0f;
-
-		self.smoothing = NO;
-		self.repeat = YES;
-
-		textureData = nil;
-
-		// Set the clipRect to 0,0,0,0
-		memset(verts, 0, sizeof( PXGLTextureVertex ) * 4);
-	}
-
-	return self;
+	return [self initWithTextureData:nil];
 }
 
 /**
@@ -105,57 +95,65 @@
  */
 - (id) initWithTextureData:(PXTextureData *)_textureData
 {
-	if ([self init])
+	if (self = [super init])
 	{
+		// Only have to do this once, alternatively, you could just call the
+		// normal PXGLEnable and PXGLEnableClient state every frame.
+		_PXGLStateEnable(&_glState, GL_TEXTURE_2D);
+		_PXGLStateEnableClientState(&_glState, GL_TEXTURE_COORD_ARRAY);
+		
+		contentWidth = 0;
+		contentHeight = 0;
+		contentRotation = 0.0f;
+		
+		anchorX = anchorY = 0.0f;
+		
+		numVerts = 0;
+		verts = 0;
+		
+		textureData = nil;
+		
+		anchorsInvalidated = NO;
+		resetClipFlag = NO;
+		
+		self.smoothing = NO;
+		self.repeat = YES;
+		
 		self.textureData = _textureData;
 	}
-
+	
 	return self;
 }
 
 - (void) dealloc
 {
 	self.textureData = nil;
-
+	
+	if(verts)
+	{
+		free(verts);
+		verts = 0;
+	}
+	
 	[super dealloc];
 }
 
 // Resets the clip rectangle
 - (void) setTextureData:(PXTextureData *)_textureData
 {
+	if(_textureData == textureData) return;
+	
+	[_textureData retain];
 	[textureData release];
-
-	textureData = [_textureData retain];
-
+	
+	textureData = _textureData;
+	
 	if (textureData)
 	{
-		float one_scalingFactor = 1.0f / textureData.contentScaleFactor;
-		
-		[self setClipRectWithX:0
-						  andY:0
-					  andWidth:textureData->_contentWidth * one_scalingFactor
-					 andHeight:textureData->_contentHeight * one_scalingFactor];
+		// There's a new texture data, reset the clip rectangle to show
+		// it all
+		resetClipFlag = YES;
 	}
-}
-
-- (void) _measureLocalBounds:(CGRect *)retBounds
-{
-	retBounds->origin.x = verts[0].x;
-	retBounds->origin.y = verts[0].y;
-	retBounds->size.width  = verts[3].x - verts[0].x;
-	retBounds->size.height = verts[3].y - verts[0].y;
-}
-
-- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
-{
-	return ((x >= verts[0].x) & (x <= verts[3].x) & (y >= verts[0].y) & (y <= verts[3].y));
-	/*CGPoint point = CGPointMake( x , y );
-	   CGTriangle triangle;
-	   CGTriangleMake( triangle , verts[0].x , verts[0].y , verts[1].x , verts[1].y , verts[2].x , verts[2].y );
-	   if (PXMathPointInTriangle( point , &triangle ))
-	        return YES;
-
-	   return PXMathPointInTriangle( point , &triangle );*/
 }
 
 #pragma mark Clipping the texture
@@ -190,118 +188,130 @@
  *
  *	@see #setClipRect:
  */
+
 - (void) setClipRectWithX:(int)x
 					 andY:(int)y
 				 andWidth:(ushort)width
 				andHeight:(ushort)height
-			 usingAnchorX:(float)__anchorX
-			   andAnchorY:(float)__anchorY
+{
+	[self setClipRectWithX:x andY:y andWidth:width andHeight:height usingAnchorX:0.0f andAnchorY:0.0f];
+}
+
+- (void) setClipRectWithX:(int)x
+					 andY:(int)y
+				 andWidth:(ushort)width
+				andHeight:(ushort)height
+			 usingAnchorX:(float)_anchorX
+			   andAnchorY:(float)_anchorY
 {
 	if (!textureData) return;
 	
-	contentWidth = width;
-	contentHeight = height;
+	PXClipRect *clipRect = [[PXClipRect alloc] initWithX:x
+													andY:y
+												andWidth:width
+											   andHeight:height
+												rotation:0.0f];
+	
+	self.clipRect = clipRect;
+	[clipRect release];
+	
+	[self setAnchorWithX:_anchorX andY:_anchorY];
+}
+
+- (void)setClipRect:(PXClipRect *)clipRect
+{
+	// Can't set a clip rect if there's no texture data
+	if(!textureData) return;
+	
+	// If setting the clip to nil, set it to show the entire TextureData
+	if(!clipRect)
+	{
+		resetClipFlag = YES;
+		return;
+	}
+	
+	// Calculate the vertices positions
+	[clipRect _validate];
+	
+	// Set the read-only properties
+	contentWidth = clipRect->_contentWidth;
+	contentHeight = clipRect->_contentHeight;
+	contentRotation = clipRect.rotation;
+	
+	// Set up my vertices array
+	if(numVerts != clipRect->_numVertices)
+	{
+		numVerts = clipRect->_numVertices;
+		verts = realloc(verts, sizeof(PXGLTextureVertex) * numVerts);
+	}
+	
+	// Copy the vertex data from the clip rect to me
 	
 	float contentScaleFactor = textureData.contentScaleFactor;
 	
 	float sPerPixel = textureData->_sPerPixel * contentScaleFactor;
 	float tPerPixel = textureData->_tPerPixel * contentScaleFactor;
 	
-	float minS = x * sPerPixel;
-	float minT = y * tPerPixel;
-	float maxS = (x + width) * sPerPixel;
-	float maxT = (y + height) * tPerPixel;
+	PXGLTextureVertex *myVert, *clipVert;
 	
-	PXGLTextureVertex *vert;
-
-	// Set the texture coordinates
-	//Top Left
-	vert = verts + 0;
-	vert->s = minS;
-	vert->t = minT;
-	
-	//Top Right
-	vert = verts + 1;
-	vert->s = maxS;
-	vert->t = minT;
-	
-	//Bottom Left
-	vert = verts + 2;
-	vert->s = minS;
-	vert->t = maxT;
-	
-	//Bottom Right
-	vert = verts + 3;
-	vert->s = maxS;
-	vert->t = maxT;
-	
-	[self setAnchorWithX:__anchorX andY:__anchorY];
-}
-
-/**
- *	Sets the clip area and anchor point in one call.
- *
- *	@param x
- *		The left position of the clip rectangle in points.
- *	@param y
- *		The top position of the clip rectangle in points.
- *	@param width
- *		The width of the clip rectangle in points.
- *	@param height
- *		The height of the clip rectangle in points.
- *
- *	@see #setClipRect:
- */
-- (void) setClipRectWithX:(int)x andY:(int)y andWidth:(ushort)width andHeight:(ushort)height
-{
-	[self setClipRectWithX:x
-					  andY:y
-				  andWidth:width
-				 andHeight:height
-			  usingAnchorX:anchorX
-				andAnchorY:anchorY];
-}
-
-- (void) setClipRect:(PXRectangle *)clipRect
-{
-	if (clipRect)
+	int i;
+	for(i = 0, myVert = verts, clipVert = clipRect->_vertices;
+		i < numVerts;
+		++i, ++myVert, ++clipVert)
 	{
-		[self setClipRectWithX:clipRect.x
-						  andY:clipRect.y
-					  andWidth:clipRect.width
-					 andHeight:clipRect.height];
+		// Convert from pixels to texture coordinates (s, t)
+		myVert->s = clipVert->s * sPerPixel;
+		myVert->t = clipVert->t * tPerPixel;
+		
+		// Just copy these directly (they are pre-rotated)
+		myVert->x = clipVert->x;
+		myVert->y = clipVert->y;
 	}
-	else
-	{
-		if (textureData)
-		{
-			[self setClipRectWithX:0
-							  andY:0
-						  andWidth:textureData.width
-						 andHeight:textureData.height];
-		}
-		else
-		{
-			[self setClipRectWithX:0
-							  andY:0
-						  andWidth:0
-						 andHeight:0];
-		}
-	}
+	
+	// No need to reset the clip anymore
+	resetClipFlag = NO;
+	
+	// When necessary, update the new vertices to match the anchors
+	anchorsInvalidated = YES;
 }
 
-- (PXRectangle *)clipRect
+- (PXClipRect *)clipRect
 {
-	PXRectangle *rect = [PXRectangle new];
-
-	PXGLTextureVertex *firstVert = verts;
-	PXGLTextureVertex *lastVert  = &(verts[3]);
-	// Use the topLeft and bottomRight verts to get the clip rectangle
-	rect.x = firstVert->x;
-	rect.y = firstVert->y;
-	rect.width  = lastVert->x - firstVert->x;
-	rect.height = lastVert->y - firstVert->y;
-
+	// If there's no texture data, there can't be a clip rect
+	if(!textureData) return nil;
+	
+	// If the clip needs to be recalculated, do it before returning
+	// it to the user
+	if(resetClipFlag)
+	{
+		[self resetClip];
+	}
+	
+	assert(numVerts > 0 && verts);
+	
+	//////////////////////////////////////////////
+	// Reconstruct the clipRect from the coords //
+	//////////////////////////////////////////////
+	
+	// This part is a bit unconventional, but it is done for a reason:
+	// Instead of storing the original (unrotated) clip coordinates we just
+	// reconstruct that data with the data we have stored.
+	// It saves us from storing two more floats, and this method isn't
+	// supposed to be super fast any way
+	
+	PXGLTextureVertex *vert = &verts[0];
+	
+	float contentScaleFactor = textureData.contentScaleFactor;
+	
+	float sPerPixel = textureData->_sPerPixel * contentScaleFactor;
+	float tPerPixel = textureData->_tPerPixel * contentScaleFactor;
+	
+	PXClipRect *rect = [[PXClipRect alloc] initWithX:vert->s / sPerPixel
+												andY:vert->t / tPerPixel
+											andWidth:contentWidth
+										   andHeight:contentHeight
+											rotation:contentRotation];
+	
 	return [rect autorelease];
 }
 
@@ -335,12 +345,14 @@
 
 - (void) setAnchorX:(float)val
 {
-	[self setAnchorWithX:val andY:anchorY];
+	anchorX = val;
+	anchorsInvalidated = YES;
 }
 
 - (void) setAnchorY:(float)val
 {
-	[self setAnchorWithX:anchorX andY:val];
+	anchorY = val;
+	anchorsInvalidated = YES;
 }
 
 /**
@@ -372,31 +384,7 @@
 {
 	anchorX = x;
 	anchorY = y;
-
-	x *= contentWidth;
-	y *= contentHeight;
-
-	PXGLTextureVertex *vert;
-
-	//Top Left
-	vert = &verts[0];
-	vert->x = -x;
-	vert->y = -y;
-
-	//Top Right
-	vert = &verts[1];
-	vert->x = contentWidth - x;
-	vert->y = -y;
-
-	//Bottom Left
-	vert = &verts[2];
-	vert->x = -x;
-	vert->y = contentHeight - y;
-
-	//Bottom Right
-	vert = &verts[3];
-	vert->x = contentWidth - x;
-	vert->y = contentHeight - y;
+	anchorsInvalidated = YES;
 }
 
 /**
@@ -428,8 +416,111 @@
 	{
 		return;
 	}
+	
+	[self setAnchorWithX:(x / (float)contentWidth)
+					andY:(y / (float)contentHeight)];
+}
 
-	[self setAnchorWithX:(x / (float)contentWidth) andY:(y / (float)contentHeight)];
+#pragma mark -
+#pragma mark Private methods
+#pragma mark -
+
+#pragma mark Validating
+
+// This method assumes that the vertices have been validated before it gets
+// called
+- (void)validateAnchors
+{
+	///////////////////////////////////////////////////////
+	// Update the vertex positions to the proper anchors //
+	///////////////////////////////////////////////////////
+	
+	// Calculate the aabb
+	
+	CGRect aabb;
+	PXTextureCalcAABB(verts, numVerts, &aabb);
+	
+	// Now shift all the vertices to align with the new anchor
+	
+	float shiftX = -(aabb.size.width) * anchorX - aabb.origin.x;
+	float shiftY = -(aabb.size.height) * anchorY - aabb.origin.y;
+	
+	int i;
+	PXGLTextureVertex *vert = &verts[0];
+	
+	for(i = 0; i < numVerts; ++i, ++vert)
+	{
+		vert->x += shiftX;
+		vert->y += shiftY;
+	}
+	
+	anchorsInvalidated = NO;
+}
+
+///
+
+// Reset the clip rectangle to show the entire frame
+- (void)resetClip
+{
+	// This is a bit hacky
+	
+	// Update the texture coordinates to match the texture data
+	float one_scalingFactor = 1.0f / textureData.contentScaleFactor;
+	
+	PXClipRect *fullRect = [[PXClipRect alloc] initWithX:0.0f
+													andY:0.0f
+												andWidth:textureData->_contentWidth * one_scalingFactor
+											   andHeight:textureData->_contentHeight * one_scalingFactor
+												rotation:0.0f];
+	[self setClipRect:fullRect];
+	[fullRect release];
+}
+
+- (void)validateVertices
+{
+	if(resetClipFlag)
+	{
+		[self resetClip];
+	}
+	
+	assert(verts && numVerts > 0);
+	
+	if(anchorsInvalidated)
+	{
+		[self validateAnchors];
+	}
+}
+
+#pragma mark DisplayObject
+
+- (void) _measureLocalBounds:(CGRect *)retBounds
+{
+	if(!textureData) return;
+	if(!verts || numVerts == 0) return;
+	
+	// Make sure the vertices are up to date
+	[self validateVertices];
+	
+	PXTextureCalcAABB(verts, numVerts, retBounds);
+}
+
+- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
+{
+	//return ((x >= verts[0].x) & (x <= verts[3].x) & (y >= verts[0].y) & (y <= verts[3].y));
+	if(!textureData) return NO;
+	
+	// The vertices must be validated before checking their bounding boxes
+	[self validateVertices];
+	
+	CGRect aabb;
+	PXTextureCalcAABB(verts, numVerts, &aabb);
+	
+	BOOL b = ((x >= aabb.origin.x) &&
+			  (x <= aabb.origin.x + aabb.size.width) &&
+			  (y >= aabb.origin.y) &&
+			  (y <= aabb.origin.y + aabb.size.height));
+	
+	return b;
 }
 
 #pragma Rendering
@@ -438,33 +529,61 @@
 {
 	if (textureData == nil)
 		return;
-
-//	PXGLEnable( GL_TEXTURE_2D );
-//	PXGLEnableClientState( GL_TEXTURE_COORD_ARRAY );
-
+	
+	// Validate the vertices
+	{
+		// These copied lines are the same as [self validateVertices].
+		// We copy and paste for performance
+		
+		// <COPY>
+		if(resetClipFlag)
+		{
+			[self resetClip];
+		}
+		
+		assert(verts && numVerts > 0);
+		
+		if(anchorsInvalidated)
+		{	
+			[self validateAnchors];
+		}
+		// </COPY>
+	}
+	
 	PXGLBindTexture( GL_TEXTURE_2D, textureData->_glName );
-
+	
+	// Validate the smoothing
 	if (smoothingType != textureData->_smoothingType)
 	{
 		PXGLTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, smoothingType);
 		PXGLTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, smoothingType);
 		textureData->_smoothingType = smoothingType;
 	}
+	// Validate the wrapping
 	if (wrapType != textureData->_wrapType)
 	{
 		PXGLTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, wrapType);
 		PXGLTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapType);
 		textureData->_wrapType = wrapType;
 	}
-
+	
+	// Draw
 	PXGLVertexPointer(2, GL_FLOAT, sizeof( PXGLTextureVertex ), &(verts->x));
 	PXGLTexCoordPointer(2, GL_FLOAT, sizeof( PXGLTextureVertex ), &(verts->s));
-
+	
 	PXGLDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
+//////////////
+//////////////
+//////////////
+
 #pragma mark Utility functions
 
++ (PXTexture *)texture
+{
+	return [[PXTexture new] autorelease];
+}
 /**
  *	Creates an autoreleased PXTexture object with the given PXTextureData object
  *
@@ -481,14 +600,14 @@
 + (PXTexture *)textureWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:path
-																		   modifier:modifier];
+																			modifier:modifier];
 	PXTextureData *textureData = [textureLoader newTextureData];
-
+	
 	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
-
+	
 	[textureData release];
 	[textureLoader release];
-
+	
 	return [texture autorelease];
 }
 
@@ -500,14 +619,14 @@
 + (PXTexture *)textureWithContentsOfURL:(NSURL *)url modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:url
-																		  modifier:modifier];
+																		   modifier:modifier];
 	PXTextureData *textureData = [textureLoader newTextureData];
-
+	
 	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
-
+	
 	[textureData release];
 	[textureLoader release];
-
+	
 	return [texture autorelease];
 }
 
@@ -519,32 +638,71 @@
 + (PXTexture *)textureWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureData *textureData = [[PXTextureData alloc] initWithData:data modifier:modifier];
-
+	
 	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
-
+	
 	[textureData release];
-
+	
 	return [texture autorelease];
 }
 
 /*- (id) copyWithZone:(NSZone *)zone
-{
-	PXTexture *tex = [[[self class] allocWithZone:zone] initWithTextureData:textureData];
-
-	tex.smoothing = self.smoothing;
-	tex.repeat = self.repeat;
-	tex.anchorX = self.anchorX;
-	tex.anchorY = self.anchorY;
-
-	tex.x = self.x;
-	tex.y = self.y;
-	tex.width = self.width;
-	tex.height = self.height;
-	tex.rotation = self.rotation;
-
-	tex.transform = self.transform;
-
-	return tex;
-}*/
+ {
+ PXTexture *tex = [[[self class] allocWithZone:zone] initWithTextureData:textureData];
+ 
+ tex.smoothing = self.smoothing;
+ tex.repeat = self.repeat;
+ tex.anchorX = self.anchorX;
+ tex.anchorY = self.anchorY;
+ 
+ tex.x = self.x;
+ tex.y = self.y;
+ tex.width = self.width;
+ tex.height = self.height;
+ tex.rotation = self.rotation;
+ 
+ tex.transform = self.transform;
+ 
+ return tex;
+ }*/
 
 @end
+
+#pragma mark Utility
+
+// Utility
+void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, CGRect *retRect)
+{
+	PXGLTextureVertex *vert;
+	float x, y;
+	
+	vert = &verts[0];
+	x = vert->x;
+	y = vert->y;
+	
+	float minX = x;
+	float maxX = x;
+	float minY = y;
+	float maxY = y;
+	
+	unsigned char i;
+	
+	// Start at verts[1]
+	++vert;
+	for(i = 1; i < numVerts; ++i, ++vert)
+	{
+		x = vert->x;
+		y = vert->y;
+		
+		if(x < minX) minX = x;
+		if(x > maxX) maxX = x;
+		
+		if(y < minY) minY = y;
+		if(y > maxY) maxY = y;
+	}
+	
+	retRect->origin.x = minX;
+	retRect->origin.y = minY;
+	retRect->size.width = maxX - minX;
+	retRect->size.height = maxY - minY;
+}
