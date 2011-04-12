@@ -56,6 +56,18 @@
 	[super dealloc];
 }
 
+- (void)setX:(ushort)_x Y:(ushort)_y width:(ushort)_width height:(ushort)_height rotation:(float)_rotation;
+{
+	x = _x;
+	y = _y;
+	width = _width;
+	height = _height;
+	
+	_contentRotation = _rotation;
+	
+	invalidated = YES;
+}
+
 //
 // Properties
 //

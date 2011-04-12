@@ -12,10 +12,10 @@
 
 @synthesize top, right, bottom, left;
 
-- (id)initWithTop:(ushort)_top
-		 andRight:(ushort)_right
-		andBottom:(ushort)_bottom
-		  andLeft:(ushort)_left
+- (id)initWithTop:(short)_top
+			right:(short)_right
+		   bottom:(short)_bottom
+			 left:(short)_left
 {
 	if(self = [super init])
 	{
@@ -28,23 +28,34 @@
 	return self;
 }
 
-+ (PXTexturePadding *)texturePaddingWithTop:(ushort)top
-								   andRight:(ushort)right
-								  andBottom:(ushort)bottom
-									andLeft:(ushort)left
+- (void)setTop:(short)_top
+		 right:(short)_right
+		bottom:(short)_bottom
+		  left:(short)_left
+{
+	top = _top;
+	right = _right;
+	bottom = _bottom;
+	left = _left;
+}
+
++ (PXTexturePadding *)texturePaddingWithTop:(short)top
+									  right:(short)right
+									 bottom:(short)bottom
+									   left:(short)left
 {
 	return [[[PXTexturePadding alloc] initWithTop:top
-										 andRight:right
-										andBottom:bottom
-										  andLeft:left] autorelease];
+											right:right
+										   bottom:bottom
+											 left:left] autorelease];
 }
 
 - (id)copyWithZone:(NSZone *)zone
 {
 	return [[PXTexturePadding allocWithZone:zone] initWithTop:top
-													 andRight:right
-													andBottom:bottom
-													  andLeft:left];
+														right:right
+													   bottom:bottom
+														 left:left];
 }
 
 @end

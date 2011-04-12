@@ -59,8 +59,8 @@
 	float anchorX;
 	float anchorY;
 	
-	// Always positive, in clock-wise order {top, right, bottom, left}
-	ushort padding[4];
+	// In clock-wise order {top, right, bottom, left}
+	short padding[4];
 	BOOL paddingEnabled;
 	
 	// Invalidation
@@ -161,10 +161,10 @@
 // Padding //
 /////////////
 
-/*
-- (void) setPaddingWithTop:(ushort)top
-				  andRight:(ushort)right
-*/
+- (void) setPaddingWithTop:(short)top
+					 right:(short)right
+					bottom:(short)bottom
+					  left:(short)left;
 
 // TODO: Should we keep these, deprecate them, or get rid of them?
 //-- ScriptIgnore
@@ -214,5 +214,5 @@
 @end
 
 @interface PXTexture(PrivateButPublic)
-- (void) _setPadding:(ushort *)padding;
+- (void) _setPadding:(short *)padding;
 @end

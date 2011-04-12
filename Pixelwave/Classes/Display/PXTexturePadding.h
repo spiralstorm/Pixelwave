@@ -8,22 +8,27 @@
 
 @interface PXTexturePadding : NSObject <NSCopying> {
 @private
-	ushort top, right, bottom, left;
+	short top, right, bottom, left;
 }
 
-@property (nonatomic, assign) ushort top;
-@property (nonatomic, assign) ushort right;
-@property (nonatomic, assign) ushort bottom;
-@property (nonatomic, assign) ushort left;
+@property (nonatomic, assign) short top;
+@property (nonatomic, assign) short right;
+@property (nonatomic, assign) short bottom;
+@property (nonatomic, assign) short left;
 
-- (id)initWithTop:(ushort)top
-		 andRight:(ushort)right
-		andBottom:(ushort)bottom
-		  andLeft:(ushort)left;
+- (id)initWithTop:(short)top
+			right:(short)right
+		   bottom:(short)bottom
+			 left:(short)left;
 
-+ (PXTexturePadding *)texturePaddingWithTop:(ushort)top
-								   andRight:(ushort)right
-								  andBottom:(ushort)bottom
-									andLeft:(ushort)left;
+- (void)setTop:(short)top
+		 right:(short)right
+		bottom:(short)bottom
+		  left:(short)left;
+
++ (PXTexturePadding *)texturePaddingWithTop:(short)top
+									  right:(short)right
+									 bottom:(short)bottom
+									   left:(short)left;
 
 @end

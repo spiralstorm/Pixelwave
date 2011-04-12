@@ -41,6 +41,17 @@
 		   textureData:(PXTextureData *)_textureData
 			   anchor:(PXPoint *)_anchor
 {
+	return [self initWithClipRect:_clipRect
+					  textureData:_textureData
+						   anchor:_anchor
+						  padding:nil];
+}
+
+- (id)initWithClipRect:(PXClipRect *)_clipRect
+		   textureData:(PXTextureData *)_textureData
+				anchor:(PXPoint *)_anchor
+			   padding:(PXTexturePadding *)_padding
+{
 	if(self = [super init])
 	{
 		textureData = nil;
@@ -50,6 +61,7 @@
 		self.textureData = _textureData;
 		self.clipRect = _clipRect;
 		self.anchor = _anchor;
+		self.padding = _padding;
 	}
 	
 	return self;
@@ -113,7 +125,7 @@
 	
 	if(padding)
 	{
-		// TODO: Do this more efficiently (with ushort array)
+		// TODO: Do this more efficiently (with short array)
 		texture.padding = padding;
 	}
 }

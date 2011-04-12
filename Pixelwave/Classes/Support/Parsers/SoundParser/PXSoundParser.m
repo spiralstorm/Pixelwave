@@ -160,7 +160,7 @@
 		if (!soundInfo || ![self _parse])
 		{
 			[self release];
-			return self;
+			return nil;
 		}
 
 		// Set the modifier to the given one.
