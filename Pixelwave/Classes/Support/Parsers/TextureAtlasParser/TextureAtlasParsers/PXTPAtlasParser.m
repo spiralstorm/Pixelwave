@@ -21,7 +21,7 @@
 //			- Make format checker more robust
 //			- Figure out the best way to handle padding
 
-#define PX_TEXPAC_ROTATION_AMOUNT 90.0f
+#define PX_TP_ROTATION_AMOUNT 90.0f
 
 @interface PXTPAtlasParser(Private)
 - (BOOL)parseBool:(NSDictionary *)dict key:(NSString *)key ret:(BOOL *)ret;
@@ -51,19 +51,24 @@
 
 - (PXTextureAtlas *)newTextureAtlas
 {
+	// Quick exits
 	if(!frames) return nil;
 	if(!names) return nil;
 	if(!textureData) return nil;
 	
+	// Create the atlas. There's no going back now...
 	PXTextureAtlas *atlas = [[PXTextureAtlas alloc] init];
 	
-	PXTPAtlasParserFrame *frame = frames;
-	int i = 0;
-	
+	// Loop through the frames
 	PXClipRect *clipRect = [[PXClipRect alloc] init];
 	PXTexturePadding *padding = [[PXTexturePadding alloc] init];
 	PXAtlasFrame *atlasFrame;
 	NSString *frameName;
+	
+	short *rawPadding = 0;
+	
+	int i = 0;
+	PXTPAtlasParserFrame *frame = frames;
 	
 	for(i; i < numFrames; ++i, ++frame){
 
@@ -80,10 +85,11 @@
 		// 3. Get the padding
 		if(frame->paddingEnabled)
 		{
-			[padding setTop:frame->padding[0]
-					  right:frame->padding[1]
-					 bottom:frame->padding[2]
-					   left:frame->padding[3]];
+			rawPadding = frame->padding;
+			[padding setTop:rawPadding[0]
+					  right:rawPadding[1]
+					 bottom:rawPadding[2]
+					   left:rawPadding[3]];
 		}
 		
 		// 4. Create the frame object
@@ -220,16 +226,12 @@
 		
 		cFrame->nameIndex = nameIndex;
 		cFrame->clipRect = frame;
-		cFrame->rotation = rotated ? PX_TEXPAC_ROTATION_AMOUNT : 0.0f;
+		cFrame->rotation = rotated ? PX_TP_ROTATION_AMOUNT : 0.0f;
 		cFrame->paddingEnabled = trimmed;
 		
 		// Apply padding if needed
 		if(trimmed)
 		{
-			if([frameName isEqualToString:@"AppleAnim0001.png"]){
-				NSLog(@"adasd");
-			}
-			
 			short *padding = cFrame->padding;
 			// Top
 			padding[0] = spriteSourceSize.origin.y;

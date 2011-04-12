@@ -72,6 +72,7 @@
 	[textureData release]; textureData = nil;
 	[clipRect release]; clipRect = nil;
 	self.anchor = nil;
+	self.padding = nil;
 	
 	[super dealloc];
 }
@@ -125,7 +126,6 @@
 	
 	if(padding)
 	{
-		// TODO: Do this more efficiently (with short array)
 		texture.padding = padding;
 	}
 }

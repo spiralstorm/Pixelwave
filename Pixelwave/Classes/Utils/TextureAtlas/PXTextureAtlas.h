@@ -85,12 +85,12 @@
 //        =MMMMMMMMMMMMMMMMMMMMMMMMMM$     
 //          MMMMMMMMMMMMMMM= 8MMMMMD       
 //           MMMMMMMMMI     ?MMMMMM        
-//            ZMMMMMMMM+    OMMMM          
-//  ~      ,MM::DMMMMMMM    NMMD,          
+//            MMMMMMMMM+    OMMMM          
+//  M      ,MMMMDMMMMMMM    NMMD,          
 // MMMMMMMMMMMMMMMMMMMMM  OMMMM            
 // MMMMNMMMMMMMMMMMMMMMM ,MMMMMD+          
 // MM8     ,M8MMMMMMMMMZ IMMMMMMMM8+       
-// MMMN           :=~:    ,    ?$=:        
+// MMMN           MMMM    ,    ?$=:        
 // ?DNZ                                    
 
 @interface PXTextureAtlas : NSObject
