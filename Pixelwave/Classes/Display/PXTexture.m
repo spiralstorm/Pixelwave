@@ -53,6 +53,7 @@
 - (void)validateAnchors;
 - (void)resetClip;
 - (void)validateVertices;
+- (void)setPaddingRaw:(short *)padding;
 @end
 
 void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *padding, CGRect *retRect);
@@ -430,7 +431,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 #pragma mark Padding
 
 // For setting the padding efficiently
-- (void) _setPadding:(short *)val
+- (void) setPaddingRaw:(short *)val
 {
 	if(val)
 	{
@@ -444,6 +445,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	{
 		paddingEnabled = NO;
 		
+		// Our hit area is the same as our drawing area
 		PX_DISABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
 	}
 }
@@ -454,7 +456,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 					  left:(short)left
 {
 	short newPadding[] = {top, right, bottom, left};
-	[self _setPadding:newPadding];
+	[self setPaddingRaw:newPadding];
 }
 
 - (void)setPadding:(PXTexturePadding *)val
@@ -462,11 +464,11 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	if(val)
 	{
 		short newPadding[] = {val.top, val.right, val.bottom, val.left};
-		[self _setPadding:newPadding];
+		[self setPaddingRaw:newPadding];
 	}
 	else
 	{
-		[self _setPadding:0];
+		[self setPaddingRaw:0];
 	}
 
 }

@@ -212,7 +212,3 @@
 + (PXTexture *)textureWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier;
 
 @end
-
-@interface PXTexture(PrivateButPublic)
-- (void) _setPadding:(short *)padding;
-@end

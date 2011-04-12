@@ -102,6 +102,9 @@
 // Methods
 //
 
+/*
+ *	Turn the raw data into actual vertices that a PXTexture can use
+ */
 - (void)_validate
 {
 	if(!invalidated) return;
@@ -175,7 +178,7 @@
 				origX = vert->s;
 				origY = vert->t;
 				
-				// newPos = oldPos.x * xVector + oldPos.y * yVector
+				// newPos = orig.x * xVector + orig.y * yVector
 				
 				vert->x = (origX * a) + (origY * c);
 				vert->y = (origX * b) + (origY * d);

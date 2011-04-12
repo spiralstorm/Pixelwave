@@ -1234,14 +1234,14 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
-		2D0E8CE51353F29200A42B3D /* TextureAtlas */ = {
+		2D0E8CE51353F29200A42B3D /* TextureAtlasParser */ = {
 			isa = PBXGroup;
 			children = (
 				2D0E8CE61353F2C200A42B3D /* PXTextureAtlasParser.h */,
 				2D0E8CE71353F2C200A42B3D /* PXTextureAtlasParser.m */,
 				2D0E8D0D1353F78100A42B3D /* TextureAtlasParsers */,
 			);
-			path = TextureAtlas;
+			path = TextureAtlasParser;
 			sourceTree = "<group>";
 		};
 		2D0E8D0D1353F78100A42B3D /* TextureAtlasParsers */ = {
@@ -1882,7 +1882,7 @@
 				523A4E9713258A8700C17A49 /* FontParser */,
 				523A4EBF13258AED00C17A49 /* SoundParser */,
 				523A4EC013258AF300C17A49 /* TextureParser */,
-				2D0E8CE51353F29200A42B3D /* TextureAtlas */,
+				2D0E8CE51353F29200A42B3D /* TextureAtlasParser */,
 				52BEF6C2130EDF18001E710E /* ParsedData */,
 			);
 			path = Parsers;
