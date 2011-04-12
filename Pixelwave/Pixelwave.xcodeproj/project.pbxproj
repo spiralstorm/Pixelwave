@@ -16,6 +16,8 @@
 		1DAD0FD51056FFB800A5AC03 /* PXView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD0FD31056FFB800A5AC03 /* PXView.m */; };
 		1DAD0FF01057014100A5AC03 /* Pixelwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DAD0FEF1057014100A5AC03 /* Pixelwave.h */; };
 		2D35BD7A11AD8E46005645F0 /* PXMathUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D35BD7911AD8E46005645F0 /* PXMathUtils.m */; };
+		2D65292A1353CADA00EB0412 /* PXTexturePadding.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D6529281353CADA00EB0412 /* PXTexturePadding.h */; };
+		2D65292B1353CADA00EB0412 /* PXTexturePadding.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D6529291353CADA00EB0412 /* PXTexturePadding.m */; };
 		2D749F5810F7916A00830235 /* PXException.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D749F5610F7916A00830235 /* PXException.h */; };
 		2D749F5910F7916A00830235 /* PXException.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D749F5710F7916A00830235 /* PXException.m */; };
 		2D749F6010F793F300830235 /* PXArgumentException.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D749F5E10F793F300830235 /* PXArgumentException.h */; };
@@ -500,6 +502,8 @@
 		1DAD0FD31056FFB800A5AC03 /* PXView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXView.m; sourceTree = "<group>"; };
 		1DAD0FEF1057014100A5AC03 /* Pixelwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pixelwave.h; sourceTree = "<group>"; };
 		2D35BD7911AD8E46005645F0 /* PXMathUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXMathUtils.m; sourceTree = "<group>"; };
+		2D6529281353CADA00EB0412 /* PXTexturePadding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTexturePadding.h; sourceTree = "<group>"; };
+		2D6529291353CADA00EB0412 /* PXTexturePadding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTexturePadding.m; sourceTree = "<group>"; };
 		2D749F5610F7916A00830235 /* PXException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXException.h; sourceTree = "<group>"; };
 		2D749F5710F7916A00830235 /* PXException.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXException.m; sourceTree = "<group>"; };
 		2D749F5E10F793F300830235 /* PXArgumentException.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXArgumentException.h; sourceTree = "<group>"; };
@@ -1121,6 +1125,8 @@
 				2DAF67C111C58E2800A66884 /* PXTexture.m */,
 				2D877F6A1352A6A700212094 /* PXClipRect.h */,
 				2D877F6B1352A6A700212094 /* PXClipRect.m */,
+				2D6529281353CADA00EB0412 /* PXTexturePadding.h */,
+				2D6529291353CADA00EB0412 /* PXTexturePadding.m */,
 				2DAF67C211C58E2800A66884 /* PXTextureData.h */,
 				2DAF67C311C58E2800A66884 /* PXTextureData.m */,
 				2DBD52371325925B00BF4977 /* PXTextureDataPixelFormat.h */,
@@ -2282,6 +2288,7 @@
 				2D877F6C1352A6A700212094 /* PXClipRect.h in Headers */,
 				2DABCBCA1352BA8300FB437A /* PXTextureAtlas.h in Headers */,
 				2DABCBCC1352BA8300FB437A /* PXAtlasFrame.h in Headers */,
+				2D65292A1353CADA00EB0412 /* PXTexturePadding.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2531,6 +2538,7 @@
 				2D877F6D1352A6A700212094 /* PXClipRect.m in Sources */,
 				2DABCBCB1352BA8300FB437A /* PXTextureAtlas.m in Sources */,
 				2DABCBCD1352BA8300FB437A /* PXAtlasFrame.m in Sources */,
+				2D65292B1353CADA00EB0412 /* PXTexturePadding.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

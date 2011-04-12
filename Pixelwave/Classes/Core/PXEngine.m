@@ -197,7 +197,7 @@ NSTimeInterval pxEngineInterval = 0.0f;
 typedef struct
 {
 	PXDisplayObject *displayObject;
-} _PXEngineDisplayObject;
+} _PXEngineDisplayObject; // TODO: Try to get rid of / rename this struct
 
 typedef struct
 {
@@ -638,6 +638,15 @@ void PXEngineRemoveFrameListener( PXDisplayObject *displayObject )
 	[pxEngineFrameListeners removeObject:displayObject];
 }
 
+/**
+ *	The function first cycles through all the display objects on the screen in
+ *	reverse order, looking for the most immediate target of a touch event, and
+ *	then traverses up the display hierarchy until it finds an interactive object
+ *	for which touches are enabled.
+ *		- Beken, Pixelwave forums
+ *
+ *	Returns the displayObject that should recieve the event (could be nil)
+ */
 PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 {
 	PXDisplayObject *target;
@@ -646,28 +655,40 @@ PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 	PXGLAABB *aabb;
 
 	BOOL touchEnabled = NO;
+	// Keeps track of if the current target can recieve touch events
 	BOOL origTouchEnabled = NO;
 	BOOL parentTouchEnabled = NO;
 	BOOL onceHadTarget = NO;
+	
+	bool usesCustomHitArea;
 
 	_PXEngineDisplayObject *curDisplayObject;
 	int index;
 	int startIndex = pxEngineDOBuffer.size - 1;
 
+	// Loop through the list of possible touch targets.
+	// Since items were added to the list in back-to-front order, we iterate
+	// backwards to go front-to-back.
 	for (index = startIndex, curDisplayObject = &(pxEngineDOBuffer.array[startIndex]);
 		 index >= 0;
 		 --index, --curDisplayObject)
 	{
-		//target = pxEngineDOBuffer.array[index].displayObject;
 		target = curDisplayObject->displayObject;
 
 		aabb = &target->_aabb;
 
-		if (!PXGLAABBContainsPointv(aabb, x, y))
+		usesCustomHitArea = PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_useCustomHitArea);
+		
+		// Broad phase hit-test (AABB)
+		// We only check for AABB containment if the disp doesn't have a custom
+		// hit area. If there is a custom hit area, we can't rely only on the 
+		// visual bounds for a hit test.
+		if (!usesCustomHitArea && !PXGLAABBContainsPointv(aabb, x, y))
 		{
 			continue;
 		}
 
+		// Narrow phase - This is the expensive one.
 		if (!([target _hitTestPointWithoutRecursionWithGlobalX:x andGlobalY:y shapeFlag:YES]))
 		{
 			continue;
@@ -679,9 +700,12 @@ PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 		parent = (PXDisplayObjectContainer *)(target->_parent);
 		onceHadTarget = NO;
 
+		// This checks if the parent is root, and it has touches enabled, but
+		// not touch children. If true, then
 		if (parent)
 		{
-			parentTouchEnabled = PX_IS_BIT_ENABLED(parent->_flags, _PXDisplayObjectFlags_isInteractive) ? ((PXInteractiveObject *)(parent))->_touchEnabled : NO;
+			//parentTouchEnabled = PX_IS_BIT_ENABLED(parent->_flags, _PXDisplayObjectFlags_isInteractive) ? ((PXInteractiveObject *)(parent))->_touchEnabled : NO;
+			parentTouchEnabled = parent->_touchEnabled;
 
 			if (!(parent->_touchChildren) && parent == pxEngineRoot && parentTouchEnabled)
 			{
@@ -690,6 +714,11 @@ PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 			}
 		}
 
+		// Now we loop up through the target's ancestors, stoping right
+		// before the root. We do this so that the ancestor closest to target
+		// which can recieve touch events gets to handle the touch.
+		//
+		// We stop short before root because....
 		while (parent && parent != pxEngineRoot)
 		{
 			if (parent == possibleParentTarget)
@@ -697,10 +726,15 @@ PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 				onceHadTarget = YES;
 			}
 
-			parentTouchEnabled = PX_IS_BIT_ENABLED(parent->_flags, _PXDisplayObjectFlags_isInteractive) ? ((PXInteractiveObject *)(parent))->_touchEnabled : NO;
+			//parentTouchEnabled = PX_IS_BIT_ENABLED(parent->_flags, _PXDisplayObjectFlags_isInteractive) ? ((PXInteractiveObject *)(parent))->_touchEnabled : NO;
+			parentTouchEnabled = parent->_touchEnabled;
 
-			if (parent->_touchChildren) //|| !parentTouchEnabled )
+			// If the parent allows its chidren to recieve touch events
+			if (parent->_touchChildren)
 			{
+				// If the target can't recieve touch events, but the parent
+				// can, the parent becomes the current valid target, and we
+				// keep going up the chain
 				if (!touchEnabled && parentTouchEnabled)
 				{
 					possibleParentTarget = parent;
@@ -708,31 +742,43 @@ PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 					touchEnabled = parentTouchEnabled;
 				}
 
-				parent = (PXDisplayObjectContainer *)parent->_parent;
+				//parent = (PXDisplayObjectContainer *)parent->_parent;
+				parent = parent->_parent;
 
 				continue;
-			}
+			}// TODO Put an else here and combine two redundant parent = ... statements
 
+			// The target's parent doesn't allow touch events, which means
+			// the target cannot be asociated with that event at all, make the
+			// parent the new target
 			target = parent;
 			possibleParentTarget = nil;
 			onceHadTarget = NO;
+			// Update these value to reflect the new target
 			touchEnabled = parentTouchEnabled;
 			origTouchEnabled = parentTouchEnabled;
-			parent = (PXDisplayObjectContainer *)parent->_parent;
+			
+			//parent = (PXDisplayObjectContainer *)parent->_parent;
+			parent = parent->_parent;
 		}
 
-		//if (!onceHadTarget && possibleParentTarget)
+		// If along the traversal we found a target willing to accept the event
+		// but the parent should recieve it, give it to the parent
 		if (onceHadTarget && possibleParentTarget)
 		{
 			return possibleParentTarget;
 		}
 
+		// If there's no ancesstor of target stopping it from recieving the
+		// event, let target have it.
 		if (origTouchEnabled)
 		{
 			return target;
 		}
 	}
 
+	// TODO: John, check to see if this line can just return nil.
+	// Look through the code and try to proove it won't fail
 	return possibleParentTarget;
 }
 
@@ -1282,6 +1328,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 		PXGLAABB *aabb = PXGLGetCurrentAABB( );
 		// Byte count = 28
 
+		/*
 		if (useCustomHitArea)
 		{
 			CGRect aabbRect;
@@ -1294,12 +1341,13 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 
 			PXGLAABBMult(aabb);
 		}
-
+		 */
+		
 		// Is usable refers to if the display object even drew anything, which
 		// will change the AABB from max/min ints (the reset state) to what was
 		// drawn. IsAABBVisable is true when the aabb is within the current
 		// clipping rectangle.
-		if ((!PXGLAABBIsReset(aabb)) && PXGLIsAABBVisible(aabb) && canBeUsedForTouches)
+		if (canBeUsedForTouches && (useCustomHitArea || (!PXGLAABBIsReset(aabb) && PXGLIsAABBVisible(aabb))))
 		{
 			// List is to contain a display object pointer, and an aabb. We
 			// retain it here, as it is released when the list is emptied

@@ -11,13 +11,15 @@
 #import "PXTexture.h"
 #import "PXTextureData.h"
 #import "PXClipRect.h"
+#import "PXTexturePadding.h"
+
 #import "PXPoint.h"
 
 #import "PXExceptionUtils.h"
 
 @implementation PXAtlasFrame
 
-@synthesize textureData, clipRect, anchor;
+@synthesize textureData, clipRect, anchor, padding;
 
 - (id)init
 {
@@ -107,6 +109,12 @@
 	if(anchor)
 	{
 		[texture setAnchorWithX:anchor.x andY:anchor.y];
+	}
+	
+	if(padding)
+	{
+		// TODO: Do this more efficiently (with ushort array)
+		texture.padding = padding;
 	}
 }
 

@@ -80,6 +80,7 @@
 
 - (id) copyWithZone:(NSZone *)zone
 {
+	// TODO: Is this valid? does it return a TouchEvent???
 	PXTouchEvent *event = [super copyWithZone:zone];
 
 	event->_nativeTouch = _nativeTouch;
