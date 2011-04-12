@@ -109,6 +109,8 @@ PX_INLINE void PXParserRemoveBaseClass(Class baseClass);
 	PXDebugLog(@"[%@] %@\n", origin, message);
 }
 
+#pragma mark Overridable
+
 - (BOOL) _initialize
 {
 	return YES;

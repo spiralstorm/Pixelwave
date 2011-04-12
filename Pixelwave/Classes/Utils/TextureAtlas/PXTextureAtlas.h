@@ -45,6 +45,9 @@
 
 @class PXAtlasFrame;
 @class PXTexture;
+@class PXClipRect;
+@class PXTextureData;
+@protocol PXTextureModifier;
 
 //
 //                    +NMMMMMMMMMMN~       
@@ -100,8 +103,9 @@
 @property (nonatomic, readonly) NSArray *allNames;
 @property (nonatomic, readonly) NSArray *allFrames;
 
+- (id)initWithContentsOfFile:(NSString *)path;
+- (id)initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier;
 // TODO: Implement these:
-//- (id)initWithContentsOfFile:(NSString *)path;
 //- (id)initWithContentsOfURL:(NSURL *)url;
 //- (id)initWithData:(NSData *)data;
 

@@ -14,15 +14,16 @@
 	ushort width, height;
 	
 	BOOL invalidated;
-	BOOL _padding1, _padding2, _padding3;
+	BOOL _padding1;
 	
 @public
+	// Raw data
+	ushort _numVertices;
+	PXGLTextureVertex *_vertices;
+	
 	// The size of the frame within the texture atlas
 	ushort _contentWidth, _contentHeight;
 	float _contentRotation;
-	
-	ushort _numVertices;
-	PXGLTextureVertex *_vertices;
 }
 
 ////////////////
@@ -56,6 +57,12 @@
 - (id)initWithX:(ushort)x andY:(ushort)y
 	   andWidth:(ushort)width andHeight:(ushort)height
 	   rotation:(float)rotation;
+
+- (void)setX:(ushort)x
+		   Y:(ushort)y
+	   width:(ushort)width
+	  height:(ushort)height
+	rotation:(float)rotation;
 
 // Utility
 + (PXClipRect *)clipRectWithX:(ushort)x andY:(ushort)y andWidth:(ushort)width andHeight:(ushort)height;

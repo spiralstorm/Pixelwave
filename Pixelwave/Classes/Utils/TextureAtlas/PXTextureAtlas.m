@@ -13,6 +13,8 @@
 #import "PXTextureAtlas.h"
 #import "PXPoint.h"
 
+#import "PXTextureAtlasParser.h"
+
 @implementation PXTextureAtlas
 
 - (id) init
@@ -21,6 +23,32 @@
 	{
 		frames = [NSMutableDictionary new];
 	}
+	
+	return self;
+}
+
+// TODO: Handle @2x files
+- (id)initWithContentsOfFile:(NSString *)path
+{
+	return [self initWithContentsOfFile:path modifier:nil];
+}
+- (id)initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
+{
+	path = [[NSBundle mainBundle] pathForResource:path ofType:nil];
+	NSData *data = [NSData dataWithContentsOfFile:path];
+	
+	PXTextureAtlasParser *parser = [[PXTextureAtlasParser alloc] initWithData:data
+																	 modifier:modifier
+																	   origin:path];
+	
+	[self release];
+	
+	if(!parser)
+	{
+		return nil;
+	}
+	
+	self = [parser newTextureAtlas];
 	
 	return self;
 }

@@ -55,7 +55,7 @@
 - (void)validateVertices;
 @end
 
-void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort *padding, CGRect *retRect);
+void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *padding, CGRect *retRect);
 
 /**
  *	@ingroup Display
@@ -102,9 +102,6 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 		// normal PXGLEnable and PXGLEnableClient state every frame.
 		_PXGLStateEnable(&_glState, GL_TEXTURE_2D);
 		_PXGLStateEnableClientState(&_glState, GL_TEXTURE_COORD_ARRAY);
-		
-		// TODO: Only do this if padding is enabled
-		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
 		
 		contentWidth = 0;
 		contentHeight = 0;
@@ -432,20 +429,44 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 
 #pragma mark Padding
 
-- (void)setPadding:(PXTexturePadding *)val
+// For setting the padding efficiently
+- (void) _setPadding:(short *)val
 {
 	if(val)
 	{
-		padding[0] = val.top;
-		padding[1] = val.right;
-		padding[2] = val.bottom;
-		padding[3] = val.left;
-		
 		paddingEnabled = YES;
+		memcpy(padding, val, sizeof(padding));
+		
+		// Our hit area is different from our drawing area
+		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
 	}
 	else
 	{
 		paddingEnabled = NO;
+		
+		PX_DISABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
+	}
+}
+
+- (void) setPaddingWithTop:(short)top
+					 right:(short)right
+					bottom:(short)bottom
+					  left:(short)left
+{
+	short newPadding[] = {top, right, bottom, left};
+	[self _setPadding:newPadding];
+}
+
+- (void)setPadding:(PXTexturePadding *)val
+{
+	if(val)
+	{
+		short newPadding[] = {val.top, val.right, val.bottom, val.left};
+		[self _setPadding:newPadding];
+	}
+	else
+	{
+		[self _setPadding:0];
 	}
 
 }
@@ -460,20 +481,6 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 	texturePadding.left = padding[3];
 	
 	return [texturePadding autorelease];
-}
-
-// For setting the padding efficiently
-- (void) _setPadding:(ushort *)val
-{
-	if(val)
-	{
-		paddingEnabled = YES;
-		memcpy(padding, val, sizeof(padding));
-	}
-	else
-	{
-		paddingEnabled = NO;
-	}
 }
 
 #pragma mark -
@@ -706,7 +713,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 #pragma mark Utility
 
 // Utility
-void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort *padding, CGRect *retRect)
+void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *padding, CGRect *retRect)
 {
 	PXGLTextureVertex *vert;
 	float x, y;

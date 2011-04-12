@@ -34,6 +34,11 @@
 		   textureData:(PXTextureData *)textureData
 				anchor:(PXPoint *)anchor;
 
+- (id)initWithClipRect:(PXClipRect *)clipRect
+		   textureData:(PXTextureData *)textureData
+				anchor:(PXPoint *)anchor
+			   padding:(PXTexturePadding *)padding;
+
 // Functionality
 
 - (void)setToTexture:(PXTexture *)texture;
