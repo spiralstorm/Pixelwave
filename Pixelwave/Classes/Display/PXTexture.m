@@ -42,6 +42,7 @@
 
 #import "PXTexture.h"
 #import "PXClipRect.h"
+#import "PXTexturePadding.h"
 
 #include "PXEngine.h"
 #include "PXGL.h"
@@ -102,13 +103,14 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 		_PXGLStateEnable(&_glState, GL_TEXTURE_2D);
 		_PXGLStateEnableClientState(&_glState, GL_TEXTURE_COORD_ARRAY);
 		
+		// TODO: Only do this if padding is enabled
 		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
 		
 		contentWidth = 0;
 		contentHeight = 0;
 		contentRotation = 0.0f;
 		
-		contentPaddingEnabled = NO;
+		paddingEnabled = NO;
 		
 		anchorX = anchorY = 0.0f;
 		
@@ -245,16 +247,6 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 	contentHeight = clipRect->_contentHeight;
 	contentRotation = clipRect->_contentRotation;
 	
-	if(clipRect->_contentPadding)
-	{
-		contentPaddingEnabled = YES;
-		memcpy(contentPadding, clipRect->_contentPadding, sizeof(contentPadding));
-	}
-	else
-	{
-		contentPaddingEnabled = NO;
-	}
-	
 	// Set up my vertices array
 	if(numVerts != clipRect->_numVertices)
 	{
@@ -328,7 +320,6 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 											andWidth:contentWidth
 										   andHeight:contentHeight
 											rotation:contentRotation];
-	[rect setPadding:contentPadding];
 	
 	return [rect autorelease];
 }
@@ -439,6 +430,52 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 					andY:(y / (float)contentHeight)];
 }
 
+#pragma mark Padding
+
+- (void)setPadding:(PXTexturePadding *)val
+{
+	if(val)
+	{
+		padding[0] = val.top;
+		padding[1] = val.right;
+		padding[2] = val.bottom;
+		padding[3] = val.left;
+		
+		paddingEnabled = YES;
+	}
+	else
+	{
+		paddingEnabled = NO;
+	}
+
+}
+- (PXTexturePadding *)padding
+{
+	if(!paddingEnabled) return nil;
+	
+	PXTexturePadding *texturePadding = [PXTexturePadding new];
+	texturePadding.top = padding[0];
+	texturePadding.right = padding[1];
+	texturePadding.bottom = padding[2];
+	texturePadding.left = padding[3];
+	
+	return [texturePadding autorelease];
+}
+
+// For setting the padding efficiently
+- (void) _setPadding:(ushort *)val
+{
+	if(val)
+	{
+		paddingEnabled = YES;
+		memcpy(padding, val, sizeof(padding));
+	}
+	else
+	{
+		paddingEnabled = NO;
+	}
+}
+
 #pragma mark -
 #pragma mark Private methods
 #pragma mark -
@@ -456,7 +493,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 	// Calculate the aabb
 	
 	CGRect aabb;
-	PXTextureCalcAABB(verts, numVerts, (contentPaddingEnabled ? contentPadding : 0), &aabb);
+	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), &aabb);
 	
 	// Now shift all the vertices to align with the new anchor
 	
@@ -519,7 +556,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 	// Make sure the vertices are up to date
 	[self validateVertices];
 	
-	PXTextureCalcAABB(verts, numVerts, (contentPaddingEnabled ? contentPadding : 0), retBounds);
+	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), retBounds);
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
@@ -531,7 +568,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, ushort 
 	[self validateVertices];
 	
 	CGRect aabb;
-	PXTextureCalcAABB(verts, numVerts, (contentPaddingEnabled ? contentPadding : 0), &aabb);
+	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), &aabb);
 	
 	BOOL b = ((x >= aabb.origin.x) &&
 			  (x <= aabb.origin.x + aabb.size.width) &&

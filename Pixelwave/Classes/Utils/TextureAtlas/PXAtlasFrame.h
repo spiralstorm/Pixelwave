@@ -10,17 +10,20 @@
 @class PXTextureData;
 @class PXClipRect;
 @class PXPoint;
+@class PXTexturePadding;
 
 @interface PXAtlasFrame : NSObject {
 @private
 	PXTextureData *textureData;
 	PXPoint *anchor;
 	PXClipRect *clipRect;
+	PXTexturePadding *padding;
 }
 
 @property (nonatomic, retain) PXTextureData *textureData;
 @property (nonatomic, copy) PXClipRect *clipRect;
 @property (nonatomic, copy) PXPoint *anchor;
+@property (nonatomic, copy) PXTexturePadding *padding;
 
 // Initializers
 

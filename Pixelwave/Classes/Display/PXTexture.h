@@ -41,6 +41,7 @@
 
 @class PXTextureData;
 @class PXClipRect;
+@class PXTexturePadding;
 @protocol PXTextureModifier;
 
 @interface PXTexture : PXDisplayObject
@@ -53,19 +54,18 @@
 	ushort contentWidth;
 	ushort contentHeight;
 	float contentRotation;
-	ushort contentPadding[4];
 	
 	// Anchors, saved in percent values
 	float anchorX;
 	float anchorY;
 	
+	// Always positive, in clock-wise order {top, right, bottom, left}
+	ushort padding[4];
+	BOOL paddingEnabled;
+	
 	// Invalidation
 	BOOL anchorsInvalidated;
 	BOOL resetClipFlag;
-	
-	// This is positioned here for padding purposes, should be under
-	// contentPadding[4] above
-	BOOL contentPaddingEnabled;
 	
 	// GL data
 	unsigned char numVerts;
@@ -111,10 +111,7 @@
  */
 @property (nonatomic, assign) float anchorY;
 
-@property (nonatomic, readonly) ushort paddingTop;
-@property (nonatomic, readonly) ushort paddingRight;
-@property (nonatomic, readonly) ushort paddingBottom;
-@property (nonatomic, readonly) ushort paddingLeft;
+@property (nonatomic, copy) PXTexturePadding *padding;
 
 /**
  *	Determines whether pixel smoothing will be turned on when the texture is
@@ -165,13 +162,11 @@
 /////////////
 
 /*
-- (void) setPadding(ushort *)padding;
 - (void) setPaddingWithTop:(ushort)top
-andRight:(ushort)right
+				  andRight:(ushort)right
 */
 
 // TODO: Should we keep these, deprecate them, or get rid of them?
-
 //-- ScriptIgnore
 - (void) setClipRectWithX:(int)x
 					 andY:(int)y
@@ -216,4 +211,8 @@ andRight:(ushort)right
 //-- ScriptArg[1]: nil
 + (PXTexture *)textureWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier;
 
+@end
+
+@interface PXTexture(PrivateButPublic)
+- (void) _setPadding:(ushort *)padding;
 @end

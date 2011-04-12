@@ -20,8 +20,6 @@
 	// The size of the frame within the texture atlas
 	ushort _contentWidth, _contentHeight;
 	float _contentRotation;
-	// Always positive, in clock-wise order {top, right, bottom, left}
-	ushort *_contentPadding;
 	
 	ushort _numVertices;
 	PXGLTextureVertex *_vertices;
@@ -48,11 +46,6 @@
 @property (nonatomic) ushort width;
 @property (nonatomic) ushort height;
 
-@property (nonatomic, readonly) ushort paddingTop;
-@property (nonatomic, readonly) ushort paddingRight;
-@property (nonatomic, readonly) ushort paddingBottom;
-@property (nonatomic, readonly) ushort paddingLeft;
-
 /////////////
 // Methods //
 /////////////
@@ -63,18 +56,6 @@
 - (id)initWithX:(ushort)x andY:(ushort)y
 	   andWidth:(ushort)width andHeight:(ushort)height
 	   rotation:(float)rotation;
-
-- (id)initWithX:(ushort)x andY:(ushort)y
-	   andWidth:(ushort)width andHeight:(ushort)height
-	   rotation:(float)rotation
-		padding:(ushort *)padding;
-
-/**
- *	@param padding
- *		a C-array of unsigned shorts, 4 items long. Pass 0 to reset the padding
- *		
- */
-- (void)setPadding:(ushort *)padding;
 
 // Utility
 + (PXClipRect *)clipRectWithX:(ushort)x andY:(ushort)y andWidth:(ushort)width andHeight:(ushort)height;

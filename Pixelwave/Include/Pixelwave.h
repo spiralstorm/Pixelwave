@@ -89,6 +89,7 @@ extern "C" {
 #import "PXSimpleSprite.h"
 #import "PXTexture.h"
 #import "PXClipRect.h"
+#import "PXTexturePadding.h"
 #import "PXTextureData.h"
 #import "PXSimpleButton.h"
 	
