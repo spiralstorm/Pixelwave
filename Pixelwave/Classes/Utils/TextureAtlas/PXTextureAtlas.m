@@ -13,7 +13,16 @@
 #import "PXTextureAtlas.h"
 #import "PXPoint.h"
 
+#import "PXLoader.h"
+
 #import "PXTextureAtlasParser.h"
+
+@interface PXTextureAtlas(Private)
+- (id)initWithData:(NSData *)data
+	   scaleFactor:(float)scaleFactor
+		  modifier:(id<PXTextureModifier>)modifier
+			origin:(NSString *)origin;
+@end
 
 @implementation PXTextureAtlas
 
@@ -27,19 +36,66 @@
 	return self;
 }
 
-// TODO: Handle @2x files
+/////////////////////////
+// Loading initalizers //
+/////////////////////////
+
+// We've decided not to include initWithContentsOfURL because this method could
+// potentially take a long time, and it can't be performed on a background
+// thread since it's making GL textures. As such, the best solution for the
+// user is to load the URL into an NSData and pass it in like that.
+// ...Yes, we could make a PXTextureAtlasLoader, but I think that would be
+// overkill... I mean, why would you want to load a texture atlas directly from
+// a URL in a production app?
+
 - (id)initWithContentsOfFile:(NSString *)path
 {
 	return [self initWithContentsOfFile:path modifier:nil];
 }
+
 - (id)initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
-	path = [[NSBundle mainBundle] pathForResource:path ofType:nil];
+	// Convert to an absolute path
+	path = [PXLoader absolutePathFromPath:path];
+	
+	// Figure out if there's an @#x version of the file (Ex. Atlas@2x.json).
+	// If so, use its path and content scaling factor.
+	
+	float scaleFactor = 1.0f;
+	path = [PXLoader pathForRetinaVersionOfFile:path retScale:&scaleFactor];
+	
+	// Load the data from the HD
 	NSData *data = [NSData dataWithContentsOfFile:path];
 	
+	return [self initWithData:data
+				  scaleFactor:scaleFactor
+					 modifier:modifier
+					   origin:path];
+	
+}
+
+- (id)initWithData:(NSData *)data
+{
+	return [self initWithData:data modifier:nil];
+}
+- (id) initWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier
+{
+	return [self initWithData:data
+				  scaleFactor:1.0
+					 modifier:modifier
+					   origin:nil];
+}
+
+// Actual loading initializer
+- (id)initWithData:(NSData *)data
+	   scaleFactor:(float)scaleFactor
+		  modifier:(id<PXTextureModifier>)modifier
+			origin:(NSString *)origin
+{
 	PXTextureAtlasParser *parser = [[PXTextureAtlasParser alloc] initWithData:data
+														   contentScaleFactor:scaleFactor
 																	 modifier:modifier
-																	   origin:path];
+																	   origin:origin];
 	
 	[self release];
 	

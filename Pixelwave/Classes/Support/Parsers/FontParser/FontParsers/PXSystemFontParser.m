@@ -65,6 +65,10 @@
 
 	return (uiFont ? YES : NO);
 }
++ (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
+{
+	// Not used
+}
 
 - (BOOL) _parse
 {

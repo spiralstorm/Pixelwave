@@ -190,6 +190,9 @@
  *	[fontLoader release];
  *	@endcode
  */
+
+// TODO: Test this method. I have a feeling it won't work with .fnt files
+// since they always try to load their companion images from the hard-drive.
 - (id) initWithContentsOfURL:(NSURL *)url options:(PXFontOptions *)_options
 {
 	return [self initWithContentsOfFile:nil orURL:url options:_options];

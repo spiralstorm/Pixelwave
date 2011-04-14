@@ -13,7 +13,10 @@
 
 @implementation PXTextureAtlasParser
 
-- (id) initWithData:(NSData *)_data modifier:(id<PXTextureModifier>)_modifier origin:(NSString *)_origin
+- (id) initWithData:(NSData *)_data
+ contentScaleFactor:(float)_contentScaleFactor
+		   modifier:(id<PXTextureModifier>)_modifier
+			 origin:(NSString *)_origin
 {
 	if(self = [super init])
 	{
@@ -31,6 +34,7 @@
 		
 		// Make the new parser.
 		PXTextureAtlasParser *newParser = [[realClass alloc] _initWithData:_data
+														contentScaleFactor:_contentScaleFactor
 																  modifier:_modifier
 																	origin:_origin];
 		
@@ -47,20 +51,20 @@
 }
 
 - (id) _initWithData:(NSData *)_data
+  contentScaleFactor:(float)_contentScaleFactor
 			modifier:(id<PXTextureModifier>)_modifier
 			  origin:(NSString *)_origin
 {
 	// Set the data and origin
 	if (self = [super _initWithData:_data origin:_origin])
 	{
+		contentScaleFactor = _contentScaleFactor;
+		
 		if(![self _parseWithModifier:_modifier])
 		{
 			[self release];
 			return nil;
 		}
-		
-		// Set the modifier to the given one.
-		//self.modifier = _modifier;
 	}
 	
 	return self;

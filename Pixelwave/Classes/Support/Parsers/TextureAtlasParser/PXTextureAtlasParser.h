@@ -12,10 +12,14 @@
 @protocol PXTextureModifier;
 
 @interface PXTextureAtlasParser : PXParser {
-
+@protected
+	float contentScaleFactor;
 }
 
-- (id) initWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier origin:(NSString *)origin;
+- (id) initWithData:(NSData *)data
+ contentScaleFactor:(float)contentScaleFactor
+		   modifier:(id<PXTextureModifier>)modifier
+			 origin:(NSString *)origin;
 
 - (PXTextureAtlas *)newTextureAtlas;
 
@@ -24,6 +28,7 @@
 /// @cond DX_IGNORE
 @interface PXTextureAtlasParser (PrivateButPublic)
 - (id) _initWithData:(NSData *)data
+  contentScaleFactor:(float)contentScaleFactor
 			modifier:(id<PXTextureModifier>)modifier
 			  origin:(NSString *)origin;
 - (BOOL) _parseWithModifier:(id<PXTextureModifier>)modifier;

@@ -88,6 +88,17 @@
 {
 	return YES;
 }
++ (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
+{
+	[extensions addObject:@"ttf"];
+	[extensions addObject:@"otf"];
+	[extensions addObject:@"pfm"];
+	[extensions addObject:@"afm"];
+	[extensions addObject:@"inf"];
+	[extensions addObject:@"cff"];
+	[extensions addObject:@"bdf"];
+	[extensions addObject:@"pfr"];
+}
 
 - (FT_Error) openLibrary
 {

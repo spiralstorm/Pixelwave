@@ -94,6 +94,20 @@
 
 	return NO;
 }
++ (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
+{
+	[extensions addObject:@"png"];
+	[extensions addObject:@"jpg"];
+	[extensions addObject:@"jpeg"];
+	[extensions addObject:@"gif"];
+	[extensions addObject:@"tif"];
+	[extensions addObject:@"tiff"];
+	[extensions addObject:@"bmp"];
+	[extensions addObject:@"bmpf"];
+	[extensions addObject:@"ico"];
+	[extensions addObject:@"cur"];
+	[extensions addObject:@"xmb"];
+}
 
 // Pass 0 if you don't know the pixel format
 - (BOOL) processCGImage:(CGImageRef)image

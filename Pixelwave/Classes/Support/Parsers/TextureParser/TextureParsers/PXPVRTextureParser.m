@@ -119,6 +119,11 @@ typedef struct _PVRTexHeader
 
 	return YES;
 }
++ (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
+{
+	[extensions addObject:@"pvr"];
+	[extensions addObject:@"pvrtc"];
+}
 
 ////PVR///////////////////////////////////////////////////////////
 //Copied from PVRTexture sample
@@ -286,6 +291,7 @@ typedef struct _PVRTexHeader
 
 - (BOOL) _parse
 {
+	// TODO: Figure out a way to find this info out instead of just guessing
 	internalFormat = GL_COMPRESSED_RGBA_PVRTC_4BPPV1_IMG;
 
 	if (data != nil)

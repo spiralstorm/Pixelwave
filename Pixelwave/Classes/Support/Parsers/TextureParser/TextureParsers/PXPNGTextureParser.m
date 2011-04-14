@@ -459,6 +459,10 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 
 	return [PXPNGTextureParser isPNGFromHeader:header];
 }
++ (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
+{
+	[extensions addObject:@"png"];
+}
 
 @end
 

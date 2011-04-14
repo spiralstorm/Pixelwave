@@ -248,7 +248,14 @@
 
 		if (path)
 		{
-			[self _setOrigin:[self updatePath:path]];
+			path = [self updatePath:path];
+			if(!path)
+			{
+				[self release];
+				return nil;
+			}
+			
+			[self _setOrigin:path];
 		}
 
 		if (![self _load])
@@ -276,6 +283,16 @@
 	return self;
 }
 
+/**
+ *	Use this method to change the automatic contentScaleFactor adjustment
+ *	that happens when an image is loaded in. It is not advised to use this
+ *	method unless you know what you're doing.
+ */
+- (void)setContentScaleFactor:(float)val
+{
+	textureParser.contentScaleFactor = val;
+}
+
 - (void) dealloc
 {
 	// Release the parser
@@ -299,12 +316,24 @@
 }
 
 /*
- *	This method checks for a file with the @2x extension in it and returns
- *	its name if it finds it. Otherwise it returns the original path
+ *	Auto-completes the extension of the file if one wasn't provided.
+ *	This method also checks for a file with the @2x extension in it and returns
+ *	its name if it finds it. Otherwise it returns the original path.
+ *
  */
 - (NSString *)updatePath:(NSString *)path
 {
+	// If no file extension was provided, try to find one
+	if([[path pathExtension] length] == 0)
+	{		
+		path = [PXTextureLoader resolvePathForImageFile:path];
+	}
+	
+	if(!path) return nil;
+	
+	// Device scale factor
 	int screenScaleFactor = PXEngineGetMainScreenScale();
+	// View scale factor
 	float engineContentScaleFactor = PXEngineGetContentScaleFactor();
 
 	// If the screen scale factor is larger then 1, then we should check for
@@ -323,28 +352,13 @@
 
 		// If we find a file with this naming convetion, we need to use that
 		// file instead, however if we don't, then use the original.
-		BOOL changePath = NO;
-		if ([xPath isAbsolutePath])
-		{
-			NSFileManager *manager = [NSFileManager new];
-			if ([manager fileExistsAtPath:xPath])
-			{
-				changePath = YES;
-			}
-			[manager release];
-		}
-		else
-		{
-			if ([[NSBundle mainBundle] pathForResource:xPath ofType:nil])
-			{
-				changePath = YES;
-			}
-		}
-
-		// The file was found, so use it!
-		if (changePath)
+		if ([PXLoader fileExistsAtPath:xPath])
 		{
 			path = xPath;
+			// TODO: John, why is this set to the view's scaleFactor, and not the
+			// screen's?
+			//
+			// After solving this TODO, look into if the [PXLoader pathForRetinaVersionOfFile:...] can be used
 			contentScaleFactor = engineContentScaleFactor;
 		}
 	}
@@ -365,6 +379,27 @@
 }
 
 #pragma mark Utility Methods
+
+/**
+ *	Given an image name (with an extension or not), this method tries to find a valid
+ *	path for it. Returns nil if nothing was found.
+ */
++ (NSString *)resolvePathForImageFile:(NSString *)fileName
+{
+	if([[fileName pathExtension] length] > 0) return fileName;
+	
+	NSString *basePath = [fileName stringByDeletingLastPathComponent];
+	NSString *baseName = [[fileName lastPathComponent] stringByDeletingPathExtension];
+	
+	// Grab all the valid extensions (all lower case).
+	NSArray *extensions = [PXTextureParser supportedFileExtensions];
+	
+	return [PXLoader findFileAtPath:basePath withBaseName:baseName validExtensions:extensions];
+}
+
+//////////////////////
+// Creation methods //
+//////////////////////
 
 /**
  *	Creates a PXTextureLoader instance containing the loaded image data. Returns

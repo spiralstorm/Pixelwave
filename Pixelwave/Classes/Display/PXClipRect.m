@@ -119,7 +119,7 @@
 		_contentWidth = width;
 		_contentHeight = height;
 		
-		// Texture coordinates (in pixels)
+		// Texture coordinates (in points)
 		
 		// Top left
 		vert = &_vertices[0];

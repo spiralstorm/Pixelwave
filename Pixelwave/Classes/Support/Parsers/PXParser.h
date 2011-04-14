@@ -47,6 +47,7 @@
 @protocol PXParser<NSObject>
 @required
 + (BOOL) isApplicableForData:(NSData *)data origin:(NSString *)origin;
++ (void) appendSupportedFileExtensions:(PXLinkedList *)extensions;
 @end
 
 @interface PXParser : NSObject
@@ -79,6 +80,8 @@
 + (Class) parserForData:(NSData *)data
 				 origin:(NSString *)origin
 			  baseClass:(Class)baseClass;
+
++ (NSArray *)supportedFileExtensions;
 
 @end
 

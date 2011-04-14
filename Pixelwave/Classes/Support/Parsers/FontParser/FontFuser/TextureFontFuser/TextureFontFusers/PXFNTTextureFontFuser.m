@@ -397,7 +397,7 @@ PX_INLINE void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtracti
 															PXFNTTextureFontFuserHandleColumnPage);
 
 					// A page has information about a texture. Seeing as we are
-					// in the load step,a nd now the new step, we are only going
+					// in the load step,and now the new step, we are only going
 					// to make a loader (and not the texture data yet).
 					textureLoader = nil;
 					if (info->fileName)

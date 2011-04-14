@@ -103,11 +103,10 @@
 @property (nonatomic, readonly) NSArray *allNames;
 @property (nonatomic, readonly) NSArray *allFrames;
 
-- (id)initWithContentsOfFile:(NSString *)path;
-- (id)initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier;
-// TODO: Implement these:
-//- (id)initWithContentsOfURL:(NSURL *)url;
-//- (id)initWithData:(NSData *)data;
+- (id) initWithContentsOfFile:(NSString *)path;
+- (id) initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier;
+- (id) initWithData:(NSData *)data;
+- (id) initWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier;
 
 - (void) addFrame:(PXAtlasFrame *)frame withName:(NSString *)name;
 - (void) removeFrame:(NSString *)name;

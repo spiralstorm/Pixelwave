@@ -64,6 +64,11 @@
 {
 	return YES;
 }
++ (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
+{
+	[extensions addObject:@"mp3"];
+	[extensions addObject:@"m4a"];
+}
 
 - (BOOL) _parse
 {

@@ -120,6 +120,13 @@ PX_INLINE void PXParserRemoveBaseClass(Class baseClass);
 	return NO;
 }
 
++ (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
+{
+	// Each parser should implement their own version
+	[extensions addObject:[NSString stringWithFormat:@"NOT IMPLEMENTED FOR: %@", NSStringFromClass(self.class)]];
+}
+
+
 #pragma mark -
 #pragma mark Static Methods
 #pragma mark -
@@ -235,6 +242,44 @@ PX_INLINE void PXParserRemoveBaseClass(Class baseClass);
 
 	// No class for that data was found
 	return nil;
+}
+
+/**
+ *	A list of all the file types supported by this parser. Each extension
+ *	always is lower-case.
+ */
++ (NSArray *)supportedFileExtensions
+{
+	//PXLinkedList *ret = [[PXLinkedList alloc] init];
+	PXLinkedList *extensions = [[PXLinkedList alloc] init];
+	
+	// Get all the supported file extensions from the parsers
+	PXLinkedList *parsers = [PXParser parsersForBaseClass:self.class];
+	
+	NSMutableSet *set = [[NSMutableSet alloc] init];
+	
+	for(Class parserType in parsers)
+	{
+		// Check for redundant extensions
+		[extensions removeAllObjects];
+		[parserType appendSupportedFileExtensions:extensions];
+		for(NSString *ext in extensions)
+		{
+			ext = [ext lowercaseString];
+			
+			//if([ret containsObject:ext]) continue;
+			
+			//[ret addObject:ext];
+			[set addObject:ext];
+		}
+	}
+	
+	[extensions release];
+	
+	//[set allObjects
+	
+	//return [ret autorelease];
+	return [set allObjects];
 }
 
 @end

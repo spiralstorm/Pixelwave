@@ -39,6 +39,8 @@
 
 #import "PXLoader.h"
 
+#import "PXEngine.h"
+
 #import "PXDebug.h"
 
 /**
@@ -104,10 +106,15 @@
 			originType = PXLoaderOriginType_File;
 			[self _setOrigin:path];
 		}
-		else
+		else if(url)
 		{
 			originType = PXLoaderOriginType_URL;
 			[self _setOrigin:[url absoluteString]];
+		}
+		else
+		{
+			[self release];
+			return nil;
 		}
 	}
 
@@ -177,7 +184,7 @@
 	PXDebugLog(@"[%@] %@\n", origin, message);
 }
 
-// TODO: Remove these methods, they're not used
+// TODO: Remove these methods, they're not used.
 /*
 - (NSString *)_updatePath:(NSString *)path
 {
@@ -206,18 +213,132 @@
 {
 	NSString *absPath = nil;
 
-	// If the path is already absolute, just return it to them
 	if ([path isAbsolutePath])
 	{
+		// If the path is already absolute (location on the HD)
+		// just return it to them.
 		absPath = path;
 	}
 	else
 	{
-		// Find the absoulte path
+		// The user only provided a file name... the only place to check for
+		// the full path is the bundle
 		absPath = [[NSBundle mainBundle] pathForResource:path ofType:nil];
 	}
 
 	return absPath;
+}
+
++ (BOOL)fileExistsAtPath:(NSString *)path
+{
+	path = [self absolutePathFromPath:path];
+	
+	NSFileManager *manager = [NSFileManager new];
+	BOOL exists = [manager fileExistsAtPath:path];
+	[manager release];
+	
+	return exists;
+}
+
+/**
+ *	Looks for a sibling of the current file, with the given name.
+ */
++ (NSString *)pathForSiblingOfFile:(NSString *)path withName:(NSString *)fileName
+{
+	return [[path stringByDeletingLastPathComponent] stringByAppendingPathComponent:fileName];
+}
+
+/**
+ *	Looks for a sibling of the current file, with the same name but a different
+ *	extension.
+ */
++ (NSString *)pathForSiblingOfFile:(NSString *)path withExtension:(NSString *)extension;
+{
+	NSString *fileName = [[[path lastPathComponent] stringByDeletingPathExtension] stringByAppendingPathExtension:extension];
+	return [self pathForSiblingOfFile:path withName:fileName];
+}
+
++ (NSString *)pathForRetinaVersionOfFile:(NSString *)path retScale:(float *)outScale
+{
+	if(!path) return nil;
+	
+	float scaleFactor = 1.0f;
+	
+	// Device scale factor
+	int screenScaleFactor = PXEngineGetMainScreenScale();
+	
+	// If the screen scale factor is larger then 1, then we should check for
+	// alternate images.
+	if (screenScaleFactor > 1)
+	{
+		// Find the extension for the file, and the part before the extension so
+		// that we can add the @#x in front of it, where # is a variable that is
+		// the content scaling factor (in integer form), and the char 'x'. This
+		// is Apple's convention for file naming. The xPath is the combination
+		// of these strings.
+		NSString *extension = [path pathExtension];
+		NSString *preExtension = [path stringByDeletingPathExtension];
+		NSString *appendString = [NSString stringWithFormat:@"@%dx.", screenScaleFactor];
+		NSString *xPath = [[preExtension stringByAppendingString:appendString] stringByAppendingString:extension];
+		
+		// If we find a file with this naming convetion, we need to use that
+		// file instead, however if we don't, then use the original.
+		if ([PXLoader fileExistsAtPath:xPath])
+		{
+			path = xPath;
+			scaleFactor = screenScaleFactor;
+		}
+	}
+	
+	*outScale = scaleFactor;
+	return path;
+}
+
+/**
+ *	Tries to find a file at the given path with the given base name and one of
+ *	the provided extensions.
+ *	
+ *	@param basePath The directory in which the file is to be found
+ *	@param baseName The name of the file to be found not including its extension
+ *	@param extensions Valid extensions to match against the files in basePath
+ *
+ *	@return The path to the found file or nil if one couldn't be found.
+ */
++ (NSString *)findFileAtPath:(NSString *)basePath withBaseName:(NSString *)baseName validExtensions:(NSArray *)extensions
+{
+	if(![basePath isAbsolutePath])
+	{
+		basePath = [[NSBundle mainBundle] resourcePath];
+	}
+	
+	NSFileManager *fm = [[NSFileManager alloc] init];
+	NSArray *files = [fm contentsOfDirectoryAtPath:basePath error:nil];
+	[fm release];
+	
+	if(!files) return nil;
+	
+	// Looping variables
+	//NSString *path = nil;
+	NSString *fileName = nil;
+	NSString *ext = nil;
+	
+	for(fileName in files)
+	{
+		//fileName = [path lastPathComponent];
+		// See if the file names match
+		if([baseName isEqualToString:[fileName stringByDeletingPathExtension]])
+		{
+			// See if the extension matches
+			ext = [[fileName pathExtension] lowercaseString];
+			if([extensions containsObject:ext])
+			{
+				return [basePath stringByAppendingPathComponent:fileName];
+			}
+			
+		}
+	}
+	
+	return nil;
 }
 
 @end

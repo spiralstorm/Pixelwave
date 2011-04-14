@@ -445,6 +445,7 @@ float PXEngineGetOneOverContentScaleFactor()
 {
 	return PXGLGetOneOverContentScaleFactor();
 }
+/// The content scale factor of the device
 float PXEngineGetMainScreenScale()
 {
 	float screenScaleFactor = 1.0f;

@@ -430,6 +430,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 
 #pragma mark Padding
 
+// Private
 // For setting the padding efficiently
 - (void) setPaddingRaw:(short *)val
 {

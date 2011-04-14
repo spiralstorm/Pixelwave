@@ -8,13 +8,17 @@
 
 #import "PXGL.h"
 
+/**
+ *	Describes the clip area within a TextureData object. The coordinates are
+ *	in points as opposed to pixels.
+ */
 @interface PXClipRect : NSObject <NSCopying> {
 @private
 	ushort x, y;
 	ushort width, height;
 	
 	BOOL invalidated;
-	BOOL _padding1;
+	BOOL _padding1[2];
 	
 @public
 	// Raw data

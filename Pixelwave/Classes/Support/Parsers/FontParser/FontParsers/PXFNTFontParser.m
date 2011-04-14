@@ -92,6 +92,11 @@
 	return NO;
 }
 
++ (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
+{
+	[extensions addObject:@"fnt"];
+}
+
 - (Class) defaultFuser
 {
 	return PXFNTTextureFontFuser.class;
