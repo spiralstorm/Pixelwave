@@ -120,7 +120,8 @@
  *
  *	@param path
  *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle.
+ *		relative to	the application bundle. The path may also ommit the file
+ *		extension, and Pixelwave will try to find a valid image with that name.
  *
  *	@b Example:
  *	@code
@@ -147,7 +148,8 @@
  *
  *	@param path
  *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle.
+ *		relative to	the application bundle.The path may also ommit the file
+ *		extension, and Pixelwave will try to find a valid image with that name.
  *	@param modifier
  *		A modifier is used to modify the loaded bytes, a backup is kept so can
  *		set this to <code>nil</code> after getting a new sound, and still have
@@ -324,10 +326,7 @@
 - (NSString *)updatePath:(NSString *)path
 {
 	// If no file extension was provided, try to find one
-	if([[path pathExtension] length] == 0)
-	{		
-		path = [PXTextureLoader resolvePathForImageFile:path];
-	}
+	path = [PXTextureLoader resolvePathForImageFile:path];
 	
 	if(!path) return nil;
 	
@@ -381,19 +380,27 @@
 #pragma mark Utility Methods
 
 /**
- *	Given an image name (with an extension or not), this method tries to find a valid
- *	path for it. Returns nil if nothing was found.
+ *	Given an image name (with an extension or not), this method tries to find a
+ *	valid path for it. If it doesn't find an exact match to the fileName, it
+ *	tries to find siblings with the same name and a supported extension.
+ *	Returns nil if nothing was found.
  */
 + (NSString *)resolvePathForImageFile:(NSString *)fileName
 {
-	if([[fileName pathExtension] length] > 0) return fileName;
+	// If the provided file exists, no need to look further
+	if([PXLoader fileExistsAtPath:fileName]) return fileName;
 	
+	// Otherwise, try to see if there's a different sibling file with the
+	// same name but a different extension that we can read.
+	
+	// Grab the path components.
 	NSString *basePath = [fileName stringByDeletingLastPathComponent];
-	NSString *baseName = [[fileName lastPathComponent] stringByDeletingPathExtension];
+	NSString *baseName = [fileName lastPathComponent];
 	
 	// Grab all the valid extensions (all lower case).
 	NSArray *extensions = [PXTextureParser supportedFileExtensions];
 	
+	// Check away...
 	return [PXLoader findFileAtPath:basePath withBaseName:baseName validExtensions:extensions];
 }
 
@@ -408,7 +415,8 @@
  *
  *	@param path
  *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle.
+ *		relative to	the application bundle.The path may also ommit the file
+ *		extension, and Pixelwave will try to find a valid image with that name.
  *
  *	@return
  *		The resulting, <code>autoreleased</code>, PXTextureLoader object.
@@ -438,7 +446,8 @@
  *
  *	@param path
  *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle.
+ *		relative to	the application bundle.The path may also ommit the file
+ *		extension, and Pixelwave will try to find a valid image with that name.
  *	@param modifier
  *		A modifier is used to modify the loaded bytes, a backup is kept so can
  *		set this to <code>nil</code> after getting a new sound, and still have

@@ -78,6 +78,11 @@
 - (void)setContentScaleFactor:(float)contentScaleFactor;
 
 // TODO: Try to find a more accurate name for this method
+// something like resolvePathForPossiblyExtensionlessImage
+//
+// Also, refactor core functionallity into
+// resolvePathForPossiblyExtensionlessFile and use it instead.
+// This will make it easier to do the same thing with sounds/fonts/textureatlas
 + (NSString *)resolvePathForImageFile:(NSString *)fileName;
 
 //////////////////////////////
