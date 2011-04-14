@@ -120,7 +120,7 @@
  *
  *	@param path
  *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle. The path may also ommit the file
+ *		relative to	the application bundle. The path may also omit the file
  *		extension, and Pixelwave will try to find a valid image with that name.
  *
  *	@b Example:
@@ -148,7 +148,7 @@
  *
  *	@param path
  *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle.The path may also ommit the file
+ *		relative to	the application bundle. The path may also omit the file
  *		extension, and Pixelwave will try to find a valid image with that name.
  *	@param modifier
  *		A modifier is used to modify the loaded bytes, a backup is kept so can
@@ -415,7 +415,7 @@
  *
  *	@param path
  *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle.The path may also ommit the file
+ *		relative to	the application bundle. The path may also omit the file
  *		extension, and Pixelwave will try to find a valid image with that name.
  *
  *	@return
@@ -446,7 +446,7 @@
  *
  *	@param path
  *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle.The path may also ommit the file
+ *		relative to	the application bundle. The path may also omit the file
  *		extension, and Pixelwave will try to find a valid image with that name.
  *	@param modifier
  *		A modifier is used to modify the loaded bytes, a backup is kept so can
