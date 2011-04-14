@@ -406,7 +406,7 @@ void PXEngineUpdateViewSize()
 {
 	return;
 
-	// This does not work properly, it may not be needed.
+	// TODO: This does not work properly, it may not be needed.
 
 	//pxEngineViewSize = pxEngineView.bounds.size;
 
@@ -436,6 +436,7 @@ void PXEngineSetContentScaleFactor(float scale)
 {
 	PXGLSetViewSize(pxEngineViewSize.width, pxEngineViewSize.height, scale, true);
 }
+/// The content scale factor of the main view
 float PXEngineGetContentScaleFactor()
 {
 	return PXGLGetContentScaleFactor();

@@ -111,6 +111,8 @@
  */
 @implementation PXTextureLoader
 
+#pragma mark Utility Initializers
+
 /**
  *	Creates a new PXTextureLoader instance containing the loaded image data.
  *	Returns <code>nil</code> if the file could not be found, or the image format
@@ -233,6 +235,8 @@
 	return [self initWithContentsOfFile:nil orURL:url modifier:_modifier];
 }
 
+#pragma mark Designated Initializer
+
 - (id) initWithContentsOfFile:(NSString *)path
 						orURL:(NSURL *)url
 					modifier:(id<PXTextureModifier>)modifier
@@ -294,6 +298,10 @@
 	return textureParser.modifier;
 }
 
+/*
+ *	This method checks for a file with the @2x extension in it and returns
+ *	its name if it finds it. Otherwise it returns the original path
+ */
 - (NSString *)updatePath:(NSString *)path
 {
 	int screenScaleFactor = PXEngineGetMainScreenScale();
@@ -305,10 +313,9 @@
 	{
 		// Find the extension for the file, and the part before the extension so
 		// that we can add the @yx in front of it, where y is a variable that is
-		// the content scaling factor (in integer form), and x stands for the
-		// multiple value (it is a hard x, not a variable).  This is apples
-		// convention for file naming.  The xPath is the combination of these
-		// strings.
+		// the content scaling factor (in integer form), and the char 'x'. This
+		// is Apple's convention for file naming. The xPath is the combination
+		// of these strings.
 		NSString *extension = [path pathExtension];
 		NSString *preExtension = [path stringByDeletingPathExtension];
 		NSString *appendString = [NSString stringWithFormat:@"@%dx.", screenScaleFactor];
@@ -356,6 +363,8 @@
 {
 	return [textureParser newTextureData];
 }
+
+#pragma mark Utility Methods
 
 /**
  *	Creates a PXTextureLoader instance containing the loaded image data. Returns

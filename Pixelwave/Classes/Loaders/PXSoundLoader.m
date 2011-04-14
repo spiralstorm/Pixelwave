@@ -111,6 +111,8 @@
  */
 @implementation PXSoundLoader
 
+#pragma mark Utility init methods
+
 /**
  *	Creates a new PXSoundLoader object containing the loaded sound data.
  *	Returns <code>nil</code> if the file could not be found, or the file type
@@ -195,6 +197,8 @@
 	return [self initWithContentsOfFile:nil orURL:url modifier:_modifier];
 }
 
+#pragma mark Designated Initializer
+
 - (id) initWithContentsOfFile:(NSString *)path
 						orURL:(NSURL *)url
 					modifier:(id<PXSoundModifier>)modifier
@@ -253,6 +257,13 @@
 {
 	return [soundParser newSound];
 }
+
+#pragma mark Utility Methods
+#pragma mark -
+
+/////////////
+// Utility //
+/////////////
 
 /**
  *	Creates a PXSoundLoader object containing the loaded sound data. Returns

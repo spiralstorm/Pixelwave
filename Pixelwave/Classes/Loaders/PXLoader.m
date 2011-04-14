@@ -136,6 +136,9 @@
 #pragma mark -
 #pragma mark Protected Methods
 
+// This method loads the file stored in 'origin' into the 'data' variable.
+// If the file isn't found, or there's a different error, NO is returned.
+// YES is returned on success.
 - (BOOL) _load
 {
 	NSError *error = nil;
@@ -174,6 +177,8 @@
 	PXDebugLog(@"[%@] %@\n", origin, message);
 }
 
+// TODO: Remove these methods, they're not used
+/*
 - (NSString *)_updatePath:(NSString *)path
 {
 	return path;
@@ -182,6 +187,7 @@
 {
 	return url;
 }
+*/
 
 #pragma mark -
 #pragma mark Static Methods(Public)
