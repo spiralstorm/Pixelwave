@@ -18,7 +18,7 @@
 	ushort width, height;
 	
 	BOOL invalidated;
-	BOOL _padding1[2];
+	BOOL _PXClipRect_padding0;
 	
 @public
 	// Raw data

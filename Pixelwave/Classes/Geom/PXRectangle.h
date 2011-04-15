@@ -41,6 +41,7 @@
 
 @class PXPoint;
 
+// TODO: Change to PXRectangle...
 #define PXRectToCGRect(_rect_) CGRectMake ((_rect_).x, (_rect_).y, (_rect_).width, (_rect_).height)
 #define PXRectFromCGRect(_rect_) [PXRectangle rectangleWithX:(_rect_).origin.x andY:(_rect_).origin.y andWidth:(_rect_).size.width andHeight:(_rect_).size.height]
 
