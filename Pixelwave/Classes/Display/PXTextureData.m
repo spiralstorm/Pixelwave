@@ -735,16 +735,14 @@
 {
 	CGImageRef imageRef = PXCGUtilsCreateCGImageFromTextureData(self);
 	
-	// autorelease the CGImageRef
-	//
+	// Dark voodo magic...
+	[(id)imageRef autorelease];
+	
 	// "Any sufficiently advanced technology is indistinguishable from magic"
 	//		- Arthur C. Clarke
 	//
 	// Discussion about autoreleasing CGImageRef:
 	// http://www.cocoabuilder.com/archive/cocoa/215004-autorelease-cgimageref.html
-	
-	// Dark voodo magic...
-	[(id)imageRef autorelease];
 	
 	return imageRef;
 }

@@ -723,6 +723,8 @@
 
 #pragma mark Misc
 
+// Invoked by super when the view is about to be added/removed.
+// We use it to immediately render the display list.
 -(void) willMoveToSuperview:(UIView *)newSuperview
 {
 	// Do a quick render when being added to a window/superview. If it is nil,
@@ -737,11 +739,19 @@
 #pragma mark Utility
 
 /**
+ * A screen grab of the current state of the main display list, as a UIImage.
  *
+ * <b>Please note</b> that this is a fairly expensive method to execute, and
+ * shouldn't be used for real-time effects to avoid a performance hit.
+ *
+ * This method is generally intended for debugging purposes, but can be safely
+ * used in production.
  */
+
 // This is an expensive method
 - (UIImage *)screenshot
 {
+	// Render the current state of the display list
 	PXEngineRender();
 	
 	CGImageRef cgImage = PXCGUtilsCreateCGImageFromScreenBuffer();

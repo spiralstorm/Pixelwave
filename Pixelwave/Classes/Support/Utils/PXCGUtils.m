@@ -75,7 +75,8 @@ CGImageRef PXCGUtilsCreateCGImage(void *pixels, int w, int h, CGAffineTransform 
 		// http://stackoverflow.com/questions/2619224/cgbitmapcontextcreate-on-the-iphone-ipad
 		
 		// TODO: Figure out the new size of the image given the transformation
-		// matrix
+		// matrix. Right now the canvas will always be the size of the original
+		// image.
 		int contextWidth = w;
 		int contextHeight = h;
 		
