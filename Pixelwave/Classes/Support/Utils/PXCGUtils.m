@@ -31,7 +31,8 @@ void _PXCGUtils_releaseDataProvider(void *info,
  *
  * return a CGImageRef which the user should release.
  */
-// TODO Later: Support other pixel formats (RGB, LA88, A8, etc.)
+// TODO Later: Support other pixel formats (RGB, LA88, A8, etc.).
+// Can also support kCGImageAlphaPremultipliedLast in bitmapInfo
 // Right now RGBA8888 is hard-coded in.
 CGImageRef PXCGUtilsCreateCGImage(void *pixels, int w, int h, CGAffineTransform *transform)
 {
@@ -50,8 +51,7 @@ CGImageRef PXCGUtilsCreateCGImage(void *pixels, int w, int h, CGAffineTransform 
 	CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
 	
 	// Set up the properties of the image ref
-	// TODO: Handle the case where the source texture has premultiplied alpha (if it was loaded by cocoa)
-	CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Big | kCGImageAlphaLast;// kCGImageAlphaPremultipliedLast;
+	CGBitmapInfo bitmapInfo = kCGBitmapByteOrder32Big | kCGImageAlphaLast;
 	BOOL shouldInterpolate = NO;
 	CGColorRenderingIntent renderingIntent = kCGRenderingIntentDefault;
 	
