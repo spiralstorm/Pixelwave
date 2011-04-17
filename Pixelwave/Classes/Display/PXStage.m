@@ -202,8 +202,8 @@
 
 	//if (orient == orientation) return;
 
-	int viewWidth = PXEngineGetViewWidth();
-	int viewHeight = PXEngineGetViewHeight();
+	float viewWidth = PXEngineGetViewWidth();
+	float viewHeight = PXEngineGetViewHeight();
 
 	orientation = orient;
 

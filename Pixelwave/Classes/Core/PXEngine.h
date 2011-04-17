@@ -49,14 +49,17 @@
 
 @class PXObjectPool;
 
+// TODO: Organize all these methods into groups (with comment headers)
+
 void PXEngineInit( PXView *view );
 void PXEngineDealloc( );
 BOOL PXEngineIsInitialized( );
 
 PXView *PXEngineGetView( );
-unsigned PXEngineGetViewWidth( );
-unsigned PXEngineGetViewHeight( );
+float PXEngineGetViewWidth( );
+float PXEngineGetViewHeight( );
 void PXEngineUpdateViewSize();
+
 void PXEngineConvertPointToStageOrientation(float *x, float *y);
 
 PXStage *PXEngineGetStage( );
@@ -64,6 +67,7 @@ PXStage *PXEngineGetStage( );
 void PXEngineSetContentScaleFactor(float scale);
 float PXEngineGetContentScaleFactor();
 float PXEngineGetOneOverContentScaleFactor();
+// TODO: Rename this to something like deviceScaleFactor
 float PXEngineGetMainScreenScale();
 
 void PXEngineSetMultiTouchEnabled(BOOL enabled);
@@ -92,8 +96,13 @@ void PXEngineRemoveFrameListener( PXDisplayObject *displayObject );
 void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *source, PXGLMatrix *matrix, PXGLColorTransform *colorTransform, CGRect *clipRect, BOOL smoothing, BOOL clearTexture );
 
 PXObjectPool *PXEngineGetSharedObjectPool();
-//void *PXEngineGetTextureDataPixels(PXTextureData *textureData, CGRect clipRect);
-//void *PXEngineGetScreenPixels(int *retWidth, int *retHeight);
+
+CGSize PXEngineGetScreenBufferSize();
+void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pixels);
+
+/////////////
+// Touches //
+/////////////
 
 UITouch * PXEngineGetFirstTouch();
 PXLinkedList * PXEngineGetAllTouches();
@@ -104,10 +113,18 @@ void PXEngineInvokeTouchMoved( UITouch *touch, CGPoint *pos );
 void PXEngineInvokeTouchEnded( UITouch *touch, CGPoint *pos );
 void PXEngineInvokeTouchCanceled( UITouch *touch );
 
+///////////
+// Debug //
+///////////
+
 float _PXEngineDBGGetTimeBetweenFrames();
 float _PXEngineDBGGetTimeBetweenLogic();
 float _PXEngineDBGGetTimeBetweenRendering();
 float _PXEngineDBGGetTimeWaiting();
+
+///////////////
+// Main loop //
+///////////////
 
 // IN ORDER
 void PXEngineDispatchTouchEvents( );

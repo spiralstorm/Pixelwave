@@ -222,7 +222,21 @@
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: nil
 + (PXTextureData *)textureDataWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier;
+@end
 
+@interface PXTextureData (UIKit)
+- (id) initWithUIImage:(UIImage *)image;
+- (id) initWithUIImage:(UIImage *)image modifier:(id<PXTextureModifier>)modifier;
+
+- (id) initWithCGImage:(CGImageRef)cgImage
+		   scaleFactor:(float)scaleFactor
+		   orientation:(UIImageOrientation)cgImageOrientation
+			  modifier:(id<PXTextureModifier>)modifier;
+
+// TODO: Add utility creation methods
+
+- (UIImage *)UIImage;
+- (CGImageRef)CGImage;
 @end
 
 /// @cond DX_IGNORE
@@ -238,13 +252,6 @@
 								  format:(PXTextureDataPixelFormat)pixelFormat;
 @end
 /// @endcond
-
-@interface PXTextureData(UIKit)
-- (id) initWithUIImage:(UIImage *)image;
-- (id) initWithUIImage:(UIImage *)image modifier:(id<PXTextureModifier>)modifier;
-
-- (id) initWithCGImage:(CGImageRef)image orientation:(UIImageOrientation)imageOrientation modifier:(id<PXTextureModifier>)modifier;
-@end
 
 /**
  *	Populates a C array with the pixels of a PXTextureData within the specified

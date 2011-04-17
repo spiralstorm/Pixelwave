@@ -51,6 +51,7 @@
 
 #import "PXSettings.h"
 #import "PXExceptionUtils.h"
+#import "PXCGUtils.h"
 
 /// @cond DX_IGNORE
 @interface PXView(Private)
@@ -720,6 +721,8 @@
 	[self touchesCanceled:touches];
 }
 
+#pragma mark Misc
+
 -(void) willMoveToSuperview:(UIView *)newSuperview
 {
 	// Do a quick render when being added to a window/superview. If it is nil,
@@ -729,6 +732,26 @@
 	{
 		PXEngineRender();
 	}
+}
+
+#pragma mark Utility
+
+/**
+ *
+ */
+// This is an expensive method
+- (UIImage *)screenshot
+{
+	PXEngineRender();
+	
+	CGImageRef cgImage = PXCGUtilsCreateCGImageFromScreenBuffer();
+	
+	UIImage *image = [[UIImage alloc] initWithCGImage:cgImage
+												scale:PXEngineGetContentScaleFactor()
+										  orientation:UIImageOrientationUp];
+	CGImageRelease(cgImage);
+	
+	return [image autorelease];
 }
 
 @end

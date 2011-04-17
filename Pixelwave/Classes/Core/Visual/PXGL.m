@@ -130,8 +130,8 @@ GLubyte pxGLAlpha = 0xFF;
 /*
  *	This method initializes GL with the width and height given
  *
- *	@param unsigned int width The width of the screen.
- *	@param unsigned int height The height of the screen.
+ *	@param width The width of the screen.
+ *	@param height The height of the screen.
  */
 void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 {

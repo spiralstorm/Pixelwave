@@ -392,22 +392,23 @@ PXView *PXEngineGetView( )
 {
 	return pxEngineView;
 }
-unsigned PXEngineGetViewWidth( )
+float PXEngineGetViewWidth( )
 {
 	return pxEngineViewSize.width;
 }
 
-unsigned PXEngineGetViewHeight( )
+float PXEngineGetViewHeight( )
 {
 	return pxEngineViewSize.height;
 }
 
+// TODO: This does not work properly, it may not be needed.
 void PXEngineUpdateViewSize()
 {
 	return;
 
 	// TODO: This does not work properly, it may not be needed.
-
+	
 	//pxEngineViewSize = pxEngineView.bounds.size;
 
 	//float contentScaleFactor = pxEngineView.contentScaleFactor;
@@ -962,6 +963,10 @@ void PXEngineDispatchFrameEvents( )
 	[pxEngineCachedListeners removeAllObjects];
 }
 
+/**
+ *	The main rendering function. This renders the entire display list, starting
+ *	at the stage, to the screen.
+ */
 void PXEngineRender( )
 {
 	assert( pxEngineDOBuffer.array );
@@ -1628,7 +1633,14 @@ void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *sourc
 
 // Delared in: PXTextureData.h
 
-// x, y, width, height in PIXELS
+/**
+ * Reads the data from the texture and always returns it in RGBA8888 format.
+ * the length of the array must be '4 bytes * number of pixels'
+ * Specified coordinates are in PIXELS
+ */
+// TODO Later: Allow to return pixel data in other formats (RGB, LA88, A8, etc).
+// TODO: Look into if this could be done by switching the GLContext instead
+// of changing the view size...
 void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width, int height, void *pixels)
 {
 	if(!textureData) return;
@@ -1645,11 +1657,11 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 
 	float textureDataScaleFactor = textureData.contentScaleFactor;
 	float one_textureDataScaleFactor = 1.0f / textureDataScaleFactor;
+	
 	float widthInPoints = width * one_textureDataScaleFactor;
 	float heightInPoints = height * one_textureDataScaleFactor;
 	
 	// Update the view size to match the texture's
-	//PXGLSetViewSize(width, height, textureData.contentScaleFactor, false);
 	PXGLSetViewSize(widthInPoints, heightInPoints, textureDataScaleFactor, false);
 
 	// Read
@@ -1666,29 +1678,40 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineView->_framebuffer);
 }
 
-/*
-// Caller must free()
-void *PXEngineGetScreenPixels(int *retWidth, int *retHeight)
+/**
+ *	The size of the view in PIXELS
+ */
+CGSize PXEngineGetScreenBufferSize()
 {
-	int width = pxEngineViewSize.width;
-	int height = pxEngineViewSize.height;
+	float scaleFactor = PXEngineGetContentScaleFactor();
 	
-	GLubyte *pixelData = malloc(width * height * 4);
+	CGSize pixelSize = pxEngineViewSize;
+	pixelSize.width *= scaleFactor;
+	pixelSize.height *= scaleFactor;
 	
+	return pixelSize;
+}
+
+/**
+ *	@param w The width of the area to grab, in pixels
+ *	@param h The height of the area to grab, in pixels
+ *	@param pixels An array of size w * h * 4.
+ */
+void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pixels)
+{
+	/*
 	PXGLReadPixelsInverted(0, 0,
 						   width, height,
 						   pixelData);
+	 */
 	
 	// Bind the screen buffer back
-	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineView->_framebuffer);
-	
-	// Give the pixels to the caller
-	(*retWidth) = width;
-	(*retHeight) = height;
-	
-	return pixelData;
+	//PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineView->_framebuffer);
+	glReadPixels(x, y,
+				 width, height,
+				 GL_RGBA, GL_UNSIGNED_BYTE,
+				 pixels);	
 }
-*/
 
 #pragma mark Misc
 

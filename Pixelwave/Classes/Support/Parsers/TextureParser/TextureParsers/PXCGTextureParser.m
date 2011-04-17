@@ -489,15 +489,23 @@
 	return self;
 }
 
-- (id) _initWithCGImage:(CGImageRef)image
-			orientation:(UIImageOrientation)orientation
-			modifier:(id<PXTextureModifier>)_modifier
+/*
+ *	This is a special initializer that gets called directly
+ *	(by [PXTextureData initWithCGImage:] and doesn't get passed in by the super.
+ */
+- (id) initWithCGImage:(CGImageRef)image
+		   scaleFactor:(float)scaleFactor
+		   orientation:(UIImageOrientation)orientation
+			  modifier:(id<PXTextureModifier>)_modifier
 {
 	cgImage = image;
 	cgImageOrientation = orientation;
 	
 	// This will invoke [_parse]
-	self = [super _initWithData:nil modifier:_modifier origin:nil];
+	if(self = [super _initWithData:nil modifier:_modifier origin:nil])
+	{
+		contentScaleFactor = scaleFactor;
+	}
 	
 	return self;
 }

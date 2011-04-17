@@ -54,8 +54,9 @@
 	UIImageOrientation cgImageOrientation;
 }
 
-- (id) _initWithCGImage:(CGImageRef)image
-			orientation:(UIImageOrientation)orientation
-			   modifier:(id<PXTextureModifier>)_modifier;
+- (id) initWithCGImage:(CGImageRef)image
+		   scaleFactor:(float)scaleFactor
+		   orientation:(UIImageOrientation)orientation
+			  modifier:(id<PXTextureModifier>)_modifier;
 
 @end

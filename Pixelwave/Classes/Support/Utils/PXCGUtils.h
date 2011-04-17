@@ -7,4 +7,8 @@
 //
 
 #import <CoreGraphics/CoreGraphics.h>
+@class PXTextureData;
 
+CGImageRef PXCGUtilsCreateCGImage(void *pixels, int w, int h, CGAffineTransform *transform);
+CGImageRef PXCGUtilsCreateCGImageFromTextureData(PXTextureData *textureData);
+CGImageRef PXCGUtilsCreateCGImageFromScreenBuffer();

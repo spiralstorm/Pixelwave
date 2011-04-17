@@ -49,7 +49,6 @@
 #import "PXDebugUtils.h"
 
 #import "PXTextureParser.h"
-#import "PXCGTextureParser.h"
 
 /**
  *	Represents a texture in GPU memory. To draw the image represented by a
@@ -184,38 +183,6 @@
 		}
 	}
 
-	return self;
-}
-
-- (id) initWithUIImage:(UIImage *)image
-{
-	return [self initWithUIImage:image modifier:nil];
-}
-
-- (id) initWithUIImage:(UIImage *)image modifier:(id<PXTextureModifier>)modifier
-{
-	return [self initWithCGImage:[image CGImage] orientation:[image imageOrientation] modifier:modifier];
-}
-
-// This is a non-traditional init function. It doesn't just call a
-// [self init...] method. It also replaces self with a new object
-- (id) initWithCGImage:(CGImageRef)cgImage orientation:(UIImageOrientation)cgImageOrientation modifier:(id<PXTextureModifier>)modifier
-{
-	if(self = [super init])
-	{		
-		PXCGTextureParser *parser = [[PXCGTextureParser alloc] _initWithCGImage:cgImage orientation:cgImageOrientation modifier:modifier];
-		
-		PXTextureData *newTextureData = [parser newTextureData];
-		
-		[parser release];
-		
-		[self release];
-		
-		if(self = newTextureData)
-		{
-			// Add init code here if needed
-		}
-	}	
 	return self;
 }
 
@@ -701,6 +668,85 @@
 + (PXTextureData *)textureDataWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier
 {
 	return [[[PXTextureData alloc] initWithData:data modifier:modifier] autorelease];
+}
+
+@end
+
+#import <UIKit/UIKit.h>
+#import "PXCGUtils.h"
+#import "PXCGTextureParser.h"
+
+@implementation PXTextureData (UIKit)
+- (id) initWithUIImage:(UIImage *)image
+{
+	return [self initWithUIImage:image modifier:nil];
+}
+
+- (id) initWithUIImage:(UIImage *)image modifier:(id<PXTextureModifier>)modifier
+{
+	return [self initWithCGImage:[image CGImage]
+					 scaleFactor:[image scale]
+					 orientation:[image imageOrientation]
+						modifier:modifier];
+}
+
+// This is a non-traditional init function. It doesn't just call a
+// [self init...] method. It also replaces self with a new object
+- (id) initWithCGImage:(CGImageRef)cgImage
+		   scaleFactor:(float)scaleFactor
+		   orientation:(UIImageOrientation)cgImageOrientation
+			  modifier:(id<PXTextureModifier>)modifier
+{
+	if(self = [super init])
+	{
+		PXCGTextureParser *parser = [[PXCGTextureParser alloc] initWithCGImage:cgImage
+																   scaleFactor:(float)scaleFactor
+																   orientation:cgImageOrientation
+																	  modifier:modifier];
+		
+		PXTextureData *newTextureData = [parser newTextureData];
+		
+		[parser release];
+		
+		[self release];
+		
+		if(self = newTextureData)
+		{
+			// Add init code here if needed
+		}
+	}	
+	return self;
+}
+
+- (UIImage *)UIImage
+{
+	CGImageRef imageRef = PXCGUtilsCreateCGImageFromTextureData(self);
+	
+	// Texture datas are always oriented up.
+	UIImage *image = [UIImage imageWithCGImage:imageRef
+										 scale:self.contentScaleFactor
+								   orientation:UIImageOrientationUp];
+	CGImageRelease(imageRef);
+	
+	return image;
+}
+
+- (CGImageRef) CGImage
+{
+	CGImageRef imageRef = PXCGUtilsCreateCGImageFromTextureData(self);
+	
+	// autorelease the CGImageRef
+	//
+	// "Any sufficiently advanced technology is indistinguishable from magic"
+	//		- Arthur C. Clarke
+	//
+	// Discussion about autoreleasing CGImageRef:
+	// http://www.cocoabuilder.com/archive/cocoa/215004-autorelease-cgimageref.html
+	
+	// Dark voodo magic...
+	[(id)imageRef autorelease];
+	
+	return imageRef;
 }
 
 @end

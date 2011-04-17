@@ -440,7 +440,6 @@
 		52C63BFA11E505870010A572 /* pngrtran.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63BE711E505870010A572 /* pngrtran.c */; };
 		52C63BFB11E505870010A572 /* pngrutil.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63BE811E505870010A572 /* pngrutil.c */; };
 		52C63BFC11E505870010A572 /* pngset.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63BE911E505870010A572 /* pngset.c */; };
-		52C63BFD11E505870010A572 /* pngtest.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63BEA11E505870010A572 /* pngtest.c */; };
 		52C63BFE11E505870010A572 /* pngtrans.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63BEB11E505870010A572 /* pngtrans.c */; };
 		52C63BFF11E505870010A572 /* pngwio.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63BEC11E505870010A572 /* pngwio.c */; };
 		52C63C0011E505870010A572 /* pngwrite.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63BED11E505870010A572 /* pngwrite.c */; };
@@ -465,7 +464,6 @@
 		52C63C2F11E505BB0010A572 /* inflate.h in Headers */ = {isa = PBXBuildFile; fileRef = 52C63C1311E505BB0010A572 /* inflate.h */; };
 		52C63C3011E505BB0010A572 /* inftrees.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63C1411E505BB0010A572 /* inftrees.c */; };
 		52C63C3111E505BB0010A572 /* inftrees.h in Headers */ = {isa = PBXBuildFile; fileRef = 52C63C1511E505BB0010A572 /* inftrees.h */; };
-		52C63C3211E505BB0010A572 /* minigzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63C1611E505BB0010A572 /* minigzip.c */; };
 		52C63C3311E505BB0010A572 /* trees.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63C1711E505BB0010A572 /* trees.c */; };
 		52C63C3411E505BB0010A572 /* trees.h in Headers */ = {isa = PBXBuildFile; fileRef = 52C63C1811E505BB0010A572 /* trees.h */; };
 		52C63C3511E505BB0010A572 /* uncompr.c in Sources */ = {isa = PBXBuildFile; fileRef = 52C63C1911E505BB0010A572 /* uncompr.c */; };
@@ -953,7 +951,6 @@
 		52C63BE711E505870010A572 /* pngrtran.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngrtran.c; sourceTree = "<group>"; };
 		52C63BE811E505870010A572 /* pngrutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngrutil.c; sourceTree = "<group>"; };
 		52C63BE911E505870010A572 /* pngset.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngset.c; sourceTree = "<group>"; };
-		52C63BEA11E505870010A572 /* pngtest.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngtest.c; sourceTree = "<group>"; };
 		52C63BEB11E505870010A572 /* pngtrans.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngtrans.c; sourceTree = "<group>"; };
 		52C63BEC11E505870010A572 /* pngwio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngwio.c; sourceTree = "<group>"; };
 		52C63BED11E505870010A572 /* pngwrite.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngwrite.c; sourceTree = "<group>"; };
@@ -978,7 +975,6 @@
 		52C63C1311E505BB0010A572 /* inflate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inflate.h; sourceTree = "<group>"; };
 		52C63C1411E505BB0010A572 /* inftrees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inftrees.c; sourceTree = "<group>"; };
 		52C63C1511E505BB0010A572 /* inftrees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inftrees.h; sourceTree = "<group>"; };
-		52C63C1611E505BB0010A572 /* minigzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = minigzip.c; sourceTree = "<group>"; };
 		52C63C1711E505BB0010A572 /* trees.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = trees.c; sourceTree = "<group>"; };
 		52C63C1811E505BB0010A572 /* trees.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = trees.h; sourceTree = "<group>"; };
 		52C63C1911E505BB0010A572 /* uncompr.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = uncompr.c; sourceTree = "<group>"; };
@@ -1210,8 +1206,6 @@
 		1DAD10631057093000A5AC03 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				2D3783E9135A2AB600E223BD /* PXCGUtils.h */,
-				2D3783EA135A2AB600E223BD /* PXCGUtils.m */,
 				529CC94F12B9692D00A58B49 /* PXPrivateUtils.h */,
 				52B623B01333F1E40062EE3F /* PXArrayBuffer.h */,
 				5265D1221337D78B00F8D483 /* PXCLinkedList.h */,
@@ -1236,6 +1230,8 @@
 				52A97662131C083F00E20968 /* PXGLUtils.m */,
 				2D7CF76D132706EB00A0F035 /* PXDebugUtils.h */,
 				2D7CF76E132706EB00A0F035 /* PXDebugUtils.m */,
+				2D3783E9135A2AB600E223BD /* PXCGUtils.h */,
+				2D3783EA135A2AB600E223BD /* PXCGUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2036,7 +2032,6 @@
 				52C63C1311E505BB0010A572 /* inflate.h */,
 				52C63C1411E505BB0010A572 /* inftrees.c */,
 				52C63C1511E505BB0010A572 /* inftrees.h */,
-				52C63C1611E505BB0010A572 /* minigzip.c */,
 				52C63C1711E505BB0010A572 /* trees.c */,
 				52C63C1811E505BB0010A572 /* trees.h */,
 				52C63C1911E505BB0010A572 /* uncompr.c */,
@@ -2064,7 +2059,6 @@
 				52C63BE711E505870010A572 /* pngrtran.c */,
 				52C63BE811E505870010A572 /* pngrutil.c */,
 				52C63BE911E505870010A572 /* pngset.c */,
-				52C63BEA11E505870010A572 /* pngtest.c */,
 				52C63BEB11E505870010A572 /* pngtrans.c */,
 				52C63BEC11E505870010A572 /* pngwio.c */,
 				52C63BED11E505870010A572 /* pngwrite.c */,
@@ -2537,7 +2531,6 @@
 				52C63BFA11E505870010A572 /* pngrtran.c in Sources */,
 				52C63BFB11E505870010A572 /* pngrutil.c in Sources */,
 				52C63BFC11E505870010A572 /* pngset.c in Sources */,
-				52C63BFD11E505870010A572 /* pngtest.c in Sources */,
 				52C63BFE11E505870010A572 /* pngtrans.c in Sources */,
 				52C63BFF11E505870010A572 /* pngwio.c in Sources */,
 				52C63C0011E505870010A572 /* pngwrite.c in Sources */,
@@ -2555,7 +2548,6 @@
 				52C63C2B11E505BB0010A572 /* inffast.c in Sources */,
 				52C63C2E11E505BB0010A572 /* inflate.c in Sources */,
 				52C63C3011E505BB0010A572 /* inftrees.c in Sources */,
-				52C63C3211E505BB0010A572 /* minigzip.c in Sources */,
 				52C63C3311E505BB0010A572 /* trees.c in Sources */,
 				52C63C3511E505BB0010A572 /* uncompr.c in Sources */,
 				52C63C3811E505BB0010A572 /* zutil.c in Sources */,
@@ -2736,6 +2728,7 @@
 					"-DDARWIN_NO_CARBON",
 					"-DPIXELWAVE_DEBUG",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Pixelwave;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "ExternalFrameworks/FreeType/include//**";
@@ -2764,6 +2757,7 @@
 					"-DFT2_BUILD_LIBRARY",
 					"-DDARWIN_NO_CARBON",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Pixelwave;
 				SDKROOT = iphoneos;
 				USER_HEADER_SEARCH_PATHS = "ExternalFrameworks/FreeType/include//**";

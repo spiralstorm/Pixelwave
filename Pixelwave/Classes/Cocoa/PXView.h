@@ -123,6 +123,8 @@ typedef enum
 //-- ScriptName: setRoot
 - (void) setRoot:(PXDisplayObject *)root;
 
+- (UIImage *)screenshot;
+
 @end
 
 /// @cond DX_IGNORE
