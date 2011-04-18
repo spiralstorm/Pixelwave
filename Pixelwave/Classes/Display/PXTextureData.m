@@ -690,31 +690,32 @@
 						modifier:modifier];
 }
 
-// This is a non-traditional init function. It doesn't just call a
-// [self init...] method. It also replaces self with a new object
+// This is a non-traditional init function. It replaces self with a new object.
 - (id) initWithCGImage:(CGImageRef)cgImage
 		   scaleFactor:(float)scaleFactor
 		   orientation:(UIImageOrientation)cgImageOrientation
 			  modifier:(id<PXTextureModifier>)modifier
 {
-	if(self = [super init])
+	//if(self = [super init])
+	//{
+	
+	[self release];
+	self = nil;
+	
+	PXCGTextureParser *parser = [[PXCGTextureParser alloc] initWithCGImage:cgImage
+															   scaleFactor:(float)scaleFactor
+															   orientation:cgImageOrientation
+																  modifier:modifier];
+	
+	PXTextureData *newTextureData = [parser newTextureData];
+	
+	[parser release];
+	
+	if(self = newTextureData)
 	{
-		PXCGTextureParser *parser = [[PXCGTextureParser alloc] initWithCGImage:cgImage
-																   scaleFactor:(float)scaleFactor
-																   orientation:cgImageOrientation
-																	  modifier:modifier];
-		
-		PXTextureData *newTextureData = [parser newTextureData];
-		
-		[parser release];
-		
-		[self release];
-		
-		if(self = newTextureData)
-		{
-			// Add init code here if needed
-		}
-	}	
+		// Add init code here if needed
+	}
+	//}	
 	return self;
 }
 

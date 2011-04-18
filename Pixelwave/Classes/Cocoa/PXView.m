@@ -755,10 +755,31 @@
 	PXEngineRender();
 	
 	CGImageRef cgImage = PXCGUtilsCreateCGImageFromScreenBuffer();
+
+	// Figure out the orientation of the stage and use it to set the
+	// orientation of the UIImage.
+	PXStageOrientation stageOrientation = PXEngineGetStage().orientation;
+	
+	UIImageOrientation imageOrientation = UIImageOrientationUp;
+	
+	switch (stageOrientation) {
+		case PXStageOrientation_Portrait:
+			imageOrientation = UIImageOrientationUp;
+			break;
+		case PXStageOrientation_PortraitUpsideDown:
+			imageOrientation = UIImageOrientationDown;
+			break;
+		case PXStageOrientation_LandscapeRight:
+			imageOrientation = UIImageOrientationLeft;
+			break;
+		case PXStageOrientation_LandscapeLeft:
+			imageOrientation = UIImageOrientationRight;
+			break;
+	}
 	
 	UIImage *image = [[UIImage alloc] initWithCGImage:cgImage
 												scale:PXEngineGetContentScaleFactor()
-										  orientation:UIImageOrientationUp];
+										  orientation:imageOrientation];
 	CGImageRelease(cgImage);
 	
 	return [image autorelease];

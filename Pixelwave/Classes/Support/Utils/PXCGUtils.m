@@ -71,7 +71,8 @@ CGImageRef PXCGUtilsCreateCGImage(void *pixels, int w, int h, CGAffineTransform 
 		// Create a new context and draw the original image, transformed,
 		// onto it.
 		
-		// TODO: Test this on the device. If there issues see
+		// If there run-time issues with this, see:
+		// (Was tested on iPhone 4 and there shouldn't be issues)
 		// http://stackoverflow.com/questions/2619224/cgbitmapcontextcreate-on-the-iphone-ipad
 		
 		// TODO: Figure out the new size of the image given the transformation
