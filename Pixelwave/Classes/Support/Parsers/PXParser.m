@@ -258,16 +258,16 @@ PX_INLINE void PXParserRemoveBaseClass(Class baseClass);
 	
 	NSMutableSet *set = [[NSMutableSet alloc] init];
 	
-	for(Class parserType in parsers)
+	for (Class parserType in parsers)
 	{
 		// Check for redundant extensions
 		[extensions removeAllObjects];
 		[parserType appendSupportedFileExtensions:extensions];
-		for(NSString *ext in extensions)
+		for (NSString *ext in extensions)
 		{
 			ext = [ext lowercaseString];
 			
-			//if([ret containsObject:ext]) continue;
+			//if ([ret containsObject:ext]) continue;
 			
 			//[ret addObject:ext];
 			[set addObject:ext];

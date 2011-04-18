@@ -52,7 +52,7 @@
 				anchor:(PXPoint *)_anchor
 			   padding:(PXTexturePadding *)_padding
 {
-	if(self = [super init])
+	if (self = [super init])
 	{
 		textureData = nil;
 		clipRect = nil;
@@ -82,7 +82,7 @@
 
 - (void)setTextureData:(PXTextureData *)val
 {
-	if(val == nil)
+	if (val == nil)
 	{
 		PXThrowNilParam(textureData);
 		return;
@@ -96,7 +96,7 @@
 
 - (void)setClipRect:(PXClipRect *)val
 {
-	if(val == nil)
+	if (val == nil)
 	{
 		PXThrowNilParam(clipRect);
 		return;
@@ -119,12 +119,12 @@
 {
 	texture.textureData = textureData;
 	texture.clipRect = clipRect;
-	if(anchor)
+	if (anchor)
 	{
 		[texture setAnchorWithX:anchor.x andY:anchor.y];
 	}
 	
-	if(padding)
+	if (padding)
 	{
 		texture.padding = padding;
 	}

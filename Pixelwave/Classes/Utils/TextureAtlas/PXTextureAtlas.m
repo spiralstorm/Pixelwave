@@ -28,7 +28,7 @@
 
 - (id) init
 {
-	if(self = [super init])
+	if (self = [super init])
 	{
 		frames = [NSMutableDictionary new];
 	}
@@ -99,7 +99,7 @@
 	
 	[self release];
 	
-	if(!parser)
+	if (!parser)
 	{
 		return nil;
 	}
@@ -143,11 +143,11 @@
 	PXAtlasFrame *frame;
 	PXTextureData *td;
 	
-	while(frame = [e nextObject])
+	while (frame = [e nextObject])
 	{
 		td = frame.textureData;
 		
-		if(![arr containsObject:td])
+		if (![arr containsObject:td])
 		{
 			[arr addObject:td];
 		}
@@ -173,7 +173,8 @@
 - (void) removeFrame:(NSString *)name
 {
 	PXAtlasFrame *frame = (PXAtlasFrame *)[frames objectForKey:name];
-	if(!frame) return;
+	if (!frame)
+		return;
 	
 	[frames removeObjectForKey:name];
 }
@@ -230,7 +231,8 @@
 - (PXTexture *)textureForFrame:(NSString *)name
 {
 	PXAtlasFrame *frame = [self frameWithName:name];
-	if(!frame) return nil;
+	if (!frame)
+		return nil;
 	
 	PXTexture *texture = [PXTexture texture];
 	[frame setToTexture:texture];
@@ -241,7 +243,8 @@
 - (void) setFrame:(NSString *)name toTexture:(PXTexture *)texture
 {
 	PXAtlasFrame *frame = [self frameWithName:name];
-	if(!frame) return;
+	if (!frame)
+		return;
 	
 	[frame setToTexture:texture];
 }

@@ -43,6 +43,8 @@
 #import "PXSoundParser.h"
 #import "PXSoundModifier.h"
 
+id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
+
 /// @cond DX_IGNORE
 @interface PXSoundLoader(Private)
 - (id) initWithContentsOfFile:(NSString *)path
@@ -130,7 +132,7 @@
  */
 - (id) initWithContentsOfFile:(NSString *)path
 {
-	return [self initWithContentsOfFile:path orURL:nil modifier:nil];
+	return [self initWithContentsOfFile:path orURL:nil modifier:[PXSoundLoader defaultModifier]];
 }
 /**
  *	Creates a new PXSoundLoader object containing the loaded sound data.
@@ -172,7 +174,7 @@
  */
 - (id) initWithContentsOfURL:(NSURL *)url
 {
-	return [self initWithContentsOfFile:nil orURL:url modifier:nil];
+	return [self initWithContentsOfFile:nil orURL:url modifier:[PXSoundLoader defaultModifier]];
 }
 /**
  *	Creates a new PXSoundLoader object containing the loaded sound data.
@@ -256,6 +258,17 @@
 - (PXSound *)newSound
 {
 	return [soundParser newSound];
+}
+
++ (void) setDefaultModifier:(id<PXSoundModifier>)modifier
+{
+	id<PXSoundModifier> temp = [modifier retain];
+	[pxSoundLoaderDefaultModifier release];
+	pxSoundLoaderDefaultModifier = temp;
+}
++ (id<PXSoundModifier>) defaultModifier
+{
+	return pxSoundLoaderDefaultModifier;
 }
 
 #pragma mark Utility Methods

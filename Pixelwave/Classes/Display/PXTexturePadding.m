@@ -17,7 +17,7 @@
 		   bottom:(short)_bottom
 			 left:(short)_left
 {
-	if(self = [super init])
+	if (self = [super init])
 	{
 		top = _top;
 		right = _right;

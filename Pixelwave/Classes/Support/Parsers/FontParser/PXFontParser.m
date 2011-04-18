@@ -203,12 +203,12 @@
 			fuserType = [PXFontFuser fontFuserTypeForParser:self.class options:options.class];
 		}
 
-		if(fuserType)
+		if (fuserType)
 		{
 			fontFuser = [[fuserType alloc] initWithParser:self options:options];
 		}
 		
-		if(!fontFuser)
+		if (!fontFuser)
 		{
 			[self release];
 			return nil;

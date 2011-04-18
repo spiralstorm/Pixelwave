@@ -85,6 +85,10 @@
 // This will make it easier to do the same thing with sounds/fonts/textureatlas
 + (NSString *)resolvePathForImageFile:(NSString *)fileName;
 
+// THIS IS RETAINED
++ (void) setDefaultModifier:(id<PXTextureModifier>)modifier;
++ (id<PXTextureModifier>) defaultModifier;
+
 //////////////////////////////
 // Utility creation methods //
 //////////////////////////////

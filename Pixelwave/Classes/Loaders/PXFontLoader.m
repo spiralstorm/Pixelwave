@@ -228,6 +228,8 @@
 }
 - (void) setOptions:(PXFontOptions *)_options
 {
+	[_options retain];
+
 	// Release the parser, we have new options!
 	[fontParser release];
 	fontParser = nil;
@@ -236,6 +238,8 @@
 	fontParser = [[PXFontParser alloc] initWithData:data
 											options:_options
 											 origin:origin];
+
+	[_options release];
 }
 
 /**

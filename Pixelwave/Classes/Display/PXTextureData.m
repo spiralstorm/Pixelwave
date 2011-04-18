@@ -696,7 +696,7 @@
 		   orientation:(UIImageOrientation)cgImageOrientation
 			  modifier:(id<PXTextureModifier>)modifier
 {
-	//if(self = [super init])
+	//if (self = [super init])
 	//{
 	
 	[self release];
@@ -711,7 +711,7 @@
 	
 	[parser release];
 	
-	if(self = newTextureData)
+	if (self = newTextureData)
 	{
 		// Add init code here if needed
 	}

@@ -127,7 +127,7 @@
  */
 - (id) initWithPattern:(PXRegexPattern *)_pattern input:(NSString *)_input
 {
-	if(!_pattern)
+	if (!_pattern)
 	{
 		PXThrowNilParam(pattern);
 		[self release];
@@ -158,18 +158,21 @@
 
 - (void) setPattern:(PXRegexPattern *)_pattern
 {
-	if(_pattern == pattern) return;
-	
-	if(!_pattern)
+	if (_pattern == pattern)
+		return;
+
+	if (!_pattern)
 	{
 		PXThrowNilParam(pattern);
 		return;
 	}
-	
+
+	[_pattern retain];
 	// Release the last pattern, then retain the new one
 	[self disposePattern];
-	
+
 	pattern = [_pattern retain];
+	[_pattern release];
 	
 	// We have 0 matches, as we just changed patterns.
 	pMatchesCount = 0;

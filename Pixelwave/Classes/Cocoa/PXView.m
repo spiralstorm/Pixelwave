@@ -341,7 +341,7 @@
 	///////////////
 	
 	// Now the OpenGL is set up, we can change the dithering if needed
-	if(!surfaceDither)
+	if (!surfaceDither)
 	{
 		glDisable(GL_DITHER);
 	}

@@ -73,6 +73,10 @@
 #import "PXSystemTextureFontFuser.h"
 #import "PXFNTTextureFontFuser.h"
 
+// Loaders with default modifiers
+#import "PXTextureLoader.h"
+#import "PXSoundLoader.h"
+
 double pxTopLevelStartTime;
 
 #pragma mark Implemetations
@@ -112,6 +116,9 @@ void _PXTopLevelDealloc()
 {
 	[PXParser unregisterAllParsers];
 	[PXFontFuser unregisterAllFontFusers];
+
+	[PXTextureLoader setDefaultModifier:nil];
+	[PXSoundLoader setDefaultModifier:nil];
 }
 
 double PXGetTimerSec( )

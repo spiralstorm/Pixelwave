@@ -70,6 +70,9 @@
 //-- ScriptName: newSound
 - (PXSound *)newSound;
 
++ (void) setDefaultModifier:(id<PXSoundModifier>)modifier;
++ (id<PXSoundModifier>) defaultModifier;
+
 //-- ScriptIgnore
 + (PXSoundLoader *)soundLoaderWithContentsOfFile:(NSString *)path;
 //-- ScriptName: makeWithContentsOfFile

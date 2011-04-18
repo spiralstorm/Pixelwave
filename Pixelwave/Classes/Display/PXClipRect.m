@@ -24,7 +24,7 @@
 	   andWidth:(ushort)_width andHeight:(ushort)_height
 	   rotation:(float)_rotation
 {
-	if(self = [super init])
+	if (self = [super init])
 	{
 		x = _x;
 		y = _y;
@@ -44,7 +44,7 @@
 
 - (void)dealloc
 {
-	if(_vertices)
+	if (_vertices)
 	{
 		free(_vertices);
 		_vertices = 0;
@@ -107,7 +107,8 @@
  */
 - (void)_validate
 {
-	if(!invalidated) return;
+	if (!invalidated)
+		return;
 
 	PXGLTextureVertex *vert;
 	
@@ -148,9 +149,9 @@
 		int i;
 
 		// Simple case: no rotation
-		if(PXMathIsZero(_contentRotation))
+		if (PXMathIsZero(_contentRotation))
 		{
-			for(i = 0, vert = &_vertices[0]; i < _numVertices; ++i, ++vert)
+			for (i = 0, vert = &_vertices[0]; i < _numVertices; ++i, ++vert)
 			{
 				vert->x = vert->s;
 				vert->y = vert->t;
@@ -173,7 +174,7 @@
 			
 			float origX, origY;
 			
-			for(i = 0, vert = &_vertices[0]; i < _numVertices; ++i, ++vert)
+			for (i = 0, vert = &_vertices[0]; i < _numVertices; ++i, ++vert)
 			{
 				origX = vert->s;
 				origY = vert->t;

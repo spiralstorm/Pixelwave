@@ -78,7 +78,7 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 
 - (BOOL) initializeFuser
 {
-	if(![super initializeFuser])
+	if (![super initializeFuser])
 	{
 		return NO;
 	}

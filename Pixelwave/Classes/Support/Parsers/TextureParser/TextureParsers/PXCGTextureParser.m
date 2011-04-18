@@ -502,7 +502,7 @@
 	cgImageOrientation = orientation;
 	
 	// This will invoke [_parse]
-	if(self = [super _initWithData:nil modifier:_modifier origin:nil])
+	if (self = [super _initWithData:nil modifier:_modifier origin:nil])
 	{
 		contentScaleFactor = scaleFactor;
 	}

@@ -144,9 +144,10 @@ PX_INLINE int PXFontOptionsCharacterComparer(const void *element1, const void *e
 
 - (void) setCharacters:(NSString *)_characters
 {
+	[_characters retain];
 	[characters release];
-
 	characters = [self newStringByRemovingDuplicatesFromString:_characters];
+	[_characters release];
 }
 
 #pragma mark -

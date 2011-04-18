@@ -45,6 +45,8 @@
 #import "PXTextureData.h"
 #import "PXTextureParser.h"
 
+id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
+
 /// @cond DX_IGNORE
 @interface PXTextureLoader(Private)
 - (id) initWithContentsOfFile:(NSString *)path
@@ -139,7 +141,7 @@
  */
 - (id) initWithContentsOfFile:(NSString *)path
 {
-	return [self initWithContentsOfFile:path orURL:nil modifier:nil];
+	return [self initWithContentsOfFile:path orURL:nil modifier:[PXTextureLoader defaultModifier]];
 }
 /**
  *	Creates a new PXTextureLoader instance containing the loaded image data.
@@ -201,7 +203,7 @@
  */
 - (id) initWithContentsOfURL:(NSURL *)url
 {
-	return [self initWithContentsOfFile:nil orURL:url modifier:nil];
+	return [self initWithContentsOfFile:nil orURL:url modifier:[PXTextureLoader defaultModifier]];
 }
 /**
  *	Creates a new PXTextureLoader instance containing the loaded image data.
@@ -251,7 +253,7 @@
 		if (path)
 		{
 			path = [self updatePath:path];
-			if(!path)
+			if (!path)
 			{
 				[self release];
 				return nil;
@@ -328,7 +330,8 @@
 	// If no file extension was provided, try to find one
 	path = [PXTextureLoader resolvePathForImageFile:path];
 	
-	if(!path) return nil;
+	if (!path)
+		return nil;
 	
 	// Device scale factor
 	int screenScaleFactor = PXEngineGetMainScreenScale();
@@ -388,7 +391,7 @@
 + (NSString *)resolvePathForImageFile:(NSString *)fileName
 {
 	// If the provided file exists, no need to look further
-	if([PXLoader fileExistsAtPath:fileName]) return fileName;
+	if ([PXLoader fileExistsAtPath:fileName]) return fileName;
 	
 	// Otherwise, try to see if there's a different sibling file with the
 	// same name but a different extension that we can read.
@@ -402,6 +405,17 @@
 	
 	// Check away...
 	return [PXLoader findFileAtPath:basePath withBaseName:baseName validExtensions:extensions];
+}
+
++ (void) setDefaultModifier:(id<PXTextureModifier>)modifier
+{
+	id<PXTextureModifier> temp = [modifier retain];
+	[pxTextureLoaderDefaultModifier release];
+	pxTextureLoaderDefaultModifier = temp;
+}
++ (id<PXTextureModifier>) defaultModifier
+{
+	return pxTextureLoaderDefaultModifier;
 }
 
 //////////////////////

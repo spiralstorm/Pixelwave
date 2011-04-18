@@ -70,7 +70,7 @@
 
 - (BOOL) initializeFuser
 {
-	if(![super initializeFuser])
+	if (![super initializeFuser])
 	{
 		return NO;
 	}

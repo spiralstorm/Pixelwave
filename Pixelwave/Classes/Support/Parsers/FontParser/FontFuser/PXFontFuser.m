@@ -102,7 +102,7 @@ PX_INLINE Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
 		parser = _parser;
 		options = _options;
 
-		if(![self initializeFuser])
+		if (![self initializeFuser])
 		{
 			[self release];
 			return nil;

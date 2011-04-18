@@ -1510,7 +1510,7 @@ void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *sourc
 	BOOL bAlterViewport = NO;
 
 	// Clip rect is in POINTS
-	if(clipRect)
+	if (clipRect)
 	{
 		bShouldClip = YES;
 	}
@@ -1643,7 +1643,8 @@ void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *sourc
 // of changing the view size...
 void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width, int height, void *pixels)
 {
-	if(!textureData) return;
+	if (!textureData)
+		return;
 	
 	// Change the state
 
@@ -2026,7 +2027,7 @@ float _PXEngineDBGGetTimeWaiting()
 		animationTimer = nil;
 	}
 
-	if(!pxEngineIsRunning)
+	if (!pxEngineIsRunning)
 	{
 		return;
 	}

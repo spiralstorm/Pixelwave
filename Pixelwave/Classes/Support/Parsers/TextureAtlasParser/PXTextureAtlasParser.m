@@ -18,7 +18,7 @@
 		   modifier:(id<PXTextureModifier>)_modifier
 			 origin:(NSString *)_origin
 {
-	if(self = [super init])
+	if (self = [super init])
 	{
 		// Find the real type of parser to use.
 		Class realClass = [PXParser parserForData:_data
@@ -60,7 +60,7 @@
 	{
 		contentScaleFactor = _contentScaleFactor;
 		
-		if(![self _parseWithModifier:_modifier])
+		if (![self _parseWithModifier:_modifier])
 		{
 			[self release];
 			return nil;

@@ -66,7 +66,8 @@ CGImageRef PXCGUtilsCreateCGImage(void *pixels, int w, int h, CGAffineTransform 
 	CGDataProviderRelease(provider);
 	
 	// If we need to transform the image (such as when taking a screenshot)
-	if(transform != NULL){
+	if (transform != NULL)
+	{
 		// Summary:
 		// Create a new context and draw the original image, transformed,
 		// onto it.
@@ -94,7 +95,7 @@ CGImageRef PXCGUtilsCreateCGImage(void *pixels, int w, int h, CGAffineTransform 
 													 colorSpace,
 													 kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Big);
 		
-		if(context)
+		if (context)
 		{
 			CGRect fillRect = CGRectMake(0, 0, contextWidth, contextHeight);
 			
@@ -139,10 +140,10 @@ CGImageRef PXCGUtilsCreateCGImageFromTextureData(PXTextureData *textureData)
 	PXTextureDataPixelFormat pixelFormat = textureData.pixelFormat;
 	
 	// Evidently PVR can't be converted to RGBA8888 reliably...
-	if(pixelFormat == PXTextureDataPixelFormat_RGB_PVRTC2 ||
-	   pixelFormat == PXTextureDataPixelFormat_RGB_PVRTC4 ||
-	   pixelFormat == PXTextureDataPixelFormat_RGBA_PVRTC2 ||
-	   pixelFormat == PXTextureDataPixelFormat_RGBA_PVRTC4)
+	if (pixelFormat == PXTextureDataPixelFormat_RGB_PVRTC2 ||
+		pixelFormat == PXTextureDataPixelFormat_RGB_PVRTC4 ||
+		pixelFormat == PXTextureDataPixelFormat_RGBA_PVRTC2 ||
+		pixelFormat == PXTextureDataPixelFormat_RGBA_PVRTC4)
 	{
 		NSLog(@"Warning: PXTextureData in compressed PVR pixel format cannot be converted to a CGImage");
 		return nil;

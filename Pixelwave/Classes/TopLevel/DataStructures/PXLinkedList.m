@@ -102,7 +102,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *	@code
  * PXLinkedList *list = ...
  *
- * for(NSObject *item in list){
+ * for (NSObject *item in list)
+ * {
  *	NSLog("Item = %@", item);
  * }
  *	@endcode
@@ -141,7 +142,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  * NSObject *item = nil;
  *
- * for(int i = 0; i < list.count; ++i){
+ * for(int i = 0; i < list.count; ++i)
+ * {
  *	item = [list objectAtIndex:i];
  *	NSLog("Item %i = %@", i, item);
  * }

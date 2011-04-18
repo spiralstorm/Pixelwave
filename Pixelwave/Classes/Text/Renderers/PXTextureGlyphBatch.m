@@ -82,7 +82,8 @@
 {
 	PXTextureGlyphBatch *textureFontInfo = [[[self class] allocWithZone:zone] initWithVertexCount:_vertexCount];
 
-	if(!textureFontInfo) return nil;
+	if (!textureFontInfo)
+		return nil;
 	
 	if (_vertices && textureFontInfo->_vertices)
 	{

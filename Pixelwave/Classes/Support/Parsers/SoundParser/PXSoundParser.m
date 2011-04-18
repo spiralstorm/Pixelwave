@@ -187,6 +187,8 @@
 
 - (void) setModifier:(id <PXSoundModifier>)_modifier
 {
+	[_modifier retain];
+
 	// See if we are modifiable.
 	BOOL isModifiable = self.isModifiable;
 
@@ -202,6 +204,9 @@
 		modifier = [_modifier retain];
 		modifiedSoundInfo = [modifier newModifiedSoundDataFromData:soundInfo];
 	}
+
+	// Free the extra retain.
+	[_modifier release];
 }
 
 - (BOOL) isModifiable

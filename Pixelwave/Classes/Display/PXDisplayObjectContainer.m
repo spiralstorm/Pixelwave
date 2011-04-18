@@ -856,7 +856,7 @@
 		return;
 	}
 	
-	if(index < 0 || index >= _numChildren)
+	if (index < 0 || index >= _numChildren)
 	{
 		PXThrowIndexOutOfBounds;
 		return;
@@ -873,7 +873,7 @@
 	// First remove the child from the list, but without dispatching events
 	_impRemoveChild(self, nil, child, NO);
 	
-	if(index == _numChildren)
+	if (index == _numChildren)
 	{
 		// An optimization: Add it back at the end of the list
 		_impAddChildBefore(self, nil, child, nil, NO);

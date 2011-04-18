@@ -126,7 +126,7 @@ PX_INLINE void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtracti
 
 - (BOOL) initializeFuser
 {
-	if(![super initializeFuser])
+	if (![super initializeFuser])
 	{
 		return NO;
 	}

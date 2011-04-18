@@ -106,7 +106,7 @@
 			originType = PXLoaderOriginType_File;
 			[self _setOrigin:path];
 		}
-		else if(url)
+		else if (url)
 		{
 			originType = PXLoaderOriginType_URL;
 			[self _setOrigin:[url absoluteString]];
@@ -260,7 +260,8 @@
 
 + (NSString *)pathForRetinaVersionOfFile:(NSString *)path retScale:(float *)outScale
 {
-	if(!path) return nil;
+	if (!path)
+		return nil;
 	
 	float scaleFactor = 1.0f;
 	
@@ -306,7 +307,7 @@
  */
 + (NSString *)findFileAtPath:(NSString *)basePath withBaseName:(NSString *)baseName validExtensions:(NSArray *)extensions
 {
-	if(![basePath isAbsolutePath])
+	if (![basePath isAbsolutePath])
 	{
 		basePath = [[NSBundle mainBundle] resourcePath];
 	}
@@ -315,22 +316,23 @@
 	NSArray *files = [fm contentsOfDirectoryAtPath:basePath error:nil];
 	[fm release];
 	
-	if(!files) return nil;
+	if (!files)
+		return nil;
 	
 	// Looping variables
 	//NSString *path = nil;
 	NSString *fileName = nil;
 	NSString *ext = nil;
 	
-	for(fileName in files)
+	for (fileName in files)
 	{
 		//fileName = [path lastPathComponent];
 		// See if the file names match
-		if([baseName isEqualToString:[fileName stringByDeletingPathExtension]])
+		if ([baseName isEqualToString:[fileName stringByDeletingPathExtension]])
 		{
 			// See if the extension matches
 			ext = [[fileName pathExtension] lowercaseString];
-			if([extensions containsObject:ext])
+			if ([extensions containsObject:ext])
 			{
 				return [basePath stringByAppendingPathComponent:fileName];
 			}
