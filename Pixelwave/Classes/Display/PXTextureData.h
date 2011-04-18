@@ -233,10 +233,16 @@
 		   orientation:(UIImageOrientation)cgImageOrientation
 			  modifier:(id<PXTextureModifier>)modifier;
 
-// TODO: Add utility creation methods
-
 - (UIImage *)UIImage;
 - (CGImageRef)CGImage;
+
++ (PXTextureData *)textureDataWithUIImage:(UIImage *)image;
++ (PXTextureData *)textureDataWithUIImage:(UIImage *)image
+								 modifier:(id<PXTextureModifier>)modifier;
++ (PXTextureData *)textureDataWithCGImage:(CGImageRef)cgImage
+							  scaleFactor:(float)scaleFactor
+							  orientation:(UIImageOrientation)orientation
+								 modifier:(id<PXTextureModifier>)modifier;
 @end
 
 /// @cond DX_IGNORE

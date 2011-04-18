@@ -121,17 +121,12 @@ OSStatus PXALSoundLoaderFileSetSize(void *inClientData,
 
 	return NO;
 }
-// TODO: Make sure the extensions are divided correctly between this parser
-// and the AV one.
 + (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
-{
-	[extensions addObject:@"alac"];
-	[extensions addObject:@"acc"];
-	[extensions addObject:@"aiff"];
+{	
+	//Uncompressed:
 	[extensions addObject:@"aif"];
-	[extensions addObject:@"aifc"];
+	[extensions addObject:@"aiff"];
 	[extensions addObject:@"wav"];
-	[extensions addObject:@"caf"];
 }
 
 - (PXSound *)newSound

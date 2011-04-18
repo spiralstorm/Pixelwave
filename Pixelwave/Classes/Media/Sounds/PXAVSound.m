@@ -69,14 +69,10 @@
 {
 	[super playWithStartTime:startTime loopCount:loops soundTransform:soundTransform];
 
-	//AVAudioPlayer *player = [PXAVSoundLoader newPlayerFromData:data];
-
 	PXAVSoundChannel *channel = [[PXAVSoundChannel alloc] _initWithData:data
 															  startTime:startTime
 															  loopCount:loops
 														 soundTransform:soundTransform];
-
-	//[player release];
 
 	PXSoundEngineAddSound (channel);
 	[channel release];

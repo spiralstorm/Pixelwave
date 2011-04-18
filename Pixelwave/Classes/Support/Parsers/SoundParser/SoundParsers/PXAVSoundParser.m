@@ -66,8 +66,20 @@
 }
 + (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
 {
+	// Compressed:
 	[extensions addObject:@"mp3"];
 	[extensions addObject:@"m4a"];
+	[extensions addObject:@"alac"];
+	[extensions addObject:@"aifc"];
+	[extensions addObject:@"acc"];
+	
+	// Uncompressed:
+	[extensions addObject:@"caf"];
+	
+	[extensions addObject:@"aif"];
+	[extensions addObject:@"aiff"];
+	
+	[extensions addObject:@"wav"];
 }
 
 - (BOOL) _parse

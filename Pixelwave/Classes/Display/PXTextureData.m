@@ -748,4 +748,30 @@
 	return imageRef;
 }
 
+///////////////
+
++ (PXTextureData *)textureDataWithUIImage:(UIImage *)image
+{
+	return [[[PXTextureData alloc] initWithUIImage:image] autorelease];
+}
+
++ (PXTextureData *)textureDataWithUIImage:(UIImage *)image
+								 modifier:(id<PXTextureModifier>)modifier
+{
+	return [[[PXTextureData alloc] initWithUIImage:image
+										  modifier:modifier] autorelease];
+}
+
++ (PXTextureData *)textureDataWithCGImage:(CGImageRef)cgImage
+							  scaleFactor:(float)scaleFactor
+							  orientation:(UIImageOrientation)orientation
+								 modifier:(id<PXTextureModifier>)modifier
+{
+	return [[[PXTextureData alloc] initWithCGImage:cgImage
+									   scaleFactor:scaleFactor
+									   orientation:orientation
+										  modifier:modifier] autorelease];
+}
+
+
 @end
