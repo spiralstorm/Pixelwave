@@ -109,7 +109,8 @@ static unsigned _pxDisplayObjectCount = 0;
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		userData = NULL;
 

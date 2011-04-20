@@ -71,7 +71,8 @@
 			loopCount:(int)_loops
 	   soundTransform:(PXSoundTransform *)_soundTransform
 {
-	if (self = [super _initWithStartTime:_startTime loopCount:_loops soundTransform:_soundTransform])
+	self = [super _initWithStartTime:_startTime loopCount:_loops soundTransform:_soundTransform];
+	if (self)
 	{
 		sound = [_sound retain];
 		isDone = YES;

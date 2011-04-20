@@ -52,9 +52,6 @@
 	GLuint smoothingType;
 	
 	BOOL enableColors;
-@private
-	BOOL PXTextureFontRendererPadding1;
-	short PXTextureFontRendererPadding2;
 /// @endcond
 }
 

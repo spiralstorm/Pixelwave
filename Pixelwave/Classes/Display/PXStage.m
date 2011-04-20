@@ -92,7 +92,8 @@
 		return nil;
 	}
 
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		// Ha ha, laugh it up...
 		_touchChildren = YES;

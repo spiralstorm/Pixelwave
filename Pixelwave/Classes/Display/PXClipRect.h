@@ -12,19 +12,20 @@
  *	Describes the clip area within a TextureData object. The coordinates are
  *	in points as opposed to pixels.
  */
-@interface PXClipRect : NSObject <NSCopying> {
+@interface PXClipRect : NSObject <NSCopying>
+{
 @private
-	ushort x, y;
-	ushort width, height;
-	
+	ushort x;
+	ushort y;
+	ushort width;
+	ushort height;
+
 	BOOL invalidated;
-	BOOL _PXClipRect_padding0;
-	
 @public
 	// Raw data
 	ushort _numVertices;
 	PXGLTextureVertex *_vertices;
-	
+
 	// The size of the frame within the texture atlas
 	ushort _contentWidth, _contentHeight;
 	float _contentRotation;

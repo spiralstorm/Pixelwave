@@ -53,7 +53,8 @@
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_isInteractive);
 		//_isInteractive = YES;

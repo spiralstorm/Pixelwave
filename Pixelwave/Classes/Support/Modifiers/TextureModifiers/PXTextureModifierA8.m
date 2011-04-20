@@ -248,15 +248,17 @@
 		unsigned char *readBytes = (unsigned char *)(oldTextureInfo->bytes);
 		unsigned char *curReadByte = readBytes;
 		
-		unsigned char lim;
+	//	unsigned char lim;
 		unsigned char alpha;
 
 		for (index = 0, curWritePixel = writePixels;
 			 index < pixelCount;
 			 ++index, ++curWritePixel)
 		{
-			lim = (*curReadByte); ++curReadByte;
-			alpha = (*curReadByte); ++curReadByte;
+		//	lim = (*curReadByte);
+			++curReadByte;
+			alpha = (*curReadByte);
+			++curReadByte;
 			
 			// Lets turn it into rrrrrgggggbbbbba, by shifting we are putting the
 			// bits into the proper position

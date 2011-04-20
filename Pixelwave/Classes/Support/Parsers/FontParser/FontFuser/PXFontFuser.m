@@ -97,7 +97,8 @@ PX_INLINE Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
 
 - (id) initWithParser:(PXFontParser *)_parser options:(PXFontOptions *)_options
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		parser = _parser;
 		options = _options;

@@ -51,7 +51,8 @@
 
 - (id) initWithVertexCount:(unsigned)val
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		_vertices = NULL;
 		_vertexCount = 0;

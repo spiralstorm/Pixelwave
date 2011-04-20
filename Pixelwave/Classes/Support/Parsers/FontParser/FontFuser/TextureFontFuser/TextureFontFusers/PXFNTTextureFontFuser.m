@@ -313,6 +313,8 @@ PX_INLINE void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtracti
 	// there is nothing we can do.
 	if (!info)
 	{
+		[fileString release];
+		fileString = nil;
 		return NO;
 	}
 

@@ -63,7 +63,8 @@
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 	}
 
@@ -99,7 +100,8 @@
 
 - (id) _initWithContentsOfFile:(NSString *)path orURL:(NSURL *)url
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		if (path)
 		{

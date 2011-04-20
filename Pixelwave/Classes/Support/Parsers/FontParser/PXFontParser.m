@@ -141,7 +141,8 @@
  */
 - (id) initWithData:(NSData *)_data options:(PXFontOptions *)_options origin:(NSString *)_origin
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		// Find the real type of parser to use.
 		Class realClass = [PXParser parserForData:_data
@@ -164,9 +165,10 @@
 		[self release];
 
 		// Become the real parser, and allocate any data we need
-		if (self = newParser)
-		{
-		}
+		self = newParser;
+	//	if (self)
+	//	{
+	//	}
 	}
 
 	return self;
@@ -177,7 +179,8 @@
 			  origin:(NSString *)_origin
 {
 	// Set the data and origin
-	if (self = [super _initWithData:_data origin:_origin])
+	self = [super _initWithData:_data origin:_origin];
+	if (self)
 	{
 		// Copy the options, as we can not assume that they will not change on
 		// the users side.

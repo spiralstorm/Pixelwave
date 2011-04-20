@@ -73,8 +73,9 @@
 	  characterSets:(unsigned)characterSets
   specialCharacters:(NSString *)specialCharacters
 {
-	if (self = [super initWithCharacterSets:characterSets
-						  specialCharacters:specialCharacters])
+	self = [super initWithCharacterSets:characterSets
+					  specialCharacters:specialCharacters];
+	if (self)
 	{
 		size = _size;
 

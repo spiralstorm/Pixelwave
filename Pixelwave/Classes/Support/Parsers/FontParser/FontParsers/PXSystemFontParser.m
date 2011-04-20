@@ -47,7 +47,8 @@
 			 options:(PXFontOptions *)_options
 			  origin:(NSString *)_origin
 {
-	if (self = [super _initWithData:_data options:_options origin:_origin])
+	self = [super _initWithData:_data options:_options origin:_origin];
+	if (self)
 	{
 	}
 

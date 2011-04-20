@@ -117,7 +117,8 @@
 		   modifier:(id<PXTextureModifier>)_modifier
 			 origin:(NSString *)_origin
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		// Find the real type of parser to use.
 		Class realClass = [PXParser parserForData:_data
@@ -140,9 +141,10 @@
 		[self release];
 
 		// Become the real parser, and allocate any data we need
-		if (self = newParser)
-		{
-		}
+		self = newParser;
+	//	if ()
+	//	{
+	//	}
 	}
 	
 	return self;
@@ -153,7 +155,8 @@
 			  origin:(NSString *)_origin
 {
 	// Set the data and origin
-	if (self = [super _initWithData:_data origin:_origin])
+	self = [super _initWithData:_data origin:_origin];
+	if (self)
 	{
 		// Make the texture info (it's bytes and other)
 		textureInfo = PXParsedTextureDataCreate(0);
@@ -198,6 +201,7 @@
 
 - (void) setModifier:(id <PXTextureModifier>)_modifier
 {
+	[_modifier retain];
 	// See if we are modifiable.
 	BOOL isModifiable = self.isModifiable;
 
@@ -213,6 +217,7 @@
 		modifier = [_modifier retain];
 		modifiedTextureInfo = [modifier newModifiedTextureDataFromData:textureInfo];
 	}
+	[_modifier release];
 }
 
 - (BOOL) isModifiable

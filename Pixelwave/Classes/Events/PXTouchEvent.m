@@ -61,7 +61,8 @@
 			 stageY:(float)stageY
 		   tapCount:(unsigned)tapCount
 {
-	if (self = [super initWithType:type doesBubble:YES isCancelable:NO])
+	self = [super initWithType:type doesBubble:YES isCancelable:NO];
+	if (self)
 	{
 		_nativeTouch = [touch retain];
 		_stageX = stageX;

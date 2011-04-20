@@ -157,8 +157,8 @@ PX_INLINE int PXRectanglePackerComparer(const void *element1, const void *elemen
 	// The bounding area for the rectangle.
 	unsigned short xMin = padding;
 	unsigned short yMin = padding;
-	unsigned short xMax = xMin;
-	unsigned short yMax = yMin;
+	unsigned short xMax;
+	unsigned short yMax;
 
 	// The height of the current row
 	unsigned short rowHeight = rectangle->rect->size.height;

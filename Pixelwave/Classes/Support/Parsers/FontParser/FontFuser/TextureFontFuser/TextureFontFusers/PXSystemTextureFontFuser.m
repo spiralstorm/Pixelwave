@@ -240,7 +240,23 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
     if (iFont == NULL || iString == NULL)
 	{
 		PXDebugLog (@"PXSystemFontLoader Error - Core text could not load for font %@\n", systemFontName);
-		
+
+		if (cgFont)
+		{
+			CGFontRelease(cgFont);
+			cgFont = nil;
+		}
+		if (iFont)
+		{
+			CFRelease(iFont);
+			iFont = nil;
+		}
+		if (fontDescriptor)
+		{
+			CFRelease(fontDescriptor);
+			fontDescriptor = nil;
+		}
+
 		return NO;
 	}
 
@@ -341,18 +357,20 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 		((PXGlyphBitmapDef *)curGlyphDef->bitmapGlyph)->bitmapWidth  = glyphWidth;
 		((PXGlyphBitmapDef *)curGlyphDef->bitmapGlyph)->bitmapHeight = glyphHeight;
 
+		CGColorSpaceRef gray = CGColorSpaceCreateDeviceGray();
 		context = CGBitmapContextCreate(((PXGlyphBitmapDef *)curGlyphDef->bitmapGlyph)->bitmap,
 										glyphWidth,
 										glyphHeight,
 										8,
 										glyphHeight,
-										CGColorSpaceCreateDeviceGray(),
+										gray,
 										kCGImageAlphaNone);
 
 		CGContextSetFont(context, cgFont);
 		CGContextSetFontSize(context, _fontSize);
 		CGContextSetGrayFillColor(context, 1.0, 1.0);
 
+		CGColorSpaceRelease(gray);
 		CGContextShowGlyphsAtPoint(context, -curRect->origin.x, (glyphHeight) - curRect->origin.y - curRect->size.height, glyph, 1);
 
 		CGContextRelease(context);
@@ -401,7 +419,7 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 	// know the proper size to make it the texture to copy the bitmaps into.
 	void *bitmap;
 	unsigned short bitmapWidth;
-	unsigned short bitmapHeight;
+//	unsigned short bitmapHeight;
 
 	[textureData release];
 	textureData = [[PXTextureData alloc] _initWithoutGLName];
@@ -428,7 +446,7 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 			{
 				glyphPixels  = ((PXGlyphBitmapDef *)curGlyphDef->bitmapGlyph)->bitmap;
 				bitmapWidth  = ((PXGlyphBitmapDef *)curGlyphDef->bitmapGlyph)->bitmapWidth;
-				bitmapHeight = ((PXGlyphBitmapDef *)curGlyphDef->bitmapGlyph)->bitmapHeight;
+			//	bitmapHeight = ((PXGlyphBitmapDef *)curGlyphDef->bitmapGlyph)->bitmapHeight; not used
 
 				texturePixelLocationToDrawGlyph = textureInfo->bytes +
 										(glyphPixelOriginX + (glyphPixelOriginY * nTexWidth));

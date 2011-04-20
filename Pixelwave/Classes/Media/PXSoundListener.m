@@ -87,8 +87,6 @@
 PXMathLine3D pxSoundListenerOrientation;
 
 BOOL pxSoundListenerInitialized = NO;
-BOOL pxSoundListenerPadding1;
-short pxSoundListenerPadding2;
 
 - (id) init
 {
@@ -100,7 +98,8 @@ short pxSoundListenerPadding2;
 		return nil;
 	}
 
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		pxSoundListenerInitialized = YES;
 		pxSoundListenerOrientation = PXMathLine3DMake(0.0f, 0.0f, -1.0f,

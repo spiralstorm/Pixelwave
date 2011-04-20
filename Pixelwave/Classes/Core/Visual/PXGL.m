@@ -1436,19 +1436,19 @@ void PXGLDrawElements( GLenum mode, GLsizei count, GLenum type, const GLvoid *id
 	// Byte count = 36
 
 	const void const *startVertex = pxGLVertexPointer.pointer;
-	const GLfloat *vertices = startVertex;
+	const GLfloat *vertices;
 	// Byte count = 44
 
 	const void const *startTex = pxGLTexCoordPointer.pointer;
-	const GLfloat *texCoords = startTex;
+	const GLfloat *texCoords;
 	// Byte count = 52
 
 	const void const *startColor = pxGLColorPointer.pointer;
-	const GLubyte *colors = startColor;
+	const GLubyte *colors;
 	// Byte count = 60
 
 	const void const *startPointSizes = pxGLPointSizePointer.pointer;
-	const GLfloat *pointSizes = startPointSizes;
+	const GLfloat *pointSizes;
 	// Byte count = 68
 
 	GLuint eVal = 0; // HAS TO BE SHORT OR LARGER

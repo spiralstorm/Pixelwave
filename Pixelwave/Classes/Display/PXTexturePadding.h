@@ -6,7 +6,8 @@
 //  Copyright 2011 Spiralstorm Games. All rights reserved.
 //
 
-@interface PXTexturePadding : NSObject <NSCopying> {
+@interface PXTexturePadding : NSObject <NSCopying>
+{
 @private
 	short top, right, bottom, left;
 }

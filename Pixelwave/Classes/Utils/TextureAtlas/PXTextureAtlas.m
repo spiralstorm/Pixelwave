@@ -28,7 +28,8 @@
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		frames = [NSMutableDictionary new];
 	}
@@ -48,12 +49,12 @@
 // overkill... I mean, why would you want to load a texture atlas directly from
 // a URL in a production app?
 
-- (id)initWithContentsOfFile:(NSString *)path
+- (id) initWithContentsOfFile:(NSString *)path
 {
 	return [self initWithContentsOfFile:path modifier:nil];
 }
 
-- (id)initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
+- (id) initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
 	// Convert to an absolute path
 	path = [PXLoader absolutePathFromPath:path];
@@ -74,7 +75,7 @@
 	
 }
 
-- (id)initWithData:(NSData *)data
+- (id) initWithData:(NSData *)data
 {
 	return [self initWithData:data modifier:nil];
 }
@@ -87,31 +88,33 @@
 }
 
 // Actual loading initializer
-- (id)initWithData:(NSData *)data
-	   scaleFactor:(float)scaleFactor
-		  modifier:(id<PXTextureModifier>)modifier
-			origin:(NSString *)origin
+- (id) initWithData:(NSData *)data
+	    scaleFactor:(float)scaleFactor
+	 	   modifier:(id<PXTextureModifier>)modifier
+			 origin:(NSString *)origin
 {
 	PXTextureAtlasParser *parser = [[PXTextureAtlasParser alloc] initWithData:data
 														   contentScaleFactor:scaleFactor
 																	 modifier:modifier
 																	   origin:origin];
-	
+
 	[self release];
-	
+
 	if (!parser)
 	{
 		return nil;
 	}
-	
+
 	self = [parser newTextureAtlas];
-	
+	[parser release]; // TODO: Oz, I added this line, look over it?
+
 	return self;
 }
 
 - (void) dealloc
 {
-	[frames release]; frames = nil;
+	[frames release];
+	frames = nil;
 	
 	[super dealloc];
 }

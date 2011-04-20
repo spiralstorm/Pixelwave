@@ -245,7 +245,8 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 						orURL:(NSURL *)url
 					modifier:(id<PXTextureModifier>)modifier
 {
-	if (self = [super _initWithContentsOfFile:path orURL:url])
+	self = [super _initWithContentsOfFile:path orURL:url];
+	if (self)
 	{
 		// Initialize the content scale factor
 		contentScaleFactor = 1.0f;

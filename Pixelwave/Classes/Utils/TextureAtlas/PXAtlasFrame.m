@@ -21,7 +21,7 @@
 
 @synthesize textureData, clipRect, anchor, padding;
 
-- (id)init
+- (id) init
 {
 	PXThrow(PXException, @"PXAtlasFrame must be initialized with a clipRect and textureData");
 	
@@ -29,17 +29,17 @@
 	return nil;
 }
 
-- (id)initWithClipRect:(PXClipRect *)_clipRect
-		   textureData:(PXTextureData *)_textureData
+- (id) initWithClipRect:(PXClipRect *)_clipRect
+			textureData:(PXTextureData *)_textureData
 {
 	return [self initWithClipRect:_clipRect
 					  textureData:_textureData
 						   anchor:nil];
 }
 
-- (id)initWithClipRect:(PXClipRect *)_clipRect
-		   textureData:(PXTextureData *)_textureData
-			   anchor:(PXPoint *)_anchor
+- (id) initWithClipRect:(PXClipRect *)_clipRect
+			textureData:(PXTextureData *)_textureData
+				 anchor:(PXPoint *)_anchor
 {
 	return [self initWithClipRect:_clipRect
 					  textureData:_textureData
@@ -47,12 +47,13 @@
 						  padding:nil];
 }
 
-- (id)initWithClipRect:(PXClipRect *)_clipRect
-		   textureData:(PXTextureData *)_textureData
-				anchor:(PXPoint *)_anchor
-			   padding:(PXTexturePadding *)_padding
+- (id) initWithClipRect:(PXClipRect *)_clipRect
+			textureData:(PXTextureData *)_textureData
+				 anchor:(PXPoint *)_anchor
+				padding:(PXTexturePadding *)_padding
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		textureData = nil;
 		clipRect = nil;
@@ -67,7 +68,7 @@
 	return self;
 }
 
-- (void)dealloc
+- (void) dealloc
 {
 	[textureData release]; textureData = nil;
 	[clipRect release]; clipRect = nil;
@@ -80,7 +81,7 @@
 #pragma mark Properties
 #pragma mark -
 
-- (void)setTextureData:(PXTextureData *)val
+- (void) setTextureData:(PXTextureData *)val
 {
 	if (val == nil)
 	{
@@ -94,7 +95,7 @@
 	textureData = val;
 }
 
-- (void)setClipRect:(PXClipRect *)val
+- (void) setClipRect:(PXClipRect *)val
 {
 	if (val == nil)
 	{
@@ -115,7 +116,7 @@
 #pragma mark Methods
 #pragma mark -
 
-- (void)setToTexture:(PXTexture *)texture
+- (void) setToTexture:(PXTexture *)texture
 {
 	texture.textureData = textureData;
 	texture.clipRect = clipRect;

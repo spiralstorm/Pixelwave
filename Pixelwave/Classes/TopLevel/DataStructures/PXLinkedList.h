@@ -53,7 +53,8 @@
  * // It's essential that this variable be declared before the loop
  * NSObject *item = nil;
  *
- * PXLinkedListForEach(list, item){
+ * PXLinkedListForEach(list, item)
+ * {
  *	NSLog("Item = %@", item);
  * }
  *	@endcode
@@ -78,7 +79,8 @@
  * // It's essential that this variable be declared before the loop
  * NSObject *item = nil;
  *
- * PXLinkedListForEachReverse(list, item){
+ * PXLinkedListForEachReverse(list, item)
+ * {
  *	NSLog("Item = %@", item);
  * }
  *	@endcode
@@ -114,8 +116,6 @@ typedef struct _sPXLLNode
 
 	BOOL _pooledNodes;
 	BOOL _keepStrongReference;
-@private
-	short pxLLPadding;
 /// @endcond
 }
 

@@ -24,7 +24,8 @@
 	   andWidth:(ushort)_width andHeight:(ushort)_height
 	   rotation:(float)_rotation
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		x = _x;
 		y = _y;

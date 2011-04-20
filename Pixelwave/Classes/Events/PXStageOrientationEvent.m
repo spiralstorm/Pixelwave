@@ -61,7 +61,8 @@
   beforeOrientation:(PXStageOrientation)_beforeOrientation
    afterOrientation:(PXStageOrientation)_afterOrientation
 {
-	if (self = [super initWithType:type doesBubble:bubbles isCancelable:cancelable])
+	self = [super initWithType:type doesBubble:bubbles isCancelable:cancelable];
+	if (self)
 	{
 		beforeOrientation = _beforeOrientation;
 		afterOrientation  = _afterOrientation;

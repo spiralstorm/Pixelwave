@@ -85,7 +85,8 @@
 
 - (id) _initWithoutGLName
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		// No smoothing
 		_smoothingType = GL_NEAREST;
@@ -106,7 +107,8 @@
 
 - (id) _init
 {
-	if (self = [self _initWithoutGLName])
+	self = [self _initWithoutGLName];
+	if (self)
 	{
 		if (![self _makeGLName])
 		{
@@ -167,7 +169,8 @@
 
 - (id) initWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		PXTextureParser *textureParser = [[PXTextureParser alloc] initWithData:data
 																	  modifier:modifier
@@ -177,7 +180,8 @@
 		[textureParser release];
 		[self release];
 
-		if (self = newTextureData)
+		self = newTextureData;
+		if (self)
 		{
 			// Add init code here if needed
 		}
@@ -257,7 +261,8 @@
   contentScaleFactor:(float)contentScaleFactor
 {
 	// A little unconservative, but necessary
-	if (!(self = [self _init]))
+	self = [self _init];
+	if (!self)
 		return nil;
 	
 	_fillColor = fillColor;
@@ -696,7 +701,8 @@
 		   orientation:(UIImageOrientation)cgImageOrientation
 			  modifier:(id<PXTextureModifier>)modifier
 {
-	//if (self = [super init])
+	//self = [super init]
+	//if (self)
 	//{
 	
 	[self release];
@@ -710,8 +716,9 @@
 	PXTextureData *newTextureData = [parser newTextureData];
 	
 	[parser release];
-	
-	if (self = newTextureData)
+
+	self = newTextureData;
+	if (self)
 	{
 		// Add init code here if needed
 	}

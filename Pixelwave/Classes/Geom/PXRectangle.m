@@ -104,7 +104,8 @@
  */
 - (id) initWithX:(float)_x andY:(float)_y andWidth:(float)_width andHeight:(float)_height
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 		[self setX:_x andY:_y andWidth:_width andHeight:_height];
 
 	return self;

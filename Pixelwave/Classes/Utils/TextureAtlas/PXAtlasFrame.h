@@ -12,12 +12,12 @@
 @class PXPoint;
 @class PXTexturePadding;
 
-@interface PXAtlasFrame : NSObject {
+@interface PXAtlasFrame : NSObject
+{
 @private
 	PXTextureData *textureData;
 	PXPoint *anchor;
 	PXClipRect *clipRect;
-	PXTexturePadding *padding;
 }
 
 @property (nonatomic, retain) PXTextureData *textureData;

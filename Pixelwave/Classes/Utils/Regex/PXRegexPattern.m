@@ -123,7 +123,8 @@
  */
 - (id) _initWithRegex:(NSString *)_regex flags:(unsigned)_flags
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		[self _setFlags:_flags];
 		regex = [_regex copy];

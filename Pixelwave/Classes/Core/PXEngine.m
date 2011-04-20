@@ -142,7 +142,6 @@
 	id displayLink;
 	short displayLinkInterval;
 	BOOL displayLinkSupported;
-	char pxEnginePadding;
 	
 	NSTimer *animationTimer;
 }
@@ -175,7 +174,6 @@ PXView *pxEngineView = nil;								//Weakly referenced
 bool pxEngineInitialized = false;
 bool pxEngineShouldClear = false;
 bool pxEngineIsRunning = false;
-char pxEnginePadding1;
 
 // Render to texture frame buffer object
 GLuint pxEngineRTTFBO = 0;
@@ -486,12 +484,14 @@ void PXEngineSetRoot( PXDisplayObject *root )
 	if (root == pxEngineRoot)
 		return;
 
+	[root retain];
 	if (pxEngineRoot)
 		[pxEngineStage removeChild:pxEngineRoot];
 
 	pxEngineRoot = root;
 	[pxEngineStage addChild:pxEngineRoot];
 	[pxEngineRoot setName:@"root1"];
+	[root release];
 }
 
 PXDisplayObject *PXEngineGetRoot( )
@@ -809,7 +809,7 @@ void PXEngineDispatchTouchEvents( )
 	PXTouchEvent *originalEvent = nil;
 	PXTouchEvent *savedEvent = nil;
 	PXDisplayObject *target = pxEngineStage;
-	PXDisplayObject *savedTarget = pxEngineStage;
+	PXDisplayObject *savedTarget = nil;
 	PXTouchEvent *outOrCancelEvent;
 	PXTouchEvent *doubleTapEvent;
 	PXInteractiveObject *interactiveTarget;
@@ -1299,8 +1299,6 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	bool isCustom = displayObject->_renderMode == PXRenderMode_Custom;
 	bool isCustomOrManaged = (displayObject->_renderMode == PXRenderMode_ManageStates) || isCustom;
 	bool isRenderOn = !(displayObject->_renderMode == PXRenderMode_Off);
-	bool padding = false; // ;-/
-	padding = padding ? !padding : padding;
 	//Byte count = 20
 
 	if (isCustomOrManaged)
@@ -2005,7 +2003,8 @@ float _PXEngineDBGGetTimeWaiting()
 
 - (id) init
 {
-	if (!(self = [super init]))
+	self = [super init];
+	if (!self)
 		return nil;
 
 	displayLinkSupported = NO;

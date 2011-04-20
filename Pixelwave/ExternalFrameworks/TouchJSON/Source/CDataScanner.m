@@ -64,7 +64,8 @@ inline static unichar CharacterAtPointer(void *start, void *end)
 
 - (id)initWithData:(NSData *)inData;
     {
-    if ((self = [self init]) != NULL)
+		self = [self init];
+    if (self)
         {
         [self setData:inData];
         }

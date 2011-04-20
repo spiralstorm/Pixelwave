@@ -60,9 +60,6 @@ typedef enum
 	PXLinkedList *listOfTouches;
 
 	BOOL enabled;
-@private
-	char pxSimpleButtonPadding1;
-	short pxSimpleButtonPadding2;
 /// @endcond
 }
 

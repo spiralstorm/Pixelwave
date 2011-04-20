@@ -99,7 +99,8 @@ PX_INLINE int PXFontOptionsCharacterComparer(const void *element1, const void *e
 - (id) initWithCharacterSets:(unsigned)characterSets
 		   specialCharacters:(NSString *)specialCharacters
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		self.characters = [NSString stringWithFormat:@"%@%@",
 						   [PXFontOptions charactersFromCharacterSets:characterSets],

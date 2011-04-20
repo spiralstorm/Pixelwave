@@ -133,8 +133,9 @@
 		[self release];
 		return nil;
 	}
-	
-	if (self = [super init])
+
+	self = [super init];
+	if (self)
 	{
 		// Set my regex pointer to nil
 		pMatchesPtr = nil;
@@ -189,7 +190,7 @@
 	[self restart];
 }
 
-- (void)disposePattern
+- (void) disposePattern
 {
 	[pattern release];
 	pattern = nil;
@@ -394,7 +395,7 @@
 	{
 		// If it is less then 0, then we are being informed to use the current
 		// position.
-		start = curDist;
+	//	start = curDist;
 	}
 	else
 	{

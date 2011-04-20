@@ -120,7 +120,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  * // It's essential that this variable be declared before the loop
  * NSObject *item = nil;
  *
- * PXLinkedListForEach(list, item){
+ * PXLinkedListForEach(list, item)
+ * {
  *	NSLog("Item = %@", item);
  * }
  *	@endcode
@@ -232,7 +233,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 - (id) initWithWeakReferences:(BOOL)weakReferences
 			   usePooledNodes:(BOOL)pooledNodes;
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		_head = nil;
 		_tail = nil;
@@ -262,7 +264,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 
 - (id) initWithCoder:(NSCoder *)aDecoder
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		_head = nil;
 		_tail = nil;

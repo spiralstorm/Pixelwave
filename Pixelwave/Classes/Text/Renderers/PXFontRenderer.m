@@ -47,7 +47,8 @@
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		// Initialize the variables.
 		_textField = nil;

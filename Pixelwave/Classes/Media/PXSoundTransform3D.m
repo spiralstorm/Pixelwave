@@ -94,7 +94,8 @@
  */
 - (id) initWithVolume:(float)_volume andPitch:(float)_pitch
 {
-	if (self = [super initWithVolume:_volume andPitch:_pitch])
+	self = [super initWithVolume:_volume andPitch:_pitch];
+	if (self)
 	{
 		[self setX:0.0f andY:0.0f andZ:0.0f];
 		[self setVelocityX:0.0f andVelocityY:0.0f andVelocityZ:0.0f];

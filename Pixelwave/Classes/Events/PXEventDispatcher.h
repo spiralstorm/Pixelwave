@@ -88,7 +88,8 @@
  *	
  * - (id) init
  * {
- *	if (self = [super init])
+ *	self = [super init];
+ *	if (self)
  *	{
  * 		eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];
  * 	}
@@ -180,8 +181,6 @@
 
 	//PXLinkedList *cachedListeners;
 	BOOL dispatchEvents;
-	BOOL pxEventDispatcherPadding1;
-	short pxEventDispatcherPadding2;
 /// @endcond
 }
 

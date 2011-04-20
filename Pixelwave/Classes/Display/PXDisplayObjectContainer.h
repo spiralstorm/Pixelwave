@@ -44,8 +44,6 @@
 @interface PXDisplayObjectContainer : PXInteractiveObject<NSFastEnumeration>
 {
 /// @cond DX_IGNORE
-@private
-	BOOL pxDisplayObjectContainerPadding;
 @public
 	BOOL _touchChildren;
 	unsigned short _numChildren;

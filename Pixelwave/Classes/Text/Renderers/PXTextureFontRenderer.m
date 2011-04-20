@@ -62,7 +62,8 @@
 
 - (id) initWithFont:(PXTextureFont *)_font
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		// Set our font.
 		font = _font;
@@ -201,6 +202,7 @@
 	BOOL allowedToKern = _textField->_kerning;
 
 	lastCharacter = 0;
+	textureGlyphBatch = nil;
 
 	// For each character we need to make a texture box for it.
 	for (index = 0, character = characters; index < characterCount; ++index, ++character)

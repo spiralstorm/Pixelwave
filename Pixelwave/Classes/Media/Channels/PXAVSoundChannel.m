@@ -61,7 +61,8 @@
 		   loopCount:(int)_loops
 	  soundTransform:(PXSoundTransform *)_soundTransform
 {
-	if (self = [super _initWithStartTime:_startTime loopCount:_loops soundTransform:_soundTransform])
+	self = [super _initWithStartTime:_startTime loopCount:_loops soundTransform:_soundTransform];
+	if (self)
 	{
 		player = [PXAVSoundParser newPlayerFromData:data];
 
@@ -139,7 +140,7 @@
 
 - (PXSoundTransform *)soundTransform
 {
-	PXSoundTransform *transform;
+	PXSoundTransform *transform = [[PXSoundTransform alloc] init];
 
 	transform.volume = soundTransform.volume;
 	transform.pitch  = soundTransform.pitch;

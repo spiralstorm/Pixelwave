@@ -48,7 +48,7 @@
 
 	NSString *input;
 @private
-	int currentGroupIndex;
+//	int currentGroupIndex;
 
 	void *pMatchesPtr;
 	unsigned pMatchesCount;
@@ -61,8 +61,6 @@
 	unsigned origStringLength;
 
 	BOOL useBeginingOfLineFlag;
-	BOOL PXRegexMatcherPadding1;
-	short PXRegexMatcherPadding2;
 /// @endcond
 }
 

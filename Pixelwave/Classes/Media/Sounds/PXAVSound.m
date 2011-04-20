@@ -48,7 +48,8 @@
 
 - (id) initWithLength:(unsigned)_length andData:(NSData *)_data
 {
-	if (self = [super _initWithLength:_length])
+	self = [super _initWithLength:_length];
+	if (self)
 	{
 		data = [_data retain];
 	}

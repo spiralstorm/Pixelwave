@@ -69,7 +69,8 @@
 				loopCount:(int)_loops
 		   soundTransform:(PXSoundTransform *)_soundTransform
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		loopCount = _loops;
 		startTime = _startTime;

@@ -50,8 +50,6 @@
 	float engineVolume;
 
 	BOOL isDone;
-	BOOL pxAVSoundChannelPadding1;
-	short pxAVSoundChannelPadding2;
 }
 
 @end

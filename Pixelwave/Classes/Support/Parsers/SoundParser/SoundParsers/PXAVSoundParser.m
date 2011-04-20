@@ -118,9 +118,15 @@
 
 	if (savedPlayer)
 	{
+		// Saved player and player are the same variable. I am retaining then
+		// releasing to get rid of warnings, this is actually unnecessary. You
+		// may notice a double release on player though, that is because of the
+		// extra retain mentioned earlier.
+		[savedPlayer retain];
+		[player release];
 		player = savedPlayer;
 		// Bring the retain count back to 1.
-		[player release];
+		[savedPlayer release];
 	}
 	else
 	{

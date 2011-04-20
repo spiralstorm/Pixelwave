@@ -97,8 +97,9 @@
 		[self release];
 		return nil;
 	}
-	
-	if (self = [super init])
+
+	self = [super init];
+	if (self)
 	{
 		//PXPrecParamNotNil(type);
 

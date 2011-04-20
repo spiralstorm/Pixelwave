@@ -115,7 +115,8 @@ typedef enum
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		verts = calloc(PX_GRAPHICS_GROUP_MAX_POINTS, sizeof(PXGLVertex));
 
@@ -181,7 +182,8 @@ typedef enum
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		groups = [[PXLinkedList alloc] init];
 

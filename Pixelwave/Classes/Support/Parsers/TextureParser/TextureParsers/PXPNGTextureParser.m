@@ -80,7 +80,8 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 /*
 - (id) init
 {
-	if (self = [super init])
+ self = [super init];
+	if (self)
 	{
 		vPngPtr  = NULL;
 		vInfoPtr = NULL;
@@ -257,33 +258,33 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 
 //	NSLog (@"channel count = [said=%d, have=%d], color_type = %d\n", readChannels, drawChannels, color_type);
 
-	unsigned glFormat;
+//	unsigned glFormat;
 
 	switch (drawChannels)
 	{
 		case 1:
 			if (color_type == PNG_COLOR_TYPE_GRAY)
 			{
-				glFormat = GL_LUMINANCE;
+//				glFormat = GL_LUMINANCE;
 				textureInfo->pixelFormat = PXTextureDataPixelFormat_L8;
 			}
 			else
 			{
-				glFormat = GL_ALPHA;
+//				glFormat = GL_ALPHA;
 				textureInfo->pixelFormat = PXTextureDataPixelFormat_A8;
 			}
 			break;
 		case 2:
-			glFormat = GL_LUMINANCE_ALPHA;
+//			glFormat = GL_LUMINANCE_ALPHA;
 			textureInfo->pixelFormat = PXTextureDataPixelFormat_LA88;
 			break;
 		case 3:
-			glFormat = GL_RGB;
+//			glFormat = GL_RGB;
 			textureInfo->pixelFormat = PXTextureDataPixelFormat_RGB888;
 			break;
 		case 4:
 		default:
-			glFormat = GL_RGBA;
+//			glFormat = GL_RGBA;
 			textureInfo->pixelFormat = PXTextureDataPixelFormat_RGBA8888;
 			break;
 	}

@@ -112,7 +112,8 @@
 		   modifier:(id<PXSoundModifier>)_modifier
 			 origin:(NSString *)_origin
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		// Find the real class needed
 		Class realClass = [PXParser parserForData:_data
@@ -136,9 +137,10 @@
 		[self release];
 
 		// Become the real parser, and allocate any data we need
-		if (self = newParser)
-		{
-		}
+		self = newParser;
+	//	if ()
+	//	{
+	//	}
 	}
 
 	return self;
@@ -149,7 +151,8 @@
 			  origin:(NSString *)_origin
 {
 	// Set the data and origin
-	if (self = [super _initWithData:_data origin:_origin])
+	self = [super _initWithData:_data origin:_origin];
+	if (self)
 	{
 		// Make the sound info (it's bytes and other)
 		soundInfo = PXParsedSoundDataCreate(0);

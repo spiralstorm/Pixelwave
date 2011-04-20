@@ -67,9 +67,6 @@ typedef enum
 	float _fontSize;
 	float _letterSpacing;
 	BOOL _kerning;
-@private
-	BOOL pxTextFieldPadding1;
-	short pxTextFieldPadding2;
 @protected
 	PXGLColorVertices border;
 	PXGLColorVertices background;

@@ -45,8 +45,6 @@
 @public
 	BOOL _doubleTapEnabled;
 	BOOL _touchEnabled;
-@private
-	short pxInteractiveObjectPadding;
 /// @endcond
 }
 

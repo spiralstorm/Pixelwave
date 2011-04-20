@@ -78,7 +78,8 @@ PX_INLINE void PXParserRemoveBaseClass(Class baseClass);
 
 - (id) _initWithData:(NSData *)_data origin:(NSString *)_origin
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		data = [_data retain];
 		origin = [_origin copy];
@@ -279,7 +280,12 @@ PX_INLINE void PXParserRemoveBaseClass(Class baseClass);
 	//[set allObjects
 	
 	//return [ret autorelease];
-	return [set allObjects];
+
+	// TODO: Oz, I changed this. Before you were just returning
+	// [set allObjects]; set was never released. Please look over this.
+	NSArray *retVal = [set allObjects];
+	[set release];
+	return retVal;
 }
 
 @end

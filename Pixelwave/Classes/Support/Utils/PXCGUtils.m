@@ -100,7 +100,8 @@ CGImageRef PXCGUtilsCreateCGImage(void *pixels, int w, int h, CGAffineTransform 
 			CGRect fillRect = CGRectMake(0, 0, contextWidth, contextHeight);
 			
 			// For testing, the BG can be painted
-			//if(YES){
+			//if(YES)
+			//{
 			//	CGContextSetRGBFillColor(context, 1.0f, 1.0f, 0.5f, 1.0f);
 			//	CGContextFillRect(context, fillRect);
 			//}

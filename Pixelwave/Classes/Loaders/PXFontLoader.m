@@ -202,7 +202,8 @@
 						orURL:(NSURL *)url
 					  options:(PXFontOptions *)_options
 {
-	if (self = [super _initWithContentsOfFile:path orURL:url])
+	self = [super _initWithContentsOfFile:path orURL:url];
+	if (self)
 	{
 		[self _load];
 

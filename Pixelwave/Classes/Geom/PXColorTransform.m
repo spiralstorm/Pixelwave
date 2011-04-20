@@ -96,7 +96,8 @@
  */
 - (id)initWithRedMult:(float)r andGreenMult:(float)g andBlueMult:(float)b andAlphaMult:(float)a
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		redMultiplier   = r;
 		greenMultiplier = g;

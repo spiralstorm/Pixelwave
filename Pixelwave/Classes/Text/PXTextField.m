@@ -98,7 +98,8 @@
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		isValid = NO;
 
@@ -156,7 +157,8 @@
  */
 - (id) initWithFont:(NSString *)_fontName
 {
-	if (self = [self init])
+	self = [self init];
+	if (self)
 	{
 		if (_fontName)
 		{

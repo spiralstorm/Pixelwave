@@ -64,8 +64,6 @@ typedef enum
 
 	BOOL dispatchesDisplayListEvents;
 	BOOL autoOrients;
-	BOOL pxStagePadding1;
-	BOOL pxStagePadding2;
 /// @endcond
 }
 

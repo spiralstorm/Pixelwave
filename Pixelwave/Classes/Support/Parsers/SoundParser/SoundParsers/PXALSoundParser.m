@@ -281,7 +281,7 @@ OSStatus PXALSoundLoaderFileSetSize(void *inClientData,
 		return NO;
 	}
 
-	didAnErrorOccur = NO;
+//	didAnErrorOccur = NO;
 
 	NSTimeInterval timeInterval;
 	propertySize = sizeof(NSTimeInterval);
@@ -299,7 +299,7 @@ OSStatus PXALSoundLoaderFileSetSize(void *inClientData,
 	}
 
 	soundInfo->milliseconds = timeInterval * 1000;
-	didAnErrorOccur = NO;
+//	didAnErrorOccur = NO;
 
 	propertySize = sizeof(fileFormat);
 	// Get the audio data format
@@ -346,7 +346,7 @@ OSStatus PXALSoundLoaderFileSetSize(void *inClientData,
 		return NO;
 	}
 
-	didAnErrorOccur = NO;
+//	didAnErrorOccur = NO;
 
 	if (fileFormat.mBitsPerChannel == 8)
 	{

@@ -111,7 +111,8 @@
  */
 - (id) initWithX:(float)_x andY:(float)_y andZ:(float)_z andW:(float)_w
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		[self setX:_x andY:_y andZ:_z andW:_w];
 	}

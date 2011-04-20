@@ -152,7 +152,8 @@
 - (id) initWithFrame:(CGRect)frame contentScaleFactor:(float)_contentScaleFactor
 		colorQuality:(PXViewColorQuality)_colorQuality
 {
-	if (self = [super initWithFrame:frame])
+	self = [super initWithFrame:frame];
+	if (self)
 	{
 		if (_contentScaleFactor <= 0.0f)
 			_contentScaleFactor = PXEngineGetMainScreenScale();
@@ -175,7 +176,8 @@
 // -initWithCoder:
 - (id) initWithCoder:(NSCoder *)coder
 {
-	if (self = [super initWithCoder:coder])
+	self = [super initWithCoder:coder];
+	if (self)
 	{
 		if (![self setupWithScaleFactor:PXEngineGetMainScreenScale()
 						   colorQuality:PX_VIEW_DEFAULT_COLOR_QUALITY])
@@ -210,7 +212,7 @@
 //	float screenWidth  = [UIScreen mainScreen].bounds.size.width;
 //	float screenHeight = [UIScreen mainScreen].bounds.size.height;
 
-	_frame = self.frame;
+//	_frame = self.frame;
 
 //	_frameWidthScale  = screenWidth  / _frame.size.width;
 //	_frameHeightScale = screenHeight / _frame.size.height;
@@ -762,7 +764,8 @@
 	
 	UIImageOrientation imageOrientation = UIImageOrientationUp;
 	
-	switch (stageOrientation) {
+	switch (stageOrientation)
+	{
 		case PXStageOrientation_Portrait:
 			imageOrientation = UIImageOrientationUp;
 			break;

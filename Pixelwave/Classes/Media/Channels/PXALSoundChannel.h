@@ -62,8 +62,6 @@
 	PXSoundMixerDistanceModel distanceModel;
 
 	BOOL isDone;
-	BOOL pxALSoundChannelPadding1;
-	short pxALSoundChannelPadding2;
 }
 
 @end

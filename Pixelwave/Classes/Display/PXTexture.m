@@ -97,7 +97,8 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
  */
 - (id) initWithTextureData:(PXTextureData *)_textureData
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		// Only have to do this once, alternatively, you could just call the
 		// normal PXGLEnable and PXGLEnableClient state every frame.
@@ -463,7 +464,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	[self setPaddingRaw:newPadding];
 }
 
-- (void)setPadding:(PXTexturePadding *)val
+- (void) setPadding:(PXTexturePadding *)val
 {
 	if (val)
 	{

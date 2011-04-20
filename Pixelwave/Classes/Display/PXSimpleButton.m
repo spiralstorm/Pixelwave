@@ -116,7 +116,8 @@
 }
 - (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState hitTestState:(PXDisplayObject *)_hitTestState
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
 		//_useCustomHitArea = YES;

@@ -75,7 +75,8 @@
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		// Default font information.
 		_baseLine =  0.0f;

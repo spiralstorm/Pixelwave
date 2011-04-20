@@ -82,7 +82,8 @@
  */
 - (id) initWithX:(float)_x andY:(float)_y
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		[self setX:_x andY:_y];
 	}

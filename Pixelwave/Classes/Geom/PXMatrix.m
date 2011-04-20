@@ -104,7 +104,8 @@
  */
 - (id) initWithA:(float)_a andB:(float)_b andC:(float)_c andD:(float)_d andTX:(float)_tx andTY:(float)_ty
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		[self setA:_a andB:_b andC:_c andD:_d andTX:_tx andTY:_ty];
 	}

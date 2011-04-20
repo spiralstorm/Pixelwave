@@ -65,7 +65,8 @@ NSMutableDictionary *pxFonts = nil;
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 	}
 
@@ -105,7 +106,8 @@ NSMutableDictionary *pxFonts = nil;
  */
 - (id) initWithData:(NSData *)data options:(PXFontOptions *)options
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data
 																 options:options];
@@ -115,9 +117,10 @@ NSMutableDictionary *pxFonts = nil;
 
 		[self release];
 
-		if (self = newFont)
-		{
-		}
+		self = newFont;
+	//	if (self)
+	//	{
+	//	}
 	}
 
 	return self;
@@ -153,7 +156,8 @@ NSMutableDictionary *pxFonts = nil;
  */
 - (id) initWithSystemFont:(NSString *)systemFont options:(PXFontOptions *)options
 {
-	if (self = [super init])
+	self = [super init];
+	if (self)
 	{
 		PXFontParser *fontParser = [[PXFontParser alloc] initWithSystemFont:systemFont
 																	   options:options];
@@ -163,9 +167,10 @@ NSMutableDictionary *pxFonts = nil;
 
 		[self release];
 
-		if (self = newFont)
-		{
-		}
+		self = newFont;
+	//	if (self)
+	//	{
+	//	}
 	}
 
 	return self;
