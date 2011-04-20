@@ -11,7 +11,8 @@
 @class PXTextureAtlas;
 @protocol PXTextureModifier;
 
-@interface PXTextureAtlasParser : PXParser {
+@interface PXTextureAtlasParser : PXParser
+{
 @protected
 	float contentScaleFactor;
 }
@@ -33,5 +34,4 @@
 			  origin:(NSString *)origin;
 - (BOOL) _parseWithModifier:(id<PXTextureModifier>)modifier;
 @end
-
 /// @endcond

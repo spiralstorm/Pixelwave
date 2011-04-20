@@ -14,25 +14,26 @@ typedef struct
 {
 	CGRect clipRect;
 	float rotation;
-	BOOL paddingEnabled;
 	short padding[4];
+
 	ushort nameIndex;
-	
+	BOOL paddingEnabled;
 	BOOL _byte_padding;
 }PXTPAtlasParserFrame;
 
 // TexturePacker file format reader
 @class PXTextureData;
 
-@interface PXTPAtlasParser : PXTextureAtlasParser <PXParser> {
+@interface PXTPAtlasParser : PXTextureAtlasParser<PXParser>
+{
 @private
 	// The texture data of the atlas
 	PXTextureData *textureData;
-	
+
 	// The frame list
 	int numFrames;
 	PXTPAtlasParserFrame *frames;
-	
+
 	// The list of all the frame names
 	NSMutableArray *names;
 }

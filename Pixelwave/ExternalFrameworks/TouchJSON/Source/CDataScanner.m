@@ -55,7 +55,8 @@ inline static unichar CharacterAtPointer(void *start, void *end)
 
 - (id)init
     {
-    if ((self = [super init]) != NULL)
+		self = [super init];
+    if (self)
         {
         }
     return(self);

@@ -61,7 +61,8 @@ inline static int HexToInt(char inCharacter)
 
 - (id)init
     {
-    if ((self = [super init]) != NULL)
+		self = [super init];
+    if (self)
         {
         strictEscapeCodes = NO;
         nullObject = [[NSNull null] retain];

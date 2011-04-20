@@ -24,25 +24,26 @@
 		Class realClass = [PXParser parserForData:_data
 										   origin:_origin
 										baseClass:PXTextureAtlasParser.class];
-		
+
 		// If no real parser exists, then we can't do anything
 		if (!realClass)
 		{
 			[self release];
 			return nil;
 		}
-		
+
 		// Make the new parser.
 		PXTextureAtlasParser *newParser = [[realClass alloc] _initWithData:_data
 														contentScaleFactor:_contentScaleFactor
 																  modifier:_modifier
 																	origin:_origin];
-		
+
 		// Release ourself, as we are going to become the real parser
 		[self release];
-		
+
 		// Become the real parser, and allocate any data we need
-		if (self = newParser)
+		self = newParser;
+		if (self)
 		{
 		}
 	}
@@ -56,17 +57,18 @@
 			  origin:(NSString *)_origin
 {
 	// Set the data and origin
-	if (self = [super _initWithData:_data origin:_origin])
+	self = [super _initWithData:_data origin:_origin];
+	if (self)
 	{
 		contentScaleFactor = _contentScaleFactor;
-		
+
 		if (![self _parseWithModifier:_modifier])
 		{
 			[self release];
 			return nil;
 		}
 	}
-	
+
 	return self;
 }
 

@@ -77,6 +77,13 @@
 	} \
 }
 
+#define PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(_x_, _y_, _stage_) \
+{ \
+	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_); \
+	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_); \
+	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_); \
+}
+
 #define PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_) \
 { \
 	PXStageOrientation _orientation_ = _stage_.orientation; \
@@ -117,6 +124,13 @@
 		(_aabb_)->yMin = _stageHeight_ - _xMax_; \
 		(_aabb_)->yMax = _stageHeight_ - _xMin_; \
 	} \
+}
+
+#define PX_ENGINE_CONVERT_AABB_FROM_STAGE_ORIENTATION(_aabb_, _stage_) \
+{ \
+	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_); \
+	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_); \
+	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_); \
 }
 
 /**
@@ -1055,17 +1069,15 @@ void PXEngineRender( )
 
 			if (!PX_IS_BIT_ENABLED(doAABB->_flags, _PXDisplayObjectFlags_shouldRenderAABB))
 				continue;
-			
+
 			aabbPtr = &doAABB->_aabb;
-			
+
 			aabb.xMin = aabbPtr->xMin;
 			aabb.xMax = aabbPtr->xMax;
 			aabb.yMin = aabbPtr->yMin;
 			aabb.yMax = aabbPtr->yMax;
-			
-			PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(&aabb, pxEngineStage);
-			PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(&aabb, pxEngineStage);
-			PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(&aabb, pxEngineStage);
+
+			PX_ENGINE_CONVERT_AABB_FROM_STAGE_ORIENTATION(&aabb, pxEngineStage);
 			
 			locs[0] = aabb.xMin; locs[1] = aabb.yMin;
 			locs[2] = aabb.xMin; locs[3] = aabb.yMax;
@@ -1077,6 +1089,68 @@ void PXEngineRender( )
 			PXGLColor4ub( 0xFF, 0, 0, 0xFF );
 			PXGLVertexPointer( 2, GL_FLOAT, 0, locs );
 			PXGLDrawArrays( GL_LINE_LOOP, 0, 4 );
+		}
+	}
+
+	if (PXDebugIsEnabled(PXDebugSetting_DrawHitAreas))
+	{
+		float locs[8];
+
+		PXDisplayObject *doAABB;
+		//PXRectangle *pBounds;
+		CGRect bounds;
+
+		PXPoint *pTopLeft;
+		PXPoint *pBottomLeft;
+		PXPoint *pTopRight;
+		PXPoint *pBottomRight;
+
+		CGPoint topLeft;
+		CGPoint topRight;
+		CGPoint bottomLeft;
+		CGPoint bottomRight;
+		for (int index = 0; index < pxEngineDOBuffer.size; ++index)
+		{
+			doAABB = pxEngineDOBuffer.array[index].displayObject;
+
+		//	pBounds = [doAABB boundsWithCoordinateSpace:doAABB];
+		//	bounds = PXRectToCGRect(pBounds);
+			bounds = CGRectZero;
+			[doAABB _measureLocalBounds:&bounds];
+
+			if (CGRectIsEmpty(bounds))
+				continue;
+
+			pTopLeft     = [PXPoint pointWithX:bounds.origin.x andY:bounds.origin.y];
+			pBottomLeft  = [PXPoint pointWithX:bounds.origin.x andY:bounds.origin.y + bounds.size.height];
+			pTopRight    = [PXPoint pointWithX:bounds.origin.x + bounds.size.width andY:bounds.origin.y];
+			pBottomRight = [PXPoint pointWithX:bounds.origin.x + bounds.size.width andY:bounds.origin.y + bounds.size.height];
+
+			pTopLeft     = [doAABB localToGlobal:pTopLeft];
+			pBottomLeft  = [doAABB localToGlobal:pBottomLeft];
+			pTopRight    = [doAABB localToGlobal:pTopRight];
+			pBottomRight = [doAABB localToGlobal:pBottomRight];
+
+			topLeft     = PXPointToCGPoint(pTopLeft);
+			bottomLeft  = PXPointToCGPoint(pBottomLeft);
+			topRight    = PXPointToCGPoint(pTopRight);
+			bottomRight = PXPointToCGPoint(pBottomRight);
+
+			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(topLeft.x, topLeft.y, pxEngineStage);
+			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(bottomLeft.x, bottomLeft.y, pxEngineStage);
+			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(topRight.x, topRight.y, pxEngineStage);
+			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(bottomRight.x, bottomRight.y, pxEngineStage);
+
+			locs[0] = topLeft.x;		locs[1] = topLeft.y;
+			locs[2] = bottomLeft.x;		locs[3] = bottomLeft.y;
+			locs[4] = bottomRight.x;	locs[5] = bottomRight.y;
+			locs[6] = topRight.x;		locs[7] = topRight.y;
+
+			PXGLShadeModel(GL_SMOOTH);
+			PXGLDisable(GL_TEXTURE_2D);
+			PXGLColor4ub(0, 0, 0xFF, 0xFF);
+			PXGLVertexPointer(2, GL_FLOAT, 0, locs);
+			PXGLDrawArrays(GL_LINE_LOOP, 0, 4);
 		}
 	}
 #endif

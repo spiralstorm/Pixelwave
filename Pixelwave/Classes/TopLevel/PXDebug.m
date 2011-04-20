@@ -82,6 +82,15 @@ PX_INLINE_C void PXDebugLog(NSString *format, ...)
 	return (BOOL)(PXDebugIsEnabled(PXDebugSetting_DrawBoundingBoxes));
 }
 
++ (void) setDrawHitAreas:(BOOL)val
+{
+	PXDebugEnableSetting(PXDebugSetting_DrawHitAreas);
+}
++ (BOOL) drawHitAreas
+{
+	return (BOOL)(PXDebugIsEnabled(PXDebugSetting_DrawHitAreas));
+}
+
 + (void) setHalveStage:(BOOL)val
 {
 	if (val)

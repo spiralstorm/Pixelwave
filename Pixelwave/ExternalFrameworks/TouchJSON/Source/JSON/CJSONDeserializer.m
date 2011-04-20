@@ -49,7 +49,8 @@ NSString *const kJSONDeserializerErrorDomain  = @"CJSONDeserializerErrorDomain";
 
 - (id)init
     {
-    if ((self = [super init]) != NULL)
+		self = [super init];
+    if (self)
         {
         }
     return(self);

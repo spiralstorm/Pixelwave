@@ -62,7 +62,8 @@
 /*
 - (id) init
 {
-	if (self = [super init])
+ self = [super init];
+	if (self)
 	{
 	}
 
@@ -502,7 +503,8 @@
 	cgImageOrientation = orientation;
 	
 	// This will invoke [_parse]
-	if (self = [super _initWithData:nil modifier:_modifier origin:nil])
+	self = [super _initWithData:nil modifier:_modifier origin:nil];
+	if (self)
 	{
 		contentScaleFactor = scaleFactor;
 	}

@@ -42,9 +42,13 @@
 #import "PXDebug.h"
 #import "PXExceptionUtils.h"
 
+#import "PXLinkedList.h"
+
 #import "PXFontOptions.h"
 #import "PXFontParser.h"
 #import "PXFontLoader.h"
+
+#import <UIKit/UIFont.h>
 
 NSMutableDictionary *pxFonts = nil;
 
@@ -666,6 +670,35 @@ NSMutableDictionary *pxFonts = nil;
 + (BOOL) containsFontWithName:(NSString *)name
 {
 	return ([PXFont fontWithName:name] == nil) ? NO : YES;
+}
+
++ (PXLinkedList *)availableSystemFonts
+{
+	PXLinkedList *list = [[PXLinkedList alloc] init];
+
+	NSArray *familyNames = [UIFont familyNames];
+	NSArray *fontNames;
+
+	NSString *familyName;
+	NSString *fontName;
+
+	for (familyName in familyNames)
+	{
+		fontNames = [UIFont fontNamesForFamilyName:familyName];
+
+		for (fontName in fontNames)
+		{
+			[list addObject:fontName];
+		}
+	}
+
+	return [list autorelease];
+}
++ (BOOL) isSystemFontAvailable:(NSString *)name
+{
+	PXLinkedList *list = [PXFont availableSystemFonts];
+
+	return [list containsObject:name];
 }
 
 /**

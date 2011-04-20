@@ -57,6 +57,7 @@ typedef enum
 	PXDebugSetting_CalculateFrameRate			= 0x00000004,
 	PXDebugSetting_CountGLCalls					= 0x00000008,
 	PXDebugSetting_LogErrors					= 0x00000010,
+	PXDebugSetting_DrawHitAreas					= 0x00000020,
 	PXDebugSetting_All							= 0xFFFFFFFF
 } PXDebugSetting;
 	

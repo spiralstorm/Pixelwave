@@ -43,29 +43,34 @@
 {
 }
 
-//-- ScriptName: drawBoundingBoxes
+//-- ScriptName: setDrawBoundingBoxes
 + (void) setDrawBoundingBoxes:(BOOL)val;
 //-- ScriptName: drawBoundingBoxes
 + (BOOL) drawBoundingBoxes;
 
-//-- ScriptName: halveStage
+//-- ScriptName: setDrawHitAreas
++ (void) setDrawHitAreas:(BOOL)val;
+//-- ScriptName: drawBoundingBoxes
++ (BOOL) drawHitAreas;
+
+//-- ScriptName: setHalveStage
 + (void) setHalveStage:(BOOL)val;
 //-- ScriptName: halveStage
 + (BOOL) halveStage;
 
-//-- ScriptName: calculateFrameRate
+//-- ScriptName: setCalculateFrameRate
 + (void) setCalculateFrameRate:(BOOL)val;
 //-- ScriptName: calculateFrameRate
 + (BOOL) calculateFrameRate;
 
-//-- ScriptName: countGLCalls
+//-- ScriptName: setCountGLCalls
 + (void) setCountGLCalls:(BOOL)val;
 //-- ScriptName: countGLCalls
 + (BOOL) countGLCalls;
 //-- ScriptName: glCallCount
 + (unsigned) glCallCount;
 
-//-- ScriptName: logErrors
+//-- ScriptName: setLogErrors
 + (void) setLogErrors:(BOOL)val;
 //-- ScriptName: logErrors
 + (BOOL) logErrors;

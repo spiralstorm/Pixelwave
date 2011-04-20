@@ -29,20 +29,20 @@
 
 @implementation PXTPAtlasParser
 
-- (void)dealloc
+- (void) dealloc
 {
 	if (frames)
 	{
 		free(frames);
 		frames = 0;
 	}
-	
+
 	[names release];
 	names = nil;
-	
+
 	[textureData release];
 	textureData = nil;
-	
+
 	[super dealloc];
 }
 
@@ -55,23 +55,23 @@
 		return nil;
 	if (!textureData)
 		return nil;
-	
+
 	// Create the atlas. There's no going back now...
 	PXTextureAtlas *atlas = [[PXTextureAtlas alloc] init];
-	
+
 	// Loop through the frames
 	PXClipRect *clipRect = [[PXClipRect alloc] init];
 	PXTexturePadding *padding = [[PXTexturePadding alloc] init];
 	PXAtlasFrame *atlasFrame;
 	NSString *frameName;
-	
-	short *rawPadding = 0;
-	
+
+	short *rawPadding = NULL;
+
 	int i;
 	PXTPAtlasParserFrame *frame = frames;
-	
-	for (i = 0; i < numFrames; ++i, ++frame){
 
+	for (i = 0; i < numFrames; ++i, ++frame)
+	{
 		// 1. Get the name
 		frameName = [names objectAtIndex:frame->nameIndex];
 		
@@ -81,7 +81,7 @@
 				 width:frame->clipRect.size.width
 				height:frame->clipRect.size.height
 			  rotation:frame->rotation];
-		
+
 		// 3. Get the padding
 		if (frame->paddingEnabled)
 		{
@@ -91,21 +91,21 @@
 					 bottom:rawPadding[2]
 					   left:rawPadding[3]];
 		}
-		
+
 		// 4. Create the frame object
 		atlasFrame = [[PXAtlasFrame alloc] initWithClipRect:clipRect
 												textureData:textureData
 													 anchor:nil
 													padding:(frame->paddingEnabled) ? padding : nil];
-		
+
 		// 5. Add it to the atlas
 		[atlas addFrame:atlasFrame withName:frameName];
 		[atlasFrame release];
 	}
-	
+
 	[clipRect release];
 	[padding release];
-	
+
 	return atlas;
 }
 
@@ -120,25 +120,25 @@
 {
 	if (!data)
 		return NO;
-	
+
 	// If this file came straight from memory (not loaded from a URL), we don't
 	// know what it's called and as such can't figure out the name of the image.
 	// This is only a restriction with the current JSON file, and can be removed
 	// when the file format changes.
 	if (!origin)
 		return NO;
-	
+
 	NSString *ext = [[origin pathExtension] lowercaseString];
 	if (![ext isEqualToString:@"json"])
 		return NO;
-	
+
 	// Check for a string we know has to be in there
 	NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	NSRange range = [str rangeOfString:@"\"spriteSourceSize\":"];
-	
+
 	if (range.length == 0)
 		return NO;
-	
+
 	return YES;
 }
 + (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
@@ -151,7 +151,7 @@
 	////////////////////////////
 	// Parse the texture data //
 	////////////////////////////
-	
+
 	// Release the old one if it exists
 	if (textureData)
 	{
@@ -175,32 +175,32 @@
 		if (!imagePath)
 			return NO;
 	}
-	
+
 	// Dilemma: Should we get the contentScaleFactor from the file name of the
 	// atlas or from the file name of the images?
 	// Here we just use the file name of the atlas...
 	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:imagePath modifier:modifier];
-	
+
 	if (!loader)
 		return NO;
-	
+
 	// Require the image to be the same contentScaleFactor as the atlas.
 	[loader setContentScaleFactor:contentScaleFactor];
-	
+
 	textureData = [loader newTextureData];
 	[loader release];
-	
+
 	if (!textureData)
 		return NO;
-	
+
 	/////////////////////////
 	// Parse the JSON data //
 	/////////////////////////
-	
+
 	// We'll have to divide all the coordinate  values stored in the files by
 	// the content scale factor to convert them from PIXELS to POINTS.
 	float invScaleFactor = 1.0f / contentScaleFactor;
-	
+
 	NSError *error = nil;
 	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error];
 
@@ -208,7 +208,7 @@
 		return NO;
 
 	NSDictionary *framesDict = [dict objectForKey:@"frames"];
-	
+
 	if (!framesDict)
 		return NO;
 	
@@ -217,20 +217,22 @@
 	{
 		free(frames);
 	}
+
 	numFrames = [framesDict count];
 	frames = (PXTPAtlasParserFrame *)malloc(sizeof(PXTPAtlasParserFrame) * numFrames);
-	
+
 	// Create the array of names
 	if (names)
 	{
 		[names release];
 	}
+
 	names = [[NSMutableArray alloc] init];
-	
+
 	PXTPAtlasParserFrame *cFrame = frames;
-	
+
 	//
-	
+
 	CGRect frame;
 	BOOL rotated;
 	BOOL trimmed;
@@ -241,13 +243,13 @@
 	// Loop through all the names
 	NSString *frameName;
 	NSDictionary *frameDict;
-	
+
 	for (frameName in framesDict)
 	{		
 		frameDict = [framesDict objectForKey:frameName];
 		if (!framesDict)
 			return NO;
-		
+
 		if (![self parseRect:frameDict key:@"frame" ret:&frame])
 			return NO;
 		if (![self parseBool:frameDict key:@"rotated" ret:&rotated])
@@ -264,26 +266,26 @@
 		frame.origin.y *= invScaleFactor;
 		frame.size.width *= invScaleFactor;
 		frame.size.height *= invScaleFactor;
-		
+
 		// When an image is rotated, TexturePacker doesn't rotate the clip
 		// coordinates. That means we have to do it.
 		if (rotated)
 		{
 			float tmp = frame.size.width;
-			
+
 			frame.size.width = frame.size.height;
 			frame.size.height = tmp;
 		}
-		
+
 		// Add the name to the names list and grab its index
 		nameIndex = [names count];
 		[names addObject:frameName];
-		
+
 		cFrame->nameIndex = nameIndex;
 		cFrame->clipRect = frame;
 		cFrame->rotation = rotated ? PX_TP_ROTATION_AMOUNT : 0.0f;
 		cFrame->paddingEnabled = trimmed;
-		
+
 		// Apply padding if needed
 		if (trimmed)
 		{
@@ -298,10 +300,10 @@
 			// Left
 			padding[3] = (spriteSourceSize.origin.x) * invScaleFactor;
 		}
-		
+
 		++cFrame;
 	}
-	
+
 	return YES;
 }
 
@@ -314,9 +316,9 @@
 	id val = [dict objectForKey:key];
 	if (![val isKindOfClass:NSNumber.class])
 		return NO;
-	
+
 	*ret = [(NSNumber *)val boolValue];
-	
+
 	return YES;
 }
 - (BOOL)parseInt:(NSDictionary *)dict key:(NSString *)key ret:(int *)ret
@@ -324,9 +326,9 @@
 	id val = [dict objectForKey:key];
 	if (![val isKindOfClass:NSNumber.class])
 		return NO;
-	
+
 	*ret = [(NSNumber *)val intValue];
-	
+
 	return YES;
 }
 - (BOOL)parseRect:(NSDictionary *)dict key:(NSString *)key ret:(CGRect *)ret
@@ -336,11 +338,11 @@
 	{
 		return NO;
 	}
-	
+
 	NSDictionary *rectDict = val;
-	
+
 	int x, y, w, h;
-	
+
 	if (![self parseInt:rectDict key:@"x" ret:&x])
 		return NO;
 	if (![self parseInt:rectDict key:@"y" ret:&y])
@@ -354,7 +356,7 @@
 	ret->origin.y = y;
 	ret->size.width = w;
 	ret->size.height = h;
-	
+
 	return YES;
 }
 - (BOOL)parseSize:(NSDictionary *)dict key:(NSString *)key ret:(CGSize *)ret
@@ -364,19 +366,19 @@
 	{
 		return NO;
 	}
-	
+
 	NSDictionary *rectDict = val;
-	
+
 	int w, h;
-	
+
 	if (![self parseInt:rectDict key:@"w" ret:&w])
 		return NO;
 	if (![self parseInt:rectDict key:@"h" ret:&h])
 		return NO;
-	
+
 	ret->width = w;
 	ret->height = h;
-	
+
 	return YES;
 }
 

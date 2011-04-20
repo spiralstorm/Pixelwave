@@ -19,7 +19,8 @@
 
 - (id)initWithData:(NSData *)inData
     {
-    if ((self = [super init]) != NULL)
+		self = [super init];
+    if (self)
         {
         data = [inData retain];
         }
