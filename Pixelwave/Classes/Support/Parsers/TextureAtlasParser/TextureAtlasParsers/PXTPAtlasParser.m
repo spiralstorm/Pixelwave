@@ -77,7 +77,7 @@
 		
 		// 2. Get the clip rect
 		[clipRect setX:frame->clipRect.origin.x
-					 Y:frame->clipRect.origin.y
+					 y:frame->clipRect.origin.y
 				 width:frame->clipRect.size.width
 				height:frame->clipRect.size.height
 			  rotation:frame->rotation];

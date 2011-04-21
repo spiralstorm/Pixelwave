@@ -135,9 +135,9 @@ typedef enum
 - (void) setRotation:(float)rotation using2DPerspective:(PXSoundListener2DPerspective)perspective;
 
 //-- ScriptName: setPosition
-- (void) setPositionWithX:(float)x andY:(float)y andZ:(float)z;
+- (void) setPositionWithX:(float)x y:(float)y z:(float)z;
 //-- ScriptName: setVelocity
-- (void) setVelocityWithX:(float)x andY:(float)y andZ:(float)z;
+- (void) setVelocityWithX:(float)x y:(float)y z:(float)z;
 @end
 
 /// @cond DX_IGNORE

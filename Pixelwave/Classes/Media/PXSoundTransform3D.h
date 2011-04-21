@@ -138,13 +138,13 @@
 @property (nonatomic) float logarithmicExponent;
 
 //-- ScriptName: setPosition
-- (void) setX:(float)x andY:(float)y andZ:(float)z;
+- (void) setX:(float)x y:(float)y z:(float)z;
 //-- ScriptName: setVelocity
-- (void) setVelocityX:(float)x andVelocityY:(float)y andVelocityZ:(float)z;
+- (void) setVelocityX:(float)x y:(float)y z:(float)z;
 
 //-- ScriptName: make
 //-- ScriptArg[0]: 1.0f
 //-- ScriptArg[1]: 1.0f
-+ (PXSoundTransform3D *)soundTransform3DWithVolume:(float)volume andPitch:(float)pitch;
++ (PXSoundTransform3D *)soundTransform3DWithVolume:(float)volume pitch:(float)pitch;
 
 @end

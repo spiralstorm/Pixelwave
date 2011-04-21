@@ -511,12 +511,10 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 															PXFNTTextureFontFuserHandleColumnKerning);
 
 					// Make kerning information which we can understand later.
-					kernPoint = [[PXPoint alloc] initWithX:info->kernAmount andY:0.0f];
+					kernPoint = [[PXPoint alloc] initWithX:info->kernAmount y:0.0f];
 
 					// Add it to the list
-					[self setKernPoint:kernPoint
-					 forFirstCharacter:info->kernFirst
-					andSecondCharacter:info->kernSecond];
+					[self setKernPoint:kernPoint forFirstCharacter:info->kernFirst secondCharacter:info->kernSecond];
 
 					// Release it, as the above line will also retain it.
 					[kernPoint release];

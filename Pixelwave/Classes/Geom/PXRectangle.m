@@ -79,7 +79,7 @@
 
 - (id) init
 {
-	return [self initWithX:0.0f andY:0.0f andWidth:0.0f andHeight:0.0f];
+	return [self initWithX:0.0f y:0.0f width:0.0f height:0.0f];
 }
 
 /**
@@ -98,15 +98,15 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	@endcode
  */
-- (id) initWithX:(float)_x andY:(float)_y andWidth:(float)_width andHeight:(float)_height
+- (id) initWithX:(float)_x y:(float)_y width:(float)_width height:(float)_height
 {
 	self = [super init];
 	if (self)
-		[self setX:_x andY:_y andWidth:_width andHeight:_height];
+		[self setX:_x y:_y width:_width height:_height];
 
 	return self;
 }
@@ -116,9 +116,9 @@
 - (id) copyWithZone:(NSZone *)zone
 {
 	return [[[self class] allocWithZone:zone] initWithX:x
-												   andY:y
-											   andWidth:width
-											  andHeight:height];
+												   y:y
+											   width:width
+											  height:height];
 }
 
 - (NSString *)description
@@ -190,7 +190,7 @@
 
 - (PXPoint *)size
 {
-	return [[[PXPoint alloc] initWithX:width andY:height] autorelease];
+	return [[[PXPoint alloc] initWithX:width y:height] autorelease];
 }
 
 - (void) setBottomRight:(PXPoint *)point
@@ -201,7 +201,7 @@
 
 - (PXPoint *)bottomRight
 {
-	return [[[PXPoint alloc] initWithX:x + width andY:y + height] autorelease];
+	return [[[PXPoint alloc] initWithX:x + width y:y + height] autorelease];
 }
 
 - (void) setTopLeft:(PXPoint *)point
@@ -212,7 +212,7 @@
 
 - (PXPoint *)topLeft
 {
-	return [[[PXPoint alloc] initWithX:x andY:y] autorelease];
+	return [[[PXPoint alloc] initWithX:x y:y] autorelease];
 }
 
 #pragma mark Methods
@@ -235,11 +235,11 @@
  *	@code
  *	PXRectangle *rect = [PXRectangle new];
  *	// Top-left will be (0, 0) size will be (0, 0).
- *	[rect setX:-5 andY:7 andWidth:10 andHeight:4];
+ *	[rect setX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	@endcode
  */
-- (void) setX:(float)_x andY:(float)_y andWidth:(float)_width andHeight:(float)_height
+- (void) setX:(float)_x y:(float)_y width:(float)_width height:(float)_height
 {
 	x = _x;
 	y = _y;
@@ -264,13 +264,13 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
- *	BOOL isContained = [rect containsX:3 andY:8];
+ *	BOOL isContained = [rect containsX:3 y:8];
  *	// isContained is YES
  *	@endcode
  */
-- (BOOL) containsX:(float)_x andY:(float)_y
+- (BOOL) containsX:(float)_x y:(float)_y
 {
 	if (_x >= x && _x <= x + width
 	    && _y >= y && _y <= y + height)
@@ -292,16 +292,16 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
- *	PXPoint *point = [[PXPoint alloc] initWithX:3 andY:8];
+ *	PXPoint *point = [[PXPoint alloc] initWithX:3 y:8];
  *	BOOL isContained = [rect containsPoint:point];
  *	// isContained is YES
  *	@endcode
  */
 - (BOOL) containsPoint:(PXPoint *)point
 {
-	return [self containsX:point.x andY:point.y];
+	return [self containsX:point.x y:point.y];
 }
 
 /**
@@ -317,9 +317,9 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect1 will have its top-left will be (-5, 7) size will be (10, 4).
- *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-3 andY:8 andWidth:4 andHeight:2];
+ *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-3 y:8 width:4 height:2];
  *	// rect2 will have its top-left will be (-3, 8) size will be (4, 2).
  *	BOOL isContained = [rect1 containsRect:rect2];
  *	// isContained is YES
@@ -331,22 +331,22 @@
 {
 	float _x = rect.x;
 	float _y = rect.y;
-	if (![self containsX:_x andY:_y])
+	if (![self containsX:_x y:_y])
 		return NO;
 
 	_x = rect.x + rect.width;
 	_y = rect.y;
-	if (![self containsX:_x andY:_y])
+	if (![self containsX:_x y:_y])
 		return NO;
 
 	_x = rect.x;
 	_y = rect.y + rect.height;
-	if (![self containsX:_x andY:_y])
+	if (![self containsX:_x y:_y])
 		return NO;
 
 	_x = rect.x + rect.width;
 	_y = rect.y + rect.height;
-	if (![self containsX:_x andY:_y])
+	if (![self containsX:_x y:_y])
 		return NO;
 
 	return YES;
@@ -366,9 +366,9 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect1 will have its top-left will be (-5, 7) size will be (10, 4).
- *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect2 will have its top-left will be (-5, 7) size will be (10, 4).
  *	BOOL isEqual = [rect1 isEqualToRect:rect2];
  *	// isEqual is YES
@@ -396,7 +396,7 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	BOOL emptyRect = [rect isEmpty];
  *	// emptyRect is NO.
  *	rect.width = 0;
@@ -423,13 +423,13 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
- *	[rect inflateWithX:1 andY:0.5f];
+ *	[rect inflateWithX:1 y:0.5f];
  *	// Top-left will be (-6, 6.5) size will be (12, 5).
  *	@endcode
  */
-- (void) inflateWithX:(float)dx andY:(float)dy
+- (void) inflateWithX:(float)dx y:(float)dy
 {
 	x -= dx;
 	y -= dy;
@@ -446,16 +446,16 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
- *	PXPoint *point = [[PXPoint alloc] initWithX:1 andY:0.5f];
+ *	PXPoint *point = [[PXPoint alloc] initWithX:1 y:0.5f];
  *	[rect inflateWithPoint:point];
  *	// Top-left will be (-6, 6.5) size will be (12, 5).
  *	@endcode
  */
 - (void) inflateWithPoint:(PXPoint *)point
 {
-	[self inflateWithX:point.x andY:point.y];
+	[self inflateWithX:point.x y:point.y];
 }
 
 /**
@@ -472,9 +472,9 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect1 will have its top-left will be (-5, 7) size will be (10, 4).
- *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-7 andY:3 andWidth:5 andHeight:8];
+ *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-7 y:3 width:5 height:8];
  *	// rect2 will have its top-left will be (-7, 3) size will be (5, 8).
  *	PXRectangle *intersection = [rect1 intersectionWithRect:rect2];
  *	// intersection will have its top-left will be (-5, 7) size will be (3, 4).
@@ -514,9 +514,9 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect1 will have its top-left will be (-5, 7) size will be (10, 4).
- *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-7 andY:3 andWidth:5 andHeight:8];
+ *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-7 y:3 width:5 height:8];
  *	// rect2 will have its top-left will be (-7, 3) size will be (5, 8).
  *	BOOL intersects = [rect1 intersectsWithRect:rect2];
  *	// intersects is YES.
@@ -537,13 +537,13 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
- *	[rect offsetWithX:4 andY:-6];
+ *	[rect offsetWithX:4 y:-6];
  *	// Top-left will be (-1, 1) size will be (10, 4).
  *	@endcode
  */
-- (void) offsetWithX:(float)dx andY:(float)dy
+- (void) offsetWithX:(float)dx y:(float)dy
 {
 	x += dx;
 	y += dy;
@@ -557,16 +557,16 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
- *	PXPoint *point = [[PXPoint alloc] initWithX:4 andY:-6];
+ *	PXPoint *point = [[PXPoint alloc] initWithX:4 y:-6];
  *	[rect offsetWithPoint:point];
  *	// Top-left will be (-1, 1) size will be (10, 4).
  *	@endcode
  */
 - (void) offsetWithPoint:(PXPoint *)point
 {
-	[self offsetWithX:point.x andY:point.y];
+	[self offsetWithX:point.x y:point.y];
 }
 
 /**
@@ -574,7 +574,7 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	[rect setEmpty];
  *	// Top-left will be (0, 0) size will be (0, 0).
@@ -600,9 +600,9 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect1 will have its top-left will be (-5, 7) size will be (10, 4).
- *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-7 andY:3 andWidth:5 andHeight:8];
+ *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-7 y:3 width:5 height:8];
  *	// rect2 will have its top-left will be (-7, 3) size will be (5, 8).
  *	PXRectangle *unionRect = [rect1 unionWithRect:rect2];
  *	// unionRect will have its top-left will be (-7, 3) size will be (12, 8).
@@ -648,13 +648,13 @@
  *
  *	@b Example:
  *	@code
- *	PXRectangle *rect = [PXRectangle rectangleWithX:-5 andY:7 andWidth:10 andHeight:4];
+ *	PXRectangle *rect = [PXRectangle rectangleWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	@endcode
  */
-+ (PXRectangle *)rectangleWithX:(float)x andY:(float)y andWidth:(float)width andHeight:(float)height
++ (PXRectangle *)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-	return [[[PXRectangle alloc] initWithX:x andY:y andWidth:width andHeight:height] autorelease];
+	return [[[PXRectangle alloc] initWithX:x y:y width:width height:height] autorelease];
 }
 
 @end

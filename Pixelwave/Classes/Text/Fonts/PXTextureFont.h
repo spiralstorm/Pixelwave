@@ -67,13 +67,13 @@
 @interface PXTextureFont(Mutable)
 - (PXTextureGlyph *)glyphFromCharacter:(unichar)character;
 - (PXPoint *)kerningPointFromFirstCharacter:(unichar)firstCharacter
-andSecondCharacter:(unichar)secondCharacter;
+secondCharacter:(unichar)secondCharacter;
 
 - (void) setGlyph:(PXTextureGlyph *)glyph forString:(NSString *)string;
 - (void) setGlyph:(PXTextureGlyph *)glyph forCharacter:(unichar)character;
 
 - (void) setKerningPoint:(PXPoint *)kerningPoint forString:(NSString *)string;
 - (void) setKerningPoint:(PXPoint *)kerningPoint
-forFirstCharacter:(unichar)firstCharacter
-andSecondCharacter:(unichar)secondCharacter;
+	   forFirstCharacter:(unichar)firstCharacter
+		 secondCharacter:(unichar)secondCharacter;
 @end

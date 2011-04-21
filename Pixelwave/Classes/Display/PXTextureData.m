@@ -204,19 +204,19 @@
  *	@see #drawDisplayObject:
  *	@see #drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
  */
-- (id) initWithWidth:(unsigned)width andHeight:(unsigned)height
+- (id) initWithWidth:(unsigned)width height:(unsigned)height
 {
 	//Create an RGBA8888 texture
-	return [self initWithWidth:width andHeight:height transparency:NO fillColor:0xFFFFFF contentScaleFactor:1.0f];
+	return [self initWithWidth:width height:height transparency:NO fillColor:0xFFFFFF contentScaleFactor:1.0f];
 }
 
 - (id) initWithWidth:(unsigned)width
-		   andHeight:(unsigned)height
+			  height:(unsigned)height
 		transparency:(BOOL)transparency
 		   fillColor:(unsigned)fillColor
 {
 	return [self initWithWidth:width
-					 andHeight:height
+						height:height
 				  transparency:transparency
 					 fillColor:fillColor
 			contentScaleFactor:1.0f];
@@ -232,10 +232,10 @@
  *	// Create two texture data objects 512 x 512 pixels in size and a blue fill.
  *	
  *	// The first one has an alpha channel
- *	PXTextureData *textureDataWithAlpha = [[PXTextureData alloc] initWithWidth:512 andHeight:512 transparency:YES fillColor:0xFF0000FF];
+ *	PXTextureData *textureDataWithAlpha = [[PXTextureData alloc] initWithWidth:512 height:512 transparency:YES fillColor:0xFF0000FF];
  *	
  *	// The second one doesn't
- *	PXTextureData *textureDataWithoutAlpha = [[PXTextureData alloc] initWithWidth:512 andHeight:512 transparency:NO fillColor:0x0000FF];
+ *	PXTextureData *textureDataWithoutAlpha = [[PXTextureData alloc] initWithWidth:512 height:512 transparency:NO fillColor:0x0000FF];
  *	@endcode
  *	
  *	@param width
@@ -255,7 +255,7 @@
  */
 
 - (id) initWithWidth:(unsigned)width
-		   andHeight:(unsigned)height
+			  height:(unsigned)height
 		transparency:(BOOL)transparency
 		   fillColor:(unsigned)fillColor
   contentScaleFactor:(float)contentScaleFactor
@@ -356,9 +356,9 @@
 	PXGLBindTexture(GL_TEXTURE_2D, boundTex);
 
 	[self _setInternalPropertiesWithWidth:powerOfTwo
-								andHeight:powerOfTwo
+								   height:powerOfTwo
 						usingContentWidth:width
-						 andContentHeight:height
+							contentHeight:height
 					   contentScaleFactor:contentScaleFactor
 								   format:glFormat];
 
@@ -480,9 +480,9 @@
 	free(data);
 
 	[self _setInternalPropertiesWithWidth:texWidth
-								andHeight:texHeight
+								height:texHeight
 						usingContentWidth:contentWidth
-						 andContentHeight:contentHeight
+						 contentHeight:contentHeight
 					   contentScaleFactor:1.0f
 								   format:PXTextureDataPixelFormat_A8];
 
@@ -490,9 +490,9 @@
 }
 
 - (void) _setInternalPropertiesWithWidth:(unsigned)texWidth
-							   andHeight:(unsigned)texHeight
+							   height:(unsigned)texHeight
 					   usingContentWidth:(unsigned)contWidth
-						andContentHeight:(unsigned)contHeight
+						contentHeight:(unsigned)contHeight
 					  contentScaleFactor:(float)contScaleFactor
 								  format:(PXTextureDataPixelFormat)pixFormat
 {
@@ -609,8 +609,8 @@
 
 - (PXRectangle *)rect
 {
-	return [PXRectangle rectangleWithX:0.0f andY:0.0f
-							  andWidth:self.width andHeight:self.height];
+	return [PXRectangle rectangleWithX:0.0f y:0.0f
+							  width:self.width height:self.height];
 }
 
 - (BOOL) transparency

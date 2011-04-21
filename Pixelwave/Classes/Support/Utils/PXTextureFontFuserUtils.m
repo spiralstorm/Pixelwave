@@ -177,9 +177,9 @@ PXFont *PXTextureFontUtilsNewFont(PXTextureFontTextureInfo *info,
 	PXGLBindTexture(GL_TEXTURE_2D, boundTex);
 
 	[textureData _setInternalPropertiesWithWidth:textureInfo->size.width
-									   andHeight:textureInfo->size.height
+										  height:textureInfo->size.height
 							   usingContentWidth:textureInfo->size.width
-								andContentHeight:textureInfo->size.height
+								   contentHeight:textureInfo->size.height
 							  contentScaleFactor:contentScaleFactor
 										  format:textureInfo->pixelFormat];
 

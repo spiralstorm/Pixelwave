@@ -77,7 +77,7 @@
 
 		soundState = _PXSoundChannelState_Rewinded;
 
-		soundTransform = [[PXSoundTransform alloc] initWithVolume:1.0f andPitch:1.0f];
+		soundTransform = [[PXSoundTransform alloc] initWithVolume:1.0f pitch:1.0f];
 	}
 
 	return self;

@@ -191,7 +191,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
  *
- *	[tex setClipRectWithX:16 andY:16 andWidth:32 andHeight:64 usingAnchorX:0.5f andAnchorY:0.5f];
+ *	[tex setClipRectWithX:16 y:16 width:32 height:64 usingAnchorX:0.5f anchorY:0.5f];
  *	// tex would represent a 32x64 image that is part of the whole image of
  *	// happy, starting at (16, 16).  Its anchor will be at (16, 32) in local
  *	// point coordinates.
@@ -201,32 +201,32 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
  */
 
 - (void) setClipRectWithX:(int)x
-					 andY:(int)y
-				 andWidth:(ushort)width
-				andHeight:(ushort)height
+					 y:(int)y
+				 width:(ushort)width
+				height:(ushort)height
 {
-	[self setClipRectWithX:x andY:y andWidth:width andHeight:height usingAnchorX:0.0f andAnchorY:0.0f];
+	[self setClipRectWithX:x y:y width:width height:height usingAnchorX:0.0f anchorY:0.0f];
 }
 
 - (void) setClipRectWithX:(int)x
-					 andY:(int)y
-				 andWidth:(ushort)width
-				andHeight:(ushort)height
+					 y:(int)y
+				 width:(ushort)width
+				height:(ushort)height
 			 usingAnchorX:(float)_anchorX
-			   andAnchorY:(float)_anchorY
+			   anchorY:(float)_anchorY
 {
 	if (!textureData) return;
 	
 	PXClipRect *clipRect = [[PXClipRect alloc] initWithX:x
-													andY:y
-												andWidth:width
-											   andHeight:height
+													   y:y
+												   width:width
+												  height:height
 												rotation:0.0f];
 	
 	self.clipRect = clipRect;
 	[clipRect release];
 	
-	[self setAnchorWithX:_anchorX andY:_anchorY];
+	[self setAnchorWithX:_anchorX y:_anchorY];
 }
 
 - (void)setClipRect:(PXClipRect *)clipRect
@@ -320,9 +320,9 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	float tPerPixel = textureData->_tPerPixel * contentScaleFactor;
 	
 	PXClipRect *rect = [[PXClipRect alloc] initWithX:vert->s / sPerPixel
-												andY:vert->t / tPerPixel
-											andWidth:contentWidth
-										   andHeight:contentHeight
+												y:vert->t / tPerPixel
+											width:contentWidth
+										   height:contentHeight
 											rotation:contentRotation];
 	
 	return [rect autorelease];
@@ -385,7 +385,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
  *
- *	[tex setAnchorWithX:0.5f andY:0.5f];
+ *	[tex setAnchorWithX:0.5f y:0.5f];
  *	// tex would represent the happy image.  Assuming happy is a 32x64 image,
  *	// then its anchor will be at (16, 32) in local point coordinates.
  *	@endcode
@@ -393,7 +393,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
  *	@see PXTextureData
  *	@see PXTextureLoader
  */
-- (void) setAnchorWithX:(float)x andY:(float)y
+- (void) setAnchorWithX:(float)x y:(float)y
 {
 	anchorX = x;
 	anchorY = y;
@@ -415,7 +415,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
  *
- *	[tex setAnchorWithPointX:16 andPointY:32];
+ *	[tex setAnchorWithPointX:16 pointY:32];
  *	// tex would represent the happy image.  Assuming happy is a 32x64 image,
  *	// then its anchor will be at (16, 32) in local point coordinates.
  *	@endcode
@@ -423,7 +423,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
  *	@see PXTextureData
  *	@see PXTextureLoader
  */
-- (void) setAnchorWithPointX:(float)x andPointY:(float)y
+- (void) setAnchorWithPointX:(float)x pointY:(float)y
 {
 	if (contentWidth == 0 || contentHeight == 0)
 	{
@@ -431,7 +431,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	}
 	
 	[self setAnchorWithX:(x / (float)contentWidth)
-					andY:(y / (float)contentHeight)];
+					y:(y / (float)contentHeight)];
 }
 
 #pragma mark Padding
@@ -540,9 +540,9 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	float one_scalingFactor = 1.0f / textureData.contentScaleFactor;
 	
 	PXClipRect *fullRect = [[PXClipRect alloc] initWithX:0.0f
-													andY:0.0f
-												andWidth:textureData->_contentWidth * one_scalingFactor
-											   andHeight:textureData->_contentHeight * one_scalingFactor
+													y:0.0f
+												width:textureData->_contentWidth * one_scalingFactor
+											   height:textureData->_contentHeight * one_scalingFactor
 												rotation:0.0f];
 	[self setClipRect:fullRect];
 	[fullRect release];
@@ -578,7 +578,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), retBounds);
 }
 
-- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
 	//return ((x >= verts[0].x) & (x <= verts[3].x) & (y >= verts[0].y) & (y <= verts[3].y));
 	if (!textureData)

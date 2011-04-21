@@ -73,21 +73,21 @@
 //-- ScriptArg[2]: 1.0f
 //-- ScriptArg[3]: 1.0f
 - (id) initWithRedMult:(float)redMultiplier
-		  andGreenMult:(float)greenMultiplier
-		   andBlueMult:(float)blueMultiplier
-		  andAlphaMult:(float)alphaMultiplier;
+			 greenMult:(float)greenMultiplier
+			  blueMult:(float)blueMultiplier
+			 alphaMult:(float)alphaMultiplier;
 
 //-- ScriptName: setf
 - (void) setMultipliersWithRed:(float)red
-					  andGreen:(float)green
-					   andBlue:(float)blue
-					  andAlpha:(float)alpha;
+						 green:(float)green
+						  blue:(float)blue
+						 alpha:(float)alpha;
 
 //-- ScriptName: set
 - (void) setMultipliersWithRedValue:(unsigned char)red
-					  andGreenValue:(unsigned char)green
-					   andBlueValue:(unsigned char)blue
-					  andAlphaValue:(unsigned char)alpha;
+						 greenValue:(unsigned char)green
+						  blueValue:(unsigned char)blue
+						 alphaValue:(unsigned char)alpha;
 
 //-- ScriptName: make
 //-- ScriptArg[0]: 1.0f
@@ -95,8 +95,8 @@
 //-- ScriptArg[2]: 1.0f
 //-- ScriptArg[3]: 1.0f
 + (PXColorTransform *)colorTransformWithRedMult:(float)redMultiplier
-								   andGreenMult:(float)greenMultiplier
-									andBlueMult:(float)blueMultiplier
-								   andAlphaMult:(float)alphaMultiplier;
+									  greenMult:(float)greenMultiplier
+									   blueMult:(float)blueMultiplier
+									  alphaMult:(float)alphaMultiplier;
 
 @end

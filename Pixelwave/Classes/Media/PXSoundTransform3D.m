@@ -49,7 +49,7 @@
  *	The following code creates a sound transform with 120% volume and 80%
  *	pitch:
  *	@code
- *	PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f andPitch:0.8f];
+ *	PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
  *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
  *	// the defaults described in sound listener.  To access the sound listener
@@ -69,7 +69,7 @@
 
 - (id) init
 {
-	return [self initWithVolume:1.0f andPitch:1.0f];
+	return [self initWithVolume:1.0f pitch:1.0f];
 }
 
 /**
@@ -83,7 +83,7 @@
  *
  *	@b Example:
  *	@code
- *	PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f andPitch:0.8f];
+ *	PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
  *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
  *	// the defaults described in sound listener.  To access the sound listener
@@ -92,13 +92,13 @@
  *
  *	@see PXSoundChannel, PXSoundMixer, PXSoundListener
  */
-- (id) initWithVolume:(float)_volume andPitch:(float)_pitch
+- (id) initWithVolume:(float)_volume pitch:(float)_pitch
 {
-	self = [super initWithVolume:_volume andPitch:_pitch];
+	self = [super initWithVolume:_volume pitch:_pitch];
 	if (self)
 	{
-		[self setX:0.0f andY:0.0f andZ:0.0f];
-		[self setVelocityX:0.0f andVelocityY:0.0f andVelocityZ:0.0f];
+		[self setX:0.0f y:0.0f z:0.0f];
+		[self setVelocityX:0.0f y:0.0f z:0.0f];
 
 		self.referenceDistance = PXSoundEngineGetDefaultReferenceDistance();
 		self.logarithmicExponent = PXSoundEngineGetDefaultLogarithmicExponent();
@@ -111,7 +111,7 @@
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	PXSoundTransform3D *copy = [[[self class] allocWithZone:zone] initWithVolume:volume andPitch:pitch];
+	PXSoundTransform3D *copy = [[[self class] allocWithZone:zone] initWithVolume:volume pitch:pitch];
 
 	copy.x = x;
 	copy.y = y;
@@ -131,8 +131,8 @@
 {
 	[super reset];
 
-	[self setX:0.0f andY:0.0f andZ:0.0f];
-	[self setVelocityX:0.0f andVelocityY:0.0f andVelocityZ:0.0f];
+	[self setX:0.0f y:0.0f z:0.0f];
+	[self setVelocityX:0.0f y:0.0f z:0.0f];
 
 	self.referenceDistance = PXSoundEngineGetDefaultReferenceDistance();
 	self.logarithmicExponent = PXSoundEngineGetDefaultLogarithmicExponent();
@@ -168,11 +168,11 @@
  *	@code
  *	PXSoundTransform3D *transform = [PXSoundTransform3D new];
  *	// transform will have a volume of 1.0f and pitch of 1.0f
- *	[transform setX:5.0f andY:7.0f andZ:0.0f];
+ *	[transform setX:5.0f y:7.0f z:0.0f];
  *	// transform's position will now be (5.0f, 7.0f, 0.0f)
  *	@endcode
  */
-- (void) setX:(float)_x andY:(float)_y andZ:(float)_z
+- (void) setX:(float)_x y:(float)_y z:(float)_z
 {
 	x = _x;
 	y = _y;
@@ -192,11 +192,11 @@
  *	@code
  *	PXSoundTransform3D *transform = [PXSoundTransform3D new];
  *	// transform will have a volume of 1.0f and pitch of 1.0f
- *	[transform setVelocityX:-10.0f andVelocityY:4.1f andVelocityZ:0.0f];
+ *	[transform setVelocityX:-10.0f y:4.1f z:0.0f];
  *	// transform's velocity will now be (-10.0f, 4.1f, 0.0f)
  *	@endcode
  */
-- (void) setVelocityX:(float)_x andVelocityY:(float)_y andVelocityZ:(float)_z
+- (void) setVelocityX:(float)_x y:(float)_y z:(float)_z
 {
 	velocityX = _x;
 	velocityY = _y;
@@ -220,7 +220,7 @@
  *
  *	@b Example:
  *	@code
- *	PXSoundTransform3D *transform = [PXSoundTransform3D soundTransformWithVolume:1.2f andPitch:0.8f];
+ *	PXSoundTransform3D *transform = [PXSoundTransform3D soundTransformWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
  *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
  *	// the defaults described in sound listener.  To access the sound listener
@@ -229,9 +229,9 @@
  *
  *	@see PXSoundChannel, PXSoundMixer, PXSoundListener
  */
-+ (PXSoundTransform3D *)soundTransform3DWithVolume:(float)volume andPitch:(float)pitch
++ (PXSoundTransform3D *)soundTransform3DWithVolume:(float)volume pitch:(float)pitch
 {
-	return [[[PXSoundTransform3D alloc] initWithVolume:volume andPitch:pitch] autorelease];
+	return [[[PXSoundTransform3D alloc] initWithVolume:volume pitch:pitch] autorelease];
 }
 
 @end

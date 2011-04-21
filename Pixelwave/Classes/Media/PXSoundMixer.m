@@ -68,7 +68,7 @@
  *
  *	@b Example:
  *	@code
- *	PXSoundTransform *soundTransform = [[PXSoundTransform alloc] initWithVolume:0.5f andPitch:2.0f];
+ *	PXSoundTransform *soundTransform = [[PXSoundTransform alloc] initWithVolume:0.5f pitch:2.0f];
  *	[PXSoundMixer setSoundTransform:soundTransform];
  *	// All sounds will now be at 50% volume from what they were, meaning if a
  *	// sound was at 30% volume, it is now at 15%, likewise the pitch is at 200%,

@@ -194,7 +194,7 @@ PXInline Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
 }
 
 /*
-+ (PXFontFuser *)newFontFuserWithParser:(Class)parser andOptions:(Class)options
++ (PXFontFuser *)newFontFuserWithParser:(Class)parser options:(Class)options
 {
 	// Grab the class using the parser and options as two keys
 	Class fontFuserClass = PXFontFuserGetFuser(parser, options);

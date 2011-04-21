@@ -215,7 +215,7 @@
 						   anchorX:(float)anchorX
 						   anchorY:(float)anchorY
 {
-	PXPoint *anchor = [[PXPoint alloc] initWithX:anchorX andY:anchorY];
+	PXPoint *anchor = [[PXPoint alloc] initWithX:anchorX y:anchorY];
 	PXAtlasFrame *frame = [[PXAtlasFrame alloc] initWithClipRect:clipRect
 													 textureData:textureData
 														  anchor:anchor];

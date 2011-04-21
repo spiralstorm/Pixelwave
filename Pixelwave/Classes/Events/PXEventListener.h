@@ -65,7 +65,7 @@ typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
  *	@param methodSignature a valid method signature
  *	@see PXEventDispatcher#addEventListenerOfType:listener:
  */
-#define PXListener(_selector_) [[[PXEventListener alloc] initWithTarget:self andSelector:@selector(_selector_)] autorelease]
+#define PXListener(_selector_) [[[PXEventListener alloc] initWithTarget:self selector:@selector(_selector_)] autorelease]
 
 // Utility macros
 #define _PXEventListenerInvoke(_listener_, _event_) _listener_->_listenerRef(_listener_->_target, _listener_->_selector, _event_)
@@ -82,10 +82,10 @@ typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
 
 //-- ScriptName: EventListener
 - (id) initWithTarget:(PXGenericObject)target
-		  andSelector:(SEL)selector;
+		  selector:(SEL)selector;
 
 //-- ScriptName: make
 + (PXEventListener *)eventListenerWithTarget:(PXGenericObject)target
-								 andSelector:(SEL)selector;
+									selector:(SEL)selector;
 
 @end

@@ -125,7 +125,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 - (PXPoint *) stagePosition
 {
-	return [PXPoint pointWithX:_stageX andY:_stageY];
+	return [PXPoint pointWithX:_stageX y:_stageY];
 }
 
 - (float) localX

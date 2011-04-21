@@ -374,12 +374,9 @@
 							continue;
 						}
 
-						newKerningPoint = [[PXPoint alloc] initWithX:(kerning.x >> 6)
-																andY:(kerning.y >> 6)];
+						newKerningPoint = [[PXPoint alloc] initWithX:(kerning.x >> 6) y:(kerning.y >> 6)];
 
-						[self setKernPoint:newKerningPoint
-						 forFirstCharacter:*curChar
-						andSecondCharacter:*innerKernChar];
+						[self setKernPoint:newKerningPoint forFirstCharacter:*curChar secondCharacter:*innerKernChar];
 
 						[newKerningPoint release];
 					}

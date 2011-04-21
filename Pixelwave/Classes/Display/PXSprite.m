@@ -80,9 +80,9 @@
 	[_graphics _measureLocalBounds:retBounds];
 }
 
-- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
-	return [_graphics _containsPointWithLocalX:x andLocalY:y shapeFlag:shapeFlag];
+	return [_graphics _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag];
 }
 
 - (void) _renderGL

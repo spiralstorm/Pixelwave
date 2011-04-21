@@ -89,7 +89,7 @@
 //-- ScriptArg[3]: 1.0f
 //-- ScriptArg[4]: 0.0f
 //-- ScriptArg[5]: 0.0f
-- (id) initWithA:(float)a andB:(float)b andC:(float)c andD:(float)d andTX:(float)tx andTY:(float)ty;
+- (id) initWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
 
 //-- ScriptName: set
 //-- ScriptArg[0]: 1.0f
@@ -98,7 +98,7 @@
 //-- ScriptArg[3]: 1.0f
 //-- ScriptArg[4]: 0.0f
 //-- ScriptArg[5]: 0.0f
-- (void) setA:(float)a andB:(float)b andC:(float)c andD:(float)d andTX:(float)tx andTY:(float)ty;
+- (void) setA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
 
 //-- ScriptName: concat
 - (void) concat:(PXMatrix *)m;
@@ -109,13 +109,13 @@
 //-- ScriptName: rotate
 - (void) rotate:(float)angle;
 //-- ScriptName: scale
-- (void) scaleX:(float)sx andY:(float)sy;
+- (void) scaleX:(float)sx y:(float)sy;
 //-- ScriptName: translate
-- (void) translateX:(float)dx andY:(float)dy;
+- (void) translateX:(float)dx y:(float)dy;
 
 //-- ScriptName: createBox
 - (void) createBoxWithScaleX:(float)scaleX
-				   andScaleY:(float)scaleY
+				   scaleY:(float)scaleY
 					rotation:(float)rotation
 						  tx:(float)tx
 						  ty:(float)ty;
@@ -132,7 +132,7 @@
 //-- ScriptArg[3]: 1.0f
 //-- ScriptArg[4]: 0.0f
 //-- ScriptArg[5]: 0.0f
-+ (PXMatrix *)matrixWithA:(float)a andB:(float)b andC:(float)c andD:(float)d andTX:(float)tx andTY:(float)ty;
++ (PXMatrix *)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
 
 //-- ScriptName: MatrixIdentity
 + (PXMatrix *)identityMatrix;

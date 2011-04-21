@@ -149,7 +149,7 @@
 	return glyph;
 }
 - (PXPoint *)kerningPointFromFirstCharacter:(unichar)firstCharacter
-						  andSecondCharacter:(unichar)secondCharacter
+						  secondCharacter:(unichar)secondCharacter
 {
 	unichar characters[] = {firstCharacter, secondCharacter};
 	NSString *key = [[NSString alloc] initWithCharacters:characters length:2];
@@ -179,8 +179,8 @@
 	[charactersToKern setObject:kerningPoint forKey:string];
 }
 - (void) setKerningPoint:(PXPoint *)kerningPoint
-		forFirstCharacter:(unichar)firstCharacter
-	   andSecondCharacter:(unichar)secondCharacter
+	   forFirstCharacter:(unichar)firstCharacter
+		 secondCharacter:(unichar)secondCharacter
 {
 	unichar characters[] = {firstCharacter, secondCharacter};
 	NSString *key = [[NSString alloc] initWithCharacters:characters length:2];

@@ -95,7 +95,7 @@
 	length = player.duration * 1000.0f;
 	[player release];
 
-	PXAVSound *sound = [[PXAVSound alloc] initWithLength:length andData:data];
+	PXAVSound *sound = [[PXAVSound alloc] initWithLength:length data:data];
 
 	return sound;
 }

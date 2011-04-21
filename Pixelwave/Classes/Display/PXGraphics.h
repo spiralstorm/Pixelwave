@@ -79,42 +79,42 @@
 //-- ScriptName: lineStyle
 - (void) lineStyleWithThickness:(float)thickness color:(unsigned)color alpha:(float)alpha;
 //-- ScriptName: moveTo
-- (void) moveToX:(float)x andY:(float)y;
+- (void) moveToX:(float)x y:(float)y;
 //-- ScriptName: lineTo
-- (void) lineToX:(float)x andY:(float)y;
+- (void) lineToX:(float)x y:(float)y;
 //-- ScriptName: clear
 - (void) clear;
 
 //Utility functions
 
 //-- ScriptName: drawRect
-- (void) drawRectWithX:(float)x andY:(float)y andWidth:(float)width andHeight:(float)height;
+- (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height;
 //-- ScriptIgnore
-- (void) drawCircleWithX:(float)x andY:(float)y radius:(float)radius;
+- (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius;
 //-- ScriptName: drawCircle
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: required
 //-- ScriptArg[3]: 0.25f
-- (void) drawCircleWithX:(float)x andY:(float)y radius:(float)radius precision:(float)precision;
+- (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius precision:(float)precision;
 //-- ScriptIgnore
-- (void) drawEllipseWithX:(float)x andY:(float)y andWidth:(float)width andHeight:(float)height;
+- (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height;
 //-- ScriptName: drawEllipse
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: required
 //-- ScriptArg[3]: required
 //-- ScriptArg[4]: 0.25f
-- (void) drawEllipseWithX:(float)x andY:(float)y andWidth:(float)width andHeight:(float)height precision:(float)precision;
+- (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height precision:(float)precision;
 
 @end
 
 /// @cond DX_IGNORE
 @interface PXGraphics(PrivateButPublic)
-- (void) _lineToX:(float)x andY:(float)y;
+- (void) _lineToX:(float)x y:(float)y;
 - (void) _renderGL;
 - (void) _measureLocalBounds:(CGRect *)retBounds;
-- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float) y;
-- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float) y shapeFlag:(BOOL) shapeFlag;
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float) y;
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float) y shapeFlag:(BOOL) shapeFlag;
 @end
 /// @endcond

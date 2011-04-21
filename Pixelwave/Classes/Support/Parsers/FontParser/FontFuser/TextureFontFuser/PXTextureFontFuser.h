@@ -49,6 +49,6 @@
 - (void) setGlyph:(PXTextureGlyph *)glyph forCharacter:(unichar)character;
 - (void) setKernPoint:(PXPoint *)kern
 	forFirstCharacter:(unichar)firstCharacter
-   andSecondCharacter:(unichar)secondCharacter;
+	  secondCharacter:(unichar)secondCharacter;
 
 @end

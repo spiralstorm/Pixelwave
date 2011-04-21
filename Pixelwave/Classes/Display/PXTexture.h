@@ -153,9 +153,9 @@
 ////////////
 
 //-- ScriptName: setAnchor
-- (void) setAnchorWithX:(float)x andY:(float)y;
+- (void) setAnchorWithX:(float)x y:(float)y;
 //-- ScriptName: setAnchorWithPoints
-- (void) setAnchorWithPointX:(float)x andPointY:(float)y;
+- (void) setAnchorWithPointX:(float)x pointY:(float)y;
 
 /////////////
 // Padding //
@@ -169,9 +169,9 @@
 // TODO: Should we keep these, deprecate them, or get rid of them?
 //-- ScriptIgnore
 - (void) setClipRectWithX:(int)x
-					 andY:(int)y
-				 andWidth:(ushort)width
-				andHeight:(ushort)height;
+						y:(int)y
+					width:(ushort)width
+				   height:(ushort)height;
 
 //-- ScriptName: setClipRect
 //-- ScriptArg[0]: required
@@ -181,11 +181,11 @@
 //-- ScriptArg[4]: 0.0f
 //-- ScriptArg[5]: 0.0f
 - (void) setClipRectWithX:(int)x
-					 andY:(int)y
-				 andWidth:(ushort)width
-				andHeight:(ushort)height
+						y:(int)y
+					width:(ushort)width
+				   height:(ushort)height
 			 usingAnchorX:(float)anchorX
-			   andAnchorY:(float)anchorY;
+				  anchorY:(float)anchorY;
 
 ////
 

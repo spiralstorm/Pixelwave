@@ -45,6 +45,6 @@
 	NSData *data;
 }
 
-- (id) initWithLength:(unsigned)length andData:(NSData *)data;
+- (id) initWithLength:(unsigned)length data:(NSData *)data;
 
 @end

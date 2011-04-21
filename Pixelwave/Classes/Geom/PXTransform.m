@@ -181,9 +181,9 @@
 	PXGLColorTransform *_colorTransform = &_displayObject->_colorTransform;
 
 	PXColorTransform *newCT = [[PXColorTransform alloc] initWithRedMult:_colorTransform->redMultiplier
-														   andGreenMult:_colorTransform->greenMultiplier
-															andBlueMult:_colorTransform->blueMultiplier
-														   andAlphaMult:_colorTransform->alphaMultiplier];
+														   greenMult:_colorTransform->greenMultiplier
+															blueMult:_colorTransform->blueMultiplier
+														   alphaMult:_colorTransform->alphaMultiplier];
 
 	return [newCT autorelease];
 }
@@ -199,9 +199,9 @@
 	if (!parent)
 	{
 		[newCT setMultipliersWithRed:_colorTransform->redMultiplier
-							andGreen:_colorTransform->greenMultiplier
-							 andBlue:_colorTransform->blueMultiplier
-							andAlpha:_colorTransform->alphaMultiplier];
+							green:_colorTransform->greenMultiplier
+							 blue:_colorTransform->blueMultiplier
+							alpha:_colorTransform->alphaMultiplier];
 
 		return [newCT autorelease];
 	}
@@ -222,9 +222,9 @@
 	[_displayObject _measureGlobalBounds:&rect];
 
 	return [[[PXRectangle alloc] initWithX:rect.origin.x
-									  andY:rect.origin.y
-								  andWidth:rect.size.width
-								 andHeight:rect.size.height] autorelease];
+									  y:rect.origin.y
+								  width:rect.size.width
+								 height:rect.size.height] autorelease];
 }
 
 @end

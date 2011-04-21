@@ -1094,11 +1094,11 @@
  *
  *	PXSprite *square1 = [[PXSprite alloc] init];
  *	[square1.graphics beginFill:0xFFCC00 alpha:1.0f];
- *	[square1.graphics drawRectWithX:0 andY:0 andWidth:40 andHeight:40];
+ *	[square1.graphics drawRectWithX:0 y:0 width:40 height:40];
  *
  *	PXSprite *square2 = [[PXSprite alloc] init];
  *	[square2.graphics beginFill:0x00CCFF alpha:1.0f];
- *	[square2.graphics drawRectWithX:20 andY:0 andWidth:30 andHeight:40];
+ *	[square2.graphics drawRectWithX:20 y:0 width:30 height:40];
  *
  *	[container addChild:square1];
  *	[container addChild:square2];
@@ -1106,11 +1106,11 @@
  *	PXPoint *pt;
  *	PXLinkedList *objects;
  *
- *	pt = [PXPoint pointWithX:10 andY:20];
+ *	pt = [PXPoint pointWithX:10 y:20];
  *	objects = [container objectsUnderPoint:pt];
  *	NSLog (@"list count = %d\n", [objects count]); // 1
  *
- *	pt = [PXPoint pointWithX:35 andY:20];
+ *	pt = [PXPoint pointWithX:35 y:20];
  *	objects = [container objectsUnderPoint:pt];
  *	NSLog (@"list count = %d\n", [objects count]); // 2
  *
@@ -1141,7 +1141,7 @@
 		// within the container itself and not it's children.  This is extremly
 		// useful for the example of using a sprite that has a grahpics object,
 		// and the point lies within the graphics object.
-		if ([loopChild _hitTestPointWithoutRecursionWithGlobalX:point.x andGlobalY:point.y shapeFlag:YES])
+		if ([loopChild _hitTestPointWithoutRecursionWithGlobalX:point.x globalY:point.y shapeFlag:YES])
 		{
 			[list addObject:loopChild];
 		}
@@ -1163,7 +1163,7 @@
 		// within the container itself and not it's children.  This is extremly
 		// useful for the example of using a sprite that has a grahpics object,
 		// and the point lies within the graphics object.
-		if ([child _hitTestPointWithoutRecursionWithGlobalX:point.x andGlobalY:point.y shapeFlag:YES])
+		if ([child _hitTestPointWithoutRecursionWithGlobalX:point.x globalY:point.y shapeFlag:YES])
 		{
 			[list addObject:child];
 		}
@@ -1360,7 +1360,7 @@
 }
 
 - (BOOL) _hitTestPointWithLocalX:(float)x
-					   andLocalY:(float)y
+						  localY:(float)y
 					   shapeFlag:(BOOL)shapeFlag
 {
 	PXDisplayObject *loopChild;
@@ -1368,17 +1368,17 @@
 	unsigned loopCount = _numChildren;
 	PXDOCForEach(_childrenHead, loopChild, loopIndex, loopCount)
 	{
-		if ([loopChild _hitTestPointWithParentX:x andParentY:y shapeFlag:shapeFlag])
+		if ([loopChild _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag])
 			return YES;
 	}
 	/*PX_DOC_START_CHILD_LOOP
 	{
-		if ([child _hitTestPointWithParentX:x andParentY:y shapeFlag:shapeFlag])
+		if ([child _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag])
 			return YES;
 	}
 	PX_DOC_END_CHILD_LOOP*/
 
-	return [self _containsPointWithLocalX:x andLocalY:y shapeFlag:shapeFlag];
+	return [self _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag];
 }
 
 #pragma mark Fast Enumeration

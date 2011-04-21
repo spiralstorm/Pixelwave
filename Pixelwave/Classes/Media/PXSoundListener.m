@@ -112,8 +112,8 @@ BOOL pxSoundListenerInitialized = NO;
 		transform = [[PXSoundTransform3D alloc] init];
 
 		// Initialize it's position and velocity
-		[self setPositionWithX:0.0f andY:0.0f andZ:0.0f];
-		[self setVelocityWithX:0.0f andY:0.0f andZ:0.0f];
+		[self setPositionWithX:0.0f y:0.0f z:0.0f];
+		[self setVelocityWithX:0.0f y:0.0f z:0.0f];
 
 		// Set the default distance reference 
 		self.defaultReferenceDistance = 64.0f;
@@ -138,8 +138,8 @@ BOOL pxSoundListenerInitialized = NO;
 	if (!_transform)
 		return;
 
-	[self setPositionWithX:_transform.x andY:_transform.y andZ:_transform.z];
-	[self setVelocityWithX:_transform.velocityX andY:_transform.velocityY andZ:_transform.velocityZ];
+	[self setPositionWithX:_transform.x y:_transform.y z:_transform.z];
+	[self setVelocityWithX:_transform.velocityX y:_transform.velocityY z:_transform.velocityZ];
 
 	self.defaultReferenceDistance = _transform.referenceDistance;
 	self.defaultLogarithmicExponent = _transform.logarithmicExponent;
@@ -169,8 +169,8 @@ BOOL pxSoundListenerInitialized = NO;
 	// Have to negate the y and z to convert from al coordinates to pixelwave
 	// coordinates.
 	return [PXVector3D vector3DWithX: pxSoundListenerOrientation.pointA.x
-								andY:-pxSoundListenerOrientation.pointA.y
-								andZ:-pxSoundListenerOrientation.pointA.z];
+								y:-pxSoundListenerOrientation.pointA.y
+								z:-pxSoundListenerOrientation.pointA.z];
 }
 
 - (void) setUp:(PXVector3D *)up
@@ -192,21 +192,21 @@ BOOL pxSoundListenerInitialized = NO;
 	// Have to negate the y and z to convert from al coordinates to pixelwave
 	// coordinates.
 	return [PXVector3D vector3DWithX: pxSoundListenerOrientation.pointB.x
-								andY:-pxSoundListenerOrientation.pointB.y
-								andZ:-pxSoundListenerOrientation.pointB.z];
+								y:-pxSoundListenerOrientation.pointB.y
+								z:-pxSoundListenerOrientation.pointB.z];
 }
 
 - (void) setX:(float)val
 {
-	[self setPositionWithX:val andY:transform.y andZ:transform.z];
+	[self setPositionWithX:val y:transform.y z:transform.z];
 }
 - (void) setY:(float)val
 {
-	[self setPositionWithX:transform.x andY:val andZ:transform.z];
+	[self setPositionWithX:transform.x y:val z:transform.z];
 }
 - (void) setZ:(float)val
 {
-	[self setPositionWithX:transform.x andY:transform.y andZ:val];
+	[self setPositionWithX:transform.x y:transform.y z:val];
 }
 
 - (float) x
@@ -224,15 +224,15 @@ BOOL pxSoundListenerInitialized = NO;
 
 - (void) setVelocityX:(float)val
 {
-	[self setVelocityWithX:val andY:transform.velocityY andZ:transform.velocityZ];
+	[self setVelocityWithX:val y:transform.velocityY z:transform.velocityZ];
 }
 - (void) setVelocityY:(float)val
 {
-	[self setVelocityWithX:transform.velocityX andY:val andZ:transform.velocityZ];
+	[self setVelocityWithX:transform.velocityX y:val z:transform.velocityZ];
 }
 - (void) setVelocityZ:(float)val
 {
-	[self setVelocityWithX:transform.velocityX andY:transform.velocityY andZ:val];
+	[self setVelocityWithX:transform.velocityX y:transform.velocityY z:val];
 }
 
 - (float) velocityX
@@ -328,11 +328,11 @@ BOOL pxSoundListenerInitialized = NO;
  *
  *	@b Example:
  *	@code
- *	[[PXSoundMixer soundListener] setPositionWithX:240.0f andY:160.0f andZ:0.0f];
+ *	[[PXSoundMixer soundListener] setPositionWithX:240.0f y:160.0f z:0.0f];
  *	// Set's the position of the listener to [240.0f, 160.0f, 0.0f];
  *	@endcode
  */
-- (void) setPositionWithX:(float)x andY:(float)y andZ:(float)z
+- (void) setPositionWithX:(float)x y:(float)y z:(float)z
 {
 	transform.x = x;
 	transform.y = y;
@@ -358,11 +358,11 @@ BOOL pxSoundListenerInitialized = NO;
  *
  *	@b Example:
  *	@code
- *	[[PXSoundMixer soundListener] setVelocityWithX:10.0f andY:-5.0f andZ:0.0f];
+ *	[[PXSoundMixer soundListener] setVelocityWithX:10.0f y:-5.0f z:0.0f];
  *	// Set's the velocity of the listener to [10.0f, -5.0f, 0.0f];
  *	@endcode
  */
-- (void) setVelocityWithX:(float)x andY:(float)y andZ:(float)z
+- (void) setVelocityWithX:(float)x y:(float)y z:(float)z
 {
 	transform.velocityX = x;
 	transform.velocityY = y;

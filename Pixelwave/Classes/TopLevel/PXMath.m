@@ -81,7 +81,7 @@
  *
  *	@b Example:
  *	@code
- *	float randomValue = [PXMath randomFloatInRangeWithMin:3.0f andMax:4.5f];
+ *	float randomValue = [PXMath randomFloatInRangeWithMin:3.0f max:4.5f];
  *	//3.0f <= randomValue < 4.5f
  *	@endcode
  */
@@ -97,7 +97,7 @@
  *
  *	@b Example:
  *	@code
- *	int randomValue = [PXMath randomIntInRangeWithMin:3 andMax:5];
+ *	int randomValue = [PXMath randomIntInRangeWithMin:3 max:5];
  *	//3 <= randomValue <= 5, randomValue will be either 3, 4 or 5.
  *	@endcode
  */

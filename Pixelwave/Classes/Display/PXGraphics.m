@@ -90,7 +90,7 @@ typedef enum
 
 @property (nonatomic) PXGLVertex *verts;
 
-- (void) addPointWithX:(float)x andY:(float)y;
+- (void) addPointWithX:(float)x y:(float)y;
 - (void) setColor:(unsigned)hex alpha:(float)alpha;
 
 @end
@@ -158,7 +158,7 @@ typedef enum
 	alpha = _alpha;
 }
 
-- (void) addPointWithX:(float)x andY:(float)y
+- (void) addPointWithX:(float)x y:(float)y
 {
 	if (vertsCount >= PX_GRAPHICS_GROUP_MAX_POINTS - 1)
 	{
@@ -222,7 +222,7 @@ typedef enum
  *	@code
  *	PXShape *shape = [PXShape new];
  *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[shape.graphics drawRectWithX:100 andY:150 andWidth:64 andHeight:32];
+ *	[shape.graphics drawRectWithX:100 y:150 width:64 height:32];
  *	[shape.graphics endFill];
  *	// A red rectangle at (100, 150) with a size of (64, 32) will be drawn to
  *	// the screen, assuming the shape was added to the display list.
@@ -246,7 +246,7 @@ typedef enum
  *	@code
  *	PXShape *shape = [PXShape new];
  *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[shape.graphics drawRectWithX:100 andY:150 andWidth:64 andHeight:32];
+ *	[shape.graphics drawRectWithX:100 y:150 width:64 height:32];
  *	[shape.graphics endFill];
  *	// A red rectangle at (100, 150) with a size of (64, 32) will be drawn to
  *	// the screen, assuming the shape was added to the display list.
@@ -267,7 +267,7 @@ typedef enum
  *	@code
  *	PXShape *shape = [PXShape new];
  *	[shape.graphics lineStyle::0xFF0000 alpha:1.0f];
- *	[shape.graphics drawRectWithX:100 andY:150 andWidth:64 andHeight:32];
+ *	[shape.graphics drawRectWithX:100 y:150 width:64 height:32];
  *	// A red outline of a rectangle at (100, 150) with a size of (64, 32) will
  *	// be drawn to the screen, assuming the shape was added to the display list.
  *	@endcode
@@ -294,10 +294,10 @@ typedef enum
 	cGroup.lineRadius = thickness * 0.5f;
 	[cGroup setColor:color alpha:lineAlpha];
 
-	[cGroup addPointWithX:currentX andY:currentY];
+	[cGroup addPointWithX:currentX y:currentY];
 }
 
-- (void) moveToX:(float)mx andY:(float)my
+- (void) moveToX:(float)mx y:(float)my
 {
 	currentX = mx;
 	currentY = my;
@@ -318,21 +318,21 @@ typedef enum
 	}
 }
 
-- (void) lineToX:(float)mx andY:(float)my
+- (void) lineToX:(float)mx y:(float)my
 {
 	if (currentGroupType != PXGraphicsGroup_Lines)
 	{
 		currentGroupType = PXGraphicsGroup_Lines;
-		[self moveToX:currentX andY:currentY];
+		[self moveToX:currentX y:currentY];
 	}
 
-	[self _lineToX:mx andY:my];
+	[self _lineToX:mx y:my];
 }
 
-- (void) _lineToX:(float)mx andY:(float)my
+- (void) _lineToX:(float)mx y:(float)my
 {
 	if (cGroup)
-		[cGroup addPointWithX:mx andY:my];
+		[cGroup addPointWithX:mx y:my];
 
 	currentX = mx;
 	currentY = my;
@@ -354,42 +354,42 @@ typedef enum
 
 //Utility functions///
 
-- (void) drawRectWithX:(float)rx andY:(float)ry andWidth:(float)rwidth andHeight:(float)rheight
+- (void) drawRectWithX:(float)rx y:(float)ry width:(float)rwidth height:(float)rheight
 {
-	[self moveToX:rx andY:ry];
+	[self moveToX:rx y:ry];
 	if (cGroup.groupType == PXGraphicsGroup_Lines)
 	{
-		[self _lineToX:rx + rwidth andY:ry];
-		[self _lineToX:rx + rwidth andY:ry + rheight];
-		[self _lineToX:rx andY:ry + rheight];
-		[self _lineToX:rx andY:ry];
+		[self _lineToX:rx + rwidth y:ry];
+		[self _lineToX:rx + rwidth y:ry + rheight];
+		[self _lineToX:rx y:ry + rheight];
+		[self _lineToX:rx y:ry];
 	}
 	else
 	{
 		cGroup.groupType = PXGraphicsGroup_TriangleStrip;
-		[self _lineToX:rx andY:ry + rheight];
-		[self _lineToX:rx + rwidth andY:ry];
-		[self _lineToX:rx + rwidth andY:ry + rheight];
+		[self _lineToX:rx y:ry + rheight];
+		[self _lineToX:rx + rwidth y:ry];
+		[self _lineToX:rx + rwidth y:ry + rheight];
 	}
 }
 
-- (void) drawCircleWithX:(float)x andY:(float)y radius:(float)radius
+- (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius
 {
-	[self drawCircleWithX:x andY:y radius:radius precision:PX_GRAPHICS_DEFAULT_PRECISION];
+	[self drawCircleWithX:x y:y radius:radius precision:PX_GRAPHICS_DEFAULT_PRECISION];
 }
 
-- (void) drawCircleWithX:(float)x andY:(float)y radius:(float)radius precision:(float)precision
+- (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius precision:(float)precision
 {
 	float diameter = radius * 2.0f;
-	[self drawEllipseWithX:x - radius andY:y - radius andWidth:diameter andHeight:diameter precision:precision];
+	[self drawEllipseWithX:x - radius y:y - radius width:diameter height:diameter precision:precision];
 }
 
-- (void) drawEllipseWithX:(float)x andY:(float)y andWidth:(float)width andHeight:(float)height
+- (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-	[self drawEllipseWithX:x andY:y andWidth:width andHeight:height precision:PX_GRAPHICS_DEFAULT_PRECISION];
+	[self drawEllipseWithX:x y:y width:width height:height precision:PX_GRAPHICS_DEFAULT_PRECISION];
 }
 
-- (void) drawEllipseWithX:(float)x andY:(float)y andWidth:(float)width andHeight:(float)height precision:(float)precision
+- (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height precision:(float)precision
 {
 	if (precision < 0.0f || PXMathIsZero( precision ))
 		return;
@@ -405,7 +405,7 @@ typedef enum
 	float _x = xPWidth + width;
 	float _y = yPHeight;
 
-	[self moveToX:_x andY:_y];
+	[self moveToX:_x y:_y];
 
 	float PIM2 = M_PI * 2.0f;
 	float maxPoints = PX_GRAPHICS_GROUP_MAX_POINTS - 2.0f - cGroup.vertsCount;
@@ -421,10 +421,10 @@ typedef enum
 		{
 			_x = xPWidth + (cosf( angle ) * width);
 			_y = yPHeight + (sinf( angle ) * height);
-			[self _lineToX:_x andY:_y];
+			[self _lineToX:_x y:_y];
 		}
 
-		[self _lineToX:xPWidth + width andY:yPHeight];
+		[self _lineToX:xPWidth + width y:yPHeight];
 	}
 	else
 	{
@@ -434,12 +434,12 @@ typedef enum
 		{
 			_x = xPWidth + (cosf( angle ) * width);
 			_y = yPHeight + (sinf( angle ) * height);
-			[self _lineToX:_x andY:_y];
+			[self _lineToX:_x y:_y];
 			++numPointsAdded;
 
 			_x = xPWidth + (cosf( -angle ) * width);
 			_y = yPHeight + (sinf( -angle ) * height);
-			[self _lineToX:_x andY:_y];
+			[self _lineToX:_x y:_y];
 			++numPointsAdded;
 		}
 
@@ -447,7 +447,7 @@ typedef enum
 		{
 			_x = xPWidth + (cosf( M_PI ) * width);
 			_y = yPHeight + (sinf( M_PI ) * height);
-			[self _lineToX:_x andY:_y];
+			[self _lineToX:_x y:_y];
 		}
 	}
 }
@@ -541,7 +541,7 @@ typedef enum
 	retBounds->size.height = (float)yMax - retBounds->origin.y;
 }
 
-- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y
 {
 	PXGLVertex *point;
 	int index = 0;
@@ -579,13 +579,13 @@ typedef enum
 	return NO;
 }
 
-- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
 	if ([groups count] == 0)
 		return NO;
 
 	if (!shapeFlag)
-		return [self _containsPointWithLocalX:x andLocalY:y];
+		return [self _containsPointWithLocalX:x localY:y];
 
 	PXMathPoint pt = PXMathPointMake(x, y);
 	PXMathTriangle tri;

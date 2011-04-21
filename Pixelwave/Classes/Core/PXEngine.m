@@ -706,7 +706,7 @@ PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 		}
 
 		// Narrow phase - This is the expensive one.
-		if (!([target _hitTestPointWithoutRecursionWithGlobalX:x andGlobalY:y shapeFlag:YES]))
+		if (!([target _hitTestPointWithoutRecursionWithGlobalX:x globalY:y shapeFlag:YES]))
 		{
 			continue;
 		}
@@ -1121,10 +1121,10 @@ void PXEngineRender( )
 			if (CGRectIsEmpty(bounds))
 				continue;
 
-			pTopLeft     = [PXPoint pointWithX:bounds.origin.x andY:bounds.origin.y];
-			pBottomLeft  = [PXPoint pointWithX:bounds.origin.x andY:bounds.origin.y + bounds.size.height];
-			pTopRight    = [PXPoint pointWithX:bounds.origin.x + bounds.size.width andY:bounds.origin.y];
-			pBottomRight = [PXPoint pointWithX:bounds.origin.x + bounds.size.width andY:bounds.origin.y + bounds.size.height];
+			pTopLeft     = [PXPoint pointWithX:bounds.origin.x y:bounds.origin.y];
+			pBottomLeft  = [PXPoint pointWithX:bounds.origin.x y:bounds.origin.y + bounds.size.height];
+			pTopRight    = [PXPoint pointWithX:bounds.origin.x + bounds.size.width y:bounds.origin.y];
+			pBottomRight = [PXPoint pointWithX:bounds.origin.x + bounds.size.width y:bounds.origin.y + bounds.size.height];
 
 			pTopLeft     = [doAABB localToGlobal:pTopLeft];
 			pBottomLeft  = [doAABB localToGlobal:pBottomLeft];

@@ -164,7 +164,7 @@
  *	PXSoundLoader *soundLoader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav"];
  *	PXSound *sound = [soundLoader newSound];
  *
- *	PXSoundTransform3D *soundTransform3D = [[PXSoundTransform3D alloc] initWithVolume:1.2f andPitch:0.8f];
+ *	PXSoundTransform3D *soundTransform3D = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
  *	soundTransform3D.x = 40.0f;
  *	soundTransform3D.y = 15.0f;
  *	// The sound can only be 3D if it is mono and the correct file type.  To

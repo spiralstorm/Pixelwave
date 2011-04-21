@@ -75,22 +75,22 @@
 @property (nonatomic, assign) float z;
 
 //-- ScriptIgnore
-- (id) initWithX:(float)x andY:(float)y andZ:(float)z;
+- (id) initWithX:(float)x y:(float)y z:(float)z;
 //-- ScriptName: Vector3D
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
 //-- ScriptArg[2]: 0.0f
 //-- ScriptArg[3]: 0.0f
-- (id) initWithX:(float)x andY:(float)y andZ:(float)z andW:(float)w;
+- (id) initWithX:(float)x y:(float)y z:(float)z w:(float)w;
 
 //-- ScriptIgnore
-- (void) setX:(float)x andY:(float)y andZ:(float)z;
+- (void) setX:(float)x y:(float)y z:(float)z;
 //-- ScriptName: set
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
 //-- ScriptArg[2]: 0.0f
 //-- ScriptArg[3]: 0.0f
-- (void) setX:(float)x andY:(float)y andZ:(float)z andW:(float)w;
+- (void) setX:(float)x y:(float)y z:(float)z w:(float)w;
 
 //-- ScriptName: add
 - (PXVector3D *)addVector:(PXVector3D *)vector;
@@ -107,7 +107,7 @@
 //-- ScriptName: incrementBy
 - (void) incrementByVector:(PXVector3D *)vector;
 //-- ScriptName: nearEquals
-- (BOOL) nearEqualsVector:(PXVector3D *)vector withTolerance:(float)tolerance useAllFour:(BOOL)allFour;
+- (BOOL) nearEqualsVector:(PXVector3D *)vector tolerance:(float)tolerance useAllFour:(BOOL)allFour;
 //-- ScriptName: negate
 - (void) negate;
 //-- ScriptName: normalize
@@ -118,19 +118,19 @@
 - (void) scaleBy:(float)scalar;
 
 //-- ScriptName: getAngle
-+ (float) angleBetweenVector:(PXVector3D *)vectorA andVector:(PXVector3D *)vectorB;
++ (float) angleBetweenVectorA:(PXVector3D *)vectorA vectorB:(PXVector3D *)vectorB;
 //-- ScriptName: getDistance
-+ (float) distanceBetweenVector:(PXVector3D *)vectorA andVector:(PXVector3D *)vectorB;
++ (float) distanceBetweenVectorA:(PXVector3D *)vectorA vectorB:(PXVector3D *)vectorB;
 //-- ScriptName: getDistanceSquared
-+ (float) distanceSquaredBetweenVector:(PXVector3D *)vectorA andVector:(PXVector3D *)vectorB;
++ (float) distanceSquaredBetweenVectorA:(PXVector3D *)vectorA vectorB:(PXVector3D *)vectorB;
 
 //-- ScriptIgnore
-+ (PXVector3D *)vector3DWithX:(float)x andY:(float)y andZ:(float)z;
++ (PXVector3D *)vector3DWithX:(float)x y:(float)y z:(float)z;
 //-- ScriptName: make
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
 //-- ScriptArg[2]: 0.0f
 //-- ScriptArg[3]: 0.0f
-+ (PXVector3D *)vector3DWithX:(float)x andY:(float)y andZ:(float)z andW:(float)w;
++ (PXVector3D *)vector3DWithX:(float)x y:(float)y z:(float)z w:(float)w;
 
 @end

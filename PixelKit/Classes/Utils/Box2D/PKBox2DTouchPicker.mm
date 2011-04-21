@@ -221,8 +221,8 @@ public:
 	{
 		physicsWorld = _physicsWorld;
 
-		[self addEventListenerOfType:PX_EVENT_ADDED_TO_STAGE listener:PXListener(onAddedToStage)];
-		[self addEventListenerOfType:PX_EVENT_REMOVED_FROM_STAGE listener:PXListener(onRemovedFromStage)];
+		[self addEventListenerOfType:PXEvent_AddedToStage listener:PXListener(onAddedToStage)];
+		[self addEventListenerOfType:PXEvent_RemovedFromStage listener:PXListener(onRemovedFromStage)];
 		
 		// Create a list of touches
 		touches = [[PXLinkedList alloc] init];
@@ -248,11 +248,11 @@ public:
 {
 	PXStage *stage = self.stage;
 	
-	[stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN		listener:PXListener(onTouchDown:)];
-	[stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_MOVE		listener:PXListener(onTouchMove:)];
-	[stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP		listener:PXListener(onTouchUp:)];
-	[stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_OUT		listener:PXListener(onTouchUp:)];
-	[stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL	listener:PXListener(onTouchUp:)];
+	[stage addEventListenerOfType:PXTouchEvent_TouchDown		listener:PXListener(onTouchDown:)];
+	[stage addEventListenerOfType:PXTouchEvent_TouchMove		listener:PXListener(onTouchMove:)];
+	[stage addEventListenerOfType:PXTouchEvent_TouchUp		listener:PXListener(onTouchUp:)];
+	[stage addEventListenerOfType:PXTouchEvent_TouchOut		listener:PXListener(onTouchUp:)];
+	[stage addEventListenerOfType:PXTouchEvent_TouchCancel	listener:PXListener(onTouchUp:)];
 }
 - (void)onRemovedFromStage
 {
@@ -260,11 +260,11 @@ public:
 	
 	if(!stage) return;
 	
-	[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN	listener:PXListener(onTouchDown:)];
-	[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_MOVE	listener:PXListener(onTouchMove:)];
-	[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP		listener:PXListener(onTouchUp:)];
-	[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_OUT	listener:PXListener(onTouchUp:)];
-	[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL	listener:PXListener(onTouchUp:)];
+	[stage removeEventListenerOfType:PXTouchEvent_TouchDown	listener:PXListener(onTouchDown:)];
+	[stage removeEventListenerOfType:PXTouchEvent_TouchMove	listener:PXListener(onTouchMove:)];
+	[stage removeEventListenerOfType:PXTouchEvent_TouchUp		listener:PXListener(onTouchUp:)];
+	[stage removeEventListenerOfType:PXTouchEvent_TouchOut	listener:PXListener(onTouchUp:)];
+	[stage removeEventListenerOfType:PXTouchEvent_TouchCancel	listener:PXListener(onTouchUp:)];
 }
 
 - (void) onTouchDown:(PXTouchEvent *)event

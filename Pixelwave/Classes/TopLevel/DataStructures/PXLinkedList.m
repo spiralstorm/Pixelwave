@@ -375,8 +375,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -428,7 +428,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
  *	// add1 has a retain count of 1, and no index
  *
  *	PXLinkedList *list = [PXLinkedList new];
@@ -471,7 +471,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
  *	// add1 has a retain count of 1, and no index
  *
  *	PXLinkedList *list = [PXLinkedList new];
@@ -565,7 +565,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *		The object to add to the end of the list.
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
  *	// add1's retain count is 1
  *
  *	PXLinkedList *list = [PXLinkedList new];
@@ -616,8 +616,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -682,8 +682,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -859,8 +859,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -928,8 +928,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -1004,8 +1004,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -1067,8 +1067,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -1118,8 +1118,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -1168,8 +1168,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -1222,8 +1222,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -1350,8 +1350,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *
@@ -1393,8 +1393,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@b Example:
  *	@code
- *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 andY:4];
- *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 andY:5];
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
  *	// add1 has a retain count of 1, and no index
  *	// add2 has a retain count of 1, and no index
  *

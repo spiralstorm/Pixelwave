@@ -59,19 +59,17 @@
 // When making a version of this method without rotation, the compiler freaks
 // out because it can't tell the differnce between it and the similarly named
 // method in PXRectangle
-- (id)initWithX:(ushort)x andY:(ushort)y
-	   andWidth:(ushort)width andHeight:(ushort)height
-	   rotation:(float)rotation;
+- (id)initWithX:(ushort)x y:(ushort)y width:(ushort)width height:(ushort)height rotation:(float)rotation;
 
 - (void)setX:(ushort)x
-		   Y:(ushort)y
+		   y:(ushort)y
 	   width:(ushort)width
 	  height:(ushort)height
 	rotation:(float)rotation;
 
 // Utility
-+ (PXClipRect *)clipRectWithX:(ushort)x andY:(ushort)y andWidth:(ushort)width andHeight:(ushort)height;
-+ (PXClipRect *)clipRectWithX:(ushort)x andY:(ushort)y andWidth:(ushort)width andHeight:(ushort)height rotation:(float)rotation;
++ (PXClipRect *)clipRectWithX:(ushort)x y:(ushort)y width:(ushort)width height:(ushort)height;
++ (PXClipRect *)clipRectWithX:(ushort)x y:(ushort)y width:(ushort)width height:(ushort)height rotation:(float)rotation;
 
 @end
 

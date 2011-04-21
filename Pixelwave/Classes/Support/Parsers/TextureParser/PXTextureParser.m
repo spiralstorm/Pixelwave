@@ -256,9 +256,9 @@
 	if (success)
 	{
 		[textureData _setInternalPropertiesWithWidth:textureInfo->size.width
-										   andHeight:textureInfo->size.height
+										   height:textureInfo->size.height
 								   usingContentWidth:contentSize.width
-									andContentHeight:contentSize.height
+									contentHeight:contentSize.height
 								  contentScaleFactor:contentScaleFactor
 											  format:textureInfo->pixelFormat];
 	}

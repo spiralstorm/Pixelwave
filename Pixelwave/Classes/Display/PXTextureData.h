@@ -152,10 +152,10 @@
 - (id) initWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier;
 
 //-- ScriptIgnore
-- (id) initWithWidth:(unsigned)width andHeight:(unsigned)height;
+- (id) initWithWidth:(unsigned)width height:(unsigned)height;
 //-- ScriptIgnore
 - (id) initWithWidth:(unsigned)width
-		   andHeight:(unsigned)height
+			  height:(unsigned)height
 		transparency:(BOOL)transparency
 		   fillColor:(unsigned)fillColor;
 
@@ -166,7 +166,7 @@
 //-- ScriptArg[3]: 0xFFFFFF
 //-- ScriptArg[4]: 1.0f
 - (id) initWithWidth:(unsigned)width
-		   andHeight:(unsigned)height
+			  height:(unsigned)height
 		transparency:(BOOL)transparency
 		   fillColor:(unsigned)fillColor
   contentScaleFactor:(float)contentScaleFactor;
@@ -251,9 +251,9 @@
 - (id) _initWithoutGLName;
 - (BOOL) _makeGLName;
 - (void) _setInternalPropertiesWithWidth:(unsigned)textureWidth
-							   andHeight:(unsigned)textureHeight
+								  height:(unsigned)textureHeight
 					   usingContentWidth:(unsigned)contentWidth
-						andContentHeight:(unsigned)contentHeight
+						   contentHeight:(unsigned)contentHeight
 					  contentScaleFactor:(float)contentScaleFactor
 								  format:(PXTextureDataPixelFormat)pixelFormat;
 @end

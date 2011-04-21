@@ -54,7 +54,7 @@
  *	The following code creates a matrix that has been rotated 30 degrees
  *	(PI/6.0f radians) and translated (-4.0f, 2.5f):
  *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f andB:0.5f andC:0.5f andD:0.866025f andTX:-4.0f andTY:2.5f];
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *	@endcode
  *
  *	Likewise the following code creates a matrix that has been rotated 30
@@ -62,7 +62,7 @@
  *	@code
  *	PXMatrix *matrix = [PXMatrix new];
  *	[matrix rotate:M_PI/6.0f];
- *	[matrix translateX:-4.0f andY:2.5f];
+ *	[matrix translateX:-4.0f y:2.5f];
  *	@endcode
  */
 @implementation PXMatrix
@@ -71,7 +71,7 @@
 
 - (id) init
 {
-	return [self initWithA:1.0f andB:0.0f andC:0.0f andD:1.0f andTX:0.0f andTY:0.0f];
+	return [self initWithA:1.0f b:0.0f c:0.0f d:1.0f tx:0.0f ty:0.0f];
 }
 
 /**
@@ -98,16 +98,16 @@
  *
  *	@b Example:
  *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f andB:0.5f andC:0.5f andD:0.866025f andTX:-4.0f andTY:2.5f];
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
  *	@endcode
  */
-- (id) initWithA:(float)_a andB:(float)_b andC:(float)_c andD:(float)_d andTX:(float)_tx andTY:(float)_ty
+- (id) initWithA:(float)_a b:(float)_b c:(float)_c d:(float)_d tx:(float)_tx ty:(float)_ty
 {
 	self = [super init];
 	if (self)
 	{
-		[self setA:_a andB:_b andC:_c andD:_d andTX:_tx andTY:_ty];
+		[self setA:_a b:_b c:_c d:_d tx:_tx ty:_ty];
 	}
 
 	return self;
@@ -117,7 +117,7 @@
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	return [[[self class] allocWithZone:zone] initWithA:a andB:b andC:c andD:d andTX:tx andTY:ty];
+	return [[[self class] allocWithZone:zone] initWithA:a b:b c:c d:d tx:tx ty:ty];
 }
 
 - (NSString *)description
@@ -162,11 +162,11 @@
  *	@b Example:
  *	@code
  *	PXMatrix *matrix = [[PXMatrix alloc] init];
- *	[matrix setA:0.866025f andB:0.5f andC:0.5f andD:0.866025f andTX:-4.0f andTY:2.5f];
+ *	[matrix setA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
  *	@endcode
  */
-- (void) setA:(float)_a andB:(float)_b andC:(float)_c andD:(float)_d andTX:(float)_tx andTY:(float)_ty
+- (void) setA:(float)_a b:(float)_b c:(float)_c d:(float)_d tx:(float)_tx ty:(float)_ty
 {
 	a  = _a;
 	b  = _b;
@@ -186,9 +186,9 @@
  *
  *	@b Example:
  *	@code
- *	PXMatrix *matrix1 = [[PXMatrix alloc] initWithA:0.866025f andB:0.5f andC:0.5f andD:0.866025f andTX:-4.0f andTY:2.5f];
+ *	PXMatrix *matrix1 = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *	// matrix1 will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	PXMatrix *matrix2 = [[PXMatrix alloc] initWithA:0.0f andB:1.0f andC:1.0f andD:0.0f andTX:-1.0f andTY:1.0f];
+ *	PXMatrix *matrix2 = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:1.0f d:0.0f tx:-1.0f ty:1.0f];
  *	// matrix2 will be (a=0.0f, b=1.0f, c=1.0f, d=0.0f, tx=1.0f, ty=3.0f)
  *	[matrix1 concat:matrix2];
  *	// matrix1 will be (a=0.5f, b=0.866025f, c=0.866025f, d=0.5f, tx=-4.366030f, ty=2.866030f)
@@ -221,7 +221,7 @@
  *
  *	@b Example:
  *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f andB:0.5f andC:0.5f andD:0.866025f andTX:-4.0f andTY:2.5f];
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
  *	[matrix identity];
  *	// matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
@@ -239,7 +239,7 @@
  *
  *	@b Example:
  *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:1.0f andB:1.0f andC:0.5f andD:1.0f andTX:0.0f andTY:0.0f];
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:1.0f b:1.0f c:0.5f d:1.0f tx:0.0f ty:0.0f];
  *	// matrix will be (a=1.0f, b=1.0f, c=0.5f, d=1.0f, tx=0.0f, ty=0.0f)
  *	[matrix invert];
  *	// matrix will be (a=2.0f, b=-2.0f, c=-1.0f, d=2.0f, tx=0.0f, ty=0.0f)
@@ -314,13 +314,13 @@
  *
  *	@b Example:
  *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f andB:0.5f andC:0.5f andD:0.866025f andTX:-4.0f andTY:2.5f];
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	[matrix scaleX:0.5f andY:0.5f];
+ *	[matrix scaleX:0.5f y:0.5f];
  *	// matrix will be (a=0.433012f, b=0.5f, c=0.5f, d=0.433012f, tx=-2.0f, ty=1.0f)
  *	@endcode
  */
-- (void) scaleX:(float)sx andY:(float)sy
+- (void) scaleX:(float)sx y:(float)sy
 {
 	a *= sx;
 	d *= sy;
@@ -338,13 +338,13 @@
  *
  *	@b Example:
  *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f andB:0.5f andC:0.5f andD:0.866025f andTX:-4.0f andTY:2.5f];
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	[matrix translateX:1.0f andY:-0.5f];
+ *	[matrix translateX:1.0f y:-0.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-3.0f, ty=2.0f)
  *	@endcode
  */
-- (void) translateX:(float)dx andY:(float)dy
+- (void) translateX:(float)dx y:(float)dy
 {
 	tx += dx;
 	ty += dy;
@@ -367,18 +367,18 @@
  *
  *	@b Example:
  *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f andB:0.5f andC:0.5f andD:0.866025f andTX:-4.0f andTY:2.5f];
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	[matrix createBoxWithScaleX:0.5f andScaleY:0.5f rotation:M_PI/6.0f tx:-3.0f ty:2.0f];
+ *	[matrix createBoxWithScaleX:0.5f scaleY:0.5f rotation:M_PI/6.0f tx:-3.0f ty:2.0f];
  *	// matrix will be (a=0.433013f, b=0.5f, c=0.5f, d=0.433013f, tx=-3.0f, ty=2.0f)
  *	@endcode
  */
-- (void) createBoxWithScaleX:(float)_scaleX andScaleY:(float)_scaleY rotation:(float)_rotation tx:(float)_tx ty:(float)_ty
+- (void) createBoxWithScaleX:(float)_scaleX scaleY:(float)_scaleY rotation:(float)_rotation tx:(float)_tx ty:(float)_ty
 {
 	[self identity];
 	[self rotate:_rotation];
-	[self scaleX:_scaleX andY:_scaleY];
-	[self translateX:_tx andY:_ty];
+	[self scaleX:_scaleX y:_scaleY];
+	[self translateX:_tx y:_ty];
 }
 
 /**
@@ -392,9 +392,9 @@
  *
  *	@b Example:
  *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f andB:1.0f andC:0.0f andD:1.0f andTX:-4.0f andTY:2.5f];
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:0.0f d:1.0f tx:-4.0f ty:2.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	PXPoint *point = [[PXPoint alloc] initWithX:1.0f andY:1.0f];
+ *	PXPoint *point = [[PXPoint alloc] initWithX:1.0f y:1.0f];
  *	PXPoint *transformedPoint = [matrix transformPoint:point];
  *	// transformedPoint will be (-4.0f, 4.5f)
  *	@endcode
@@ -404,7 +404,7 @@
 	float x = point.x * a + point.y * c + tx;
 	float y = point.x * b + point.y * d + ty;
 
-	return [[[PXPoint alloc] initWithX:x andY:y] autorelease];
+	return [[[PXPoint alloc] initWithX:x y:y] autorelease];
 }
 
 /**
@@ -419,9 +419,9 @@
  *
  *	@b Example:
  *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f andB:1.0f andC:0.0f andD:1.0f andTX:-4.0f andTY:2.5f];
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:0.0f d:1.0f tx:-4.0f ty:2.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	PXPoint *point = [[PXPoint alloc] initWithX:1.0f andY:1.0f];
+ *	PXPoint *point = [[PXPoint alloc] initWithX:1.0f y:1.0f];
  *	PXPoint *transformedPoint = [matrix deltaTransformPoint:point];
  *	// transformedPoint will be (0.0f, 2.0f)
  *	@endcode
@@ -431,7 +431,7 @@
 	float x = point.x * a + point.y * c;
 	float y = point.x * b + point.y * d;
 
-	return [[[PXPoint alloc] initWithX:x andY:y] autorelease];
+	return [[[PXPoint alloc] initWithX:x y:y] autorelease];
 }
 
 /**
@@ -461,13 +461,13 @@
  *
  *	@b Example:
  *	@code
- *	PXMatrix *matrix = [PXMatrix matrixWithA:0.866025f andB:0.5f andC:0.5f andD:0.866025f andTX:-4.0f andTY:2.5f];
+ *	PXMatrix *matrix = [PXMatrix matrixWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
  *	@endcode
  */
-+ (PXMatrix *)matrixWithA:(float)a andB:(float)b andC:(float)c andD:(float)d andTX:(float)tx andTY:(float)ty
++ (PXMatrix *)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
 {
-	return [[[PXMatrix alloc] initWithA:a andB:b andC:c andD:d andTX:tx andTY:ty] autorelease];
+	return [[[PXMatrix alloc] initWithA:a b:b c:c d:d tx:tx ty:ty] autorelease];
 }
 
 + (PXMatrix *)identityMatrix

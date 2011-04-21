@@ -77,9 +77,9 @@
 - (id) init
 {
 	return [self initWithRedMult:1.0f
-					andGreenMult:1.0f
-					 andBlueMult:1.0f
-					andAlphaMult:1.0f];
+					   greenMult:1.0f
+						blueMult:1.0f
+					   alphaMult:1.0f];
 }
 
 /**
@@ -94,7 +94,7 @@
  *	@param alphaMultiplier
  *		The alpha multiplier value ranging between 0.0f and 1.0f.
  */
-- (id)initWithRedMult:(float)r andGreenMult:(float)g andBlueMult:(float)b andAlphaMult:(float)a
+- (id)initWithRedMult:(float)r greenMult:(float)g blueMult:(float)b alphaMult:(float)a
 {
 	self = [super init];
 	if (self)
@@ -113,9 +113,9 @@
 - (id) copyWithZone:(NSZone *)zone
 {
 	return [[[self class] allocWithZone:zone] initWithRedMult:redMultiplier
-												 andGreenMult:greenMultiplier
-												  andBlueMult:blueMultiplier
-												 andAlphaMult:alphaMultiplier];
+													greenMult:greenMultiplier
+													 blueMult:blueMultiplier
+													alphaMult:alphaMultiplier];
 }
 
 - (NSString *)description
@@ -146,9 +146,9 @@
  *		The alpha multiplier value ranging between 0.0f and 1.0f.
  */
 - (void) setMultipliersWithRed:(float)red
-					  andGreen:(float)green
-					   andBlue:(float)blue
-					  andAlpha:(float)alpha
+						 green:(float)green
+						  blue:(float)blue
+						 alpha:(float)alpha
 {
 	redMultiplier   = red;
 	greenMultiplier = green;
@@ -171,9 +171,9 @@
  *
  */
 - (void) setMultipliersWithRedValue:(unsigned char)red
-					  andGreenValue:(unsigned char)green
-					   andBlueValue:(unsigned char)blue
-					  andAlphaValue:(unsigned char)alpha
+						 greenValue:(unsigned char)green
+						  blueValue:(unsigned char)blue
+						 alphaValue:(unsigned char)alpha
 {
 	redMultiplier   = PX_COLOR_BYTE_TO_FLOAT(red);
 	greenMultiplier = PX_COLOR_BYTE_TO_FLOAT(green);
@@ -196,11 +196,9 @@
  *	@return
  *		The created color transform.
  */
-+ (PXColorTransform *)colorTransformWithRedMult:(float)r andGreenMult:(float)g andBlueMult:(float)b andAlphaMult:(float)a
++ (PXColorTransform *)colorTransformWithRedMult:(float)r greenMult:(float)g blueMult:(float)b alphaMult:(float)a
 {
-	PXColorTransform *ct = [[PXColorTransform alloc] initWithRedMult:r andGreenMult:g andBlueMult:b andAlphaMult:a];
-
-	return [ct autorelease];
+	return [[[PXColorTransform alloc] initWithRedMult:r greenMult:g blueMult:b alphaMult:a] autorelease];
 }
 
 @end

@@ -644,11 +644,11 @@ static unsigned _pxDisplayObjectCount = 0;
  *	shape2.y = 75.0f;
  *
  *	[shape1.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[shape1.graphics drawRectWithX:0.0f andY:0.0f andWidth:100.0f andHeight:200.0f];
+ *	[shape1.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
  *	[shape1.graphics endFill];
  *
  *	[shape2.graphics beginFill:0x0000FF alpha:1.0f];
- *	[shape2.graphics drawRectWithX:0.0f andY:0.0f andWidth:200.0f andHeight:100.0f];
+ *	[shape2.graphics drawRectWithX:0.0f y:0.0f width:200.0f height:100.0f];
  *	[shape2.graphics endFill];
  *
  *	PXRectangle *bounds;
@@ -695,7 +695,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	bounds = PXGLMatrixConvertRect(&matrix, bounds);
 	//PX_GL_CONVERT_RECT_TO_MATRIX( matrix, bounds );
 
- 	return [[[PXRectangle alloc] initWithX:bounds.origin.x andY:bounds.origin.y andWidth:bounds.size.width andHeight:bounds.size.height] autorelease];
+ 	return [[[PXRectangle alloc] initWithX:bounds.origin.x y:bounds.origin.y width:bounds.size.width height:bounds.size.height] autorelease];
 }
 
 /**
@@ -727,10 +727,10 @@ static unsigned _pxDisplayObjectCount = 0;
  *	shape.y = 25.0f;
  *
  *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[shape.graphics drawRectWithX:0.0f andY:0.0f andWidth:100.0f andHeight:200.0f];
+ *	[shape.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
  *	[shape.graphics endFill];
  *
- *	PXPoint *point = [PXPoint pointWithX:10.0f andY:20.0f];
+ *	PXPoint *point = [PXPoint pointWithX:10.0f y:20.0f];
  *	PXPoint *localPoint = [shape globalToLocal:point];
  *	// Point will be at (x=10.0f, y=20.0f), localPoint = (x=-40.0f, y=-5.0f).
  *	@endcode
@@ -745,7 +745,7 @@ static unsigned _pxDisplayObjectCount = 0;
 
 	CGPoint cgPoint = CGPointMake(point.x, point.y);
 	cgPoint = PXUtilsGlobalToLocal(self, cgPoint);
-	return [PXPoint pointWithX:cgPoint.x andY:cgPoint.y];
+	return [PXPoint pointWithX:cgPoint.x y:cgPoint.y];
 }
 
 /**
@@ -768,10 +768,10 @@ static unsigned _pxDisplayObjectCount = 0;
  *	shape.y = 25.0f;
  *
  *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[shape.graphics drawRectWithX:0.0f andY:0.0f andWidth:100.0f andHeight:200.0f];
+ *	[shape.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
  *	[shape.graphics endFill];
  *
- *	PXPoint *point = [PXPoint pointWithX:10.0f andY:20.0f];
+ *	PXPoint *point = [PXPoint pointWithX:10.0f y:20.0f];
  *	PXPoint *globalPoint = [shape localToGlobal:point];
  *	// Point will be at (x=10.0f, y=20.0f), localPoint = (x=-60.0f, y=45.0f).
  *	@endcode
@@ -786,7 +786,7 @@ static unsigned _pxDisplayObjectCount = 0;
 
 	CGPoint cgPoint = CGPointMake(point.x, point.y);
 	cgPoint = PXUtilsLocalToGlobal(self, cgPoint);
-	return [PXPoint pointWithX:cgPoint.x andY:cgPoint.y];
+	return [PXPoint pointWithX:cgPoint.x y:cgPoint.y];
 }
 
 /**
@@ -864,18 +864,18 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  *	tex.x = 0.0f;
  *	tex.y = 0.0f;
- *	collides = [tex hitTestPointWithX:50.0f andY:25.0f];
+ *	collides = [tex hitTestPointWithX:50.0f y:25.0f];
  *	// collides = YES
  *
  *	tex.x = 75.0f;
  *	tex.y = 75.0f;
- *	collides = [tex hitTestPointWithX:50.0f andY:25.0f];
+ *	collides = [tex hitTestPointWithX:50.0f y:25.0f];
  *	// collides = NO
  *	@endcode
  */
-- (BOOL) hitTestPointWithX:(float)x andY:(float)y
+- (BOOL) hitTestPointWithX:(float)x y:(float)y
 {
-	return [self hitTestPointWithX:x andY:y shapeFlag:NO];
+	return [self hitTestPointWithX:x y:y shapeFlag:NO];
 }
 
 /**
@@ -901,24 +901,24 @@ static unsigned _pxDisplayObjectCount = 0;
  *	[shape release];
  *
  *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[shape.graphics drawCircleWithX:50.0f andY:50.0f radius:50.0f];
+ *	[shape.graphics drawCircleWithX:50.0f y:50.0f radius:50.0f];
  *	[shape.graphics endFill];
  *
  *	BOOL collides;
  *
- *	collides = [tex hitTestPointWithX:1.0f andY:1.0f shapeFlag:NO];
+ *	collides = [tex hitTestPointWithX:1.0f y:1.0f shapeFlag:NO];
  *	// collides = YES
  *
- *	collides = [tex hitTestPointWithX:1.0f andY:1.0f shapeFlag:YES];
+ *	collides = [tex hitTestPointWithX:1.0f y:1.0f shapeFlag:YES];
  *	// collides = NO
  *	@endcode
  */
-- (BOOL) hitTestPointWithX:(float)x andY:(float)y shapeFlag:(BOOL)shapeFlag
+- (BOOL) hitTestPointWithX:(float)x y:(float)y shapeFlag:(BOOL)shapeFlag
 {
 	// Convert from global to local
 	CGPoint globalPoint = CGPointMake(x, y);
 	globalPoint = PXUtilsGlobalToLocal(self, globalPoint);
-	return [self _hitTestPointWithLocalX:globalPoint.x andLocalY:globalPoint.y shapeFlag:shapeFlag];
+	return [self _hitTestPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];
 
 	/*// This is where most of the magic happens.
 	// The global position gets converted to local coords
@@ -929,23 +929,23 @@ static unsigned _pxDisplayObjectCount = 0;
 	PXPoint *globalPoint = [self globalToLocal:point];
 	[pool releaseObject:point];
 
-//	PXPoint *pt = [[PXPoint alloc] initWithX:x andY:y];
+//	PXPoint *pt = [[PXPoint alloc] initWithX:x y:y];
 //	PXPoint *pt2 = [self globalToLocal:pt];
 //	[pt release];
 
-	return [self _hitTestPointWithLocalX:globalPoint.x andLocalY:globalPoint.y shapeFlag:shapeFlag];*/
+	return [self _hitTestPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];*/
 }
 
 
 // Goes through display object and all of its children (overridden by
 // DisplayObjectContainer).
-- (BOOL) _hitTestPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
+- (BOOL) _hitTestPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
-	return [self _containsPointWithLocalX:x andLocalY:y shapeFlag:shapeFlag];
+	return [self _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag];
 }
 
 - (BOOL) _hitTestPointWithParentX:(float)x
-					   andParentY:(float)y
+					   parentY:(float)y
 						shapeFlag:(BOOL)shapeFlag
 {
 	// Converts position from parent's coordinate system to self's
@@ -957,11 +957,11 @@ static unsigned _pxDisplayObjectCount = 0;
 	PXGLMatrixConvertPointv(&matInv, &x, &y);
 	//PX_GL_CONVERT_POINT_TO_MATRIX( matInv, x, y );
 
-	return [self _hitTestPointWithLocalX:x andLocalY:y shapeFlag:shapeFlag];
+	return [self _hitTestPointWithLocalX:x localY:y shapeFlag:shapeFlag];
 }
 
 // The actual one the user should override
-- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
 	return NO;
 }
@@ -969,11 +969,11 @@ static unsigned _pxDisplayObjectCount = 0;
 // Engine only function for testing hittest given stage coordinates,
 // WITHOUT recursion. This is almost identical to the public hittest function
 // just that there's no recursion.
-- (BOOL) _hitTestPointWithoutRecursionWithGlobalX:(float)x andGlobalY:(float)y shapeFlag:(BOOL)shapeFlag
+- (BOOL) _hitTestPointWithoutRecursionWithGlobalX:(float)x globalY:(float)y shapeFlag:(BOOL)shapeFlag
 {
 	CGPoint globalPoint = CGPointMake(x, y);
 	globalPoint = PXUtilsGlobalToLocal(self, globalPoint);
-	return [self _containsPointWithLocalX:globalPoint.x andLocalY:globalPoint.y shapeFlag:shapeFlag];
+	return [self _containsPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];
 
 	/*PXObjectPool *pool = PXEngineGetSharedObjectPool();
 	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:PXPoint.class];
@@ -982,11 +982,11 @@ static unsigned _pxDisplayObjectCount = 0;
 	PXPoint *globalPoint = [self globalToLocal:point];
 	[pool releaseObject:point];
 
-	//PXPoint *pt = [[PXPoint alloc] initWithX:x andY:y];
+	//PXPoint *pt = [[PXPoint alloc] initWithX:x y:y];
 	//PXPoint *pt2 = [self globalToLocal:pt];
 	//[pt release];
 	
-	return [self _containsPointWithLocalX:globalPoint.x andLocalY:globalPoint.y shapeFlag:shapeFlag];*/
+	return [self _containsPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];*/
 }
 
 #pragma mark GL Rendering

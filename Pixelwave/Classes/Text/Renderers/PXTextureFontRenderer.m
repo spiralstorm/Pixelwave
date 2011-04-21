@@ -211,7 +211,7 @@
 
 		if (allowedToKern)
 		{
-			kern = [font kerningPointFromFirstCharacter:lastCharacter andSecondCharacter:*character];
+			kern = [font kerningPointFromFirstCharacter:lastCharacter secondCharacter:*character];
 
 			if (kern)
 			{

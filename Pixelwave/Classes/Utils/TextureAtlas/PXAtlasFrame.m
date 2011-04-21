@@ -122,7 +122,7 @@
 	texture.clipRect = clipRect;
 	if (anchor)
 	{
-		[texture setAnchorWithX:anchor.x andY:anchor.y];
+		[texture setAnchorWithX:anchor.x y:anchor.y];
 	}
 	
 	if (padding)
@@ -148,7 +148,7 @@
 	return [[[PXAtlasFrame alloc] initWithClipRect:clipRect
 									   textureData:textureData
 											anchor:[PXPoint pointWithX:anchorX
-																  andY:anchorY]] autorelease];
+																  y:anchorY]] autorelease];
 }
 
 @end

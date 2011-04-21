@@ -54,7 +54,7 @@
  *
  *	The following code creates a point at (10, -7):
  *	@code
- *	PXPoint *point = [[PXPoint alloc] initWithX:10 andY:-7];
+ *	PXPoint *point = [[PXPoint alloc] initWithX:10 y:-7];
  *	@endcode
  */
 @implementation PXPoint
@@ -63,7 +63,7 @@
 
 - (id) init
 {
-	return [self initWithX:0.0f andY:0.0f];
+	return [self initWithX:0.0f y:0.0f];
 }
 
 /**
@@ -76,16 +76,16 @@
  *
  *	@b Example:
  *	@code
- *	PXPoint *point = [[PXPoint alloc] initWithX:5 andY:7];
+ *	PXPoint *point = [[PXPoint alloc] initWithX:5 y:7];
  *	// point will be (5,7)
  *	@endcode
  */
-- (id) initWithX:(float)_x andY:(float)_y
+- (id) initWithX:(float)_x y:(float)_y
 {
 	self = [super init];
 	if (self)
 	{
-		[self setX:_x andY:_y];
+		[self setX:_x y:_y];
 	}
 
 	return self;
@@ -100,7 +100,7 @@
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	return [[[self class] allocWithZone:zone] initWithX:x andY:y];
+	return [[[self class] allocWithZone:zone] initWithX:x y:y];
 }
 
 - (NSString *)description
@@ -137,11 +137,11 @@
  *	@code
  *	PXPoint *point = [PXPoint new];
  *	// point will be (0, 0)
- *	[point setX:5 andY:7];
+ *	[point setX:5 y:7];
  *	// point will now be (5, 7)
  *	@endcode
  */
-- (void) setX:(float)_x andY:(float)_y
+- (void) setX:(float)_x y:(float)_y
 {
 	x = _x;
 	y = _y;
@@ -161,8 +161,8 @@
  *
  *	@b Example:
  *	@code
- *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5 andY:7];
- *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3 andY:10];
+ *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5 y:7];
+ *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3 y:10];
  *	PXPoint *pt3 = [pt1 addPoint:pt2];
  *	// pt3 will be (2, 17)
  *	PXPoint *pt4 = [pt2 addPoint:pt3];
@@ -191,8 +191,8 @@
  *
  *	@b Example:
  *	@code
- *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5 andY:7];
- *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3 andY:10];
+ *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5 y:7];
+ *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3 y:10];
  *	PXPoint *pt3 = [pt1 subtractPoint:pt2];
  *	// pt3 will be (8, -3)
  *	PXPoint *pt4 = [pt2 subtractPoint:pt3];
@@ -222,9 +222,9 @@
  *
  *	@b Example:
  *	@code
- *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5.0f andY:7.0f];
- *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f andY:10.0f];
- *	PXPoint *pt3 = [[PXPoint alloc] initWithX:-3.0f andY:10.0f];
+ *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5.0f y:7.0f];
+ *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f y:10.0f];
+ *	PXPoint *pt3 = [[PXPoint alloc] initWithX:-3.0f y:10.0f];
  *	BOOL isEqual = [pt1 isEqualToPoint:pt2];
  *	// will result in NO
  *	isEqual = [pt2 isEqualToPoint:pt3];
@@ -246,7 +246,7 @@
  *
  *	@b Example:
  *	@code
- *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f andY:4.0f];
+ *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	[point normalize];
  *	// point will now be (0.6f, 0.8f)
  *	@endcode
@@ -272,7 +272,7 @@
  *
  *	@b Example:
  *	@code
- *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f andY:4.0f];
+ *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	[point normalizeWithLength:10.0f];
  *	// point will now be (6, 8)
  *	@endcode
@@ -297,12 +297,12 @@
  *
  *	@b Example:
  *	@code
- *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f andY:4.0f];
- *	[point offsetWithX:11.0f andY:-5.0f];
+ *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f y:4.0f];
+ *	[point offsetWithX:11.0f y:-5.0f];
  *	// point will now be (14.0f, -1.0f)
  *	@endcode
  */
-- (void) offsetWithX:(float)dx andY:(float)dy
+- (void) offsetWithX:(float)dx y:(float)dy
 {
 	x += dx;
 	y += dy;
@@ -321,13 +321,13 @@
  *
  *	@b Example:
  *	@code
- *	PXPoint *pt1 = [[PXPoint alloc] initWithX:3.0f andY:4.0f];
- *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f andY:-4.0f];
- *	float dist = [PXPoint distanceBetweenPoint:pt1 andPoint:pt2];
+ *	PXPoint *pt1 = [[PXPoint alloc] initWithX:3.0f y:4.0f];
+ *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f y:-4.0f];
+ *	float dist = [PXPoint distanceBetweenPointA:pt1 pointB:pt2];
  *	// dist will be 10.0f
  *	@endcode
  */
-+ (float) distanceBetweenPoint:(PXPoint *)pt1 andPoint:(PXPoint *)pt2
++ (float) distanceBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2
 {
 	float x = pt2->x - pt1->x;
 	float y = pt2->y - pt1->y;
@@ -335,7 +335,7 @@
 	return sqrtf((x * x) + (y * y));
 }
 
-+ (float) angleBetweenPoint:(PXPoint *)pt1 andPoint:(PXPoint *)pt2
++ (float) angleBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2
 {
 	float angle = atan2f(pt2.y - pt1.y, pt2.x - pt1.x);
 	// + 90 degrees to confert the coordinate space from carteesian to flash.
@@ -364,13 +364,13 @@
  *
  *	@b Example:
  *	@code
- *	PXPoint *pt1 = [[PXPoint alloc] initWithX:3.0f andY:4.0f];
- *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f andY:-4.0f];
- *	PXPoint *pt3 = [PXPoint pointByInterpolatingBetweenPoint:pt1 andPoint:pt2 withCoefficientOfInterpolation:0.3f];
+ *	PXPoint *pt1 = [[PXPoint alloc] initWithX:3.0f y:4.0f];
+ *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f y:-4.0f];
+ *	PXPoint *pt3 = [PXPoint pointByInterpolatingBetweenPointA:pt1 pointB:pt2 withCoefficientOfInterpolation:0.3f];
  *	// pt3 will be (-1.2f, -1.6f)
  *	@endcode
  */
-+ (PXPoint *)pointByInterpolatingBetweenPoint:(PXPoint *)pt1 andPoint:(PXPoint *)pt2 withCoefficientOfInterpolation:(float)f
++ (PXPoint *)pointByInterpolatingBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2 withCoefficientOfInterpolation:(float)f
 {
 	float _x = pt2->x;
 	float _y = pt2->y;
@@ -381,7 +381,7 @@
 	_x += deltaX;
 	_y += deltaY;
 
-	return [[[PXPoint alloc] initWithX:_x andY:_y] autorelease];
+	return [[[PXPoint alloc] initWithX:_x y:_y] autorelease];
 }
 
 /**
@@ -399,11 +399,11 @@
  *	@code
  *	float angle = 45.0f * (M_PI/180.0f);
  *	float length = 1.0f;
- *	PXPoint *point = [PXPoint pointUsingPolarCoordWithLen:length andAngle:angle];
+ *	PXPoint *point = [PXPoint pointUsingPolarCoordWithLen:length angle:angle];
  *	// point will be (0.707107f, 0.707107f)
  *	@endcode
  */
-+ (PXPoint *)pointUsingPolarCoordWithLen:(float)len andAngle:(float)angle
++ (PXPoint *)pointUsingPolarCoordWithLen:(float)len angle:(float)angle
 {
 	PXPoint *pt = [PXPoint new];
 
@@ -428,13 +428,13 @@
  *
  *	@b Example:
  *	@code
- *	PXPoint *point = [PXPoint pointWithX:4 andY:5];
+ *	PXPoint *point = [PXPoint pointWithX:4 y:5];
  *	// point will be (4, 5)
  *	@endcode
  */
-+ (PXPoint *)pointWithX:(float)x andY:(float)y
++ (PXPoint *)pointWithX:(float)x y:(float)y
 {
-	return [[[PXPoint alloc] initWithX:x andY:y] autorelease];
+	return [[[PXPoint alloc] initWithX:x y:y] autorelease];
 }
 
 @end

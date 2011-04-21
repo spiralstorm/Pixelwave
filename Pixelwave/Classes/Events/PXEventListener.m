@@ -53,7 +53,7 @@
  */
 @implementation PXEventListener
 
-- (id) initWithTarget:(PXGenericObject)target andSelector:(SEL)selector
+- (id) initWithTarget:(PXGenericObject)target selector:(SEL)selector
 {
 	// Check params
 	if (!target)
@@ -102,10 +102,10 @@
 }
 
 + (PXEventListener *)eventListenerWithTarget:(PXGenericObject)target
-								 andSelector:(SEL)selector
+									selector:(SEL)selector
 {
 	return [[[PXEventListener alloc] initWithTarget:target
-										andSelector:selector] autorelease];
+										selector:selector] autorelease];
 }
 
 @end

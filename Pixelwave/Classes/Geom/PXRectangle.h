@@ -43,7 +43,7 @@
 
 // TODO: Change to PXRectangle...
 #define PXRectToCGRect(_rect_) CGRectMake ((_rect_).x, (_rect_).y, (_rect_).width, (_rect_).height)
-#define PXRectFromCGRect(_rect_) [PXRectangle rectangleWithX:(_rect_).origin.x andY:(_rect_).origin.y andWidth:(_rect_).size.width andHeight:(_rect_).size.height]
+#define PXRectFromCGRect(_rect_) [PXRectangle rectangleWithX:(_rect_).origin.x y:(_rect_).origin.y width:(_rect_).size.width height:(_rect_).size.height]
 
 @interface PXRectangle : NSObject <NSCopying, PXPooledObject>
 {
@@ -106,17 +106,17 @@
 //-- ScriptArg[1]: 0.0f
 //-- ScriptArg[2]: 0.0f
 //-- ScriptArg[3]: 0.0f
-- (id) initWithX:(float)x andY:(float)y andWidth:(float)width andHeight:(float)height;
+- (id) initWithX:(float)x y:(float)y width:(float)width height:(float)height;
 
 //-- ScriptName: set
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
 //-- ScriptArg[2]: 0.0f
 //-- ScriptArg[3]: 0.0f
-- (void) setX:(float)x andY:(float)y andWidth:(float)width andHeight:(float)height;
+- (void) setX:(float)x y:(float)y width:(float)width height:(float)height;
 
 //-- ScriptName: contains
-- (BOOL) containsX:(float)x andY:(float)y;
+- (BOOL) containsX:(float)x y:(float)y;
 //-- ScriptName: containsPoint
 - (BOOL) containsPoint:(PXPoint *)point;
 //-- ScriptName: containsRect
@@ -127,7 +127,7 @@
 - (BOOL) isEmpty;
 
 //-- ScriptName: inflate
-- (void) inflateWithX:(float)dx andY:(float)dy;
+- (void) inflateWithX:(float)dx y:(float)dy;
 //-- ScriptName: inflatePoint
 - (void) inflateWithPoint:(PXPoint *)point;
 
@@ -138,7 +138,7 @@
 - (BOOL) intersectsWithRect:(PXRectangle *)toIntersect;
 
 //-- ScriptName: offset
-- (void) offsetWithX:(float)dx andY:(float)dy;
+- (void) offsetWithX:(float)dx y:(float)dy;
 //-- ScriptName: offsetPoint
 - (void) offsetWithPoint:(PXPoint *)point;
 //-- ScriptName: setEmpty
@@ -152,6 +152,6 @@
 //-- ScriptArg[1]: 0.0f
 //-- ScriptArg[2]: 0.0f
 //-- ScriptArg[3]: 0.0f
-+ (PXRectangle *)rectangleWithX:(float)x andY:(float)y andWidth:(float)width andHeight:(float)height;
++ (PXRectangle *)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height;
 
 @end

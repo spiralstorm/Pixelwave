@@ -69,8 +69,8 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 @interface PXPNGTextureParser(Private)
 + (BOOL) isPNGFromHeader:(_PXPNGHeader)header;
 
-- (void) makePNGStruct:(png_structp *)pngPtr andInfoStruct:(png_infop *)infoPtr;
-- (BOOL) unpackPNGFromPNG:(png_structp *)pngPtr andInfo:(png_infop *)infoPtr;
+- (void) makePNGStruct:(png_structp *)pngPtr infoStruct:(png_infop *)infoPtr;
+- (BOOL) unpackPNGFromPNG:(png_structp *)pngPtr info:(png_infop *)infoPtr;
 @end
 /// @endcond
 
@@ -118,7 +118,7 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 	return YES;
 }
 
-- (void) makePNGStruct:(png_structp *)pngPtr andInfoStruct:(png_infop *)infoPtr
+- (void) makePNGStruct:(png_structp *)pngPtr infoStruct:(png_infop *)infoPtr
 {
 	*pngPtr = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
 	if (!*pngPtr)
@@ -151,7 +151,7 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 	}
 }
 
-- (BOOL) unpackPNGFromPNG:(png_structp *)pngPtr andInfo:(png_infop *)infoPtr
+- (BOOL) unpackPNGFromPNG:(png_structp *)pngPtr info:(png_infop *)infoPtr
 {
 	int bit_depth;
 	int color_type;
@@ -416,7 +416,7 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 
 	png_structp *pngPtr = (png_structp *)(&vPngPtr);
 	png_infop *infoPtr = (png_infop *)(&vInfoPtr);
-	[self makePNGStruct:pngPtr andInfoStruct:infoPtr];
+	[self makePNGStruct:pngPtr infoStruct:infoPtr];
 
 	if (!vPngPtr || !vInfoPtr)
 	{
@@ -437,7 +437,7 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 		return NO;
 	}
 
-	return [self unpackPNGFromPNG:pngPtr andInfo:infoPtr];
+	return [self unpackPNGFromPNG:pngPtr info:infoPtr];
 }
 
 + (BOOL) isApplicableForData:(NSData *)data origin:(NSString *)origin

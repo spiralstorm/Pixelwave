@@ -86,12 +86,12 @@
  *	PXShape *downState = [PXShape new];
  *
  *	[upState.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[upState.graphics drawRectWithX:100 andY:100 andWidth:20 andHeight:15];
+ *	[upState.graphics drawRectWithX:100 y:100 width:20 height:15];
  *	[upState.graphics endFill];
  *	// draws a red rectangle at (100, 100) with a size of (20, 15)
  *
  *	[downState.graphics beginFill:0x0000FF alpha:1.0f];
- *	[downState.graphics drawRectWithX:105 andY:105 andWidth:15 andHeight:10];
+ *	[downState.graphics drawRectWithX:105 y:105 width:15 height:10];
  *	[downState.graphics endFill];
  *	// draws a blue rectangle at (105, 105) with a size of (15, 10)
  *
@@ -207,11 +207,11 @@
 	}
 }
 
-- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
 	if (hitTestState)
 	{
-		return [hitTestState _hitTestPointWithParentX:x andParentY:y shapeFlag:shapeFlag];
+		return [hitTestState _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag];
 	}
 
 	return NO;

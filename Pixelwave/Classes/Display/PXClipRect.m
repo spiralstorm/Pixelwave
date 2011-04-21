@@ -13,59 +13,47 @@
 
 @synthesize x, y, width, height, rotation = _contentRotation;
 
-- (id)init
+- (id) init
 {
-	return [self initWithX:0 andY:0
-				  andWidth:0 andHeight:0
+	return [self initWithX:0 y:0
+				  width:0 height:0
 				  rotation:0.0f];
 }
 
-- (id)initWithX:(ushort)_x andY:(ushort)_y
-	   andWidth:(ushort)_width andHeight:(ushort)_height
-	   rotation:(float)_rotation
+- (id) initWithX:(ushort)_x y:(ushort)_y width:(ushort)_width height:(ushort)_height rotation:(float)_rotation
 {
 	self = [super init];
 	if (self)
 	{
-		x = _x;
-		y = _y;
-		width = _width;
-		height = _height;
-		
-		_contentRotation = _rotation;
-		
-		_numVertices = 0;
-		_vertices = 0;
-		
-		invalidated = YES;
+		[self setX:_x y:_y width:_width height:_height rotation:_rotation];
 	}
 	
 	return self;
 }
 
-- (void)dealloc
+- (void) dealloc
 {
 	if (_vertices)
 	{
 		free(_vertices);
 		_vertices = 0;
 	}
-	
+
 	// Just in case...
 	_numVertices = 0;
 	
 	[super dealloc];
 }
 
-- (void)setX:(ushort)_x Y:(ushort)_y width:(ushort)_width height:(ushort)_height rotation:(float)_rotation;
+- (void) setX:(ushort)_x y:(ushort)_y width:(ushort)_width height:(ushort)_height rotation:(float)_rotation;
 {
 	x = _x;
 	y = _y;
 	width = _width;
 	height = _height;
-	
+
 	_contentRotation = _rotation;
-	
+
 	invalidated = YES;
 }
 
@@ -106,7 +94,7 @@
 /*
  *	Turn the raw data into actual vertices that a PXTexture can use
  */
-- (void)_validate
+- (void) _validate
 {
 	if (!invalidated)
 		return;
@@ -115,29 +103,30 @@
 	
 	// This code is specific to the rectangle clip shape
 	{
+		// TODO: Oz??
 		_numVertices = 4;
 		_vertices = realloc(_vertices, sizeof(PXGLTextureVertex) * _numVertices);
-		
+
 		_contentWidth = width;
 		_contentHeight = height;
-		
+
 		// Texture coordinates (in points)
-		
+
 		// Top left
 		vert = &_vertices[0];
 		vert->s = x;
 		vert->t = y;
-		
+
 		// Top right
 		vert = &_vertices[1];
 		vert->s = x + width;
 		vert->t = y;
-		
+
 		// Bottom left
 		vert = &_vertices[2];
 		vert->s = x;
 		vert->t = y + height;
-		
+
 		// Bottom right
 		vert = &_vertices[3];
 		vert->s = x + width;
@@ -194,12 +183,12 @@
 
 #pragma mark NSCopying
 
-- (id)copyWithZone:(NSZone *)zone
+- (id) copyWithZone:(NSZone *)zone
 {
 	PXClipRect *newRect = [[PXClipRect allocWithZone:zone] initWithX:x
-																andY:y
-															andWidth:width
-														   andHeight:height
+																y:y
+															width:width
+														   height:height
 															rotation:_contentRotation];
 	
 	return newRect;
@@ -207,20 +196,20 @@
 
 #pragma mark Utility
 
-+ (PXClipRect *)clipRectWithX:(ushort)x andY:(ushort)y
-					 andWidth:(ushort)width andHeight:(ushort)height
++ (PXClipRect *)clipRectWithX:(ushort)x y:(ushort)y
+					 width:(ushort)width height:(ushort)height
 {
-	return [[[PXClipRect alloc] initWithX:x andY:y
-								 andWidth:width andHeight:height
+	return [[[PXClipRect alloc] initWithX:x y:y
+								 width:width height:height
 								 rotation:0.0f] autorelease];
 }
 
-+ (PXClipRect *)clipRectWithX:(ushort)x andY:(ushort)y
-					 andWidth:(ushort)width andHeight:(ushort)height
++ (PXClipRect *)clipRectWithX:(ushort)x y:(ushort)y
+					 width:(ushort)width height:(ushort)height
 					 rotation:(float)rotation
 {
-	return [[[PXClipRect alloc] initWithX:x andY:y
-								 andWidth:width andHeight:height
+	return [[[PXClipRect alloc] initWithX:x y:y
+								 width:width height:height
 								 rotation:rotation] autorelease];
 }
 

@@ -317,12 +317,12 @@ typedef enum
 //-- ScriptName: hitTestObject
 - (BOOL) hitTestObject:(PXDisplayObject *)obj;
 //-- ScriptIgnore
-- (BOOL) hitTestPointWithX:(float)x andY:(float)y;
+- (BOOL) hitTestPointWithX:(float)x y:(float)y;
 //-- ScriptName: hitTestPoint
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: NO
-- (BOOL) hitTestPointWithX:(float)x andY:(float)y shapeFlag:(BOOL)shapeFlag;
+- (BOOL) hitTestPointWithX:(float)x y:(float)y shapeFlag:(BOOL)shapeFlag;
 @end
 
 /// @cond DX_IGNORE
@@ -331,13 +331,13 @@ typedef enum
 - (void) _measureGlobalBounds:(CGRect *)retBounds;
 
 - (BOOL) _hitTestPointWithoutRecursionWithGlobalX:(float)x
-									   andGlobalY:(float)y
+										  globalY:(float)y
 										shapeFlag:(BOOL)shapeFlag;
 - (BOOL) _hitTestPointWithParentX:(float)x
-					   andParentY:(float)y
+						  parentY:(float)y
 						shapeFlag:(BOOL)shapeFlag;
 - (BOOL) _hitTestPointWithLocalX:(float)x
-					   andLocalY:(float)y
+						  localY:(float)y
 					   shapeFlag:(BOOL)shapeFlag;
 
 // Used by the transform property
@@ -351,8 +351,9 @@ typedef enum
 @interface PXDisplayObject (Override)
 - (void) _renderGL;
 - (BOOL) _containsPointWithLocalX:(float)x
-						andLocalY:(float)y
+						   localY:(float)y
 						shapeFlag:(BOOL)shapeFlag;
 - (void) _measureLocalBounds:(CGRect *)retBounds;
 @end
 /// @endcond
+	

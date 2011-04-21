@@ -40,7 +40,7 @@
 #import "PXPooledObject.h"
 
 #define PXPointToCGPoint(_point_) CGPointMake ((_point_).x, (_point_).y)
-#define PXPointFromCGPoint(_point_) [PXPoint pointWithX:(_point_).x andY:(_point_).y]
+#define PXPointFromCGPoint(_point_) [PXPoint pointWithX:(_point_).x y:(_point_).y]
 
 @interface PXPoint : NSObject <NSCopying, PXPooledObject>
 {
@@ -66,12 +66,12 @@
 //-- ScriptName: Point
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
-- (id) initWithX:(float)x andY:(float)y;
+- (id) initWithX:(float)x y:(float)y;
 
 //-- ScriptName: set
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
-- (void) setX:(float)x andY:(float)y;
+- (void) setX:(float)x y:(float)y;
 
 // Flash methods
 //-- ScriptName: add
@@ -87,20 +87,20 @@
 //-- ScriptArg[0]: 1.0f
 - (void) normalizeWithLength:(float)length;
 //-- ScriptName: offset
-- (void) offsetWithX:(float)dx andY:(float)dy;
+- (void) offsetWithX:(float)dx y:(float)dy;
 
 //-- ScriptName: distance
-+ (float) distanceBetweenPoint:(PXPoint *)pt1 andPoint:(PXPoint *)pt2;
++ (float) distanceBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2;
 //-- ScriptName: angleBetween
-+ (float) angleBetweenPoint:(PXPoint *)pt1 andPoint:(PXPoint *)pt2;
++ (float) angleBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2;
 
 //-- ScriptName: interpolate
-+ (PXPoint *)pointByInterpolatingBetweenPoint:(PXPoint *)pt1 andPoint:(PXPoint *)pt2 withCoefficientOfInterpolation:(float)f;
++ (PXPoint *)pointByInterpolatingBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2 withCoefficientOfInterpolation:(float)f;
 //-- ScriptName: polar
-+ (PXPoint *)pointUsingPolarCoordWithLen:(float)len andAngle:(float)angle;
++ (PXPoint *)pointUsingPolarCoordWithLen:(float)len angle:(float)angle;
 //-- ScriptName: make
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
-+ (PXPoint *)pointWithX:(float)x andY:(float)y;
++ (PXPoint *)pointWithX:(float)x y:(float)y;
 
 @end

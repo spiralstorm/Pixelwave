@@ -67,7 +67,7 @@
 }
 - (void) setKernPoint:(PXPoint *)kern
 	forFirstCharacter:(unichar)firstCharacter
-   andSecondCharacter:(unichar)secondCharacter
+   secondCharacter:(unichar)secondCharacter
 {
 	if (!charToKernPoint)
 	{

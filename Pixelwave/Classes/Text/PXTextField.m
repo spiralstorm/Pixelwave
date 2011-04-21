@@ -547,7 +547,7 @@
 		*retBounds = renderer->_bounds;
 }
 
-- (BOOL) _containsPointWithLocalX:(float)x andLocalY:(float)y shapeFlag:(BOOL)shapeFlag
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
 	CGRect bounds = CGRectZero;
 	[self _measureLocalBounds:&bounds];
