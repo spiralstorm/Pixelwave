@@ -42,6 +42,15 @@
 #import "PXExceptionUtils.h"
 #import "PXPrivateUtils.h"
 
+NSString * const PXEvent_EnterFrame = @"enterFrame";
+NSString * const PXEvent_Added = @"added";
+NSString * const PXEvent_Removed = @"removed";
+NSString * const PXEvent_AddedToStage = @"addedToStage";
+NSString * const PXEvent_RemovedFromStage = @"removedFromStage";
+NSString * const PXEvent_Render = @"render";
+NSString * const PXEvent_SoundComplete = @"soundComplete";
+NSString * const PXEvent_MemoryWarning = @"memoryWarning";
+
 /**
  *	@ingroup Events
  *

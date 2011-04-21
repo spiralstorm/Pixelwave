@@ -155,10 +155,10 @@
 {
 	if (hitTestState)
 	{
-		[self removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(pxSimpleButtonTouchDown:)];
-		[self removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP listener:PXListener(pxSimpleButtonTouchUp:)];
-		[self removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_OUT listener:PXListener(pxSimpleButtonTouchUp:)];
-		[self removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL listener:PXListener(pxSimpleButtonTouchUp:)];
+		[self removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(pxSimpleButtonTouchDown:)];
+		[self removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(pxSimpleButtonTouchUp:)];
+		[self removeEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(pxSimpleButtonTouchUp:)];
+		[self removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(pxSimpleButtonTouchUp:)];
 	}
 	
 	[newState retain];
@@ -167,10 +167,10 @@
 
 	if (hitTestState)
 	{
-		[self addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(pxSimpleButtonTouchDown:)];
-		[self addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP listener:PXListener(pxSimpleButtonTouchUp:)];
-		[self addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_OUT listener:PXListener(pxSimpleButtonTouchUp:)];
-		[self addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL listener:PXListener(pxSimpleButtonTouchUp:)];
+		[self addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(pxSimpleButtonTouchDown:)];
+		[self addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(pxSimpleButtonTouchUp:)];
+		[self addEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(pxSimpleButtonTouchUp:)];
+		[self addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(pxSimpleButtonTouchUp:)];
 	}
 }
 

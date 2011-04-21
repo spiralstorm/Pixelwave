@@ -423,7 +423,7 @@
 	PXStageOrientation beforeOrientation = _stage.orientation;
 	PXStageOrientationEvent *event;
 
-	event = [[PXStageOrientationEvent alloc] initWithType:PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGING
+	event = [[PXStageOrientationEvent alloc] initWithType:PXStageOrientationEvent_OrientationChanging
 											   doesBubble:YES
 											 isCancelable:YES
 										beforeOrientation:beforeOrientation
@@ -441,7 +441,7 @@
 	{
 		_stage.orientation = afterOrientation;
 
-		event = [[PXStageOrientationEvent alloc] initWithType:PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGE
+		event = [[PXStageOrientationEvent alloc] initWithType:PXStageOrientationEvent_OrientationChange
 												   doesBubble:YES
 												 isCancelable:NO
 											beforeOrientation:beforeOrientation
@@ -459,7 +459,7 @@
 
 - (void) memoryWarning
 {
-	PXEvent *event = [[PXEvent alloc] initWithType:PX_EVENT_MEMORY_WARNING
+	PXEvent *event = [[PXEvent alloc] initWithType:PXEvent_MemoryWarning
 										doesBubble:YES
 									  isCancelable:NO];
 

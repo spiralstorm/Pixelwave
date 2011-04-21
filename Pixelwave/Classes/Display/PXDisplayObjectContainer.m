@@ -233,7 +233,7 @@
 		PXEvent *e = nil;
 		
 		// ADDED event
-		e = [[PXEvent alloc] initWithType:PX_EVENT_ADDED
+		e = [[PXEvent alloc] initWithType:PXEvent_Added
 							   doesBubble:YES
 							 isCancelable:NO];
 		[child dispatchEvent:e];
@@ -247,7 +247,7 @@
 			// Yay this new child is going to be on the on stage display list!			
 			// dispatch ADDED_TO_STAGE event
 			
-			e = [[PXEvent alloc] initWithType:PX_EVENT_ADDED_TO_STAGE
+			e = [[PXEvent alloc] initWithType:PXEvent_AddedToStage
 											doesBubble:NO
 										  isCancelable:NO];
 			
@@ -410,7 +410,7 @@
 		PXEvent *e = nil;
 		
 		// REMOVED event
-		e = [[PXEvent alloc] initWithType:PX_EVENT_REMOVED
+		e = [[PXEvent alloc] initWithType:PXEvent_Removed
 							   doesBubble:YES
 							 isCancelable:NO];
 		
@@ -423,7 +423,7 @@
 		{
 			// REMOVED_FROM_STAGE event
 			
-			PXEvent *e = [[PXEvent alloc] initWithType:PX_EVENT_REMOVED_FROM_STAGE
+			PXEvent *e = [[PXEvent alloc] initWithType:PXEvent_RemovedFromStage
 											doesBubble:NO
 										  isCancelable:NO];
 			

@@ -283,7 +283,7 @@ void PXEngineInit( PXView *view )
 	pxEngineRemoveFromSavedTouchEvents = [[PXLinkedList alloc] init];
 
 	// Create a reusable enter frame event instead of creating one every frame.
-	pxEngineEnterFrameEvent = [[PXEvent alloc] initWithType:PX_EVENT_ENTER_FRAME
+	pxEngineEnterFrameEvent = [[PXEvent alloc] initWithType:PXEvent_EnterFrame
 										   doesBubble:NO
 										 isCancelable:NO];
 
@@ -838,9 +838,9 @@ void PXEngineDispatchTouchEvents( )
 			// touching up, we need to release it.  This is because we need to
 			// ensure the object doesn't disappear prior to sending out the
 			// event.
-			didTouchCancel = [eventType isEqualToString:PX_TOUCH_EVENT_TOUCH_CANCEL];
-			didTouchUp     = [eventType isEqualToString:PX_TOUCH_EVENT_TOUCH_UP];
-			didTouchDown   = [eventType isEqualToString:PX_TOUCH_EVENT_TOUCH_DOWN];
+			didTouchCancel = [eventType isEqualToString:PXTouchEvent_TouchCancel];
+			didTouchUp     = [eventType isEqualToString:PXTouchEvent_TouchUp];
+			didTouchDown   = [eventType isEqualToString:PXTouchEvent_TouchDown];
 			didTouchUpOrCancel = didTouchUp || didTouchCancel;
 
 			if (didTouchUpOrCancel || didTouchDown)
@@ -868,7 +868,7 @@ void PXEngineDispatchTouchEvents( )
 								// button outside of it's place.
 								outOrCancelEvent = pxEngineNewTouchEventWithTouch(savedEvent->_nativeTouch,
 																				  &pos,
-																				  (didTouchUp ? PX_TOUCH_EVENT_TOUCH_OUT : PX_TOUCH_EVENT_TOUCH_CANCEL),
+																				  (didTouchUp ? PXTouchEvent_TouchOut : PXTouchEvent_TouchCancel),
 																				  NO);
 
 								[savedTarget dispatchEvent:outOrCancelEvent];
@@ -913,7 +913,7 @@ void PXEngineDispatchTouchEvents( )
 			else
 				interactiveTarget = nil;
 
-			if ([eventType isEqualToString:PX_TOUCH_EVENT_TAP] &&
+			if ([eventType isEqualToString:PXTouchEvent_Tap] &&
 				(interactiveTarget.doubleTapEnabled && savedEvent.tapCount == 2))
 			{
 				CGPointMake(savedEvent->_stageX, savedEvent->_stageY);
@@ -921,7 +921,7 @@ void PXEngineDispatchTouchEvents( )
 				// button outside of it's place.
 				doubleTapEvent = pxEngineNewTouchEventWithTouch(savedEvent->_nativeTouch,
 																&pos,
-																PX_TOUCH_EVENT_DOUBLE_TAP,
+																PXTouchEvent_DoubleTap,
 																NO);
 
 				[target dispatchEvent:doubleTapEvent];
@@ -1876,24 +1876,24 @@ PXTouchEvent *pxEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSStr
 
 void PXEngineInvokeTouchBegan(UITouch *touch, CGPoint *pos)
 {
-	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PX_TOUCH_EVENT_TOUCH_DOWN, YES);
+	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PXTouchEvent_TouchDown, YES);
 	[pxEngineTouchEvents addObject:event];
 	[event release];
 
-	event = pxEngineNewTouchEventWithTouch(touch, pos, PX_TOUCH_EVENT_TAP, YES);
+	event = pxEngineNewTouchEventWithTouch(touch, pos, PXTouchEvent_Tap, YES);
 	[pxEngineSavedTouchEvents addObject:event];
 	[event release];
 }
 void PXEngineInvokeTouchMoved( UITouch *touch, CGPoint *pos )
 {
-	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PX_TOUCH_EVENT_TOUCH_MOVE, YES);
+	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PXTouchEvent_TouchMove, YES);
 	[pxEngineTouchEvents addObject:event];
 	[event release];
 }
 
 void PXEngineInvokeTouchEnded( UITouch *touch, CGPoint *pos )
 {
-	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PX_TOUCH_EVENT_TOUCH_UP, YES);
+	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PXTouchEvent_TouchUp, YES);
 	[pxEngineTouchEvents addObject:event];
 	[event release];
 
@@ -1934,7 +1934,7 @@ void PXEngineInvokeTouchEnded( UITouch *touch, CGPoint *pos )
 }
 void PXEngineInvokeTouchCanceled( UITouch *touch )
 {
-	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, nil, PX_TOUCH_EVENT_TOUCH_CANCEL, YES);
+	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, nil, PXTouchEvent_TouchCancel, YES);
 	[pxEngineTouchEvents addObject:event];
 	[event release];
 

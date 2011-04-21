@@ -256,7 +256,7 @@
 
 	if (isDone)
 	{
-		PXEvent *event = [[PXEvent alloc] initWithType:PX_EVENT_SOUND_COMPLETE doesBubble:NO isCancelable:NO];
+		PXEvent *event = [[PXEvent alloc] initWithType:PXEvent_SoundComplete doesBubble:NO isCancelable:NO];
 		[self dispatchEvent:event];
 		[event release];
 	}

@@ -156,7 +156,7 @@ static unsigned _pxDisplayObjectCount = 0;
 - (void) dealloc
 {
 	//Remove all frame listeners I registered with the engine
-	if ([self hasEventListenerOfType:PX_EVENT_ENTER_FRAME])
+	if ([self hasEventListenerOfType:PXEvent_EnterFrame])
 	{
 		PXEngineRemoveFrameListener(self);
 	}
@@ -998,7 +998,7 @@ static unsigned _pxDisplayObjectCount = 0;
 #pragma mark Per frame event listeners
 - (void) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
-	if ([type isEqualToString:PX_EVENT_ENTER_FRAME] && !useCapture)
+	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
 	{
 		if (![self hasEventListenerOfType:type])
 		{
@@ -1019,7 +1019,7 @@ static unsigned _pxDisplayObjectCount = 0;
 
 - (void) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
 {
-	if ([type isEqualToString:PX_EVENT_ENTER_FRAME] && !useCapture)
+	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
 	{
 		if ([self hasEventListenerOfType:type])
 			PXEngineRemoveFrameListener( self );

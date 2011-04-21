@@ -41,6 +41,14 @@
 #import "PXDisplayObject.h"
 #import "PXPoint.h"
 
+NSString * const PXTouchEvent_Tap = @"tap";
+NSString * const PXTouchEvent_DoubleTap = @"doubleTap";
+NSString * const PXTouchEvent_TouchDown = @"touchDown";
+NSString * const PXTouchEvent_TouchMove = @"touchMove";
+NSString * const PXTouchEvent_TouchUp = @"touchUp";
+NSString * const PXTouchEvent_TouchOut = @"touchOut";
+NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
+
 /**
  *	@ingroup Events
  *

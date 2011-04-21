@@ -40,8 +40,11 @@
 #import "PXEvent.h"
 #import "PXStage.h"
 
-#define PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGING @"orientationChanging"
+/*#define PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGING @"orientationChanging"
 #define PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGE @"orientationChange"
+*/
+PXExtern NSString * const PXStageOrientationEvent_OrientationChanging;
+PXExtern NSString * const PXStageOrientationEvent_OrientationChange;
 
 @interface PXStageOrientationEvent : PXEvent <NSCopying>
 {

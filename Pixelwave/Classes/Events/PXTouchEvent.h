@@ -40,15 +40,25 @@
 #import "PXEvent.h"
 #import <UIKit/UITouch.h>
 
+#include "PXHeaderUtils.h"
+
 @class PXPoint;
 
-#define PX_TOUCH_EVENT_TAP @ "tap"
+/*#define PX_TOUCH_EVENT_TAP @ "tap"
 #define PX_TOUCH_EVENT_DOUBLE_TAP @ "doubleTap"
 #define PX_TOUCH_EVENT_TOUCH_DOWN @ "touchDown"
 #define PX_TOUCH_EVENT_TOUCH_MOVE @ "touchMove"
 #define PX_TOUCH_EVENT_TOUCH_UP @ "touchUp"
 #define PX_TOUCH_EVENT_TOUCH_OUT @ "touchOut"
-#define PX_TOUCH_EVENT_TOUCH_CANCEL @ "touchCancel"
+#define PX_TOUCH_EVENT_TOUCH_CANCEL @ "touchCancel"*/
+
+PXExtern NSString * const PXTouchEvent_Tap;
+PXExtern NSString * const PXTouchEvent_DoubleTap;
+PXExtern NSString * const PXTouchEvent_TouchDown;
+PXExtern NSString * const PXTouchEvent_TouchMove;
+PXExtern NSString * const PXTouchEvent_TouchUp;
+PXExtern NSString * const PXTouchEvent_TouchOut;
+PXExtern NSString * const PXTouchEvent_TouchCancel;
 
 @interface PXTouchEvent : PXEvent <NSCopying>
 {

@@ -333,6 +333,7 @@
 		523439FF130D81A10083DA1A /* PXTextureModifierLA88.m in Sources */ = {isa = PBXBuildFile; fileRef = 523439FD130D81A10083DA1A /* PXTextureModifierLA88.m */; };
 		52343C96130DCB0A0083DA1A /* PXTextureFormatUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 52343C94130DCB0A0083DA1A /* PXTextureFormatUtils.h */; };
 		52343C97130DCB0A0083DA1A /* PXTextureFormatUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 52343C95130DCB0A0083DA1A /* PXTextureFormatUtils.m */; };
+		5238EF1813607C5E00A12477 /* PXHeaderUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5238EF1713607C5E00A12477 /* PXHeaderUtils.h */; };
 		523A4EAF13258AD000C17A49 /* PXFontParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 523A4E9C13258AD000C17A49 /* PXFontParser.h */; };
 		523A4EB013258AD000C17A49 /* PXFontFuser.h in Headers */ = {isa = PBXBuildFile; fileRef = 523A4E9E13258AD000C17A49 /* PXFontFuser.h */; };
 		523A4EB113258AD000C17A49 /* PXFontFuser.m in Sources */ = {isa = PBXBuildFile; fileRef = 523A4E9F13258AD000C17A49 /* PXFontFuser.m */; };
@@ -844,6 +845,7 @@
 		523439FD130D81A10083DA1A /* PXTextureModifierLA88.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureModifierLA88.m; sourceTree = "<group>"; };
 		52343C94130DCB0A0083DA1A /* PXTextureFormatUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureFormatUtils.h; sourceTree = "<group>"; };
 		52343C95130DCB0A0083DA1A /* PXTextureFormatUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureFormatUtils.m; sourceTree = "<group>"; };
+		5238EF1713607C5E00A12477 /* PXHeaderUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXHeaderUtils.h; sourceTree = "<group>"; };
 		523A4E9C13258AD000C17A49 /* PXFontParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXFontParser.h; sourceTree = "<group>"; };
 		523A4E9E13258AD000C17A49 /* PXFontFuser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXFontFuser.h; sourceTree = "<group>"; };
 		523A4E9F13258AD000C17A49 /* PXFontFuser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXFontFuser.m; sourceTree = "<group>"; };
@@ -1232,6 +1234,7 @@
 				2D7CF76E132706EB00A0F035 /* PXDebugUtils.m */,
 				2D3783E9135A2AB600E223BD /* PXCGUtils.h */,
 				2D3783EA135A2AB600E223BD /* PXCGUtils.m */,
+				5238EF1713607C5E00A12477 /* PXHeaderUtils.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -2434,6 +2437,7 @@
 				2D0E8DFC1354044A00A42B3D /* CJSONSerializer.h in Headers */,
 				2D0E8DFE1354044A00A42B3D /* JSONRepresentation.h in Headers */,
 				2D3783EB135A2AB600E223BD /* PXCGUtils.h in Headers */,
+				5238EF1813607C5E00A12477 /* PXHeaderUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
