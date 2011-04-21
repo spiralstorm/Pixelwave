@@ -47,7 +47,7 @@ uint32_t pxDebugSettings = 0;
 //NSString *pxDebugALErrorPrefix = nil;
 #endif
 
-PX_INLINE_C void PXDebugEnableSetting(PXDebugSetting flag)
+PXInline_c void PXDebugEnableSetting(PXDebugSetting flag)
 {
 #ifdef PX_DEBUG_MODE
 	PX_ENABLE_BIT(pxDebugSettings, flag);
@@ -55,7 +55,7 @@ PX_INLINE_C void PXDebugEnableSetting(PXDebugSetting flag)
 	PX_NOT_USED(flag);
 #endif
 }
-PX_INLINE_C void PXDebugDisableSetting(PXDebugSetting flag)
+PXInline_c void PXDebugDisableSetting(PXDebugSetting flag)
 {
 #ifdef PX_DEBUG_MODE
 	PX_DISABLE_BIT(pxDebugSettings, flag);
@@ -63,7 +63,7 @@ PX_INLINE_C void PXDebugDisableSetting(PXDebugSetting flag)
 	PX_NOT_USED(flag);
 #endif
 }
-PX_INLINE_C BOOL PXDebugIsEnabled(PXDebugSetting flag)
+PXInline_c BOOL PXDebugIsEnabled(PXDebugSetting flag)
 {
 #ifdef PX_DEBUG_MODE
 	return PX_IS_BIT_ENABLED(pxDebugSettings, flag);
@@ -74,7 +74,7 @@ PX_INLINE_C BOOL PXDebugIsEnabled(PXDebugSetting flag)
 #endif
 }
 
-/*PX_INLINE_C void PXDebugALBeginErrorChecks(NSString *prefix)
+/*PXInline_c void PXDebugALBeginErrorChecks(NSString *prefix)
 {
 #ifdef PX_DEBUG_MODE
 	if (PXDebugIsEnabled(PXDebugSetting_ThoroughALErrorChecks))
@@ -96,7 +96,7 @@ PX_INLINE_C BOOL PXDebugIsEnabled(PXDebugSetting flag)
 #endif
 }
 
-PX_INLINE_C BOOL PXDebugALErrorCheck(NSString *functionName)
+PXInline_c BOOL PXDebugALErrorCheck(NSString *functionName)
 {
 #ifdef PX_DEBUG_MODE
 	if (PXDebugIsEnabled(PXDebugSetting_ThoroughALErrorChecks))
@@ -122,7 +122,7 @@ PX_INLINE_C BOOL PXDebugALErrorCheck(NSString *functionName)
 	return NO;
 }
 
-PX_INLINE_C void PXDebugALEndErrorChecks()
+PXInline_c void PXDebugALEndErrorChecks()
 {
 #ifdef PX_DEBUG_MODE
 	[pxDebugALErrorPrefix release];
@@ -130,7 +130,7 @@ PX_INLINE_C void PXDebugALEndErrorChecks()
 #endif
 }*/
 
-PX_INLINE_C void PXDebugInformIfCalculateFrameRateOn(NSString *methodName)
+PXInline_c void PXDebugInformIfCalculateFrameRateOn(NSString *methodName)
 {
 #ifdef PX_DEBUG_MODE
 	if (!PXDebugIsEnabled(PXDebugSetting_CalculateFrameRate))
@@ -142,7 +142,7 @@ PX_INLINE_C void PXDebugInformIfCalculateFrameRateOn(NSString *methodName)
 #endif
 }
 
-PX_INLINE_C NSString *PXDebugALErrorInfo(int error)
+PXInline_c NSString *PXDebugALErrorInfo(int error)
 {
 #ifdef PX_DEBUG_MODE
 	//	if (PXDebugIsEnabled(PXDebugSetting_ThoroughALErrorChecks))

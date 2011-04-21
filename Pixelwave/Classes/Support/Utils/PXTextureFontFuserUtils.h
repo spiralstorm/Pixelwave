@@ -41,7 +41,7 @@
 #define _PX_TEXTURE_FONT_FUSER_UTILS_H_
 
 #import "PXParsedTextureData.h"
-#import "PXPrivateUtils.h"
+#import "PXHeaderUtils.h"
 
 @class PXFont;
 @class PXTextureData;
@@ -59,8 +59,8 @@ typedef struct
 extern "C" {
 #endif
 
-PX_INLINE_H PXTextureFontTextureInfo *PXTextureFontTextureInfoMake();
-PX_INLINE_H void PXTextureFontTextureInfoFree(PXTextureFontTextureInfo *info);
+PXInline_h PXTextureFontTextureInfo *PXTextureFontTextureInfoMake();
+PXInline_h void PXTextureFontTextureInfoFree(PXTextureFontTextureInfo *info);
 
 PXFont *PXTextureFontUtilsNewFont(PXTextureFontTextureInfo *info,
 								  PXTextureData *textureData,

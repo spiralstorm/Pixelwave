@@ -40,16 +40,6 @@
 #ifndef _PX_PRIVATE_UTILS_H_
 #define _PX_PRIVATE_UTILS_H_
 
-//#import <CoreGraphics/CGBase.h>
-//CGPointMake
-//#define PX_INLINE_H static
-//#define PX_INLINE_C static inline
-
-#define PX_INLINE static inline
-#define PX_INLINE_H
-#define PX_INLINE_C inline
-#define PX_ALWAYS_INLINE  __attribute__((always_inline))
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -61,10 +51,6 @@ typedef unsigned char   PXGLubyte;
 #pragma mark Macros
 #pragma mark -
 
-#define PX_LINENAME_CONCAT(_name_, _line_) _name_ ## _line_
-#define PX_LINENAME(_name_, _line_) PX_LINENAME_CONCAT(_name_, _line_)
-#define PX_UNIQUE_VAR(_name_) PX_LINENAME(_name_,__LINE__)
-
 #define PX_IS_BIT_ENABLED(_var_, _flag_)	(((_var_) & (_flag_)) == (_flag_))
 #define PX_IS_BIT_ENABLED_IN_BOTH(_var1_, _var2_, _flag_)	(PX_IS_BIT_ENABLED(_var1_, _flag_) && PX_IS_BIT_ENABLED(_var2_, _flag_))
 #define PX_ENABLE_BIT(_var_, _flag_)		((_var_) |= (_flag_))
@@ -74,36 +60,36 @@ typedef unsigned char   PXGLubyte;
 #define PX_COLOR_FLOAT_TO_BYTE(_color_) ((PXGLubyte)((_color_) * 0xFF))
 #define PX_BOOL_TO_STRING(_var_) ((_var_) ? @"YES" : @"NO")
 
-#pragma mark -
+/*#pragma mark -
 #pragma mark Declerations
 #pragma mark -
 
-PX_INLINE void PXSwap(int *val0, int *val1) PX_ALWAYS_INLINE;
-PX_INLINE void PXSwapf(float *val0, float *val1) PX_ALWAYS_INLINE;
-PX_INLINE void PXSwapv(void *val0, void *val1, size_t size) PX_ALWAYS_INLINE;
+PXInline void PXSwap(int *val0, int *val1) PXAlwaysInline;
+PXInline void PXSwapf(float *val0, float *val1) PXAlwaysInline;
+PXInline void PXSwapv(void *val0, void *val1, size_t size) PXAlwaysInline;
 
 #pragma mark -
 #pragma mark Implementations
 #pragma mark -
 
-PX_INLINE void PXSwap(int *val0, int *val1)
+PXInline void PXSwap(int *val0, int *val1)
 {
 	*val0 ^= *val1;
 	*val1 ^= *val0;
 	*val0 ^= *val1;
 }
-PX_INLINE void PXSwapf(float *val0, float *val1)
+PXInline void PXSwapf(float *val0, float *val1)
 {
 	PXSwap((int *)(val0), (int *)(val1));
 }
-PX_INLINE void PXSwapv(void *val0, void *val1, size_t size)
+PXInline void PXSwapv(void *val0, void *val1, size_t size)
 {
 	void *temp = alloca(size);
 	
 	temp = memcpy(temp, val0, size);
 	val0 = memcpy(val0, val1, size);
 	val1 = memcpy(val1, temp, size);
-}
+}*/
 
 #ifdef __cplusplus
 }

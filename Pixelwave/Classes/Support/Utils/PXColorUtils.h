@@ -40,7 +40,7 @@
 #ifndef _PX_COLOR_UTILS_H_
 #define _PX_COLOR_UTILS_H_
 
-#import "PXPrivateUtils.h"
+#import "PXHeaderUtils.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -101,23 +101,23 @@ typedef struct
 
 //
 
-PX_INLINE_H void PXColorRGBToHex(unsigned r, unsigned g, unsigned b, int *hex);
-PX_INLINE_H void PXColorHexToRGB(unsigned hex, PXColor3 *color);
-PX_INLINE_H void PXColorHexToRGBf(unsigned hex, PXColor3f *color);
-PX_INLINE_H void PXColorHexToARGB(unsigned hex, PXColor4 *color);
+PXInline_h void PXColorRGBToHex(unsigned r, unsigned g, unsigned b, int *hex);
+PXInline_h void PXColorHexToRGB(unsigned hex, PXColor3 *color);
+PXInline_h void PXColorHexToRGBf(unsigned hex, PXColor3f *color);
+PXInline_h void PXColorHexToARGB(unsigned hex, PXColor4 *color);
 
-PX_INLINE_H bool PXColorsAreEqual(PXColor4f *color1, PXColor4f *color2);
+PXInline_h bool PXColorsAreEqual(PXColor4f *color1, PXColor4f *color2);
 
-PX_INLINE_H PXRGBA PXRGBAMake(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
-PX_INLINE_H PXHSV PXHSVMake(float hue, float saturation, float value);
-PX_INLINE_H PXHSL PXHSLMake(float hue, float saturation, float lightness);
+PXInline_h PXRGBA PXRGBAMake(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
+PXInline_h PXHSV PXHSVMake(float hue, float saturation, float value);
+PXInline_h PXHSL PXHSLMake(float hue, float saturation, float lightness);
 
-PX_INLINE_H PXRGBA PXHSVToRGBA(PXHSV hsv);
-PX_INLINE_H PXRGBA PXHSLToRGBA(PXHSL hsl);
-PX_INLINE_H PXHSV PXRGBAToHSV(PXRGBA rgba);
-PX_INLINE_H PXHSV PXHSLToHSV(PXHSL hsl);
-PX_INLINE_H PXHSL PXRGBAToHSL(PXRGBA rgba);
-PX_INLINE_H PXHSL PXHSVToHSL(PXHSV hsv);
+PXInline_h PXRGBA PXHSVToRGBA(PXHSV hsv);
+PXInline_h PXRGBA PXHSLToRGBA(PXHSL hsl);
+PXInline_h PXHSV PXRGBAToHSV(PXRGBA rgba);
+PXInline_h PXHSV PXHSLToHSV(PXHSL hsl);
+PXInline_h PXHSL PXRGBAToHSL(PXRGBA rgba);
+PXInline_h PXHSL PXHSVToHSL(PXHSV hsv);
 
 // TODO Later: Make a PXColor class (similar to the structure of PXMath).
 typedef enum

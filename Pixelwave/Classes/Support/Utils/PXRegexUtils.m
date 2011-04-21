@@ -43,7 +43,7 @@
 
 #include "regex.h"
 
-PX_INLINE_C BOOL PXRegexError(int error)
+PXInline_c BOOL PXRegexError(int error)
 {
 	switch(error)
 	{

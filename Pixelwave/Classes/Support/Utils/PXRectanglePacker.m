@@ -52,7 +52,7 @@ typedef struct
 	int index;
 } PXAreaRectangle;
 
-PX_INLINE int PXRectanglePackerComparer(const void *element1, const void *element2);
+PXInline int PXRectanglePackerComparer(const void *element1, const void *element2);
 
 @interface PXRectanglePacker(Private)
 + (BOOL) packRectangles:(PXAreaRectangle *)rectangles
@@ -265,7 +265,7 @@ PX_INLINE int PXRectanglePackerComparer(const void *element1, const void *elemen
 
 @end
 
-PX_INLINE int PXRectanglePackerComparer(const void *element1, const void *element2)
+PXInline int PXRectanglePackerComparer(const void *element1, const void *element2)
 {
 	if (!element1 || !element2)
 	{

@@ -43,7 +43,7 @@
 
 #import "PXPrivateUtils.h"
 
-PX_INLINE_C void PXDebugLog(NSString *format, ...)
+PXInline_c void PXDebugLog(NSString *format, ...)
 {
 #ifdef PX_DEBUG_MODE
 	if (PXDebugIsEnabled(PXDebugSetting_LogErrors))

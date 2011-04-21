@@ -41,6 +41,8 @@
 #import "PXDisplayObject.h"
 #import "PXPoint.h"
 
+#include "PXPrivateUtils.h"
+
 NSString * const PXTouchEvent_Tap = @"tap";
 NSString * const PXTouchEvent_DoubleTap = @"doubleTap";
 NSString * const PXTouchEvent_TouchDown = @"touchDown";

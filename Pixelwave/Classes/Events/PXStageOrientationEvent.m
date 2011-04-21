@@ -39,6 +39,8 @@
 
 #import "PXStageOrientationEvent.h"
 
+#include "PXPrivateUtils.h"
+
 NSString * const PXStageOrientationEvent_OrientationChanging = @"orientationChanging";
 NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange";
 

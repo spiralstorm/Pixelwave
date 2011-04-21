@@ -40,7 +40,7 @@
 #ifndef _PX_PARSED_SOUND_DATA_H_
 #define _PX_PARSED_SOUND_DATA_H_
 
-#import "PXPrivateUtils.h"
+#import "PXHeaderUtils.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -68,13 +68,13 @@ typedef struct
 	unsigned milliseconds;
 } PXParsedSoundData;
 
-PX_INLINE_H PXParsedSoundData *PXParsedSoundDataCreate(unsigned byteCount);
-PX_INLINE_H PXParsedSoundData *PXParsedSoundDataCreatev(unsigned byteCount,
+PXInline_h PXParsedSoundData *PXParsedSoundDataCreate(unsigned byteCount);
+PXInline_h PXParsedSoundData *PXParsedSoundDataCreatev(unsigned byteCount,
 														PXSoundFormat format,
 														int freq,
 														unsigned channelCount,
 														unsigned milliseconds);
-PX_INLINE_H void PXParsedSoundDataFree(PXParsedSoundData *soundData);
+PXInline_h void PXParsedSoundDataFree(PXParsedSoundData *soundData);
 
 #ifdef __cplusplus
 }

@@ -42,7 +42,7 @@
 
 #include <CoreGraphics/CGGeometry.h>
 #include "PXTextureDataPixelFormat.h"
-#include "PXPrivateUtils.h"
+#include "PXHeaderUtils.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,11 +58,11 @@ typedef struct
 	CGSize size;
 } PXParsedTextureData;
 
-PX_INLINE_H PXParsedTextureData *PXParsedTextureDataCreate(unsigned byteCount);
-PX_INLINE_H PXParsedTextureData *PXParsedTextureDataCreatev(unsigned byteCount,
-															PXTextureDataPixelFormat pixelFormat,
-															CGSize size);
-PX_INLINE_H void PXParsedTextureDataFree(PXParsedTextureData *textureData);
+PXInline_h PXParsedTextureData *PXParsedTextureDataCreate(unsigned byteCount);
+PXInline_h PXParsedTextureData *PXParsedTextureDataCreatev(unsigned byteCount,
+														  PXTextureDataPixelFormat pixelFormat,
+														  CGSize size);
+PXInline_h void PXParsedTextureDataFree(PXParsedTextureData *textureData);
 
 #ifdef __cplusplus
 }

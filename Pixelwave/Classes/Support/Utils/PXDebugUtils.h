@@ -41,7 +41,7 @@
 #define _PX_DEBUG_UTILS_H_
 
 #import "PXDebug.h"
-#import "PXPrivateUtils.h"
+#import "PXHeaderUtils.h"
 
 #define PX_NOT_USED(_val_) ((void)(_val_))
 
@@ -61,12 +61,12 @@ typedef enum
 	PXDebugSetting_All							= 0xFFFFFFFF
 } PXDebugSetting;
 	
-PX_INLINE_H void PXDebugEnableSetting(PXDebugSetting flag);
-PX_INLINE_H void PXDebugDisableSetting(PXDebugSetting flag);
-PX_INLINE_H BOOL PXDebugIsEnabled(PXDebugSetting flag);
+PXInline_h void PXDebugEnableSetting(PXDebugSetting flag);
+PXInline_h void PXDebugDisableSetting(PXDebugSetting flag);
+PXInline_h BOOL PXDebugIsEnabled(PXDebugSetting flag);
 
-PX_INLINE_H void PXDebugInformIfCalculateFrameRateOn(NSString *methodName);
-PX_INLINE_H NSString *PXDebugALErrorInfo(int error);
+PXInline_h void PXDebugInformIfCalculateFrameRateOn(NSString *methodName);
+PXInline_h NSString *PXDebugALErrorInfo(int error);
 	
 #ifdef __cplusplus
 }

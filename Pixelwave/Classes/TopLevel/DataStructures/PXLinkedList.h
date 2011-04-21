@@ -40,7 +40,7 @@
 #import "PXPooledObject.h"
 
 #include "PXSettings.h"
-#include "PXPrivateUtils.h"
+#include "PXHeaderUtils.h"
 
 /**
  *	@ingroup TopLevel

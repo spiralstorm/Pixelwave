@@ -40,7 +40,7 @@
 #ifndef _PX_ARRAY_BUFFER_H_
 #define _PX_ARRAY_BUFFER_H_
 
-#import "PXPrivateUtils.h"
+#import "PXHeaderUtils.h"
 
 #define PX_ARRAY_BUFFER_MAX_CHECKPOINTS 4
 
@@ -81,23 +81,23 @@ static const size_t PXArrayBufferMinumSize = sizeof(int) * 32;
 #pragma mark Declerations
 #pragma mark -
 
-PX_INLINE PXArrayBuffer *PXArrayBufferCreate();// PX_ALWAYS_INLINE;
-PX_INLINE void PXArrayBufferRelease(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
-PX_INLINE void PXArrayBufferResize(PXArrayBuffer *buffer, size_t size);// PX_ALWAYS_INLINE;
+PXInline PXArrayBuffer *PXArrayBufferCreate();// PXAlwaysInline;
+PXInline void PXArrayBufferRelease(PXArrayBuffer *buffer);// PXAlwaysInline;
+PXInline void PXArrayBufferResize(PXArrayBuffer *buffer, size_t size);// PXAlwaysInline;
 
-PX_INLINE unsigned PXArrayBufferCount(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
-PX_INLINE void *PXArrayBufferNext(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
-PX_INLINE void PXArrayBufferConsolidate(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
-PX_INLINE void PXArrayBufferReset(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
-PX_INLINE void PXArrayBufferSetElementSize(PXArrayBuffer *buffer, size_t elementSize);// PX_ALWAYS_INLINE;
-PX_INLINE void PXArrayBufferPushCheckpoint(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
-PX_INLINE void PXArrayBufferPopCheckpoint(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
+PXInline unsigned PXArrayBufferCount(PXArrayBuffer *buffer);// PXAlwaysInline;
+PXInline void *PXArrayBufferNext(PXArrayBuffer *buffer);// PXAlwaysInline;
+PXInline void PXArrayBufferConsolidate(PXArrayBuffer *buffer);// PXAlwaysInline;
+PXInline void PXArrayBufferReset(PXArrayBuffer *buffer);// PXAlwaysInline;
+PXInline void PXArrayBufferSetElementSize(PXArrayBuffer *buffer, size_t elementSize);// PXAlwaysInline;
+PXInline void PXArrayBufferPushCheckpoint(PXArrayBuffer *buffer);// PXAlwaysInline;
+PXInline void PXArrayBufferPopCheckpoint(PXArrayBuffer *buffer);// PXAlwaysInline;
 
 #pragma mark -
 #pragma mark Implementations
 #pragma mark -
 
-PX_INLINE PXArrayBuffer *PXArrayBufferCreate()
+PXInline PXArrayBuffer *PXArrayBufferCreate()
 {
 	PXArrayBuffer *buffer = calloc(1, sizeof(PXArrayBuffer));
 
@@ -129,7 +129,7 @@ PX_INLINE PXArrayBuffer *PXArrayBufferCreate()
 
 	return buffer;
 }
-PX_INLINE void PXArrayBufferRelease(PXArrayBuffer *buffer)
+PXInline void PXArrayBufferRelease(PXArrayBuffer *buffer)
 {
 	if (buffer)
 	{
@@ -142,7 +142,7 @@ PX_INLINE void PXArrayBufferRelease(PXArrayBuffer *buffer)
 		free (buffer);
 	}
 }
-PX_INLINE void PXArrayBufferResize(PXArrayBuffer *buffer, size_t size)
+PXInline void PXArrayBufferResize(PXArrayBuffer *buffer, size_t size)
 {
 	assert(buffer);
 	assert(buffer->array);
@@ -175,11 +175,11 @@ PX_INLINE void PXArrayBufferResize(PXArrayBuffer *buffer, size_t size)
 	//pos = buffer->_elementSize * buffer->_nextIndex;
 	//buffer->_next = &(((char *)(buffer->array))[pos]);
 }
-PX_INLINE unsigned PXArrayBufferCount(PXArrayBuffer *buffer)
+PXInline unsigned PXArrayBufferCount(PXArrayBuffer *buffer)
 {
 	return buffer->_next.index;
 }
-PX_INLINE void *PXArrayBufferNext(PXArrayBuffer *buffer)
+PXInline void *PXArrayBufferNext(PXArrayBuffer *buffer)
 {
 	assert(buffer);
 	assert(buffer->array);
@@ -210,7 +210,7 @@ PX_INLINE void *PXArrayBufferNext(PXArrayBuffer *buffer)
 	// Lets return the next available vertex for use.
 	return current;
 }
-PX_INLINE void PXArrayBufferConsolidate(PXArrayBuffer *buffer)
+PXInline void PXArrayBufferConsolidate(PXArrayBuffer *buffer)
 {
 	assert(buffer);
 	assert(buffer->array);
@@ -222,7 +222,7 @@ PX_INLINE void PXArrayBufferConsolidate(PXArrayBuffer *buffer)
 
 	buffer->_maxUsedSize = 0;
 }
-PX_INLINE void PXArrayBufferReset(PXArrayBuffer *buffer)
+PXInline void PXArrayBufferReset(PXArrayBuffer *buffer)
 {
 	assert(buffer);
 	assert(buffer->array);
@@ -251,7 +251,7 @@ PX_INLINE void PXArrayBufferReset(PXArrayBuffer *buffer)
 		//currentCheckpoint->pointer = buffer->array;
 	}
 }
-PX_INLINE void PXArrayBufferSetElementSize(PXArrayBuffer *buffer, size_t elementSize)
+PXInline void PXArrayBufferSetElementSize(PXArrayBuffer *buffer, size_t elementSize)
 {
 	assert(buffer);
 	assert(buffer->array);
@@ -259,7 +259,7 @@ PX_INLINE void PXArrayBufferSetElementSize(PXArrayBuffer *buffer, size_t element
 
 	buffer->_elementSize = elementSize;
 }
-PX_INLINE void PXArrayBufferPushCheckpoint(PXArrayBuffer *buffer)
+PXInline void PXArrayBufferPushCheckpoint(PXArrayBuffer *buffer)
 {
 	assert(buffer);
 	assert(buffer->array);
@@ -270,7 +270,7 @@ PX_INLINE void PXArrayBufferPushCheckpoint(PXArrayBuffer *buffer)
 	buffer->_checkpoints[buffer->_checkpointIndex] = buffer->_next;
 	++(buffer->_checkpointIndex);
 }
-PX_INLINE void PXArrayBufferRevertToCheckpoint(PXArrayBuffer *buffer)
+PXInline void PXArrayBufferRevertToCheckpoint(PXArrayBuffer *buffer)
 {
 	assert(buffer);
 	assert(buffer->array);

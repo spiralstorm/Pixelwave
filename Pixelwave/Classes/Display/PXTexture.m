@@ -47,6 +47,8 @@
 #include "PXEngine.h"
 #include "PXGL.h"
 
+#include "PXPrivateUtils.h"
+
 #include <CoreGraphics/CoreGraphics.h>
 
 @interface PXTexture(Private)

@@ -41,11 +41,11 @@
 
 #include <CoreGraphics/CGGeometry.h>
 
-PX_INLINE_C PXParsedTextureData *PXParsedTextureDataCreate(unsigned byteCount)
+PXInline_c PXParsedTextureData *PXParsedTextureDataCreate(unsigned byteCount)
 {
 	return PXParsedTextureDataCreatev(byteCount, 0, CGSizeMake(0,0));
 }
-PX_INLINE_C PXParsedTextureData *PXParsedTextureDataCreatev(unsigned byteCount, PXTextureDataPixelFormat pixelFormat, CGSize size)
+PXInline_c PXParsedTextureData *PXParsedTextureDataCreatev(unsigned byteCount, PXTextureDataPixelFormat pixelFormat, CGSize size)
 {
 	PXParsedTextureData *textureInfo = calloc(1, sizeof(PXParsedTextureData));
 
@@ -69,7 +69,7 @@ PX_INLINE_C PXParsedTextureData *PXParsedTextureDataCreatev(unsigned byteCount, 
 	return textureInfo;
 }
 
-PX_INLINE_C void PXParsedTextureDataFree(PXParsedTextureData *textureData)
+PXInline_c void PXParsedTextureDataFree(PXParsedTextureData *textureData)
 {
 	if (textureData)
 	{

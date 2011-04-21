@@ -1208,6 +1208,7 @@
 		1DAD10631057093000A5AC03 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				5238EF1713607C5E00A12477 /* PXHeaderUtils.h */,
 				529CC94F12B9692D00A58B49 /* PXPrivateUtils.h */,
 				52B623B01333F1E40062EE3F /* PXArrayBuffer.h */,
 				5265D1221337D78B00F8D483 /* PXCLinkedList.h */,
@@ -1234,7 +1235,6 @@
 				2D7CF76E132706EB00A0F035 /* PXDebugUtils.m */,
 				2D3783E9135A2AB600E223BD /* PXCGUtils.h */,
 				2D3783EA135A2AB600E223BD /* PXCGUtils.m */,
-				5238EF1713607C5E00A12477 /* PXHeaderUtils.h */,
 			);
 			path = Utils;
 			sourceTree = "<group>";

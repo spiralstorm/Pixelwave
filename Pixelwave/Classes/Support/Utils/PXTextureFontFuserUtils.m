@@ -46,7 +46,7 @@
 #import "PXTextureFont.h"
 #import "PXTextureData.h"
 
-PX_INLINE_C PXTextureFontTextureInfo *PXTextureFontTextureInfoMake()
+PXInline_c PXTextureFontTextureInfo *PXTextureFontTextureInfoMake()
 {
 	PXTextureFontTextureInfo *info = calloc(1, sizeof(PXTextureFontTextureInfo));
 
@@ -64,7 +64,7 @@ PX_INLINE_C PXTextureFontTextureInfo *PXTextureFontTextureInfoMake()
 	return info;
 }
 
-PX_INLINE_C void PXTextureFontTextureInfoFree(PXTextureFontTextureInfo *info)
+PXInline_c void PXTextureFontTextureInfoFree(PXTextureFontTextureInfo *info)
 {
 	if (info)
 	{

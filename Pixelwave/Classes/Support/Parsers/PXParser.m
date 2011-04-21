@@ -53,15 +53,15 @@ static NSMutableDictionary *pxParsers = nil;
 #pragma mark -
 
 // Makes the dictionary if it doesn't exist
-PX_INLINE void PXParsersMake();
+PXInline void PXParsersMake();
 // Frees the dictionary if it exists but is empty.
-PX_INLINE void PXParsersRelease();
+PXInline void PXParsersRelease();
 // Frees the dictionary if it exists.
-PX_INLINE void PXParsersFree();
+PXInline void PXParsersFree();
 
-PX_INLINE PXLinkedList *PXParserGetArray(Class baseClass);
+PXInline PXLinkedList *PXParserGetArray(Class baseClass);
 
-PX_INLINE void PXParserRemoveBaseClass(Class baseClass);
+PXInline void PXParserRemoveBaseClass(Class baseClass);
 
 /*
  *	The PXParser is a registration class to assign PXParsers to their base
@@ -295,7 +295,7 @@ PX_INLINE void PXParserRemoveBaseClass(Class baseClass);
 #pragma mark -
 
 // Makes the dictionary if it doesn't exist
-PX_INLINE void PXParsersMake()
+PXInline void PXParsersMake()
 {
 	if (!pxParsers)
 	{
@@ -303,7 +303,7 @@ PX_INLINE void PXParsersMake()
 	}
 }
 // Frees the dictionary if it exists but is empty.
-PX_INLINE void PXParsersRelease()
+PXInline void PXParsersRelease()
 {
 	if ([pxParsers count] == 0)
 	{
@@ -311,14 +311,14 @@ PX_INLINE void PXParsersRelease()
 	}
 }
 
-PX_INLINE void PXParsersFree()
+PXInline void PXParsersFree()
 {
 	[pxParsers release];
 
 	pxParsers = nil;
 }
 
-PX_INLINE PXLinkedList *PXParserGetArray(Class baseClass)
+PXInline PXLinkedList *PXParserGetArray(Class baseClass)
 {
 	if (!baseClass)
 	{
@@ -343,7 +343,7 @@ PX_INLINE PXLinkedList *PXParserGetArray(Class baseClass)
 	return parsers;
 }
 
-PX_INLINE void PXParserRemoveBaseClass(Class baseClass)
+PXInline void PXParserRemoveBaseClass(Class baseClass)
 {
 	NSString *key = NSStringFromClass(baseClass);
 

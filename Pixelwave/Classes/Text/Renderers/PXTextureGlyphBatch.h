@@ -77,7 +77,7 @@ extern "C" {
 #endif
 
 // Returns the number of vertices added to the list
-PX_INLINE_H unsigned PXTextureGlyphBatchConcatBox(PXGLColoredTextureVertex **currentVertex,
+PXInline_h unsigned PXTextureGlyphBatchConcatBox(PXGLColoredTextureVertex **currentVertex,
 												  PXMathRange x,
 												  PXMathRange y,
 												  PXMathRange s,
@@ -86,7 +86,7 @@ PX_INLINE_H unsigned PXTextureGlyphBatchConcatBox(PXGLColoredTextureVertex **cur
 												  BOOL isLast);
 
 // Returns the number of vertices added to the list
-PX_INLINE_H unsigned PXTextureGlyphBatchConcatBoxWithColor(PXGLColoredTextureVertex **currentVertex,
+PXInline_h unsigned PXTextureGlyphBatchConcatBoxWithColor(PXGLColoredTextureVertex **currentVertex,
 														   PXMathRange x,
 														   PXMathRange y,
 														   PXMathRange s,

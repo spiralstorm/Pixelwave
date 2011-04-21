@@ -44,9 +44,9 @@
 extern "C" {
 #endif
 
-#import "PXPrivateUtils.h"
+#import "PXHeaderUtils.h"
 
-PX_INLINE_H BOOL PXRegexError(int error);
+PXInline_h BOOL PXRegexError(int error);
 
 #ifdef __cplusplus
 }

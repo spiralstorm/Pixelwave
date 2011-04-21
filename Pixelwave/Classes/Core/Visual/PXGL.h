@@ -46,6 +46,7 @@ extern "C" {
 
 #include "PXGLUtils.h"
 #include "PXGLState.h"
+#include "PXHeaderUtils.h"
 
 GLfloat PXGLGetContentScaleFactor();
 GLfloat PXGLGetOneOverContentScaleFactor();
@@ -105,15 +106,15 @@ void PXGLMatrixInvert( PXGLMatrix *mat );
 void PXGLMatrixIdentity( PXGLMatrix *mat );
 void PXGLColorTransformIdentity( PXGLColorTransform *transform );
 
-PX_INLINE_H PXGLState _PXGLDefaultState();
-PX_INLINE_H void _PXGLStateEnable(PXGLState *state, GLenum cap);
-PX_INLINE_H void _PXGLStateDisable(PXGLState *state, GLenum cap);
-PX_INLINE_H void _PXGLStateEnableClientState(PXGLState *state, GLenum array);
-PX_INLINE_H void _PXGLStateDisableClientState(PXGLState *state, GLenum array);
-//PX_INLINE_H void _PXGLStateBindTexture(PXGLState *state, GLuint texture);
-PX_INLINE_H void _PXGLStateBlendFunc(PXGLState *state, GLenum sfactor, GLenum dfactor);
-PX_INLINE_H bool _PXGLStateIsEnabled(PXGLState *state, GLenum cap);
-PX_INLINE_H void _PXGLStateGetIntegerv(PXGLState *state, GLenum pname, GLint *params);
+PXInline_h PXGLState _PXGLDefaultState();
+PXInline_h void _PXGLStateEnable(PXGLState *state, GLenum cap);
+PXInline_h void _PXGLStateDisable(PXGLState *state, GLenum cap);
+PXInline_h void _PXGLStateEnableClientState(PXGLState *state, GLenum array);
+PXInline_h void _PXGLStateDisableClientState(PXGLState *state, GLenum array);
+//PXInline_h void _PXGLStateBindTexture(PXGLState *state, GLuint texture);
+PXInline_h void _PXGLStateBlendFunc(PXGLState *state, GLenum sfactor, GLenum dfactor);
+PXInline_h bool _PXGLStateIsEnabled(PXGLState *state, GLenum cap);
+PXInline_h void _PXGLStateGetIntegerv(PXGLState *state, GLenum pname, GLint *params);
 
 //void PXGLReadPixelsInverted(GLint x, GLint y, GLsizei width, GLsizei height, GLubyte *pixels);
 

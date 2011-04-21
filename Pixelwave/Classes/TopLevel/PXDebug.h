@@ -89,13 +89,13 @@
 #ifndef _PX_DEBUG_H_
 #define _PX_DEBUG_H_
 
-#import "PXPrivateUtils.h"
+#import "PXHeaderUtils.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-PX_INLINE_H void PXDebugLog(NSString *format, ...);
+PXInline_h void PXDebugLog(NSString *format, ...);
 
 #ifdef __cplusplus
 }

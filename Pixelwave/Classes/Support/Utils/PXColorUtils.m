@@ -40,26 +40,26 @@
 #include "PXColorUtils.h"
 #include "PXPrivateUtils.h"
 
-PX_INLINE_C void PXColorRGBToHex(unsigned r, unsigned g, unsigned b, int *hex)
+PXInline_c void PXColorRGBToHex(unsigned r, unsigned g, unsigned b, int *hex)
 {
 	(*hex) = (r << 16) + (g << 8) + b;
 }
 
-PX_INLINE_C void PXColorHexToRGB( unsigned hex, PXColor3 *color)
+PXInline_c void PXColorHexToRGB( unsigned hex, PXColor3 *color)
 {
 	color->r = (hex & 0xff0000) >> 16;
 	color->g = (hex & 0x00ff00) >> 8;
 	color->b = (hex & 0x0000ff);
 }
 
-PX_INLINE_C void PXColorHexToRGBf( unsigned hex, PXColor3f *color )
+PXInline_c void PXColorHexToRGBf( unsigned hex, PXColor3f *color )
 {
 	color->r = PX_COLOR_BYTE_TO_FLOAT((hex & 0xff0000) >> 16);
 	color->g = PX_COLOR_BYTE_TO_FLOAT((hex & 0x00ff00) >> 8);
 	color->b = PX_COLOR_BYTE_TO_FLOAT((hex & 0x0000ff));
 }
 
-PX_INLINE_C void PXColorHexToARGB( unsigned hex, PXColor4 *color)
+PXInline_c void PXColorHexToARGB( unsigned hex, PXColor4 *color)
 {
 	color->a = ((hex & 0xff000000) >> 24);
 	color->r = ((hex & 0x00ff0000) >> 16);
@@ -67,7 +67,7 @@ PX_INLINE_C void PXColorHexToARGB( unsigned hex, PXColor4 *color)
 	color->b = ((hex & 0x000000ff));
 }
 
-PX_INLINE_C bool PXColorsAreEqual(PXColor4f *color1, PXColor4f *color2)
+PXInline_c bool PXColorsAreEqual(PXColor4f *color1, PXColor4f *color2)
 {
 	if (color1->r != color2->r)
 		return false;
@@ -84,7 +84,7 @@ PX_INLINE_C bool PXColorsAreEqual(PXColor4f *color1, PXColor4f *color2)
 	return true;
 }
 
-PX_INLINE_C PXRGBA PXRGBAMake(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
+PXInline_c PXRGBA PXRGBAMake(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
 {
 	PXRGBA rgba;
 
@@ -95,7 +95,7 @@ PX_INLINE_C PXRGBA PXRGBAMake(unsigned char red, unsigned char green, unsigned c
 
 	return rgba;
 }
-PX_INLINE_C PXHSV PXHSVMake(float hue, float saturation, float value)
+PXInline_c PXHSV PXHSVMake(float hue, float saturation, float value)
 {
 	PXHSV hsv;
 
@@ -105,7 +105,7 @@ PX_INLINE_C PXHSV PXHSVMake(float hue, float saturation, float value)
 
 	return hsv;
 }
-PX_INLINE_C PXHSL PXHSLMake(float hue, float saturation, float lightness)
+PXInline_c PXHSL PXHSLMake(float hue, float saturation, float lightness)
 {
 	PXHSL hsl;
 
@@ -116,7 +116,7 @@ PX_INLINE_C PXHSL PXHSLMake(float hue, float saturation, float lightness)
 	return hsl;
 }
 
-PX_INLINE_C PXRGBA PXHSVToRGBA(PXHSV hsv)
+PXInline_c PXRGBA PXHSVToRGBA(PXHSV hsv)
 {
 	PXRGBA rgba;
 
@@ -124,7 +124,7 @@ PX_INLINE_C PXRGBA PXHSVToRGBA(PXHSV hsv)
 
 	return rgba;
 }
-PX_INLINE_C PXRGBA PXHSLToRGBA(PXHSL hsl)
+PXInline_c PXRGBA PXHSLToRGBA(PXHSL hsl)
 {
 	PXRGBA rgba;
 
@@ -132,7 +132,7 @@ PX_INLINE_C PXRGBA PXHSLToRGBA(PXHSL hsl)
 
 	return rgba;
 }
-PX_INLINE_C PXHSV PXRGBAToHSV(PXRGBA rgba)
+PXInline_c PXHSV PXRGBAToHSV(PXRGBA rgba)
 {
 	PXHSV hsv;
 
@@ -140,7 +140,7 @@ PX_INLINE_C PXHSV PXRGBAToHSV(PXRGBA rgba)
 
 	return hsv;
 }
-PX_INLINE_C PXHSV PXHSLToHSV(PXHSL hsl)
+PXInline_c PXHSV PXHSLToHSV(PXHSL hsl)
 {
 	PXHSV hsv;
 
@@ -148,7 +148,7 @@ PX_INLINE_C PXHSV PXHSLToHSV(PXHSL hsl)
 
 	return hsv;
 }
-PX_INLINE_C PXHSL PXRGBAToHSL(PXRGBA rgba)
+PXInline_c PXHSL PXRGBAToHSL(PXRGBA rgba)
 {
 	PXHSL hsl;
 
@@ -156,7 +156,7 @@ PX_INLINE_C PXHSL PXRGBAToHSL(PXRGBA rgba)
 
 	return hsl;
 }
-PX_INLINE_C PXHSL PXHSVToHSL(PXHSV hsv)
+PXInline_c PXHSL PXHSVToHSL(PXHSV hsv)
 {
 	PXHSL hsl;
 

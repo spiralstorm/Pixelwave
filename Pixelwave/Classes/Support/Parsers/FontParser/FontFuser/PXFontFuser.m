@@ -58,25 +58,25 @@ static NSMutableDictionary *pxFontFusers = nil;
 #pragma mark C Definitions
 
 // Makes the key dictionaries if they don't exist
-PX_INLINE void PXFontFuserMakeKeys();
+PXInline void PXFontFuserMakeKeys();
 // Frees the dictionaries if they do exist.
-PX_INLINE void PXFontFuserFreeKeys();
+PXInline void PXFontFuserFreeKeys();
 
 // Grabs the key defined for the class in the dictionary, if one doesn't exist,
 // it produces one for it.
-PX_INLINE NSString *PXFontFuserKeySegmentFromClass(Class classType, NSMutableDictionary *dictionary);
+PXInline NSString *PXFontFuserKeySegmentFromClass(Class classType, NSMutableDictionary *dictionary);
 // Grabs the combined key for the font fusers dictionary defined by the two
 // classes.
-PX_INLINE NSString *PXFontFuserKey(Class parserType, Class optionType);
+PXInline NSString *PXFontFuserKey(Class parserType, Class optionType);
 // Grabs the combined key for the font fusers dictionary defined by the single
 // fuser. This just grabs the two classes (parser and options) and returns the
 // PXFontFuserKey method using both of them. 
-PX_INLINE NSString *PXFontFuserKeyFromFuser(Class fuser);
+PXInline NSString *PXFontFuserKeyFromFuser(Class fuser);
 
 // Grabs the class for the font fuser using the two classes as the key. They
 // combine together to make a single key which is then used to search into the
 // dictionary.
-PX_INLINE Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
+PXInline Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
 
 #pragma mark -
 @interface PXFontFuser(Private)
@@ -246,7 +246,7 @@ PX_INLINE Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
 #pragma mark -
 
 // Makes the key dictionaries if they don't exist
-PX_INLINE void PXFontFuserMakeKeys()
+PXInline void PXFontFuserMakeKeys()
 {
 	// If the dictionaries don't exist, make them!
 	if (!pxFontFuserKeyFromParsers)
@@ -260,7 +260,7 @@ PX_INLINE void PXFontFuserMakeKeys()
 }
 
 // Frees the dictionaries if they do exist.
-PX_INLINE void PXFontFuserFreeKeys()
+PXInline void PXFontFuserFreeKeys()
 {
 	// Release the dictionaries, then set them to nil so if this is called
 	// multiple times, nothing bad will happen!
@@ -274,7 +274,7 @@ PX_INLINE void PXFontFuserFreeKeys()
 
 // Grabs the key defined for the class in the dictionary, if one doesn't exist,
 // it produces one for it.
-PX_INLINE NSString *PXFontFuserKeySegmentFromClass(Class classType, NSMutableDictionary *dictionary)
+PXInline NSString *PXFontFuserKeySegmentFromClass(Class classType, NSMutableDictionary *dictionary)
 {
 	// If either the class type doesn't exist, or the dictionary, just return,
 	// there is nothing we can do!
@@ -308,7 +308,7 @@ PX_INLINE NSString *PXFontFuserKeySegmentFromClass(Class classType, NSMutableDic
 
 // Grabs the combined key for the font fusers dictionary defined by the two
 // classes.
-PX_INLINE NSString *PXFontFuserKey(Class parserType, Class optionType)
+PXInline NSString *PXFontFuserKey(Class parserType, Class optionType)
 {
 	// Make the key dictionaries, if they already exist then nothing will
 	// happen.
@@ -334,7 +334,7 @@ PX_INLINE NSString *PXFontFuserKey(Class parserType, Class optionType)
 // Grabs the combined key for the font fusers dictionary defined by the single
 // fuser. This just grabs the two classes (parser and options) and returns the
 // PXFontFuserKey method using both of them.
-PX_INLINE NSString *PXFontFuserKeyFromFuser(Class fuser)
+PXInline NSString *PXFontFuserKeyFromFuser(Class fuser)
 {
 	Class fontParser;
 	Class fontOptions;
@@ -358,7 +358,7 @@ PX_INLINE NSString *PXFontFuserKeyFromFuser(Class fuser)
 // Grabs the class for the font fuser using the two classes as the key. They
 // combine together to make a single key which is then used to search into the
 // dictionary.
-PX_INLINE Class PXFontFuserGetFuser(Class fontParser, Class fontOptions)
+PXInline Class PXFontFuserGetFuser(Class fontParser, Class fontOptions)
 {
 	// Grab the combined key
 	NSString *key = PXFontFuserKey(fontParser, fontOptions);

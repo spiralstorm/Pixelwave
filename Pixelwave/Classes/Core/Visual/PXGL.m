@@ -66,13 +66,13 @@
 
 //PXGLState pxGLDefaultState;
 
-//PX_INLINE GLuint PXGLGLModeToPXMode( GLenum mode );
-//PX_INLINE GLenum PXGLPXModeToGLMode( GLuint mode );
-PX_INLINE GLuint PXGLGLStateToPXState( GLenum cap );
-PX_INLINE GLenum PXGLPXStateToGLState( GLuint cap );
-PX_INLINE GLuint PXGLGLClientStateToPXClientState( GLenum array );
-PX_INLINE GLuint PXGLPXClientStateToGLClientState( GLenum array );
-//PX_INLINE GLuint PXGLSizeOfGLEnum( GLenum type );
+//PXInline GLuint PXGLGLModeToPXMode( GLenum mode );
+//PXInline GLenum PXGLPXModeToGLMode( GLuint mode );
+PXInline GLuint PXGLGLStateToPXState( GLenum cap );
+PXInline GLenum PXGLPXStateToGLState( GLuint cap );
+PXInline GLuint PXGLGLClientStateToPXClientState( GLenum array );
+PXInline GLuint PXGLPXClientStateToGLClientState( GLenum array );
+//PXInline GLuint PXGLSizeOfGLEnum( GLenum type );
 
 PXGLMatrix pxGLMatrices[PX_GL_MATRIX_STACK_SIZE];
 PXGLColorTransform pxGLColors[PX_GL_COLOR_STACK_SIZE];
@@ -1997,7 +1997,7 @@ void PXGLResetStates(PXGLState desiredState)
 #pragma mark STATES
 #pragma mark -
 
-PX_INLINE_C void PXGLSetupEnables()
+PXInline_c void PXGLSetupEnables()
 {
 	bool breakBatch = false;
 //	bool clientStateNotEqual = pxGLClientState != pxGLClientStateInGL;
@@ -2093,37 +2093,37 @@ PX_INLINE_C void PXGLSetupEnables()
 //	pxGLBlendModeInGL.asUInt = pxGLBlendMode.asUInt;
 }
 
-PX_INLINE_C PXGLState _PXGLDefaultState()
+PXInline_c PXGLState _PXGLDefaultState()
 {
 	return pxGLDefaultState;
 }
 
-PX_INLINE_C void _PXGLStateEnable(PXGLState *state, GLenum cap)
+PXInline_c void _PXGLStateEnable(PXGLState *state, GLenum cap)
 {
 	assert(state); // Must exist
 	PX_ENABLE_BIT(state->state, PXGLGLStateToPXState(cap));
 }
-PX_INLINE_C void _PXGLStateDisable(PXGLState *state, GLenum cap)
+PXInline_c void _PXGLStateDisable(PXGLState *state, GLenum cap)
 {
 	assert(state); // Must exist
 	PX_DISABLE_BIT(state->state, PXGLGLStateToPXState(cap));
 }
-PX_INLINE_C void _PXGLStateEnableClientState(PXGLState *state, GLenum array)
+PXInline_c void _PXGLStateEnableClientState(PXGLState *state, GLenum array)
 {
 	assert(state); // Must exist
 	PX_ENABLE_BIT(state->clientState, PXGLGLClientStateToPXClientState(array));
 }
-PX_INLINE_C void _PXGLStateDisableClientState(PXGLState *state, GLenum array)
+PXInline_c void _PXGLStateDisableClientState(PXGLState *state, GLenum array)
 {
 	assert(state); // Must exist
 	PX_DISABLE_BIT(state->clientState, PXGLGLClientStateToPXClientState(array));
 }
-//PX_INLINE_C void _PXGLStateBindTexture(PXGLState *state, GLuint texture)
+//PXInline_c void _PXGLStateBindTexture(PXGLState *state, GLuint texture)
 //{
 //	assert(state);
 //	state->texture = texture;
 //}
-PX_INLINE_C void _PXGLStateBlendFunc(PXGLState *state, GLenum sfactor, GLenum dfactor)
+PXInline_c void _PXGLStateBlendFunc(PXGLState *state, GLenum sfactor, GLenum dfactor)
 {
 	assert(state); // Must exist
 
@@ -2131,7 +2131,7 @@ PX_INLINE_C void _PXGLStateBlendFunc(PXGLState *state, GLenum sfactor, GLenum df
 	state->blendDestination = dfactor;
 }
 
-PX_INLINE_C bool _PXGLStateIsEnabled(PXGLState *state, GLenum cap)
+PXInline_c bool _PXGLStateIsEnabled(PXGLState *state, GLenum cap)
 {
 	assert(state); // Must exist
 
@@ -2161,7 +2161,7 @@ PX_INLINE_C bool _PXGLStateIsEnabled(PXGLState *state, GLenum cap)
 
 	return false;
 }
-PX_INLINE_C void _PXGLStateGetIntegerv(PXGLState *state, GLenum pname, GLint *params)
+PXInline_c void _PXGLStateGetIntegerv(PXGLState *state, GLenum pname, GLint *params)
 {
 	assert(state);	// Must exist
 	assert(params);	// Must exist
@@ -2177,7 +2177,7 @@ PX_INLINE_C void _PXGLStateGetIntegerv(PXGLState *state, GLenum pname, GLint *pa
 	}
 }
 
-PX_INLINE GLuint PXGLGLStateToPXState( GLenum cap )
+PXInline GLuint PXGLGLStateToPXState( GLenum cap )
 {
 	switch (cap)
 	{
@@ -2194,7 +2194,7 @@ PX_INLINE GLuint PXGLGLStateToPXState( GLenum cap )
 	return 0;
 }
 
-PX_INLINE GLenum PXGLPXStateToGLState( GLuint cap )
+PXInline GLenum PXGLPXStateToGLState( GLuint cap )
 {
 	switch (cap)
 	{
@@ -2211,7 +2211,7 @@ PX_INLINE GLenum PXGLPXStateToGLState( GLuint cap )
 	return 0;
 }
 
-PX_INLINE GLuint PXGLGLClientStateToPXClientState( GLenum array )
+PXInline GLuint PXGLGLClientStateToPXClientState( GLenum array )
 {
 	switch (array)
 	{
@@ -2228,7 +2228,7 @@ PX_INLINE GLuint PXGLGLClientStateToPXClientState( GLenum array )
 	return 0;
 }
 
-PX_INLINE GLuint PXGLPXClientStateToGLClientState( GLenum array )
+PXInline GLuint PXGLPXClientStateToGLClientState( GLenum array )
 {
 	switch (array)
 	{
@@ -2245,7 +2245,7 @@ PX_INLINE GLuint PXGLPXClientStateToGLClientState( GLenum array )
 	return 0;
 }
 
-PX_INLINE GLuint PXSizeOfGLEnum( GLenum type )
+PXInline GLuint PXSizeOfGLEnum( GLenum type )
 {
 	switch (type)
 	{

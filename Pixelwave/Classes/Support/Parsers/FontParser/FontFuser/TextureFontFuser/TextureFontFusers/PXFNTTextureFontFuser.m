@@ -91,19 +91,19 @@ typedef struct
 #pragma mark C Functions Declarations
 #pragma mark -
 
-PX_INLINE PXFNTTextureFontExtractionInfo *PXFNTTextureFontExtractionInfoMake();
-PX_INLINE void PXFNTTextureFontExtractionInfoFree(PXFNTTextureFontExtractionInfo *info);
+PXInline PXFNTTextureFontExtractionInfo *PXFNTTextureFontExtractionInfoMake();
+PXInline void PXFNTTextureFontExtractionInfoFree(PXFNTTextureFontExtractionInfo *info);
 
-PX_INLINE void PXFNTTextureFontFuserExtractInformation(PXRegexMatcher *matcher,
+PXInline void PXFNTTextureFontFuserExtractInformation(PXRegexMatcher *matcher,
 											 PXFNTTextureFontExtractionInfo *info,
 											 void (*PXFNTTextureFontExtractionFunction)(PXFNTTextureFontExtractionInfo *));
 
-PX_INLINE void PXFNTTextureFontFuserHandleColumnInfo(PXFNTTextureFontExtractionInfo *info);
-PX_INLINE void PXFNTTextureFontFuserHandleColumnCommon(PXFNTTextureFontExtractionInfo *info);
-PX_INLINE void PXFNTTextureFontFuserHandleColumnPage(PXFNTTextureFontExtractionInfo *info);
-PX_INLINE void PXFNTTextureFontFuserHandleColumnChars(PXFNTTextureFontExtractionInfo *info);
-PX_INLINE void PXFNTTextureFontFuserHandleColumnChar(PXFNTTextureFontExtractionInfo *info);
-PX_INLINE void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractionInfo *info);
+PXInline void PXFNTTextureFontFuserHandleColumnInfo(PXFNTTextureFontExtractionInfo *info);
+PXInline void PXFNTTextureFontFuserHandleColumnCommon(PXFNTTextureFontExtractionInfo *info);
+PXInline void PXFNTTextureFontFuserHandleColumnPage(PXFNTTextureFontExtractionInfo *info);
+PXInline void PXFNTTextureFontFuserHandleColumnChars(PXFNTTextureFontExtractionInfo *info);
+PXInline void PXFNTTextureFontFuserHandleColumnChar(PXFNTTextureFontExtractionInfo *info);
+PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractionInfo *info);
 
 #pragma mark -
 #pragma mark Fuser Private Declaration
@@ -556,13 +556,13 @@ PX_INLINE void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtracti
 #pragma mark C Functions Implementations
 #pragma mark -
 
-PX_INLINE PXFNTTextureFontExtractionInfo *PXFNTTextureFontExtractionInfoMake()
+PXInline PXFNTTextureFontExtractionInfo *PXFNTTextureFontExtractionInfoMake()
 {
 	PXFNTTextureFontExtractionInfo *info = calloc(1, sizeof(PXFNTTextureFontExtractionInfo));
 
 	return info;
 }
-PX_INLINE void PXFNTTextureFontExtractionInfoFree(PXFNTTextureFontExtractionInfo *info)
+PXInline void PXFNTTextureFontExtractionInfoFree(PXFNTTextureFontExtractionInfo *info)
 {
 	// Free the info, if it exists.
 	if (info)
@@ -571,7 +571,7 @@ PX_INLINE void PXFNTTextureFontExtractionInfoFree(PXFNTTextureFontExtractionInfo
 	}
 }
 
-PX_INLINE void PXFNTTextureFontFuserExtractInformation(PXRegexMatcher *matcher,
+PXInline void PXFNTTextureFontFuserExtractInformation(PXRegexMatcher *matcher,
 													PXFNTTextureFontExtractionInfo *info,
 													void (*PXFNTTextureFontExtractionFunction)(PXFNTTextureFontExtractionInfo *))
 {
@@ -618,7 +618,7 @@ PX_INLINE void PXFNTTextureFontFuserExtractInformation(PXRegexMatcher *matcher,
 	}
 }
 
-PX_INLINE void PXFNTTextureFontFuserHandleColumnInfo(PXFNTTextureFontExtractionInfo *info)
+PXInline void PXFNTTextureFontFuserHandleColumnInfo(PXFNTTextureFontExtractionInfo *info)
 {
 	// Checking the number of characters in the key to do a quick comparison
 	// to elliminate many possibilities. This is an attempt to save some
@@ -637,7 +637,7 @@ PX_INLINE void PXFNTTextureFontFuserHandleColumnInfo(PXFNTTextureFontExtractionI
 			break;
 	}
 }
-PX_INLINE void PXFNTTextureFontFuserHandleColumnCommon(PXFNTTextureFontExtractionInfo *info)
+PXInline void PXFNTTextureFontFuserHandleColumnCommon(PXFNTTextureFontExtractionInfo *info)
 {
 	// Checking the number of characters in the key to do a quick comparison
 	// to elliminate many possibilities. This is an attempt to save some
@@ -662,7 +662,7 @@ PX_INLINE void PXFNTTextureFontFuserHandleColumnCommon(PXFNTTextureFontExtractio
 			break;
 	}
 }
-PX_INLINE void PXFNTTextureFontFuserHandleColumnPage(PXFNTTextureFontExtractionInfo *info)
+PXInline void PXFNTTextureFontFuserHandleColumnPage(PXFNTTextureFontExtractionInfo *info)
 {
 	// Checking the number of characters in the key to do a quick comparison
 	// to elliminate many possibilities. This is an attempt to save some
@@ -689,10 +689,10 @@ PX_INLINE void PXFNTTextureFontFuserHandleColumnPage(PXFNTTextureFontExtractionI
 			break;
 	}
 }
-PX_INLINE void PXFNTTextureFontFuserHandleColumnChars(PXFNTTextureFontExtractionInfo *info)
+PXInline void PXFNTTextureFontFuserHandleColumnChars(PXFNTTextureFontExtractionInfo *info)
 {
 }
-PX_INLINE void PXFNTTextureFontFuserHandleColumnChar(PXFNTTextureFontExtractionInfo *info)
+PXInline void PXFNTTextureFontFuserHandleColumnChar(PXFNTTextureFontExtractionInfo *info)
 {
 	// Checking the number of characters in the key to do a quick comparison
 	// to elliminate many possibilities. This is an attempt to save some
@@ -770,7 +770,7 @@ PX_INLINE void PXFNTTextureFontFuserHandleColumnChar(PXFNTTextureFontExtractionI
 			break;
 	}
 }
-PX_INLINE void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractionInfo *info)
+PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractionInfo *info)
 {
 	// Checking the number of characters in the key to do a quick comparison
 	// to elliminate many possibilities. This is an attempt to save some

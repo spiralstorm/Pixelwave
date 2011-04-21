@@ -41,7 +41,7 @@
 #define PX_GL_RENDERER_H
 
 #include "PXGL.h"
-#include "PXPrivateUtils.h"
+#include "PXHeaderUtils.h"
 
 #include "PXGLState.h"
 
@@ -93,7 +93,7 @@ void PXGLConsolidateBuffer( );
 
 void PXGLFlushBuffer( );
 
-PX_INLINE_H void PXGLSetupEnables();
-PX_INLINE_H int PXGLGetDrawCountThenResetIt();
+PXInline_h void PXGLSetupEnables();
+PXInline_h int PXGLGetDrawCountThenResetIt();
 
 #endif

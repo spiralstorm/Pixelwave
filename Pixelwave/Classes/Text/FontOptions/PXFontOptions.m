@@ -39,7 +39,8 @@
 
 #import "PXFontOptions.h"
 
-#import "PXPrivateUtils.h"
+#include "PXHeaderUtils.h"
+#include "PXPrivateUtils.h"
 
 /// @cond DX_IGNORE
 #define PX_FONT_CHAR_SET_LOWER_CASE		@"abcdefghijklmnopqrstuvwxyz"
@@ -47,7 +48,7 @@
 #define PX_FONT_CHAR_SET_NUMERALS		@"0123456789"
 #define PX_FONT_CHAR_SET_PUNCTUATION	@"!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~"
 
-PX_INLINE int PXFontOptionsCharacterComparer(const void *element1, const void *element2);
+PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *element2);
 
 @interface PXFontOptions (Private)
 - (NSString *) newStringByRemovingDuplicatesFromString:(NSString *)copyString;
@@ -296,7 +297,7 @@ PX_INLINE int PXFontOptionsCharacterComparer(const void *element1, const void *e
 #pragma mark -
 #pragma mark C Implementations
 
-PX_INLINE int PXFontOptionsCharacterComparer(const void *element1, const void *element2)
+PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *element2)
 {
 	return ((*((unichar *)element1)) - (*((unichar *)element2)));
 }

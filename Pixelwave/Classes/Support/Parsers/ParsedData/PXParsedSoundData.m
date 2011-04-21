@@ -39,12 +39,12 @@
 
 #import "PXParsedSoundData.h"
 
-PX_INLINE_C PXParsedSoundData *PXParsedSoundDataCreate(unsigned byteCount)
+PXInline_c PXParsedSoundData *PXParsedSoundDataCreate(unsigned byteCount)
 {
 	return PXParsedSoundDataCreatev(byteCount, 0, 0, 0, 0);
 }
 
-PX_INLINE_C PXParsedSoundData *PXParsedSoundDataCreatev(unsigned byteCount,
+PXInline_c PXParsedSoundData *PXParsedSoundDataCreatev(unsigned byteCount,
 												 PXSoundFormat format,
 												 int freq,
 												 unsigned channelCount,
@@ -74,7 +74,7 @@ PX_INLINE_C PXParsedSoundData *PXParsedSoundDataCreatev(unsigned byteCount,
 	return soundData;
 }
 
-PX_INLINE_C void PXParsedSoundDataFree(PXParsedSoundData *soundData)
+PXInline_c void PXParsedSoundDataFree(PXParsedSoundData *soundData)
 {
 	if (soundData)
 	{

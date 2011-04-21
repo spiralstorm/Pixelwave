@@ -150,7 +150,7 @@
 
 @end
 
-PX_INLINE_C unsigned PXTextureGlyphBatchConcatBox(PXGLColoredTextureVertex **currentVertex,
+PXInline_c unsigned PXTextureGlyphBatchConcatBox(PXGLColoredTextureVertex **currentVertex,
 												  PXMathRange x,
 												  PXMathRange y,
 												  PXMathRange s,
@@ -227,7 +227,7 @@ PX_INLINE_C unsigned PXTextureGlyphBatchConcatBox(PXGLColoredTextureVertex **cur
 	return addedVertexCount;
 }
 
-PX_INLINE_C unsigned PXTextureGlyphBatchConcatBoxWithColor(PXGLColoredTextureVertex **currentVertex,
+PXInline_c unsigned PXTextureGlyphBatchConcatBoxWithColor(PXGLColoredTextureVertex **currentVertex,
 														   PXMathRange x,
 														   PXMathRange y,
 														   PXMathRange s,

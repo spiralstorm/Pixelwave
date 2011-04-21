@@ -834,7 +834,7 @@ void PXGLFlushBuffer( )
 		pxGLHadDrawnArrays = true;
 }
 
-PX_INLINE_C int PXGLGetDrawCountThenResetIt()
+PXInline_c int PXGLGetDrawCountThenResetIt()
 {
 #ifdef PX_DEBUG_MODE
 	int drawCount = pxGLDrawCallCount;

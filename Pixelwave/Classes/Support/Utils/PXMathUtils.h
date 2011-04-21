@@ -44,7 +44,7 @@
 extern "C" {
 #endif
 
-#import "PXPrivateUtils.h"
+#import "PXHeaderUtils.h"
 
 #pragma mark -
 #pragma mark Macros
@@ -130,34 +130,34 @@ float PXMathLerpf(float start, float end, float percent);
 float PXMathContentRoundf(float val);
 int32_t PXMathNextPowerOfTwo(int32_t val);
 
-PX_INLINE PXMathRange PXMathRangeMake(float min, float max) PX_ALWAYS_INLINE;
+PXInline PXMathRange PXMathRangeMake(float min, float max) PXAlwaysInline;
 
-PX_INLINE PXMathPoint PXMathPointMake(float x, float y) PX_ALWAYS_INLINE;
-PX_INLINE float PXMathPointDot(PXMathPoint point1, PXMathPoint point2) PX_ALWAYS_INLINE;
-PX_INLINE float PXMathPointLen(PXMathPoint point) PX_ALWAYS_INLINE;
-PX_INLINE float PXMathPointLenSq(PXMathPoint point) PX_ALWAYS_INLINE;
-PX_INLINE float PXMathPointDist(PXMathPoint point1, PXMathPoint point2) PX_ALWAYS_INLINE;
-PX_INLINE float PXMathPointDistSq(PXMathPoint point1, PXMathPoint point2) PX_ALWAYS_INLINE;
-PX_INLINE void PXMathPointNorm(PXMathPoint * point) PX_ALWAYS_INLINE;
-PX_INLINE void PXMathPointSet(PXMathPoint *point, float x, float y) PX_ALWAYS_INLINE;
-PX_INLINE PXMathLine PXMathLineMake(float x1, float y1, float x2, float y2) PX_ALWAYS_INLINE;
-PX_INLINE void PXMathLineSet(PXMathLine *line, float x1, float y1, float x2, float y2) PX_ALWAYS_INLINE;
-PX_INLINE PXMathTriangle PXMathTriangleMake(float x1, float y1, float x2, float y2, float x3, float y3) PX_ALWAYS_INLINE;
-PX_INLINE void PXMathTriangleSet(PXMathTriangle *triangle, float x1, float y1, float x2, float y2, float x3, float y3) PX_ALWAYS_INLINE;
+PXInline PXMathPoint PXMathPointMake(float x, float y) PXAlwaysInline;
+PXInline float PXMathPointDot(PXMathPoint point1, PXMathPoint point2) PXAlwaysInline;
+PXInline float PXMathPointLen(PXMathPoint point) PXAlwaysInline;
+PXInline float PXMathPointLenSq(PXMathPoint point) PXAlwaysInline;
+PXInline float PXMathPointDist(PXMathPoint point1, PXMathPoint point2) PXAlwaysInline;
+PXInline float PXMathPointDistSq(PXMathPoint point1, PXMathPoint point2) PXAlwaysInline;
+PXInline void PXMathPointNorm(PXMathPoint * point) PXAlwaysInline;
+PXInline void PXMathPointSet(PXMathPoint *point, float x, float y) PXAlwaysInline;
+PXInline PXMathLine PXMathLineMake(float x1, float y1, float x2, float y2) PXAlwaysInline;
+PXInline void PXMathLineSet(PXMathLine *line, float x1, float y1, float x2, float y2) PXAlwaysInline;
+PXInline PXMathTriangle PXMathTriangleMake(float x1, float y1, float x2, float y2, float x3, float y3) PXAlwaysInline;
+PXInline void PXMathTriangleSet(PXMathTriangle *triangle, float x1, float y1, float x2, float y2, float x3, float y3) PXAlwaysInline;
 
-PX_INLINE PXMathPoint3D PXMathPoint3DMake(float x, float y, float z) PX_ALWAYS_INLINE;
-PX_INLINE float PXMathPoint3DDot(PXMathPoint3D point1, PXMathPoint3D point2) PX_ALWAYS_INLINE;
-PX_INLINE float PXMathPoint3DLen(PXMathPoint3D point) PX_ALWAYS_INLINE;
-PX_INLINE float PXMathPoint3DLenSq(PXMathPoint3D point) PX_ALWAYS_INLINE;
-PX_INLINE float PXMathPoint3DDist(PXMathPoint3D point1, PXMathPoint3D point2) PX_ALWAYS_INLINE;
-PX_INLINE float PXMathPoint3DDistSq(PXMathPoint3D point1, PXMathPoint3D point2) PX_ALWAYS_INLINE;
-PX_INLINE PXMathPoint3D PXMathPoint3DCross(PXMathPoint3D point1, PXMathPoint3D point2) PX_ALWAYS_INLINE;
-PX_INLINE void PXMathPoint3DNorm(PXMathPoint3D * point) PX_ALWAYS_INLINE;
-PX_INLINE void PXMathPoint3DSet(PXMathPoint3D *point, float x, float y, float z) PX_ALWAYS_INLINE;
-PX_INLINE PXMathLine3D PXMathLine3DMake(float x1, float y1, float z1, float x2, float y2, float z2) PX_ALWAYS_INLINE;
-PX_INLINE void PXMathLine3DSet(PXMathLine3D *line, float x1, float y1, float z1, float x2, float y2, float z2) PX_ALWAYS_INLINE;
-PX_INLINE PXMathTriangle3D PXMathTriangle3DMake(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) PX_ALWAYS_INLINE;
-PX_INLINE void PXMathTriangl3DeSet(PXMathTriangle3D *triangle, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) PX_ALWAYS_INLINE;
+PXInline PXMathPoint3D PXMathPoint3DMake(float x, float y, float z) PXAlwaysInline;
+PXInline float PXMathPoint3DDot(PXMathPoint3D point1, PXMathPoint3D point2) PXAlwaysInline;
+PXInline float PXMathPoint3DLen(PXMathPoint3D point) PXAlwaysInline;
+PXInline float PXMathPoint3DLenSq(PXMathPoint3D point) PXAlwaysInline;
+PXInline float PXMathPoint3DDist(PXMathPoint3D point1, PXMathPoint3D point2) PXAlwaysInline;
+PXInline float PXMathPoint3DDistSq(PXMathPoint3D point1, PXMathPoint3D point2) PXAlwaysInline;
+PXInline PXMathPoint3D PXMathPoint3DCross(PXMathPoint3D point1, PXMathPoint3D point2) PXAlwaysInline;
+PXInline void PXMathPoint3DNorm(PXMathPoint3D * point) PXAlwaysInline;
+PXInline void PXMathPoint3DSet(PXMathPoint3D *point, float x, float y, float z) PXAlwaysInline;
+PXInline PXMathLine3D PXMathLine3DMake(float x1, float y1, float z1, float x2, float y2, float z2) PXAlwaysInline;
+PXInline void PXMathLine3DSet(PXMathLine3D *line, float x1, float y1, float z1, float x2, float y2, float z2) PXAlwaysInline;
+PXInline PXMathTriangle3D PXMathTriangle3DMake(float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) PXAlwaysInline;
+PXInline void PXMathTriangl3DeSet(PXMathTriangle3D *triangle, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) PXAlwaysInline;
 
 float PXMathPointDistanceToLine(PXMathPoint *point, PXMathLine *line );
 bool PXMathPointInLine( PXMathPoint *ans, PXMathPoint *point, PXMathLine *line );
@@ -168,7 +168,7 @@ bool PXMathIsPointInTriangle( PXMathPoint *point, PXMathTriangle *triangle );
 #pragma mark Implementations
 #pragma mark -
 
-PX_INLINE PXMathRange PXMathRangeMake(float min, float max)
+PXInline PXMathRange PXMathRangeMake(float min, float max)
 {
 	PXMathRange range;
 
@@ -178,7 +178,7 @@ PX_INLINE PXMathRange PXMathRangeMake(float min, float max)
 	return range;
 }
 
-PX_INLINE PXMathPoint PXMathPointMake(float x, float y)
+PXInline PXMathPoint PXMathPointMake(float x, float y)
 {
 	PXMathPoint point;
 
@@ -187,25 +187,25 @@ PX_INLINE PXMathPoint PXMathPointMake(float x, float y)
 
 	return point;
 }
-PX_INLINE float PXMathPointDot(PXMathPoint point1, PXMathPoint point2)
+PXInline float PXMathPointDot(PXMathPoint point1, PXMathPoint point2)
 {
 	return ((point1.x * point2.x) + (point1.y * point2.y));
 }
-PX_INLINE float PXMathPointLen(PXMathPoint point)
+PXInline float PXMathPointLen(PXMathPoint point)
 {
 	float xSq = point.x * point.x;
 	float ySq = point.y * point.y;
 
 	return sqrtf(xSq + ySq);
 }
-PX_INLINE float PXMathPointLenSq(PXMathPoint point)
+PXInline float PXMathPointLenSq(PXMathPoint point)
 {
 	float xSq = point.x * point.x;
 	float ySq = point.y * point.y;
 
 	return xSq + ySq;
 }
-PX_INLINE float PXMathPointDist(PXMathPoint point1, PXMathPoint point2)
+PXInline float PXMathPointDist(PXMathPoint point1, PXMathPoint point2)
 {
 	float xSq = point2.x - point1.x;
 	xSq *= xSq;
@@ -214,7 +214,7 @@ PX_INLINE float PXMathPointDist(PXMathPoint point1, PXMathPoint point2)
 
 	return sqrtf(xSq + ySq);
 }
-PX_INLINE float PXMathPointDistSq(PXMathPoint point1, PXMathPoint point2)
+PXInline float PXMathPointDistSq(PXMathPoint point1, PXMathPoint point2)
 {
 	float xSq = point2.x - point1.x;
 	xSq *= xSq;
@@ -223,7 +223,7 @@ PX_INLINE float PXMathPointDistSq(PXMathPoint point1, PXMathPoint point2)
 
 	return (xSq + ySq);
 }
-PX_INLINE void PXMathPointNorm(PXMathPoint * point)
+PXInline void PXMathPointNorm(PXMathPoint * point)
 {
 	float xSq = point->x * point->x;
 	float ySq = point->y * point->y;
@@ -238,13 +238,13 @@ PX_INLINE void PXMathPointNorm(PXMathPoint * point)
 		point->y *= one_len;
 	}
 }
-PX_INLINE void PXMathPointSet(PXMathPoint *point, float x, float y)
+PXInline void PXMathPointSet(PXMathPoint *point, float x, float y)
 {
 	point->x = x;
 	point->y = y;
 }
 
-PX_INLINE PXMathLine PXMathLineMake(float x1, float y1,
+PXInline PXMathLine PXMathLineMake(float x1, float y1,
 										float x2, float y2)
 {
 	PXMathLine line;
@@ -257,7 +257,7 @@ PX_INLINE PXMathLine PXMathLineMake(float x1, float y1,
 	return line;
 }
 
-PX_INLINE void PXMathLineSet(PXMathLine *line,
+PXInline void PXMathLineSet(PXMathLine *line,
 								 float x1, float y1,
 								 float x2, float y2)
 {
@@ -267,7 +267,7 @@ PX_INLINE void PXMathLineSet(PXMathLine *line,
 	line->pointB.y = y2;
 }
 
-PX_INLINE PXMathTriangle PXMathTriangleMake(float x1, float y1,
+PXInline PXMathTriangle PXMathTriangleMake(float x1, float y1,
 												float x2, float y2,
 												float x3, float y3)
 {
@@ -283,7 +283,7 @@ PX_INLINE PXMathTriangle PXMathTriangleMake(float x1, float y1,
 	return triangle;
 }
 
-PX_INLINE void PXMathTriangleSet(PXMathTriangle *triangle,
+PXInline void PXMathTriangleSet(PXMathTriangle *triangle,
 									 float x1, float y1,
 									 float x2, float y2,
 									 float x3, float y3)
@@ -296,7 +296,7 @@ PX_INLINE void PXMathTriangleSet(PXMathTriangle *triangle,
 	triangle->pointC.y = y3;
 }
 
-PX_INLINE PXMathPoint3D PXMathPoint3DMake(float x, float y, float z)
+PXInline PXMathPoint3D PXMathPoint3DMake(float x, float y, float z)
 {
 	PXMathPoint3D point;
 
@@ -306,11 +306,11 @@ PX_INLINE PXMathPoint3D PXMathPoint3DMake(float x, float y, float z)
 
 	return point;
 }
-PX_INLINE float PXMathPoint3DDot(PXMathPoint3D point1, PXMathPoint3D point2)
+PXInline float PXMathPoint3DDot(PXMathPoint3D point1, PXMathPoint3D point2)
 {
 	return ((point1.x * point2.x) + (point1.y * point2.y) + (point1.z * point2.z));
 }
-PX_INLINE float PXMathPoint3DLen(PXMathPoint3D point)
+PXInline float PXMathPoint3DLen(PXMathPoint3D point)
 {
 	float xSq = point.x * point.x;
 	float ySq = point.y * point.y;
@@ -318,7 +318,7 @@ PX_INLINE float PXMathPoint3DLen(PXMathPoint3D point)
 
 	return sqrtf(xSq + ySq + zSq);
 }
-PX_INLINE float PXMathPoint3DLenSq(PXMathPoint3D point)
+PXInline float PXMathPoint3DLenSq(PXMathPoint3D point)
 {
 	float xSq = point.x * point.x;
 	float ySq = point.y * point.y;
@@ -326,7 +326,7 @@ PX_INLINE float PXMathPoint3DLenSq(PXMathPoint3D point)
 
 	return (xSq + ySq + zSq);
 }
-PX_INLINE float PXMathPoint3DDist(PXMathPoint3D point1, PXMathPoint3D point2)
+PXInline float PXMathPoint3DDist(PXMathPoint3D point1, PXMathPoint3D point2)
 {
 	float xSq = point2.x - point1.x;
 	xSq *= xSq;
@@ -337,7 +337,7 @@ PX_INLINE float PXMathPoint3DDist(PXMathPoint3D point1, PXMathPoint3D point2)
 	
 	return sqrtf(xSq + ySq + zSq);
 }
-PX_INLINE float PXMathPoint3DDistSq(PXMathPoint3D point1, PXMathPoint3D point2)
+PXInline float PXMathPoint3DDistSq(PXMathPoint3D point1, PXMathPoint3D point2)
 {
 	float xSq = point2.x - point1.x;
 	xSq *= xSq;
@@ -348,7 +348,7 @@ PX_INLINE float PXMathPoint3DDistSq(PXMathPoint3D point1, PXMathPoint3D point2)
 
 	return (xSq + ySq + zSq);
 }
-PX_INLINE PXMathPoint3D PXMathPoint3DCross(PXMathPoint3D point1, PXMathPoint3D point2)
+PXInline PXMathPoint3D PXMathPoint3DCross(PXMathPoint3D point1, PXMathPoint3D point2)
 {
 	PXMathPoint3D point;
 
@@ -358,7 +358,7 @@ PX_INLINE PXMathPoint3D PXMathPoint3DCross(PXMathPoint3D point1, PXMathPoint3D p
 
 	return point;
 }
-PX_INLINE void PXMathPoint3DNorm(PXMathPoint3D * point)
+PXInline void PXMathPoint3DNorm(PXMathPoint3D * point)
 {
 	float xSq = point->x * point->x;
 	float ySq = point->y * point->y;
@@ -375,13 +375,13 @@ PX_INLINE void PXMathPoint3DNorm(PXMathPoint3D * point)
 		point->z *= one_len;
 	}
 }
-PX_INLINE void PXMathPoint3DSet(PXMathPoint3D *point, float x, float y, float z)
+PXInline void PXMathPoint3DSet(PXMathPoint3D *point, float x, float y, float z)
 {
 	point->x = x;
 	point->y = y;
 	point->z = z;
 }
-PX_INLINE PXMathLine3D PXMathLine3DMake(float x1, float y1, float z1,
+PXInline PXMathLine3D PXMathLine3DMake(float x1, float y1, float z1,
 											float x2, float y2, float z2)
 {
 	PXMathLine3D line;
@@ -397,7 +397,7 @@ PX_INLINE PXMathLine3D PXMathLine3DMake(float x1, float y1, float z1,
 	return line;
 }
 
-PX_INLINE void PXMathLine3DSet(PXMathLine3D *line,
+PXInline void PXMathLine3DSet(PXMathLine3D *line,
 								   float x1, float y1, float z1,
 								   float x2, float y2, float z2)
 {
@@ -410,7 +410,7 @@ PX_INLINE void PXMathLine3DSet(PXMathLine3D *line,
 	line->pointB.z = z2;
 }
 
-PX_INLINE PXMathTriangle3D PXMathTriangle3DMake(float x1, float y1, float z1,
+PXInline PXMathTriangle3D PXMathTriangle3DMake(float x1, float y1, float z1,
 													float x2, float y2, float z2,
 													float x3, float y3, float z3)
 {
@@ -431,7 +431,7 @@ PX_INLINE PXMathTriangle3D PXMathTriangle3DMake(float x1, float y1, float z1,
 	return triangle;
 }
 
-PX_INLINE void PXMathTriangl3DeSet(PXMathTriangle3D *triangle,
+PXInline void PXMathTriangl3DeSet(PXMathTriangle3D *triangle,
 									   float x1, float y1, float z1,
 									   float x2, float y2, float z2,
 									   float x3, float y3, float z3)
