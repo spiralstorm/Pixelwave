@@ -50,7 +50,7 @@
 // We consider these methods private
 @interface NewtonsCradleRoot(Private)
 - (void) createScene;
-- (void) addConnectedDisplayObject:(PXDisplayObject *)displayObject atX:(float)x andY:(float)y;
+- (void) addConnectedDisplayObject:(PXDisplayObject *)displayObject atX:(float)x y:(float)y;
 @end
 
 @implementation NewtonsCradleRoot
@@ -103,8 +103,7 @@
 	contactListener->delegate = self;
 
 	// Set up the main loop
-	[self addEventListenerOfType:PX_EVENT_ENTER_FRAME
-						listener:PXListener(onFrame)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 
 
 	// Add a touch picker to grab the balls
@@ -165,7 +164,7 @@
 	// TODO: Oz, want to make a @2x version too, pweese?
 	// Load the background
 	PXTexture *backgroundTex = [PXTexture textureWithContentsOfFile:@"background.png"];
-	[backgroundTex setAnchorWithX:0.5f andY:0.5f];
+	[backgroundTex setAnchorWithX:0.5f y:0.5f];
 	backgroundTex.x = stageWidth_2;
 	backgroundTex.y = stageHeight_2;
 	[self addChild:backgroundTex];
@@ -238,7 +237,7 @@
 		[texture release];
 
 		// Set the area of the texture that the ball lives.
-		[texture setClipRectWithX:0 andY:0 andWidth:ballTextureSize andHeight:ballTextureSize usingAnchorX:0.5f andAnchorY:0.5f];
+		[texture setClipRectWithX:0 y:0 width:ballTextureSize height:ballTextureSize usingAnchorX:0.5f anchorY:0.5f];
 		texture.x = 0.0f;
 		texture.y = stringLength;
 		texture.scale = ballTextureScale;
@@ -250,7 +249,7 @@
 		[texture release];
 
 		// Set the area of the texture that the rope lives.
-		[texture setClipRectWithX:512 - stringTextureWidth andY:0 andWidth:stringTextureWidth andHeight:stringTextureHeight usingAnchorX:0.5f andAnchorY:0.0f];
+		[texture setClipRectWithX:512 - stringTextureWidth y:0 width:stringTextureWidth height:stringTextureHeight usingAnchorX:0.5f anchorY:0.0f];
 		texture.width = stringTextureWidth;
 		texture.height = stringLength;
 		texture.smoothing = YES;
@@ -295,7 +294,7 @@
 	[texture release];
 
 	// Set the area of the texture that the ceiling lives.
-	[texture setClipRectWithX:0 andY:384 andWidth:512 andHeight:128];
+	[texture setClipRectWithX:0 y:384 width:512 height:128];
 
 	texture.x = 0.0f;
 	texture.y = (stageHeight * 0.05f) - texture.height;
@@ -307,8 +306,8 @@
 
 - (void) contactListener:(ContactListener *)listener
 	  collisionWithBodyA:(b2Body *)bodyA
-				andBodyB:(b2Body *)bodyB
-		 withNormalForce:(float)normalForce
+				   bodyB:(b2Body *)bodyB
+			 normalForce:(float)normalForce
 {
 	// Cushion the volume
 	float volume = (normalForce / GRAVITY);
@@ -320,7 +319,7 @@
 	// A small randomization of the pitch to make it sound cooler and slightly
 	// 'unique' each time a ball collides.
 	PXSoundTransform *soundTransform = [PXSoundTransform soundTransformWithVolume:volume
-																		 andPitch:[PXMath randomFloatInRangeFrom:0.9f to:1.1f]];
+																			pitch:[PXMath randomFloatInRangeFrom:0.9f to:1.1f]];
 
 	// Play the sound
 	[collisionSound playWithStartTime:0 loopCount:0 soundTransform:soundTransform];

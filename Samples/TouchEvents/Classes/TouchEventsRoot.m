@@ -62,9 +62,9 @@
 	texture.x = self.stage.stageWidth * 0.5f;
 	texture.y = self.stage.stageHeight * 0.5f;
 
-	[self.stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_MOVE listener:PXListener(moveTexture:)];
+	[self.stage addEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(moveTexture:)];
 
-	[self addEventListenerOfType:PX_EVENT_ENTER_FRAME listener:PXListener(onEnterFrame:)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onEnterFrame:)];
 	
 	// ------------------------- Detailed Description --------------------------
 	// Lets load the texture.
@@ -124,7 +124,7 @@
 	[texture release];
 
 	// Remove the event listener.
-	[self.stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_MOVE listener:PXListener(moveTexture:)];
+	[self.stage removeEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(moveTexture:)];
 
 	[super dealloc];
 }

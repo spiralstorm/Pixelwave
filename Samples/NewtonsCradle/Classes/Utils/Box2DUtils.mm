@@ -74,7 +74,7 @@
 
 + (b2Fixture *)fixtureInWorld:(b2World *)physicsWorld
 						  atX:(float)xInPoints
-						 andY:(float)yInPoints
+							y:(float)yInPoints
 {
 	b2Vec2 pos = b2Vec2_px2m(xInPoints, yInPoints);
 	

@@ -80,34 +80,34 @@
 	///////////////
 	
 	animTime = 0.0f;
-	[self addEventListenerOfType:PX_EVENT_ENTER_FRAME listener:PXListener(onFrame)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 	
 	//////////////////////
 	// Auto orientation //
 	//////////////////////
 	
 	self.stage.autoOrients = YES;
-	[self.stage addEventListenerOfType:PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGE listener:PXListener(orientationChange:)];
+	[self.stage addEventListenerOfType:PXStageOrientationEvent_OrientationChange listener:PXListener(orientationChange:)];
 	
 	// Let's set it up so that the app never rotates upside-down. In order
 	// to do that we'll need to listen to the ORIENTATION_CHANGING event and
 	// prevent it from proceeding if the orientation is upside-down
-	[self.stage addEventListenerOfType:PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGING listener:PXListener(orientationChanging:)];
+	[self.stage addEventListenerOfType:PXStageOrientationEvent_OrientationChanging listener:PXListener(orientationChanging:)];
 	
 	///////////////////////
 	// Touch interaction //
 	///////////////////////
 	
 	// On click, let's toggle between military/non-military time
-	[self.stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(onTap)];
+	[self.stage addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTap)];
 }
 
 - (void) dealloc
 {
-	[self.stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(onTap)];
-	[self.stage removeEventListenerOfType:PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGING listener:PXListener(orientationChanging:)];
-	[self.stage removeEventListenerOfType:PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGE listener:PXListener(orientationChange:)];
-	[self removeEventListenerOfType:PX_EVENT_ENTER_FRAME listener:PXListener(onFrame)];
+	[self.stage removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTap)];
+	[self.stage removeEventListenerOfType:PXStageOrientationEvent_OrientationChanging listener:PXListener(orientationChanging:)];
+	[self.stage removeEventListenerOfType:PXStageOrientationEvent_OrientationChange listener:PXListener(orientationChange:)];
+	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 	
 	[timeLabel release];
 	timeLabel = nil;

@@ -134,10 +134,10 @@
 	// |____________ x  - The anchor point is here, on the bottom right
 	// 
 	
-	[leftArrowUp setAnchorWithX:1.0f andY:1.0f];
-	[leftArrowDown setAnchorWithX:1.0f andY:1.0f];
-	[rightArrowUp setAnchorWithX:1.0f andY:1.0f];
-	[rightArrowDown setAnchorWithX:1.0f andY:1.0f];
+	[leftArrowUp setAnchorWithX:1.0f y:1.0f];
+	[leftArrowDown setAnchorWithX:1.0f y:1.0f];
+	[rightArrowUp setAnchorWithX:1.0f y:1.0f];
+	[rightArrowDown setAnchorWithX:1.0f y:1.0f];
 	
 	// Make the two simple buttons, one for the left arrow and one for the right
 	// arrow.
@@ -162,7 +162,7 @@
 	
 	// Set the raccoon's anchor point to be in the bottom-center to make it
 	// easier to align with the shadow
-	[raccoon setAnchorWithX:0.5f andY:1.0f];
+	[raccoon setAnchorWithX:0.5f y:1.0f];
 	
 	// Place the raccoon on the floor
 	raccoon.x = self.stage.stageWidth * 0.5f;
@@ -171,7 +171,7 @@
 	[self addChild:raccoon];
 	
 	/** Shadow **/
-	[shadow setAnchorWithX:0.5f andY:0.5f];
+	[shadow setAnchorWithX:0.5f y:0.5f];
 	[self addChild:shadow];	
 	
 	/** Arrows **/
@@ -196,7 +196,7 @@
 	[self addTouchListeners];
 
 	// Add a frame listener for animation.
-	[self addEventListenerOfType:PX_EVENT_ENTER_FRAME listener:PXListener(onFrame:)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame:)];
 }
 
 - (void) dealloc
@@ -204,7 +204,7 @@
 	// All retain's have been dealt with up to this point, the super dealloc
 	// will completely remove them.  All there is left for us to do is remove
 	// the listeners.
-	[self removeEventListenerOfType:PX_EVENT_ENTER_FRAME listener:PXListener(onFrame:)];
+	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame:)];
 	[self removeTouchListeners];
 
 	[super dealloc];
@@ -221,28 +221,28 @@
 	//			be the case, it is important you decide what is the best course
 	//			of action for your program.
 	
-	[leftArrow addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(touchDown:)];
-	[leftArrow addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP listener:PXListener(touchUp:)];
-	[leftArrow addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_OUT listener:PXListener(touchUp:)];
-	[leftArrow addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL listener:PXListener(touchUp:)];
+	[leftArrow addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(touchDown:)];
+	[leftArrow addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(touchUp:)];
+	[leftArrow addEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(touchUp:)];
+	[leftArrow addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
 
-	[rightArrow addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(touchDown:)];
-	[rightArrow addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP listener:PXListener(touchUp:)];
-	[rightArrow addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_OUT listener:PXListener(touchUp:)];
-	[rightArrow addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL listener:PXListener(touchUp:)];
+	[rightArrow addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(touchDown:)];
+	[rightArrow addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(touchUp:)];
+	[rightArrow addEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(touchUp:)];
+	[rightArrow addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
 }
 - (void) removeTouchListeners
 {
 	// Remove the listeners for the left and right arrows.
-	[leftArrow removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(touchDown:)];
-	[leftArrow removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP listener:PXListener(touchUp:)];
-	[leftArrow removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_OUT listener:PXListener(touchUp:)];
-	[leftArrow removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL listener:PXListener(touchUp:)];
+	[leftArrow removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(touchDown:)];
+	[leftArrow removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(touchUp:)];
+	[leftArrow removeEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(touchUp:)];
+	[leftArrow removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
 
-	[rightArrow removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(touchDown:)];
-	[rightArrow removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP listener:PXListener(touchUp:)];
-	[rightArrow removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_OUT listener:PXListener(touchUp:)];
-	[rightArrow removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL listener:PXListener(touchUp:)];
+	[rightArrow removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(touchDown:)];
+	[rightArrow removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(touchUp:)];
+	[rightArrow removeEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(touchUp:)];
+	[rightArrow removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
 }
 
 - (void) onFrame:(PXEvent *)event

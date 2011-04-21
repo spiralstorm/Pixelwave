@@ -112,7 +112,7 @@
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x
-						andLocalY:(float)y
+						   localY:(float)y
 						shapeFlag:(BOOL)shapeFlag
 {
 	// Return YES if the point lyes within your local area.  If shape flag is

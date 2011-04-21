@@ -57,7 +57,7 @@
 // Does a hit test to check if a box2d shape is under a given point
 + (b2Fixture *)fixtureInWorld:(b2World *)physicsWorld
 						  atX:(float)xInPoints
-						 andY:(float)yInPoints;
+							y:(float)yInPoints;
 
 // Base Functions
 + (b2Body *)bodyInWorld:(b2World *)physicsWorld

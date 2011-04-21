@@ -56,12 +56,12 @@
 	hexagon.y = self.stage.stageHeight * 0.5f;
 
 	// Listen to frame events, so we can rotate it.
-	[self addEventListenerOfType:PX_EVENT_ENTER_FRAME listener:PXListener(onFrame:)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame:)];
 
 	// Listen to touch events to see if the hexagon gets touched.
-	[self.stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP   listener:PXListener(touchUp:)];
-	[self.stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(checkCollision:)];
-	[self.stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_MOVE listener:PXListener(checkCollision:)];
+	[self.stage addEventListenerOfType:PXTouchEvent_TouchUp   listener:PXListener(touchUp:)];
+	[self.stage addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(checkCollision:)];
+	[self.stage addEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(checkCollision:)];
 }
 
 - (void) dealloc
@@ -80,7 +80,7 @@
 {
 	// If the hexagon is touched then change the background color to green,
 	// otherwise keep it grey.
-	if ([hexagon hitTestPointWithX:event.stageX andY:event.stageY shapeFlag:YES])
+	if ([hexagon hitTestPointWithX:event.stageX y:event.stageY shapeFlag:YES])
 		self.stage.backgroundColor = 0x88AA88;
 	else
 		self.stage.backgroundColor = 0x888888;

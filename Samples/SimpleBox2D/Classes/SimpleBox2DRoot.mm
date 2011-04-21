@@ -90,7 +90,7 @@
 	// Set up the main loop //
 	/////////////////////////
 
-	[self addEventListenerOfType:PX_EVENT_ENTER_FRAME
+	[self addEventListenerOfType:PXEvent_EnterFrame
 						listener:PXListener(onFrame)];
 
 	///////////////////////////
@@ -183,13 +183,13 @@
 - (void)accelerometer:(UIAccelerometer *)accelerometer didAccelerate:(UIAcceleration *)acceleration
 {
 	PXVector3D *accelerationVector = [PXVector3D vector3DWithX:acceleration.x
-														  andY:acceleration.y
-														  andZ:acceleration.z];
+															 y:acceleration.y
+															 z:acceleration.z];
 	[accelerationVector scaleBy:GRAVITY];
 
 	PXVector3D *normalVectorToPlane = [PXVector3D vector3DWithX:0.0f
-														   andY:0.0f
-														   andZ:1.0f];
+															  y:0.0f
+															  z:1.0f];
 	float accelDotNormal = [accelerationVector dotProductWithVector:normalVectorToPlane];
 	[normalVectorToPlane scaleBy:accelDotNormal];
 
@@ -216,9 +216,9 @@
 	float wallSize = 10.0f;
 	
 	PXRectangle *bounds = [PXRectangle rectangleWithX:0.0f
-												 andY:0.0f
-											 andWidth:stageWidth
-											andHeight:stageHeight];
+													y:0.0f
+												width:stageWidth
+											   height:stageHeight];
 	
 	[Box2DUtils staticBorderInWorld:physicsWorld
 							   rect:bounds

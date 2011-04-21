@@ -44,11 +44,11 @@ class ContactListener;
 @optional
 - (void) contactListener:(ContactListener *)listener
 	  collisionWithBodyA:(b2Body *)bodyA
-				andBodyB:(b2Body *)bodyB
-		 withNormalForce:(float)normalForce;
+				   bodyB:(b2Body *)bodyB
+			 normalForce:(float)normalForce;
 - (void) contactListener:(ContactListener *)listener
 	  collisionWithBodyA:(b2Body *)bodyA
-				andBodyB:(b2Body *)bodyB
-	 withTangentialForce:(float)tangentialForce;
+				   bodyB:(b2Body *)bodyB
+		 tangentialForce:(float)tangentialForce;
 
 @end

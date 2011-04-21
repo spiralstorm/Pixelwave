@@ -49,29 +49,24 @@
 	period = 0.0f;
 	circleShape = YES;
 	
-	[self addEventListenerOfType:PX_EVENT_ENTER_FRAME
-						listener:PXListener(onFrame)];
-	
-	[self.stage addEventListenerOfType:PX_TOUCH_EVENT_TAP listener:PXListener(onTap)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
+	[self.stage addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap)];
 }
 
 - (void) dealloc
 {
-	[self removeEventListenerOfType:PX_EVENT_ENTER_FRAME
-						   listener:PXListener(onFrame)];
-	
-	[self.stage removeEventListenerOfType:PX_TOUCH_EVENT_TAP
-								 listener:PXListener(onTap)];
+	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
+	[self.stage removeEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap)];
 
 	[super dealloc];
 }
 
-- (void)onTap
+- (void) onTap
 {
 	circleShape = !circleShape;
 }
 
-- (void)onFrame
+- (void) onFrame
 {
 	// Grab a reference to the root's Graphics object.
 	// All vector drawing is done via the graphics object.
@@ -88,7 +83,7 @@
 
 	period += 0.05f;
 
-	for(int i = 0; i < count; ++i)
+	for (int i = 0; i < count; ++i)
 	{
 		t = i/(float)count;
 
@@ -105,9 +100,7 @@
 		if(circleShape)
 		{
 			// Draw a circle with the specified line style
-			[g drawCircleWithX:cX
-						  andY:cY
-						radius:radius];
+			[g drawCircleWithX:cX y:cY radius:radius];
 		}
 		else
 		{
@@ -117,10 +110,7 @@
 			cY -= radius;
 
 			// Draw a rect with the specified line style
-			[g drawRectWithX:cX
-						andY:cY
-					andWidth:radius * 2.0f
-				   andHeight:radius * 2.0f];
+			[g drawRectWithX:cX y:cY width:radius * 2.0f height:radius * 2.0f];
 		}
 	}
 }

@@ -156,18 +156,18 @@ void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impu
 	{
 		// If there is a normal impulse and the delegate listens for those
 		// events, inform them!
-		if ([delegateObject respondsToSelector:@selector(contactListener:collisionWithBodyA:andBodyB:withNormalForce:)])
+		if ([delegateObject respondsToSelector:@selector(contactListener:collisionWithBodyA:bodyB:normalForce:)])
 		{
-			[delegate contactListener:this collisionWithBodyA:bodyA andBodyB:bodyB withNormalForce:normalImpulse];
+			[delegate contactListener:this collisionWithBodyA:bodyA bodyB:bodyB normalForce:normalImpulse];
 		}
 	}
 	if (!PXMathIsZero(tangentImpulse))
 	{
 		// If there is a tangent impulse and the delegate listens for those
 		// events, inform them!
-		if ([delegateObject respondsToSelector:@selector(contactListener:collisionWithBodyA:andBodyB:withTangentialForce:)])
+		if ([delegateObject respondsToSelector:@selector(contactListener:collisionWithBodyA:bodyB:tangentialForce:)])
 		{
-			[delegate contactListener:this collisionWithBodyA:bodyA andBodyB:bodyB withTangentialForce:tangentImpulse];
+			[delegate contactListener:this collisionWithBodyA:bodyA bodyB:bodyB tangentialForce:tangentImpulse];
 		}
 	}
 }

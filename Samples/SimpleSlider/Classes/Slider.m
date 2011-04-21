@@ -138,7 +138,7 @@
 		// This is what makes the slider component 'multi-touch ready'; when
 		// there are multiple sliders on the stage
 
-		[sliderButton addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN
+		[sliderButton addEventListenerOfType:PXTouchEvent_TouchDown
 									listener:PXListener(onSliderPress:)];
 
 		// Set up the default slider values
@@ -158,14 +158,14 @@
 	// listener that wasn't removed before being deallocated
 	// (also known as a "Zombie Listener" .. ooooohhahaha).
 
-	[sliderButton removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(onSliderPress:)];
+	[sliderButton removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onSliderPress:)];
 
 	PXStage *stage = self.stage;
 	if (stage)
 	{
-		[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_MOVE listener:PXListener(onSliderMove:)];
-		[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP listener:PXListener(onSliderRelease:)];
-		[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL listener:PXListener(onSliderRelease:)];
+		[stage removeEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(onSliderMove:)];
+		[stage removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(onSliderRelease:)];
+		[stage removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(onSliderRelease:)];
 	}
 
 	// Usual cleaning up operations
@@ -247,21 +247,21 @@
 	if(!highlighted)
 	{
 		// Set up the texture coordinates to use the gray color scheme
-		[barLeftCap setClipRectWithX:24 andY:4 andWidth:5 andHeight:8];
-		[barRightCap setClipRectWithX:24 andY:4 andWidth:5 andHeight:8 usingAnchorX:1.0f andAnchorY:0.0f];
-		[barBody setClipRectWithX:35 andY:4 andWidth:4 andHeight:8];
-		[sliderButtonTexture setClipRectWithX:48 andY:9 andWidth:42 andHeight:42];
-		[sliderButtonTexture setAnchorWithPointX:17.5f andPointY:17.5f];
+		[barLeftCap setClipRectWithX:24 y:4 width:5 height:8];
+		[barRightCap setClipRectWithX:24 y:4 width:5 height:8 usingAnchorX:1.0f anchorY:0.0f];
+		[barBody setClipRectWithX:35 y:4 width:4 height:8];
+		[sliderButtonTexture setClipRectWithX:48 y:9 width:42 height:42];
+		[sliderButtonTexture setAnchorWithPointX:17.5f pointY:17.5f];
 		sliderButton.alpha = 1.0f;
 	}
 	else
 	{
 		// Set up the texture coordinates to use the blue color scheme
-		[barLeftCap setClipRectWithX:4 andY:4 andWidth:5 andHeight:8];
-		[barRightCap setClipRectWithX:4 andY:4 andWidth:5 andHeight:8 usingAnchorX:1.0f andAnchorY:0.0f];
-		[barBody setClipRectWithX:15 andY:4 andWidth:4 andHeight:8];
-		[sliderButtonTexture setClipRectWithX:4 andY:17 andWidth:42 andHeight:42];
-		[sliderButtonTexture setAnchorWithPointX:17.6 andPointY:17.5];
+		[barLeftCap setClipRectWithX:4 y:4 width:5 height:8];
+		[barRightCap setClipRectWithX:4 y:4 width:5 height:8 usingAnchorX:1.0f anchorY:0.0f];
+		[barBody setClipRectWithX:15 y:4 width:4 height:8];
+		[sliderButtonTexture setClipRectWithX:4 y:17 width:42 height:42];
+		[sliderButtonTexture setAnchorWithPointX:17.6 pointY:17.5];
 		sliderButton.alpha = 0.5f;
 	}
 }
@@ -293,9 +293,9 @@
 	// way to touch it
 	if (stage)
 	{
-		[stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_MOVE listener:PXListener(onSliderMove:)];
-		[stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP listener:PXListener(onSliderRelease:)];
-		[stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL listener:PXListener(onSliderRelease:)];
+		[stage addEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(onSliderMove:)];
+		[stage addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(onSliderRelease:)];
+		[stage addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(onSliderRelease:)];
 	}
 
 	// Update our own local variables
@@ -317,7 +317,7 @@
 	// Calculate the new value of the slider given the position of the touch.
 	// We convert the touch's coordinates into local space first. This is what
 	// allows the bar to be rotated and skewed with no interactivity issues
-	PXPoint *globalPos = [PXPoint pointWithX:event.stageX andY:event.stageY];
+	PXPoint *globalPos = [PXPoint pointWithX:event.stageX y:event.stageY];
 	PXPoint *localPos = [self globalToLocal:globalPos];
 	
 	self.value = (localPos.x - barBody.x) / barBody.width;
@@ -341,9 +341,9 @@
 
 	if (stage)
 	{
-		[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_MOVE listener:PXListener(onSliderMove:)];
-		[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_UP listener:PXListener(onSliderRelease:)];
-		[stage removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_CANCEL listener:PXListener(onSliderRelease:)];
+		[stage removeEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(onSliderMove:)];
+		[stage removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(onSliderRelease:)];
+		[stage removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(onSliderRelease:)];
 	}
 
 	selected = NO;

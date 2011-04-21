@@ -50,7 +50,7 @@
 	// The long way to load a texture
 	textureData = [PXTextureData textureDataWithContentsOfFile:@"Background.png"];
 	background = [PXTexture textureWithTextureData:textureData];
-	[background setAnchorWithX:0.5f andY:0.5f];
+	[background setAnchorWithX:0.5f y:0.5f];
 	background.x = center.x;
 	background.y = center.y;
 	background.smoothing = YES;
@@ -60,10 +60,11 @@
 	// The short way to load a texture
 	grid = [PXTexture textureWithContentsOfFile:@"GridBox.png"];
 	[grid setClipRectWithX:0.0f
-					  andY:0.0f
-				  andWidth:self.stage.stageHeight * 3.0f
-				 andHeight:self.stage.stageHeight * 3.0f
-			  usingAnchorX:0.5f andAnchorY:0.5f];
+						 y:0.0f
+					 width:self.stage.stageHeight * 3.0f
+					height:self.stage.stageHeight * 3.0f
+			  usingAnchorX:0.5f
+				   anchorY:0.5f];
 
 	grid.alpha = 0.3f;
 	grid.smoothing = YES;
@@ -83,7 +84,7 @@
 	planet = [PXTexture textureWithContentsOfFile:@"Planet.png"];
 
 	// Place the registration point in the center of the image
-	[planet setAnchorWithX:0.5f andY:0.5];
+	[planet setAnchorWithX:0.5f y:0.5];
 	planet.x = center.x;
 	planet.y = center.y;
 
@@ -96,11 +97,11 @@
 	label = [PXTexture textureWithContentsOfFile:@"HelloWorldLabel.png"];
 	label.x = center.x;
 	label.y = center.y + 170.0f;
-	[label setAnchorWithX:0.5f andY:0.5f];
+	[label setAnchorWithX:0.5f y:0.5f];
 	[self addChild:label];
 
 	// Main loop
-	[self addEventListenerOfType:PX_EVENT_ENTER_FRAME listener:PXListener(onFrame:)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame:)];
 }
 
 - (void)onFrame:(PXEvent *)event
@@ -116,7 +117,7 @@
 
 - (void) dealloc
 {
-	// There's nothing to release since everything was autoreleased
+	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame:)];
 
 	[super dealloc];
 }

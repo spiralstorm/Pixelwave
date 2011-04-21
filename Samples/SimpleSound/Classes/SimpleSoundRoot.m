@@ -78,16 +78,16 @@
 	/////////////////////
 	
 	// Use an ENTER_FRAME event to animate the text
-	[self addEventListenerOfType:PX_EVENT_ENTER_FRAME listener:PXListener(onFrame)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 	// Use the TOUCH_DOWN event to play a sound when the screen is pressed
-	[self.stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(onTouchDown)];
+	[self.stage addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown)];
 }
 
 - (void)onTouchDown
 {
 	// Specify the volume and pitch we want to use in a SoundTransform object
 	PXSoundTransform *t = [PXSoundTransform soundTransformWithVolume:[PXMath randomFloatInRangeFrom:0.5f to:1.0f] 
-															andPitch:[PXMath randomFloatInRangeFrom:0.5f to:2.0f]];
+															   pitch:[PXMath randomFloatInRangeFrom:0.5f to:2.0f]];
 	
 	// Play the sound with the random transformation
 	[sound playWithStartTime:0 loopCount:0 soundTransform:t];
@@ -102,8 +102,8 @@
 - (void) dealloc
 {
 	// Always remember to remove event listeners
-	[self removeEventListenerOfType:PX_EVENT_ENTER_FRAME listener:PXListener(onFrame)];
-	[self removeEventListenerOfType:PX_TOUCH_EVENT_TOUCH_DOWN listener:PXListener(onTouchDown)];
+	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
+	[self removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown)];
 	
 	// Clean up memory
 	[sound release];
