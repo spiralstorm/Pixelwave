@@ -136,7 +136,7 @@
 	NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	NSRange range = [str rangeOfString:@"\"spriteSourceSize\":"];
 
-	[str release]; // TODO: Oz, I added this line, look over it?
+	[str release];
 
 	if (range.length == 0)
 		return NO;

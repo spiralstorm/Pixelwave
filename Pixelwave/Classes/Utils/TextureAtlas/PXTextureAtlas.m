@@ -106,7 +106,7 @@
 	}
 
 	self = [parser newTextureAtlas];
-	[parser release]; // TODO: Oz, I added this line, look over it?
+	[parser release];
 
 	return self;
 }

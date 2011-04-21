@@ -113,8 +113,8 @@
 	// Holding onto an extra retain (retain = 2), please see the comment block
 	// in the 'else' for more info.  As a side note, this will never break, even
 	// if the issue gets fixed.
-	AVAudioPlayer *player = [[AVAudioPlayer alloc] retain];
-	AVAudioPlayer *savedPlayer = [player initWithData:_data error:&error];
+	AVAudioPlayer *player = [[AVAudioPlayer alloc] initWithData:_data error:&error];
+	AVAudioPlayer *savedPlayer = [player retain];
 
 	if (savedPlayer)
 	{

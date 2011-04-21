@@ -277,12 +277,6 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 	
 	[extensions release];
 	
-	//[set allObjects
-	
-	//return [ret autorelease];
-
-	// TODO: Oz, I changed this. Before you were just returning
-	// [set allObjects]; set was never released. Please look over this.
 	NSArray *retVal = [set allObjects];
 	[set release];
 	return retVal;

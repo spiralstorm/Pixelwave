@@ -103,7 +103,8 @@
 	
 	// This code is specific to the rectangle clip shape
 	{
-		// TODO: Oz??
+		// TODO: Once we agree that clipRect will never be a clip-shape, turn
+		// this into a staticly allocated array
 		_numVertices = 4;
 		_vertices = realloc(_vertices, sizeof(PXGLTextureVertex) * _numVertices);
 
