@@ -187,9 +187,9 @@
 - (id) copyWithZone:(NSZone *)zone
 {
 	PXClipRect *newRect = [[PXClipRect allocWithZone:zone] initWithX:x
-																y:y
-															width:width
-														   height:height
+																   y:y
+															   width:width
+															  height:height
 															rotation:_contentRotation];
 	
 	return newRect;

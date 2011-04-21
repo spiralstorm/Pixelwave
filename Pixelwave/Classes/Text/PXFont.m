@@ -677,6 +677,13 @@ NSMutableDictionary *pxFonts = nil;
 	return ([PXFont fontWithName:name] == nil) ? NO : YES;
 }
 
+/**
+ *	A list of names of all the available system fonts. These are the font names
+ *	that can always be passed into the PXTextField.font property without
+ *	registering	them as font before hand.
+ *
+ *	@see PXTextField#font
+ */
 + (PXLinkedList *)availableSystemFonts
 {
 	PXLinkedList *list = [[PXLinkedList alloc] init];
@@ -699,6 +706,13 @@ NSMutableDictionary *pxFonts = nil;
 
 	return [list autorelease];
 }
+
+/**
+ *	Checks if the given font name is available. If it is available it can
+ *	be safely passed to the PXTextField.font property
+ *
+ *	@see PXTextField$font
+ */
 + (BOOL) isSystemFontAvailable:(NSString *)name
 {
 	PXLinkedList *list = [PXFont availableSystemFonts];

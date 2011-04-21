@@ -56,7 +56,6 @@
 /// @cond DX_IGNORE
 @interface PXView(Private)
 - (void) updateOrientation;
-- (void) memoryWarning;
 - (BOOL) setupWithScaleFactor:(float)contentScaleFactor
 				 colorQuality:(PXViewColorQuality)colorQuality;
 - (BOOL) createSurface;
@@ -370,12 +369,7 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(updateOrientation)
 												 name:UIDeviceOrientationDidChangeNotification
-											   object:nil];
-	[[NSNotificationCenter defaultCenter] addObserver:self
-											 selector:@selector(memoryWarning)
-												 name:UIApplicationDidReceiveMemoryWarningNotification
-											   object:nil];
-	
+											   object:nil];	
 	return YES;
 }
 
@@ -457,15 +451,15 @@
 	}
 }
 
-- (void) memoryWarning
-{
-	PXEvent *event = [[PXEvent alloc] initWithType:PXEvent_MemoryWarning
-										doesBubble:YES
-									  isCancelable:NO];
-
-	[self.stage dispatchEvent:event];
-	[event release];
-}
+// - (void) memoryWarning
+// {
+// 	PXEvent *event = [[PXEvent alloc] initWithType:PXEvent_MemoryWarning
+// 										doesBubble:YES
+// 									  isCancelable:NO];
+// 
+// 	[self.stage dispatchEvent:event];
+// 	[event release];
+// }
 
 #pragma mark -
 #pragma mark Properties

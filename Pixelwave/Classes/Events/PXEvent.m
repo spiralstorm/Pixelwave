@@ -49,7 +49,7 @@ NSString * const PXEvent_AddedToStage = @"addedToStage";
 NSString * const PXEvent_RemovedFromStage = @"removedFromStage";
 NSString * const PXEvent_Render = @"render";
 NSString * const PXEvent_SoundComplete = @"soundComplete";
-NSString * const PXEvent_MemoryWarning = @"memoryWarning";
+//NSString * const PXEvent_MemoryWarning = @"memoryWarning";
 
 /**
  *	@ingroup Events

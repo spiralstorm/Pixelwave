@@ -58,7 +58,8 @@ PXExtern NSString * const PXEvent_AddedToStage;
 PXExtern NSString * const PXEvent_RemovedFromStage;
 PXExtern NSString * const PXEvent_Render;
 PXExtern NSString * const PXEvent_SoundComplete;
-PXExtern NSString * const PXEvent_MemoryWarning;
+
+//PXExtern NSString * const PXEvent_MemoryWarning;
 
 /// @ingroup Events
 /// Event Phases
