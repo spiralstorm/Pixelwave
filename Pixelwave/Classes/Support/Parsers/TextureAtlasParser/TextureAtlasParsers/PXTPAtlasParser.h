@@ -6,36 +6,13 @@
 //  Copyright 2011 NA. All rights reserved.
 //
 
-#import "PXTextureAtlasParser.h"
-
-#import <CoreGraphics/CoreGraphics.h>
-
-typedef struct
-{
-	CGRect clipRect;
-	float rotation;
-	short padding[4];
-
-	ushort nameIndex;
-	BOOL paddingEnabled;
-	BOOL _byte_padding;
-}PXTPAtlasParserFrame;
+#import "PXSimpleAtlasParser.h"
 
 // TexturePacker file format reader
 @class PXTextureData;
 
-@interface PXTPAtlasParser : PXTextureAtlasParser<PXParser>
+@interface PXTPAtlasParser : PXSimpleAtlasParser<PXParser>
 {
-@private
-	// The texture data of the atlas
-	PXTextureData *textureData;
-
-	// The frame list
-	int numFrames;
-	PXTPAtlasParserFrame *frames;
-
-	// The list of all the frame names
-	NSMutableArray *names;
 }
 
 @end

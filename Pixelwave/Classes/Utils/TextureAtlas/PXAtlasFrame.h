@@ -16,8 +16,9 @@
 {
 @private
 	PXTextureData *textureData;
-	PXPoint *anchor;
 	PXClipRect *clipRect;
+	PXPoint *anchor;
+	PXTexturePadding *padding;
 }
 
 @property (nonatomic, retain) PXTextureData *textureData;

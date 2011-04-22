@@ -57,7 +57,8 @@
 	self = [super init];
 	if (self)
 	{
-		_renderMode = PXRenderMode_BatchAndManageStates;
+		//_renderMode = PXRenderMode_BatchAndManageStates;
+		_renderMode = PXRenderMode_Off;
 		_graphics = nil;
 	}
 
@@ -67,7 +68,10 @@
 - (PXGraphics *)graphics
 {
 	if (!_graphics)
+	{
 		_graphics = [[PXGraphics alloc] init];
+		_renderMode = PXRenderMode_BatchAndManageStates;
+	}
 
 	_renderMode = PXRenderMode_BatchAndManageStates;
 

@@ -54,11 +54,7 @@
 {
 	self = [super init];
 	if (self)
-	{
-		textureData = nil;
-		clipRect = nil;
-		anchor = nil;
-		
+	{	
 		self.textureData = _textureData;
 		self.clipRect = _clipRect;
 		self.anchor = _anchor;
