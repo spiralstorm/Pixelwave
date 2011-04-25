@@ -1987,6 +1987,56 @@ void PXGLColorTransformIdentity( PXGLColorTransform *transform )
 	transform->alphaMultiplier = 1.0f;
 }
 
+PXInline_c void PXGLMatrixRotate(PXGLMatrix *mat, GLfloat angle)
+{
+	// Needs to exist
+	assert(mat);
+
+	GLfloat sinVal = sinf(angle);
+	GLfloat cosVal = cosf(angle);
+
+	GLfloat oldA = mat->a;
+	GLfloat oldB = mat->b;
+	GLfloat oldC = mat->c;
+	GLfloat oldD = mat->d;
+	GLfloat oldTX = mat->tx;
+	GLfloat oldTY = mat->ty;
+
+	mat->a = oldA * cosVal - oldB * sinVal;
+	mat->b = oldA * sinVal + oldB * cosVal;
+	mat->c = oldC * cosVal - oldD * sinVal;
+	mat->d = oldC * sinVal + oldD * cosVal;
+	mat->tx = oldTX * cosVal - oldTY * sinVal;
+	mat->ty = oldTX * sinVal + oldTY * cosVal;
+}
+PXInline_c void PXGLMatrixScale(PXGLMatrix *mat, GLfloat x, GLfloat y)
+{
+	// Needs to exist
+	assert(mat);
+
+	mat->a *= x;
+	mat->d *= y;
+	mat->tx *= x;
+	mat->ty *= y;
+}
+PXInline_c void PXGLMatrixTranslate(PXGLMatrix *mat, GLfloat x, GLfloat y)
+{
+	// Needs to exist
+	assert(mat);
+
+	mat->tx += x;
+	mat->ty += y;
+}
+PXInline_c void PXGLMatrixTransform(PXGLMatrix *mat, GLfloat angle, GLfloat scaleX, GLfloat scaleY, GLfloat x, GLfloat y)
+{
+	// Needs to exist
+	assert(mat);
+
+	PXGLMatrixScale(mat, scaleX, scaleY);
+	PXGLMatrixRotate(mat, angle);
+	PXGLMatrixTranslate(mat, x, y);
+}
+
 void PXGLResetStates(PXGLState desiredState)
 {
 	//pxGLState = pxGLDefaultState;

@@ -106,6 +106,11 @@ void PXGLMatrixInvert( PXGLMatrix *mat );
 void PXGLMatrixIdentity( PXGLMatrix *mat );
 void PXGLColorTransformIdentity( PXGLColorTransform *transform );
 
+PXInline_h void PXGLMatrixRotate(PXGLMatrix *mat, GLfloat angle);
+PXInline_h void PXGLMatrixScale(PXGLMatrix *mat, GLfloat x, GLfloat y);
+PXInline_h void PXGLMatrixTranslate(PXGLMatrix *mat, GLfloat x, GLfloat y);
+PXInline_h void PXGLMatrixTransform(PXGLMatrix *mat, GLfloat angle, GLfloat scaleX, GLfloat scaleY, GLfloat x, GLfloat y);
+
 PXInline_h PXGLState _PXGLDefaultState();
 PXInline_h void _PXGLStateEnable(PXGLState *state, GLenum cap);
 PXInline_h void _PXGLStateDisable(PXGLState *state, GLenum cap);
