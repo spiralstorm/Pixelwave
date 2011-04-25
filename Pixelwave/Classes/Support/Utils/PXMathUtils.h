@@ -129,6 +129,7 @@ void PXMathSeedRandomWithValue(unsigned value);
 float PXMathLerpf(float start, float end, float percent);
 float PXMathContentRoundf(float val);
 int32_t PXMathNextPowerOfTwo(int32_t val);
+int64_t PXMathNextPowerOfTwo64(int64_t val);
 
 PXInline PXMathRange PXMathRangeMake(float min, float max) PXAlwaysInline;
 

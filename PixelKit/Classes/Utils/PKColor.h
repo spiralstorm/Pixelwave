@@ -86,24 +86,24 @@ typedef union
 #pragma mark Declerations
 #pragma mark -
 
-PX_INLINE PKColor PKColorMakeRGBA(unsigned char red,
-									unsigned char green,
-									unsigned char blue,
-									unsigned char alpha);
-PX_INLINE PKColor PKColorMakeARGB(unsigned char alpha,
-									unsigned char red,
-									unsigned char green,
-									unsigned char blue);
+PXInline PKColor PKColorMakeRGBA(unsigned char red,
+								 unsigned char green,
+								 unsigned char blue,
+								 unsigned char alpha);
+PXInline PKColor PKColorMakeARGB(unsigned char alpha,
+								 unsigned char red,
+								 unsigned char green,
+								 unsigned char blue);
 
-PX_INLINE PKColor PKColorRGBAToARGB(PKColor color);
-PX_INLINE PKColor PKColorARGBToRGBA(PKColor color);
-PX_INLINE PKColor PKColorInterpolate(PKColor from, PKColor to, float percent);
+PXInline PKColor PKColorRGBAToARGB(PKColor color);
+PXInline PKColor PKColorARGBToRGBA(PKColor color);
+PXInline PKColor PKColorInterpolate(PKColor from, PKColor to, float percent);
 
 #pragma mark -
 #pragma mark Implementations
 #pragma mark -
 
-PX_INLINE PKColor PKColorMakeRGBA(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
+PXInline PKColor PKColorMakeRGBA(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
 {
 	PKColor retVal;
 
@@ -115,7 +115,7 @@ PX_INLINE PKColor PKColorMakeRGBA(unsigned char red, unsigned char green, unsign
 	return retVal;
 }
 
-PX_INLINE PKColor PKColorMakeARGB(unsigned char alpha, unsigned char red, unsigned char green, unsigned char blue)
+PXInline PKColor PKColorMakeARGB(unsigned char alpha, unsigned char red, unsigned char green, unsigned char blue)
 {
 	PKColor retVal;
 
@@ -127,17 +127,17 @@ PX_INLINE PKColor PKColorMakeARGB(unsigned char alpha, unsigned char red, unsign
 	return retVal;
 }
 
-PX_INLINE PKColor PKColorRGBAToARGB(PKColor color)
+PXInline PKColor PKColorRGBAToARGB(PKColor color)
 {
 	return PKColorMakeRGBA(color.asRGBA.r, color.asRGBA.g, color.asRGBA.b, color.asRGBA.a);
 }
 
-PX_INLINE PKColor PKColorARGBToRGBA(PKColor color)
+PXInline PKColor PKColorARGBToRGBA(PKColor color)
 {
 	return PKColorMakeARGB(color.asRGBA.a, color.asRGBA.r, color.asRGBA.g, color.asRGBA.b);
 }
 
-PX_INLINE PKColor PKColorInterpolate(PKColor from, PKColor to, float percent)
+PXInline PKColor PKColorInterpolate(PKColor from, PKColor to, float percent)
 {
 	return PKColorMakeRGBA(PK_INTERPOLATE(from.asRGBA.r, to.asRGBA.r, percent),
 						   PK_INTERPOLATE(from.asRGBA.g, to.asRGBA.g, percent),

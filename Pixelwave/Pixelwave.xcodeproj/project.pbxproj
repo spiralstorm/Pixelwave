@@ -394,7 +394,7 @@
 		52A97663131C083F00E20968 /* PXGLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A97661131C083F00E20968 /* PXGLUtils.h */; };
 		52A97664131C083F00E20968 /* PXGLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A97662131C083F00E20968 /* PXGLUtils.m */; };
 		52ABD5F41254F20E00AB0756 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52ABD5F31254F20E00AB0756 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		52B623B11333F1E40062EE3F /* PXArrayBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B623B01333F1E40062EE3F /* PXArrayBuffer.h */; };
+		52B3FA9F13660F6E00020E4C /* PXArrayBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B3FA9E13660F6E00020E4C /* PXArrayBuffer.h */; };
 		52BEF6D2130EDF5F001E710E /* PXParsedSoundData.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BEF6CE130EDF5F001E710E /* PXParsedSoundData.h */; };
 		52BEF6D3130EDF5F001E710E /* PXParsedTextureData.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BEF6CF130EDF5F001E710E /* PXParsedTextureData.h */; };
 		52BEF6D4130EDF5F001E710E /* PXParsedSoundData.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BEF6D0130EDF5F001E710E /* PXParsedSoundData.m */; };
@@ -877,7 +877,7 @@
 		52A97661131C083F00E20968 /* PXGLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLUtils.h; sourceTree = "<group>"; };
 		52A97662131C083F00E20968 /* PXGLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGLUtils.m; sourceTree = "<group>"; };
 		52ABD5F31254F20E00AB0756 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		52B623B01333F1E40062EE3F /* PXArrayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXArrayBuffer.h; sourceTree = "<group>"; };
+		52B3FA9E13660F6E00020E4C /* PXArrayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXArrayBuffer.h; sourceTree = "<group>"; };
 		52BEF6CE130EDF5F001E710E /* PXParsedSoundData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXParsedSoundData.h; sourceTree = "<group>"; };
 		52BEF6CF130EDF5F001E710E /* PXParsedTextureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXParsedTextureData.h; sourceTree = "<group>"; };
 		52BEF6D0130EDF5F001E710E /* PXParsedSoundData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXParsedSoundData.m; sourceTree = "<group>"; };
@@ -1152,8 +1152,8 @@
 			children = (
 				5238EF1713607C5E00A12477 /* PXHeaderUtils.h */,
 				529CC94F12B9692D00A58B49 /* PXPrivateUtils.h */,
-				52B623B01333F1E40062EE3F /* PXArrayBuffer.h */,
 				5265D1221337D78B00F8D483 /* PXCLinkedList.h */,
+				52B3FA9E13660F6E00020E4C /* PXArrayBuffer.h */,
 				2D89805712BD61A1000F5464 /* PXExceptionUtils.h */,
 				5288459312B7DA44000F88E3 /* PXEngineUtils.h */,
 				5288459412B7DA44000F88E3 /* PXEngineUtils.m */,
@@ -2294,7 +2294,6 @@
 				523A4F0313258C1100C17A49 /* PXTextureFontFuser.h in Headers */,
 				2DBD52381325925B00BF4977 /* PXTextureDataPixelFormat.h in Headers */,
 				2D7CF76F132706EB00A0F035 /* PXDebugUtils.h in Headers */,
-				52B623B11333F1E40062EE3F /* PXArrayBuffer.h in Headers */,
 				5280DE331333FB1600B0F353 /* PXGLState.h in Headers */,
 				5280DEA5133407AF00B0F353 /* PXGLStatePrivate.h in Headers */,
 				5265D1231337D78B00F8D483 /* PXCLinkedList.h in Headers */,
@@ -2352,6 +2351,7 @@
 				523932DF1365DE48009F9EDB /* ftgrays.h in Headers */,
 				523932E01365DE48009F9EDB /* ftsmerrs.h in Headers */,
 				523932E21365DE48009F9EDB /* ftsmooth.h in Headers */,
+				52B3FA9F13660F6E00020E4C /* PXArrayBuffer.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -154,6 +154,20 @@ int32_t PXMathNextPowerOfTwo(int32_t val)
 	return val;
 }
 
+int64_t PXMathNextPowerOfTwo64(int64_t val)
+{
+	val -= 1;
+		val |= (val >> 1);
+		val |= (val >> 2);
+		val |= (val >> 4);
+		val |= (val >> 8);
+		val |= (val >> 16);
+		val |= (val >> 32);
+	val += 1;
+
+	return val;
+}
+
 bool PXMathIsPointInLine(PXMathPoint *point, PXMathLine *line)
 {
 	return PXMathIsZero(PXMathPointDistanceToLine(point, line));
