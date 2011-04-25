@@ -557,8 +557,8 @@
 	// Instead of a renderBuffer, a texture can be used as the target:
 	// eg: glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, texture, 0);
 
-	glGenFramebuffersOES( 1, &_framebuffer );
-	glBindFramebufferOES( GL_FRAMEBUFFER_OES, _framebuffer );
+	glGenFramebuffersOES( 1, &_pxViewFramebuffer );
+	glBindFramebufferOES( GL_FRAMEBUFFER_OES, _pxViewFramebuffer );
 	glFramebufferRenderbufferOES( GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, renderbufferName );
 	
 	size = newSize;
@@ -582,8 +582,8 @@
 	glDeleteRenderbuffersOES(1, &renderbufferName);
 	renderbufferName = 0;
 	
-	glDeleteFramebuffersOES(1, &_framebuffer);
-	_framebuffer = 0;
+	glDeleteFramebuffersOES(1, &_pxViewFramebuffer);
+	_pxViewFramebuffer = 0;
 	
 	[EAGLContext setCurrentContext:nil];
 	

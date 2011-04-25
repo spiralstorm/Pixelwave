@@ -75,7 +75,7 @@ typedef enum
 /// @cond DX_IGNORE
 	// TODO: Move the framebuffer and renderbuffer creation to PXGL ?
 @public
-	GLuint _framebuffer; // the main frame buffer
+	GLuint _pxViewFramebuffer; // the main frame buffer
 @private
 	EAGLContext *eaglContext;
 	GLuint renderbufferName;

@@ -196,7 +196,6 @@ void PKB2DebugDraw::DrawTransform(const b2Transform& xf)
 
 - (void) dealloc
 {
-	
 	self.touchPicking = NO;
 	
 	self.physicsWorld = NULL;
@@ -228,13 +227,13 @@ void PKB2DebugDraw::DrawTransform(const b2Transform& xf)
 
 - (void) setTouchPicking:(BOOL)val
 {
-	if(val && !touchPicker)
+	if (val && !touchPicker)
 	{
 		touchPicker = [[PKBox2DTouchPicker alloc] initWithWorld:physicsWorld];
 		[self addChild:touchPicker];
 		[touchPicker release];
 	}
-	else if(!val && touchPicker)
+	else if (!val && touchPicker)
 	{
 		[self removeChild:touchPicker];
 		touchPicker = nil;
@@ -248,7 +247,7 @@ void PKB2DebugDraw::DrawTransform(const b2Transform& xf)
 
 - (void) setPrecisePicking:(BOOL)val
 {
-	if(touchPicker)
+	if (touchPicker)
 	{
 		touchPicker.precise = val;
 	}
@@ -256,11 +255,11 @@ void PKB2DebugDraw::DrawTransform(const b2Transform& xf)
 
 - (BOOL) precisePicking
 {
-	if(touchPicker)
+	if (touchPicker)
 	{
 		return touchPicker.precise;
 	}
-	
+
 	return NO;
 }
 

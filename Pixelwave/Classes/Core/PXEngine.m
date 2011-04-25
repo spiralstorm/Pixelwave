@@ -1698,7 +1698,7 @@ void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *sourc
 	}
 
 	// Switch back to main buffer
-	PXGLBindFramebuffer( GL_FRAMEBUFFER_OES, pxEngineView->_framebuffer );
+	PXGLBindFramebuffer( GL_FRAMEBUFFER_OES, pxEngineView->_pxViewFramebuffer );
 }
 
 #pragma mark Extracting Pixel Data
@@ -1748,7 +1748,7 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 	PXGLSetViewSize(pxEngineViewSize.width, pxEngineViewSize.height, pxEngineView.contentScaleFactor, true);
 
 	// Bind the screen buffer back
-	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineView->_framebuffer);
+	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineView->_pxViewFramebuffer);
 }
 
 /**

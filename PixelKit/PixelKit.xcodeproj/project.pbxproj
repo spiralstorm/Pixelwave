@@ -95,7 +95,6 @@
 		2DFFF81312CD2821009AA3C3 /* b2WeldJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DFFF7C012CD2820009AA3C3 /* b2WeldJoint.cpp */; };
 		2DFFF81412CD2821009AA3C3 /* b2WeldJoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFFF7C112CD2820009AA3C3 /* b2WeldJoint.h */; };
 		5297FE121337B82B009856BE /* PKColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5297FE091337B82B009856BE /* PKColor.h */; };
-		52999959115289EA004C1AEE /* libPixelwave.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 521550A411528076003DFC80 /* libPixelwave.a */; };
 		9002411C111E04C700764A57 /* PixelKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9002411B111E04C700764A57 /* PixelKit.h */; };
 		AA747D9F0F9514B9006C5449 /* PixelKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* PixelKit_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
@@ -219,7 +218,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52999959115289EA004C1AEE /* libPixelwave.a in Frameworks */,
 				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -683,12 +681,12 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-fvisibility=hidden";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(PIXELWAVE_SRC)/**";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = "armv6 armv7 i386";
 			};
 			name = Debug;
 		};
@@ -704,12 +702,12 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-fvisibility=hidden";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(PIXELWAVE_SRC)/**";
-				VALID_ARCHS = "armv6 armv7";
+				VALID_ARCHS = "armv6 armv7 i386";
 			};
 			name = Release;
 		};
