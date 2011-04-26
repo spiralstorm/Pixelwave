@@ -106,29 +106,29 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		// normal PXGLEnable and PXGLEnableClient state every frame.
 		_PXGLStateEnable(&_glState, GL_TEXTURE_2D);
 		_PXGLStateEnableClientState(&_glState, GL_TEXTURE_COORD_ARRAY);
-		
+
 		contentWidth = 0;
 		contentHeight = 0;
 		contentRotation = 0.0f;
-		
+
 		paddingEnabled = NO;
-		
-		anchorX = anchorY = 0.0f;
-		
+
+		//anchorX = anchorY = 0.0f;
+
 		numVerts = 0;
 		verts = 0;
-		
+
 		textureData = nil;
-		
+
 		anchorsInvalidated = NO;
 		resetClipFlag = NO;
-		
+
 		self.smoothing = NO;
 		self.repeat = YES;
-		
+
 		self.textureData = _textureData;
 	}
-	
+
 	return self;
 }
 
@@ -209,63 +209,64 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 }
 
 - (void) setClipRectWithX:(int)x
-					 y:(int)y
-				 width:(ushort)width
-				height:(ushort)height
+						y:(int)y
+					width:(ushort)width
+				   height:(ushort)height
 			 usingAnchorX:(float)_anchorX
-			   anchorY:(float)_anchorY
+				  anchorY:(float)_anchorY
 {
-	if (!textureData) return;
-	
+	if (!textureData)
+		return;
+
 	PXClipRect *clipRect = [[PXClipRect alloc] initWithX:x
 													   y:y
 												   width:width
 												  height:height
 												rotation:0.0f];
-	
+
 	self.clipRect = clipRect;
 	[clipRect release];
-	
+
 	[self setAnchorWithX:_anchorX y:_anchorY];
 }
 
-- (void)setClipRect:(PXClipRect *)clipRect
+- (void) setClipRect:(PXClipRect *)clipRect
 {
 	// Can't set a clip rect if there's no texture data
 	if (!textureData)
 		return;
-	
+
 	// If setting the clip to nil, set it to show the entire TextureData
 	if (!clipRect)
 	{
 		resetClipFlag = YES;
 		return;
 	}
-	
+
 	// Calculate the vertices positions
 	[clipRect _validate];
-	
+
 	// Set the read-only properties
 	contentWidth = clipRect->_contentWidth;
 	contentHeight = clipRect->_contentHeight;
 	contentRotation = clipRect->_contentRotation;
-	
+
 	// Set up my vertices array
 	if (numVerts != clipRect->_numVertices)
 	{
 		numVerts = clipRect->_numVertices;
 		verts = realloc(verts, sizeof(PXGLTextureVertex) * numVerts);
 	}
-	
+
 	// Copy the vertex data from the clip rect to me
-	
+
 	float contentScaleFactor = textureData.contentScaleFactor;
-	
+
 	float sPerPixel = textureData->_sPerPixel * contentScaleFactor;
 	float tPerPixel = textureData->_tPerPixel * contentScaleFactor;
-	
+
 	PXGLTextureVertex *myVert, *clipVert;
-	
+
 	int i;
 	for (i = 0, myVert = verts, clipVert = clipRect->_vertices;
 		 i < numVerts;
@@ -279,10 +280,10 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		myVert->x = clipVert->x;
 		myVert->y = clipVert->y;
 	}
-	
+
 	// No need to reset the clip anymore
 	resetClipFlag = NO;
-	
+
 	// When necessary, update the new vertices to match the anchors
 	anchorsInvalidated = YES;
 }
@@ -292,39 +293,39 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	// If there's no texture data, there can't be a clip rect
 	if (!textureData)
 		return nil;
-	
+
 	// If the clip needs to be recalculated, do it before returning
 	// it to the user
 	if (resetClipFlag)
 	{
 		[self resetClip];
 	}
-	
+
 	assert(numVerts > 0 && verts);
-	
+
 	//////////////////////////////////////////////
 	// Reconstruct the clipRect from the coords //
 	//////////////////////////////////////////////
-	
+
 	// This part is a bit unconventional, but it is done for a reason:
 	// Instead of storing the original (unrotated) clip coordinates we just
 	// reconstruct that data with the data we have stored.
 	// It saves us from storing two more floats, and this method isn't
 	// supposed to be super fast any way
-	
+
 	PXGLTextureVertex *vert = &verts[0];
-	
+
 	float contentScaleFactor = textureData.contentScaleFactor;
-	
+
 	float sPerPixel = textureData->_sPerPixel * contentScaleFactor;
 	float tPerPixel = textureData->_tPerPixel * contentScaleFactor;
-	
+
 	PXClipRect *rect = [[PXClipRect alloc] initWithX:vert->s / sPerPixel
 												y:vert->t / tPerPixel
 											width:contentWidth
 										   height:contentHeight
 											rotation:contentRotation];
-	
+
 	return [rect autorelease];
 }
 
@@ -429,9 +430,9 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	{
 		return;
 	}
-	
+
 	[self setAnchorWithX:(x / (float)contentWidth)
-					y:(y / (float)contentHeight)];
+					   y:(y / (float)contentHeight)];
 }
 
 #pragma mark Padding
@@ -444,7 +445,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	{
 		paddingEnabled = YES;
 		memcpy(padding, val, sizeof(padding));
-		
+
 		// Our hit area is different from our drawing area
 		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
 	}
@@ -483,13 +484,13 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 {
 	if (!paddingEnabled)
 		return nil;
-	
+
 	PXTexturePadding *texturePadding = [PXTexturePadding new];
 	texturePadding.top = padding[0];
 	texturePadding.right = padding[1];
 	texturePadding.bottom = padding[2];
 	texturePadding.left = padding[3];
-	
+
 	return [texturePadding autorelease];
 }
 
@@ -501,7 +502,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 
 // This method assumes that the vertices have been validated before it gets
 // called
-- (void)validateAnchors
+- (void) validateAnchors
 {
 	///////////////////////////////////////////////////////
 	// Update the vertex positions to the proper anchors //
@@ -532,7 +533,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 ///
 
 // Reset the clip rectangle to show the entire frame
-- (void)resetClip
+- (void) resetClip
 {
 	// This is a bit hacky
 	
@@ -548,15 +549,15 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	[fullRect release];
 }
 
-- (void)validateVertices
+- (void) validateVertices
 {
 	if (resetClipFlag)
 	{
 		[self resetClip];
 	}
-	
+
 	assert(verts && numVerts > 0);
-	
+
 	if (anchorsInvalidated)
 	{
 		[self validateAnchors];

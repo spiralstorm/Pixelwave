@@ -439,7 +439,7 @@ static unsigned _pxDisplayObjectCount = 0;
 
 - (float) width
 {
-	CGRect rect = CGRectMake( 0, 0, 0, 0 );
+	CGRect rect = CGRectZero;
 	[self _measureGlobalBounds:&rect];
 
 	float x = rect.size.width;
@@ -454,7 +454,7 @@ static unsigned _pxDisplayObjectCount = 0;
 
 - (float) height
 {
-	CGRect rect = CGRectMake( 0, 0, 0, 0 );
+	CGRect rect = CGRectZero;
 	[self _measureGlobalBounds:&rect];
 
 	float x = rect.size.width;
