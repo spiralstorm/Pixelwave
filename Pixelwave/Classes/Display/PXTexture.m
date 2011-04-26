@@ -161,11 +161,9 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	
 	if (textureData)
 	{
-		// There's a new texture data, reset the clip rectangle to show it all
-		// Note:	This must be done immediately so that if width/height or
-		//			another property is called on it, the verts exist - this way
-		//			_measureLocalBounds does not fail.
-		[self resetClip];
+		// There's a new texture data, reset the clip rectangle to show
+		// it all
+		resetClipFlag = YES;
 	}
 }
 
@@ -572,11 +570,12 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 {
 	if (!textureData)
 		return;
-	if (!verts || numVerts == 0)
-		return;
-	
+
 	// Make sure the vertices are up to date
 	[self validateVertices];
+
+	if (!verts || numVerts == 0)
+		return;
 	
 	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), retBounds);
 }
