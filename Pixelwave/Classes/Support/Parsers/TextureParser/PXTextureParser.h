@@ -98,5 +98,6 @@
 			  origin:(NSString *)origin;
 
 - (BOOL) _initializeTexture:(GLuint)texName;
+- (void) _expandEdges:(PXParsedTextureData *)data;
 @end
 /// @endcond

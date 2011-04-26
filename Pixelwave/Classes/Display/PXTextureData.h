@@ -82,9 +82,9 @@
 	// Either GLL_REPEAT or GL_CLAMP_TO_EDGE
 	unsigned short _wrapType;
 @private
-	//Pixel format in memory
+	// åPixel format in memory
 	PXTextureDataPixelFormat pixelFormat;
-	//Actual texture size (Must be a power of 2)
+	// Actual texture size (Must be a power of 2)
 	unsigned textureWidth;
 	unsigned textureHeight;
 /// @endcond
@@ -203,6 +203,12 @@
 				  clipRect:(PXRectangle *)clipRect
 				 smoothing:(BOOL)smoothing
 			  clearTexture:(BOOL)clearTexture;
+
+//-- ScriptName: setExpandEdges
+//-- ScriptArg[0]: required
++ (void) setExpandEdges:(BOOL)expandEdges;
+//-- ScriptName: expandEdges
++ (BOOL) expandEdges;
 
 //-- ScriptIgnore
 + (PXTextureData *)textureDataWithContentsOfFile:(NSString *)path;

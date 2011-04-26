@@ -40,6 +40,8 @@
 #ifndef _PX_PRIVATE_UTILS_H_
 #define _PX_PRIVATE_UTILS_H_
 
+#include "PXHeaderUtils.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -60,13 +62,15 @@ typedef unsigned char   PXGLubyte;
 #define PX_COLOR_FLOAT_TO_BYTE(_color_) ((PXGLubyte)((_color_) * 0xFF))
 #define PX_BOOL_TO_STRING(_var_) ((_var_) ? @"YES" : @"NO")
 
-/*#pragma mark -
+#pragma mark -
 #pragma mark Declerations
 #pragma mark -
 
 PXInline void PXSwap(int *val0, int *val1) PXAlwaysInline;
 PXInline void PXSwapf(float *val0, float *val1) PXAlwaysInline;
 PXInline void PXSwapv(void *val0, void *val1, size_t size) PXAlwaysInline;
+
+PXInline void *PXCopy(void *dest, void *src, size_t size, size_t len, size_t destStride, size_t srcStride);
 
 #pragma mark -
 #pragma mark Implementations
@@ -85,11 +89,31 @@ PXInline void PXSwapf(float *val0, float *val1)
 PXInline void PXSwapv(void *val0, void *val1, size_t size)
 {
 	void *temp = alloca(size);
-	
+
 	temp = memcpy(temp, val0, size);
 	val0 = memcpy(val0, val1, size);
 	val1 = memcpy(val1, temp, size);
-}*/
+}
+
+void *PXCopy(void *dest, void *src, size_t size, size_t len, size_t destStride, size_t srcStride)
+{
+	if (destStride == srcStride == 0)
+	{
+		size_t totalBytes = size * len;
+		return memcpy(dest, src, totalBytes);
+	}
+
+	unsigned index;
+	unsigned char *destData;
+	unsigned char *srcData;
+
+	for (index = 0, destData = dest, srcData = src; index < len; ++index, destData += destStride, srcData += srcStride)
+	{
+		memcpy(destData, srcData, size);
+	}
+
+	return dest;
+}
 
 #ifdef __cplusplus
 }

@@ -47,6 +47,8 @@
 #import "PXTextureData.h"
 #import "PXTextureModifier.h"
 
+#include "PXPrivateUtils.h"
+
 /**
  *	@ingroup Parser
  *
@@ -256,9 +258,9 @@
 	if (success)
 	{
 		[textureData _setInternalPropertiesWithWidth:textureInfo->size.width
-										   height:textureInfo->size.height
+											  height:textureInfo->size.height
 								   usingContentWidth:contentSize.width
-									contentHeight:contentSize.height
+									   contentHeight:contentSize.height
 								  contentScaleFactor:contentScaleFactor
 											  format:textureInfo->pixelFormat];
 	}
@@ -281,6 +283,11 @@
 	if (modifiedTextureInfo && modifiedTextureInfo->bytes)
 	{
 		curTextureInfo = modifiedTextureInfo;
+	}
+
+	if ([PXTextureData expandEdges])
+	{
+		[self _expandEdges:curTextureInfo];
 	}
 
 	GLsizei width = curTextureInfo->size.width;
@@ -336,6 +343,91 @@
 	}
 
 	return YES;
+}
+
+- (void) _expandEdges:(PXParsedTextureData *)_data
+{
+	if (_data)
+	{
+		// If our content size is not equal to our real size, and we have bytes
+		// to work with, add the border. The border will consist of a copy of
+		// the last pixel in the last row or column.
+		unsigned texWidth  = _data->size.width;
+		unsigned texHeight = _data->size.height;
+		unsigned contentWidth  = contentSize.width;
+		unsigned contentHeight = contentSize.height;
+		if (((texWidth != contentWidth) || (texHeight != contentHeight)) &&
+			_data->bytes && _data->byteCount > 0)
+		{
+			unsigned bytesPerPixel = 1;
+			switch (_data->pixelFormat)
+			{
+				case PXTextureDataPixelFormat_RGBA8888:
+					bytesPerPixel = 4;
+					break;
+				case PXTextureDataPixelFormat_RGBA4444:
+					bytesPerPixel = 2;
+					break;
+				case PXTextureDataPixelFormat_RGBA5551:
+					bytesPerPixel = 2;
+					break;
+				case PXTextureDataPixelFormat_RGB565:
+					bytesPerPixel = 2;
+					break;
+				case PXTextureDataPixelFormat_RGB888:
+					bytesPerPixel = 3;
+					break;
+				case PXTextureDataPixelFormat_L8:
+					bytesPerPixel = 1;
+					break;
+				case PXTextureDataPixelFormat_A8:
+					bytesPerPixel = 1;
+					break;
+				case PXTextureDataPixelFormat_LA88:
+					bytesPerPixel = 2;
+					break;
+				default:
+					break;
+			}
+
+			unsigned char *copyPtr = NULL;
+			unsigned char *bytePtr = NULL;
+
+			// Copy the right side.
+			if (texWidth != contentWidth)
+			{
+				// If the widths are not equal, copy a column
+				unsigned count = (texWidth - contentWidth) + 1;
+				unsigned bytesAcross = texWidth * bytesPerPixel;
+				
+				copyPtr = _data->bytes + ((contentWidth - 1) * bytesPerPixel);
+				bytePtr = copyPtr + bytesPerPixel;
+				
+				for (unsigned index = 1; index < count; ++index)
+				{
+					PXCopy(bytePtr, copyPtr, bytesPerPixel, contentHeight, bytesAcross, bytesAcross);
+					bytePtr += bytesPerPixel;
+				}
+			}
+			// Copy the bottom
+			if (texHeight != contentHeight)
+			{
+				// If the heights are not equal, copy a row
+				unsigned count = (texHeight - contentHeight) + 1;
+				unsigned bytesDown = texWidth * bytesPerPixel;
+
+				copyPtr = _data->bytes + ((contentHeight - 1) * bytesDown);
+				bytePtr = copyPtr + bytesDown;
+
+				size_t copySize = bytesPerPixel * texWidth;
+				for (unsigned index = 1; index < count; ++index)
+				{
+					memcpy(bytePtr, copyPtr, copySize);
+					bytePtr += bytesDown;
+				}
+			}
+		}
+	}
 }
 
 @end

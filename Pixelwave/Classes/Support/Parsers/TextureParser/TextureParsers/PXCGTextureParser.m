@@ -529,10 +529,10 @@
 					  orientation:cgImageOrientation
 						sizeToFit:NO
 					  pixelFormat:0];
-	
+
 	cgImage = 0;
 	cgImageOrientation = 0;
-	
+
 	return s;
 }
 

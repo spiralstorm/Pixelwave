@@ -50,6 +50,8 @@
 
 #import "PXTextureParser.h"
 
+BOOL pxTextureDataExpandEdges = YES;
+
 /**
  *	Represents a texture in GPU memory. To draw the image represented by a
  *	PXTextureData object to the screen, a PXTexture display object must be
@@ -490,9 +492,9 @@
 }
 
 - (void) _setInternalPropertiesWithWidth:(unsigned)texWidth
-							   height:(unsigned)texHeight
+								  height:(unsigned)texHeight
 					   usingContentWidth:(unsigned)contWidth
-						contentHeight:(unsigned)contHeight
+						   contentHeight:(unsigned)contHeight
 					  contentScaleFactor:(float)contScaleFactor
 								  format:(PXTextureDataPixelFormat)pixFormat
 {
@@ -556,11 +558,11 @@
  *		if the entire surface of the PXTextureData will be drawn into.
  */
 - (void) drawDisplayObject:(PXDisplayObject *)source
-       matrix:(PXMatrix *)matrix
-       colorTransform:(PXColorTransform *)colorTransform
-       clipRect:(PXRectangle *)clipRect
-       smoothing:(BOOL)smoothing
-       clearTexture:(BOOL)clearTexture
+					matrix:(PXMatrix *)matrix
+			colorTransform:(PXColorTransform *)colorTransform
+				  clipRect:(PXRectangle *)clipRect
+				 smoothing:(BOOL)smoothing
+			  clearTexture:(BOOL)clearTexture
 {
 	if (!source)
 	{
@@ -622,6 +624,15 @@
 		   pixelFormat == PXTextureDataPixelFormat_RGBA8888 ||
 		   pixelFormat == PXTextureDataPixelFormat_RGBA_PVRTC2 ||
 		   pixelFormat == PXTextureDataPixelFormat_RGBA_PVRTC4;
+}
+
++ (void) setExpandEdges:(BOOL)expandEdges
+{
+	pxTextureDataExpandEdges = expandEdges;
+}
++ (BOOL) expandEdges
+{
+	return pxTextureDataExpandEdges;
 }
 
 //////
@@ -779,6 +790,5 @@
 									   orientation:orientation
 										  modifier:modifier] autorelease];
 }
-
 
 @end

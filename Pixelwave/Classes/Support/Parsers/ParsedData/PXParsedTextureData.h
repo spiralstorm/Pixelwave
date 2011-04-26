@@ -60,8 +60,8 @@ typedef struct
 
 PXInline_h PXParsedTextureData *PXParsedTextureDataCreate(unsigned byteCount);
 PXInline_h PXParsedTextureData *PXParsedTextureDataCreatev(unsigned byteCount,
-														  PXTextureDataPixelFormat pixelFormat,
-														  CGSize size);
+														   PXTextureDataPixelFormat pixelFormat,
+														   CGSize size);
 PXInline_h void PXParsedTextureDataFree(PXParsedTextureData *textureData);
 
 #ifdef __cplusplus
