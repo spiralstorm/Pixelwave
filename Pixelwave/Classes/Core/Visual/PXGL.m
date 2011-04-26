@@ -1987,13 +1987,13 @@ void PXGLColorTransformIdentity( PXGLColorTransform *transform )
 	transform->alphaMultiplier = 1.0f;
 }
 
-PXInline_c void PXGLMatrixRotate(PXGLMatrix *mat, GLfloat angle)
+PXInline_c void PXGLMatrixRotate(PXGLMatrix *mat, GLfloat radians)
 {
 	// Needs to exist
 	assert(mat);
 
-	GLfloat sinVal = sinf(angle);
-	GLfloat cosVal = cosf(angle);
+	GLfloat sinVal = sinf(radians);
+	GLfloat cosVal = cosf(radians);
 
 	GLfloat oldA = mat->a;
 	GLfloat oldB = mat->b;

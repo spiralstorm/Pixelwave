@@ -54,10 +54,11 @@
 #include "PXMathUtils.h"
 #import "PXEvent.h"
 
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 #include "PXEngineUtils.h"
-#import "PXExceptionUtils.h"
-#import "PXGLUtils.h"
+#include "PXExceptionUtils.h"
+#include "PXGLUtils.h"
+#include "PXDebugUtils.h"
 
 // Used for naming instances
 static unsigned _pxDisplayObjectCount = 0;
@@ -607,6 +608,18 @@ static unsigned _pxDisplayObjectCount = 0;
 	PXObjectPool *pool = PXEngineGetSharedObjectPool();
 	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:PXPoint.class];
 
+#ifdef PX_DEBUG_MODE
+	if (PXDebugIsEnabled(PXDebugSetting_HalveStage))
+	{
+		PXStage *theStage = PXEngineGetStage();
+		float stageWidth  = theStage.stageWidth;
+		float stageHeight = theStage.stageHeight;
+
+		touchPoint.x = 2.0f * ((stageWidth  * 0.75f) + (touchPoint.x - stageWidth));
+		touchPoint.y = 2.0f * ((stageHeight * 0.75f) + (touchPoint.y - stageHeight));
+	}
+#endif
+
 	point.x = touchPoint.x;
 	point.y = touchPoint.y;
 
@@ -945,7 +958,7 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 - (BOOL) _hitTestPointWithParentX:(float)x
-					   parentY:(float)y
+						  parentY:(float)y
 						shapeFlag:(BOOL)shapeFlag
 {
 	// Converts position from parent's coordinate system to self's

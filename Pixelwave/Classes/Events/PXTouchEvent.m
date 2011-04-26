@@ -113,7 +113,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 }
 
 
-- (PXPoint *) localPosition
+- (PXPoint *)localPosition
 {
 	if (_target && [_target isKindOfClass:PXDisplayObject.class] && _target)
 	{
@@ -123,7 +123,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 	return nil;
 }
 
-- (PXPoint *) stagePosition
+- (PXPoint *)stagePosition
 {
 	return [PXPoint pointWithX:_stageX y:_stageY];
 }

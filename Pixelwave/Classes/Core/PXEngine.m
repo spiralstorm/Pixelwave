@@ -1035,7 +1035,7 @@ void PXEngineRender( )
 	{
 		float locs[8];
 		
-		float viewWidth = pxEngineViewSize.width;
+		float viewWidth  = pxEngineViewSize.width;
 		float viewHeight = pxEngineViewSize.height;
 		
 		locs[0] = 0.0f;			locs[1] = 0.0f;
@@ -1800,7 +1800,7 @@ PXObjectPool *PXEngineGetSharedObjectPool()
 
 #pragma mark Touches
 
-UITouch * PXEngineGetFirstTouch()
+UITouch *PXEngineGetFirstTouch()
 {
 	if (!pxEngineSavedTouchEvents)
 		return nil;
@@ -1812,7 +1812,7 @@ UITouch * PXEngineGetFirstTouch()
 
 	return event.nativeTouch;
 }
-PXLinkedList * PXEngineGetAllTouches()
+PXLinkedList *PXEngineGetAllTouches()
 {
 	if (!pxEngineSavedTouchEvents)
 		return nil;
