@@ -52,10 +52,10 @@
 #include <CoreGraphics/CoreGraphics.h>
 
 @interface PXTexture(Private)
-- (void)validateAnchors;
-- (void)resetClip;
-- (void)validateVertices;
-- (void)setPaddingRaw:(short *)padding;
+- (void) validateAnchors;
+- (void) resetClip;
+- (void) validateVertices;
+- (void) setPaddingRaw:(short *)padding;
 @end
 
 void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *padding, CGRect *retRect);
@@ -135,16 +135,16 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 - (void) dealloc
 {
 	self.textureData = nil;
-	
+
 	if (verts)
 	{
 		free(verts);
 		verts = 0;
 	}
-	
+
 	// Just in case
 	numVerts = 0;
-	
+
 	[super dealloc];
 }
 
@@ -153,12 +153,12 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 {
 	if (_textureData == textureData)
 		return;
-	
+
 	[_textureData retain];
 	[textureData release];
-	
+
 	textureData = _textureData;
-	
+
 	if (textureData)
 	{
 		// There's a new texture data, reset the clip rectangle to show
@@ -275,7 +275,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		// Convert from pixels to texture coordinates (s, t)
 		myVert->s = clipVert->s * sPerPixel;
 		myVert->t = clipVert->t * tPerPixel;
-		
+
 		// Just copy these directly (they are pre-rotated)
 		myVert->x = clipVert->x;
 		myVert->y = clipVert->y;
@@ -321,9 +321,9 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	float tPerPixel = textureData->_tPerPixel * contentScaleFactor;
 
 	PXClipRect *rect = [[PXClipRect alloc] initWithX:vert->s / sPerPixel
-												y:vert->t / tPerPixel
-											width:contentWidth
-										   height:contentHeight
+												   y:vert->t / tPerPixel
+											   width:contentWidth
+											  height:contentHeight
 											rotation:contentRotation];
 
 	return [rect autorelease];
@@ -486,10 +486,11 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		return nil;
 
 	PXTexturePadding *texturePadding = [PXTexturePadding new];
-	texturePadding.top = padding[0];
-	texturePadding.right = padding[1];
+
+	texturePadding.top    = padding[0];
+	texturePadding.right  = padding[1];
 	texturePadding.bottom = padding[2];
-	texturePadding.left = padding[3];
+	texturePadding.left   = padding[3];
 
 	return [texturePadding autorelease];
 }
@@ -507,26 +508,26 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	///////////////////////////////////////////////////////
 	// Update the vertex positions to the proper anchors //
 	///////////////////////////////////////////////////////
-	
+
 	// Calculate the aabb
-	
+
 	CGRect aabb;
 	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), &aabb);
-	
+
 	// Now shift all the vertices to align with the new anchor
-	
+
 	float shiftX = -aabb.origin.x - (aabb.size.width) * anchorX;
 	float shiftY = -aabb.origin.y - (aabb.size.height) * anchorY;
-	
+
 	int i;
 	PXGLTextureVertex *vert = &verts[0];
-	
+
 	for (i = 0; i < numVerts; ++i, ++vert)
 	{
 		vert->x += shiftX;
 		vert->y += shiftY;
 	}
-	
+
 	anchorsInvalidated = NO;
 }
 
@@ -536,14 +537,14 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 - (void) resetClip
 {
 	// This is a bit hacky
-	
+
 	// Update the texture coordinates to match the texture data
 	float one_scalingFactor = 1.0f / textureData.contentScaleFactor;
-	
+
 	PXClipRect *fullRect = [[PXClipRect alloc] initWithX:0.0f
-													y:0.0f
-												width:textureData->_contentWidth * one_scalingFactor
-											   height:textureData->_contentHeight * one_scalingFactor
+													   y:0.0f
+												   width:textureData->_contentWidth * one_scalingFactor
+												  height:textureData->_contentHeight * one_scalingFactor
 												rotation:0.0f];
 	[self setClipRect:fullRect];
 	[fullRect release];
@@ -576,7 +577,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 
 	if (!verts || numVerts == 0)
 		return;
-	
+
 	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), retBounds);
 }
 
@@ -585,18 +586,18 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	//return ((x >= verts[0].x) & (x <= verts[3].x) & (y >= verts[0].y) & (y <= verts[3].y));
 	if (!textureData)
 		return NO;
-	
+
 	// The vertices must be validated before checking their bounding boxes
 	[self validateVertices];
-	
+
 	CGRect aabb;
 	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), &aabb);
-	
+
 	BOOL b = ((x >= aabb.origin.x) &&
 			  (x <= aabb.origin.x + aabb.size.width) &&
 			  (y >= aabb.origin.y) &&
 			  (y <= aabb.origin.y + aabb.size.height));
-	
+
 	return b;
 }
 
@@ -606,7 +607,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 {
 	if (textureData == nil)
 		return;
-	
+
 	// Validate the vertices
 	{
 		// These copied lines are the same as [self validateVertices].
@@ -617,18 +618,18 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		{
 			[self resetClip];
 		}
-		
+
 		assert(verts && numVerts > 0);
-		
+
 		if (anchorsInvalidated)
 		{	
 			[self validateAnchors];
 		}
 		// </COPY>
 	}
-	
+
 	PXGLBindTexture( GL_TEXTURE_2D, textureData->_glName );
-	
+
 	// Validate the smoothing
 	if (smoothingType != textureData->_smoothingType)
 	{
@@ -643,11 +644,11 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		PXGLTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, wrapType);
 		textureData->_wrapType = wrapType;
 	}
-	
+
 	// Draw
 	PXGLVertexPointer(2, GL_FLOAT, sizeof( PXGLTextureVertex ), &(verts->x));
 	PXGLTexCoordPointer(2, GL_FLOAT, sizeof( PXGLTextureVertex ), &(verts->s));
-	
+
 	PXGLDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 
@@ -679,12 +680,12 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:path
 																			modifier:modifier];
 	PXTextureData *textureData = [textureLoader newTextureData];
-	
+
 	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
-	
+
 	[textureData release];
 	[textureLoader release];
-	
+
 	return [texture autorelease];
 }
 
@@ -698,12 +699,12 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:url
 																		   modifier:modifier];
 	PXTextureData *textureData = [textureLoader newTextureData];
-	
+
 	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
-	
+
 	[textureData release];
 	[textureLoader release];
-	
+
 	return [texture autorelease];
 }
 
@@ -715,11 +716,11 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 + (PXTexture *)textureWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureData *textureData = [[PXTextureData alloc] initWithData:data modifier:modifier];
-	
+
 	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
-	
+
 	[textureData release];
-	
+
 	return [texture autorelease];
 }
 
@@ -732,18 +733,18 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 {
 	PXGLTextureVertex *vert;
 	float x, y;
-	
+
 	vert = &verts[0];
 	x = vert->x;
 	y = vert->y;
-	
+
 	float minX = x;
 	float maxX = x;
 	float minY = y;
 	float maxY = y;
-	
+
 	unsigned char i;
-	
+
 	// Start at verts[1]
 	++vert;
 	for (i = 1; i < numVerts; ++i, ++vert)
@@ -757,7 +758,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		if (y < minY) minY = y;
 		if (y > maxY) maxY = y;
 	}
-	
+
 	if (padding)
 	{
 		minY -= padding[0]; // top
@@ -765,7 +766,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		maxY += padding[2]; // bottom
 		minX -= padding[3]; // left
 	}
-	
+
 	retRect->origin.x = minX;
 	retRect->origin.y = minY;
 	retRect->size.width = (maxX - minX);

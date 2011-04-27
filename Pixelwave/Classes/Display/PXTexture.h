@@ -49,28 +49,28 @@
 	/// @cond DX_IGNORE
 @private
 	PXTextureData *textureData;
-	
+
 	// Info from the clip rect
 	ushort contentWidth;
 	ushort contentHeight;
 	float contentRotation;
-	
+
 	// Anchors, saved in percent values
 	float anchorX;
 	float anchorY;
-	
+
 	// In clock-wise order {top, right, bottom, left}
 	short padding[4];
 	BOOL paddingEnabled;
-	
+
 	// Invalidation
 	BOOL anchorsInvalidated;
 	BOOL resetClipFlag;
-	
+
 	// GL data
 	unsigned char numVerts;
 	PXGLTextureVertex *verts;
-	
+
 	// Either GL_LINEAR or GL_NEAREST
 	unsigned short smoothingType;
 	// Either GL_REPEAT or GL_CLAMP_TO_EDGE
