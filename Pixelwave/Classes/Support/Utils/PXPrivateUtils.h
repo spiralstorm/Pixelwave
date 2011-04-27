@@ -88,11 +88,21 @@ PXInline void PXSwapf(float *val0, float *val1)
 }
 PXInline void PXSwapv(void *val0, void *val1, size_t size)
 {
-	void *temp = alloca(size);
+//	void *temp = alloca(size);
+//
+//	temp = memcpy(temp, val0, size);
+//	val0 = memcpy(val0, val1, size);
+//	val1 = memcpy(val1, temp, size);
 
-	temp = memcpy(temp, val0, size);
-	val0 = memcpy(val0, val1, size);
-	val1 = memcpy(val1, temp, size);
+	size_t index;
+	unsigned char *byte0;
+	unsigned char *byte1;
+	for (index = 0, byte0 = val0, byte1 = val1; index < size; ++index, ++byte0, ++byte1)
+	{
+		*byte0 ^= *byte1;
+		*byte1 ^= *byte0;
+		*byte0 ^= *byte1;
+	}
 }
 
 void *PXStridedMemcpy(void *dest, void *src, size_t size, size_t len, size_t destStride, size_t srcStride)
