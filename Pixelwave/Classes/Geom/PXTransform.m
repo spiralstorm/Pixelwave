@@ -94,6 +94,16 @@
 	[super dealloc];
 }
 
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"(matrix=%@, concatenatedMatrix=%@, colorTransform=%@, concatenatedColorTransform=%@, pixelBounds=%@)",
+			self.matrix,
+			self.concatenatedMatrix,
+			self.colorTransform,
+			self.concatenatedColorTransform,
+			self.pixelBounds];
+}
+
 - (void) setMatrix:(PXMatrix *)mat
 {
 	if (!mat)

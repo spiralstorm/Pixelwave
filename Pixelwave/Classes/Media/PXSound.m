@@ -41,7 +41,8 @@
 
 #include "PXSoundEngine.h"
 
-#import "PXExceptionUtils.h"
+#include "PXPrivateUtils.h"
+#include "PXExceptionUtils.h"
 
 #import "PXSoundChannel.h"
 #import "PXSoundTransform.h"
@@ -108,6 +109,13 @@
 	}
 
 	return self;
+}
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"(length=%u, is3DReady=%@)",
+			length,
+			PX_BOOL_TO_STRING(self.is3DReady)];
 }
 
 #pragma mark -

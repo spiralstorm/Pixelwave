@@ -91,6 +91,8 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 	[super dealloc];
 }
 
+#pragma mark NSObject overrides
+
 - (id) copyWithZone:(NSZone *)zone
 {
 	// TODO: Is this valid? does it return a TouchEvent???
@@ -113,6 +115,8 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 			_stageX,
 			_stageY];
 }
+
+#pragma mark Pooled Reset
 
 - (void) reset
 {

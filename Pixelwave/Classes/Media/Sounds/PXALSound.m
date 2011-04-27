@@ -81,6 +81,15 @@
 	[super dealloc];
 }
 
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"(%@, format=%d, freq=%d, channelCount=%u)",
+			[super description],
+			_format,
+			_freq,
+			_channelCount];
+}
+
 - (BOOL) is3DReady
 {
 	return (_format == AL_FORMAT_MONO8 || _format == AL_FORMAT_MONO16);

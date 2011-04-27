@@ -107,7 +107,7 @@
 	return self;
 }
 
-#pragma mark Copy
+#pragma mark NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -126,6 +126,19 @@
 
 	return copy;
 }
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"(volume=%f, pitch=%f, x=%f, y=%f, z=%f, vx=%f, vy=%f, vz=%f, referenceDistance=%f, logarithmicExponent=%f)",
+			volume,
+			pitch,
+			x, y, z,
+			velocityX, velocityY, velocityZ,
+			referenceDistance,
+			logarithmicExponent];
+}
+
+#pragma mark Pooled Reset
 
 - (void) reset
 {

@@ -89,12 +89,21 @@
 	return self;
 }
 
+#pragma mark NSObject overrides
+
 - (id) copyWithZone:(NSZone *)zone
 {
 	PXSoundTransform *copy = [[[self class] allocWithZone:zone] initWithVolume:volume pitch:pitch];
 
 	return copy;
 }
+
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"(volume=%f, pitch=%f)", volume, pitch];
+}
+
+#pragma mark Pooled Reset
 
 - (void) reset
 {

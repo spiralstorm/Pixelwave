@@ -139,6 +139,8 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 	[super dealloc];
 }
 
+#pragma mark NSObject overrides
+
 - (id) copyWithZone:(NSZone *)zone
 {
 	PXEvent *e = [[[self class] allocWithZone:zone] initWithType:_type doesBubble:_bubbles isCancelable:_cancelable];
@@ -151,6 +153,18 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 
 	return e;
 }
+
+// toString()
+// [Event type=value bubbles=value cancelable=value]
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"[Event type=\"%@\" bubbles=%@ cancelable=%@]",
+			_type,
+			PX_BOOL_TO_STRING(_bubbles),
+			PX_BOOL_TO_STRING(_cancelable)];
+}
+
+#pragma mark Pooled Reset
 
 - (void) reset
 {
@@ -168,16 +182,6 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 	_stopPropegationLevel = _PXStopPropegationLevel_KeepGoing;
 
 	_isBeingDispatched = NO;
-}
-
-// toString()
-// [Event type=value bubbles=value cancelable=value]
-- (NSString *)description
-{
-	return [NSString stringWithFormat:@"[Event type=\"%@\" bubbles=%@ cancelable=%@]",
-			_type,
-			PX_BOOL_TO_STRING(_bubbles),
-			PX_BOOL_TO_STRING(_cancelable)];
 }
 
 /**

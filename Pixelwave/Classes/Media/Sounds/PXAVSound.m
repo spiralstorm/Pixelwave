@@ -64,6 +64,11 @@
 	[super dealloc];
 }
 
+- (NSString *)description
+{
+	return [super description];
+}
+
 - (PXSoundChannel *)playWithStartTime:(unsigned)startTime
 							loopCount:(int)loops
 					   soundTransform:(PXSoundTransform *)soundTransform
