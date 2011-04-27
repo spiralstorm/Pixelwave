@@ -405,7 +405,7 @@
 				
 				for (unsigned index = 1; index < count; ++index)
 				{
-					PXCopy(bytePtr, copyPtr, bytesPerPixel, contentHeight, bytesAcross, bytesAcross);
+					PXStridedMemcpy(bytePtr, copyPtr, bytesPerPixel, contentHeight, bytesAcross, bytesAcross);
 					bytePtr += bytesPerPixel;
 				}
 			}

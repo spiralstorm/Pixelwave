@@ -70,7 +70,7 @@ PXInline void PXSwap(int *val0, int *val1) PXAlwaysInline;
 PXInline void PXSwapf(float *val0, float *val1) PXAlwaysInline;
 PXInline void PXSwapv(void *val0, void *val1, size_t size) PXAlwaysInline;
 
-PXInline void *PXCopy(void *dest, void *src, size_t size, size_t len, size_t destStride, size_t srcStride);
+PXInline void *PXStridedMemcpy(void *dest, void *src, size_t size, size_t len, size_t destStride, size_t srcStride);
 
 #pragma mark -
 #pragma mark Implementations
@@ -95,7 +95,7 @@ PXInline void PXSwapv(void *val0, void *val1, size_t size)
 	val1 = memcpy(val1, temp, size);
 }
 
-void *PXCopy(void *dest, void *src, size_t size, size_t len, size_t destStride, size_t srcStride)
+void *PXStridedMemcpy(void *dest, void *src, size_t size, size_t len, size_t destStride, size_t srcStride)
 {
 	if (destStride == srcStride == 0)
 	{
