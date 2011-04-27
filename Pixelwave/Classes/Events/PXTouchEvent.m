@@ -86,6 +86,8 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 - (void) dealloc
 {
 	[_nativeTouch release];
+	_nativeTouch = nil;
+
 	[super dealloc];
 }
 
@@ -112,6 +114,19 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 			_stageY];
 }
 
+- (void) reset
+{
+	[super reset];
+
+	[_nativeTouch release];
+	_nativeTouch = nil;
+
+	_bubbles = YES;
+
+	_tapCount = 0;
+	_stageX = 0.0f;
+	_stageY = 0.0f;
+}
 
 - (PXPoint *)localPosition
 {

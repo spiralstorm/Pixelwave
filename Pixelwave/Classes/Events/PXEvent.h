@@ -40,6 +40,8 @@
 #include "PXSettings.h"
 #include "PXHeaderUtils.h"
 
+#import "PXPooledObject.h"
+
 //EVENT CONSTANTS
 /*#define PX_EVENT_ENTER_FRAME @"enterFrame"
 #define PX_EVENT_ADDED @"added"
@@ -82,7 +84,7 @@ typedef enum
 	_PXStopPropegationLevel_StopNow
 } _PXStopPropegationLevel;
 
-@interface PXEvent : NSObject <NSCopying>
+@interface PXEvent : NSObject <NSCopying, PXPooledObject>
 {
 /// @cond DX_IGNORE
 @public

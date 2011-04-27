@@ -60,7 +60,7 @@ PXExtern NSString * const PXTouchEvent_TouchUp;
 PXExtern NSString * const PXTouchEvent_TouchOut;
 PXExtern NSString * const PXTouchEvent_TouchCancel;
 
-@interface PXTouchEvent : PXEvent <NSCopying>
+@interface PXTouchEvent : PXEvent <NSCopying, PXPooledObject>
 {
 /// @cond DX_IGNORE
 @public

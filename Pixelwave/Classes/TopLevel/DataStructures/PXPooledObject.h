@@ -56,5 +56,5 @@
  *	releasing all retained objects and resetting all numerical values.
  */
 //-- ScriptName: reset
-- (void)reset;
+- (void) reset;
 @end

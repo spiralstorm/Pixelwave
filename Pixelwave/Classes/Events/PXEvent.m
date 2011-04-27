@@ -139,6 +139,47 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 	[super dealloc];
 }
 
+- (id) copyWithZone:(NSZone *)zone
+{
+	PXEvent *e = [[[self class] allocWithZone:zone] initWithType:_type doesBubble:_bubbles isCancelable:_cancelable];
+	e->_currentTarget = _currentTarget;
+	e->_target = _target;
+	e->_eventPhase = _eventPhase;
+
+	e->_defaultPrevented = _defaultPrevented;
+	e->_stopPropegationLevel = _stopPropegationLevel;
+
+	return e;
+}
+
+- (void) reset
+{
+	[_type release];
+	_type = nil;
+
+	_bubbles = NO;
+	_cancelable = NO;
+
+	_eventPhase = PXEventPhase_Target;
+	_target = nil;
+	_currentTarget = nil;
+
+	_defaultPrevented = NO;
+	_stopPropegationLevel = _PXStopPropegationLevel_KeepGoing;
+
+	_isBeingDispatched = NO;
+}
+
+// toString()
+// [Event type=value bubbles=value cancelable=value]
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"[Event type=\"%@\" bubbles=%@ cancelable=%@]",
+			_type,
+			PX_BOOL_TO_STRING(_bubbles),
+			PX_BOOL_TO_STRING(_cancelable)];
+}
+
 /**
  *	Causes the behavior represented by this event to be canceled.
  *	Not all events may be canceled. Use PXEvent##cancelable to check if this
@@ -187,29 +228,6 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 	return _defaultPrevented;
 }
 
-- (id) copyWithZone:(NSZone *)zone
-{
-	PXEvent *e = [[[self class] allocWithZone:zone] initWithType:_type doesBubble:_bubbles isCancelable:_cancelable];
-	e->_currentTarget = _currentTarget;
-	e->_target = _target;
-	e->_eventPhase = _eventPhase;
-
-	e->_defaultPrevented = _defaultPrevented;
-	e->_stopPropegationLevel = _stopPropegationLevel;
-
-	return e;
-}
-
-// toString()
-// [Event type=value bubbles=value cancelable=value]
-- (NSString *)description
-{
-	return [NSString stringWithFormat:@"[Event type=\"%@\" bubbles=%@ cancelable=%@]",
-			_type,
-			PX_BOOL_TO_STRING(_bubbles),
-			PX_BOOL_TO_STRING(_cancelable)];
-}
-
 /**
  *	Makes a event with the given properties. These properties may not change
  *	after the event object is created.
@@ -220,7 +238,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  *	@param type
  *		A string representing the type of the event
  */
-- (PXEvent *) eventWithType:(NSString *)type
+- (PXEvent *)eventWithType:(NSString *)type
 {
 	return [[[PXEvent alloc] initWithType:type] autorelease];
 }

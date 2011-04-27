@@ -46,7 +46,7 @@
 PXExtern NSString * const PXStageOrientationEvent_OrientationChanging;
 PXExtern NSString * const PXStageOrientationEvent_OrientationChange;
 
-@interface PXStageOrientationEvent : PXEvent <NSCopying>
+@interface PXStageOrientationEvent : PXEvent <NSCopying, PXPooledObject>
 {
 @protected
 	PXStageOrientation beforeOrientation;

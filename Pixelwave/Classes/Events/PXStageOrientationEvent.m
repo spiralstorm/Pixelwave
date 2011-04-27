@@ -96,6 +96,11 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
 			[self orientationName:afterOrientation]];
 }
 
+- (void) reset
+{
+	[super reset];
+}
+
 - (NSString *)orientationName:(PXStageOrientation)orientation
 {
 	switch (orientation)
