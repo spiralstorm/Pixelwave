@@ -655,6 +655,10 @@ void PXEngineRemoveFrameListener( PXDisplayObject *displayObject )
 	[pxEngineFrameListeners removeObject:displayObject];
 }
 
+#pragma mark -
+#pragma mark TOUCHES
+#pragma mark -
+
 /**
  *	The function first cycles through all the display objects on the screen in
  *	reverse order, looking for the most immediate target of a touch event, and
