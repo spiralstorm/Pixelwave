@@ -42,6 +42,7 @@
 @class PXTextureData;
 @class PXClipRect;
 @class PXTexturePadding;
+
 @protocol PXTextureModifier;
 
 @interface PXTexture : PXDisplayObject

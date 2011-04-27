@@ -29,10 +29,10 @@
 	return self;
 }
 
-- (void)setTop:(short)_top
-		 right:(short)_right
-		bottom:(short)_bottom
-		  left:(short)_left
+- (void) setTop:(short)_top
+		  right:(short)_right
+		 bottom:(short)_bottom
+		   left:(short)_left
 {
 	top = _top;
 	right = _right;
@@ -51,7 +51,7 @@
 											 left:left] autorelease];
 }
 
-- (id)copyWithZone:(NSZone *)zone
+- (id) copyWithZone:(NSZone *)zone
 {
 	return [[PXTexturePadding allocWithZone:zone] initWithTop:top
 														right:right
