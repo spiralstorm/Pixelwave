@@ -9,27 +9,28 @@
 #import "PXTextureAtlasParser.h"
 #import <CoreGraphics/CoreGraphics.h>
 
+@class PXLinkedList;
+@class PXTextureData;
+
 typedef struct
 {
 	CGRect clipRect;
 	CGPoint anchor;
 	float rotation;
 	short padding[4];
-	
+
 	ushort textureDataIndex;
 	ushort _nameIndex; // Private
-	
+
 	BOOL paddingEnabled, anchorEnabled;
-}PXGenericAtlasParserFrame;
+} PXGenericAtlasParserFrame;
 
 /**
  *	This class can be subclassed and used to efficiently parse standard atlases
  */
 
-@class PXLinkedList;
-@class PXTextureData;
-
-@interface PXSimpleAtlasParser : PXTextureAtlasParser {
+@interface PXSimpleAtlasParser : PXTextureAtlasParser
+{
 @private
 	// The texture data of the atlas
 	PXLinkedList *textureDatas;

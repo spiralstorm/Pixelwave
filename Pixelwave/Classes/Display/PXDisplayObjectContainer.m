@@ -47,6 +47,8 @@
 #import "PXExceptionUtils.h"
 #import "PXDebugUtils.h"
 
+#import "PXPoint.h"
+
 /*
  *	DEFINEs for looping the linked list.
  *	If needed, make sure to use PX_CONTINUE_CHILD_LOOP and not just 'continue'.

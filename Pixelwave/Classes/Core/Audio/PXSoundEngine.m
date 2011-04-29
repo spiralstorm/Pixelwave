@@ -52,6 +52,9 @@
 
 #include "PXEngineUtils.h"
 
+#import "PXSoundTransform.h"
+#import "PXDebug.h"
+
 #import <AudioToolbox/AudioServices.h>
 
 ALCdevice  *pxSoundEngineDevice = nil;
@@ -274,12 +277,12 @@ void PXSoundEngineRemoveSound(PXSoundChannel *sound)
 	[pxSoundEngineListOfSounds removeObject:sound];
 }
 
-PXSoundListener * PXSoundEngineGetSoundListener( )
+PXSoundListener *PXSoundEngineGetSoundListener( )
 {
 	return pxSoundEngineSoundListener;
 }
 
-void PXSoundEngineSetSoundTransform( PXSoundTransform *transform )
+void PXSoundEngineSetSoundTransform(PXSoundTransform *transform)
 {
 	if (!pxSoundEngineHasBeenInitialized)
 		return;

@@ -40,6 +40,14 @@
 #include "PXEngineUtils.h"
 #include "PXEngine.h"
 
+#import "PXDisplayObject.h"
+#import "PXDisplayObjectContainer.h"
+#import "PXStage.h"
+
+#import "PXPoint.h"
+#import "PXObjectPool.h"
+#import "PXLinkedList.h"
+
 void PXUtilsDisplayObjectMultiplyUp(PXDisplayObject *displayObject, PXGLMatrix *matrix)
 {
 	PXDisplayObject *parent = displayObject->_parent;

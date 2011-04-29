@@ -56,6 +56,9 @@
 #import "PXRectanglePacker.h"
 
 #import "PXTextureGlyph.h"
+#import "PXFont.h"
+#import "PXTextureData.h"
+#import "PXPoint.h"
 
 /// @cond DX_IGNORE
 @interface PXFreeTypeTextureFontFuser(Private)

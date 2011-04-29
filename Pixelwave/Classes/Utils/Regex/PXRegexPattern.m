@@ -145,6 +145,42 @@
 	[super dealloc];
 }
 
+#pragma mark NSObject overrides
+
+- (id) copyWithZone:(NSZone *)zone
+{
+	return [[[self class] allocWithZone:zone] _initWithRegex:regex flags:flags];
+}
+
+- (NSString *)description
+{
+	NSMutableString *flagString = [[NSMutableString alloc] init];
+
+	[flagString appendString:@"Basic"];
+
+	if (PX_IS_BIT_ENABLED(flags, PXRegexPatternFlag_Extended))
+	{
+		[flagString appendString:@"| Extended"];
+	}
+	if (PX_IS_BIT_ENABLED(flags, PXRegexPatternFlag_IgnoreCase))
+	{
+		[flagString appendString:@"| IgnoreCase"];
+	}
+	if (PX_IS_BIT_ENABLED(flags, PXRegexPatternFlag_NewLine))
+	{
+		[flagString appendString:@"| NewLine"];
+	}
+	if (PX_IS_BIT_ENABLED(flags, PXRegexPatternFlag_NoSub))
+	{
+		[flagString appendString:@"| NoSub"];
+	}
+
+	NSString *description = [NSString stringWithFormat:@"[regex=%@, flags=(%@)]", regex, flagString];
+	[flagString release];
+
+	return description;
+}
+
 #pragma mark -
 #pragma mark Properties
 #pragma mark -

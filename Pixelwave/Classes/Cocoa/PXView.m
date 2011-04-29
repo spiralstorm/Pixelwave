@@ -52,6 +52,7 @@
 #import "PXSettings.h"
 #import "PXExceptionUtils.h"
 #import "PXCGUtils.h"
+#import "PXStageOrientationEvent.h"
 
 /// @cond DX_IGNORE
 @interface PXView(Private)

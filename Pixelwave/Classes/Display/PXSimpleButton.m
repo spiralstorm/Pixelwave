@@ -39,6 +39,9 @@
 
 #import "PXSimpleButton.h"
 
+#import "PXLinkedList.h"
+#import "PXTouchEvent.h"
+
 #include "PXGLPrivate.h"
 #include "PXEngine.h"
 #include "PXPrivateUtils.h"

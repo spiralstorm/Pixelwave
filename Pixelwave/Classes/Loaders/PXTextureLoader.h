@@ -42,6 +42,7 @@
 @class PXTextureData;
 @class PXTextureParser;
 @class PXLinkedList;
+
 @protocol PXTextureModifier;
 
 @interface PXTextureLoader : PXLoader

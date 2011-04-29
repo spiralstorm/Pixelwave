@@ -48,7 +48,7 @@ typedef enum
 	PXRegexPatternFlag_NoSub			= 0x08,
 } PXRegexPatternFlag;
 
-@interface PXRegexPattern : NSObject
+@interface PXRegexPattern : NSObject <NSCopying>
 {
 /// @cond DX_IGNORE
 @public
@@ -103,7 +103,6 @@ typedef enum
 // Splits the given input sequence around matches of this pattern.
 + (NSArray *)splitString:(NSString *)input;
 + (NSArray *)splitString:(NSString *)input limit:(int)limit;
-
 @end
 
 // TODO: Make it so that patterns are managed and cached

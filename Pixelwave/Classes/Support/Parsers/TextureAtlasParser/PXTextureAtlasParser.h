@@ -9,6 +9,7 @@
 #import "PXParser.h"
 
 @class PXTextureAtlas;
+
 @protocol PXTextureModifier;
 
 @interface PXTextureAtlasParser : PXParser

@@ -39,14 +39,23 @@
 
 #include "PXEngine.h"
 
+#import <QuartzCore/QuartzCore.h>
+#import <UIKit/UITouch.h>
+
 #include "PXGLPrivate.h"
 #include "PXMathUtils.h"
 #include "PXPrivateUtils.h"
 
+#import "PXStage.h"
+#import "PXView.h"
+#import "PXDisplayObject.h"
+#import "PXTextureData.h"
 #import "PXLinkedList.h"
 #import "PXObjectPool.h"
 #import "PXSoundEngine.h"
-#import <QuartzCore/QuartzCore.h>
+#import "PXTouchEvent.h"
+#import "PXSprite.h"
+#import "PXPoint.h"
 
 #import "PXDebugUtils.h"
 #import "PXExceptionUtils.h"

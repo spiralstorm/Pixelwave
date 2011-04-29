@@ -37,9 +37,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#import "PXLinkedList.h"
-
 @class PXGraphicsGroup;
+@class PXLinkedList;
 
 // TODO Later: Redo graphics class to use triangulation.
 

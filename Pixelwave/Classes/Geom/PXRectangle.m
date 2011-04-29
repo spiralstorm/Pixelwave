@@ -612,8 +612,8 @@
 {
 	PXRectangle *retUnion = [[PXRectangle new] autorelease];
 
-	CGRect rect1 = CGRectMake( x, y, width, height );
-	CGRect rect2 = PXRectToCGRect(toUnion);
+	CGRect rect1 = CGRectMake(x, y, width, height);
+	CGRect rect2 = PXRectangleToCGRect(toUnion);
 	CGRect rectUnion = CGRectUnion( rect1, rect2 );
 
 	if (CGRectIsNull( rectUnion ))

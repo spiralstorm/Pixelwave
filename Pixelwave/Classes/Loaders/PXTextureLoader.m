@@ -45,6 +45,8 @@
 #import "PXTextureData.h"
 #import "PXTextureParser.h"
 
+#import "PXTextureModifier.h"
+
 id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 
 /// @cond DX_IGNORE

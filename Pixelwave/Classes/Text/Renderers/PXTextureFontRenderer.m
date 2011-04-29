@@ -45,6 +45,9 @@
 #import "PXTextureFont.h"
 #import "PXTextField.h"
 #import "PXTextureGlyph.h"
+#import "PXTextureData.h"
+
+#import "PXPoint.h"
 
 #import "PXTextureGlyphBatch.h"
 

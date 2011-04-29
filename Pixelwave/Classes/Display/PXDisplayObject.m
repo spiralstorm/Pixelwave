@@ -60,6 +60,8 @@
 #include "PXGLUtils.h"
 #include "PXDebugUtils.h"
 
+#import "PXStage.h"
+
 // Used for naming instances
 static unsigned _pxDisplayObjectCount = 0;
 

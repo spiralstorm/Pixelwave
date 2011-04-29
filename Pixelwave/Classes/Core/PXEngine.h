@@ -41,17 +41,24 @@
 #define PX_ENGINE_H
 
 #include "PXGL.h"
-#include "Pixelwave.h"
+//#include "Pixelwave.h"
 #include "PXColorUtils.h"
 
 #define PX_ENGINE_TOUCH_RADIUS 32
 #define PX_ENGINE_TOUCH_RADIUS_SQ 1024
 
+@class UITouch;
+
 @class PXObjectPool;
+@class PXView;
+@class PXStage;
+@class PXDisplayObject;
+@class PXTextureData;
+@class PXLinkedList;
 
 // TODO: Organize all these methods into groups (with comment headers)
 
-void PXEngineInit( PXView *view );
+void PXEngineInit(PXView *view);
 void PXEngineDealloc( );
 BOOL PXEngineIsInitialized( );
 
@@ -108,10 +115,10 @@ UITouch * PXEngineGetFirstTouch();
 PXLinkedList * PXEngineGetAllTouches();
 CGPoint PXEngineTouchToScreenCoordinates(UITouch *touch);
 
-void PXEngineInvokeTouchBegan( UITouch *touch, CGPoint *pos );
-void PXEngineInvokeTouchMoved( UITouch *touch, CGPoint *pos );
-void PXEngineInvokeTouchEnded( UITouch *touch, CGPoint *pos );
-void PXEngineInvokeTouchCanceled( UITouch *touch );
+void PXEngineInvokeTouchBegan(UITouch *touch, CGPoint *pos);
+void PXEngineInvokeTouchMoved(UITouch *touch, CGPoint *pos);
+void PXEngineInvokeTouchEnded(UITouch *touch, CGPoint *pos);
+void PXEngineInvokeTouchCanceled(UITouch *touch);
 
 ///////////
 // Debug //

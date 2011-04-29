@@ -44,6 +44,8 @@
 #include "PXMathUtils.h"
 #include "PXGL.h"
 
+#import "PXLinkedList.h"
+#import "PXObjectPool.h"
 #import "PXPooledObject.h"
 
 #define PX_GRAPHICS_DEFAULT_PRECISION 0.25f

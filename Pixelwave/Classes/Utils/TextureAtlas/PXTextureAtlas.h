@@ -47,6 +47,7 @@
 @class PXTexture;
 @class PXClipRect;
 @class PXTextureData;
+
 @protocol PXTextureModifier;
 
 //

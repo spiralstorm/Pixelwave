@@ -53,6 +53,11 @@
 #import "PXTextureFontFuserUtils.h"
 #import "PXTextureGlyph.h"
 
+#import "PXDebug.h"
+
+#import "PXTextureData.h"
+#import <UIKit/UIKit.h>
+
 /// @cond DX_IGNORE
 typedef struct
 {

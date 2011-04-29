@@ -50,6 +50,11 @@
 
 #import "PXTextureParser.h"
 
+#import "PXTextureLoader.h"
+
+#import "PXRectangle.h"
+#include <CoreGraphics/CGGeometry.h>
+
 BOOL pxTextureDataExpandEdges = YES;
 
 /**

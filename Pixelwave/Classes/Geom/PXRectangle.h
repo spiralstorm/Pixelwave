@@ -41,9 +41,8 @@
 
 @class PXPoint;
 
-// TODO: Change to PXRectangle...
-#define PXRectToCGRect(_rect_) CGRectMake ((_rect_).x, (_rect_).y, (_rect_).width, (_rect_).height)
-#define PXRectFromCGRect(_rect_) [PXRectangle rectangleWithX:(_rect_).origin.x y:(_rect_).origin.y width:(_rect_).size.width height:(_rect_).size.height]
+#define PXRectangleToCGRect(_rect_) CGRectMake ((_rect_).x, (_rect_).y, (_rect_).width, (_rect_).height)
+#define PXRectangleFromCGRect(_rect_) [PXRectangle rectangleWithX:(_rect_).origin.x y:(_rect_).origin.y width:(_rect_).size.width height:(_rect_).size.height]
 
 @interface PXRectangle : NSObject <NSCopying, PXPooledObject>
 {

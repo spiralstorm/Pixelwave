@@ -40,6 +40,8 @@
 #import "PXRectangle.h"
 #import "PXTextureData.h"
 
+#import "PXTextureLoader.h"
+
 #import "PXTexture.h"
 #import "PXClipRect.h"
 #import "PXTexturePadding.h"
