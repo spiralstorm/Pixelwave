@@ -293,7 +293,7 @@ PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_LA_88(PXTF_LA_88 val)
 }
 PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_A_8(PXTF_A_8 val)
 {
-	return PXTF_RGB_888_Make(val, val, val);
+	return PXTF_RGB_888_Make(0xFF, 0xFF, 0xFF);
 }
 PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_L_8(PXTF_L_8 val)
 {
@@ -429,8 +429,7 @@ PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_LA_88(PXTF_LA_88 val)
 }
 PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_A_8(PXTF_A_8 val)
 {
-	uint8_t alpha5 = PX8BitTo5Bit(val);
-	return PXTF_RGB_565_Make(alpha5, PX8BitTo6Bit(val), alpha5);
+	return PXTF_RGB_565_Make(0x1F, 0x3F, 0x1F);
 }
 PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_L_8(PXTF_L_8 val)
 {
