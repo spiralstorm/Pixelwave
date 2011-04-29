@@ -80,7 +80,32 @@
 			PXParsedTextureDataFree(newTextureInfo);
 			newTextureInfo = NULL;
 	}
-	
+
+	if (oldPixelFormat == PXTextureDataPixelFormat_RGBA8888)
+	{
+		unsigned index;
+
+	//	unsigned char *byte;
+	//	for (index = 0, byte = newTextureInfo->bytes; index < byteCount; ++index, ++byte)
+	//	{
+	//		*byte = 0xFF;
+	//	}
+		PXTF_RGBA_8888 *readPixel;
+		PXTF_RGB_888 *writePixel;
+		for (index = 0, writePixel = (PXTF_RGB_888 *)(newTextureInfo->bytes), readPixel = (PXTF_RGBA_8888 *)(oldTextureInfo->bytes);
+			 index < pixelCount;
+			 ++index, ++writePixel, ++readPixel)
+		{
+			PXTF_RGBA_8888 readVal = *readPixel;
+			// TODO: look into why using this make function doesn't work, but setting the values directly does!
+			PXTF_RGB_888 writeVal = PXTF_RGB_888_Make(readVal.red, readVal.green, readVal.blue);
+	//		writeVal.red   = readVal.red;
+	//		writeVal.green = readVal.green;
+	//		writeVal.blue  = readVal.blue;
+			*writePixel = writeVal;
+		}
+	}
+
 	return newTextureInfo;
 }
 
