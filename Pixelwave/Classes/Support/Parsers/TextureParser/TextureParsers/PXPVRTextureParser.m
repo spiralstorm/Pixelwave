@@ -198,29 +198,28 @@ typedef struct _PVRTexHeader
 				internalFormat = GL_COMPRESSED_RGB_PVRTC_2BPPV1_IMG;
 		}
 
-		textureWidth = width = CFSwapInt32LittleToHost(header->width);
+		textureWidth  = width = CFSwapInt32LittleToHost(header->width);
 		textureHeight = height = CFSwapInt32LittleToHost(header->height);
 
 		dataLength = CFSwapInt32LittleToHost(header->dataLength);
 
 		bytes = ((uint8_t *)[data bytes]) + sizeof(PVRTexHeader);
 
-		// TODO: Speed this up.
 		// Calculate the data size for each texture level and respect the minimum number of blocks
 		while (dataOffset < dataLength)
 		{
 			if (formatFlags == PVRTCType_4)
 			{
-				blockSize = 4 * 4; // Pixel by pixel block size for 4bpp
-				widthBlocks = width / 4;
-				heightBlocks = height / 4;
+				blockSize = 16; // (4 * 4) Pixel by pixel block size for 4bpp
+				widthBlocks  = width >> 2; // divide by 4
+				heightBlocks = height >> 2; // divide by 4
 				bpp = 4;
 			}
 			else
 			{
-				blockSize = 8 * 4; // Pixel by pixel block size for 2bpp
-				widthBlocks = width / 8;
-				heightBlocks = height / 4;
+				blockSize = 32; // (8 * 4) Pixel by pixel block size for 2bpp
+				widthBlocks  = width >> 3; // divide by 8
+				heightBlocks = height >> 2; // divide by 4
 				bpp = 2;
 			}
 
@@ -235,13 +234,13 @@ typedef struct _PVRTexHeader
 				heightBlocks = 2;
 			}
 
-			dataSize = widthBlocks * heightBlocks * ((blockSize * bpp) / 8);
+			dataSize = widthBlocks * heightBlocks * ((blockSize * bpp) >> 3); // divide by 8
 
 			[imageData addObject:[NSData dataWithBytes:bytes + dataOffset length:dataSize]];
 
 			dataOffset += dataSize;
 
-			width = MAX(width >> 1, 1);
+			width  = MAX(width  >> 1, 1);
 			height = MAX(height >> 1, 1);
 		}
 

@@ -335,37 +335,15 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 	
 	if (!path)
 		return nil;
-	
-	// Device scale factor
-	int screenScaleFactor = PXEngineGetMainScreenScale();
-	// View scale factor
-	float engineContentScaleFactor = PXEngineGetContentScaleFactor();
 
-	// If the screen scale factor is larger then 1, then we should check for
-	// alternate images.
-	if (screenScaleFactor > 1)
+	float scaleFactor = 0.0f;
+	path = [PXLoader pathForRetinaVersionOfFile:path retScale:&scaleFactor];
+	if (!PXMathIsOne(scaleFactor))
 	{
-		// Find the extension for the file, and the part before the extension so
-		// that we can add the @yx in front of it, where y is a variable that is
-		// the content scaling factor (in integer form), and the char 'x'. This
-		// is Apple's convention for file naming. The xPath is the combination
-		// of these strings.
-		NSString *extension = [path pathExtension];
-		NSString *preExtension = [path stringByDeletingPathExtension];
-		NSString *appendString = [NSString stringWithFormat:@"@%dx.", screenScaleFactor];
-		NSString *xPath = [[preExtension stringByAppendingString:appendString] stringByAppendingString:extension];
-
-		// If we find a file with this naming convetion, we need to use that
-		// file instead, however if we don't, then use the original.
-		if ([PXLoader fileExistsAtPath:xPath])
-		{
-			path = xPath;
-			// TODO: John, why is this set to the view's scaleFactor, and not the
-			// screen's?
-			//
-			// After solving this TODO, look into if the [PXLoader pathForRetinaVersionOfFile:...] can be used
-			contentScaleFactor = engineContentScaleFactor;
-		}
+		// View scale factor
+		// TODO: Why are we using PXEngineGetContentScaleFactor rather then
+		// scaleFactor?
+		contentScaleFactor = PXEngineGetContentScaleFactor();
 	}
 
 	return path;
