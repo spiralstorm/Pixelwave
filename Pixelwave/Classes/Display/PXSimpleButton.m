@@ -235,7 +235,7 @@
 
 	if (visibleStateDisp)
 	{
-		PXEngineRenderDisplayObject( visibleStateDisp , YES, NO );
+		PXEngineRenderDisplayObject(visibleStateDisp, YES, NO);
 		//PXGLFlush();
 	}
 }
