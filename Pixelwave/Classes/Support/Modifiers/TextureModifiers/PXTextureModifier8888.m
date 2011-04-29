@@ -39,7 +39,7 @@
 	unsigned short width  = oldTextureInfo->size.width;
 	unsigned short height = oldTextureInfo->size.height;
 	unsigned pixelCount = width * height;
-	unsigned byteCount = pixelCount * 4;
+	unsigned byteCount = pixelCount * sizeof(PXTF_RGBA_8888);
 
 	PXParsedTextureData *newTextureInfo = PXParsedTextureDataCreate(byteCount);
 

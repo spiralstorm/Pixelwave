@@ -267,8 +267,9 @@ PXInline_c PXTF_RGBA_8888 PXTF_RGBA_8888_From_L_8(PXTF_L_8 val)
 
 PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
-	//return PXTF_RGB_888_Make(val.red, val.green, val.blue);
-	return PXTF_RGB_888_Make(0xFF, 0xFF, 0xFF);
+	return PXTF_RGB_888_Make(val.red, val.green, val.blue);
+	// This should be white... but it is yellow.
+	//return PXTF_RGB_888_Make(0xFF, 0xFF, 0xFF);
 }
 PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_RGBA_4444(PXTF_RGBA_4444 val)
 {
