@@ -94,7 +94,7 @@
  *	@param alphaMultiplier
  *		The alpha multiplier value ranging between 0.0f and 1.0f.
  */
-- (id)initWithRedMult:(float)r greenMult:(float)g blueMult:(float)b alphaMult:(float)a
+- (id) initWithRedMult:(float)r greenMult:(float)g blueMult:(float)b alphaMult:(float)a
 {
 	self = [super init];
 	if (self)

@@ -25,10 +25,10 @@ typedef NSUInteger EJSONWritingOptions;
     
 }
 
-+ (BOOL)isValidJSONObject:(id)obj;
++ (BOOL) isValidJSONObject:(id)obj;
 + (NSData *)dataWithJSONObject:(id)obj options:(EJSONWritingOptions)opt error:(NSError **)error;
-+ (id)JSONObjectWithData:(NSData *)data options:(EJSONReadingOptions)opt error:(NSError **)error;
-+ (NSInteger)writeJSONObject:(id)obj toStream:(NSOutputStream *)stream options:(EJSONWritingOptions)opt error:(NSError **)error;
-+ (id)JSONObjectWithStream:(NSInputStream *)stream options:(EJSONReadingOptions)opt error:(NSError **)error;
++ (id) JSONObjectWithData:(NSData *)data options:(EJSONReadingOptions)opt error:(NSError **)error;
++ (NSInteger) writeJSONObject:(id)obj toStream:(NSOutputStream *)stream options:(EJSONWritingOptions)opt error:(NSError **)error;
++ (id) JSONObjectWithStream:(NSInputStream *)stream options:(EJSONReadingOptions)opt error:(NSError **)error;
 
 @end

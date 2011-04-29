@@ -37,7 +37,7 @@ static NSData *kTrue = NULL;
 
 @implementation CJSONSerializer
 
-+ (void)initialize
++ (void) initialize
     {
     NSAutoreleasePool *thePool = [[NSAutoreleasePool alloc] init];
 
@@ -54,12 +54,12 @@ static NSData *kTrue = NULL;
         }
     }
 
-+ (id)serializer
++ (id) serializer
     {
     return([[[self alloc] init] autorelease]);
     }
     
-- (BOOL)isValidJSONObject:(id)inObject
+- (BOOL) isValidJSONObject:(id)inObject
     {
     if ([inObject isKindOfClass:[NSNull class]])
         {

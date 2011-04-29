@@ -38,7 +38,7 @@
 
 @implementation CDataScanner (CDataScanner_Extensions)
 
-- (BOOL)scanCStyleComment:(NSString **)outComment
+- (BOOL) scanCStyleComment:(NSString **)outComment
 {
 if ([self scanString:@"/*" intoString:NULL] == YES)
 	{
@@ -63,7 +63,7 @@ else
 	}
 }
 
-- (BOOL)scanCPlusPlusStyleComment:(NSString **)outComment
+- (BOOL) scanCPlusPlusStyleComment:(NSString **)outComment
     {
     if ([self scanString:@"//" intoString:NULL] == YES)
         {
@@ -85,7 +85,7 @@ else
         }
     }
 
-- (NSUInteger)lineOfScanLocation
+- (NSUInteger) lineOfScanLocation
     {
     NSUInteger theLine = 0;
     for (const u_int8_t *C = start; C < current; ++C)

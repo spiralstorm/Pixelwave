@@ -47,7 +47,7 @@ inline static int HexToInt(char inCharacter)
     }
 
 @interface CJSONScanner ()
-- (BOOL)scanNotQuoteCharactersIntoString:(NSString **)outValue;
+- (BOOL) scanNotQuoteCharactersIntoString:(NSString **)outValue;
 @end
 
 #pragma mark -
@@ -59,7 +59,7 @@ inline static int HexToInt(char inCharacter)
 @synthesize allowedEncoding;
 @synthesize options;
 
-- (id)init
+- (id) init
     {
 		self = [super init];
     if (self)
@@ -70,7 +70,7 @@ inline static int HexToInt(char inCharacter)
     return(self);
     }
 
-- (void)dealloc
+- (void) dealloc
     {
     [nullObject release];
     nullObject = NULL;
@@ -80,7 +80,7 @@ inline static int HexToInt(char inCharacter)
 
 #pragma mark -
 
-- (BOOL)setData:(NSData *)inData error:(NSError **)outError;
+- (BOOL) setData:(NSData *)inData error:(NSError **)outError;
     {
     NSData *theData = inData;
     if (theData && theData.length >= 4)
@@ -131,14 +131,14 @@ inline static int HexToInt(char inCharacter)
         }
     }
 
-- (void)setData:(NSData *)inData
+- (void) setData:(NSData *)inData
     {
     [self setData:inData error:NULL];
     }
 
 #pragma mark -
 
-- (BOOL)scanJSONObject:(id *)outObject error:(NSError **)outError
+- (BOOL) scanJSONObject:(id *)outObject error:(NSError **)outError
     {
     BOOL theResult = YES;
 
@@ -209,7 +209,7 @@ inline static int HexToInt(char inCharacter)
     return(theResult);
     }
 
-- (BOOL)scanJSONDictionary:(NSDictionary **)outDictionary error:(NSError **)outError
+- (BOOL) scanJSONDictionary:(NSDictionary **)outDictionary error:(NSError **)outError
     {
     NSUInteger theScanLocation = [self scanLocation];
 
@@ -358,7 +358,7 @@ inline static int HexToInt(char inCharacter)
     return(YES);
     }
 
-- (BOOL)scanJSONArray:(NSArray **)outArray error:(NSError **)outError
+- (BOOL) scanJSONArray:(NSArray **)outArray error:(NSError **)outError
     {
     NSUInteger theScanLocation = [self scanLocation];
 
@@ -479,7 +479,7 @@ inline static int HexToInt(char inCharacter)
     return(YES);
     }
 
-- (BOOL)scanJSONStringConstant:(NSString **)outStringConstant error:(NSError **)outError
+- (BOOL) scanJSONStringConstant:(NSString **)outStringConstant error:(NSError **)outError
     {
     NSUInteger theScanLocation = [self scanLocation];
 
@@ -615,7 +615,7 @@ inline static int HexToInt(char inCharacter)
     return(YES);
     }
 
-- (BOOL)scanJSONNumberConstant:(NSNumber **)outNumberConstant error:(NSError **)outError
+- (BOOL) scanJSONNumberConstant:(NSNumber **)outNumberConstant error:(NSError **)outError
     {
     NSNumber *theNumber = NULL;
 
@@ -642,7 +642,7 @@ inline static int HexToInt(char inCharacter)
     }
 
 #if TREAT_COMMENTS_AS_WHITESPACE
-- (void)skipWhitespace
+- (void) skipWhitespace
     {
     [super skipWhitespace];
     [self scanCStyleComment:NULL];
@@ -653,7 +653,7 @@ inline static int HexToInt(char inCharacter)
 
 #pragma mark -
 
-- (BOOL)scanNotQuoteCharactersIntoString:(NSString **)outValue
+- (BOOL) scanNotQuoteCharactersIntoString:(NSString **)outValue
     {
     u_int8_t *P;
     for (P = current; P < end && *P != '\"' && *P != '\\'; ++P)

@@ -240,7 +240,7 @@
 			  modifier:(id<PXTextureModifier>)modifier;
 
 - (UIImage *)UIImage;
-- (CGImageRef)CGImage;
+- (CGImageRef) CGImage;
 
 + (PXTextureData *)textureDataWithUIImage:(UIImage *)image;
 + (PXTextureData *)textureDataWithUIImage:(UIImage *)image

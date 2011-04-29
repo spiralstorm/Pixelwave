@@ -42,12 +42,12 @@ NSString *const kJSONDeserializerErrorDomain  = @"CJSONDeserializerErrorDomain";
 @synthesize scanner;
 @synthesize options;
 
-+ (id)deserializer
++ (id) deserializer
     {
     return([[[self alloc] init] autorelease]);
     }
 
-- (id)init
+- (id) init
     {
 		self = [super init];
     if (self)
@@ -56,7 +56,7 @@ NSString *const kJSONDeserializerErrorDomain  = @"CJSONDeserializerErrorDomain";
     return(self);
     }
 
-- (void)dealloc
+- (void) dealloc
     {
     [scanner release];
     scanner = NULL;
@@ -75,31 +75,31 @@ NSString *const kJSONDeserializerErrorDomain  = @"CJSONDeserializerErrorDomain";
     return(scanner);
     }
 
-- (id)nullObject
+- (id) nullObject
     {
     return(self.scanner.nullObject);
     }
 
-- (void)setNullObject:(id)inNullObject
+- (void) setNullObject:(id)inNullObject
     {
     self.scanner.nullObject = inNullObject;
     }
 
 #pragma mark -
 
-- (NSStringEncoding)allowedEncoding
+- (NSStringEncoding) allowedEncoding
     {
     return(self.scanner.allowedEncoding);
     }
 
-- (void)setAllowedEncoding:(NSStringEncoding)inAllowedEncoding
+- (void) setAllowedEncoding:(NSStringEncoding)inAllowedEncoding
     {
     self.scanner.allowedEncoding = inAllowedEncoding;
     }
 
 #pragma mark -
 
-- (id)deserialize:(NSData *)inData error:(NSError **)outError
+- (id) deserialize:(NSData *)inData error:(NSError **)outError
     {
     if (inData == NULL || [inData length] == 0)
         {
@@ -119,7 +119,7 @@ NSString *const kJSONDeserializerErrorDomain  = @"CJSONDeserializerErrorDomain";
         return(NULL);
     }
 
-- (id)deserializeAsDictionary:(NSData *)inData error:(NSError **)outError
+- (id) deserializeAsDictionary:(NSData *)inData error:(NSError **)outError
     {
     if (inData == NULL || [inData length] == 0)
         {
@@ -139,7 +139,7 @@ NSString *const kJSONDeserializerErrorDomain  = @"CJSONDeserializerErrorDomain";
         return(NULL);
     }
 
-- (id)deserializeAsArray:(NSData *)inData error:(NSError **)outError
+- (id) deserializeAsArray:(NSData *)inData error:(NSError **)outError
     {
     if (inData == NULL || [inData length] == 0)
         {

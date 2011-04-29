@@ -21,10 +21,10 @@
 #define PX_TP_ROTATION_AMOUNT 90.0f
 
 @interface PXTPAtlasParser(Private)
-- (BOOL)parseBool:(NSDictionary *)dict key:(NSString *)key ret:(BOOL *)ret;
-- (BOOL)parseInt:(NSDictionary *)dict key:(NSString *)key ret:(int *)ret;
-- (BOOL)parseCGRect:(NSDictionary *)dict key:(NSString *)key ret:(CGRect *)ret;
-- (BOOL)parseCGSize:(NSDictionary *)dict key:(NSString *)key ret:(CGSize *)ret;
+- (BOOL) parseBool:(NSDictionary *)dict key:(NSString *)key ret:(BOOL *)ret;
+- (BOOL) parseInt:(NSDictionary *)dict key:(NSString *)key ret:(int *)ret;
+- (BOOL) parseCGRect:(NSDictionary *)dict key:(NSString *)key ret:(CGRect *)ret;
+- (BOOL) parseCGSize:(NSDictionary *)dict key:(NSString *)key ret:(CGSize *)ret;
 @end
 
 @implementation PXTPAtlasParser
@@ -221,7 +221,7 @@
 // Parsing //
 /////////////
 
-- (BOOL)parseBool:(NSDictionary *)dict key:(NSString *)key ret:(BOOL *)ret
+- (BOOL) parseBool:(NSDictionary *)dict key:(NSString *)key ret:(BOOL *)ret
 {
 	id val = [dict objectForKey:key];
 	if (![val isKindOfClass:NSNumber.class])
@@ -231,7 +231,7 @@
 	
 	return YES;
 }
-- (BOOL)parseInt:(NSDictionary *)dict key:(NSString *)key ret:(int *)ret
+- (BOOL) parseInt:(NSDictionary *)dict key:(NSString *)key ret:(int *)ret
 {
 	id val = [dict objectForKey:key];
 	if (![val isKindOfClass:NSNumber.class])
@@ -241,7 +241,7 @@
 	
 	return YES;
 }
-- (BOOL)parseCGRect:(NSDictionary *)dict key:(NSString *)key ret:(CGRect *)ret
+- (BOOL) parseCGRect:(NSDictionary *)dict key:(NSString *)key ret:(CGRect *)ret
 {
 	id val = [dict objectForKey:key];
 	if (![val isKindOfClass:NSDictionary.class])
@@ -269,7 +269,7 @@
 	
 	return YES;
 }
-- (BOOL)parseCGSize:(NSDictionary *)dict key:(NSString *)key ret:(CGSize *)ret
+- (BOOL) parseCGSize:(NSDictionary *)dict key:(NSString *)key ret:(CGSize *)ret
 {
 	id val = [dict objectForKey:key];
 	if (![val isKindOfClass:NSDictionary.class])

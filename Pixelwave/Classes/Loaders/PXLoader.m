@@ -231,7 +231,7 @@
 	return absPath;
 }
 
-+ (BOOL)fileExistsAtPath:(NSString *)path
++ (BOOL) fileExistsAtPath:(NSString *)path
 {
 	path = [self absolutePathFromPath:path];
 	

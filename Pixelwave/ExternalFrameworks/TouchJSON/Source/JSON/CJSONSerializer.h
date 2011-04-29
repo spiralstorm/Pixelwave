@@ -32,9 +32,9 @@
 @interface CJSONSerializer : NSObject {
 }
 
-+ (id)serializer;
++ (id) serializer;
 
-- (BOOL)isValidJSONObject:(id)inObject;
+- (BOOL) isValidJSONObject:(id)inObject;
 
 /// Take any JSON compatible object (generally NSNull, NSNumber, NSString, NSArray and NSDictionary) and produce an NSData containing the serialized JSON.
 - (NSData *)serializeObject:(id)inObject error:(NSError **)outError;

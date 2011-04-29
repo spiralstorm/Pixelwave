@@ -12,7 +12,7 @@
 
 @synthesize top, right, bottom, left;
 
-- (id)initWithTop:(short)_top
+- (id) initWithTop:(short)_top
 			right:(short)_right
 		   bottom:(short)_bottom
 			 left:(short)_left

@@ -12,7 +12,7 @@
 
 @implementation CJSONDeserializer (CJSONDeserializer_BlocksExtensions)
 
-- (void)deserializeAsDictionary:(NSData *)inData completionBlock:(void (^)(id result, NSError *error))block {
+- (void) deserializeAsDictionary:(NSData *)inData completionBlock:(void (^)(id result, NSError *error))block {
 	
 	NSError *noDataError = nil;
 	if (inData == NULL || [inData length] == 0) {
@@ -36,7 +36,7 @@
 	}];
 }
 
-- (void)deserializeAsArray:(NSData *)inData completionBlock:(void (^)(id result, NSError *error))block {
+- (void) deserializeAsArray:(NSData *)inData completionBlock:(void (^)(id result, NSError *error))block {
 	
 	NSError *nullInDataError = nil;
 	if (inData == NULL || [inData length] == 0) {

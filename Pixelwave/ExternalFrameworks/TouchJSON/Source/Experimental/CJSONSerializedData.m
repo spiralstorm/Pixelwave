@@ -17,7 +17,7 @@
 
 @synthesize data;
 
-- (id)initWithData:(NSData *)inData
+- (id) initWithData:(NSData *)inData
     {
 		self = [super init];
     if (self)
@@ -27,7 +27,7 @@
     return(self);
     }
 
-- (void)dealloc
+- (void) dealloc
     {
     [data release];
     data = NULL;

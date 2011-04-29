@@ -295,7 +295,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *	that happens when an image is loaded in. It is not advised to use this
  *	method unless you know what you're doing.
  */
-- (void)setContentScaleFactor:(float)val
+- (void) setContentScaleFactor:(float)val
 {
 	textureParser.contentScaleFactor = val;
 }

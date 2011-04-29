@@ -59,9 +59,9 @@
 // When making a version of this method without rotation, the compiler freaks
 // out because it can't tell the differnce between it and the similarly named
 // method in PXRectangle
-- (id)initWithX:(ushort)x y:(ushort)y width:(ushort)width height:(ushort)height rotation:(float)rotation;
+- (id) initWithX:(ushort)x y:(ushort)y width:(ushort)width height:(ushort)height rotation:(float)rotation;
 
-- (void)setX:(ushort)x
+- (void) setX:(ushort)x
 		   y:(ushort)y
 	   width:(ushort)width
 	  height:(ushort)height

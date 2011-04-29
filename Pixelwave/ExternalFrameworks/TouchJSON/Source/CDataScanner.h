@@ -45,25 +45,25 @@
 @property (readonly, nonatomic, assign) NSUInteger bytesRemaining;
 @property (readonly, nonatomic, assign) BOOL isAtEnd;
 
-- (id)initWithData:(NSData *)inData;
+- (id) initWithData:(NSData *)inData;
 
-- (unichar)currentCharacter;
-- (unichar)scanCharacter;
-- (BOOL)scanCharacter:(unichar)inCharacter;
+- (unichar) currentCharacter;
+- (unichar) scanCharacter;
+- (BOOL) scanCharacter:(unichar)inCharacter;
 
-- (BOOL)scanUTF8String:(const char *)inString intoString:(NSString **)outValue;
-- (BOOL)scanString:(NSString *)inString intoString:(NSString **)outValue;
-- (BOOL)scanCharactersFromSet:(NSCharacterSet *)inSet intoString:(NSString **)outValue; // inSet must only contain 7-bit ASCII characters
+- (BOOL) scanUTF8String:(const char *)inString intoString:(NSString **)outValue;
+- (BOOL) scanString:(NSString *)inString intoString:(NSString **)outValue;
+- (BOOL) scanCharactersFromSet:(NSCharacterSet *)inSet intoString:(NSString **)outValue; // inSet must only contain 7-bit ASCII characters
 
-- (BOOL)scanUpToString:(NSString *)string intoString:(NSString **)outValue;
-- (BOOL)scanUpToCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)outValue; // inSet must only contain 7-bit ASCII characters
+- (BOOL) scanUpToString:(NSString *)string intoString:(NSString **)outValue;
+- (BOOL) scanUpToCharactersFromSet:(NSCharacterSet *)set intoString:(NSString **)outValue; // inSet must only contain 7-bit ASCII characters
 
-- (BOOL)scanNumber:(NSNumber **)outValue;
-- (BOOL)scanDecimalNumber:(NSDecimalNumber **)outValue;
+- (BOOL) scanNumber:(NSNumber **)outValue;
+- (BOOL) scanDecimalNumber:(NSDecimalNumber **)outValue;
 
-- (BOOL)scanDataOfLength:(NSUInteger)inLength intoData:(NSData **)outData;
+- (BOOL) scanDataOfLength:(NSUInteger)inLength intoData:(NSData **)outData;
 
-- (void)skipWhitespace;
+- (void) skipWhitespace;
 
 - (NSString *)remainingString;
 - (NSData *)remainingData;

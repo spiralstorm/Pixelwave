@@ -13,7 +13,7 @@
 
 @implementation CJSONSerialization
 
-+ (BOOL)isValidJSONObject:(id)obj
++ (BOOL) isValidJSONObject:(id)obj
     {
     CJSONSerializer *theSerializer = [CJSONSerializer serializer];
     return([theSerializer isValidJSONObject:obj]);
@@ -28,7 +28,7 @@
     return(theData);
     }
 
-+ (id)JSONObjectWithData:(NSData *)data options:(EJSONReadingOptions)opt error:(NSError **)error
++ (id) JSONObjectWithData:(NSData *)data options:(EJSONReadingOptions)opt error:(NSError **)error
     {
     CJSONDeserializer *theDeserializer = [CJSONDeserializer deserializer];
     theDeserializer.options = (opt & kCJSONReadingMutableContainers ? 0 : kJSONDeserializationOptions_MutableContainers)
@@ -37,7 +37,7 @@
     return(theObject);    
     }
 
-+ (NSInteger)writeJSONObject:(id)obj toStream:(NSOutputStream *)stream options:(EJSONWritingOptions)opt error:(NSError **)error
++ (NSInteger) writeJSONObject:(id)obj toStream:(NSOutputStream *)stream options:(EJSONWritingOptions)opt error:(NSError **)error
     {
     // TODO -- this is a quick work around.
     NSInteger theSize = -1;
@@ -49,7 +49,7 @@
     return(theSize);
     }
 
-+ (id)JSONObjectWithStream:(NSInputStream *)stream options:(EJSONReadingOptions)opt error:(NSError **)error
++ (id) JSONObjectWithStream:(NSInputStream *)stream options:(EJSONReadingOptions)opt error:(NSError **)error
     {
     #pragma unused (stream, opt, error)
     // TODO -- how much to read? Ugh.

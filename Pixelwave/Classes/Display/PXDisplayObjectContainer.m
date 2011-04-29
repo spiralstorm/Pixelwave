@@ -1385,7 +1385,7 @@
 
 #pragma mark Fast Enumeration
 
-- (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)count
+- (NSUInteger) countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)count
 {
 	PXDisplayObject *current;
 	if (state->state == 0)

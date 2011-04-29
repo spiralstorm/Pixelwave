@@ -53,7 +53,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
 
     @implementation CDataScanner
 
-- (id)init
+- (id) init
     {
 		self = [super init];
     if (self)
@@ -62,7 +62,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
     return(self);
     }
 
-- (id)initWithData:(NSData *)inData;
+- (id) initWithData:(NSData *)inData;
     {
 		self = [self init];
     if (self)
@@ -72,7 +72,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
     return(self);
     }
 
-    + (void)initialize
++ (void) initialize
     {
     if (sDoubleCharacters == NULL)
         {
@@ -80,7 +80,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
         }
     }
 
-- (void)dealloc
+- (void) dealloc
     {
     [data release];
     data = NULL;
@@ -88,12 +88,12 @@ inline static unichar CharacterAtPointer(void *start, void *end)
     [super dealloc];
     }
 
-- (NSUInteger)scanLocation
+- (NSUInteger) scanLocation
     {
     return(current - start);
     }
 
-- (NSUInteger)bytesRemaining
+- (NSUInteger) bytesRemaining
     {
     return(end - current);
     }
@@ -103,7 +103,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
     return(data);
     }
 
-- (void)setData:(NSData *)inData
+- (void) setData:(NSData *)inData
     {
     if (data != inData)
         {
@@ -127,30 +127,30 @@ inline static unichar CharacterAtPointer(void *start, void *end)
         }
     }
 
-- (void)setScanLocation:(NSUInteger)inScanLocation
+- (void) setScanLocation:(NSUInteger)inScanLocation
     {
     current = start + inScanLocation;
     }
 
-- (BOOL)isAtEnd
+- (BOOL) isAtEnd
     {
     return(self.scanLocation >= length);
     }
 
-- (unichar)currentCharacter
+- (unichar) currentCharacter
     {
     return(CharacterAtPointer(current, end));
     }
 
 #pragma mark -
 
-- (unichar)scanCharacter
+- (unichar) scanCharacter
     {
     const unichar theCharacter = CharacterAtPointer(current++, end);
     return(theCharacter);
     }
 
-- (BOOL)scanCharacter:(unichar)inCharacter
+- (BOOL) scanCharacter:(unichar)inCharacter
     {
     unichar theCharacter = CharacterAtPointer(current, end);
     if (theCharacter == inCharacter)
@@ -162,7 +162,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
         return(NO);
     }
 
-- (BOOL)scanUTF8String:(const char *)inString intoString:(NSString **)outValue
+- (BOOL) scanUTF8String:(const char *)inString intoString:(NSString **)outValue
     {
     const size_t theLength = strlen(inString);
     if ((size_t)(end - current) < theLength)
@@ -177,7 +177,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
     return(NO);
     }
 
-- (BOOL)scanString:(NSString *)inString intoString:(NSString **)outValue
+- (BOOL) scanString:(NSString *)inString intoString:(NSString **)outValue
     {
     if ((size_t)(end - current) < inString.length)
         return(NO);
@@ -191,7 +191,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
     return(NO);
     }
 
-- (BOOL)scanCharactersFromSet:(NSCharacterSet *)inSet intoString:(NSString **)outValue
+- (BOOL) scanCharactersFromSet:(NSCharacterSet *)inSet intoString:(NSString **)outValue
     {
     u_int8_t *P;
     for (P = current; P < end && [inSet characterIsMember:*P] == YES; ++P)
@@ -212,7 +212,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
     return(YES);
     }
 
-- (BOOL)scanUpToString:(NSString *)inString intoString:(NSString **)outValue
+- (BOOL) scanUpToString:(NSString *)inString intoString:(NSString **)outValue
     {
     const char *theToken = [inString UTF8String];
     const char *theResult = strnstr((char *)current, theToken, end - current);
@@ -231,7 +231,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
     return(YES);
     }
 
-- (BOOL)scanUpToCharactersFromSet:(NSCharacterSet *)inSet intoString:(NSString **)outValue
+- (BOOL) scanUpToCharactersFromSet:(NSCharacterSet *)inSet intoString:(NSString **)outValue
     {
     u_int8_t *P;
     for (P = current; P < end && [inSet characterIsMember:*P] == NO; ++P)
@@ -252,7 +252,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
     return(YES);
     }
 
-- (BOOL)scanNumber:(NSNumber **)outValue
+- (BOOL) scanNumber:(NSNumber **)outValue
         {
         NSString *theString = NULL;
         if ([self scanCharactersFromSet:sDoubleCharacters intoString:&theString])
@@ -286,7 +286,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
         return(NO);
         }
             
-- (BOOL)scanDecimalNumber:(NSDecimalNumber **)outValue;
+- (BOOL) scanDecimalNumber:(NSDecimalNumber **)outValue;
         {
         NSString *theString = NULL;
         if ([self scanCharactersFromSet:sDoubleCharacters intoString:&theString])
@@ -300,7 +300,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
         return(NO);
         }
 
-- (BOOL)scanDataOfLength:(NSUInteger)inLength intoData:(NSData **)outData;
+- (BOOL) scanDataOfLength:(NSUInteger)inLength intoData:(NSData **)outData;
         {
         if (self.bytesRemaining < inLength)
             {
@@ -317,7 +317,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
         }
 
 
-- (void)skipWhitespace
+- (void) skipWhitespace
     {
     u_int8_t *P;
     for (P = current; P < end && (isspace(*P)); ++P)

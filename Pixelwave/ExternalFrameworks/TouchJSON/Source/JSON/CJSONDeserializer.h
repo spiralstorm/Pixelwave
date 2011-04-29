@@ -53,11 +53,11 @@ typedef NSUInteger EJSONDeserializationOptions;
 @property (readwrite, nonatomic, assign) NSStringEncoding allowedEncoding;
 @property (readwrite, nonatomic, assign) EJSONDeserializationOptions options;
 
-+ (id)deserializer;
++ (id) deserializer;
 
-- (id)deserialize:(NSData *)inData error:(NSError **)outError;
+- (id) deserialize:(NSData *)inData error:(NSError **)outError;
 
-- (id)deserializeAsDictionary:(NSData *)inData error:(NSError **)outError;
-- (id)deserializeAsArray:(NSData *)inData error:(NSError **)outError;
+- (id) deserializeAsDictionary:(NSData *)inData error:(NSError **)outError;
+- (id) deserializeAsArray:(NSData *)inData error:(NSError **)outError;
 
 @end

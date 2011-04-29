@@ -20,6 +20,6 @@
 
 @property (readonly, nonatomic, retain) NSData *data;
 
-- (id)initWithData:(NSData *)inData;
+- (id) initWithData:(NSData *)inData;
 
 @end

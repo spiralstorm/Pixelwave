@@ -51,7 +51,7 @@
 PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *element2);
 
 @interface PXFontOptions (Private)
-- (NSString *) newStringByRemovingDuplicatesFromString:(NSString *)copyString;
+- (NSString *)newStringByRemovingDuplicatesFromString:(NSString *)copyString;
 @end
 /// @endcond
 

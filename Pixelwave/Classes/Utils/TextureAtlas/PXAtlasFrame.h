@@ -28,21 +28,21 @@
 
 // Initializers
 
-- (id)initWithClipRect:(PXClipRect *)clipRect
+- (id) initWithClipRect:(PXClipRect *)clipRect
 		   textureData:(PXTextureData *)textureData;
 
-- (id)initWithClipRect:(PXClipRect *)clipRect
+- (id) initWithClipRect:(PXClipRect *)clipRect
 		   textureData:(PXTextureData *)textureData
 				anchor:(PXPoint *)anchor;
 
-- (id)initWithClipRect:(PXClipRect *)clipRect
+- (id) initWithClipRect:(PXClipRect *)clipRect
 		   textureData:(PXTextureData *)textureData
 				anchor:(PXPoint *)anchor
 			   padding:(PXTexturePadding *)padding;
 
 // Functionality
 
-- (void)setToTexture:(PXTexture *)texture;
+- (void) setToTexture:(PXTexture *)texture;
 
 // Utility
 

@@ -71,7 +71,7 @@ typedef enum
 
 // Utility methods
 + (NSString *)absolutePathFromPath:(NSString *)path;
-+ (BOOL)fileExistsAtPath:(NSString *)path;
++ (BOOL) fileExistsAtPath:(NSString *)path;
 + (NSString *)pathForSiblingOfFile:(NSString *)path withName:(NSString *)fileName;
 + (NSString *)pathForSiblingOfFile:(NSString *)path withExtension:(NSString *)extension;
 + (NSString *)pathForRetinaVersionOfFile:(NSString *)path retScale:(float *)outScale;

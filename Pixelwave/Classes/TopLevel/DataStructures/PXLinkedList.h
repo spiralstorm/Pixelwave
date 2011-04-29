@@ -185,7 +185,7 @@ typedef struct _sPXLLNode
 
 // Querying
 //-- ScriptName: objectAt
-- (PXGenericObject)objectAtIndex:(int)index;
+- (PXGenericObject) objectAtIndex:(int)index;
 //-- ScriptName: contains
 - (BOOL) containsObject:(PXGenericObject)object;
 //-- ScriptName: indexOf

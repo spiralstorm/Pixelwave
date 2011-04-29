@@ -23,12 +23,12 @@
 @property (nonatomic, assign) short bottom;
 @property (nonatomic, assign) short left;
 
-- (id)initWithTop:(short)top
+- (id) initWithTop:(short)top
 			right:(short)right
 		   bottom:(short)bottom
 			 left:(short)left;
 
-- (void)setTop:(short)top
+- (void) setTop:(short)top
 		 right:(short)right
 		bottom:(short)bottom
 		  left:(short)left;

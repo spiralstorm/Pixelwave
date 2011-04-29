@@ -76,7 +76,7 @@
 
 // This method should only be used by those who know what they're doing
 // TODO: Get rid of this method if possible
-- (void)setContentScaleFactor:(float)contentScaleFactor;
+- (void) setContentScaleFactor:(float)contentScaleFactor;
 
 // TODO: Try to find a more accurate name for this method
 // something like resolvePathForPossiblyExtensionlessImage

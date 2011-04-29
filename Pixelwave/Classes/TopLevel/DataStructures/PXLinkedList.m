@@ -390,7 +390,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *	// foundObject == add1
  *	@endcode
  */
-- (PXGenericObject)objectAtIndex:(int)index
+- (PXGenericObject) objectAtIndex:(int)index
 {
 	if (index < 0 || index >= _numNodes)
 	{
