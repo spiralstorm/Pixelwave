@@ -38,11 +38,10 @@
  */
 
 #import "PXTextureModifierA8.h"
+#include "PXTextureFormatUtils.h"
 
 @implementation PXTextureModifierA8
 
-// TODO: Clean up this entire method, it could be a lot more trim.
-// TODO: Test each different type.
 - (PXParsedTextureData *)newModifiedTextureDataFromData:(PXParsedTextureData *)oldTextureInfo
 {
 	if (!oldTextureInfo)
@@ -68,7 +67,8 @@
 
 	unsigned short width  = oldTextureInfo->size.width;
 	unsigned short height = oldTextureInfo->size.height;
-	unsigned byteCount = width * height;
+	unsigned pixelCount = width * height;
+	unsigned byteCount = pixelCount;
 
 	PXParsedTextureData *newTextureInfo = PXParsedTextureDataCreate(byteCount);
 
@@ -78,197 +78,37 @@
 	}
 
 	newTextureInfo->size = CGSizeMake(width, height);
-
 	newTextureInfo->pixelFormat = PXTextureDataPixelFormat_A8;
 
-	unsigned char *writePixels = newTextureInfo->bytes;
-	unsigned char *curWritePixel = writePixels;
-	unsigned index = 0;
-	unsigned pixelCount = byteCount;
+	PXTF_A_8 *writePixels = newTextureInfo->bytes;
 
-	if (oldPixelFormat == PXTextureDataPixelFormat_RGBA8888)
+	switch (oldPixelFormat)
 	{
-		unsigned char *readBytes = (unsigned char *)(oldTextureInfo->bytes);
-		unsigned char *curReadByte = readBytes;
-
-	//	unsigned char red;
-	//	unsigned char green;
-	//	unsigned char blue;
-	//	unsigned char alpha;
-
-	//	const float one_maxAmount = 1.0f / (0xFF * 3.0f);
-	//	float amount;
-
-		for (index = 0, curWritePixel = writePixels;
-			 index < pixelCount;
-			 ++index, ++curWritePixel)
-		{
-		//	red   = *curReadByte; ++curReadByte;
-		//	green = *curReadByte; ++curReadByte;
-		//	blue  = *curReadByte; ++curReadByte;
-		//	alpha = *curReadByte; ++curReadByte;
-
-		//	amount = (red + green + blue) * one_maxAmount;
-		//	amount *= (alpha / 255.0f);
-
-		//	*curWritePixel = amount * 0xFF;
-
-			*curWritePixel = curReadByte[3];
-			curReadByte += 4;
-		}
-	}
-	else if (oldPixelFormat == PXTextureDataPixelFormat_RGBA4444)
-	{
-		unsigned short *readBytes = (unsigned short *)(oldTextureInfo->bytes);
-		unsigned short *curReadByte = readBytes;
-
-	//	unsigned char val1;
-	//	unsigned char val2;
-
-	//	unsigned char red;
-	//	unsigned char green;
-	//	unsigned char blue;
-		unsigned char alpha;
-
-	//	const float one_maxAmount = 0xFF * 3.0f;
-	//	float amount;
-		const float one_max = 1.0f / (float)(0xF);
-
-		for (index = 0, curWritePixel = writePixels;
-			 index < pixelCount;
-			 ++index, ++curWritePixel)
-		{
-	//		val1 = (*curReadByte); ++curReadByte;
-	//		val2 = (*curReadByte); ++curReadByte;
-
-	//		red   = ((val1 >> 4) & 0xF) << 4;
-	//		green = ((val1) & 0xF) << 4;
-	//		blue  = ((val2 >> 4) & 0xF) << 4;
-	//		alpha = ((val2) & 0xF) << 4;
-
-			alpha = ((float)((curReadByte[1] & 0xF))) * one_max;
-			curReadByte += 2;
-
-	//		amount = (red + green + blue) * one_maxAmount;
-	//		amount *= (alpha / 255.0f);
-
-			*curWritePixel = alpha;//amount * 0xFF;
-		}
-	}
-	else if (oldPixelFormat == PXTextureDataPixelFormat_RGB565)
-	{
-		unsigned short *readBytes = (unsigned short *)(oldTextureInfo->bytes);
-		unsigned short *curReadByte = readBytes;
-
-		unsigned short val;
-
-		unsigned char red;
-		unsigned char green;
-		unsigned char blue;
-
-		float one_maxAmount = 1.0f / (float)(0x1F + 0x1F + 0x3F);
-		float amount;
-
-		for (index = 0, curWritePixel = writePixels;
-			 index < pixelCount;
-			 ++index, ++curWritePixel)
-		{
-			val = (*curReadByte); ++curReadByte;
-
-			red   = ((val >> 11) & 0x1F);
-			green = ((val >> 5) & 0x3F);
-			blue  = ((val) & 0x1F);
-
-			amount = (red + green + blue) * one_maxAmount;
-
-			*curWritePixel = (unsigned char)((amount * 0xFF));
-		}
-	}
-	else if (oldPixelFormat == PXTextureDataPixelFormat_RGB888)
-	{
-		unsigned char *readBytes = (unsigned char *)(oldTextureInfo->bytes);
-		unsigned char *curReadByte = readBytes;
-		
-		unsigned char red;
-		unsigned char green;
-		unsigned char blue;
-
-		float one_maxAmount = 1.0f / (0xFF * 3.0f);
-		float amount;
-		
-		for (index = 0, curWritePixel = writePixels;
-			 index < pixelCount;
-			 ++index, ++curWritePixel)
-		{
-			red   = (*curReadByte); ++curReadByte;
-			green = (*curReadByte); ++curReadByte;
-			blue  = (*curReadByte); ++curReadByte;
-			
-			amount = (red + green + blue) * one_maxAmount;
-
-			*curWritePixel = (unsigned char)((amount * 0xFF));
-		}
-	}
-	else if (oldPixelFormat == PXTextureDataPixelFormat_RGBA5551)
-	{
-		unsigned short *readBytes = (unsigned short *)(oldTextureInfo->bytes);
-		unsigned short *curReadByte = readBytes;
-
-	//	unsigned char red;
-	//	unsigned char green;
-	//	unsigned char blue;
-		unsigned char alpha;
-
-	//	float one_maxAmount = 1.0f / (0xFF * 4.0f);
-	//	float amount;
-		
-		for (index = 0, curWritePixel = writePixels;
-			 index < pixelCount;
-			 ++index, ++curWritePixel)
-		{
-			// rrrrrgggggbbbbba
-		//	red   = ((*curReadByte >> 11) & 0x1F) << 3;
-		//	green = ((*curReadByte >>  6) & 0x1F) << 3;
-		//	blue  = ((*curReadByte >>  1) & 0x1F) << 3;
-			alpha = ((*curReadByte) & 0x1) ? 0xFF : 0x00;
-
-			++curReadByte;
-
-		//	amount = (red + green + blue) * one_maxAmount;
-
-			*curWritePixel = alpha;//(unsigned char)((amount * 0xFF));
-		}
-	}
-	else if (oldPixelFormat == PXTextureDataPixelFormat_L8)
-	{
-		memcpy(curWritePixel, oldTextureInfo->bytes, pixelCount);
-	}
-	else if (oldPixelFormat == PXTextureDataPixelFormat_LA88)
-	{
-		unsigned char *readBytes = (unsigned char *)(oldTextureInfo->bytes);
-		unsigned char *curReadByte = readBytes;
-		
-	//	unsigned char lim;
-		unsigned char alpha;
-
-		for (index = 0, curWritePixel = writePixels;
-			 index < pixelCount;
-			 ++index, ++curWritePixel)
-		{
-		//	lim = (*curReadByte);
-			++curReadByte;
-			alpha = (*curReadByte);
-			++curReadByte;
-			
-			// Lets turn it into rrrrrgggggbbbbba, by shifting we are putting the
-			// bits into the proper position
-			*curWritePixel = alpha;//(unsigned char)((lim + alpha) >> 1);
-		}
-	}
-	else
-	{
-		// Gave me an unkown format.
-		return NULL;
+		case PXTextureDataPixelFormat_RGBA8888:
+			_PXTextureFormatPixelsCopyWithFunc(oldTextureInfo->bytes, writePixels, pixelCount, PXTF_RGBA_8888, PXTF_A_8_From_RGBA_8888);
+			break;
+		case PXTextureDataPixelFormat_RGBA4444:
+			_PXTextureFormatPixelsCopyWithFunc(oldTextureInfo->bytes, writePixels, pixelCount, PXTF_RGBA_4444, PXTF_A_8_From_RGBA_4444);
+			break;
+		case PXTextureDataPixelFormat_RGB565:
+			_PXTextureFormatPixelsCopyWithFunc(oldTextureInfo->bytes, writePixels, pixelCount, PXTF_RGB_565, PXTF_A_8_From_RGB_565);
+			break;
+		case PXTextureDataPixelFormat_RGB888:
+			_PXTextureFormatPixelsCopyWithFunc(oldTextureInfo->bytes, writePixels, pixelCount, PXTF_RGB_888, PXTF_A_8_From_RGB_888);
+			break;
+		case PXTextureDataPixelFormat_RGBA5551:
+			_PXTextureFormatPixelsCopyWithFunc(oldTextureInfo->bytes, writePixels, pixelCount, PXTF_RGBA_5551, PXTF_A_8_From_RGBA_5551);
+			break;
+		case PXTextureDataPixelFormat_LA88:
+			_PXTextureFormatPixelsCopyWithFunc(oldTextureInfo->bytes, writePixels, pixelCount, PXTF_LA_88, PXTF_A_8_From_LA_88);
+			break;
+		case PXTextureDataPixelFormat_L8:
+			//_PXTextureFormatPixelsCopyWithFunc(oldTextureInfo->bytes, writePixels, pixelCount, PXTF_L_8, PXTF_A_8_From_L_8);
+			memcpy(writePixels, oldTextureInfo->bytes, byteCount);
+			break;
+		default:
+			PXParsedTextureDataFree(newTextureInfo);
+			newTextureInfo = NULL;
 	}
 
 	return newTextureInfo;

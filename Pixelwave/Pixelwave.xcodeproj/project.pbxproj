@@ -375,6 +375,14 @@
 		526A73F613046E250020FB2B /* PXTextureModifier5551.m in Sources */ = {isa = PBXBuildFile; fileRef = 526A73EA13046E250020FB2B /* PXTextureModifier5551.m */; };
 		526AD4F213032A5900F8DBDF /* PXTextureGlyphBatch.h in Headers */ = {isa = PBXBuildFile; fileRef = 526AD4F013032A5900F8DBDF /* PXTextureGlyphBatch.h */; };
 		526AD4F313032A5900F8DBDF /* PXTextureGlyphBatch.m in Sources */ = {isa = PBXBuildFile; fileRef = 526AD4F113032A5900F8DBDF /* PXTextureGlyphBatch.m */; };
+		526CA96D136B6122001F481A /* PXTextureModifier888.h in Headers */ = {isa = PBXBuildFile; fileRef = 526CA96B136B6122001F481A /* PXTextureModifier888.h */; };
+		526CA96E136B6122001F481A /* PXTextureModifier888.m in Sources */ = {isa = PBXBuildFile; fileRef = 526CA96C136B6122001F481A /* PXTextureModifier888.m */; };
+		526CA9F3136B6880001F481A /* PXTextureModifier565.h in Headers */ = {isa = PBXBuildFile; fileRef = 526CA9F1136B6880001F481A /* PXTextureModifier565.h */; };
+		526CA9F4136B6880001F481A /* PXTextureModifier565.m in Sources */ = {isa = PBXBuildFile; fileRef = 526CA9F2136B6880001F481A /* PXTextureModifier565.m */; };
+		526CAA06136B697C001F481A /* PXTextureModifier4444.h in Headers */ = {isa = PBXBuildFile; fileRef = 526CAA04136B697B001F481A /* PXTextureModifier4444.h */; };
+		526CAA07136B697C001F481A /* PXTextureModifier4444.m in Sources */ = {isa = PBXBuildFile; fileRef = 526CAA05136B697C001F481A /* PXTextureModifier4444.m */; };
+		526CAA10136B6AEC001F481A /* PXTextureModifier8888.h in Headers */ = {isa = PBXBuildFile; fileRef = 526CAA0E136B6AEC001F481A /* PXTextureModifier8888.h */; };
+		526CAA11136B6AEC001F481A /* PXTextureModifier8888.m in Sources */ = {isa = PBXBuildFile; fileRef = 526CAA0F136B6AEC001F481A /* PXTextureModifier8888.m */; };
 		5280DE331333FB1600B0F353 /* PXGLState.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280DE321333FB1600B0F353 /* PXGLState.h */; };
 		5280DEA5133407AF00B0F353 /* PXGLStatePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280DEA4133407AF00B0F353 /* PXGLStatePrivate.h */; };
 		52834A8A12F0C59B000227DD /* PXTextureFontOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 52834A8812F0C59B000227DD /* PXTextureFontOptions.h */; };
@@ -858,6 +866,14 @@
 		526A73EA13046E250020FB2B /* PXTextureModifier5551.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureModifier5551.m; sourceTree = "<group>"; };
 		526AD4F013032A5900F8DBDF /* PXTextureGlyphBatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureGlyphBatch.h; sourceTree = "<group>"; };
 		526AD4F113032A5900F8DBDF /* PXTextureGlyphBatch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureGlyphBatch.m; sourceTree = "<group>"; };
+		526CA96B136B6122001F481A /* PXTextureModifier888.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureModifier888.h; sourceTree = "<group>"; };
+		526CA96C136B6122001F481A /* PXTextureModifier888.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureModifier888.m; sourceTree = "<group>"; };
+		526CA9F1136B6880001F481A /* PXTextureModifier565.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureModifier565.h; sourceTree = "<group>"; };
+		526CA9F2136B6880001F481A /* PXTextureModifier565.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureModifier565.m; sourceTree = "<group>"; };
+		526CAA04136B697B001F481A /* PXTextureModifier4444.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureModifier4444.h; sourceTree = "<group>"; };
+		526CAA05136B697C001F481A /* PXTextureModifier4444.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureModifier4444.m; sourceTree = "<group>"; };
+		526CAA0E136B6AEC001F481A /* PXTextureModifier8888.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureModifier8888.h; sourceTree = "<group>"; };
+		526CAA0F136B6AEC001F481A /* PXTextureModifier8888.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureModifier8888.m; sourceTree = "<group>"; };
 		5280DE321333FB1600B0F353 /* PXGLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLState.h; sourceTree = "<group>"; };
 		5280DEA4133407AF00B0F353 /* PXGLStatePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLStatePrivate.h; sourceTree = "<group>"; };
 		52834A8812F0C59B000227DD /* PXTextureFontOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureFontOptions.h; sourceTree = "<group>"; };
@@ -1888,6 +1904,14 @@
 				523439F9130D81920083DA1A /* PXTextureModifierL8.m */,
 				523439FC130D81A10083DA1A /* PXTextureModifierLA88.h */,
 				523439FD130D81A10083DA1A /* PXTextureModifierLA88.m */,
+				526CA96B136B6122001F481A /* PXTextureModifier888.h */,
+				526CA96C136B6122001F481A /* PXTextureModifier888.m */,
+				526CA9F1136B6880001F481A /* PXTextureModifier565.h */,
+				526CA9F2136B6880001F481A /* PXTextureModifier565.m */,
+				526CAA04136B697B001F481A /* PXTextureModifier4444.h */,
+				526CAA05136B697C001F481A /* PXTextureModifier4444.m */,
+				526CAA0E136B6AEC001F481A /* PXTextureModifier8888.h */,
+				526CAA0F136B6AEC001F481A /* PXTextureModifier8888.m */,
 			);
 			path = TextureModifiers;
 			sourceTree = "<group>";
@@ -2352,6 +2376,10 @@
 				523932E01365DE48009F9EDB /* ftsmerrs.h in Headers */,
 				523932E21365DE48009F9EDB /* ftsmooth.h in Headers */,
 				52B3FA9F13660F6E00020E4C /* PXArrayBuffer.h in Headers */,
+				526CA96D136B6122001F481A /* PXTextureModifier888.h in Headers */,
+				526CA9F3136B6880001F481A /* PXTextureModifier565.h in Headers */,
+				526CAA06136B697C001F481A /* PXTextureModifier4444.h in Headers */,
+				526CAA10136B6AEC001F481A /* PXTextureModifier8888.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2583,6 +2611,10 @@
 				523932C71365DE48009F9EDB /* raster.c in Sources */,
 				523932CC1365DE48009F9EDB /* sfnt.c in Sources */,
 				523932E31365DE48009F9EDB /* smooth.c in Sources */,
+				526CA96E136B6122001F481A /* PXTextureModifier888.m in Sources */,
+				526CA9F4136B6880001F481A /* PXTextureModifier565.m in Sources */,
+				526CAA07136B697C001F481A /* PXTextureModifier4444.m in Sources */,
+				526CAA11136B6AEC001F481A /* PXTextureModifier8888.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

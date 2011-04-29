@@ -43,6 +43,10 @@
 
 #import "PXDebug.h"
 
+#import "PXTextureModifier8888.h"
+#import "PXTextureModifier4444.h"
+#import "PXTextureModifier565.h"
+#import "PXTextureModifier888.h"
 #import "PXTextureModifier5551.h"
 #import "PXTextureModifierA8.h"
 #import "PXTextureModifierL8.h"
@@ -71,15 +75,15 @@
 	switch (format)
 	{
 		case PXTextureDataPixelFormat_RGBA8888:
-			break;
+			return [[[PXTextureModifier8888 alloc] init] autorelease];
 		case PXTextureDataPixelFormat_RGBA4444:
-			break;
+			return [[[PXTextureModifier4444 alloc] init] autorelease];
 		case PXTextureDataPixelFormat_RGBA5551:
 			return [[[PXTextureModifier5551 alloc] init] autorelease];
 		case PXTextureDataPixelFormat_RGB565:
-			break;
+			return [[[PXTextureModifier565 alloc] init] autorelease];
 		case PXTextureDataPixelFormat_RGB888:
-			break;
+			return [[[PXTextureModifier888 alloc] init] autorelease];
 		case PXTextureDataPixelFormat_L8:
 			return [[[PXTextureModifierL8 alloc] init] autorelease];
 		case PXTextureDataPixelFormat_A8:

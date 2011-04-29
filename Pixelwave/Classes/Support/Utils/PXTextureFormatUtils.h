@@ -42,6 +42,18 @@
 
 #import "PXHeaderUtils.h"
 
+#define _PXTextureFormatPixelsCopyWithFunc(_read_, _write_, _count_, _TYPE_, _FUNC_) \
+{ \
+	_TYPE_ *_curReadPixel_; \
+	unsigned _index_; \
+\
+	for (_index_ = 0, _curReadPixel_ = (_TYPE_ *)(_read_); _index_ < _count_; ++_index_, ++_curReadPixel_) \
+	{ \
+		*_write_ = _FUNC_(*_curReadPixel_); \
+		++_write_; \
+	} \
+}
+
 #ifdef __cplusplus
 extern "C" {
 #endif
