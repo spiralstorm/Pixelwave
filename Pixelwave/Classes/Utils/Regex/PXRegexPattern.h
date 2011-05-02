@@ -61,10 +61,6 @@ typedef enum
 }
 
 /**
- *	The regex to compile into a pattern.
- */
-//@property (nonatomic, readonly) NSString *regex;
-/**
  *	A list of <code>PXRegexPatternFlag</code> flags that will define how the
  *	regex is compiled.
  */
@@ -105,7 +101,7 @@ typedef enum
 + (NSArray *)splitString:(NSString *)input limit:(int)limit;
 @end
 
-// TODO: Make it so that patterns are managed and cached
+// TODO Later: Make it so that patterns are managed and cached
 @interface PXRegexPattern(PrivateButPublic)
 - (id) _initWithRegex:(NSString *)regex flags:(unsigned)flags;
 @end

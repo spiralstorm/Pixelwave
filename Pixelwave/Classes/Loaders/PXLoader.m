@@ -186,18 +186,6 @@
 	PXDebugLog(@"[%@] %@\n", origin, message);
 }
 
-// TODO: Remove these methods, they're not used.
-/*
-- (NSString *)_updatePath:(NSString *)path
-{
-	return path;
-}
-- (NSURL *)_updateURL:(NSURL *)url
-{
-	return url;
-}
-*/
-
 #pragma mark -
 #pragma mark Static Methods(Public)
 
