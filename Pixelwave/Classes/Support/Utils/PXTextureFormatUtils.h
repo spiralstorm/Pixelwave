@@ -79,18 +79,13 @@ typedef struct
 
 typedef struct
 {
-	UInt8 val1;
-	UInt8 val2;
-} _PXTF_16;
-typedef struct
-{
 	UInt8 luminance;
 	UInt8 alpha;
 } _PXTF_LA;
 
 typedef _PXTF_RGBA8888			PXTF_RGBA_8888;
 typedef _PXTF_RGB888			PXTF_RGB_888;
-typedef _PXTF_16				PXTF_RGBA_4444;
+typedef UInt16					PXTF_RGBA_4444;
 typedef UInt16					PXTF_RGBA_5551;
 typedef UInt16					PXTF_RGB_565;
 typedef _PXTF_LA				PXTF_LA_88;

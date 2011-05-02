@@ -10,7 +10,6 @@
 
 #include "PXTextureFormatUtils.h"
 
-// TODO: Check into getting this to work.
 @implementation PXTextureModifier4444
 
 - (PXParsedTextureData *)newModifiedTextureDataFromData:(PXParsedTextureData *)oldTextureInfo
