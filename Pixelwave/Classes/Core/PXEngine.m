@@ -217,21 +217,16 @@ NSTimeInterval pxEngineInterval = 0.0f;
 
 typedef struct
 {
-	PXDisplayObject *displayObject;
-} _PXEngineDisplayObject; // TODO: Try to get rid of / rename this struct
-
-typedef struct
-{
 	unsigned size;
 	unsigned maxSize;
-	_PXEngineDisplayObject *array;
+	PXDisplayObject **array;
 } _PXEngineDisplayObjectBuffer;
 
 _PXEngineDisplayObjectBuffer pxEngineDOBuffer;
 unsigned pxEngineDOBufferMaxSize = 0;
 unsigned pxEngineDOBufferOldMaxSize = 0;
 
-void PXEngineInit( PXView *view )
+void PXEngineInit(PXView *view)
 {
 #ifdef PIXELWAVE_DEBUG
 	PXDebug.logErrors = YES;
@@ -249,7 +244,7 @@ void PXEngineInit( PXView *view )
 
 	pxEngineDOBuffer.size = 0;
 	pxEngineDOBuffer.maxSize = PX_ENGINE_MIN_BUFFER_SIZE;
-	pxEngineDOBuffer.array = malloc( sizeof( _PXEngineDisplayObject ) * pxEngineDOBuffer.maxSize );
+	pxEngineDOBuffer.array = malloc(sizeof(PXDisplayObject *) * pxEngineDOBuffer.maxSize);
 
 	///////////
 	// Timer //
@@ -382,7 +377,7 @@ void PXEngineDealloc( )
 	if (pxEngineDOBuffer.array)
 	{
 		for (int index = 0; index < pxEngineDOBuffer.size; ++index)
-			[pxEngineDOBuffer.array[index].displayObject release];
+			[pxEngineDOBuffer.array[index] release];
 
 		free( pxEngineDOBuffer.array );
 		pxEngineDOBuffer.array = 0;
@@ -393,7 +388,7 @@ void PXEngineDealloc( )
 	pxEngineInitialized = false;
 }
 
-_PXEngineDisplayObject *PXEngineNextBufferObject( )
+PXDisplayObject **PXEngineNextBufferObject( )
 {
 	//Check to see if our size (you could also think of this as the current
 	//index for our purposes) is at the end of the array.  If so, then we need
@@ -402,7 +397,7 @@ _PXEngineDisplayObject *PXEngineNextBufferObject( )
 	{
 		//Lets double the size of the array
 		pxEngineDOBuffer.maxSize <<= 1;
-		pxEngineDOBuffer.array = realloc( pxEngineDOBuffer.array, sizeof( _PXEngineDisplayObject ) * pxEngineDOBuffer.maxSize );
+		pxEngineDOBuffer.array = realloc(pxEngineDOBuffer.array, sizeof(PXDisplayObject *) * pxEngineDOBuffer.maxSize);
 	}
 
 	//Lets return the next available vertex for use.
@@ -692,7 +687,7 @@ PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 	
 	bool usesCustomHitArea;
 
-	_PXEngineDisplayObject *curDisplayObject;
+	PXDisplayObject **curDisplayObject;
 	int index;
 	int startIndex = pxEngineDOBuffer.size - 1;
 
@@ -703,7 +698,7 @@ PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 		 index >= 0;
 		 --index, --curDisplayObject)
 	{
-		target = curDisplayObject->displayObject;
+		target = *curDisplayObject;
 
 		aabb = &target->_aabb;
 
@@ -996,9 +991,9 @@ void PXEngineDispatchFrameEvents( )
  */
 void PXEngineRender( )
 {
-	assert( pxEngineDOBuffer.array );
+	assert(pxEngineDOBuffer.array);
 	for (int index = 0; index < pxEngineDOBuffer.size; ++index)
-		[pxEngineDOBuffer.array[index].displayObject release];
+		[pxEngineDOBuffer.array[index] release];
 
 	pxEngineDOBuffer.size = 0;
 
@@ -1008,7 +1003,7 @@ void PXEngineRender( )
 		if (newMaxSize > PX_ENGINE_MIN_BUFFER_SIZE)
 		{
 			pxEngineDOBuffer.maxSize = newMaxSize;
-			pxEngineDOBuffer.array = realloc( pxEngineDOBuffer.array, sizeof( _PXEngineDisplayObject ) * pxEngineDOBuffer.maxSize );
+			pxEngineDOBuffer.array = realloc(pxEngineDOBuffer.array, sizeof(PXDisplayObject *) * pxEngineDOBuffer.maxSize);
 		}
 	}
 
@@ -1075,10 +1070,12 @@ void PXEngineRender( )
 		PXGLAABB aabb;
 		PXGLAABB *aabbPtr;
 		PXDisplayObject *doAABB;
-		
-		for (int index = 0; index < pxEngineDOBuffer.size; ++index)
+		PXDisplayObject **curDisplayObject;
+		unsigned index;
+
+		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
 		{
-			doAABB = pxEngineDOBuffer.array[index].displayObject;
+			doAABB = *curDisplayObject;
 
 			if (!PX_IS_BIT_ENABLED(doAABB->_flags, _PXDisplayObjectFlags_shouldRenderAABB))
 				continue;
@@ -1110,6 +1107,7 @@ void PXEngineRender( )
 		float locs[8];
 
 		PXDisplayObject *doAABB;
+		PXDisplayObject **curDisplayObject;
 		//PXRectangle *pBounds;
 		CGRect bounds;
 
@@ -1122,9 +1120,10 @@ void PXEngineRender( )
 		CGPoint topRight;
 		CGPoint bottomLeft;
 		CGPoint bottomRight;
-		for (int index = 0; index < pxEngineDOBuffer.size; ++index)
+		unsigned index;
+		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
 		{
-			doAABB = pxEngineDOBuffer.array[index].displayObject;
+			doAABB = *curDisplayObject;
 
 		//	pBounds = [doAABB boundsWithCoordinateSpace:doAABB];
 		//	bounds = PXRectToCGRect(pBounds);
@@ -1450,7 +1449,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 			// object and aabb to that object. This is done to retain a list of
 			// drawn display objects for looping on when asking for touch
 			// events.
-			_PXEngineDisplayObject *obj = PXEngineNextBufferObject( );
+			PXDisplayObject **objPtr = PXEngineNextBufferObject();
 			//Byte count = 32
 
 		//	if (orientationEnabled)
@@ -1464,7 +1463,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 			doAABB->xMax = aabb->xMax;
 			doAABB->yMax = aabb->yMax;
 
-			obj->displayObject = displayObject;
+			*objPtr = displayObject;
 			++pxEngineDOBufferMaxSize;
 		}
 		else

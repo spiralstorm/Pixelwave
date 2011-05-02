@@ -82,7 +82,7 @@ typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
 
 //-- ScriptName: EventListener
 - (id) initWithTarget:(PXGenericObject)target
-		  selector:(SEL)selector;
+			 selector:(SEL)selector;
 
 //-- ScriptName: make
 + (PXEventListener *)eventListenerWithTarget:(PXGenericObject)target
