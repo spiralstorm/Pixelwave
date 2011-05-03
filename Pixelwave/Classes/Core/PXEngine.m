@@ -418,12 +418,12 @@ float PXEngineGetViewHeight( )
 	return pxEngineViewSize.height;
 }
 
-// TODO: This does not work properly, it may not be needed.
+// TODO Later: This does not work properly, it may not be needed.
 void PXEngineUpdateViewSize()
 {
 	return;
 
-	// TODO: This does not work properly, it may not be needed.
+	// TODO Later: This does not work properly, it may not be needed.
 	
 	//pxEngineViewSize = pxEngineView.bounds.size;
 
@@ -766,24 +766,20 @@ PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 					onceHadTarget = YES;
 					touchEnabled = parentTouchEnabled;
 				}
+			}
+			else
+			{
+				// The target's parent doesn't allow touch events, which means
+				// the target cannot be asociated with that event at all, make the
+				// parent the new target
+				target = parent;
+				possibleParentTarget = nil;
+				onceHadTarget = NO;
+				// Update these value to reflect the new target
+				touchEnabled = parentTouchEnabled;
+				origTouchEnabled = parentTouchEnabled;
+			}
 
-				//parent = (PXDisplayObjectContainer *)parent->_parent;
-				parent = parent->_parent;
-
-				continue;
-			}// TODO Put an else here and combine two redundant parent = ... statements
-
-			// The target's parent doesn't allow touch events, which means
-			// the target cannot be asociated with that event at all, make the
-			// parent the new target
-			target = parent;
-			possibleParentTarget = nil;
-			onceHadTarget = NO;
-			// Update these value to reflect the new target
-			touchEnabled = parentTouchEnabled;
-			origTouchEnabled = parentTouchEnabled;
-			
-			//parent = (PXDisplayObjectContainer *)parent->_parent;
 			parent = parent->_parent;
 		}
 
