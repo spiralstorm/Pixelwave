@@ -51,6 +51,7 @@
 #import "PXALSoundChannel.h"
 
 #include "PXEngineUtils.h"
+#include "PXSettings.h"
 
 #import "PXSoundTransform.h"
 #import "PXDebug.h"

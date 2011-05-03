@@ -1,33 +1,36 @@
 //
-//  PXTexPacAtlasParser.m
+//  PXZwopAtlasParser.m
 //  Pixelwave
 //
-//  Created by Oz Michaeli on 4/11/11.
-//  Copyright 2011 NA. All rights reserved.
+//  Created by John Lattin on 5/3/11.
+//  Copyright 2011 Spiralstorm Games. All rights reserved.
 //
 
-#import "PXTPAtlasParser.h"
-#import "CJSONDeserializer.h"
-
-#import "PXTextureAtlas.h"
-#import "PXAtlasFrame.h"
-#import "PXClipRect.h"
-#import "PXTexturePadding.h"
-
+#import "PXZwopAtlasParser.h"
 #import "PXTextureLoader.h"
-#import "PXTextureData.h"
 
-// How much TexturePacker rotates the image when it says 'rotated'
-#define PX_TP_ROTATION_AMOUNT 90.0f
+#import "PXRegexPattern.h"
+#import "PXRegexMatcher.h"
 
-@interface PXTPAtlasParser(Private)
+PXRegexMatcher *pxZwopAtlasParserSizeMatcher = nil;
+PXRegexMatcher *pxZwopAtlasParserRectMatcher = nil;
+NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
+
+@interface PXZwopAtlasParser(Private)
++ (void) beginParse;
++ (void) endParse;
+
++ (BOOL) parseIntFromString:(NSString *)string ret:(int *)ret;
 + (BOOL) parseBool:(NSDictionary *)dict key:(NSString *)key ret:(BOOL *)ret;
-+ (BOOL) parseInt:(NSDictionary *)dict key:(NSString *)key ret:(int *)ret;
 + (BOOL) parseCGRect:(NSDictionary *)dict key:(NSString *)key ret:(CGRect *)ret;
 + (BOOL) parseCGSize:(NSDictionary *)dict key:(NSString *)key ret:(CGSize *)ret;
+
++ (NSDictionary *)dictionaryFromData:(NSData *)data;
 @end
 
-@implementation PXTPAtlasParser
+#define PX_ZWOP_ROTATION_AMOUNT 90.0f
+
+@implementation PXZwopAtlasParser
 
 // Right now this just does a silly check to see if a certain string exists
 // within the file to see if it's the right type. Unfortunately the JSON file
@@ -36,32 +39,23 @@
 {
 	if (!data)
 		return NO;
-	
+
 	// If this file came straight from memory (not loaded from a URL), we don't
 	// know what it's called and as such can't figure out the name of the image.
 	// This is only a restriction with the current JSON file, and can be removed
 	// when the file format changes.
 	if (!origin)
 		return NO;
-	
+
 	NSString *ext = [[origin pathExtension] lowercaseString];
-	if (![ext isEqualToString:@"json"])
+	if (![ext isEqualToString:@"plist"])
 		return NO;
-	
-	// Check for a string we know has to be in there
-	NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-	NSRange range = [str rangeOfString:@"\"spriteSourceSize\":"];
-	
-	[str release];
-	
-	if (range.length == 0)
-		return NO;
-	
+
 	return YES;
 }
 + (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
 {
-	[extensions addObject:@"json"];
+	[extensions addObject:@"plist"];
 }
 
 - (BOOL) _parseWithModifier:(id<PXTextureModifier>)modifier
@@ -69,19 +63,19 @@
 	////////////////////////////
 	// Parse the texture data //
 	////////////////////////////
-
+	
 	// Release the old one if it exists
 	PXTextureData *textureData = nil;
-
+	
 	NSString *imagePath = nil;
-
+	
 	// Limitations due to current JSON file not storing the image name:
 	{
 		// Since the current JSON file format doesn't tell us the name of the image
 		// file, we can't load it unless the atlas was loaded from the hard-drive
 		if (!origin)
 			return NO;
-
+		
 		// Since the current JSON file doesn't tell us the name of the image,
 		// we have to assume that it's the same as the atlas file name. But since
 		// we don't know the extension we have to try all the possible ones.
@@ -89,36 +83,35 @@
 		if (!imagePath)
 			return NO;
 	}
-
+	
 	// Dilemma: Should we get the contentScaleFactor from the file name of the
 	// atlas or from the file name of the images?
 	// Here we just use the file name of the atlas...
 	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:imagePath modifier:modifier];
-
+	
 	if (!loader)
 		return NO;
-
+	
 	// Require the image to be the same contentScaleFactor as the atlas.
 	[loader setContentScaleFactor:contentScaleFactor];
-
+	
 	textureData = [loader newTextureData];
 	[loader release];
-
+	
 	if (!textureData)
 		return NO;
-
+	
 	/////////////////////////
 	// Parse the JSON data //
 	/////////////////////////
-
+	
 	// We'll have to divide all the coordinate  values stored in the files by
 	// the content scale factor to convert them from PIXELS to POINTS.
 	float invScaleFactor = 1.0f / contentScaleFactor;
 
-	NSError *error = nil;
-	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error];
+	NSDictionary *dict = [PXZwopAtlasParser dictionaryFromData:data];
 
-	if (error)
+	if (!dict)
 		return NO;
 
 	NSDictionary *framesDict = [dict objectForKey:@"frames"];
@@ -131,40 +124,41 @@
 	// No frames, no service.
 	if (numFrames <= 0)
 		return NO;
-	
+
 	[self _setupWithTotalFrames:numFrames];
-	
+
 	// Add the texture data at index 0
 	[self _addTextureData:textureData];
-	
+
 	// Start parsing
 	PXGenericAtlasParserFrame *cFrame = NULL;
 
 	CGRect frame;
 	BOOL rotated;
 	BOOL trimmed;
-	CGRect spriteSourceSize;
-	CGSize sourceSize;
+	CGRect spriteColorRect;
+	CGSize spriteSourceSize;
 
 	// Loop through all the names
 	NSString *frameName;
 	NSDictionary *frameDict;
 
+	[PXZwopAtlasParser beginParse];
 	for (frameName in framesDict)
 	{		
 		frameDict = [framesDict objectForKey:frameName];
 		if (!framesDict)
 			return NO;
 
-		if (![PXTPAtlasParser parseCGRect:frameDict key:@"frame" ret:&frame])
+		if (![PXZwopAtlasParser parseCGRect:frameDict key:@"textureRect" ret:&frame])
 			return NO;
-		if (![PXTPAtlasParser parseBool:frameDict key:@"rotated" ret:&rotated])
+		if (![PXZwopAtlasParser parseBool:frameDict key:@"textureRotated" ret:&rotated])
 			return NO;
-		if (![PXTPAtlasParser parseBool:frameDict key:@"trimmed" ret:&trimmed])
+		if (![PXZwopAtlasParser parseBool:frameDict key:@"spriteTrimmed" ret:&trimmed])
 			return NO;
-		if (![PXTPAtlasParser parseCGRect:frameDict key:@"spriteSourceSize" ret:&spriteSourceSize])
+		if (![PXZwopAtlasParser parseCGRect:frameDict key:@"spriteColorRect" ret:&spriteColorRect])
 			return NO;
-		if (![PXTPAtlasParser parseCGSize:frameDict key:@"sourceSize" ret:&sourceSize])
+		if (![PXZwopAtlasParser parseCGSize:frameDict key:@"spriteSourceSize" ret:&spriteSourceSize])
 			return NO;
 
 		// Convert to points
@@ -192,7 +186,7 @@
 
 		// Dynamic
 		cFrame->clipRect = frame;
-		cFrame->rotation = rotated ? PX_TP_ROTATION_AMOUNT : 0.0f;
+		cFrame->rotation = rotated ? PX_ZWOP_ROTATION_AMOUNT : 0.0f;
 		cFrame->paddingEnabled = trimmed;
 
 		// Apply padding if needed
@@ -201,24 +195,61 @@
 			// Calculates the padding values (Also converts to points).
 			short *padding = cFrame->padding;
 			// Top
-			padding[0] = (spriteSourceSize.origin.y) * invScaleFactor;
+			padding[0] = (spriteColorRect.origin.y) * invScaleFactor;
 			// Right
-			padding[1] = (sourceSize.width - (spriteSourceSize.origin.x + spriteSourceSize.size.width)) * invScaleFactor;
+			padding[1] = (spriteSourceSize.width - (spriteColorRect.origin.x + spriteColorRect.size.width)) * invScaleFactor;
 			// Bottom
-			padding[2] = (sourceSize.height - (spriteSourceSize.origin.y + spriteSourceSize.size.height)) * invScaleFactor;
+			padding[2] = (spriteSourceSize.height - (spriteColorRect.origin.y + spriteColorRect.size.height)) * invScaleFactor;
 			// Left
-			padding[3] = (spriteSourceSize.origin.x) * invScaleFactor;
+			padding[3] = (spriteColorRect.origin.x) * invScaleFactor;
 		}
 
 		++cFrame;
 	}
+	[PXZwopAtlasParser endParse];
 
 	return YES;
 }
 
-/////////////
-// Parsing //
-/////////////
++ (void) beginParse
+{
+	if (!pxZwopAtlasParserSizeMatcher)
+	{
+		PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"\\{\\s*([0-9-]+)\\s*,\\s*([0-9-]+)\\s*\\}"];
+		pxZwopAtlasParserSizeMatcher = [[PXRegexMatcher alloc] initWithPattern:pattern];
+	}
+	if (!pxZwopAtlasParserRectMatcher)
+	{
+		PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"\\{\\s*\\{\\s*([0-9-]+)\\s*,\\s*([0-9-]+)\\s*\\}\\s*,\\s*\\{\\s*([0-9-]+)\\s*,\\s*([0-9-]+)\\s*\\}\\s*\\}"];
+		pxZwopAtlasParserRectMatcher = [[PXRegexMatcher alloc] initWithPattern:pattern];
+	}
+	if (!pxZwopAtlasParserNumberFormatter)
+	{
+		pxZwopAtlasParserNumberFormatter = [[NSNumberFormatter alloc] init];
+		[pxZwopAtlasParserNumberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	}
+}
++ (void) endParse
+{
+	[pxZwopAtlasParserSizeMatcher release];
+	pxZwopAtlasParserSizeMatcher = nil;
+	[pxZwopAtlasParserRectMatcher release];
+	pxZwopAtlasParserRectMatcher = nil;
+	[pxZwopAtlasParserNumberFormatter release];
+	pxZwopAtlasParserNumberFormatter = nil;
+}
+
++ (BOOL) parseIntFromString:(NSString *)string ret:(int *)ret
+{
+	if (!ret)
+		return NO;
+
+	if (!string)
+		return NO;
+
+	*ret = [[pxZwopAtlasParserNumberFormatter numberFromString:string] intValue];
+	return YES;
+}
 
 + (BOOL) parseBool:(NSDictionary *)dict key:(NSString *)key ret:(BOOL *)ret
 {
@@ -233,48 +264,38 @@
 
 	return YES;
 }
-+ (BOOL) parseInt:(NSDictionary *)dict key:(NSString *)key ret:(int *)ret
-{
-	if (!ret)
-		return NO;
 
-	id val = [dict objectForKey:key];
-	if (![val isKindOfClass:NSNumber.class])
-		return NO;
-
-	*ret = [(NSNumber *)val intValue];
-
-	return YES;
-}
 + (BOOL) parseCGRect:(NSDictionary *)dict key:(NSString *)key ret:(CGRect *)ret
 {
 	if (!ret)
 		return NO;
 
 	id val = [dict objectForKey:key];
-	if (![val isKindOfClass:NSDictionary.class])
+	if (![val isKindOfClass:NSString.class])
+		return NO;
+
+	pxZwopAtlasParserRectMatcher.input = val;
+
+	int x;
+	int y;
+	int width;
+	int height;
+
+	if(![pxZwopAtlasParserRectMatcher next])
 	{
 		return NO;
 	}
 
-	NSDictionary *rectDict = val;
-
-	int x, y, w, h;
-
-	if (![PXTPAtlasParser parseInt:rectDict key:@"x" ret:&x])
+	if (![PXZwopAtlasParser parseIntFromString:[pxZwopAtlasParserRectMatcher groupAtIndex:1] ret:&x])
 		return NO;
-	if (![PXTPAtlasParser parseInt:rectDict key:@"y" ret:&y])
+	if (![PXZwopAtlasParser parseIntFromString:[pxZwopAtlasParserRectMatcher groupAtIndex:2] ret:&y])
 		return NO;
-	if (![PXTPAtlasParser parseInt:rectDict key:@"w" ret:&w])
+	if (![PXZwopAtlasParser parseIntFromString:[pxZwopAtlasParserRectMatcher groupAtIndex:3] ret:&width])
 		return NO;
-	if (![PXTPAtlasParser parseInt:rectDict key:@"h" ret:&h])
+	if (![PXZwopAtlasParser parseIntFromString:[pxZwopAtlasParserRectMatcher groupAtIndex:4] ret:&height])
 		return NO;
 
-	ret->origin.x = x;
-	ret->origin.y = y;
-	ret->size.width = w;
-	ret->size.height = h;
-
+	*ret =  CGRectMake(x, y, width, height);
 	return YES;
 }
 + (BOOL) parseCGSize:(NSDictionary *)dict key:(NSString *)key ret:(CGSize *)ret
@@ -283,24 +304,49 @@
 		return NO;
 
 	id val = [dict objectForKey:key];
-	if (![val isKindOfClass:NSDictionary.class])
+	if (![val isKindOfClass:NSString.class])
+		return NO;
+
+	pxZwopAtlasParserSizeMatcher.input = val;
+
+	int width;
+	int height;
+
+	if(![pxZwopAtlasParserSizeMatcher next])
 	{
 		return NO;
 	}
 
-	NSDictionary *rectDict = val;
-
-	int w, h;
-
-	if (![PXTPAtlasParser parseInt:rectDict key:@"w" ret:&w])
+	if (![PXZwopAtlasParser parseIntFromString:[pxZwopAtlasParserSizeMatcher groupAtIndex:1] ret:&width])
 		return NO;
-	if (![PXTPAtlasParser parseInt:rectDict key:@"h" ret:&h])
+	if (![PXZwopAtlasParser parseIntFromString:[pxZwopAtlasParserSizeMatcher groupAtIndex:2] ret:&height])
 		return NO;
 
-	ret->width = w;
-	ret->height = h;
-
+	*ret = CGSizeMake(width, height);
 	return YES;
+}
+
++ (NSDictionary *)dictionaryFromData:(NSData *)data
+{
+	CFPropertyListRef plist =  CFPropertyListCreateFromXMLData(kCFAllocatorDefault,
+															   (CFDataRef)data,
+															   kCFPropertyListImmutable,
+															   NULL);
+
+	if (!plist)
+		return nil;
+
+	if ([(id)plist isKindOfClass:[NSDictionary class]])
+	{
+		return [(NSDictionary *)plist autorelease];
+	}
+	else
+	{
+		CFRelease(plist);
+		return nil;
+	}
+
+	return nil;
 }
 
 @end

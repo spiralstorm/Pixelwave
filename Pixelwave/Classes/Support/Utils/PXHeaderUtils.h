@@ -30,4 +30,6 @@
 #define PX_LINENAME(_name_, _line_) PX_LINENAME_CONCAT(_name_, _line_)
 #define PX_UNIQUE_VAR(_name_) PX_LINENAME(_name_,__LINE__)
 
+#define PX_NOT_USED(_val_) ((void)(_val_))
+
 #endif

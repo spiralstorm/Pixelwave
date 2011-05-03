@@ -48,6 +48,8 @@
 #import "PXRegexUtils.h"
 #include "regex.h"
 
+#import "PXDebug.h"
+
 /// @cond DX_IGNORE
 @interface PXRegexPattern (Private)
 - (void) updateRegexPtr;
@@ -128,7 +130,7 @@
 	{
 		[self _setFlags:_flags];
 		regex = [_regex copy];
-		
+
 		[self updateRegexPtr];
 	}
 
@@ -283,6 +285,7 @@
 		// If an error occured while compiling, this method will inform the user
 		if (PXRegexError(error))
 		{
+			PXDebugLog(@"Could not compile the regex pattern:%@\n", regex);
 			// An error occured, free the data we made!
 			[self freeRegexPtr];
 		}

@@ -127,6 +127,8 @@
 		2DD9E9AD10EBFDE400710F4E /* PXMathUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DD9E9AA10EBFDE400710F4E /* PXMathUtils.h */; };
 		2DD9E9AE10EBFDE400710F4E /* PXColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD9E9AB10EBFDE400710F4E /* PXColorUtils.m */; };
 		2DD9E9AF10EBFDE400710F4E /* PXColorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DD9E9AC10EBFDE400710F4E /* PXColorUtils.h */; };
+		5230170013706DC8000FE6D6 /* PXZwopAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */; };
+		5230170113706DC8000FE6D6 /* PXZwopAtlasParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 523016FF13706DC8000FE6D6 /* PXZwopAtlasParser.m */; };
 		5231F498124D5756002B8A27 /* PXFontRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5231F492124D5756002B8A27 /* PXFontRenderer.h */; };
 		5231F499124D5756002B8A27 /* PXFontRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5231F493124D5756002B8A27 /* PXFontRenderer.m */; };
 		5231F49A124D5756002B8A27 /* PXTextureFontRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5231F494124D5756002B8A27 /* PXTextureFontRenderer.h */; };
@@ -618,6 +620,8 @@
 		2DD9E9AA10EBFDE400710F4E /* PXMathUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXMathUtils.h; sourceTree = "<group>"; };
 		2DD9E9AB10EBFDE400710F4E /* PXColorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXColorUtils.m; sourceTree = "<group>"; };
 		2DD9E9AC10EBFDE400710F4E /* PXColorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXColorUtils.h; sourceTree = "<group>"; };
+		523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXZwopAtlasParser.h; sourceTree = "<group>"; };
+		523016FF13706DC8000FE6D6 /* PXZwopAtlasParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXZwopAtlasParser.m; sourceTree = "<group>"; };
 		5231F492124D5756002B8A27 /* PXFontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXFontRenderer.h; sourceTree = "<group>"; };
 		5231F493124D5756002B8A27 /* PXFontRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXFontRenderer.m; sourceTree = "<group>"; };
 		5231F494124D5756002B8A27 /* PXTextureFontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureFontRenderer.h; sourceTree = "<group>"; };
@@ -1214,6 +1218,8 @@
 				2D543D2E1360F48D004AA569 /* PXSimpleAtlasParser.m */,
 				2D0E8D1C1353F8A900A42B3D /* PXTPAtlasParser.h */,
 				2D0E8D1D1353F8A900A42B3D /* PXTPAtlasParser.m */,
+				523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */,
+				523016FF13706DC8000FE6D6 /* PXZwopAtlasParser.m */,
 			);
 			path = TextureAtlasParsers;
 			sourceTree = "<group>";
@@ -2380,6 +2386,7 @@
 				526CA9F3136B6880001F481A /* PXTextureModifier565.h in Headers */,
 				526CAA06136B697C001F481A /* PXTextureModifier4444.h in Headers */,
 				526CAA10136B6AEC001F481A /* PXTextureModifier8888.h in Headers */,
+				5230170013706DC8000FE6D6 /* PXZwopAtlasParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2615,6 +2622,7 @@
 				526CA9F4136B6880001F481A /* PXTextureModifier565.m in Sources */,
 				526CAA07136B697C001F481A /* PXTextureModifier4444.m in Sources */,
 				526CAA11136B6AEC001F481A /* PXTextureModifier8888.m in Sources */,
+				5230170113706DC8000FE6D6 /* PXZwopAtlasParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

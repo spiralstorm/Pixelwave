@@ -64,6 +64,7 @@
 
 // PXParser - TextureAtlas
 #import "PXTPAtlasParser.h"
+#import "PXZwopAtlasParser.h"
 
 // Font Fusers
 #import "PXFontFuser.h"
@@ -102,8 +103,9 @@ void _PXTopLevelInitialize( )
 	[PXParser registerParser:PXFreeTypeFontParser.class	forBaseClass:PXFontParser.class];
 	[PXParser registerParser:PXSystemFontParser.class	forBaseClass:PXFontParser.class];
 	[PXParser registerParser:PXFNTFontParser.class		forBaseClass:PXFontParser.class];
-	
-	[PXParser registerParser:PXTPAtlasParser.class	forBaseClass:PXTextureAtlasParser.class];
+
+	[PXParser registerParser:PXTPAtlasParser.class		forBaseClass:PXTextureAtlasParser.class];
+	[PXParser registerParser:PXZwopAtlasParser.class	forBaseClass:PXTextureAtlasParser.class];
 
 	////////////////////////////// Add the Fusers \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 

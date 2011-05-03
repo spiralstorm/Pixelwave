@@ -43,8 +43,6 @@
 #import "PXDebug.h"
 #import "PXHeaderUtils.h"
 
-#define PX_NOT_USED(_val_) ((void)(_val_))
-
 #ifdef __cplusplus
 extern "C" {
 #endif

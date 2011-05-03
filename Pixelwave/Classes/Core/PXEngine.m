@@ -45,6 +45,7 @@
 #include "PXGLPrivate.h"
 #include "PXMathUtils.h"
 #include "PXPrivateUtils.h"
+#include "PXSettings.h"
 
 #import "PXStage.h"
 #import "PXView.h"

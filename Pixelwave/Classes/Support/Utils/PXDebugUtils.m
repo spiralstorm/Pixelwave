@@ -42,6 +42,8 @@
 #import "PXPrivateUtils.h"
 #import "PXAL.h"
 
+#include "PXSettings.h"
+
 #ifdef PX_DEBUG_MODE
 uint32_t pxDebugSettings = 0;
 //NSString *pxDebugALErrorPrefix = nil;

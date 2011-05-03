@@ -41,7 +41,8 @@
 #import "PXDebugUtils.h"
 #import "PXEngine.h"
 
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
+#include "PXSettings.h"
 
 PXInline_c void PXDebugLog(NSString *format, ...)
 {

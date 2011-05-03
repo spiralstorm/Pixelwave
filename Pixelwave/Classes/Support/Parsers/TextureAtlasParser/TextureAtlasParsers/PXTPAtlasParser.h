@@ -8,9 +8,6 @@
 
 #import "PXSimpleAtlasParser.h"
 
-// TexturePacker file format reader
-@class PXTextureData;
-
 @interface PXTPAtlasParser : PXSimpleAtlasParser<PXParser>
 {
 }
