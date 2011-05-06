@@ -26,3 +26,5 @@ Thumbs.db
 # Specifics #
 #############
 Docs/output/
+
+git-completion.bash
