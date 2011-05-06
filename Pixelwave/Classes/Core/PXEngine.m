@@ -47,6 +47,8 @@
 #include "PXPrivateUtils.h"
 #include "PXSettings.h"
 
+#include "PXEngineUtils.h"
+
 #import "PXStage.h"
 #import "PXView.h"
 #import "PXDisplayObject.h"
@@ -289,8 +291,8 @@ void PXEngineInit(PXView *view)
 
 	// Create a reusable enter frame event instead of creating one every frame.
 	pxEngineEnterFrameEvent = [[PXEvent alloc] initWithType:PXEvent_EnterFrame
-										   doesBubble:NO
-										 isCancelable:NO];
+												 doesBubble:NO
+											   isCancelable:NO];
 
 	//////////
 	// Misc //
@@ -424,8 +426,6 @@ void PXEngineUpdateViewSize()
 {
 	return;
 
-	// TODO Later: This does not work properly, it may not be needed.
-	
 	//pxEngineViewSize = pxEngineView.bounds.size;
 
 	//float contentScaleFactor = pxEngineView.contentScaleFactor;
@@ -557,7 +557,7 @@ void PXEngineUpdateMainLoopInterval()
 	while (startDT < pxEngineMainDT)
 	{
 		lastDT = startDT;
-		startDT = 1.0f / (pxEngineMaxFrameRate/index);
+		startDT = 1.0f / (pxEngineMaxFrameRate / index);
 
 		index += 1.0f;
 	}
@@ -1108,11 +1108,6 @@ void PXEngineRender()
 		//PXRectangle *pBounds;
 		CGRect bounds;
 
-		PXPoint *pTopLeft;
-		PXPoint *pBottomLeft;
-		PXPoint *pTopRight;
-		PXPoint *pBottomRight;
-
 		CGPoint topLeft;
 		CGPoint topRight;
 		CGPoint bottomLeft;
@@ -1122,28 +1117,16 @@ void PXEngineRender()
 		{
 			doAABB = *curDisplayObject;
 
-		//	pBounds = [doAABB boundsWithCoordinateSpace:doAABB];
-		//	bounds = PXRectToCGRect(pBounds);
 			bounds = CGRectZero;
 			[doAABB _measureLocalBounds:&bounds];
 
 			if (CGRectIsEmpty(bounds))
 				continue;
 
-			pTopLeft     = [PXPoint pointWithX:bounds.origin.x y:bounds.origin.y];
-			pBottomLeft  = [PXPoint pointWithX:bounds.origin.x y:bounds.origin.y + bounds.size.height];
-			pTopRight    = [PXPoint pointWithX:bounds.origin.x + bounds.size.width y:bounds.origin.y];
-			pBottomRight = [PXPoint pointWithX:bounds.origin.x + bounds.size.width y:bounds.origin.y + bounds.size.height];
-
-			pTopLeft     = [doAABB localToGlobal:pTopLeft];
-			pBottomLeft  = [doAABB localToGlobal:pBottomLeft];
-			pTopRight    = [doAABB localToGlobal:pTopRight];
-			pBottomRight = [doAABB localToGlobal:pBottomRight];
-
-			topLeft     = PXPointToCGPoint(pTopLeft);
-			bottomLeft  = PXPointToCGPoint(pBottomLeft);
-			topRight    = PXPointToCGPoint(pTopRight);
-			bottomRight = PXPointToCGPoint(pBottomRight);
+			topLeft     = PXUtilsLocalToGlobal(doAABB, CGPointMake(bounds.origin.x, bounds.origin.y));
+			bottomLeft  = PXUtilsLocalToGlobal(doAABB, CGPointMake(bounds.origin.x, bounds.origin.y + bounds.size.height));
+			topRight    = PXUtilsLocalToGlobal(doAABB, CGPointMake(bounds.origin.x + bounds.size.width, bounds.origin.y));
+			bottomRight = PXUtilsLocalToGlobal(doAABB, CGPointMake(bounds.origin.x + bounds.size.width, bounds.origin.y + bounds.size.height));
 
 			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(topLeft.x, topLeft.y, pxEngineStage);
 			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(bottomLeft.x, bottomLeft.y, pxEngineStage);
