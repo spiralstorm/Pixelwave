@@ -1424,7 +1424,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	[self swapNodes:node1:node2];
 }
 
-- (void) swapNodes:(_PXLLNode *)node1:(_PXLLNode *)node2
+- (void) swapNodes:(_PXLLNode *) node1:(_PXLLNode *)node2
 {
 	_PXLLNode *next1 = node1->next;
 	_PXLLNode *prev1 = node1->prev;
@@ -1457,12 +1457,12 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	}
 
 	// Modify Node0's next & prev
-	PX_LL_LINK_SWITCH(1,2,next,prev);
-	PX_LL_LINK_SWITCH(1,2,prev,next);
+	PX_LL_LINK_SWITCH(1, 2, next, prev);
+	PX_LL_LINK_SWITCH(1, 2, prev, next);
 
 	// Modify Node1's next & prev
-	PX_LL_LINK_SWITCH(2,1,next,prev);
-	PX_LL_LINK_SWITCH(2,1,prev,next);
+	PX_LL_LINK_SWITCH(2, 1, next, prev);
+	PX_LL_LINK_SWITCH(2, 1, prev, next);
 
 	// Modify the head/tail
 	if (_head == node1)
@@ -1497,12 +1497,13 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 		currentNode = (_PXLLNode *)state->state;
 	}
 
-	int i = 0;
-	for (; i < len; ++i)
+	unsigned index;
+	id *curStackBuffer;
+	for (index = 0, curStackBuffer = stackbuf; index < len; ++index, ++curStackBuffer)
 	{
 		if (currentNode)
 		{
-			stackbuf[i] = currentNode->data;
+			*curStackBuffer = currentNode->data;
 			currentNode = currentNode->next;
 		}
 		else
@@ -1523,7 +1524,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	state->itemsPtr = stackbuf;
 	state->mutationsPtr = (unsigned long *)self;
 
-	return i;
+	return index;
 }
 
 #pragma mark Exporting
@@ -1647,14 +1648,14 @@ _PXLLNode *PXLinkedListGetPooledNode()
 	}
 	else
 	{
-		//Grab one out of the stack
+		// Grab one out of the stack
 		--pxLLPooledNodesCount;
 		newNode = pxLLPooledNodesStack[pxLLPooledNodesCount];
 
-		//If the stack is too big, shrink it down
-		if (pxLLPooledNodesCount < pxLLPooledNodesSize / 4)
+		// If the stack is too big, shrink it down
+		if (pxLLPooledNodesCount < (pxLLPooledNodesSize >> 2)) // division by 4
 		{
-			int newSize = pxLLPooledNodesSize / 4;
+			int newSize = pxLLPooledNodesSize >> 2; // division of 4
 			PXLinkedListShrinkPoolNodes(newSize);
 		}
 	}
@@ -1666,13 +1667,13 @@ void PXLinkedListReturnPooledNode(_PXLLNode *node)
 {
 	if (pxLLPooledNodesSize == pxLLPooledNodesCount)
 	{
-		//Make it bigger
+		// Make it bigger
 		if (pxLLPooledNodesSize == 0)
 			pxLLPooledNodesSize = 1;
 
-		pxLLPooledNodesSize *= 2;
+		pxLLPooledNodesSize <<= 1; // Multiply by 2
 
-		//Size up
+		// Size up
 		pxLLPooledNodesStack = realloc(pxLLPooledNodesStack, sizeof(_PXLLNode *) * pxLLPooledNodesSize );
 	}
 
@@ -1685,16 +1686,20 @@ void PXLinkedListShrinkPoolNodes(int newSize)
 	if (newSize >= pxLLPooledNodesSize)
 		return;
 
-	//Clear the pool nodes
-	for (int i = newSize; i < pxLLPooledNodesCount; ++i)
+	// Clear the pool nodes
+	unsigned index;
+	_PXLLNode **curNode;
+	for (index = newSize, curNode = pxLLPooledNodesStack + index;
+		 index < pxLLPooledNodesCount;
+		 ++index, ++curNode)
 	{
-		//Deallocate the node
-		free(pxLLPooledNodesStack[i]);
-		//Zero that array cell
-		pxLLPooledNodesStack[i] = 0;
+		// Deallocate the node
+		free(*curNode);
+		// Zero that array cell
+		*curNode = NULL;
 	}
 
-	//Size down
+	// Size down
 	pxLLPooledNodesStack = realloc(pxLLPooledNodesStack, sizeof(_PXLLNode *) * newSize);
 
 	pxLLPooledNodesSize = newSize;
