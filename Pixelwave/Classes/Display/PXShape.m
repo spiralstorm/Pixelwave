@@ -57,6 +57,16 @@
  */
 @implementation PXShape
 
+- (void) dealloc
+{
+	if (_graphics)
+		[_graphics release];
+
+	_graphics = nil;
+
+	[super dealloc];
+}
+
 - (PXGraphics *)graphics
 {
 	if (!_graphics)
@@ -82,16 +92,6 @@
 	//Render the graphics object
 	if (_graphics)
 		[_graphics _renderGL];
-}
-
-- (void) dealloc
-{
-	if (_graphics)
-		[_graphics release];
-
-	_graphics = nil;
-
-	[super dealloc];
 }
 
 @end

@@ -290,16 +290,6 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 	return self;
 }
 
-/**
- *	Use this method to change the automatic contentScaleFactor adjustment
- *	that happens when an image is loaded in. It is not advised to use this
- *	method unless you know what you're doing.
- */
-- (void) setContentScaleFactor:(float)val
-{
-	textureParser.contentScaleFactor = val;
-}
-
 - (void) dealloc
 {
 	// Release the parser
@@ -310,6 +300,16 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 	self.modifier = nil;
 
 	[super dealloc];
+}
+
+/**
+ *	Use this method to change the automatic contentScaleFactor adjustment
+ *	that happens when an image is loaded in. It is not advised to use this
+ *	method unless you know what you're doing.
+ */
+- (void) setContentScaleFactor:(float)val
+{
+	textureParser.contentScaleFactor = val;
 }
 
 - (void) setModifier:(id<PXTextureModifier>)_modifier

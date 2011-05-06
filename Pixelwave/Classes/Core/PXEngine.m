@@ -644,7 +644,7 @@ bool PXEngineGetRunning()
 
 #pragma mark Registering Frame Event Listeners
 
-void PXEngineAddFrameListener( PXDisplayObject *displayObject )
+void PXEngineAddFrameListener(PXDisplayObject *displayObject)
 {
 	if (!pxEngineFrameListeners)
 		return;
@@ -652,7 +652,7 @@ void PXEngineAddFrameListener( PXDisplayObject *displayObject )
 	[pxEngineFrameListeners addObject:displayObject];
 }
 
-void PXEngineRemoveFrameListener( PXDisplayObject *displayObject )
+void PXEngineRemoveFrameListener(PXDisplayObject *displayObject)
 {
 	if (!pxEngineFrameListeners)
 		return;
@@ -673,7 +673,7 @@ void PXEngineRemoveFrameListener( PXDisplayObject *displayObject )
  *
  *	Returns the displayObject that should recieve the event (could be nil)
  */
-PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
+PXDisplayObject *PXEngineFindTouchTarget(float x, float y)
 {
 	PXDisplayObject *target;
 	PXDisplayObjectContainer *parent;
@@ -804,7 +804,7 @@ PXDisplayObject *PXEngineFindTouchTarget( float x, float y )
 	return possibleParentTarget;
 }
 
-void PXEngineDispatchTouchEvents( )
+void PXEngineDispatchTouchEvents()
 {
 	if (pxEngineTouchEvents.count == 0)
 	{
@@ -958,7 +958,7 @@ void PXEngineDispatchTouchEvents( )
 	[pxEngineRemoveFromSavedTouchEvents removeAllObjects];
 }
 
-void PXEngineDispatchFrameEvents( )
+void PXEngineDispatchFrameEvents()
 {
 	if (pxEngineFrameListeners.count == 0)
 		return;
@@ -986,7 +986,7 @@ void PXEngineDispatchFrameEvents( )
  *	The main rendering function. This renders the entire display list, starting
  *	at the stage, to the screen.
  */
-void PXEngineRender( )
+void PXEngineRender()
 {
 	assert(pxEngineDOBuffer.array);
 	for (int index = 0; index < pxEngineDOBuffer.size; ++index)
@@ -1014,8 +1014,8 @@ void PXEngineRender( )
 		glClear( GL_COLOR_BUFFER_BIT );
 	}
 
-	PXGLPreRender( );
-	//glPushMatrix( );
+	PXGLPreRender();
+	//glPushMatrix();
 
 #ifdef PX_DEBUG_MODE
 	if (PXDebugIsEnabled(PXDebugSetting_HalveStage))
@@ -1164,8 +1164,8 @@ void PXEngineRender( )
 	}
 #endif
 
-	PXGLPostRender( );
-	PXGLConsolidateBuffers( );
+	PXGLPostRender();
+	PXGLConsolidateBuffers();
 
 	/*
 #ifdef PX_DEBUG_MODE
@@ -1190,9 +1190,9 @@ void PXEngineRender( )
  pxEngineRenderDTAccum = 0.0f;
  */
 
-void PXEngineLogicPhase( )
+void PXEngineLogicPhase()
 {
-	PXEngineDispatchTouchEvents( ); //Touch
+	PXEngineDispatchTouchEvents(); //Touch
 
 	pxEngineLogicTimeAccum += pxEngineMainDT;
 
@@ -1212,12 +1212,12 @@ void PXEngineLogicPhase( )
 		}
 #endif
 
-		PXEngineDispatchFrameEvents( ); //Frame
+		PXEngineDispatchFrameEvents(); //Frame
 		pxEngineLogicTimeAccum -= pxEngineLogicDT;
 	}
 }
 
-void PXEngineRenderPhase( )
+void PXEngineRenderPhase()
 {
 	// If we don't have a render change in time, and 
 	if (!PXMathIsZero(pxEngineRenderDT))
@@ -1241,18 +1241,18 @@ void PXEngineRenderPhase( )
 			}
 #endif
 
-			PXEngineRender( ); //Render
+			PXEngineRender(); //Render
 			pxEngineRenderTimeAccum -= pxEngineRenderDT;
 		}
 	}
 }
 
-void PXEngineOnFrame( )
+void PXEngineOnFrame()
 {
-	PXSoundEngineUpdate( );
+	PXSoundEngineUpdate();
 
-	PXEngineLogicPhase( );
-	PXEngineRenderPhase( );
+	PXEngineLogicPhase();
+	PXEngineRenderPhase();
 
 #ifdef PX_DEBUG_MODE
 	if (PXDebugIsEnabled(PXDebugSetting_CalculateFrameRate))
@@ -1284,16 +1284,16 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 		if (!PX_IS_BIT_ENABLED(displayObject->_flags, _PXDisplayObjectFlags_visible))
 			return;
 
-		if (PXMathIsZero( doScaleX ))
+		if (PXMathIsZero(doScaleX))
 			return;
 
-		if (PXMathIsZero( doScaleY ))
+		if (PXMathIsZero(doScaleY))
 			return;
 
 		// This has been commented out so that display objects with
 		// an alpha of 0.0 can get clicked
 
-		//if ( doAlpha < 0.0001f )
+		//if (doAlpha < 0.0001f)
 		//	return;
 	}	
 

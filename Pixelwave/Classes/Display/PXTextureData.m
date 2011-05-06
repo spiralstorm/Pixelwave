@@ -127,6 +127,18 @@ BOOL pxTextureDataExpandEdges = YES;
 	return self;
 }
 
+- (void) dealloc
+{
+	if (_glName > 0)
+	{
+		PXGLBindTexture(GL_TEXTURE_2D, 0);
+
+		glDeleteTextures( 1, &_glName );
+	}
+
+	[super dealloc];
+}
+
 - (BOOL) _makeGLName
 {
 	if (_glName > 0)
@@ -155,18 +167,6 @@ BOOL pxTextureDataExpandEdges = YES;
 	PXGLBindTexture(GL_TEXTURE_2D, boundTex);
 
 	return YES;
-}
-
-- (void) dealloc
-{
-	if (_glName > 0)
-	{
-		PXGLBindTexture(GL_TEXTURE_2D, 0);
-
-		glDeleteTextures( 1, &_glName );
-	}
-	
-	[super dealloc];
 }
 
 - (id) initWithData:(NSData *)data
