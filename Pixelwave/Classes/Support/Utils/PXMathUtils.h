@@ -64,7 +64,7 @@ extern "C" {
 
 #define PXMathMin(_val1_, _val2_) (((_val1_) < (_val2_)) ? (_val1_) : (_val2_))
 #define PXMathMax(_val1_, _val2_) (((_val1_) > (_val2_)) ? (_val1_) : (_val2_))
-#define PXMathClamp(_val_ , _minVal_ , _maxVal_) ((_val_) = ((_val_) = ((_val_) < (_minVal_) ? (_minVal_) : (_val_))) > (_maxVal_) ? (_maxVal_) : (_val_))
+#define PXMathClamp(_val_, _minVal_, _maxVal_) ((_val_) = ((_val_) = ((_val_) < (_minVal_) ? (_minVal_) : (_val_))) > (_maxVal_) ? (_maxVal_) : (_val_))
 
 #pragma mark -
 #pragma mark Structs

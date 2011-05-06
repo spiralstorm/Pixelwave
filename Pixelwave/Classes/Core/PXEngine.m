@@ -1265,7 +1265,7 @@ void PXEngineOnFrame()
 #pragma mark -
 #pragma mark RENDER
 #pragma mark -
-void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transformationsEnabled , bool canBeUsedForTouches)
+void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transformationsEnabled, bool canBeUsedForTouches)
 {
 	//////////////////////
 	// Quick exit tests //
