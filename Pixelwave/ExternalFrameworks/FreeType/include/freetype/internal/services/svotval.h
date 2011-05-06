@@ -38,7 +38,7 @@ FT_BEGIN_HEADER
                         FT_Bytes         *jstf );
 
 
-  FT_DEFINE_SERVICE( OTvalidate )
+  FT_DEFINE_SERVICE(OTvalidate)
   {
     otv_validate_func  validate;
   };

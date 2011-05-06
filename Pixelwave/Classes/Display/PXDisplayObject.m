@@ -130,8 +130,8 @@ static unsigned _pxDisplayObjectCount = 0;
 		_scaleY = 1.0f;
 		_rotation = 0.0f;
 		
-		PXGLMatrixIdentity( &_matrix );
-		PXGLColorTransformIdentity( &_colorTransform );
+		PXGLMatrixIdentity(&_matrix);
+		PXGLColorTransformIdentity(&_colorTransform);
 		
 		//transform = [[PXTransform alloc] initWithDisplayObject:self];
 		
@@ -257,13 +257,13 @@ static unsigned _pxDisplayObjectCount = 0;
 	
 	float mult = (_matrix.a < 0.0f ? -1.0f : 1.0f);
 	//	mult = 1.0f;
-	_scaleX = sqrtf( _matrix.a * _matrix.a + _matrix.b * _matrix.b ) * mult;
-	_scaleY = sqrtf( _matrix.d * _matrix.d + _matrix.c * _matrix.c ) * (_matrix.d < 0.0f ? -1.0f : 1.0f);
+	_scaleX = sqrtf(_matrix.a * _matrix.a + _matrix.b * _matrix.b) * mult;
+	_scaleY = sqrtf(_matrix.d * _matrix.d + _matrix.c * _matrix.c) * (_matrix.d < 0.0f ? -1.0f : 1.0f);
 	
 	//float det = _matrix.a * _matrix.d - _matrix.b * _matrix.c;
 	//float sX = _scaleX * (det < 0.0f ? -1.0f : 1.0f);
 	float angle = atan2f(_matrix.b, _matrix.a * mult);
-	angle = PXMathToDeg( angle );
+	angle = PXMathToDeg(angle);
 	_rotation = angle * mult;
 }
 - (void) _setColorTransform:(PXGLColorTransform *)ct
@@ -334,20 +334,20 @@ static unsigned _pxDisplayObjectCount = 0;
 {
 	_scaleX = scale;
 
-	float radians = PXMathToRad( _rotation );
+	float radians = PXMathToRad(_rotation);
 
-	_matrix.a = _scaleX * cosf( radians );
-	_matrix.b = _scaleX * sinf( radians );
+	_matrix.a = _scaleX * cosf(radians);
+	_matrix.b = _scaleX * sinf(radians);
 }
 
 - (void) setScaleY:(float)scale
 {
 	_scaleY = scale;
 
-	float radians = PXMathToRad( _rotation );
+	float radians = PXMathToRad(_rotation);
 
-	_matrix.c = -_scaleY *sinf( radians );
-	_matrix.d = _scaleY * cosf( radians );
+	_matrix.c = -_scaleY *sinf(radians);
+	_matrix.d = _scaleY * cosf(radians);
 }
 
 - (float) scaleX
@@ -400,7 +400,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	width = fabsf(width);
 	float neg = (_scaleX < 0.0f ? -1.0f : 1.0f);
 
-	CGRect rect = CGRectMake( 0, 0, 0, 0 );
+	CGRect rect = CGRectMake(0, 0, 0, 0);
 	[self _measureGlobalBounds:&rect];
 
 	float a = 0;
@@ -414,7 +414,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	float b = _matrix.b;
 
 	_matrix.a = a;
-	_scaleX = sqrtf( a * a + b * b ) * neg;
+	_scaleX = sqrtf(a * a + b * b) * neg;
 }
 
 - (void) setHeight:(float)height
@@ -423,7 +423,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	height = fabsf(height);
 	float neg = (_scaleY < 0.0f ? -1.0f : 1.0f);
 
-	CGRect rect = CGRectMake( 0, 0, 0, 0 );
+	CGRect rect = CGRectMake(0, 0, 0, 0);
 	[self _measureGlobalBounds:&rect];
 
 	float d = 0;
@@ -437,7 +437,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	float c = _matrix.c;
 
 	_matrix.d = d;
-	_scaleY = sqrtf( d * d + c * c ) * neg;
+	_scaleY = sqrtf(d * d + c * c) * neg;
 }
 
 - (float) width
@@ -537,7 +537,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	{
 		if ([self multiplyDown:targetCoordinateSpace:displayObject->_parent:matrix])
 		{
-			PXGLMatrixMult( matrix, matrix, &displayObject->_matrix );
+			PXGLMatrixMult(matrix, matrix, &displayObject->_matrix);
 			return YES;
 		}
 	}
@@ -557,18 +557,18 @@ static unsigned _pxDisplayObjectCount = 0;
 - (void) multUp:(PXGLMatrix *)matrix
 {
 	PXGLMatrix matInv;
-	PXGLMatrixIdentity( &matInv );
-	PXGLMatrixMult( &matInv, &matInv, &_matrix );
-	PXGLMatrixInvert( &matInv );
-	PXGLMatrixMult( matrix, matrix, &matInv );
+	PXGLMatrixIdentity(&matInv);
+	PXGLMatrixMult(&matInv, &matInv, &_matrix);
+	PXGLMatrixInvert(&matInv);
+	PXGLMatrixMult(matrix, matrix, &matInv);
 
 	PXDisplayObject *parent = _parent;
 	while (parent && parent->_parent)
 	{
-		PXGLMatrixIdentity( &matInv );
-		PXGLMatrixMult( &matInv, &matInv, &parent->_matrix );
-		PXGLMatrixInvert( &matInv );
-		PXGLMatrixMult( matrix, matrix, &matInv );
+		PXGLMatrixIdentity(&matInv);
+		PXGLMatrixMult(&matInv, &matInv, &parent->_matrix);
+		PXGLMatrixInvert(&matInv);
+		PXGLMatrixMult(matrix, matrix, &matInv);
 
 		parent = parent->_parent;
 	}
@@ -693,7 +693,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	[self _measureGlobalBounds:&bounds];
 
 	PXGLMatrix matrix;
-	PXGLMatrixIdentity( &matrix );
+	PXGLMatrixIdentity(&matrix);
 
 	if (targetCoordinateSpace != self)
 	{
@@ -701,15 +701,15 @@ static unsigned _pxDisplayObjectCount = 0;
 		//[self multDown:&matrix];
 
 		PXGLMatrix m2;
-		PXGLMatrixIdentity( &m2 );
+		PXGLMatrixIdentity(&m2);
 		PXUtilsDisplayObjectMultiplyUp(targetCoordinateSpace, &m2);
 		//[targetCoordinateSpace multUp:&m2];
 
-		PXGLMatrixMult( &matrix, &m2, &matrix );
+		PXGLMatrixMult(&matrix, &m2, &matrix);
 	}
 
 	bounds = PXGLMatrixConvertRect(&matrix, bounds);
-	//PX_GL_CONVERT_RECT_TO_MATRIX( matrix, bounds );
+	//PX_GL_CONVERT_RECT_TO_MATRIX(matrix, bounds);
 
  	return [[[PXRectangle alloc] initWithX:bounds.origin.x y:bounds.origin.y width:bounds.size.width height:bounds.size.height] autorelease];
 }
@@ -966,12 +966,12 @@ static unsigned _pxDisplayObjectCount = 0;
 {
 	// Converts position from parent's coordinate system to self's
 	PXGLMatrix matInv;
-	PXGLMatrixIdentity( &matInv );
-	PXGLMatrixMult( &matInv, &matInv, &_matrix );
-	PXGLMatrixInvert( &matInv );
+	PXGLMatrixIdentity(&matInv);
+	PXGLMatrixMult(&matInv, &matInv, &_matrix);
+	PXGLMatrixInvert(&matInv);
 
 	PXGLMatrixConvertPointv(&matInv, &x, &y);
-	//PX_GL_CONVERT_POINT_TO_MATRIX( matInv, x, y );
+	//PX_GL_CONVERT_POINT_TO_MATRIX(matInv, x, y);
 
 	return [self _hitTestPointWithLocalX:x localY:y shapeFlag:shapeFlag];
 }
@@ -1022,11 +1022,11 @@ static unsigned _pxDisplayObjectCount = 0;
 
 			if (!PXEngineIsInitialized( ))
 			{
-				PXThrow( PXException, @"Can't add enterFrame event before a PXView is created." );
+				PXThrow(PXException, @"Can't add enterFrame event before a PXView is created.");
 				return;
 			}
 
-			PXEngineAddFrameListener( self );
+			PXEngineAddFrameListener(self);
 		}
 	}
 
@@ -1038,7 +1038,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
 	{
 		if ([self hasEventListenerOfType:type])
-			PXEngineRemoveFrameListener( self );
+			PXEngineRemoveFrameListener(self);
 	}
 
 	[super removeEventListenerOfType:type listener:listener useCapture:useCapture];

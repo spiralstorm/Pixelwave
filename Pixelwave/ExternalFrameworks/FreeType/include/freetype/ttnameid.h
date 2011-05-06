@@ -1206,7 +1206,7 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /* Some compilers have a very limited length of identifiers.             */
   /*                                                                       */
-#if defined( __TURBOC__ ) && __TURBOC__ < 0x0410 || defined( __PACIFIC__ )
+#if defined(__TURBOC__ ) && __TURBOC__ < 0x0410 || defined( __PACIFIC__)
 #define HAVE_LIMIT_ON_IDENTS
 #endif
 

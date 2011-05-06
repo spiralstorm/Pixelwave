@@ -35,21 +35,21 @@ FT_BEGIN_HEADER
                        FT_Parameter*  parameters );
 
   typedef void
-  (*FT_Face_DoneFunc)( FT_Face  face );
+  (*FT_Face_DoneFunc)(FT_Face  face);
 
 
   typedef FT_Error
-  (*FT_Size_InitFunc)( FT_Size  size );
+  (*FT_Size_InitFunc)(FT_Size  size);
 
   typedef void
-  (*FT_Size_DoneFunc)( FT_Size  size );
+  (*FT_Size_DoneFunc)(FT_Size  size);
 
 
   typedef FT_Error
-  (*FT_Slot_InitFunc)( FT_GlyphSlot  slot );
+  (*FT_Slot_InitFunc)(FT_GlyphSlot  slot);
 
   typedef void
-  (*FT_Slot_DoneFunc)( FT_GlyphSlot  slot );
+  (*FT_Slot_DoneFunc)(FT_GlyphSlot  slot);
 
 
   typedef FT_Error
@@ -226,14 +226,14 @@ FT_BEGIN_HEADER
    */
 #ifdef FT_CONFIG_OPTION_OLD_INTERNALS
 
-  FT_BASE( FT_Error )
+  FT_BASE(FT_Error)
   ft_stub_set_char_sizes( FT_Size     size,
                           FT_F26Dot6  width,
                           FT_F26Dot6  height,
                           FT_UInt     horz_res,
                           FT_UInt     vert_res );
 
-  FT_BASE( FT_Error )
+  FT_BASE(FT_Error)
   ft_stub_set_pixel_sizes( FT_Size  size,
                            FT_UInt  width,
                            FT_UInt  height );

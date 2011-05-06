@@ -122,55 +122,55 @@ FT_BEGIN_HEADER
   } CFF_DriverRec;
 
 
-  FT_LOCAL( FT_Error )
-  cff_size_init( FT_Size  size );           /* CFF_Size */
+  FT_LOCAL(FT_Error)
+  cff_size_init(FT_Size  size);           /* CFF_Size */
 
-  FT_LOCAL( void )
-  cff_size_done( FT_Size  size );           /* CFF_Size */
+  FT_LOCAL(void)
+  cff_size_done(FT_Size  size);           /* CFF_Size */
 
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   cff_size_request( FT_Size          size,
                     FT_Size_Request  req );
 
 #ifdef TT_CONFIG_OPTION_EMBEDDED_BITMAPS
 
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   cff_size_select( FT_Size   size,
                    FT_ULong  strike_index );
 
 #endif
 
-  FT_LOCAL( void )
-  cff_slot_done( FT_GlyphSlot  slot );
+  FT_LOCAL(void)
+  cff_slot_done(FT_GlyphSlot  slot);
 
-  FT_LOCAL( FT_Error )
-  cff_slot_init( FT_GlyphSlot  slot );
+  FT_LOCAL(FT_Error)
+  cff_slot_init(FT_GlyphSlot  slot);
 
 
   /*************************************************************************/
   /*                                                                       */
   /* Face functions                                                        */
   /*                                                                       */
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   cff_face_init( FT_Stream      stream,
                  FT_Face        face,           /* CFF_Face */
                  FT_Int         face_index,
                  FT_Int         num_params,
                  FT_Parameter*  params );
 
-  FT_LOCAL( void )
-  cff_face_done( FT_Face  face );               /* CFF_Face */
+  FT_LOCAL(void)
+  cff_face_done(FT_Face  face);               /* CFF_Face */
 
 
   /*************************************************************************/
   /*                                                                       */
   /* Driver functions                                                      */
   /*                                                                       */
-  FT_LOCAL( FT_Error )
-  cff_driver_init( FT_Module  module );
+  FT_LOCAL(FT_Error)
+  cff_driver_init(FT_Module  module);
 
-  FT_LOCAL( void )
-  cff_driver_done( FT_Module  module );
+  FT_LOCAL(void)
+  cff_driver_done(FT_Module  module);
 
 
 FT_END_HEADER

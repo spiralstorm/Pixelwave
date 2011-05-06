@@ -61,8 +61,8 @@ FT_BEGIN_HEADER
   /* <InOut>                                                               */
   /*    abitmap :: A pointer to the bitmap structure.                      */
   /*                                                                       */
-  FT_EXPORT( void )
-  FT_Bitmap_New( FT_Bitmap  *abitmap );
+  FT_EXPORT(void)
+  FT_Bitmap_New(FT_Bitmap  *abitmap);
 
 
   /*************************************************************************/
@@ -84,7 +84,7 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    FreeType error code.  0~means success.                             */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Bitmap_Copy( FT_Library        library,
                   const FT_Bitmap  *source,
                   FT_Bitmap        *target);
@@ -122,7 +122,7 @@ FT_BEGIN_HEADER
   /*    If you want to embolden the bitmap owned by a @FT_GlyphSlotRec,    */
   /*    you should call @FT_GlyphSlot_Own_Bitmap on the slot first.        */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Bitmap_Embolden( FT_Library  library,
                       FT_Bitmap*  bitmap,
                       FT_Pos      xStrength,
@@ -162,7 +162,7 @@ FT_BEGIN_HEADER
   /*    The `library' argument is taken to have access to FreeType's       */
   /*    memory handling functions.                                         */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Bitmap_Convert( FT_Library        library,
                      const FT_Bitmap  *source,
                      FT_Bitmap        *target,
@@ -187,8 +187,8 @@ FT_BEGIN_HEADER
   /*    This function is to be used in combination with                    */
   /*    @FT_Bitmap_Embolden.                                               */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
-  FT_GlyphSlot_Own_Bitmap( FT_GlyphSlot  slot );
+  FT_EXPORT(FT_Error)
+  FT_GlyphSlot_Own_Bitmap(FT_GlyphSlot  slot);
 
 
   /*************************************************************************/
@@ -211,7 +211,7 @@ FT_BEGIN_HEADER
   /*    The `library' argument is taken to have access to FreeType's       */
   /*    memory handling functions.                                         */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Bitmap_Done( FT_Library  library,
                   FT_Bitmap  *bitmap );
 

@@ -393,7 +393,7 @@ typedef enum
 
 - (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height precision:(float)precision
 {
-	if (precision < 0.0f || PXMathIsZero( precision ))
+	if (precision < 0.0f || PXMathIsZero(precision))
 		return;
 	else if (precision > 1.0f)
 		precision = 1.0f;
@@ -411,7 +411,7 @@ typedef enum
 
 	float PIM2 = M_PI * 2.0f;
 	float maxPoints = PX_GRAPHICS_GROUP_MAX_POINTS - 2.0f - cGroup.vertsCount;
-	if (maxPoints < 0.0f || PXMathIsZero( maxPoints ))
+	if (maxPoints < 0.0f || PXMathIsZero(maxPoints))
 		return;
 
 	float maxPointsWillAdd = precision * maxPoints;
@@ -421,8 +421,8 @@ typedef enum
 	{
 		for (float angle = addAmount; angle < PIM2; angle += addAmount)
 		{
-			_x = xPWidth + (cosf( angle ) * width);
-			_y = yPHeight + (sinf( angle ) * height);
+			_x = xPWidth + (cosf(angle) * width);
+			_y = yPHeight + (sinf(angle) * height);
 			[self _lineToX:_x y:_y];
 		}
 
@@ -434,21 +434,21 @@ typedef enum
 		int numPointsAdded = 0;
 		for (float angle = addAmount; angle < M_PI; angle += addAmount)
 		{
-			_x = xPWidth + (cosf( angle ) * width);
-			_y = yPHeight + (sinf( angle ) * height);
+			_x = xPWidth + (cosf(angle) * width);
+			_y = yPHeight + (sinf(angle) * height);
 			[self _lineToX:_x y:_y];
 			++numPointsAdded;
 
-			_x = xPWidth + (cosf( -angle ) * width);
-			_y = yPHeight + (sinf( -angle ) * height);
+			_x = xPWidth + (cosf(-angle) * width);
+			_y = yPHeight + (sinf(-angle) * height);
 			[self _lineToX:_x y:_y];
 			++numPointsAdded;
 		}
 
 		if (numPointsAdded < (int)maxPointsWillAdd)
 		{
-			_x = xPWidth + (cosf( M_PI ) * width);
-			_y = yPHeight + (sinf( M_PI ) * height);
+			_x = xPWidth + (cosf(M_PI) * width);
+			_y = yPHeight + (sinf(M_PI) * height);
 			[self _lineToX:_x y:_y];
 		}
 	}
@@ -465,12 +465,12 @@ typedef enum
 
 	//Render the lines
 	//PXGLShadeModel(GL_SMOOTH);
-	//PXGLDisable( GL_TEXTURE_2D );
+	//PXGLDisable(GL_TEXTURE_2D);
 	//PXGLDisable(GL_POINT_SPRITE_OES);
-	//PXGLDisableClientState( GL_TEXTURE_COORD_ARRAY );
-	//PXGLDisableClientState( GL_POINT_SIZE_ARRAY_OES );
-	//PXGLDisableClientState( GL_COLOR_ARRAY );
-	//PXGLColor4ub( 0xFF, 0xFF, 0xFF, 0xFF );
+	//PXGLDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	//PXGLDisableClientState(GL_POINT_SIZE_ARRAY_OES);
+	//PXGLDisableClientState(GL_COLOR_ARRAY);
+	//PXGLColor4ub(0xFF, 0xFF, 0xFF, 0xFF);
 	//return;
 
 	for (PXGraphicsGroup *group in groups)
@@ -479,22 +479,22 @@ typedef enum
 			continue;
 
 		if (group.groupType == PXGraphicsGroup_Lines)
-			PXGLLineWidth( group.lineRadius );
+			PXGLLineWidth(group.lineRadius);
 
-		PXGLColor4ub( group.r, group.g, group.b, group.a );
+		PXGLColor4ub(group.r, group.g, group.b, group.a);
 
-		PXGLVertexPointer( 2, GL_FLOAT, sizeof( PXGLVertex ), group.verts );
+		PXGLVertexPointer(2, GL_FLOAT, sizeof(PXGLVertex), group.verts);
 
 		switch (group.groupType)
 		{
 			case PXGraphicsGroup_Lines:
-				PXGLDrawArrays( GL_LINE_STRIP, 0, group.vertsCount );
+				PXGLDrawArrays(GL_LINE_STRIP, 0, group.vertsCount);
 				break;
 			case PXGraphicsGroup_Triangles:
-				PXGLDrawArrays( GL_TRIANGLES, 0, group.vertsCount );
+				PXGLDrawArrays(GL_TRIANGLES, 0, group.vertsCount);
 				break;
 			case PXGraphicsGroup_TriangleStrip:
-				PXGLDrawArrays( GL_TRIANGLE_STRIP, 0, group.vertsCount );
+				PXGLDrawArrays(GL_TRIANGLE_STRIP, 0, group.vertsCount);
 				break;
 			default:
 				break;
@@ -612,13 +612,13 @@ typedef enum
 			for (index = 2; index < group.vertsCount; ++index)
 			{
 				tri.pointB = PXMathPointMake(point->x, point->y);
-				//PXMathPointSet( tri.pointB, point->x, point->y );
+				//PXMathPointSet(tri.pointB, point->x, point->y);
 
 				point = &group.verts[index];
 				tri.pointC = PXMathPointMake(point->x, point->y);
-				//PXMathPointSet( tri.pointC, point->x, point->y );
+				//PXMathPointSet(tri.pointC, point->x, point->y);
 
-				if (PXMathIsPointInTriangle( &pt, &tri ))
+				if (PXMathIsPointInTriangle(&pt, &tri))
 					return YES;
 			}
 		}
@@ -648,7 +648,7 @@ typedef enum
 				point = &group.verts[index + 1];
 				PXMathPointSet(&(tri.pointC), point->x, point->y );
 
-				if (PXMathIsPointInTriangle( &pt, &tri ))
+				if (PXMathIsPointInTriangle(&pt, &tri))
 					return YES;
 			}
 		}

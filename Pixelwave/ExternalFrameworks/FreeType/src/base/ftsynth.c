@@ -33,15 +33,15 @@
 
   /* documentation is in ftsynth.h */
 
-  FT_EXPORT_DEF( void )
-  FT_GlyphSlot_Oblique( FT_GlyphSlot  slot )
+  FT_EXPORT_DEF(void)
+  FT_GlyphSlot_Oblique(FT_GlyphSlot  slot)
   {
     FT_Matrix    transform;
     FT_Outline*  outline = &slot->outline;
 
 
     /* only oblique outline glyphs */
-    if ( slot->format != FT_GLYPH_FORMAT_OUTLINE )
+    if (slot->format != FT_GLYPH_FORMAT_OUTLINE)
       return;
 
     /* we don't touch the advance width */
@@ -55,7 +55,7 @@
     transform.xy = 0x06000L;
     transform.yy = 0x10000L;
 
-    FT_Outline_Transform( outline, &transform );
+    FT_Outline_Transform(outline, &transform);
   }
 
 
@@ -70,8 +70,8 @@
 
   /* documentation is in ftsynth.h */
 
-  FT_EXPORT_DEF( void )
-  FT_GlyphSlot_Embolden( FT_GlyphSlot  slot )
+  FT_EXPORT_DEF(void)
+  FT_GlyphSlot_Embolden(FT_GlyphSlot  slot)
   {
     FT_Library  library = slot->library;
     FT_Face     face    = slot->face;
@@ -88,9 +88,9 @@
                       face->size->metrics.y_scale ) / 24;
     ystr = xstr;
 
-    if ( slot->format == FT_GLYPH_FORMAT_OUTLINE )
+    if (slot->format == FT_GLYPH_FORMAT_OUTLINE)
     {
-      error = FT_Outline_Embolden( &slot->outline, xstr );
+      error = FT_Outline_Embolden(&slot->outline, xstr);
       /* ignore error */
 
       /* this is more than enough for most glyphs; if you need accurate */
@@ -98,27 +98,27 @@
       xstr = xstr * 2;
       ystr = xstr;
     }
-    else if ( slot->format == FT_GLYPH_FORMAT_BITMAP )
+    else if (slot->format == FT_GLYPH_FORMAT_BITMAP)
     {
       /* round to full pixels */
       xstr &= ~63;
-      if ( xstr == 0 )
+      if (xstr == 0)
         xstr = 1 << 6;
       ystr &= ~63;
 
-      error = FT_GlyphSlot_Own_Bitmap( slot );
-      if ( error )
+      error = FT_GlyphSlot_Own_Bitmap(slot);
+      if (error)
         return;
 
-      error = FT_Bitmap_Embolden( library, &slot->bitmap, xstr, ystr );
-      if ( error )
+      error = FT_Bitmap_Embolden(library, &slot->bitmap, xstr, ystr);
+      if (error)
         return;
     }
 
-    if ( slot->advance.x )
+    if (slot->advance.x)
       slot->advance.x += xstr;
 
-    if ( slot->advance.y )
+    if (slot->advance.y)
       slot->advance.y += ystr;
 
     slot->metrics.width        += xstr;
@@ -129,7 +129,7 @@
     slot->metrics.vertBearingY += ystr;
     slot->metrics.vertAdvance  += ystr;
 
-    if ( slot->format == FT_GLYPH_FORMAT_BITMAP )
+    if (slot->format == FT_GLYPH_FORMAT_BITMAP)
       slot->bitmap_top += ystr >> 6;
   }
 

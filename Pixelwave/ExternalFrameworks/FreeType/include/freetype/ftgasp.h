@@ -108,7 +108,7 @@
    * @since:
    *   2.3.0
    */
-  FT_EXPORT( FT_Int )
+  FT_EXPORT(FT_Int)
   FT_Get_Gasp( FT_Face  face,
                FT_UInt  ppem );
 

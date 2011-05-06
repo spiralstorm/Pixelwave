@@ -487,11 +487,11 @@
 	if ([self isEmpty] || [toIntersect isEmpty])
 		return intersection;
 
-	CGRect rect1 = CGRectMake( x, y, width, height );
-	CGRect rect2 = CGRectMake( toIntersect->x, toIntersect->y, toIntersect->width, toIntersect->height );
-	CGRect rectIntersection = CGRectIntersection( rect1, rect2 );
+	CGRect rect1 = CGRectMake(x, y, width, height);
+	CGRect rect2 = CGRectMake(toIntersect->x, toIntersect->y, toIntersect->width, toIntersect->height);
+	CGRect rectIntersection = CGRectIntersection(rect1, rect2);
 
-	if (CGRectIsNull( rectIntersection ))
+	if (CGRectIsNull(rectIntersection))
 		return intersection;
 
 	intersection->x = rectIntersection.origin.x;
@@ -614,9 +614,9 @@
 
 	CGRect rect1 = CGRectMake(x, y, width, height);
 	CGRect rect2 = PXRectangleToCGRect(toUnion);
-	CGRect rectUnion = CGRectUnion( rect1, rect2 );
+	CGRect rectUnion = CGRectUnion(rect1, rect2);
 
-	if (CGRectIsNull( rectUnion ))
+	if (CGRectIsNull(rectUnion))
 		return retUnion;
 
 	retUnion->x = rectUnion.origin.x;

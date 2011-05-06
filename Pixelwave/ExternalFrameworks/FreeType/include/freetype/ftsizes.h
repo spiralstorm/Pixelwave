@@ -96,7 +96,7 @@ FT_BEGIN_HEADER
   /*    for upcoming calls to @FT_Set_Pixel_Sizes, @FT_Set_Char_Size,      */
   /*    @FT_Load_Glyph, @FT_Load_Char, etc.                                */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_New_Size( FT_Face   face,
                FT_Size*  size );
 
@@ -117,8 +117,8 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    FreeType error code.  0~means success.                             */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
-  FT_Done_Size( FT_Size  size );
+  FT_EXPORT(FT_Error)
+  FT_Done_Size(FT_Size  size);
 
 
   /*************************************************************************/
@@ -145,8 +145,8 @@ FT_BEGIN_HEADER
   /*    If `face' is the size's parent face object, this function changes  */
   /*    the value of `face->size' to the input size handle.                */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
-  FT_Activate_Size( FT_Size  size );
+  FT_EXPORT(FT_Error)
+  FT_Activate_Size(FT_Size  size);
 
   /* */
 

@@ -267,10 +267,10 @@ void PXEngineInit(PXView *view)
 	// Rendering System //
 	//////////////////////
 
-	PXGLInit( pxEngineViewSize.width, pxEngineViewSize.height, contentScaleFactor );
+	PXGLInit(pxEngineViewSize.width, pxEngineViewSize.height, contentScaleFactor);
 
 	// Create a frame buffer to use for renderToTexture
-	glGenFramebuffersOES( 1, &pxEngineRTTFBO );
+	glGenFramebuffersOES(1, &pxEngineRTTFBO);
 
 	////////////
 	// Events //
@@ -320,7 +320,7 @@ void PXEngineInit(PXView *view)
 
 	// Create the root
 	PXSprite *defaultRoot = [PXSprite new];
-	PXEngineSetRoot( defaultRoot );
+	PXEngineSetRoot(defaultRoot);
 	[defaultRoot release];
 
 	//PXSoundEngineInit();
@@ -365,7 +365,7 @@ void PXEngineDealloc( )
 
 	// Get rid of the render-to-texture buffer
 	if (pxEngineRTTFBO != 0)
-		glDeleteFramebuffersOES( 1, &pxEngineRTTFBO );
+		glDeleteFramebuffersOES(1, &pxEngineRTTFBO);
 	pxEngineRTTFBO = 0;
 
 	PXGLDealloc( );
@@ -380,7 +380,7 @@ void PXEngineDealloc( )
 		for (int index = 0; index < pxEngineDOBuffer.size; ++index)
 			[pxEngineDOBuffer.array[index] release];
 
-		free( pxEngineDOBuffer.array );
+		free(pxEngineDOBuffer.array);
 		pxEngineDOBuffer.array = 0;
 	}
 
@@ -481,7 +481,7 @@ void PXEngineSetMultiTouchEnabled(BOOL enabled)
 	pxEngineView.multipleTouchEnabled = enabled;
 }
 
-void PXEngineSetRoot( PXDisplayObject *root )
+void PXEngineSetRoot(PXDisplayObject *root)
 {
 	if (!root)
 		return;
@@ -511,7 +511,7 @@ BOOL PXEngineIsInitialized( )
 
 #pragma mark Clearing the screen
 
-void PXEngineSetClearScreen( BOOL clear )
+void PXEngineSetClearScreen(BOOL clear)
 {
 	pxEngineShouldClear = clear;
 }
@@ -531,12 +531,12 @@ PXColor3f PXEngineGetClearColor()
 }
 
 /*
-void PXEngineSetTimerInterval( float seconds )
+void PXEngineSetTimerInterval(float seconds)
 {
 	[pxEngine startAnimationWithInterval:1.0f / seconds];
 }
 
-void PXEngineSetTimerStep( float dt )
+void PXEngineSetTimerStep(float dt)
 {
 	pxEngineRenderDT = dt;
 	pxEngineRenderDTAccum = 0.0f;
@@ -1009,9 +1009,9 @@ void PXEngineRender()
 
 	if (pxEngineShouldClear)
 	{
-		//glClearColor( pxEngineStage->_bgColorR, pxEngineStage->_bgColorG, pxEngineStage->_bgColorB, 1.0f );
+		//glClearColor(pxEngineStage->_bgColorR, pxEngineStage->_bgColorG, pxEngineStage->_bgColorB, 1.0f);
 		glClearColor(pxEngineClearColor.r, pxEngineClearColor.g, pxEngineClearColor.b, 1.0f);
-		glClear( GL_COLOR_BUFFER_BIT );
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	PXGLPreRender();
@@ -1092,10 +1092,10 @@ void PXEngineRender()
 			locs[6] = aabb.xMax; locs[7] = aabb.yMin;
 			
 			PXGLShadeModel(GL_SMOOTH);
-			PXGLDisable( GL_TEXTURE_2D );
-			PXGLColor4ub( 0xFF, 0, 0, 0xFF );
-			PXGLVertexPointer( 2, GL_FLOAT, 0, locs );
-			PXGLDrawArrays( GL_LINE_LOOP, 0, 4 );
+			PXGLDisable(GL_TEXTURE_2D);
+			PXGLColor4ub(0xFF, 0, 0, 0xFF);
+			PXGLVertexPointer(2, GL_FLOAT, 0, locs);
+			PXGLDrawArrays(GL_LINE_LOOP, 0, 4);
 		}
 	}
 
@@ -1328,14 +1328,14 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 
 		// Matrix Transform
 		//Should translate, scale or rotate
-		if (!PXMathIsZero( doX ) ||
-			!PXMathIsZero( doY ) ||
-		    !PXMathIsOne( doScaleX ) ||
-			!PXMathIsOne( doScaleY ) ||
-		    !PXMathIsZero( doRotation ))
+		if (!PXMathIsZero(doX) ||
+			!PXMathIsZero(doY) ||
+		    !PXMathIsOne(doScaleX) ||
+			!PXMathIsOne(doScaleY) ||
+		    !PXMathIsZero(doRotation))
 		{
 			PXGLPushMatrix( );
-			PXGLMultMatrix( &displayObject->_matrix );
+			PXGLMultMatrix(&displayObject->_matrix);
 
 			matrixPushed = true;
 		}
@@ -1354,7 +1354,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 			colorTransform.alphaMultiplier = doAlpha;
 
 			PXGLPushColorTransform( );
-			PXGLSetColorTransform( &colorTransform );
+			PXGLSetColorTransform(&colorTransform);
 
 			transformPushed = true;
 		}
@@ -1398,7 +1398,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 		}
 
 		PXGLResetStates(displayObject->_glState);
-		displayObject->_impRenderGL( displayObject, nil );
+		displayObject->_impRenderGL(displayObject, nil);
 
 		// Popping the matrix, please see the above comment.
 		if (isCustomOrManaged)
@@ -1409,7 +1409,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 		// This is like popping the color transform of the display object. It
 		// resets the color to the previous color on the stack (that was set
 		// before they called 'color4f, or color4ub').
-		PXGLColor4ub( 0xFF, 0xFF, 0xFF, 0xFF );
+		PXGLColor4ub(0xFF, 0xFF, 0xFF, 0xFF);
 
 		// Grab the current AABB of the drawn display object (only itself, not
 		// it's children).
@@ -1502,18 +1502,18 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 		PXDisplayObject *child = container->_childrenHead;
 		//Byte count = 32
 
-		container->_impPreChildRenderGL( container, nil );
+		container->_impPreChildRenderGL(container, nil);
 
 		unsigned index;
 		//Byte count = 36
 		for (index = 0; index < container->_numChildren; ++index)
 		{
-			PXEngineRenderDisplayObject( child, true, canBeUsedForTouches );
+			PXEngineRenderDisplayObject(child, true, canBeUsedForTouches);
 
 			child = child->_next;
 		}
 
-		container->_impPostChildRenderGL( container, nil );
+		container->_impPostChildRenderGL(container, nil);
 	}
 	// Byte count = 24
 
@@ -1531,7 +1531,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 }
 
 // clipRect is defined in POINTS
-void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *source, PXGLMatrix *matrix, PXGLColorTransform *colorTransform, CGRect *clipRect, BOOL smoothing, BOOL clearTexture )
+void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source, PXGLMatrix *matrix, PXGLColorTransform *colorTransform, CGRect *clipRect, BOOL smoothing, BOOL clearTexture)
 {
 	if (!textureData)
 	{
@@ -1553,11 +1553,11 @@ void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *sourc
 	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineRTTFBO);
 
 	// Bind the texture to the buffer
-	glFramebufferTexture2DOES( GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, textureData->_glName, 0 );
+	glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, textureData->_glName, 0);
 
 #ifdef PX_DEBUG_MODE
 	// Make sure the buffer is bound properly
-	GLenum status = glCheckFramebufferStatusOES( GL_FRAMEBUFFER_OES );
+	GLenum status = glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES);
 
 	if (status != GL_FRAMEBUFFER_COMPLETE_OES)
 	{
@@ -1622,12 +1622,12 @@ void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *sourc
 		PXGLSetViewSize(textureDataSizeInPoints.width, textureDataSizeInPoints.height, textureDataScaleFactor, false);//PXGLGetContentScaleFactor());
 
 		// in POINTS
-		PXGLClipRect( 0, 0, textureDataSizeInPoints.width, textureDataSizeInPoints.height );
+		PXGLClipRect(0, 0, textureDataSizeInPoints.width, textureDataSizeInPoints.height);
 	}
 	
 	if (bShouldClip)
 	{
-		glEnable( GL_SCISSOR_TEST );
+		glEnable(GL_SCISSOR_TEST);
 		// Takes in coordinates in PIXELS
 		glScissor(clipRect->origin.x	* textureDataScaleFactor,	// in PIXELS
 				  clipRect->origin.y	* textureDataScaleFactor,	// in PIXELS
@@ -1641,15 +1641,15 @@ void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *sourc
 
 	if (matrix)
 	{
-		PXGLMultMatrix( matrix );
+		PXGLMultMatrix(matrix);
 	}
 
 	if (colorTransform)
 	{
-		PXGLSetColorTransform( colorTransform );
+		PXGLSetColorTransform(colorTransform);
 	}
 
-	assert( pxEngineDOBuffer.array );
+	assert(pxEngineDOBuffer.array);
 
 	// Clear the TextureData if the user asked
 	if (clearTexture)
@@ -1663,26 +1663,26 @@ void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *sourc
 		float b = (float)((fillColor) & 0xFF) * div;
 
 		glClearColor(r, g, b, a);
-		glClear( GL_COLOR_BUFFER_BIT );
+		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
 	// Offset in POINTS
-	PXGLScale( 1.0f, -1.0f );
+	PXGLScale(1.0f, -1.0f);
 
 	if (bAlterViewport)
 	{
-		PXGLTranslate( 0, textureDataSizeInPoints.height );
+		PXGLTranslate(0, textureDataSizeInPoints.height);
 	}
 	else
 	{
-		PXGLTranslate( 0, pxEngineViewSize.height );
+		PXGLTranslate(0, pxEngineViewSize.height);
 	}
 
 	////////////
 	// RENDER //
 	////////////
 
-	PXEngineRenderDisplayObject( source, false, false );
+	PXEngineRenderDisplayObject(source, false, false);
 
 	// Flush anything, render any queued up commands
 	PXGLPostRender( );
@@ -1699,15 +1699,15 @@ void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *sourc
 	}
 
 	// in POINTS
-	PXGLClipRect( 0, 0, pxEngineViewSize.width, pxEngineViewSize.height );
+	PXGLClipRect(0, 0, pxEngineViewSize.width, pxEngineViewSize.height);
 
 	if (bShouldClip)
 	{
-		glDisable( GL_SCISSOR_TEST );
+		glDisable(GL_SCISSOR_TEST);
 	}
 
 	// Switch back to main buffer
-	PXGLBindFramebuffer( GL_FRAMEBUFFER_OES, pxEngineView->_pxViewFramebuffer );
+	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineView->_pxViewFramebuffer);
 }
 
 #pragma mark Extracting Pixel Data
@@ -1893,14 +1893,14 @@ void PXEngineInvokeTouchBegan(UITouch *touch, CGPoint *pos)
 	[pxEngineSavedTouchEvents addObject:event];
 	[event release];
 }
-void PXEngineInvokeTouchMoved( UITouch *touch, CGPoint *pos )
+void PXEngineInvokeTouchMoved(UITouch *touch, CGPoint *pos)
 {
 	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PXTouchEvent_TouchMove, YES);
 	[pxEngineTouchEvents addObject:event];
 	[event release];
 }
 
-void PXEngineInvokeTouchEnded( UITouch *touch, CGPoint *pos )
+void PXEngineInvokeTouchEnded(UITouch *touch, CGPoint *pos)
 {
 	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PXTouchEvent_TouchUp, YES);
 	[pxEngineTouchEvents addObject:event];
@@ -1941,7 +1941,7 @@ void PXEngineInvokeTouchEnded( UITouch *touch, CGPoint *pos )
 		}
 	}
 }
-void PXEngineInvokeTouchCanceled( UITouch *touch )
+void PXEngineInvokeTouchCanceled(UITouch *touch)
 {
 	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, nil, PXTouchEvent_TouchCancel, YES);
 	[pxEngineTouchEvents addObject:event];
@@ -2091,7 +2091,7 @@ float _PXEngineDBGGetTimeWaiting()
 - (void) updateMainLoopInterval
 {
 	/*
-	if (PXMathIsZero( interval ))
+	if (PXMathIsZero(interval))
 		return;
 
 	pxEngineMainDT = interval;

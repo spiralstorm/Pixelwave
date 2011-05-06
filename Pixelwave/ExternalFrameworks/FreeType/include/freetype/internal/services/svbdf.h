@@ -39,7 +39,7 @@ FT_BEGIN_HEADER
                              BDF_PropertyRec  *aproperty );
 
 
-  FT_DEFINE_SERVICE( BDF )
+  FT_DEFINE_SERVICE(BDF)
   {
     FT_BDF_GetCharsetIdFunc  get_charset_id;
     FT_BDF_GetPropertyFunc   get_property;

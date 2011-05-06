@@ -355,17 +355,17 @@
 
 	// Enable the texture, and draw the vertices with the correct color.
 //	PXGLShadeModel(GL_SMOOTH);
-	PXGLEnable( GL_TEXTURE_2D );
-	PXGLEnableClientState( GL_TEXTURE_COORD_ARRAY );
-//	PXGLDisableClientState( GL_POINT_SIZE_ARRAY_OES );
+	PXGLEnable(GL_TEXTURE_2D);
+	PXGLEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	PXGLDisableClientState(GL_POINT_SIZE_ARRAY_OES);
 
 	if (enableColors)
 	{
-		PXGLEnableClientState( GL_COLOR_ARRAY );
+		PXGLEnableClientState(GL_COLOR_ARRAY);
 	}
 	else
 	{
-		PXGLDisableClientState( GL_COLOR_ARRAY );
+		PXGLDisableClientState(GL_COLOR_ARRAY);
 	}
 
 	NSEnumerator *enumerator = [glNameToTextureGlyphBatch objectEnumerator];

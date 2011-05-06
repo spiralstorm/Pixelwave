@@ -195,7 +195,7 @@
 #define PNG_ROWBYTES(pixel_bits, width) \
     ((pixel_bits) >= 8 ? \
     ((png_size_t)(width) * (((png_size_t)(pixel_bits)) >> 3)) : \
-    (( ((png_size_t)(width) * ((png_size_t)(pixel_bits))) + 7) >> 3) )
+    ((((png_size_t)(width) * ((png_size_t)(pixel_bits))) + 7) >> 3))
 
 /* PNG_OUT_OF_RANGE returns true if value is outside the range
  * ideal-delta..ideal+delta.  Each argument is evaluated twice.
@@ -203,7 +203,7 @@
  * integers, "value" a variable. Added to libpng-1.2.6 JB
  */
 #define PNG_OUT_OF_RANGE(value, ideal, delta) \
-        ( (value) < (ideal)-(delta) || (value) > (ideal)+(delta) )
+        ((value) < (ideal)-(delta) || (value) > (ideal)+(delta))
 
 /* Constant strings for known chunk types.  If you need to add a chunk,
  * define the name here, and add an invocation of the macro wherever it's

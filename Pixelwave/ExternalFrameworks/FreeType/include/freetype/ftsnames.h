@@ -122,8 +122,8 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    The number of strings in the `name' table.                         */
   /*                                                                       */
-  FT_EXPORT( FT_UInt )
-  FT_Get_Sfnt_Name_Count( FT_Face  face );
+  FT_EXPORT(FT_UInt)
+  FT_Get_Sfnt_Name_Count(FT_Face  face);
 
 
   /*************************************************************************/
@@ -153,7 +153,7 @@ FT_BEGIN_HEADER
   /*    `name' table entries, then do a loop until you get the right       */
   /*    platform, encoding, and name ID.                                   */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Get_Sfnt_Name( FT_Face       face,
                     FT_UInt       idx,
                     FT_SfntName  *aname );

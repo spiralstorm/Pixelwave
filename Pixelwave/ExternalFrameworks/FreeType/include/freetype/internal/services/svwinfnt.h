@@ -33,7 +33,7 @@ FT_BEGIN_HEADER
                               FT_WinFNT_HeaderRec  *aheader );
 
 
-  FT_DEFINE_SERVICE( WinFnt )
+  FT_DEFINE_SERVICE(WinFnt)
   {
     FT_WinFnt_GetHeaderFunc  get_header;
   };

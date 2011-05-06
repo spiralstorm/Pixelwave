@@ -50,31 +50,31 @@
 
   /* documentation is in ftdebug.h */
 
-  FT_BASE_DEF( void )
-  FT_Message( const char*  fmt, ... )
+  FT_BASE_DEF(void)
+  FT_Message(const char*  fmt, ...)
   {
     va_list  ap;
 
 
-    va_start( ap, fmt );
-    vfprintf( stderr, fmt, ap );
-    va_end( ap );
+    va_start(ap, fmt);
+    vfprintf(stderr, fmt, ap);
+    va_end(ap);
   }
 
 
   /* documentation is in ftdebug.h */
 
-  FT_BASE_DEF( void )
-  FT_Panic( const char*  fmt, ... )
+  FT_BASE_DEF(void)
+  FT_Panic(const char*  fmt, ...)
   {
     va_list  ap;
 
 
-    va_start( ap, fmt );
-    vfprintf( stderr, fmt, ap );
-    va_end( ap );
+    va_start(ap, fmt);
+    vfprintf(stderr, fmt, ap);
+    va_end(ap);
 
-    exit( EXIT_FAILURE );
+    exit(EXIT_FAILURE);
   }
 
 #endif /* FT_DEBUG_LEVEL_ERROR */
@@ -88,7 +88,7 @@
 
 
   /* define array of trace toggle names */
-#define FT_TRACE_DEF( x )  #x ,
+#define FT_TRACE_DEF(x)  #x ,
 
   static const char*  ft_trace_toggles[trace_count + 1] =
   {
@@ -101,8 +101,8 @@
 
   /* documentation is in ftdebug.h */
 
-  FT_BASE_DEF( FT_Int )
-  FT_Trace_Get_Count( void )
+  FT_BASE_DEF(FT_Int)
+  FT_Trace_Get_Count(void)
   {
     return trace_count;
   }
@@ -110,13 +110,13 @@
 
   /* documentation is in ftdebug.h */
 
-  FT_BASE_DEF( const char * )
-  FT_Trace_Get_Name( FT_Int  idx )
+  FT_BASE_DEF(const char *)
+  FT_Trace_Get_Name(FT_Int  idx)
   {
     int  max = FT_Trace_Get_Count();
 
 
-    if ( idx < max )
+    if (idx < max)
       return ft_trace_toggles[idx];
     else
       return NULL;
@@ -141,47 +141,47 @@
   /* The level must be between 0 and 7; 0 means quiet (except for serious  */
   /* runtime errors), and 7 means _very_ verbose.                          */
   /*                                                                       */
-  FT_BASE_DEF( void )
-  ft_debug_init( void )
+  FT_BASE_DEF(void)
+  ft_debug_init(void)
   {
-    const char*  ft2_debug = getenv( "FT2_DEBUG" );
+    const char*  ft2_debug = getenv("FT2_DEBUG");
 
 
-    if ( ft2_debug )
+    if (ft2_debug)
     {
       const char*  p = ft2_debug;
       const char*  q;
 
 
-      for ( ; *p; p++ )
+      for (; *p; p++)
       {
         /* skip leading whitespace and separators */
-        if ( *p == ' ' || *p == '\t' || *p == ',' || *p == ';' || *p == '=' )
+        if (*p == ' ' || *p == '\t' || *p == ',' || *p == ';' || *p == '=')
           continue;
 
         /* read toggle name, followed by ':' */
         q = p;
-        while ( *p && *p != ':' )
+        while (*p && *p != ':')
           p++;
 
-        if ( *p == ':' && p > q )
+        if (*p == ':' && p > q)
         {
-          FT_Int  n, i, len = (FT_Int)( p - q );
+          FT_Int  n, i, len = (FT_Int)(p - q);
           FT_Int  level = -1, found = -1;
 
 
-          for ( n = 0; n < trace_count; n++ )
+          for (n = 0; n < trace_count; n++)
           {
             const char*  toggle = ft_trace_toggles[n];
 
 
-            for ( i = 0; i < len; i++ )
+            for (i = 0; i < len; i++)
             {
-              if ( toggle[i] != q[i] )
+              if (toggle[i] != q[i])
                 break;
             }
 
-            if ( i == len && toggle[i] == 0 )
+            if (i == len && toggle[i] == 0)
             {
               found = n;
               break;
@@ -190,19 +190,19 @@
 
           /* read level */
           p++;
-          if ( *p )
+          if (*p)
           {
             level = *p++ - '0';
-            if ( level < 0 || level > 7 )
+            if (level < 0 || level > 7)
               level = -1;
           }
 
-          if ( found >= 0 && level >= 0 )
+          if (found >= 0 && level >= 0)
           {
-            if ( found == trace_any )
+            if (found == trace_any)
             {
               /* special case for `any' */
-              for ( n = 0; n < trace_count; n++ )
+              for (n = 0; n < trace_count; n++)
                 ft_trace_levels[n] = level;
             }
             else
@@ -217,24 +217,24 @@
 #else  /* !FT_DEBUG_LEVEL_TRACE */
 
 
-  FT_BASE_DEF( void )
-  ft_debug_init( void )
+  FT_BASE_DEF(void)
+  ft_debug_init(void)
   {
     /* nothing */
   }
 
 
-  FT_BASE_DEF( FT_Int )
-  FT_Trace_Get_Count( void )
+  FT_BASE_DEF(FT_Int)
+  FT_Trace_Get_Count(void)
   {
     return 0;
   }
 
 
-  FT_BASE_DEF( const char * )
-  FT_Trace_Get_Name( FT_Int  idx )
+  FT_BASE_DEF(const char *)
+  FT_Trace_Get_Name(FT_Int  idx)
   {
-    FT_UNUSED( idx );
+    FT_UNUSED(idx);
 
     return NULL;
   }

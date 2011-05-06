@@ -69,11 +69,11 @@
   }
 
 
-#define CHECK_X( p, bbox )  \
-          ( p->x < bbox.xMin || p->x > bbox.xMax )
+#define CHECK_X(p, bbox)  \
+          (p->x < bbox.xMin || p->x > bbox.xMax)
 
-#define CHECK_Y( p, bbox )  \
-          ( p->y < bbox.yMin || p->y > bbox.yMax )
+#define CHECK_Y(p, bbox)  \
+          (p->y < bbox.yMin || p->y > bbox.yMax)
 
 
   /*************************************************************************/
@@ -105,17 +105,17 @@
                     FT_Pos*  min,
                     FT_Pos*  max )
   {
-    if ( y1 <= y3 && y2 == y1 )     /* flat arc */
+    if (y1 <= y3 && y2 == y1)     /* flat arc */
       goto Suite;
 
-    if ( y1 < y3 )
+    if (y1 < y3)
     {
-      if ( y2 >= y1 && y2 <= y3 )   /* ascending arc */
+      if (y2 >= y1 && y2 <= y3)   /* ascending arc */
         goto Suite;
     }
     else
     {
-      if ( y2 >= y3 && y2 <= y1 )   /* descending arc */
+      if (y2 >= y3 && y2 <= y1)   /* descending arc */
       {
         y2 = y1;
         y1 = y3;
@@ -124,11 +124,11 @@
       }
     }
 
-    y1 = y3 = y1 - FT_MulDiv( y2 - y1, y2 - y1, y1 - 2*y2 + y3 );
+    y1 = y3 = y1 - FT_MulDiv(y2 - y1, y2 - y1, y1 - 2*y2 + y3);
 
   Suite:
-    if ( y1 < *min ) *min = y1;
-    if ( y3 > *max ) *max = y3;
+    if (y1 < *min) *min = y1;
+    if (y3 > *max) *max = y3;
   }
 
 
@@ -166,14 +166,14 @@
     /* we don't need to check `to' since it is always an `on' point, thus */
     /* within the bbox                                                    */
 
-    if ( CHECK_X( control, user->bbox ) )
+    if (CHECK_X(control, user->bbox))
       BBox_Conic_Check( user->last.x,
                         control->x,
                         to->x,
                         &user->bbox.xMin,
                         &user->bbox.xMax );
 
-    if ( CHECK_Y( control, user->bbox ) )
+    if (CHECK_Y(control, user->bbox))
       BBox_Conic_Check( user->last.y,
                         control->y,
                         to->y,
@@ -239,19 +239,19 @@
       FT_Pos  y4 = arc[3];
 
 
-      if ( y1 == y4 )
+      if (y1 == y4)
       {
-        if ( y1 == y2 && y1 == y3 )                         /* flat */
+        if (y1 == y2 && y1 == y3)                         /* flat */
           goto Test;
       }
-      else if ( y1 < y4 )
+      else if (y1 < y4)
       {
-        if ( y2 >= y1 && y2 <= y4 && y3 >= y1 && y3 <= y4 ) /* ascending */
+        if (y2 >= y1 && y2 <= y4 && y3 >= y1 && y3 <= y4) /* ascending */
           goto Test;
       }
       else
       {
-        if ( y2 >= y4 && y2 <= y1 && y3 >= y4 && y3 <= y1 ) /* descending */
+        if (y2 >= y4 && y2 <= y1 && y3 >= y4 && y3 <= y1) /* descending */
         {
           y2 = y1;
           y1 = y4;
@@ -262,24 +262,24 @@
 
       /* unknown direction -- split the arc in two */
       arc[6] = y4;
-      arc[1] = y1 = ( y1 + y2 ) / 2;
-      arc[5] = y4 = ( y4 + y3 ) / 2;
-      y2 = ( y2 + y3 ) / 2;
-      arc[2] = y1 = ( y1 + y2 ) / 2;
-      arc[4] = y4 = ( y4 + y2 ) / 2;
-      arc[3] = ( y1 + y4 ) / 2;
+      arc[1] = y1 = (y1 + y2) / 2;
+      arc[5] = y4 = (y4 + y3) / 2;
+      y2 = (y2 + y3) / 2;
+      arc[2] = y1 = (y1 + y2) / 2;
+      arc[4] = y4 = (y4 + y2) / 2;
+      arc[3] = (y1 + y4) / 2;
 
       arc += 3;
       goto Suite;
 
    Test:
-      if ( y1 < *min ) *min = y1;
-      if ( y4 > *max ) *max = y4;
+      if (y1 < *min) *min = y1;
+      if (y4 > *max) *max = y4;
       arc -= 3;
 
     Suite:
       ;
-    } while ( arc >= stack );
+    } while (arc >= stack);
   }
 
 #else
@@ -300,7 +300,7 @@
     FT_Pos    y;
     FT_Fixed  uu;
 
-    FT_UNUSED ( y4 );
+    FT_UNUSED (y4);
 
 
     /* The polynomial is                      */
@@ -317,13 +317,13 @@
     /*                                        */
     /*   P(u) = b*u^2 + 2c*u + d            . */
 
-    if ( u > 0 && u < 0x10000L )
+    if (u > 0 && u < 0x10000L)
     {
-      uu = FT_MulFix( u, u );
-      y  = d + FT_MulFix( c, 2*u ) + FT_MulFix( b, uu );
+      uu = FT_MulFix(u, u);
+      y  = d + FT_MulFix(c, 2*u ) + FT_MulFix( b, uu);
 
-      if ( y < *min ) *min = y;
-      if ( y > *max ) *max = y;
+      if (y < *min) *min = y;
+      if (y > *max) *max = y;
     }
   }
 
@@ -337,23 +337,23 @@
                     FT_Pos*  max )
   {
     /* always compare first and last points */
-    if      ( y1 < *min )  *min = y1;
-    else if ( y1 > *max )  *max = y1;
+    if      (y1 < *min)  *min = y1;
+    else if (y1 > *max)  *max = y1;
 
-    if      ( y4 < *min )  *min = y4;
-    else if ( y4 > *max )  *max = y4;
+    if      (y4 < *min)  *min = y4;
+    else if (y4 > *max)  *max = y4;
 
     /* now, try to see if there are split points here */
-    if ( y1 <= y4 )
+    if (y1 <= y4)
     {
       /* flat or ascending arc test */
-      if ( y1 <= y2 && y2 <= y4 && y1 <= y3 && y3 <= y4 )
+      if (y1 <= y2 && y2 <= y4 && y1 <= y3 && y3 <= y4)
         return;
     }
     else /* y1 > y4 */
     {
       /* descending arc test */
-      if ( y1 >= y2 && y2 >= y4 && y1 >= y3 && y3 >= y4 )
+      if (y1 >= y2 && y2 >= y4 && y1 >= y3 && y3 >= y4)
         return;
     }
 
@@ -399,10 +399,10 @@
         /* We begin by computing `t1' as the bitwise `OR' of the     */
         /* absolute values of `a', `b', `c'.                         */
 
-        t1  = (FT_ULong)( ( a >= 0 ) ? a : -a );
-        t2  = (FT_ULong)( ( b >= 0 ) ? b : -b );
+        t1  = (FT_ULong)((a >= 0) ? a : -a);
+        t2  = (FT_ULong)((b >= 0) ? b : -b);
         t1 |= t2;
-        t2  = (FT_ULong)( ( c >= 0 ) ? c : -c );
+        t2  = (FT_ULong)((c >= 0) ? c : -c);
         t1 |= t2;
 
         /* Now we can be sure that the most significant bit of `t1'  */
@@ -427,17 +427,17 @@
         /* 16 bits when computing the extrema (the zeros need to     */
         /* be in 0..1 exclusive to be considered part of the arc).   */
 
-        if ( t1 == 0 )  /* all coefficients are 0! */
+        if (t1 == 0)  /* all coefficients are 0! */
           return;
 
-        if ( t1 > 0x7FFFFFUL )
+        if (t1 > 0x7FFFFFUL)
         {
           do
           {
             shift++;
             t1 >>= 1;
 
-          } while ( t1 > 0x7FFFFFUL );
+          } while (t1 > 0x7FFFFFUL);
 
           /* this loses some bits of precision, but we use 24 of them */
           /* for the computation anyway                               */
@@ -445,14 +445,14 @@
           b >>= shift;
           c >>= shift;
         }
-        else if ( t1 < 0x400000UL )
+        else if (t1 < 0x400000UL)
         {
           do
           {
             shift++;
             t1 <<= 1;
 
-          } while ( t1 < 0x400000UL );
+          } while (t1 < 0x400000UL);
 
           a <<= shift;
           b <<= shift;
@@ -461,36 +461,36 @@
       }
 
       /* handle a == 0 */
-      if ( a == 0 )
+      if (a == 0)
       {
-        if ( b != 0 )
+        if (b != 0)
         {
-          t = - FT_DivFix( c, b ) / 2;
-          test_cubic_extrema( y1, y2, y3, y4, t, min, max );
+          t = - FT_DivFix(c, b) / 2;
+          test_cubic_extrema(y1, y2, y3, y4, t, min, max);
         }
       }
       else
       {
         /* solve the equation now */
-        d = FT_MulFix( b, b ) - FT_MulFix( a, c );
-        if ( d < 0 )
+        d = FT_MulFix(b, b ) - FT_MulFix( a, c);
+        if (d < 0)
           return;
 
-        if ( d == 0 )
+        if (d == 0)
         {
           /* there is a single split point at -b/a */
-          t = - FT_DivFix( b, a );
-          test_cubic_extrema( y1, y2, y3, y4, t, min, max );
+          t = - FT_DivFix(b, a);
+          test_cubic_extrema(y1, y2, y3, y4, t, min, max);
         }
         else
         {
           /* there are two solutions; we need to filter them */
-          d = FT_SqrtFixed( (FT_Int32)d );
-          t = - FT_DivFix( b - d, a );
-          test_cubic_extrema( y1, y2, y3, y4, t, min, max );
+          d = FT_SqrtFixed((FT_Int32)d);
+          t = - FT_DivFix(b - d, a);
+          test_cubic_extrema(y1, y2, y3, y4, t, min, max);
 
-          t = - FT_DivFix( b + d, a );
-          test_cubic_extrema( y1, y2, y3, y4, t, min, max );
+          t = - FT_DivFix(b + d, a);
+          test_cubic_extrema(y1, y2, y3, y4, t, min, max);
         }
       }
     }
@@ -536,8 +536,8 @@
     /* we don't need to check `to' since it is always an `on' point, thus */
     /* within the bbox                                                    */
 
-    if ( CHECK_X( control1, user->bbox ) ||
-         CHECK_X( control2, user->bbox ) )
+    if (CHECK_X( control1, user->bbox) ||
+         CHECK_X(control2, user->bbox ))
       BBox_Cubic_Check( user->last.x,
                         control1->x,
                         control2->x,
@@ -545,8 +545,8 @@
                         &user->bbox.xMin,
                         &user->bbox.xMax );
 
-    if ( CHECK_Y( control1, user->bbox ) ||
-         CHECK_Y( control2, user->bbox ) )
+    if (CHECK_Y( control1, user->bbox) ||
+         CHECK_Y(control2, user->bbox ))
       BBox_Cubic_Check( user->last.y,
                         control1->y,
                         control2->y,
@@ -562,7 +562,7 @@
 
   /* documentation is in ftbbox.h */
 
-  FT_EXPORT_DEF( FT_Error )
+  FT_EXPORT_DEF(FT_Error)
   FT_Outline_Get_BBox( FT_Outline*  outline,
                        FT_BBox     *abbox )
   {
@@ -572,14 +572,14 @@
     FT_UShort   n;
 
 
-    if ( !abbox )
+    if (!abbox)
       return FT_Err_Invalid_Argument;
 
-    if ( !outline )
+    if (!outline)
       return FT_Err_Invalid_Outline;
 
     /* if outline is empty, return (0,0,0,0) */
-    if ( outline->n_points == 0 || outline->n_contours <= 0 )
+    if (outline->n_points == 0 || outline->n_contours <= 0)
     {
       abbox->xMin = abbox->xMax = 0;
       abbox->yMin = abbox->yMax = 0;
@@ -595,27 +595,27 @@
     bbox.yMin = bbox.yMax = cbox.yMin = cbox.yMax = vec->y;
     vec++;
 
-    for ( n = 1; n < outline->n_points; n++ )
+    for (n = 1; n < outline->n_points; n++)
     {
       FT_Pos  x = vec->x;
       FT_Pos  y = vec->y;
 
 
       /* update control box */
-      if ( x < cbox.xMin ) cbox.xMin = x;
-      if ( x > cbox.xMax ) cbox.xMax = x;
+      if (x < cbox.xMin) cbox.xMin = x;
+      if (x > cbox.xMax) cbox.xMax = x;
 
-      if ( y < cbox.yMin ) cbox.yMin = y;
-      if ( y > cbox.yMax ) cbox.yMax = y;
+      if (y < cbox.yMin) cbox.yMin = y;
+      if (y > cbox.yMax) cbox.yMax = y;
 
-      if ( FT_CURVE_TAG( outline->tags[n] ) == FT_CURVE_TAG_ON )
+      if (FT_CURVE_TAG(outline->tags[n]) == FT_CURVE_TAG_ON)
       {
         /* update bbox for `on' points only */
-        if ( x < bbox.xMin ) bbox.xMin = x;
-        if ( x > bbox.xMax ) bbox.xMax = x;
+        if (x < bbox.xMin) bbox.xMin = x;
+        if (x > bbox.xMax) bbox.xMax = x;
 
-        if ( y < bbox.yMin ) bbox.yMin = y;
-        if ( y > bbox.yMax ) bbox.yMax = y;
+        if (y < bbox.yMin) bbox.yMin = y;
+        if (y > bbox.yMax) bbox.yMax = y;
       }
 
       vec++;
@@ -643,8 +643,8 @@
 
       user.bbox = bbox;
 
-      error = FT_Outline_Decompose( outline, &bbox_interface, &user );
-      if ( error )
+      error = FT_Outline_Decompose(outline, &bbox_interface, &user);
+      if (error)
         return error;
 
       *abbox = user.bbox;

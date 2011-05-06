@@ -58,33 +58,33 @@ extern GLuint pxGLBufferVertexColorState;
 void PXGLRendererInit( );
 void PXGLRendererDealloc( );
 
-void PXGLSetDrawMode( GLenum mode );
-void PXGLSetBufferLastVertexColor( GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha );
+void PXGLSetDrawMode(GLenum mode);
+void PXGLSetBufferLastVertexColor(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
 void PXGLEnableColorArray( );
 void PXGLDisableColorArray( );
 
 //These would be a possible optimization, especially if we were adding more then
 //ten elements
-//void PXGLIncreaseVertexBufferSize( unsigned size );
-//void PXGLIncreaseIndexBufferSize( unsigned size );
-//void PXGLIncreasePointSizeBufferSize( unsigned size );
+//void PXGLIncreaseVertexBufferSize(unsigned size);
+//void PXGLIncreaseIndexBufferSize(unsigned size);
+//void PXGLIncreasePointSizeBufferSize(unsigned size);
 
 // TODO Later: Change these to use PXArrayBuffer.
 unsigned PXGLGetCurrentVertexIndex( );
-void PXGLSetCurrentVertexIndex( unsigned index );
+void PXGLSetCurrentVertexIndex(unsigned index);
 unsigned PXGLGetCurrentIndex( );
-void PXGLSetCurrentIndex( unsigned index );
+void PXGLSetCurrentIndex(unsigned index);
 unsigned PXGLGetCurrentPointSizeIndex( );
-void PXGLSetCurrentPointSizeIndex( unsigned index );
+void PXGLSetCurrentPointSizeIndex(unsigned index);
 
 PXGLColoredTextureVertex *PXGLNextVertex( );
-PXGLColoredTextureVertex *PXGLGetVertexAt( unsigned index );
+PXGLColoredTextureVertex *PXGLGetVertexAt(unsigned index);
 PXGLColoredTextureVertex *PXGLCurrentVertex( );
 GLushort *PXGLNextIndex( );
-GLushort *PXGLGetIndexAt( unsigned index );
+GLushort *PXGLGetIndexAt(unsigned index);
 GLushort *PXGLCurrentIndex( );
 GLfloat *PXGLNextPointSize( );
-GLfloat *PXGLGetPointSizeAt( unsigned index );
+GLfloat *PXGLGetPointSizeAt(unsigned index);
 GLfloat *PXGLCurrentPointSize( );
 
 void PXGLRendererPreRender( );

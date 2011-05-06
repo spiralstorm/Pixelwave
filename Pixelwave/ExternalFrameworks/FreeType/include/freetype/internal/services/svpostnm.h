@@ -38,10 +38,10 @@ FT_BEGIN_HEADER
 
 
   typedef const char*
-  (*FT_PsName_GetFunc)( FT_Face  face );
+  (*FT_PsName_GetFunc)(FT_Face  face);
 
 
-  FT_DEFINE_SERVICE( PsFontName )
+  FT_DEFINE_SERVICE(PsFontName)
   {
     FT_PsName_GetFunc  get_ps_font_name;
   };

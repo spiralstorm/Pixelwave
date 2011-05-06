@@ -473,10 +473,10 @@ FT_BEGIN_HEADER
   /*    The produced values *must* be 32-bit integers.  Don't redefine     */
   /*    this macro.                                                        */
   /*                                                                       */
-#define FT_MAKE_TAG( _x1, _x2, _x3, _x4 ) \
-          ( ( (FT_ULong)_x1 << 24 ) |     \
-            ( (FT_ULong)_x2 << 16 ) |     \
-            ( (FT_ULong)_x3 <<  8 ) |     \
+#define FT_MAKE_TAG(_x1, _x2, _x3, _x4) \
+          (( (FT_ULong)_x1 << 24) |     \
+            ((FT_ULong)_x2 << 16) |     \
+            ((FT_ULong)_x3 <<  8) |     \
               (FT_ULong)_x4         )
 
 
@@ -569,15 +569,15 @@ FT_BEGIN_HEADER
 
   /* */
 
-#define FT_IS_EMPTY( list )  ( (list).head == 0 )
+#define FT_IS_EMPTY(list )  ( (list).head == 0)
 
   /* return base error code (without module-specific prefix) */
-#define FT_ERROR_BASE( x )    ( (x) & 0xFF )
+#define FT_ERROR_BASE(x )    ( (x) & 0xFF)
 
   /* return module error code */
-#define FT_ERROR_MODULE( x )  ( (x) & 0xFF00U )
+#define FT_ERROR_MODULE(x )  ( (x) & 0xFF00U)
 
-#define FT_BOOL( x )  ( (FT_Bool)( x ) )
+#define FT_BOOL(x )  ((FT_Bool)( x))
 
 FT_END_HEADER
 

@@ -34,7 +34,7 @@ FT_BEGIN_HEADER
                               FT_Int     degree,
                               FT_Fixed*  akerning );
 
-  FT_DEFINE_SERVICE( Kerning )
+  FT_DEFINE_SERVICE(Kerning)
   {
     FT_Kerning_TrackGetFunc  get_track;
   };

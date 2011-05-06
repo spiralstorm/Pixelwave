@@ -138,7 +138,7 @@ void PXSoundEngineInitAL()
 //	PXDebugALBeginErrorChecks(@"initAL");
 
 	pxSoundEngineContext = nil;
-	pxSoundEngineDevice = alcOpenDevice( NULL );
+	pxSoundEngineDevice = alcOpenDevice(NULL);
 //	PXDebugALErrorCheck(@"alcOpenDevice");
 
 	if (pxSoundEngineDevice)
@@ -273,7 +273,7 @@ void PXSoundEngineRemoveSound(PXSoundChannel *sound)
 	if (!sound)
 		return;
 
-	assert( pxSoundEngineListOfSounds );
+	assert(pxSoundEngineListOfSounds);
 
 	[pxSoundEngineListOfSounds removeObject:sound];
 }

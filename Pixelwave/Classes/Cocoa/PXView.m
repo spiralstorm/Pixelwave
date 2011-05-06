@@ -352,7 +352,7 @@
 	// Initialize the engine //
 	///////////////////////////
 
-	PXEngineInit( self );
+	PXEngineInit(self);
 
 	PXStage *stage = PXEngineGetStage( );
 
@@ -504,7 +504,7 @@
 		return;
 	}
 	
-	PXEngineSetRoot( root );
+	PXEngineSetRoot(root);
 }
 - (PXDisplayObject *)root
 {
@@ -535,20 +535,20 @@
 								  newSize.width,
 								  newSize.height);
 
-	newSize.width = roundf( newSize.width );
-	newSize.height = roundf( newSize.height );
+	newSize.width = roundf(newSize.width);
+	newSize.height = roundf(newSize.height);
 
 	glGetIntegerv(GL_RENDERBUFFER_BINDING_OES, (GLint *) &oldRenderbuffer);
 	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint *) &oldFramebuffer);
 
 	//Create a renderBuffer, assign it to the eaglLayer so that everything rendered to it will show up on the UIView
-	glGenRenderbuffersOES( 1, &renderbufferName );
-	glBindRenderbufferOES( GL_RENDERBUFFER_OES, renderbufferName );
+	glGenRenderbuffersOES(1, &renderbufferName);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
 
 	if (![eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:eaglLayer])
 	{
-		glDeleteRenderbuffersOES( 1, &renderbufferName );
-		glBindRenderbufferOES( GL_RENDERBUFFER_BINDING_OES, oldRenderbuffer );
+		glDeleteRenderbuffersOES(1, &renderbufferName);
+		glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, oldRenderbuffer);
 		return NO;
 	}
 
@@ -558,9 +558,9 @@
 	// Instead of a renderBuffer, a texture can be used as the target:
 	// eg: glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, texture, 0);
 
-	glGenFramebuffersOES( 1, &_pxViewFramebuffer );
-	glBindFramebufferOES( GL_FRAMEBUFFER_OES, _pxViewFramebuffer );
-	glFramebufferRenderbufferOES( GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, renderbufferName );
+	glGenFramebuffersOES(1, &_pxViewFramebuffer);
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _pxViewFramebuffer);
+	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, renderbufferName);
 	
 	size = newSize;
 	if (!hasBeenCurrent)
@@ -665,7 +665,7 @@
 		p.x += pos.x;
 		p.y += pos.y;
 
-		PXEngineInvokeTouchBegan( touch, &p );
+		PXEngineInvokeTouchBegan(touch, &p);
 	}
 }
 
@@ -683,7 +683,7 @@
 		p.x += pos.x;
 		p.y += pos.y;
 
-		PXEngineInvokeTouchMoved( touch, &p );
+		PXEngineInvokeTouchMoved(touch, &p);
 	}
 }
 
@@ -701,7 +701,7 @@
 		p.x += pos.x;
 		p.y += pos.y;
 		
-		PXEngineInvokeTouchEnded( touch, &p );
+		PXEngineInvokeTouchEnded(touch, &p);
 	}
 }
 
@@ -709,7 +709,7 @@
 {
 	for (UITouch *touch in touches)
 	{
-		PXEngineInvokeTouchCanceled( touch );
+		PXEngineInvokeTouchCanceled(touch);
 	}
 }
 

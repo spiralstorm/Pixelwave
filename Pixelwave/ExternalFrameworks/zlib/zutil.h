@@ -81,8 +81,8 @@ extern const char * const z_errmsg[10]; /* indexed by 2-zlib_error */
 #  if defined(__TURBOC__) || defined(__BORLANDC__)
 #    if (__STDC__ == 1) && (defined(__LARGE__) || defined(__COMPACT__))
        /* Allow compilation with ANSI keywords only enabled */
-       void _Cdecl farfree( void *block );
-       void *_Cdecl farmalloc( unsigned long nbytes );
+       void _Cdecl farfree(void *block);
+       void *_Cdecl farmalloc(unsigned long nbytes);
 #    else
 #      include <alloc.h>
 #    endif
@@ -199,7 +199,7 @@ extern const char * const z_errmsg[10]; /* indexed by 2-zlib_error */
 #  ifdef WIN32
      /* In Win32, vsnprintf is available as the "non-ANSI" _vsnprintf. */
 #    if !defined(vsnprintf) && !defined(NO_vsnprintf)
-#      if !defined(_MSC_VER) || ( defined(_MSC_VER) && _MSC_VER < 1500 )
+#      if !defined(_MSC_VER) || (defined(_MSC_VER) && _MSC_VER < 1500)
 #         define vsnprintf _vsnprintf
 #      endif
 #    endif

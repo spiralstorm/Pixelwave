@@ -248,9 +248,9 @@
 	else
 		return;
 
-	float radians = PXMathToRad( _rotation );
-	float sinVal = sinf( radians );
-	float cosVal = cosf( radians );
+	float radians = PXMathToRad(_rotation);
+	float sinVal = sinf(radians);
+	float cosVal = cosf(radians);
 
 	_matrix.a =  cosVal;
 	_matrix.b =  sinVal;

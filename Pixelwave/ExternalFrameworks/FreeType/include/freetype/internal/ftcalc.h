@@ -44,8 +44,8 @@ FT_BEGIN_HEADER
   /* <Note>                                                                */
   /*    This function is not very fast.                                    */
   /*                                                                       */
-  FT_BASE( FT_Int32 )
-  FT_SqrtFixed( FT_Int32  x );
+  FT_BASE(FT_Int32)
+  FT_SqrtFixed(FT_Int32  x);
 
 
 #ifdef FT_CONFIG_OPTION_OLD_INTERNALS
@@ -65,8 +65,8 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    The result of `sqrt(x)'.                                           */
   /*                                                                       */
-  FT_EXPORT( FT_Int32 )
-  FT_Sqrt32( FT_Int32  x );
+  FT_EXPORT(FT_Int32)
+  FT_Sqrt32(FT_Int32  x);
 
 #endif /* FT_CONFIG_OPTION_OLD_INTERNALS */
 
@@ -103,7 +103,7 @@ FT_BEGIN_HEADER
   /*    divide by zero; it simply returns `MaxInt' or `MinInt' depending   */
   /*    on the signs of `a' and `b'.                                       */
   /*                                                                       */
-  FT_BASE( FT_Long )
+  FT_BASE(FT_Long)
   FT_MulDiv_No_Round( FT_Long  a,
                       FT_Long  b,
                       FT_Long  c );
@@ -119,7 +119,7 @@ FT_BEGIN_HEADER
    *  `a' and `b', respectively, then the scaling factor of the result is
    *  `sa*sb'.
    */
-  FT_BASE( void )
+  FT_BASE(void)
   FT_Matrix_Multiply_Scaled( const FT_Matrix*  a,
                              FT_Matrix        *b,
                              FT_Long           scaling );
@@ -130,7 +130,7 @@ FT_BEGIN_HEADER
    *  FT_Matrix_Multiply_Scaled.
    */
 
-  FT_BASE( void )
+  FT_BASE(void)
   FT_Vector_Transform_Scaled( FT_Vector*        vector,
                               const FT_Matrix*  matrix,
                               FT_Long           scaling );
@@ -142,7 +142,7 @@ FT_BEGIN_HEADER
    *  going upwards.  The function returns +1 if the corner turns to the
    *  left, -1 to the right, and 0 for undecidable cases.
    */
-  FT_BASE( FT_Int )
+  FT_BASE(FT_Int)
   ft_corner_orientation( FT_Pos  in_x,
                          FT_Pos  in_y,
                          FT_Pos  out_x,
@@ -153,21 +153,21 @@ FT_BEGIN_HEADER
    *  saying that the angle difference between the `in' and `out' vectors is
    *  very small.
    */
-  FT_BASE( FT_Int )
+  FT_BASE(FT_Int)
   ft_corner_is_flat( FT_Pos  in_x,
                      FT_Pos  in_y,
                      FT_Pos  out_x,
                      FT_Pos  out_y );
 
 
-#define INT_TO_F26DOT6( x )    ( (FT_Long)(x) << 6  )
-#define INT_TO_F2DOT14( x )    ( (FT_Long)(x) << 14 )
-#define INT_TO_FIXED( x )      ( (FT_Long)(x) << 16 )
-#define F2DOT14_TO_FIXED( x )  ( (FT_Long)(x) << 2  )
-#define FLOAT_TO_FIXED( x )    ( (FT_Long)( x * 65536.0 ) )
+#define INT_TO_F26DOT6(x )    ((FT_Long)(x) << 6)
+#define INT_TO_F2DOT14(x )    ( (FT_Long)(x) << 14)
+#define INT_TO_FIXED(x )      ( (FT_Long)(x) << 16)
+#define F2DOT14_TO_FIXED(x )  ((FT_Long)(x) << 2)
+#define FLOAT_TO_FIXED(x )    ((FT_Long)( x * 65536.0))
 
-#define ROUND_F26DOT6( x )     ( x >= 0 ? (    ( (x) + 32 ) & -64 )     \
-                                        : ( -( ( 32 - (x) ) & -64 ) ) )
+#define ROUND_F26DOT6(x )     (x >= 0 ? (    ( (x) + 32) & -64)     \
+                                        : (-((32 - (x) ) & -64)))
 
 
 FT_END_HEADER

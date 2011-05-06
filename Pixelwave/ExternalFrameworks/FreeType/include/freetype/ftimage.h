@@ -453,7 +453,7 @@ FT_BEGIN_HEADER
 
   /* */
 
-#define FT_CURVE_TAG( flag )  ( flag & 3 )
+#define FT_CURVE_TAG(flag )  ( flag & 3)
 
 #define FT_CURVE_TAG_ON           1
 #define FT_CURVE_TAG_CONIC        0
@@ -664,16 +664,16 @@ FT_BEGIN_HEADER
   /*    this:                                                              */
   /*                                                                       */
   /*    {                                                                  */
-  /*      #define FT_IMAGE_TAG( value, _x1, _x2, _x3, _x4 )  value         */
+  /*      #define FT_IMAGE_TAG(value, _x1, _x2, _x3, _x4)  value         */
   /*    }                                                                  */
   /*                                                                       */
   /*    to get a simple enumeration without assigning special numbers.     */
   /*                                                                       */
 #ifndef FT_IMAGE_TAG
-#define FT_IMAGE_TAG( value, _x1, _x2, _x3, _x4 )  \
-          value = ( ( (unsigned long)_x1 << 24 ) | \
-                    ( (unsigned long)_x2 << 16 ) | \
-                    ( (unsigned long)_x3 << 8  ) | \
+#define FT_IMAGE_TAG(value, _x1, _x2, _x3, _x4)  \
+          value = (( (unsigned long)_x1 << 24) | \
+                    ((unsigned long)_x2 << 16) | \
+                    ((unsigned long)_x3 << 8 ) | \
                       (unsigned long)_x4         )
 #endif /* FT_IMAGE_TAG */
 
@@ -718,12 +718,12 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef enum  FT_Glyph_Format_
   {
-    FT_IMAGE_TAG( FT_GLYPH_FORMAT_NONE, 0, 0, 0, 0 ),
+    FT_IMAGE_TAG(FT_GLYPH_FORMAT_NONE, 0, 0, 0, 0),
 
-    FT_IMAGE_TAG( FT_GLYPH_FORMAT_COMPOSITE, 'c', 'o', 'm', 'p' ),
-    FT_IMAGE_TAG( FT_GLYPH_FORMAT_BITMAP,    'b', 'i', 't', 's' ),
-    FT_IMAGE_TAG( FT_GLYPH_FORMAT_OUTLINE,   'o', 'u', 't', 'l' ),
-    FT_IMAGE_TAG( FT_GLYPH_FORMAT_PLOTTER,   'p', 'l', 'o', 't' )
+    FT_IMAGE_TAG(FT_GLYPH_FORMAT_COMPOSITE, 'c', 'o', 'm', 'p'),
+    FT_IMAGE_TAG(FT_GLYPH_FORMAT_BITMAP,    'b', 'i', 't', 's'),
+    FT_IMAGE_TAG(FT_GLYPH_FORMAT_OUTLINE,   'o', 'u', 't', 'l'),
+    FT_IMAGE_TAG(FT_GLYPH_FORMAT_PLOTTER,   'p', 'l', 'o', 't')
 
   } FT_Glyph_Format;
 
@@ -1100,7 +1100,7 @@ FT_BEGIN_HEADER
   /*    raster :: A handle to the raster object.                           */
   /*                                                                       */
   typedef void
-  (*FT_Raster_DoneFunc)( FT_Raster  raster );
+  (*FT_Raster_DoneFunc)(FT_Raster  raster);
 
 #define FT_Raster_Done_Func  FT_Raster_DoneFunc
 

@@ -36,7 +36,7 @@ FT_BEGIN_HEADER
    * Used to implement FT_Get_TrueType_Engine_Type
    */
 
-  FT_DEFINE_SERVICE( TrueTypeEngine )
+  FT_DEFINE_SERVICE(TrueTypeEngine)
   {
     FT_TrueTypeEngineType  engine_type;
   };

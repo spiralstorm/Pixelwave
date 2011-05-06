@@ -630,7 +630,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		// </COPY>
 	}
 
-	PXGLBindTexture( GL_TEXTURE_2D, textureData->_glName );
+	PXGLBindTexture(GL_TEXTURE_2D, textureData->_glName);
 
 	// Validate the smoothing
 	if (smoothingType != textureData->_smoothingType)
@@ -648,8 +648,8 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 	}
 
 	// Draw
-	PXGLVertexPointer(2, GL_FLOAT, sizeof( PXGLTextureVertex ), &(verts->x));
-	PXGLTexCoordPointer(2, GL_FLOAT, sizeof( PXGLTextureVertex ), &(verts->s));
+	PXGLVertexPointer(2, GL_FLOAT, sizeof(PXGLTextureVertex), &(verts->x));
+	PXGLTexCoordPointer(2, GL_FLOAT, sizeof(PXGLTextureVertex), &(verts->s));
 
 	PXGLDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }

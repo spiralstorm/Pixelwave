@@ -59,7 +59,7 @@ FT_BEGIN_HEADER
                            FT_Long*  coords );
 
 
-  FT_DEFINE_SERVICE( MultiMasters )
+  FT_DEFINE_SERVICE(MultiMasters)
   {
     FT_Get_MM_Func          get_mm;
     FT_Set_MM_Design_Func   set_mm_design;

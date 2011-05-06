@@ -52,27 +52,27 @@ GLfloat PXGLGetContentScaleFactor();
 GLfloat PXGLGetOneOverContentScaleFactor();
 GLuint PXGLDBGGetRenderCallCount( );
 
-void PXGLBindFramebuffer( GLenum target, GLuint framebuffer );
+void PXGLBindFramebuffer(GLenum target, GLuint framebuffer);
 GLuint PXGLBoundTexture( );
 
-void PXGLBindTexture( GLenum target, GLuint texture );
-void PXGLColor4f( GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha );
-void PXGLColor4ub( GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha );
-void PXGLColorPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer );
-void PXGLDisable( GLenum cap );
-void PXGLDisableClientState( GLenum array );
-void PXGLDrawArrays( GLenum mode, GLint first, GLsizei count );
-void PXGLDrawElements( GLenum mode, GLsizei count, GLenum type, const GLvoid *indices );
-void PXGLEnable( GLenum cap );
-void PXGLEnableClientState( GLenum array );
-void PXGLLineWidth( GLfloat width );
-void PXGLPointSize( GLfloat size );
-void PXGLPointSizePointer( GLenum type, GLsizei stride, const GLvoid *pointer );
+void PXGLBindTexture(GLenum target, GLuint texture);
+void PXGLColor4f(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+void PXGLColor4ub(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
+void PXGLColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+void PXGLDisable(GLenum cap);
+void PXGLDisableClientState(GLenum array);
+void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count);
+void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
+void PXGLEnable(GLenum cap);
+void PXGLEnableClientState(GLenum array);
+void PXGLLineWidth(GLfloat width);
+void PXGLPointSize(GLfloat size);
+void PXGLPointSizePointer(GLenum type, GLsizei stride, const GLvoid *pointer);
 void PXGLPopMatrix( );
 void PXGLPushMatrix( );
-void PXGLTexCoordPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer );
-void PXGLTexParameteri( GLenum target, GLenum pname, GLint param );
-void PXGLVertexPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer );
+void PXGLTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+void PXGLTexParameteri(GLenum target, GLenum pname, GLint param);
+void PXGLVertexPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
 
 void PXGLShadeModel(GLenum mode);
 
@@ -88,10 +88,10 @@ void PXGLBlendFunc(GLenum sfactor, GLenum dfactor);
 void PXGLPopMatrix( );
 void PXGLPushMatrix( );
 void PXGLLoadIdentity( );
-void PXGLTranslate( GLfloat x, GLfloat y );
-void PXGLScale( GLfloat x, GLfloat y );
-void PXGLRotate( GLfloat angle );
-void PXGLMultMatrix( PXGLMatrix *mat );
+void PXGLTranslate(GLfloat x, GLfloat y);
+void PXGLScale(GLfloat x, GLfloat y);
+void PXGLRotate(GLfloat angle);
+void PXGLMultMatrix(PXGLMatrix *mat);
 void PXGLLoadMatrixToGL( );
 void PXGLResetMatrixStack( );
 
@@ -99,12 +99,12 @@ void PXGLPopColorTransform( );
 void PXGLPushColorTransform( );
 void PXGLLoadColorTransformIdentity( );
 void PXGLResetColorTransformStack( );
-void PXGLSetColorTransform( PXGLColorTransform *transform );
+void PXGLSetColorTransform(PXGLColorTransform *transform);
 
-void PXGLMatrixMult( PXGLMatrix *store, PXGLMatrix *mat1, PXGLMatrix *mat2 );
-void PXGLMatrixInvert( PXGLMatrix *mat );
-void PXGLMatrixIdentity( PXGLMatrix *mat );
-void PXGLColorTransformIdentity( PXGLColorTransform *transform );
+void PXGLMatrixMult(PXGLMatrix *store, PXGLMatrix *mat1, PXGLMatrix *mat2);
+void PXGLMatrixInvert(PXGLMatrix *mat);
+void PXGLMatrixIdentity(PXGLMatrix *mat);
+void PXGLColorTransformIdentity(PXGLColorTransform *transform);
 
 PXInline_h void PXGLMatrixRotate(PXGLMatrix *mat, GLfloat radians);
 PXInline_h void PXGLMatrixScale(PXGLMatrix *mat, GLfloat x, GLfloat y);

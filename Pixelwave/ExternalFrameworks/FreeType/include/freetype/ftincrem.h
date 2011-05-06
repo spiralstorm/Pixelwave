@@ -302,7 +302,7 @@ FT_BEGIN_HEADER
    *       open_args.params     = &parameter; // we use one optional argument
    *
    *       // open the font
-   *       error = FT_Open_Face( library, &open_args, index, &face );
+   *       error = FT_Open_Face(library, &open_args, index, &face);
    *       ...
    *     }
    *
@@ -337,7 +337,7 @@ FT_BEGIN_HEADER
    *   an incremental loading object to be used by FreeType.
    *
    */
-#define FT_PARAM_TAG_INCREMENTAL  FT_MAKE_TAG( 'i', 'n', 'c', 'r' )
+#define FT_PARAM_TAG_INCREMENTAL  FT_MAKE_TAG('i', 'n', 'c', 'r')
 
   /* */
 

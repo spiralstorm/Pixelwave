@@ -32,19 +32,19 @@ FT_BEGIN_HEADER
    *  Adobe glyph name to unicode value.
    */
   typedef FT_UInt32
-  (*PS_Unicode_ValueFunc)( const char*  glyph_name );
+  (*PS_Unicode_ValueFunc)(const char*  glyph_name);
 
   /*
    *  Macintosh name id to glyph name.  NULL if invalid index.
    */
   typedef const char*
-  (*PS_Macintosh_NameFunc)( FT_UInt  name_index );
+  (*PS_Macintosh_NameFunc)(FT_UInt  name_index);
 
   /*
    *  Adobe standard string ID to glyph name.  NULL if invalid index.
    */
   typedef const char*
-  (*PS_Adobe_Std_StringsFunc)( FT_UInt  string_index );
+  (*PS_Adobe_Std_StringsFunc)(FT_UInt  string_index);
 
 
   /*
@@ -103,7 +103,7 @@ FT_BEGIN_HEADER
                                FT_UInt32   *unicode );
 
 
-  FT_DEFINE_SERVICE( PsCMaps )
+  FT_DEFINE_SERVICE(PsCMaps)
   {
     PS_Unicode_ValueFunc       unicode_value;
 

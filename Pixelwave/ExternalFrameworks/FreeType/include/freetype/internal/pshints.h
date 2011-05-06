@@ -53,7 +53,7 @@ FT_BEGIN_HEADER
                                FT_Fixed     y_delta );
 
   typedef void
-  (*PSH_Globals_DestroyFunc)( PSH_Globals  globals );
+  (*PSH_Globals_DestroyFunc)(PSH_Globals  globals);
 
 
   typedef struct  PSH_Globals_FuncsRec_
@@ -136,7 +136,7 @@ FT_BEGIN_HEADER
    *
    */
   typedef void
-  (*T1_Hints_OpenFunc)( T1_Hints  hints );
+  (*T1_Hints_OpenFunc)(T1_Hints  hints);
 
 
   /*************************************************************************
@@ -422,7 +422,7 @@ FT_BEGIN_HEADER
    *
    */
   typedef void
-  (*T2_Hints_OpenFunc)( T2_Hints  hints );
+  (*T2_Hints_OpenFunc)(T2_Hints  hints);
 
 
   /*************************************************************************
@@ -670,9 +670,9 @@ FT_BEGIN_HEADER
 
   typedef struct  PSHinter_Interface_
   {
-    PSH_Globals_Funcs  (*get_globals_funcs)( FT_Module  module );
-    T1_Hints_Funcs     (*get_t1_funcs)     ( FT_Module  module );
-    T2_Hints_Funcs     (*get_t2_funcs)     ( FT_Module  module );
+    PSH_Globals_Funcs  (*get_globals_funcs)(FT_Module  module);
+    T1_Hints_Funcs     (*get_t1_funcs)     (FT_Module  module);
+    T2_Hints_Funcs     (*get_t2_funcs)     (FT_Module  module);
 
   } PSHinter_Interface;
 

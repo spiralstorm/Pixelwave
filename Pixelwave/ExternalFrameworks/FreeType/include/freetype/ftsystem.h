@@ -264,7 +264,7 @@ FT_BEGIN_HEADER
    *
    */
   typedef void
-  (*FT_Stream_CloseFunc)( FT_Stream  stream );
+  (*FT_Stream_CloseFunc)(FT_Stream  stream);
 
 
   /*************************************************************************

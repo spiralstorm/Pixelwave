@@ -659,7 +659,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
         }
         PX_LL_END_CHILD_LOOP
 
-        PXDebugLog( @"Linked List: Did not contain the objectToAddBefore, thus did not add the object\n" );
+        PXDebugLog(@"Linked List: Did not contain the objectToAddBefore, thus did not add the object\n");
    }*/
 
 /**

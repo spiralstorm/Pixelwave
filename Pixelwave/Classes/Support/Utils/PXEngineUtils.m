@@ -57,17 +57,17 @@ void PXUtilsDisplayObjectMultiplyUp(PXDisplayObject *displayObject, PXGLMatrix *
 
 	PXGLMatrix *doMatrix = &(displayObject->_matrix);
 	PXGLMatrix matInv;
-	PXGLMatrixIdentity( &matInv );
-	PXGLMatrixMult( &matInv, &matInv, doMatrix );
-	PXGLMatrixInvert( &matInv );
-	PXGLMatrixMult( matrix, matrix, &matInv );
+	PXGLMatrixIdentity(&matInv);
+	PXGLMatrixMult(&matInv, &matInv, doMatrix);
+	PXGLMatrixInvert(&matInv);
+	PXGLMatrixMult(matrix, matrix, &matInv);
 
 	while (parent && parent->_parent)
 	{
-		PXGLMatrixIdentity( &matInv );
-		PXGLMatrixMult( &matInv, &matInv, &parent->_matrix );
-		PXGLMatrixInvert( &matInv );
-		PXGLMatrixMult( matrix, matrix, &matInv );
+		PXGLMatrixIdentity(&matInv);
+		PXGLMatrixMult(&matInv, &matInv, &parent->_matrix);
+		PXGLMatrixInvert(&matInv);
+		PXGLMatrixMult(matrix, matrix, &matInv);
 
 		parent = parent->_parent;
 	}
@@ -82,7 +82,7 @@ bool PXUtilsDisplayObjectMultiplyDownContinue(PXDisplayObject *targetCoordinateS
 	{
 		if (PXUtilsDisplayObjectMultiplyDownContinue(targetCoordinateSpace, displayObject->_parent, matrix))
 		{
-			PXGLMatrixMult( matrix, matrix, &(displayObject->_matrix) );
+			PXGLMatrixMult(matrix, matrix, &(displayObject->_matrix));
 			return true;
 		}
 	}
@@ -114,11 +114,11 @@ CGPoint PXUtilsGlobalToLocal(PXDisplayObject *displayObject, CGPoint point)
 	}
 
 	PXGLMatrix matrix;
-	PXGLMatrixIdentity( &matrix );
+	PXGLMatrixIdentity(&matrix);
 	PXUtilsDisplayObjectMultiplyUp(displayObject, &matrix);
 
 	point = PXGLMatrixConvertPoint(&matrix, point);
-	//PX_GL_CONVERT_POINT_TO_MATRIX( matrix, point.x, point.y );
+	//PX_GL_CONVERT_POINT_TO_MATRIX(matrix, point.x, point.y);
 
 	return point;
 }
@@ -132,11 +132,11 @@ CGPoint PXUtilsLocalToGlobal(PXDisplayObject *displayObject, CGPoint point)
 	}
 
 	PXGLMatrix matrix;
-	PXGLMatrixIdentity( &matrix );
+	PXGLMatrixIdentity(&matrix);
 	PXUtilsDisplayObjectMultiplyDown(displayObject, &matrix);
 
 	point = PXGLMatrixConvertPoint(&matrix, point);
-	//PX_GL_CONVERT_POINT_TO_MATRIX( matrix, point.x, point.y );
+	//PX_GL_CONVERT_POINT_TO_MATRIX(matrix, point.x, point.y);
 
 	return point;
 }

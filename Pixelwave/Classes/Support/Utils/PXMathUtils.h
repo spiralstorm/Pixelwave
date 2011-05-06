@@ -62,9 +62,9 @@ extern "C" {
 // PI/180
 #define PXMathToRad(_degs_) ((_degs_) * 0.017453f)
 
-#define PXMathMin( _val1_, _val2_ ) (((_val1_) < (_val2_)) ? (_val1_) : (_val2_))
-#define PXMathMax( _val1_, _val2_ ) (((_val1_) > (_val2_)) ? (_val1_) : (_val2_))
-#define PXMathClamp( _val_ , _minVal_ , _maxVal_ ) ((_val_) = ((_val_) = ((_val_) < (_minVal_) ? (_minVal_) : (_val_))) > (_maxVal_) ? (_maxVal_) : (_val_))
+#define PXMathMin(_val1_, _val2_) (((_val1_) < (_val2_)) ? (_val1_) : (_val2_))
+#define PXMathMax(_val1_, _val2_) (((_val1_) > (_val2_)) ? (_val1_) : (_val2_))
+#define PXMathClamp(_val_ , _minVal_ , _maxVal_) ((_val_) = ((_val_) = ((_val_) < (_minVal_) ? (_minVal_) : (_val_))) > (_maxVal_) ? (_maxVal_) : (_val_))
 
 #pragma mark -
 #pragma mark Structs
@@ -161,9 +161,9 @@ PXInline PXMathTriangle3D PXMathTriangle3DMake(float x1, float y1, float z1, flo
 PXInline void PXMathTriangl3DeSet(PXMathTriangle3D *triangle, float x1, float y1, float z1, float x2, float y2, float z2, float x3, float y3, float z3) PXAlwaysInline;
 
 float PXMathPointDistanceToLine(PXMathPoint *point, PXMathLine *line );
-bool PXMathPointInLine( PXMathPoint *ans, PXMathPoint *point, PXMathLine *line );
-bool PXMathIsPointInLine( PXMathPoint *point, PXMathLine *line );
-bool PXMathIsPointInTriangle( PXMathPoint *point, PXMathTriangle *triangle );
+bool PXMathPointInLine(PXMathPoint *ans, PXMathPoint *point, PXMathLine *line);
+bool PXMathIsPointInLine(PXMathPoint *point, PXMathLine *line);
+bool PXMathIsPointInTriangle(PXMathPoint *point, PXMathTriangle *triangle);
 
 #pragma mark -
 #pragma mark Implementations

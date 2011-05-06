@@ -46,7 +46,7 @@ FT_BEGIN_HEADER
   *   interpreter for a typeface opened by @FT_Open_Face.
   *
   */
-#define FT_PARAM_TAG_UNPATENTED_HINTING  FT_MAKE_TAG( 'u', 'n', 'p', 'a' )
+#define FT_PARAM_TAG_UNPATENTED_HINTING  FT_MAKE_TAG('u', 'n', 'p', 'a')
 
  /* */
 

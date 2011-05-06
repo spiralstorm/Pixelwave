@@ -32,7 +32,7 @@ FT_BEGIN_HEADER
                               FT_UInt    gindex,
                               FT_ULong  *psize );
 
-  FT_DEFINE_SERVICE( TTGlyf )
+  FT_DEFINE_SERVICE(TTGlyf)
   {
     TT_Glyf_GetLocationFunc  get_location;
   };

@@ -91,7 +91,7 @@ FT_BEGIN_HEADER
   /*    module :: The module to initialize.                                */
   /*                                                                       */
   typedef FT_Error
-  (*FT_Module_Constructor)( FT_Module  module );
+  (*FT_Module_Constructor)(FT_Module  module);
 
 
   /*************************************************************************/
@@ -106,7 +106,7 @@ FT_BEGIN_HEADER
   /*    module :: The module to finalize.                                  */
   /*                                                                       */
   typedef void
-  (*FT_Module_Destructor)( FT_Module  module );
+  (*FT_Module_Destructor)(FT_Module  module);
 
 
   /*************************************************************************/
@@ -194,7 +194,7 @@ FT_BEGIN_HEADER
   /*    An error will be returned if a module already exists by that name, */
   /*    or if the module requires a version of FreeType that is too great. */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Add_Module( FT_Library              library,
                  const FT_Module_Class*  clazz );
 
@@ -219,7 +219,7 @@ FT_BEGIN_HEADER
   /*    FreeType's internal modules aren't documented very well, and you   */
   /*    should look up the source code for details.                        */
   /*                                                                       */
-  FT_EXPORT( FT_Module )
+  FT_EXPORT(FT_Module)
   FT_Get_Module( FT_Library   library,
                  const char*  module_name );
 
@@ -244,7 +244,7 @@ FT_BEGIN_HEADER
   /* <Note>                                                                */
   /*    The module object is destroyed by the function in case of success. */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Remove_Module( FT_Library  library,
                     FT_Module   module );
 
@@ -268,7 +268,7 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    FreeType error code.  0~means success.                             */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_New_Library( FT_Memory    memory,
                   FT_Library  *alibrary );
 
@@ -288,13 +288,13 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    FreeType error code.  0~means success.                             */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
-  FT_Done_Library( FT_Library  library );
+  FT_EXPORT(FT_Error)
+  FT_Done_Library(FT_Library  library);
 
 /* */
 
   typedef void
-  (*FT_DebugHook_Func)( void*  arg );
+  (*FT_DebugHook_Func)(void*  arg);
 
 
   /*************************************************************************/
@@ -324,7 +324,7 @@ FT_BEGIN_HEADER
   /*    the symbol `FT_DEBUG_HOOK_TRUETYPE' isn't available publicly.      */
   /*    This is a bug and will be fixed in a forthcoming release.          */
   /*                                                                       */
-  FT_EXPORT( void )
+  FT_EXPORT(void)
   FT_Set_Debug_Hook( FT_Library         library,
                      FT_UInt            hook_index,
                      FT_DebugHook_Func  debug_hook );
@@ -343,8 +343,8 @@ FT_BEGIN_HEADER
   /* <InOut>                                                               */
   /*    library :: A handle to a new library object.                       */
   /*                                                                       */
-  FT_EXPORT( void )
-  FT_Add_Default_Modules( FT_Library  library );
+  FT_EXPORT(void)
+  FT_Add_Default_Modules(FT_Library  library);
 
 
 
@@ -426,8 +426,8 @@ FT_BEGIN_HEADER
    *     2.2
    *
    */
-  FT_EXPORT( FT_TrueTypeEngineType )
-  FT_Get_TrueType_Engine_Type( FT_Library  library );
+  FT_EXPORT(FT_TrueTypeEngineType)
+  FT_Get_TrueType_Engine_Type(FT_Library  library);
 
 
   /* */

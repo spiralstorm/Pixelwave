@@ -133,7 +133,7 @@ BOOL pxTextureDataExpandEdges = YES;
 	{
 		PXGLBindTexture(GL_TEXTURE_2D, 0);
 
-		glDeleteTextures( 1, &_glName );
+		glDeleteTextures(1, &_glName);
 	}
 
 	[super dealloc];
@@ -145,7 +145,7 @@ BOOL pxTextureDataExpandEdges = YES;
 	{
 		PXGLBindTexture(GL_TEXTURE_2D, 0);
 
-		glDeleteTextures( 1, &_glName );
+		glDeleteTextures(1, &_glName);
 	}
 
 	glGenTextures(1, &_glName);
@@ -290,7 +290,7 @@ BOOL pxTextureDataExpandEdges = YES;
 		PXColor4 col;
 		PXColorHexToARGB(fillColor, &col);
 
-		data = malloc( sizeof(PXColor4) * pixelsCount );
+		data = malloc(sizeof(PXColor4) * pixelsCount);
 
 		if (!data)
 		{
@@ -320,7 +320,7 @@ BOOL pxTextureDataExpandEdges = YES;
 		PXColor3 col;
 		PXColorHexToRGB(fillColor, &col);
 
-		data = malloc( sizeof( PXColor3 ) * pixelsCount );
+		data = malloc(sizeof(PXColor3) * pixelsCount);
 
 		if (!data)
 		{

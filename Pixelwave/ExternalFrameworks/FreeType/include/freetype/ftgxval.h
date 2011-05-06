@@ -98,8 +98,8 @@ FT_BEGIN_HEADER
   /* Up to 0x1000 is used by otvalid.
      Ox2xxx is reserved for feature OT extension. */
 #define FT_VALIDATE_GX_START 0x4000
-#define FT_VALIDATE_GX_BITFIELD( tag )                  \
-  ( FT_VALIDATE_GX_START << FT_VALIDATE_##tag##_INDEX )
+#define FT_VALIDATE_GX_BITFIELD(tag)                  \
+  (FT_VALIDATE_GX_START << FT_VALIDATE_##tag##_INDEX)
 
 
  /**********************************************************************
@@ -148,16 +148,16 @@ FT_BEGIN_HEADER
   *
   */
 
-#define FT_VALIDATE_feat  FT_VALIDATE_GX_BITFIELD( feat )
-#define FT_VALIDATE_mort  FT_VALIDATE_GX_BITFIELD( mort )
-#define FT_VALIDATE_morx  FT_VALIDATE_GX_BITFIELD( morx )
-#define FT_VALIDATE_bsln  FT_VALIDATE_GX_BITFIELD( bsln )
-#define FT_VALIDATE_just  FT_VALIDATE_GX_BITFIELD( just )
-#define FT_VALIDATE_kern  FT_VALIDATE_GX_BITFIELD( kern )
-#define FT_VALIDATE_opbd  FT_VALIDATE_GX_BITFIELD( opbd )
-#define FT_VALIDATE_trak  FT_VALIDATE_GX_BITFIELD( trak )
-#define FT_VALIDATE_prop  FT_VALIDATE_GX_BITFIELD( prop )
-#define FT_VALIDATE_lcar  FT_VALIDATE_GX_BITFIELD( lcar )
+#define FT_VALIDATE_feat  FT_VALIDATE_GX_BITFIELD(feat)
+#define FT_VALIDATE_mort  FT_VALIDATE_GX_BITFIELD(mort)
+#define FT_VALIDATE_morx  FT_VALIDATE_GX_BITFIELD(morx)
+#define FT_VALIDATE_bsln  FT_VALIDATE_GX_BITFIELD(bsln)
+#define FT_VALIDATE_just  FT_VALIDATE_GX_BITFIELD(just)
+#define FT_VALIDATE_kern  FT_VALIDATE_GX_BITFIELD(kern)
+#define FT_VALIDATE_opbd  FT_VALIDATE_GX_BITFIELD(opbd)
+#define FT_VALIDATE_trak  FT_VALIDATE_GX_BITFIELD(trak)
+#define FT_VALIDATE_prop  FT_VALIDATE_GX_BITFIELD(prop)
+#define FT_VALIDATE_lcar  FT_VALIDATE_GX_BITFIELD(lcar)
 
 #define FT_VALIDATE_GX  ( FT_VALIDATE_feat | \
                           FT_VALIDATE_mort | \
@@ -214,7 +214,7 @@ FT_BEGIN_HEADER
   *   application hasn't asked for validation, or the validator doesn't have
   *   the ability to validate the sfnt table.
   */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_TrueTypeGX_Validate( FT_Face   face,
                           FT_UInt   validation_flags,
                           FT_Bytes  tables[FT_VALIDATE_GX_LENGTH],
@@ -243,7 +243,7 @@ FT_BEGIN_HEADER
   *   This function must be used to free the buffer allocated by
   *   @FT_TrueTypeGX_Validate only.
   */
-  FT_EXPORT( void )
+  FT_EXPORT(void)
   FT_TrueTypeGX_Free( FT_Face   face,
                       FT_Bytes  table );
 
@@ -271,10 +271,10 @@ FT_BEGIN_HEADER
   *    FT_VALIDATE_CKERN ::
   *      Handle the `kern' as either classic Apple or Microsoft kern table.
   */
-#define FT_VALIDATE_MS     ( FT_VALIDATE_GX_START << 0 )
-#define FT_VALIDATE_APPLE  ( FT_VALIDATE_GX_START << 1 )
+#define FT_VALIDATE_MS     (FT_VALIDATE_GX_START << 0)
+#define FT_VALIDATE_APPLE  (FT_VALIDATE_GX_START << 1)
 
-#define FT_VALIDATE_CKERN  ( FT_VALIDATE_MS | FT_VALIDATE_APPLE )
+#define FT_VALIDATE_CKERN  (FT_VALIDATE_MS | FT_VALIDATE_APPLE)
 
 
   /* */
@@ -314,7 +314,7 @@ FT_BEGIN_HEADER
   *   `ckern_table', by calling @FT_ClassicKern_Free.  A NULL value
   *   indicates that the table doesn't exist in the font.
   */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_ClassicKern_Validate( FT_Face    face,
                            FT_UInt    validation_flags,
                            FT_Bytes  *ckern_table );
@@ -342,7 +342,7 @@ FT_BEGIN_HEADER
   *   This function must be used to free the buffer allocated by
   *   @FT_ClassicKern_Validate only.
   */
-  FT_EXPORT( void )
+  FT_EXPORT(void)
   FT_ClassicKern_Free( FT_Face   face,
                        FT_Bytes  table );
 

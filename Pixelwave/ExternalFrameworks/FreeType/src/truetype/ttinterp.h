@@ -83,7 +83,7 @@ FT_BEGIN_HEADER
 
   /* reading a cvt value.  Take care of non-square pixels if necessary */
   typedef FT_F26Dot6
-  (*TT_Get_CVT_Func)( EXEC_OP_ FT_ULong  idx );
+  (*TT_Get_CVT_Func)(EXEC_OP_ FT_ULong  idx);
 
   /* setting or moving a cvt value.  Take care of non-square pixels  */
   /* if necessary                                                    */
@@ -223,18 +223,18 @@ FT_BEGIN_HEADER
   extern const TT_GraphicsState  tt_default_graphics_state;
 
 
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   TT_Goto_CodeRange( TT_ExecContext  exec,
                      FT_Int          range,
                      FT_Long         IP );
 
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   TT_Set_CodeRange( TT_ExecContext  exec,
                     FT_Int          range,
                     void*           base,
                     FT_Long         length );
 
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   TT_Clear_CodeRange( TT_ExecContext  exec,
                       FT_Int          range );
 
@@ -258,22 +258,22 @@ FT_BEGIN_HEADER
   /* <Note>                                                                */
   /*    Only the glyph loader and debugger should call this function.      */
   /*                                                                       */
-  FT_EXPORT( TT_ExecContext )
-  TT_New_Context( TT_Driver  driver );
+  FT_EXPORT(TT_ExecContext)
+  TT_New_Context(TT_Driver  driver);
 
-  FT_LOCAL( FT_Error )
-  TT_Done_Context( TT_ExecContext  exec );
+  FT_LOCAL(FT_Error)
+  TT_Done_Context(TT_ExecContext  exec);
 
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   TT_Load_Context( TT_ExecContext  exec,
                    TT_Face         face,
                    TT_Size         size );
 
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   TT_Save_Context( TT_ExecContext  exec,
                    TT_Size         ins );
 
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   TT_Run_Context( TT_ExecContext  exec,
                   FT_Bool         debug );
 
@@ -299,8 +299,8 @@ FT_BEGIN_HEADER
   /*    This function is publicly exported because it is directly          */
   /*    invoked by the TrueType debugger.                                  */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
-  TT_RunIns( TT_ExecContext  exec );
+  FT_EXPORT(FT_Error)
+  TT_RunIns(TT_ExecContext  exec);
 
 
 FT_END_HEADER

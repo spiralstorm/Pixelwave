@@ -198,20 +198,20 @@ FT_BEGIN_HEADER
   /*   Two macros are used within the FreeType source code to define       */
   /*   exported library functions: FT_EXPORT and FT_EXPORT_DEF.            */
   /*                                                                       */
-  /*     FT_EXPORT( return_type )                                          */
+  /*     FT_EXPORT(return_type)                                          */
   /*                                                                       */
   /*       is used in a function declaration, as in                        */
   /*                                                                       */
-  /*         FT_EXPORT( FT_Error )                                         */
-  /*         FT_Init_FreeType( FT_Library*  alibrary );                    */
+  /*         FT_EXPORT(FT_Error)                                         */
+  /*         FT_Init_FreeType(FT_Library*  alibrary);                    */
   /*                                                                       */
   /*                                                                       */
-  /*     FT_EXPORT_DEF( return_type )                                      */
+  /*     FT_EXPORT_DEF(return_type)                                      */
   /*                                                                       */
   /*       is used in a function definition, as in                         */
   /*                                                                       */
-  /*         FT_EXPORT_DEF( FT_Error )                                     */
-  /*         FT_Init_FreeType( FT_Library*  alibrary )                     */
+  /*         FT_EXPORT_DEF(FT_Error)                                     */
+  /*         FT_Init_FreeType(FT_Library*  alibrary)                     */
   /*         {                                                             */
   /*           ... some code ...                                           */
   /*           return FT_Err_Ok;                                           */
@@ -523,7 +523,7 @@ FT_BEGIN_HEADER
   /*     open_args.num_params = 1;                                         */
   /*     open_args.params     = &parameter;                                */
   /*                                                                       */
-  /*     error = FT_Open_Face( library, &open_args, index, &face );        */
+  /*     error = FT_Open_Face(library, &open_args, index, &face);        */
   /*     ...                                                               */
   /*   }                                                                   */
   /*                                                                       */

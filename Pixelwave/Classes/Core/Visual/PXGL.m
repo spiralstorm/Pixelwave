@@ -52,7 +52,7 @@
 #define PX_GL_MATRIX_STACK_SIZE 16
 #define PX_GL_COLOR_STACK_SIZE 16
 
-/*#define PX_GL_COPY_POINT( pt1, pt2 ) \
+/*#define PX_GL_COPY_POINT(pt1, pt2) \
 { \
 	pt1->x = pt2->x; \
 	pt1->y = pt2->y; \
@@ -66,13 +66,13 @@
 
 //PXGLState pxGLDefaultState;
 
-//PXInline GLuint PXGLGLModeToPXMode( GLenum mode );
-//PXInline GLenum PXGLPXModeToGLMode( GLuint mode );
-PXInline GLuint PXGLGLStateToPXState( GLenum cap );
-PXInline GLenum PXGLPXStateToGLState( GLuint cap );
-PXInline GLuint PXGLGLClientStateToPXClientState( GLenum array );
-PXInline GLuint PXGLPXClientStateToGLClientState( GLenum array );
-//PXInline GLuint PXGLSizeOfGLEnum( GLenum type );
+//PXInline GLuint PXGLGLModeToPXMode(GLenum mode);
+//PXInline GLenum PXGLPXModeToGLMode(GLuint mode);
+PXInline GLuint PXGLGLStateToPXState(GLenum cap);
+PXInline GLenum PXGLPXStateToGLState(GLuint cap);
+PXInline GLuint PXGLGLClientStateToPXClientState(GLenum array);
+PXInline GLuint PXGLPXClientStateToGLClientState(GLenum array);
+//PXInline GLuint PXGLSizeOfGLEnum(GLenum type);
 
 PXGLMatrix pxGLMatrices[PX_GL_MATRIX_STACK_SIZE];
 PXGLColorTransform pxGLColors[PX_GL_COLOR_STACK_SIZE];
@@ -135,7 +135,7 @@ GLubyte pxGLAlpha = 0xFF;
  */
 void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 {
-	PXGLClipRect( 0, 0, width, height );
+	PXGLClipRect(0, 0, width, height);
 
 	pxGLPointSizePointer.pointer = 0;
 	pxGLVertexPointer.pointer = 0;
@@ -154,22 +154,22 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 //	pxGLBlendMode.asUInt     = pxGLDefaultBlendMode.asUInt;
 //	pxGLBlendModeInGL.asUInt = pxGLDefaultBlendMode.asUInt;
 
-	//glMatrixMode( GL_MODELVIEW );
+	//glMatrixMode(GL_MODELVIEW);
 	//glLoadIdentity( );
 
-	glDisable( GL_DEPTH_TEST );
-	glDisable( GL_LIGHTING );
+	glDisable(GL_DEPTH_TEST);
+	glDisable(GL_LIGHTING);
 
 	// Set defaults
-	glDisable( GL_TEXTURE_2D );
-	glDisable( GL_POINT_SMOOTH );
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_POINT_SMOOTH);
 
-	glDisableClientState( GL_TEXTURE_COORD_ARRAY );
-	glDisableClientState( GL_POINT_SIZE_ARRAY_OES );
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	glDisableClientState(GL_POINT_SIZE_ARRAY_OES);
 
 	// Always enabled
-	glEnableClientState( GL_VERTEX_ARRAY );
-	glEnable( GL_BLEND );
+	glEnableClientState(GL_VERTEX_ARRAY);
+	glEnable(GL_BLEND);
 
 	PX_ENABLE_BIT(pxGLDefaultState.clientState, PX_GL_VERTEX_ARRAY);
 	//PX_ENABLE_BIT(pxGLDefaultClientState, PX_GL_VERTEX_ARRAY);
@@ -202,7 +202,7 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 	pxGLCurrentColor->alphaMultiplier = 1.0f;
 
 	// then reset the aabb
-	PXGLResetAABB( false );
+	PXGLResetAABB(false);
 }
 
 /*
@@ -235,7 +235,7 @@ void PXGLSyncPXToGL( )
 	GLfloat fVals[4];
 
 	//Check texture
-	glGetIntegerv( GL_TEXTURE_BINDING_2D, &nVal );
+	glGetIntegerv(GL_TEXTURE_BINDING_2D, &nVal);
 	if (pxGLTexture != nVal)
 	{
 		changed = true;
@@ -243,33 +243,33 @@ void PXGLSyncPXToGL( )
 	}
 
 	//Check color
-	glGetFloatv( GL_CURRENT_COLOR, fVals );
-	bVal = PX_COLOR_BYTE_TO_FLOAT( fVals[0] );
+	glGetFloatv(GL_CURRENT_COLOR, fVals);
+	bVal = PX_COLOR_BYTE_TO_FLOAT(fVals[0]);
 	if (pxGLRed != bVal)
 	{
 		changed = true; pxGLRed = bVal;
 	}
 
-	bVal = PX_COLOR_BYTE_TO_FLOAT( fVals[1] );
+	bVal = PX_COLOR_BYTE_TO_FLOAT(fVals[1]);
 	if (pxGLGreen != bVal)
 	{
 		changed = true; pxGLGreen = bVal;
 	}
 
-	bVal = PX_COLOR_BYTE_TO_FLOAT( fVals[2] );
+	bVal = PX_COLOR_BYTE_TO_FLOAT(fVals[2]);
 	if (pxGLBlue != bVal)
 	{
 		changed = true; pxGLBlue = bVal;
 	}
 
-	bVal = PX_COLOR_BYTE_TO_FLOAT( fVals[3] );
+	bVal = PX_COLOR_BYTE_TO_FLOAT(fVals[3]);
 	if (pxGLAlpha != bVal)
 	{
 		changed = true; pxGLAlpha = bVal;
 	}
 
 	//Check line width
-	glGetFloatv( GL_LINE_WIDTH, fVals );
+	glGetFloatv(GL_LINE_WIDTH, fVals);
 	if (pxGLLineWidth != fVals[0])
 	{
 		changed = true;
@@ -277,7 +277,7 @@ void PXGLSyncPXToGL( )
 	}
 
 	//Check point size
-	glGetFloatv( GL_POINT_SIZE, fVals );
+	glGetFloatv(GL_POINT_SIZE, fVals);
 	if (pxGLPointSize != fVals[0])
 	{
 		changed = true;
@@ -289,7 +289,7 @@ void PXGLSyncPXToGL( )
 	if (!changed)
 	{
 		//Keep this in the if statement so we might not have to do it.
-		glGetIntegerv( GL_COLOR_ARRAY_TYPE, &nVal );
+		glGetIntegerv(GL_COLOR_ARRAY_TYPE, &nVal);
 		if (pxGLColorPointer.type != nVal)
 			changed = true;
 	}
@@ -299,7 +299,7 @@ void PXGLSyncPXToGL( )
 	if (!changed)
 	{
 		//Keep this in the if statement so we might not have to do it.
-		glGetIntegerv( GL_VERTEX_ARRAY_TYPE, &nVal );
+		glGetIntegerv(GL_VERTEX_ARRAY_TYPE, &nVal);
 		if (pxGLVertexPointer.type != nVal)
 			changed = true;
 	}
@@ -309,7 +309,7 @@ void PXGLSyncPXToGL( )
 	if (!changed)
 	{
 		//Keep this in the if statement so we might not have to do it.
-		glGetIntegerv( GL_TEXTURE_COORD_ARRAY_TYPE, &nVal );
+		glGetIntegerv(GL_TEXTURE_COORD_ARRAY_TYPE, &nVal);
 		if (pxGLTexCoordPointer.type != nVal)
 			changed = true;
 	}
@@ -319,14 +319,14 @@ void PXGLSyncPXToGL( )
 	if (!changed)
 	{
 		//Keep this in the if statement so we might not have to do it.
-		glGetIntegerv( GL_POINT_SIZE_ARRAY_TYPE_OES, &nVal );
+		glGetIntegerv(GL_POINT_SIZE_ARRAY_TYPE_OES, &nVal);
 		if (pxGLPointSizePointer.type != nVal)
 			changed = true;
 	}
 
 	//We need to check the texture parameters now...
 
-	glGetIntegerv( GL_FRAMEBUFFER_BINDING_OES, &nVal );
+	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &nVal);
 	if (pxGLFramebuffer != nVal)
 	{
 		pxGLFramebuffer = nVal;
@@ -344,14 +344,14 @@ void PXGLSyncPXToGL( )
  *
  *	@param GLenum cap - The gl server state you wish to sync with.
  */
-void PXGLSyncState( GLenum cap )
+void PXGLSyncState(GLenum cap)
 {
-	GLuint state = PXGLGLStateToPXState( cap );
-	if (PX_IS_BIT_ENABLED( pxGLStateInGL.state, state ))
-	//if (PX_IS_BIT_ENABLED( pxGLStateInGL, state ))
-		glEnable( cap );
+	GLuint state = PXGLGLStateToPXState(cap);
+	if (PX_IS_BIT_ENABLED(pxGLStateInGL.state, state))
+	//if (PX_IS_BIT_ENABLED(pxGLStateInGL, state))
+		glEnable(cap);
 	else
-		glDisable( cap );
+		glDisable(cap);
 }
 
 /*
@@ -360,14 +360,14 @@ void PXGLSyncState( GLenum cap )
  *
  *	@param GLenum cap - The gl client state you wish to sync with.
  */
-void PXGLSyncClientState( GLenum array )
+void PXGLSyncClientState(GLenum array)
 {
-	GLuint state = PXGLGLClientStateToPXClientState( array );
-	if (PX_IS_BIT_ENABLED( pxGLStateInGL.clientState, state ))
-	//if (PX_IS_BIT_ENABLED( pxGLClientStateInGL, state ))
-		glEnableClientState( array );
+	GLuint state = PXGLGLClientStateToPXClientState(array);
+	if (PX_IS_BIT_ENABLED(pxGLStateInGL.clientState, state))
+	//if (PX_IS_BIT_ENABLED(pxGLClientStateInGL, state))
+		glEnableClientState(array);
 	else
-		glDisableClientState( array );
+		glDisableClientState(array);
 }
 
 /*
@@ -378,27 +378,27 @@ void PXGLSyncClientState( GLenum array )
 void PXGLSyncGLToPX( )
 {
 	// Lets make sure vertex array is on... we do wish to draw stuff after all.
-	glEnableClientState( GL_VERTEX_ARRAY );
+	glEnableClientState(GL_VERTEX_ARRAY);
 
 	// Lets synchronize the rest of our states,
-	PXGLSyncState( GL_POINT_SPRITE_OES );
-	PXGLSyncState( GL_TEXTURE_2D );
-	PXGLSyncState( GL_POINT_SMOOTH );
-	PXGLSyncState( GL_LINE_SMOOTH );
-	PXGLSyncClientState( GL_TEXTURE_COORD_ARRAY );
-	PXGLSyncClientState( GL_POINT_SIZE_ARRAY_OES );
+	PXGLSyncState(GL_POINT_SPRITE_OES);
+	PXGLSyncState(GL_TEXTURE_2D);
+	PXGLSyncState(GL_POINT_SMOOTH);
+	PXGLSyncState(GL_LINE_SMOOTH);
+	PXGLSyncClientState(GL_TEXTURE_COORD_ARRAY);
+	PXGLSyncClientState(GL_POINT_SIZE_ARRAY_OES);
 
 	// Bind the texture, color, line width and point size we are currently using,
-	glBindTexture( GL_TEXTURE_2D, pxGLTexture );
-	glColor4ub( pxGLRed, pxGLGreen, pxGLBlue, pxGLAlpha );
-	glLineWidth( pxGLLineWidth );
-	glPointSize( pxGLPointSize );
+	glBindTexture(GL_TEXTURE_2D, pxGLTexture);
+	glColor4ub(pxGLRed, pxGLGreen, pxGLBlue, pxGLAlpha);
+	glLineWidth(pxGLLineWidth);
+	glPointSize(pxGLPointSize);
 
-	glBindFramebufferOES( GL_FRAMEBUFFER_OES, pxGLFramebuffer );
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFramebuffer);
 
 	//and enable the color array.
 	PXGLEnableColorArray( );
-	glEnableClientState( GL_COLOR_ARRAY );
+	glEnableClientState(GL_COLOR_ARRAY);
 
 	if (PX_IS_BIT_ENABLED(pxGLStateInGL.state, PX_GL_SHADE_MODEL_FLAT))
 	//if (PX_IS_BIT_ENABLED(pxGLStateInGL, PX_GL_SHADE_MODEL_FLAT))
@@ -514,7 +514,7 @@ GLuint PXGLDBGGetRenderCallCount( )
  *	is bound.  The symbolic constraint must be GL_FRAMEBUFFER.
  *	@param GLuint framebuffer - Specifies the name of a framebuffer object.
  */
-void PXGLBindFramebuffer( GLenum target, GLuint framebuffer )
+void PXGLBindFramebuffer(GLenum target, GLuint framebuffer)
 {
 	if (target != GL_FRAMEBUFFER_OES || pxGLFramebuffer == framebuffer)
 		return;
@@ -522,7 +522,7 @@ void PXGLBindFramebuffer( GLenum target, GLuint framebuffer )
 	PXGLFlushBuffer( );
 
 	pxGLFramebuffer = framebuffer;
-	glBindFramebufferOES( GL_FRAMEBUFFER_OES, pxGLFramebuffer );
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFramebuffer);
 }
 
 /*
@@ -537,7 +537,7 @@ void PXGLBindFramebuffer( GLenum target, GLuint framebuffer )
  *	@param GLint width - The width of the clipping area.
  *	@param GLint height - The height of the clipping area.
  */
-void PXGLClipRect( GLint x, GLint y, GLint width, GLint height )
+void PXGLClipRect(GLint x, GLint y, GLint width, GLint height)
 {
 	pxGLRectClip.x = x;
 	pxGLRectClip.y = y;
@@ -561,7 +561,7 @@ PXGLAABB *PXGLGetCurrentAABB( )
  *	PXGLResetAABB resets the current axis-aligned bounding box to the max and
  *	min values, thus ready to be modified.
  */
-void PXGLResetAABB( bool setToClipRect )
+void PXGLResetAABB(bool setToClipRect)
 {
 	if (setToClipRect)
 	{
@@ -588,7 +588,7 @@ void PXGLResetAABB( bool setToClipRect )
  *	@return bool - true if any portion of the axis-aligned bounding box is
  *	within the clipping rectangle.
  */
-bool PXGLIsAABBVisible( PXGLAABB *aabb )
+bool PXGLIsAABBVisible(PXGLAABB *aabb)
 {
 	if (aabb->xMin > (pxGLRectClip.x + pxGLRectClip.width))
 		return false;
@@ -629,14 +629,14 @@ GLuint PXGLBoundTexture( )
  *	Must be GL_TEXTURE_2D.
  *	@param GLuint texture - Specifies the name of a texture.
  */
-void PXGLBindTexture( GLenum target, GLuint texture )
+void PXGLBindTexture(GLenum target, GLuint texture)
 {
 	if (target != GL_TEXTURE_2D || pxGLTexture == texture)
 		return;
 
 	PXGLFlushBuffer( );
 	pxGLTexture = texture;
-	glBindTexture( target, texture );
+	glBindTexture(target, texture);
 }
 
 /*
@@ -652,12 +652,12 @@ void PXGLBindTexture( GLenum target, GLuint texture )
  *	@param GLfloat blue  - The blue value for the current color.
  *	@param GLfloat alpha - The alpha value for the current color.
  */
-void PXGLColor4f( GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha )
+void PXGLColor4f(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha)
 {
-	PXGLColor4ub(PX_COLOR_FLOAT_TO_BYTE( red ),
-	             PX_COLOR_FLOAT_TO_BYTE( green ),
-	             PX_COLOR_FLOAT_TO_BYTE( blue ),
-	             PX_COLOR_FLOAT_TO_BYTE( alpha ));
+	PXGLColor4ub(PX_COLOR_FLOAT_TO_BYTE(red),
+	             PX_COLOR_FLOAT_TO_BYTE(green),
+	             PX_COLOR_FLOAT_TO_BYTE(blue),
+	             PX_COLOR_FLOAT_TO_BYTE(alpha));
 }
 
 /*
@@ -673,7 +673,7 @@ void PXGLColor4f( GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha )
  *	@param GLfloat blue  - The blue value for the current color.
  *	@param GLfloat alpha - The alpha value for the current color.
  */
-void PXGLColor4ub( GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha )
+void PXGLColor4ub(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha)
 {
 	// Lets convert the color to inherit properties from the parents.
 	red   *= pxGLCurrentColor->redMultiplier;
@@ -706,18 +706,18 @@ void PXGLColor4ub( GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha )
  *
  *	@param GLenum cap - Specifies a symbolic constant indicating a GL capability
  */
-void PXGLEnable( GLenum cap )
+void PXGLEnable(GLenum cap)
 {
-	GLuint state = PXGLGLStateToPXState( cap );
-//	if (PX_IS_BIT_ENABLED( pxGLState, state ))
+	GLuint state = PXGLGLStateToPXState(cap);
+//	if (PX_IS_BIT_ENABLED(pxGLState, state))
 //		return;
 
 	//If a state changes, we need to flush the buffer.
 //	PXGLFlushBuffer( );
-	//PX_ENABLE_BIT( pxGLState, state );
-	PX_ENABLE_BIT( pxGLState.state, state );
+	//PX_ENABLE_BIT(pxGLState, state);
+	PX_ENABLE_BIT(pxGLState.state, state);
 
-//	glEnable( cap );
+//	glEnable(cap);
 }
 
 /*
@@ -733,33 +733,33 @@ void PXGLEnable( GLenum cap )
  *	Symbolic constants GL_COLOR_ARRAY, GL_POINT_SIZE_ARRAY_OES,
  *	GL_TEXTURE_COORD_ARRAY are accepted.
  */
-void PXGLEnableClientState( GLenum array )
+void PXGLEnableClientState(GLenum array)
 {
 	// If we are using our color array method, then we don't actually want to
 	// enable the color array here, we just wish to know that the user wants to;
 	// thus we are also not breaking the batch.
 //	if (array == GL_COLOR_ARRAY)
 //	{
-//		PX_ENABLE_BIT( pxGLClientState, PX_GL_COLOR_ARRAY );
+//		PX_ENABLE_BIT(pxGLClientState, PX_GL_COLOR_ARRAY);
 //		return;
 //	}
 
 	// Lets convert the client state from gl to ours, so we can check it
 	// properly
-	GLuint state = PXGLGLClientStateToPXClientState( array );
+	GLuint state = PXGLGLClientStateToPXClientState(array);
 	// If the state is already enabled then we do not need to change gl, and
 	// thus we do not need to break the batch.
-//	if (PX_IS_BIT_ENABLED( pxGLClientState, state ))
+//	if (PX_IS_BIT_ENABLED(pxGLClientState, state))
 //		return;
 
 	// Lets flush the buffer, as we are changing states and wish to use the
 	// current state with the current batch.
 //	PXGLFlushBuffer( );
-	PX_ENABLE_BIT( pxGLState.clientState, state );
-	//PX_ENABLE_BIT( pxGLClientState, state );
+	PX_ENABLE_BIT(pxGLState.clientState, state);
+	//PX_ENABLE_BIT(pxGLClientState, state);
 
 	// Lets enable the gl state.
-//	glEnableClientState( array );
+//	glEnableClientState(array);
 }
 
 /*
@@ -774,24 +774,24 @@ void PXGLEnableClientState( GLenum array )
  *
  *	@param GLenum cap - Specifies a symbolic constant indicating a GL capability
  */
-void PXGLDisable( GLenum cap )
+void PXGLDisable(GLenum cap)
 {
 	// Lets convert the client state from gl to ours, so we can check it
 	// properly
-	GLuint state = PXGLGLStateToPXState( cap );
+	GLuint state = PXGLGLStateToPXState(cap);
 	// If the state is already disabled then we do not need to change gl, and
 	// thus we do not need to break the batch.
-//	if (!PX_IS_BIT_ENABLED( pxGLState, state ))
+//	if (!PX_IS_BIT_ENABLED(pxGLState, state))
 //		return;
 
 	// Lets flush the buffer, as we are changing states and wish to use the
 	// current state with the current batch.
 //	PXGLFlushBuffer( );
-	PX_DISABLE_BIT( pxGLState.state, state );
-	//PX_DISABLE_BIT( pxGLState, state );
+	PX_DISABLE_BIT(pxGLState.state, state);
+	//PX_DISABLE_BIT(pxGLState, state);
 
 	// Lets disable the gl state.
-//	glDisable( cap );
+//	glDisable(cap);
 }
 
 /*
@@ -806,33 +806,33 @@ void PXGLDisable( GLenum cap )
  *
  *	@param GLenum cap - Specifies a symbolic constant indicating a GL capability
  */
-void PXGLDisableClientState( GLenum array )
+void PXGLDisableClientState(GLenum array)
 {
 	// If we are using our color array method, then we don't actually want to
 	// disable the color array here, we just wish to know that the user wants
 	// to; thus we are also not breaking the batch.
 //	if (array == GL_COLOR_ARRAY)
 //	{
-//		PX_DISABLE_BIT( pxGLClientState, PX_GL_COLOR_ARRAY );
+//		PX_DISABLE_BIT(pxGLClientState, PX_GL_COLOR_ARRAY);
 //		return;
 //	}
 
 	// Lets convert the client state from gl to ours, so we can check it
 	// properly
-	GLuint state = PXGLGLClientStateToPXClientState( array );
+	GLuint state = PXGLGLClientStateToPXClientState(array);
 	// If the state is already disabled then we do not need to change gl, and
 	// thus we do not need to break the batch.
-//	if (!PX_IS_BIT_ENABLED( pxGLClientState, state ))
+//	if (!PX_IS_BIT_ENABLED(pxGLClientState, state))
 //		return;
 
 	// Lets flush the buffer, as we are changing states and wish to use the
 	// current state with the current batch.
 //	PXGLFlushBuffer( );
-	PX_DISABLE_BIT( pxGLState.clientState, state );
-	//PX_DISABLE_BIT( pxGLClientState, state );
+	PX_DISABLE_BIT(pxGLState.clientState, state);
+	//PX_DISABLE_BIT(pxGLClientState, state);
 
 	//Lets disable the gl state.
-//	glDisableClientState( array );
+//	glDisableClientState(array);
 }
 
 /*
@@ -855,13 +855,13 @@ void PXGLDisableClientState( GLenum array )
  *	@param GLint param
  *		Specifies the value of pname.
  */
-void PXGLTexParameteri( GLenum target, GLenum pname, GLint param )
+void PXGLTexParameteri(GLenum target, GLenum pname, GLint param)
 {
 	// If the value has changed, we need to flush the buffer before changing it.
 	PXGLFlushBuffer( );
 
 	// then update gl.
-	glTexParameteri( target, pname, param );
+	glTexParameteri(target, pname, param);
 }
 
 /*
@@ -878,7 +878,7 @@ void PXGLTexParameteri( GLenum target, GLenum pname, GLint param )
  *	@param GLfloat width - Specifies the width of rasterized lines. The initial
  *	value is 1.
  */
-void PXGLLineWidth( GLfloat width )
+void PXGLLineWidth(GLfloat width)
 {
 	width *= pxGLScaleFactor;
 
@@ -893,7 +893,7 @@ void PXGLLineWidth( GLfloat width )
 	pxGLLineWidth = width;
 
 	//Lets actually change the gl state.
-	glLineWidth( width );
+	glLineWidth(width);
 }
 
 /*
@@ -910,7 +910,7 @@ void PXGLLineWidth( GLfloat width )
  *	@param GLfloat size - Specifies the diameter of rasterized points. The
  *	initial value is 1.
  */
-void PXGLPointSize( GLfloat size )
+void PXGLPointSize(GLfloat size)
 {
 	size *= pxGLScaleFactor;
 
@@ -923,7 +923,7 @@ void PXGLPointSize( GLfloat size )
 	pxGLPointSize = size;
 
 	// Lets actually change the gl state.
-	glPointSize( size );
+	glPointSize(size);
 }
 
 /*
@@ -945,14 +945,14 @@ void PXGLPointSize( GLfloat size )
  *	@param GLvoid * pointer - Specifies a pointer to the first coordinate of the
  *	first element in the array. The initial value is 0.
  */
-void PXGLColorPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
+void PXGLColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
 {
-	assert( type == GL_UNSIGNED_BYTE );
+	assert(type == GL_UNSIGNED_BYTE);
 	//We actually store this because we need to manipulate the data, such as
 	//batching and transforming.
 
 	if (stride == 0)
-		stride = sizeof( GLubyte ) * size;
+		stride = sizeof(GLubyte) * size;
 
 	pxGLColorPointer.size = size;
 	pxGLColorPointer.type = type;
@@ -978,14 +978,14 @@ void PXGLColorPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *po
  *	@param GLvoid * pointer - Specifies a pointer to the first coordinate of the
  *	first element in the array. The initial value is 0.
  */
-void PXGLPointSizePointer( GLenum type, GLsizei stride, const GLvoid *pointer )
+void PXGLPointSizePointer(GLenum type, GLsizei stride, const GLvoid *pointer)
 {
-	assert( type == GL_FLOAT );
+	assert(type == GL_FLOAT);
 	//We actually store this because we need to manipulate the data, such as
 	//batching and transforming.
 
 	if (stride == 0)
-		stride = sizeof( GLfloat );
+		stride = sizeof(GLfloat);
 
 	pxGLPointSizePointer.type = type;
 	pxGLPointSizePointer.stride = stride;
@@ -1011,15 +1011,15 @@ void PXGLPointSizePointer( GLenum type, GLsizei stride, const GLvoid *pointer )
  *	@param GLvoid * pointer - Specifies a pointer to the first coordinate of the
  *	first element in the array. The initial value is 0.
  */
-void PXGLTexCoordPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
+void PXGLTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
 {
-	assert( type == GL_FLOAT );
+	assert(type == GL_FLOAT);
 
 	// We actually store this because we need to manipulate the data, such as
 	// batching and transforming.
 
 	if (stride == 0)
-		stride = sizeof( GLfloat ) * size;
+		stride = sizeof(GLfloat) * size;
 
 	// Lets copy the values over
 	pxGLTexCoordPointer.size = size;
@@ -1046,14 +1046,14 @@ void PXGLTexCoordPointer( GLint size, GLenum type, GLsizei stride, const GLvoid 
  *	@param GLvoid * pointer - Specifies a pointer to the first coordinate of the
  *	first element in the array. The initial value is 0.
  */
-void PXGLVertexPointer( GLint size, GLenum type, GLsizei stride, const GLvoid *pointer )
+void PXGLVertexPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
 {
-	assert( type == GL_FLOAT );
+	assert(type == GL_FLOAT);
 	// We actually store this because we need to manipulate the data, such as
 	// batching and transforming.
 
 	if (stride == 0)
-		stride = sizeof( GLfloat ) * size;
+		stride = sizeof(GLfloat) * size;
 
 	pxGLVertexPointer.size = size;
 	pxGLVertexPointer.type = type;
@@ -1149,7 +1149,7 @@ void PXGLTexEnvxv(GLenum target, GLenum pname, const GLfixed *params)
  *	@param GLint first - Specifies the starting index in the enabled arrays.
  *	@param GLsizei count - Specifies the number of indices to be rendered.
  */
-void PXGLDrawArrays( GLenum mode, GLint first, GLsizei count )
+void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 {
 	// If our pointer is empty, then lets just return.
 	if (!pxGLVertexPointer.pointer || count == 0) //|| pxGLCurrentColor->alphaMultiplier < 0.001f )
@@ -1158,19 +1158,19 @@ void PXGLDrawArrays( GLenum mode, GLint first, GLsizei count )
 	// If we were previously drawing elements, but now are drawing arrays, then
 	// we need to flush the buffer and disable the bit that specifies that we
 	// were drawing elements.
-//	if (PX_IS_BIT_ENABLED( pxGLState, PX_GL_DRAW_ELEMENTS ))
+//	if (PX_IS_BIT_ENABLED(pxGLState, PX_GL_DRAW_ELEMENTS))
 //	{
 		// Lets flush the buffer
 //		PXGLFlushBuffer( );
-//		PX_DISABLE_BIT( pxGLState, PX_GL_DRAW_ELEMENTS );
+//		PX_DISABLE_BIT(pxGLState, PX_GL_DRAW_ELEMENTS);
 //	}
 
-	//PX_DISABLE_BIT( pxGLState, PX_GL_DRAW_ELEMENTS );
-	PX_DISABLE_BIT( pxGLState.state, PX_GL_DRAW_ELEMENTS );
+	//PX_DISABLE_BIT(pxGLState, PX_GL_DRAW_ELEMENTS);
+	PX_DISABLE_BIT(pxGLState.state, PX_GL_DRAW_ELEMENTS);
 	PXGLSetupEnables();
 
 	// Lets change the draw mode.
-	PXGLSetDrawMode( mode );
+	PXGLSetDrawMode(mode);
 
 	// This variable is for tracking the current point we are manipulating.
 	PXGLColoredTextureVertex *point;
@@ -1191,12 +1191,12 @@ void PXGLDrawArrays( GLenum mode, GLint first, GLsizei count )
 	unsigned oldVertexIndex = PXGLGetCurrentVertexIndex( );
 	// Byte count = 32
 
-	char isTextured = PX_IS_BIT_ENABLED( pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY );
-	char isColored = PX_IS_BIT_ENABLED( pxGLState.clientState, PX_GL_COLOR_ARRAY );
-	short isPointSizeArray = PX_IS_BIT_ENABLED( pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY ) && mode == GL_POINTS;
-	//char isTextured = PX_IS_BIT_ENABLED( pxGLClientState, PX_GL_TEXTURE_COORD_ARRAY );
-	//char isColored = PX_IS_BIT_ENABLED( pxGLClientState, PX_GL_COLOR_ARRAY );
-	//short isPointSizeArray = PX_IS_BIT_ENABLED( pxGLClientState, PX_GL_POINT_SIZE_ARRAY ) && mode == GL_POINTS;
+	char isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
+	char isColored = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_COLOR_ARRAY);
+	short isPointSizeArray = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
+	//char isTextured = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_TEXTURE_COORD_ARRAY);
+	//char isColored = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_COLOR_ARRAY);
+	//short isPointSizeArray = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
 	// Byte count = 36
 
 	// Lets set the pointer to the starting point of the vertices, texture
@@ -1236,7 +1236,7 @@ void PXGLDrawArrays( GLenum mode, GLint first, GLsizei count )
 
 		// Grab the old point AFTER next is called, because next has a chance to
 		// realloc memory for the array, thus possibly moving the pointer.
-		point = PXGLGetVertexAt( oldVertexIndex - 1 );
+		point = PXGLGetVertexAt(oldVertexIndex - 1);
 		*pointForStrip = *point;
 	}
 
@@ -1321,7 +1321,7 @@ void PXGLDrawArrays( GLenum mode, GLint first, GLsizei count )
 		// If we haven't had multiple values for colors yet, then we have to
 		// check if this addition will make it so.
 		if (!(pxGLBufferVertexColorState == PX_GL_VERTEX_COLOR_MULTIPLE))
-			PXGLSetBufferLastVertexColor( point->r, point->g, point->b, point->a );
+			PXGLSetBufferLastVertexColor(point->r, point->g, point->b, point->a);
 
 		// If we are using a point size array, then we need to grab the info
 		if (isPointSizeArray)
@@ -1346,7 +1346,7 @@ void PXGLDrawArrays( GLenum mode, GLint first, GLsizei count )
 			// Grab the old point AFTER next is called, because next has a
 			// chance to realloc memory for the array, thus possibly moving the
 			// pointer.
-			point = PXGLGetVertexAt( PXGLGetCurrentVertexIndex( ) - 2 );
+			point = PXGLGetVertexAt(PXGLGetCurrentVertexIndex( ) - 2);
 
 			// Copy the points info
 			*pointForStrip = *point;
@@ -1363,7 +1363,7 @@ void PXGLDrawArrays( GLenum mode, GLint first, GLsizei count )
 
 	if (!_PXGLRectContainsAABB(&pxGLRectClip, &aabb))
 	{
-		PXGLSetCurrentVertexIndex( oldVertexIndex );
+		PXGLSetCurrentVertexIndex(oldVertexIndex);
 	}
 
 	// We are adding a 1 pixel buffer to the bounding box
@@ -1393,7 +1393,7 @@ void PXGLDrawArrays( GLenum mode, GLint first, GLsizei count )
  *	@param const GLvoid * ids - Specifies a pointer to the location where the
  *	indices are stored.
  */
-void PXGLDrawElements( GLenum mode, GLsizei count, GLenum type, const GLvoid *ids )
+void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids)
 {
 	if (!pxGLVertexPointer.pointer) // || pxGLCurrentColor->alphaMultiplier < 0.001f )
 		return;
@@ -1404,17 +1404,17 @@ void PXGLDrawElements( GLenum mode, GLsizei count, GLenum type, const GLvoid *id
 	// If we were previously drawing arrays, but now are drawing elements, then
 	// we need to flush the buffer and enable the bit that specifies that we
 	// were drawing elements.
-//	if (!PX_IS_BIT_ENABLED( pxGLState, PX_GL_DRAW_ELEMENTS ))
+//	if (!PX_IS_BIT_ENABLED(pxGLState, PX_GL_DRAW_ELEMENTS))
 //	{
 //		PXGLFlushBuffer( );
-//		PX_ENABLE_BIT( pxGLState, PX_GL_DRAW_ELEMENTS );
+//		PX_ENABLE_BIT(pxGLState, PX_GL_DRAW_ELEMENTS);
 //	}
 
-	PX_ENABLE_BIT( pxGLState.state, PX_GL_DRAW_ELEMENTS );
-	//PX_ENABLE_BIT( pxGLState, PX_GL_DRAW_ELEMENTS );
+	PX_ENABLE_BIT(pxGLState.state, PX_GL_DRAW_ELEMENTS);
+	//PX_ENABLE_BIT(pxGLState, PX_GL_DRAW_ELEMENTS);
 	PXGLSetupEnables();
 
-	PXGLSetDrawMode( mode );
+	PXGLSetDrawMode(mode);
 
 	PXGLColoredTextureVertex *point;
 	GLushort *index;
@@ -1427,12 +1427,12 @@ void PXGLDrawElements( GLenum mode, GLsizei count, GLenum type, const GLvoid *id
 	GLsizei pointSizeStride = pxGLPointSizePointer.stride;
 	// Byte count = 32
 
-	GLubyte isTextured = PX_IS_BIT_ENABLED( pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY );
-	GLubyte isColored = PX_IS_BIT_ENABLED( pxGLState.clientState, PX_GL_COLOR_ARRAY );
-	GLushort isPointSizeArray = PX_IS_BIT_ENABLED( pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY ) && mode == GL_POINTS;
-	//GLubyte isTextured = PX_IS_BIT_ENABLED( pxGLClientState, PX_GL_TEXTURE_COORD_ARRAY );
-	//GLubyte isColored = PX_IS_BIT_ENABLED( pxGLClientState, PX_GL_COLOR_ARRAY );
-	//GLushort isPointSizeArray = PX_IS_BIT_ENABLED( pxGLClientState, PX_GL_POINT_SIZE_ARRAY ) && mode == GL_POINTS;
+	GLubyte isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
+	GLubyte isColored = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_COLOR_ARRAY);
+	GLushort isPointSizeArray = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
+	//GLubyte isTextured = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_TEXTURE_COORD_ARRAY);
+	//GLubyte isColored = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_COLOR_ARRAY);
+	//GLushort isPointSizeArray = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
 	// Byte count = 36
 
 	const void const *startVertex = pxGLVertexPointer.pointer;
@@ -1571,7 +1571,7 @@ void PXGLDrawElements( GLenum mode, GLsizei count, GLenum type, const GLvoid *id
 		// If we haven't had multiple values for colors yet, then we have to
 		// check if this addition will make it so.
 		if (!(pxGLBufferVertexColorState == PX_GL_VERTEX_COLOR_MULTIPLE))
-			PXGLSetBufferLastVertexColor( point->r, point->g, point->b, point->a );
+			PXGLSetBufferLastVertexColor(point->r, point->g, point->b, point->a);
 
 		// If we are using a point size array, then we need to grab the info
 		if (isPointSizeArray)
@@ -1603,8 +1603,8 @@ void PXGLDrawElements( GLenum mode, GLsizei count, GLenum type, const GLvoid *id
 	// the old one, this way it negates us adding more on.
 	if (!_PXGLRectContainsAABB(&pxGLRectClip, &aabb))
 	{
-		PXGLSetCurrentIndex( oldIndex );
-		PXGLSetCurrentVertexIndex( oldVertexIndex );
+		PXGLSetCurrentIndex(oldIndex);
+		PXGLSetCurrentVertexIndex(oldVertexIndex);
 	}
 
 	// We are adding a 1 pixel buffer to the bounding box
@@ -1643,7 +1643,7 @@ void PXGLPopMatrix( )
  */
 void PXGLPushMatrix( )
 {
-	assert( pxGLCurrentMatrixIndex < PX_GL_MATRIX_STACK_SIZE - 1 );
+	assert(pxGLCurrentMatrixIndex < PX_GL_MATRIX_STACK_SIZE - 1);
 
 	PXGLMatrix *oldMatrix = pxGLCurrentMatrix;
 	pxGLCurrentMatrix = &pxGLMatrices[++pxGLCurrentMatrixIndex];
@@ -1661,7 +1661,7 @@ void PXGLPushMatrix( )
  */
 void PXGLLoadIdentity( )
 {
-	PXGLMatrixIdentity( pxGLCurrentMatrix );
+	PXGLMatrixIdentity(pxGLCurrentMatrix);
 }
 
 /*
@@ -1670,7 +1670,7 @@ void PXGLLoadIdentity( )
  *	@param GLfloat x - The x coordinate of the translation vector.
  *	@param GLfloat y - The y coordinate of the translation vector.
  */
-void PXGLTranslate( GLfloat x, GLfloat y )
+void PXGLTranslate(GLfloat x, GLfloat y)
 {
 	pxGLCurrentMatrix->tx += x;
 	pxGLCurrentMatrix->ty += y;
@@ -1682,7 +1682,7 @@ void PXGLTranslate( GLfloat x, GLfloat y )
  *	@param GLfloat x - Scaling factor along the x axis.
  *	@param GLfloat y - Scaling factor along the y axis.
  */
-void PXGLScale( GLfloat x, GLfloat y )
+void PXGLScale(GLfloat x, GLfloat y)
 {
 	// Multiply the matrix by the scaling factors
 	pxGLCurrentMatrix->a *= x;
@@ -1698,10 +1698,10 @@ void PXGLScale( GLfloat x, GLfloat y )
  *
  *	@param GLfloat angle - Specifies the angle of rotation, in degrees.
  */
-void PXGLRotate( GLfloat angle )
+void PXGLRotate(GLfloat angle)
 {
-	GLfloat sinVal = sinf( angle );
-	GLfloat cosVal = cosf( angle );
+	GLfloat sinVal = sinf(angle);
+	GLfloat cosVal = cosf(angle);
 
 	GLfloat a = pxGLCurrentMatrix->a;
 	GLfloat b = pxGLCurrentMatrix->b;
@@ -1723,9 +1723,9 @@ void PXGLRotate( GLfloat angle )
  *
  *	@param PXGLMatrix * mat - The matrix to be multiplied with.
  */
-void PXGLMultMatrix( PXGLMatrix *mat )
+void PXGLMultMatrix(PXGLMatrix *mat)
 {
-	PXGLMatrixMult( pxGLCurrentMatrix, pxGLCurrentMatrix, mat );
+	PXGLMatrixMult(pxGLCurrentMatrix, pxGLCurrentMatrix, mat);
 }
 
 /*
@@ -1782,7 +1782,7 @@ void PXGLLoadMatrixToGL( )
 	pxGLMatrix[12] = pxGLCurrentMatrix->tx;
 	pxGLMatrix[13] = pxGLCurrentMatrix->ty;
 
-	glLoadMatrixf( pxGLMatrix );
+	glLoadMatrixf(pxGLMatrix);
 }
 
 /*
@@ -1791,7 +1791,7 @@ void PXGLLoadMatrixToGL( )
  */
 void PXGLPopColorTransform( )
 {
-	assert( pxGLCurrentColorIndex );
+	assert(pxGLCurrentColorIndex);
 
 	pxGLCurrentColor = &pxGLColors[--pxGLCurrentColorIndex];
 
@@ -1820,7 +1820,7 @@ void PXGLPopColorTransform( )
 void PXGLPushColorTransform( )
 {
 	//PXDebugLog(@"PXGLPushColor has failed: Reached color transform capacity.");
-	assert( pxGLCurrentColorIndex < PX_GL_COLOR_STACK_SIZE - 1 );
+	assert(pxGLCurrentColorIndex < PX_GL_COLOR_STACK_SIZE - 1);
 
 	PXGLColorTransform *pxOldColor = pxGLCurrentColor;
 	pxGLCurrentColor = &pxGLColors[++pxGLCurrentColorIndex];
@@ -1842,7 +1842,7 @@ void PXGLPushColorTransform( )
  *
  *	@param PXGLColorTransform * transform - The transform you wish to set.
  */
-void PXGLSetColorTransform( PXGLColorTransform *transform )
+void PXGLSetColorTransform(PXGLColorTransform *transform)
 {
 	if (pxGLCurrentColorIndex != 0)
 	{
@@ -1858,24 +1858,24 @@ void PXGLSetColorTransform( PXGLColorTransform *transform )
 	pxGLCurrentColor->blueMultiplier  *= transform->blueMultiplier;
 	pxGLCurrentColor->alphaMultiplier *= transform->alphaMultiplier;
 
-	pxGLRed   = PX_COLOR_FLOAT_TO_BYTE( pxGLCurrentColor->redMultiplier   );
-	pxGLGreen = PX_COLOR_FLOAT_TO_BYTE( pxGLCurrentColor->greenMultiplier );
-	pxGLBlue  = PX_COLOR_FLOAT_TO_BYTE( pxGLCurrentColor->blueMultiplier  );
-	pxGLAlpha = PX_COLOR_FLOAT_TO_BYTE( pxGLCurrentColor->alphaMultiplier );
+	pxGLRed   = PX_COLOR_FLOAT_TO_BYTE(pxGLCurrentColor->redMultiplier  );
+	pxGLGreen = PX_COLOR_FLOAT_TO_BYTE(pxGLCurrentColor->greenMultiplier);
+	pxGLBlue  = PX_COLOR_FLOAT_TO_BYTE(pxGLCurrentColor->blueMultiplier );
+	pxGLAlpha = PX_COLOR_FLOAT_TO_BYTE(pxGLCurrentColor->alphaMultiplier);
 }
 
-/*void PXGLGetAbsoluteColorTransform( PXGLColorTransform *transform )
+/*void PXGLGetAbsoluteColorTransform(PXGLColorTransform *transform)
 {
-	assert( transform );
+	assert(transform);
 
 	transform->redMultiplier   = pxGLCurrentColor->redMultiplier;
 	transform->greenMultiplier = pxGLCurrentColor->greenMultiplier;
 	transform->blueMultiplier  = pxGLCurrentColor->blueMultiplier;
 	transform->alphaMultiplier = pxGLCurrentColor->alphaMultiplier;
 }
-void PXGLSetAbsoluteColorTransform( PXGLColorTransform *transform )
+void PXGLSetAbsoluteColorTransform(PXGLColorTransform *transform)
 {
-	assert( transform );
+	assert(transform);
 	
 	pxGLCurrentColor->redMultiplier   = transform->redMultiplier;
 	pxGLCurrentColor->greenMultiplier = transform->greenMultiplier;
@@ -1898,13 +1898,13 @@ void PXGLLoadColorTransformIdentity( )
 		pxGLCurrentColor->blueMultiplier = pxOldColor->blueMultiplier;
 		pxGLCurrentColor->alphaMultiplier = pxOldColor->alphaMultiplier;
 
-		pxGLRed   = PX_COLOR_FLOAT_TO_BYTE( pxGLCurrentColor->redMultiplier   );
-		pxGLGreen = PX_COLOR_FLOAT_TO_BYTE( pxGLCurrentColor->greenMultiplier );
-		pxGLBlue  = PX_COLOR_FLOAT_TO_BYTE( pxGLCurrentColor->blueMultiplier  );
-		pxGLAlpha = PX_COLOR_FLOAT_TO_BYTE( pxGLCurrentColor->alphaMultiplier );
+		pxGLRed   = PX_COLOR_FLOAT_TO_BYTE(pxGLCurrentColor->redMultiplier  );
+		pxGLGreen = PX_COLOR_FLOAT_TO_BYTE(pxGLCurrentColor->greenMultiplier);
+		pxGLBlue  = PX_COLOR_FLOAT_TO_BYTE(pxGLCurrentColor->blueMultiplier );
+		pxGLAlpha = PX_COLOR_FLOAT_TO_BYTE(pxGLCurrentColor->alphaMultiplier);
 	}
 	else
-		PXGLColorTransformIdentity( pxGLCurrentColor );
+		PXGLColorTransformIdentity(pxGLCurrentColor);
 }
 
 /*
@@ -1916,10 +1916,10 @@ void PXGLResetColorTransformStack( )
 	pxGLCurrentColorIndex = 0;
 	pxGLCurrentColor = pxGLColors;
 	PXGLLoadColorTransformIdentity( );
-	PXGLColor4ub( 0xFF, 0xFF, 0xFF, 0xFF );
+	PXGLColor4ub(0xFF, 0xFF, 0xFF, 0xFF);
 }
 
-void PXGLMatrixMult( PXGLMatrix *store, PXGLMatrix *mat1, PXGLMatrix *mat2 )
+void PXGLMatrixMult(PXGLMatrix *store, PXGLMatrix *mat1, PXGLMatrix *mat2)
 {
 	GLfloat a2 = mat1->a;
 	GLfloat b2 = mat1->b;
@@ -1948,14 +1948,14 @@ void PXGLMatrixMult( PXGLMatrix *store, PXGLMatrix *mat1, PXGLMatrix *mat2 )
  *
  *	@param PXGLMatrix * mat - Matrix to be transformed into the identity.
  */
-void PXGLMatrixIdentity( PXGLMatrix *mat )
+void PXGLMatrixIdentity(PXGLMatrix *mat)
 {
 	mat->a = 1.0f; mat->c = 0.0f;
 	mat->b = 0.0f; mat->d = 1.0f;
 	mat->tx = mat->ty = 0.0f;
 }
 
-void PXGLMatrixInvert( PXGLMatrix *mat )
+void PXGLMatrixInvert(PXGLMatrix *mat)
 {
 	float a = mat->a;
 	float b = mat->b;
@@ -1979,7 +1979,7 @@ void PXGLMatrixInvert( PXGLMatrix *mat )
  *
  *	@param PXGLColorTransform * transform - Transform to be set to the identity.
  */
-void PXGLColorTransformIdentity( PXGLColorTransform *transform )
+void PXGLColorTransformIdentity(PXGLColorTransform *transform)
 {
 	transform->redMultiplier   = 1.0f;
 	transform->greenMultiplier = 1.0f;
@@ -2227,7 +2227,7 @@ PXInline_c void _PXGLStateGetIntegerv(PXGLState *state, GLenum pname, GLint *par
 	}
 }
 
-PXInline GLuint PXGLGLStateToPXState( GLenum cap )
+PXInline GLuint PXGLGLStateToPXState(GLenum cap)
 {
 	switch (cap)
 	{
@@ -2244,7 +2244,7 @@ PXInline GLuint PXGLGLStateToPXState( GLenum cap )
 	return 0;
 }
 
-PXInline GLenum PXGLPXStateToGLState( GLuint cap )
+PXInline GLenum PXGLPXStateToGLState(GLuint cap)
 {
 	switch (cap)
 	{
@@ -2261,7 +2261,7 @@ PXInline GLenum PXGLPXStateToGLState( GLuint cap )
 	return 0;
 }
 
-PXInline GLuint PXGLGLClientStateToPXClientState( GLenum array )
+PXInline GLuint PXGLGLClientStateToPXClientState(GLenum array)
 {
 	switch (array)
 	{
@@ -2278,7 +2278,7 @@ PXInline GLuint PXGLGLClientStateToPXClientState( GLenum array )
 	return 0;
 }
 
-PXInline GLuint PXGLPXClientStateToGLClientState( GLenum array )
+PXInline GLuint PXGLPXClientStateToGLClientState(GLenum array)
 {
 	switch (array)
 	{
@@ -2295,20 +2295,20 @@ PXInline GLuint PXGLPXClientStateToGLClientState( GLenum array )
 	return 0;
 }
 
-PXInline GLuint PXSizeOfGLEnum( GLenum type )
+PXInline GLuint PXSizeOfGLEnum(GLenum type)
 {
 	switch (type)
 	{
 	case GL_BYTE:
-		return sizeof( GLbyte );
+		return sizeof(GLbyte);
 	case GL_UNSIGNED_BYTE:
-		return sizeof( GLubyte );
+		return sizeof(GLubyte);
 	case GL_SHORT:
-		return sizeof( GLshort );
+		return sizeof(GLshort);
 	case GL_UNSIGNED_SHORT:
-		return sizeof( GLushort );
+		return sizeof(GLushort);
 	case GL_FLOAT:
-		return sizeof( GLfloat );
+		return sizeof(GLfloat);
 	}
 
 	return 0;
@@ -2332,7 +2332,7 @@ void PXGLSetViewSize(unsigned width, unsigned height, float scaleFactor, bool or
 			   0.0f,									// y
 			   pxGLWidthInPoints  * pxGLScaleFactor,	// width
 			   pxGLHeightInPoints * pxGLScaleFactor);	// height
-	glMatrixMode( GL_PROJECTION );
+	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity( );
 
 	// in POINTS
@@ -2342,7 +2342,7 @@ void PXGLSetViewSize(unsigned width, unsigned height, float scaleFactor, bool or
 			 0,						// yMax
 			 -100.0f,				// zMin
 			  100.0f);				// zMax
-	glMatrixMode( GL_MODELVIEW );
+	glMatrixMode(GL_MODELVIEW);
 }
 
 /*

@@ -48,7 +48,7 @@ FT_BEGIN_HEADER
                             FT_Pos   *aadvance );
 
 
-  FT_DEFINE_SERVICE( PfrMetrics )
+  FT_DEFINE_SERVICE(PfrMetrics)
   {
     FT_PFR_GetMetricsFunc  get_metrics;
     FT_PFR_GetKerningFunc  get_kerning;

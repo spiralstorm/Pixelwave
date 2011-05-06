@@ -27,7 +27,7 @@
 #define DPRINT(msg) do { } while(/*CONSTCOND*/0)
 #endif /* !TRE_DEBUG */
 
-#define elementsof(x)	( sizeof(x) / sizeof(x[0]) )
+#define elementsof(x)	(sizeof(x) / sizeof(x[0]))
 
 #ifdef HAVE_MBRTOWC
 #define tre_mbrtowc(pwc, s, n, ps) (mbrtowc((pwc), (s), (n), (ps)))
@@ -118,7 +118,7 @@ typedef wctype_t tre_ctype_t;
 #else /* !TRE_USE_SYSTEM_WCTYPE */
 /* Define our own versions of iswctype() and wctype(). */
 typedef int (*tre_ctype_t)(tre_cint_t);
-#define tre_isctype(c, type) ( (type)(c) )
+#define tre_isctype(c, type) ((type)(c))
 tre_ctype_t tre_ctype(const char *name);
 #endif /* !TRE_USE_SYSTEM_WCTYPE */
 

@@ -89,10 +89,10 @@ FT_BEGIN_HEADER
   } FT_ValidatorRec;
 
 
-#define FT_VALIDATOR( x )  ((FT_Validator)( x ))
+#define FT_VALIDATOR(x )  ((FT_Validator)( x))
 
 
-  FT_BASE( void )
+  FT_BASE(void)
   ft_validator_init( FT_Validator        valid,
                      const FT_Byte*      base,
                      const FT_Byte*      limit,
@@ -100,14 +100,14 @@ FT_BEGIN_HEADER
 
   /* Do not use this. It's broken and will cause your validator to crash */
   /* if you run it on an invalid font.                                   */
-  FT_BASE( FT_Int )
-  ft_validator_run( FT_Validator  valid );
+  FT_BASE(FT_Int)
+  ft_validator_run(FT_Validator  valid);
 
   /* Sets the error field in a validator, then calls `longjmp' to return */
   /* to high-level caller.  Using `setjmp/longjmp' avoids many stupid    */
   /* error checks within the validation routines.                        */
   /*                                                                     */
-  FT_BASE( void )
+  FT_BASE(void)
   ft_validator_error( FT_Validator  valid,
                       FT_Error      error );
 
@@ -117,29 +117,29 @@ FT_BEGIN_HEADER
   /*                                                                   */
   /* Use preprocessor prescan to pass FT_ERR_PREFIX.                   */
   /*                                                                   */
-#define FT_INVALID( _prefix, _error )  FT_INVALID_( _prefix, _error )
-#define FT_INVALID_( _prefix, _error ) \
-          ft_validator_error( valid, _prefix ## _error )
+#define FT_INVALID(_prefix, _error )  FT_INVALID_( _prefix, _error)
+#define FT_INVALID_(_prefix, _error) \
+          ft_validator_error(valid, _prefix ## _error)
 
   /* called when a broken table is detected */
 #define FT_INVALID_TOO_SHORT \
-          FT_INVALID( FT_ERR_PREFIX, Invalid_Table )
+          FT_INVALID(FT_ERR_PREFIX, Invalid_Table)
 
   /* called when an invalid offset is detected */
 #define FT_INVALID_OFFSET \
-          FT_INVALID( FT_ERR_PREFIX, Invalid_Offset )
+          FT_INVALID(FT_ERR_PREFIX, Invalid_Offset)
 
   /* called when an invalid format/value is detected */
 #define FT_INVALID_FORMAT \
-          FT_INVALID( FT_ERR_PREFIX, Invalid_Table )
+          FT_INVALID(FT_ERR_PREFIX, Invalid_Table)
 
   /* called when an invalid glyph index is detected */
 #define FT_INVALID_GLYPH_ID \
-          FT_INVALID( FT_ERR_PREFIX, Invalid_Glyph_Index )
+          FT_INVALID(FT_ERR_PREFIX, Invalid_Glyph_Index)
 
   /* called when an invalid field value is detected */
 #define FT_INVALID_DATA \
-          FT_INVALID( FT_ERR_PREFIX, Invalid_Table )
+          FT_INVALID(FT_ERR_PREFIX, Invalid_Table)
 
 
 FT_END_HEADER

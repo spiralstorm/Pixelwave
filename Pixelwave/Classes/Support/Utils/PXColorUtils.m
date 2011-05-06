@@ -52,7 +52,7 @@ PXInline_c void PXColorHexToRGB( unsigned hex, PXColor3 *color)
 	color->b = (hex & 0x0000ff);
 }
 
-PXInline_c void PXColorHexToRGBf( unsigned hex, PXColor3f *color )
+PXInline_c void PXColorHexToRGBf(unsigned hex, PXColor3f *color)
 {
 	color->r = PX_COLOR_BYTE_TO_FLOAT((hex & 0xff0000) >> 16);
 	color->g = PX_COLOR_BYTE_TO_FLOAT((hex & 0x00ff00) >> 8);

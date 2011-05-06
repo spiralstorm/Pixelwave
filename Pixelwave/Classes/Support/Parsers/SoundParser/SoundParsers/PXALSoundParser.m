@@ -268,7 +268,7 @@ OSStatus PXALSoundLoaderFileSetSize(void *inClientData,
 
 	AudioStreamBasicDescription fileFormat;
 	UInt64 fileDataSize = 0;
-	UInt32 propertySize = sizeof( UInt64 );	
+	UInt32 propertySize = sizeof(UInt64);	
 
 	didAnErrorOccur = AudioFileGetProperty(afID, kAudioFilePropertyAudioDataByteCount, &propertySize, &fileDataSize);
 	if (didAnErrorOccur)

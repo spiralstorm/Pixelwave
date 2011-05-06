@@ -64,15 +64,15 @@ FT_BEGIN_HEADER
   } TT_ValidatorRec, *TT_Validator;
 
 
-#define TT_VALIDATOR( x )          ((TT_Validator)( x ))
-#define TT_VALID_GLYPH_COUNT( x )  TT_VALIDATOR( x )->num_glyphs
+#define TT_VALIDATOR(x )          ((TT_Validator)( x))
+#define TT_VALID_GLYPH_COUNT(x )  TT_VALIDATOR( x)->num_glyphs
 
 
-  FT_LOCAL( FT_Error )
-  tt_face_build_cmaps( TT_Face  face );
+  FT_LOCAL(FT_Error)
+  tt_face_build_cmaps(TT_Face  face);
 
   /* used in tt-cmaps service */
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   tt_get_cmap_info( FT_CharMap    charmap,
                     TT_CMapInfo  *cmap_info );
 

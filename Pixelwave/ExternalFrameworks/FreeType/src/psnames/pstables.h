@@ -4006,7 +4006,7 @@
     const unsigned char*  p = ft_adobe_glyph_list;
 
 
-    if ( name == 0 || name >= limit )
+    if (name == 0 || name >= limit)
       goto NotFound;
 
     c     = *name++;
@@ -4016,22 +4016,22 @@
     min = 0;
     max = count;
 
-    while ( min < max )
+    while (min < max)
     {
-      int                   mid = ( min + max ) >> 1;
+      int                   mid = (min + max) >> 1;
       const unsigned char*  q   = p + mid * 2;
       int                   c2;
 
 
-      q = ft_adobe_glyph_list + ( ( (int)q[0] << 8 ) | q[1] );
+      q = ft_adobe_glyph_list + (((int)q[0] << 8) | q[1]);
 
       c2 = q[0] & 127;
-      if ( c2 == c )
+      if (c2 == c)
       {
         p = q;
         goto Found;
       }
-      if ( c2 < c )
+      if (c2 < c)
         min = mid + 1;
       else
         max = mid;
@@ -4043,19 +4043,19 @@
     {
       /* assert (*p & 127) == c */
 
-      if ( name >= limit )
+      if (name >= limit)
       {
         if ( (p[0] & 128) == 0 &&
              (p[1] & 128) != 0 )
-          return (unsigned long)( ( (int)p[2] << 8 ) | p[3] );
+          return (unsigned long)(((int)p[2] << 8) | p[3]);
 
         goto NotFound;
       }
       c = *name++;
-      if ( p[0] & 128 )
+      if (p[0] & 128)
       {
         p++;
-        if ( c != (p[0] & 127) )
+        if (c != (p[0] & 127))
           goto NotFound;
 
         continue;
@@ -4063,17 +4063,17 @@
 
       p++;
       count = p[0] & 127;
-      if ( p[0] & 128 )
+      if (p[0] & 128)
         p += 2;
 
       p++;
 
-      for ( ; count > 0; count--, p += 2 )
+      for (; count > 0; count--, p += 2)
       {
-        int                   offset = ( (int)p[0] << 8 ) | p[1];
+        int                   offset = ((int)p[0] << 8) | p[1];
         const unsigned char*  q      = ft_adobe_glyph_list + offset;
 
-        if ( c == ( q[0] & 127 ) )
+        if (c == (q[0] & 127))
         {
           p = q;
           goto NextIter;

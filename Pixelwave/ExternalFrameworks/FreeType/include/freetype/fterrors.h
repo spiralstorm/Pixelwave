@@ -50,7 +50,7 @@
   /*     the error list.  It is followed by several FT_ERROR_DEF calls     */
   /*     (see below).                                                      */
   /*                                                                       */
-  /*   FT_ERROR_DEF( e, v, s ) ::                                          */
+  /*   FT_ERROR_DEF(e, v, s) ::                                          */
   /*     This macro is called to define one single error.                  */
   /*     `e' is the error code identifier (e.g. FT_Err_Invalid_Argument).  */
   /*     `v' is the error numerical value.                                 */
@@ -66,7 +66,7 @@
   /*                                                                       */
   /*     {                                                                 */
   /*       #undef __FTERRORS_H__                                           */
-  /*       #define FT_ERRORDEF( e, v, s )  { e, s },                       */
+  /*       #define FT_ERRORDEF(e, v, s)  { e, s },                       */
   /*       #define FT_ERROR_START_LIST     {                               */
   /*       #define FT_ERROR_END_LIST       { 0, 0 } };                     */
   /*                                                                       */
@@ -104,8 +104,8 @@
 #undef  FT_ERR_XCAT
 #undef  FT_ERR_CAT
 
-#define FT_ERR_XCAT( x, y )  x ## y
-#define FT_ERR_CAT( x, y )   FT_ERR_XCAT( x, y )
+#define FT_ERR_XCAT(x, y)  x ## y
+#define FT_ERR_CAT(x, y )   FT_ERR_XCAT( x, y)
 
 
   /* FT_ERR_PREFIX is used as a prefix for error identifiers. */
@@ -137,9 +137,9 @@
   /*                                                           */
 #ifndef FT_ERRORDEF
 
-#define FT_ERRORDEF( e, v, s )  e = v,
+#define FT_ERRORDEF(e, v, s)  e = v,
 #define FT_ERROR_START_LIST     enum {
-#define FT_ERROR_END_LIST       FT_ERR_CAT( FT_ERR_PREFIX, Max ) };
+#define FT_ERROR_END_LIST       FT_ERR_CAT(FT_ERR_PREFIX, Max) };
 
 #ifdef __cplusplus
 #define FT_NEED_EXTERN_C
@@ -150,12 +150,12 @@
 
 
   /* this macro is used to define an error */
-#define FT_ERRORDEF_( e, v, s )   \
-          FT_ERRORDEF( FT_ERR_CAT( FT_ERR_PREFIX, e ), v + FT_ERR_BASE, s )
+#define FT_ERRORDEF_(e, v, s)   \
+          FT_ERRORDEF(FT_ERR_CAT(FT_ERR_PREFIX, e), v + FT_ERR_BASE, s)
 
   /* this is only used for <module>_Err_Ok, which must be 0! */
-#define FT_NOERRORDEF_( e, v, s ) \
-          FT_ERRORDEF( FT_ERR_CAT( FT_ERR_PREFIX, e ), v, s )
+#define FT_NOERRORDEF_(e, v, s) \
+          FT_ERRORDEF(FT_ERR_CAT(FT_ERR_PREFIX, e), v, s)
 
 
 #ifdef FT_ERROR_START_LIST

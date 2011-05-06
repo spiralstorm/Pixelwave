@@ -28,11 +28,11 @@
 FT_BEGIN_HEADER
 
 
-  FT_LOCAL( void )
-  tt_face_free_bdf_props( TT_Face  face );
+  FT_LOCAL(void)
+  tt_face_free_bdf_props(TT_Face  face);
 
 
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   tt_face_find_bdf_prop( TT_Face           face,
                          const char*       property_name,
                          BDF_PropertyRec  *aprop );

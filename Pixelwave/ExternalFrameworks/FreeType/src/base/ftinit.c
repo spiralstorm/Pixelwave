@@ -55,9 +55,9 @@
 
 #undef  FT_USE_MODULE
 #ifdef __cplusplus
-#define FT_USE_MODULE( type, x )  extern "C" const type  x;
+#define FT_USE_MODULE(type, x)  extern "C" const type  x;
 #else
-#define FT_USE_MODULE( type, x )  extern const type  x;
+#define FT_USE_MODULE(type, x)  extern const type  x;
 #endif
 
 
@@ -65,7 +65,7 @@
 
 
 #undef  FT_USE_MODULE
-#define FT_USE_MODULE( type, x )  (const FT_Module_Class*)&(x),
+#define FT_USE_MODULE(type, x)  (const FT_Module_Class*)&(x),
 
   static
   const FT_Module_Class*  const ft_default_modules[] =
@@ -77,8 +77,8 @@
 
   /* documentation is in ftmodapi.h */
 
-  FT_EXPORT_DEF( void )
-  FT_Add_Default_Modules( FT_Library  library )
+  FT_EXPORT_DEF(void)
+  FT_Add_Default_Modules(FT_Library  library)
   {
     FT_Error                       error;
     const FT_Module_Class* const*  cur;
@@ -87,11 +87,11 @@
     /* test for valid `library' delayed to FT_Add_Module() */
 
     cur = ft_default_modules;
-    while ( *cur )
+    while (*cur)
     {
-      error = FT_Add_Module( library, *cur );
+      error = FT_Add_Module(library, *cur);
       /* notify errors, but don't stop */
-      if ( error )
+      if (error)
       {
         FT_ERROR(( "FT_Add_Default_Module: Cannot install `%s', error = 0x%x\n",
                    (*cur)->module_name, error ));
@@ -103,8 +103,8 @@
 
   /* documentation is in freetype.h */
 
-  FT_EXPORT_DEF( FT_Error )
-  FT_Init_FreeType( FT_Library  *alibrary )
+  FT_EXPORT_DEF(FT_Error)
+  FT_Init_FreeType(FT_Library  *alibrary)
   {
     FT_Error   error;
     FT_Memory  memory;
@@ -114,25 +114,25 @@
     /* of the system-specific component, i.e. `ftsystem.c'.                */
 
     memory = FT_New_Memory();
-    if ( !memory )
+    if (!memory)
     {
-      FT_ERROR(( "FT_Init_FreeType: cannot find memory manager\n" ));
+      FT_ERROR(("FT_Init_FreeType: cannot find memory manager\n"));
       return FT_Err_Unimplemented_Feature;
     }
 
     /* build a library out of it, then fill it with the set of */
     /* default drivers.                                        */
 
-    error = FT_New_Library( memory, alibrary );
-    if ( error )
-      FT_Done_Memory( memory );
+    error = FT_New_Library(memory, alibrary);
+    if (error)
+      FT_Done_Memory(memory);
     else
     {
       (*alibrary)->version_major = FREETYPE_MAJOR;
       (*alibrary)->version_minor = FREETYPE_MINOR;
       (*alibrary)->version_patch = FREETYPE_PATCH;
 
-      FT_Add_Default_Modules( *alibrary );
+      FT_Add_Default_Modules(*alibrary);
     }
 
     return error;
@@ -141,19 +141,19 @@
 
   /* documentation is in freetype.h */
 
-  FT_EXPORT_DEF( FT_Error )
-  FT_Done_FreeType( FT_Library  library )
+  FT_EXPORT_DEF(FT_Error)
+  FT_Done_FreeType(FT_Library  library)
   {
-    if ( library )
+    if (library)
     {
       FT_Memory  memory = library->memory;
 
 
       /* Discard the library object */
-      FT_Done_Library( library );
+      FT_Done_Library(library);
 
       /* discard memory manager */
-      FT_Done_Memory( memory );
+      FT_Done_Memory(memory);
     }
 
     return FT_Err_Ok;

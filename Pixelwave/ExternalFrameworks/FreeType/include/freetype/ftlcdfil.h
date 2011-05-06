@@ -157,7 +157,7 @@ FT_BEGIN_HEADER
    * @since:
    *   2.3.0
    */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Library_SetLcdFilter( FT_Library    library,
                            FT_LcdFilter  filter );
 

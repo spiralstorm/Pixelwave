@@ -1215,7 +1215,7 @@
 	
 	child = [self childAtIndex:0];
 	
-	for ( ; child; )
+	for (; child;)
 	{
 		//[child _dispatchAddedToStage];
 		// Propegate the event down to the child
@@ -1256,16 +1256,16 @@
 	[self _measureLocalBounds:&_bounds];
 
 //	float xMin = _bounds.origin.x;
-//	float xMax = abs( xMin ) + _bounds.size.width;
+//	float xMax = abs(xMin) + _bounds.size.width;
 //	float yMin = _bounds.origin.y;
-//	float yMax = abs( yMin ) + _bounds.size.height;
+//	float yMax = abs(yMin) + _bounds.size.height;
 
 	float xMin = _bounds.origin.x;
 	float xMax = xMin + _bounds.size.width;
 	float yMin = _bounds.origin.y;
 	float yMax = yMin + _bounds.size.height;
 
-#define _PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS( _xMin_, _xMax_, _yMin_, _yMax_, _x_, _y_ ) \
+#define _PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(_xMin_, _xMax_, _yMin_, _yMax_, _x_, _y_) \
 	{ \
 		(_xMin_) = MIN((_x_), (_xMin_)); \
 		(_xMax_) = MAX((_x_), (_xMax_)); \
@@ -1346,11 +1346,11 @@
 								  &x2, &y2,
 								  &x3, &y3,
 								  &x4, &y4);
-	//	PX_GL_CONVERT_4POINTS_TO_MATRIX( child->_matrix, x1, y1, x2, y2, x3, y3, x4, y4 );
-		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS( xMin, xMax, yMin, yMax, x1, y1 );
-		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS( xMin, xMax, yMin, yMax, x2, y2 );
-		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS( xMin, xMax, yMin, yMax, x3, y3 );
-		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS( xMin, xMax, yMin, yMax, x4, y4 );
+	//	PX_GL_CONVERT_4POINTS_TO_MATRIX(child->_matrix, x1, y1, x2, y2, x3, y3, x4, y4);
+		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(xMin, xMax, yMin, yMax, x1, y1);
+		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(xMin, xMax, yMin, yMax, x2, y2);
+		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(xMin, xMax, yMin, yMax, x3, y3);
+		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(xMin, xMax, yMin, yMax, x4, y4);
 
 	}
 	PX_DOC_END_CHILD_LOOP*/

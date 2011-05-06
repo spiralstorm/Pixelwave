@@ -86,7 +86,7 @@ FT_BEGIN_HEADER
   *   If the input face is not a PFR, this function will return an error.
   *   However, in all cases, it will return valid values.
   */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Get_PFR_Metrics( FT_Face    face,
                       FT_UInt   *aoutline_resolution,
                       FT_UInt   *ametrics_resolution,
@@ -125,7 +125,7 @@ FT_BEGIN_HEADER
   *    You can use the value of the `x_scale' and `y_scale' parameters
   *    returned by @FT_Get_PFR_Metrics to scale these to device sub-pixels.
   */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Get_PFR_Kerning( FT_Face     face,
                       FT_UInt     left,
                       FT_UInt     right,
@@ -156,7 +156,7 @@ FT_BEGIN_HEADER
   *    You can use the `x_scale' or `y_scale' results of @FT_Get_PFR_Metrics
   *    to convert the advance to device sub-pixels (i.e., 1/64th of pixels).
   */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Get_PFR_Advance( FT_Face   face,
                       FT_UInt   gindex,
                       FT_Pos   *aadvance );

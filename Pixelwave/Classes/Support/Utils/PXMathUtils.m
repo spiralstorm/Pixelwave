@@ -83,7 +83,7 @@ bool PXMathPointInLine(PXMathPoint *ans, PXMathPoint *point, PXMathLine *line)
 	float xDelta = x2 - x1;
 	float yDelta = y2 - y1;
 
-	if (PXMathIsZero( xDelta ) && PXMathIsZero( yDelta ))
+	if (PXMathIsZero(xDelta ) && PXMathIsZero( yDelta))
 		return false;
 
 	float x3 = point->x;
@@ -111,7 +111,7 @@ bool PXMathPointInLine(PXMathPoint *ans, PXMathPoint *point, PXMathLine *line)
 	return true;
 }
 
-float PXMathPointDistanceToLine( PXMathPoint *point, PXMathLine *line )
+float PXMathPointDistanceToLine(PXMathPoint *point, PXMathLine *line)
 {
 	PXMathPoint pointOnLine;
 	if (!PXMathPointInLine(&pointOnLine, point, line))
@@ -187,22 +187,22 @@ bool PXMathIsPointInTriangle(PXMathPoint *point, PXMathTriangle *triangle)
 	float cY = triangle->pointC.y;
 
 	//PXMathPoint v0; // C - A
-	PXMathPoint v0 = PXMathPointMake( cX - aX, cY - aY );
+	PXMathPoint v0 = PXMathPointMake(cX - aX, cY - aY);
 	//PXMathPoint v1; // B - A
-	PXMathPoint v1 = PXMathPointMake( bX - aX, bY - aY );
+	PXMathPoint v1 = PXMathPointMake(bX - aX, bY - aY);
 	//PXMathPoint v2; // P - A
-	PXMathPoint v2 = PXMathPointMake( pX - aX, pY - aY );
+	PXMathPoint v2 = PXMathPointMake(pX - aX, pY - aY);
 
 	// Compute dot products
-	float dot00 = PXMathPointDot( v0, v0 );
-	float dot01 = PXMathPointDot( v0, v1 );
-	float dot02 = PXMathPointDot( v0, v2 );
-	float dot11 = PXMathPointDot( v1, v1 );
-	float dot12 = PXMathPointDot( v1, v2 );
+	float dot00 = PXMathPointDot(v0, v0);
+	float dot01 = PXMathPointDot(v0, v1);
+	float dot02 = PXMathPointDot(v0, v2);
+	float dot11 = PXMathPointDot(v1, v1);
+	float dot12 = PXMathPointDot(v1, v2);
 
 	// Compute barycentric coordinates
 	float denom = ((dot00 * dot11) - (dot01 * dot01));
-	if (PXMathIsZero( denom ))
+	if (PXMathIsZero(denom))
 		return false;
 
 	float invDenom = 1.0f / denom;

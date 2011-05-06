@@ -39,7 +39,7 @@ FT_BEGIN_HEADER
                                       FT_UInt   glyph_index,
                                       FT_UInt  *cid );
 
-  FT_DEFINE_SERVICE( CID )
+  FT_DEFINE_SERVICE(CID)
   {
     FT_CID_GetRegistryOrderingSupplementFunc  get_ros;
     FT_CID_GetIsInternallyCIDKeyedFunc        get_is_cid;

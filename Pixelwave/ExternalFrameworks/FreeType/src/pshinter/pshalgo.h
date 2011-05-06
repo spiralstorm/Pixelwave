@@ -42,13 +42,13 @@ FT_BEGIN_HEADER
   } PSH_Hint_Flags;
 
 
-#define psh_hint_is_active( x )  ( ( (x)->flags & PSH_HINT_ACTIVE ) != 0 )
-#define psh_hint_is_ghost( x )   ( ( (x)->flags & PSH_HINT_GHOST  ) != 0 )
-#define psh_hint_is_fitted( x )  ( ( (x)->flags & PSH_HINT_FITTED ) != 0 )
+#define psh_hint_is_active(x )  (( (x)->flags & PSH_HINT_ACTIVE) != 0)
+#define psh_hint_is_ghost(x )   (((x)->flags & PSH_HINT_GHOST) != 0)
+#define psh_hint_is_fitted(x )  (( (x)->flags & PSH_HINT_FITTED) != 0)
 
-#define psh_hint_activate( x )    (x)->flags |=  PSH_HINT_ACTIVE
-#define psh_hint_deactivate( x )  (x)->flags &= ~PSH_HINT_ACTIVE
-#define psh_hint_set_fitted( x )  (x)->flags |=  PSH_HINT_FITTED
+#define psh_hint_activate(x)    (x)->flags |=  PSH_HINT_ACTIVE
+#define psh_hint_deactivate(x)  (x)->flags &= ~PSH_HINT_ACTIVE
+#define psh_hint_set_fitted(x)  (x)->flags |=  PSH_HINT_FITTED
 
   /* hint structure */
   typedef struct  PSH_HintRec_
@@ -108,9 +108,9 @@ FT_BEGIN_HEADER
 #define PSH_DIR_HORIZONTAL  2
 #define PSH_DIR_VERTICAL    1
 
-#define PSH_DIR_COMPARE( d1, d2 )   ( (d1) == (d2) || (d1) == -(d2) )
-#define PSH_DIR_IS_HORIZONTAL( d )  PSH_DIR_COMPARE( d, PSH_DIR_HORIZONTAL )
-#define PSH_DIR_IS_VERTICAL( d )    PSH_DIR_COMPARE( d, PSH_DIR_VERTICAL )
+#define PSH_DIR_COMPARE(d1, d2 )   ( (d1) == (d2) || (d1) == -(d2))
+#define PSH_DIR_IS_HORIZONTAL(d )  PSH_DIR_COMPARE( d, PSH_DIR_HORIZONTAL)
+#define PSH_DIR_IS_VERTICAL(d )    PSH_DIR_COMPARE( d, PSH_DIR_VERTICAL)
 
 
  /* the following bit-flags are computed once by the glyph */
@@ -122,13 +122,13 @@ FT_BEGIN_HEADER
     PSH_POINT_INFLEX = 4    /* point is inflection    */
   };
 
-#define psh_point_is_smooth( p )  ( (p)->flags & PSH_POINT_SMOOTH )
-#define psh_point_is_off( p )     ( (p)->flags & PSH_POINT_OFF    )
-#define psh_point_is_inflex( p )  ( (p)->flags & PSH_POINT_INFLEX )
+#define psh_point_is_smooth(p )  ( (p)->flags & PSH_POINT_SMOOTH)
+#define psh_point_is_off(p )     ((p)->flags & PSH_POINT_OFF  )
+#define psh_point_is_inflex(p )  ( (p)->flags & PSH_POINT_INFLEX)
 
-#define psh_point_set_smooth( p )  (p)->flags |= PSH_POINT_SMOOTH
-#define psh_point_set_off( p )     (p)->flags |= PSH_POINT_OFF
-#define psh_point_set_inflex( p )  (p)->flags |= PSH_POINT_INFLEX
+#define psh_point_set_smooth(p)  (p)->flags |= PSH_POINT_SMOOTH
+#define psh_point_set_off(p)     (p)->flags |= PSH_POINT_OFF
+#define psh_point_set_inflex(p)  (p)->flags |= PSH_POINT_INFLEX
 
   /* the following bit-flags are re-computed for each dimension */
   enum
@@ -142,21 +142,21 @@ FT_BEGIN_HEADER
     PSH_POINT_EDGE_MAX = 1024  /* point is aligned to top/right stem edge   */
   };
 
-#define psh_point_is_strong( p )    ( (p)->flags2 & PSH_POINT_STRONG )
-#define psh_point_is_fitted( p )    ( (p)->flags2 & PSH_POINT_FITTED )
-#define psh_point_is_extremum( p )  ( (p)->flags2 & PSH_POINT_EXTREMUM )
-#define psh_point_is_positive( p )  ( (p)->flags2 & PSH_POINT_POSITIVE )
-#define psh_point_is_negative( p )  ( (p)->flags2 & PSH_POINT_NEGATIVE )
-#define psh_point_is_edge_min( p )  ( (p)->flags2 & PSH_POINT_EDGE_MIN )
-#define psh_point_is_edge_max( p )  ( (p)->flags2 & PSH_POINT_EDGE_MAX )
+#define psh_point_is_strong(p )    ( (p)->flags2 & PSH_POINT_STRONG)
+#define psh_point_is_fitted(p )    ( (p)->flags2 & PSH_POINT_FITTED)
+#define psh_point_is_extremum(p )  ( (p)->flags2 & PSH_POINT_EXTREMUM)
+#define psh_point_is_positive(p )  ( (p)->flags2 & PSH_POINT_POSITIVE)
+#define psh_point_is_negative(p )  ( (p)->flags2 & PSH_POINT_NEGATIVE)
+#define psh_point_is_edge_min(p )  ( (p)->flags2 & PSH_POINT_EDGE_MIN)
+#define psh_point_is_edge_max(p )  ( (p)->flags2 & PSH_POINT_EDGE_MAX)
 
-#define psh_point_set_strong( p )    (p)->flags2 |= PSH_POINT_STRONG
-#define psh_point_set_fitted( p )    (p)->flags2 |= PSH_POINT_FITTED
-#define psh_point_set_extremum( p )  (p)->flags2 |= PSH_POINT_EXTREMUM
-#define psh_point_set_positive( p )  (p)->flags2 |= PSH_POINT_POSITIVE
-#define psh_point_set_negative( p )  (p)->flags2 |= PSH_POINT_NEGATIVE
-#define psh_point_set_edge_min( p )  (p)->flags2 |= PSH_POINT_EDGE_MIN
-#define psh_point_set_edge_max( p )  (p)->flags2 |= PSH_POINT_EDGE_MAX
+#define psh_point_set_strong(p)    (p)->flags2 |= PSH_POINT_STRONG
+#define psh_point_set_fitted(p)    (p)->flags2 |= PSH_POINT_FITTED
+#define psh_point_set_extremum(p)  (p)->flags2 |= PSH_POINT_EXTREMUM
+#define psh_point_set_positive(p)  (p)->flags2 |= PSH_POINT_POSITIVE
+#define psh_point_set_negative(p)  (p)->flags2 |= PSH_POINT_NEGATIVE
+#define psh_point_set_edge_min(p)  (p)->flags2 |= PSH_POINT_EDGE_MIN
+#define psh_point_set_edge_max(p)  (p)->flags2 |= PSH_POINT_EDGE_MAX
 
 
   typedef struct  PSH_PointRec_
@@ -186,10 +186,10 @@ FT_BEGIN_HEADER
   } PSH_PointRec;
 
 
-#define PSH_POINT_EQUAL_ORG( a, b )  ( (a)->org_u == (b)->org_u && \
+#define PSH_POINT_EQUAL_ORG(a, b)  ( (a)->org_u == (b)->org_u && \
                                        (a)->org_v == (b)->org_v )
 
-#define PSH_POINT_ANGLE( a, b )  FT_Atan2( (b)->org_u - (a)->org_u,  \
+#define PSH_POINT_ANGLE(a, b)  FT_Atan2( (b)->org_u - (a)->org_u,  \
                                            (b)->org_v - (a)->org_v )
 
   typedef struct  PSH_ContourRec_

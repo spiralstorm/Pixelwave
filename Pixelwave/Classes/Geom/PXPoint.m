@@ -254,7 +254,7 @@
 - (void) normalize
 {
 	float length = sqrtf(x * x + y * y);
-	if (PXMathIsZero( length ))
+	if (PXMathIsZero(length))
 		return;
 
 	length = 1.0f / length;
@@ -407,8 +407,8 @@
 {
 	PXPoint *pt = [PXPoint new];
 
-	pt->x = cosf( angle ) * len;
-	pt->y = sinf( angle ) * len;
+	pt->x = cosf(angle) * len;
+	pt->y = sinf(angle) * len;
 
 	return [pt autorelease];
 }

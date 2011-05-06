@@ -65,13 +65,13 @@
   /* <Return>                                                              */
   /*    The address of newly allocated block.                              */
   /*                                                                       */
-  FT_CALLBACK_DEF( void* )
+  FT_CALLBACK_DEF(void*)
   ft_alloc( FT_Memory  memory,
             long       size )
   {
-    FT_UNUSED( memory );
+    FT_UNUSED(memory);
 
-    return ft_smalloc( size );
+    return ft_smalloc(size);
   }
 
 
@@ -95,16 +95,16 @@
   /* <Return>                                                              */
   /*    The address of the reallocated memory block.                       */
   /*                                                                       */
-  FT_CALLBACK_DEF( void* )
+  FT_CALLBACK_DEF(void*)
   ft_realloc( FT_Memory  memory,
               long       cur_size,
               long       new_size,
               void*      block )
   {
-    FT_UNUSED( memory );
-    FT_UNUSED( cur_size );
+    FT_UNUSED(memory);
+    FT_UNUSED(cur_size);
 
-    return ft_srealloc( block, new_size );
+    return ft_srealloc(block, new_size);
   }
 
 
@@ -121,13 +121,13 @@
   /*                                                                       */
   /*    block   :: The address of block in memory to be freed.             */
   /*                                                                       */
-  FT_CALLBACK_DEF( void )
+  FT_CALLBACK_DEF(void)
   ft_free( FT_Memory  memory,
            void*      block )
   {
-    FT_UNUSED( memory );
+    FT_UNUSED(memory);
 
-    ft_sfree( block );
+    ft_sfree(block);
   }
 
 
@@ -149,7 +149,7 @@
 
   /* We use the macro STREAM_FILE for convenience to extract the       */
   /* system-specific stream handle from a given FreeType stream object */
-#define STREAM_FILE( stream )  ( (FT_FILE*)stream->descriptor.pointer )
+#define STREAM_FILE(stream )  ( (FT_FILE*)stream->descriptor.pointer)
 
 
   /*************************************************************************/
@@ -163,10 +163,10 @@
   /* <Input>                                                               */
   /*    stream :: A pointer to the stream object.                          */
   /*                                                                       */
-  FT_CALLBACK_DEF( void )
-  ft_ansi_stream_close( FT_Stream  stream )
+  FT_CALLBACK_DEF(void)
+  ft_ansi_stream_close(FT_Stream  stream)
   {
-    ft_fclose( STREAM_FILE( stream ) );
+    ft_fclose(STREAM_FILE(stream));
 
     stream->descriptor.pointer = NULL;
     stream->size               = 0;
@@ -194,7 +194,7 @@
   /* <Return>                                                              */
   /*    The number of bytes actually read.                                 */
   /*                                                                       */
-  FT_CALLBACK_DEF( unsigned long )
+  FT_CALLBACK_DEF(unsigned long)
   ft_ansi_stream_io( FT_Stream       stream,
                      unsigned long   offset,
                      unsigned char*  buffer,
@@ -203,38 +203,38 @@
     FT_FILE*  file;
 
 
-    file = STREAM_FILE( stream );
+    file = STREAM_FILE(stream);
 
-    ft_fseek( file, offset, SEEK_SET );
+    ft_fseek(file, offset, SEEK_SET);
 
-    return (unsigned long)ft_fread( buffer, 1, count, file );
+    return (unsigned long)ft_fread(buffer, 1, count, file);
   }
 
 
   /* documentation is in ftstream.h */
 
-  FT_BASE_DEF( FT_Error )
+  FT_BASE_DEF(FT_Error)
   FT_Stream_Open( FT_Stream    stream,
                   const char*  filepathname )
   {
     FT_FILE*  file;
 
 
-    if ( !stream )
+    if (!stream)
       return FT_Err_Invalid_Stream_Handle;
 
-    file = ft_fopen( filepathname, "rb" );
-    if ( !file )
+    file = ft_fopen(filepathname, "rb");
+    if (!file)
     {
-      FT_ERROR(( "FT_Stream_Open:" ));
-      FT_ERROR(( " could not open `%s'\n", filepathname ));
+      FT_ERROR(("FT_Stream_Open:"));
+      FT_ERROR((" could not open `%s'\n", filepathname));
 
       return FT_Err_Cannot_Open_Resource;
     }
 
-    ft_fseek( file, 0, SEEK_END );
-    stream->size = ft_ftell( file );
-    ft_fseek( file, 0, SEEK_SET );
+    ft_fseek(file, 0, SEEK_END);
+    stream->size = ft_ftell(file);
+    ft_fseek(file, 0, SEEK_SET);
 
     stream->descriptor.pointer = file;
     stream->pathname.pointer   = (char*)filepathname;
@@ -243,7 +243,7 @@
     stream->read  = ft_ansi_stream_io;
     stream->close = ft_ansi_stream_close;
 
-    FT_TRACE1(( "FT_Stream_Open:" ));
+    FT_TRACE1(("FT_Stream_Open:"));
     FT_TRACE1(( " opened `%s' (%d bytes) successfully\n",
                 filepathname, stream->size ));
 
@@ -254,31 +254,31 @@
 #ifdef FT_DEBUG_MEMORY
 
   extern FT_Int
-  ft_mem_debug_init( FT_Memory  memory );
+  ft_mem_debug_init(FT_Memory  memory);
 
   extern void
-  ft_mem_debug_done( FT_Memory  memory );
+  ft_mem_debug_done(FT_Memory  memory);
 
 #endif
 
 
   /* documentation is in ftobjs.h */
 
-  FT_BASE_DEF( FT_Memory )
-  FT_New_Memory( void )
+  FT_BASE_DEF(FT_Memory)
+  FT_New_Memory(void)
   {
     FT_Memory  memory;
 
 
-    memory = (FT_Memory)ft_smalloc( sizeof ( *memory ) );
-    if ( memory )
+    memory = (FT_Memory)ft_smalloc(sizeof (*memory));
+    if (memory)
     {
       memory->user    = 0;
       memory->alloc   = ft_alloc;
       memory->realloc = ft_realloc;
       memory->free    = ft_free;
 #ifdef FT_DEBUG_MEMORY
-      ft_mem_debug_init( memory );
+      ft_mem_debug_init(memory);
 #endif
     }
 
@@ -288,13 +288,13 @@
 
   /* documentation is in ftobjs.h */
 
-  FT_BASE_DEF( void )
-  FT_Done_Memory( FT_Memory  memory )
+  FT_BASE_DEF(void)
+  FT_Done_Memory(FT_Memory  memory)
   {
 #ifdef FT_DEBUG_MEMORY
-    ft_mem_debug_done( memory );
+    ft_mem_debug_done(memory);
 #endif
-    ft_sfree( memory );
+    ft_sfree(memory);
   }
 
 

@@ -211,11 +211,11 @@ FT_BEGIN_HEADER
 
  /* */
 
-#define FT_POINTER_TO_ULONG( p )  ( (FT_ULong)(FT_Pointer)(p) )
+#define FT_POINTER_TO_ULONG(p )  ( (FT_ULong)(FT_Pointer)(p))
 
-#define FTC_FACE_ID_HASH( i )                                \
-          ((FT_UInt32)(( FT_POINTER_TO_ULONG( i ) >> 3 ) ^   \
-                       ( FT_POINTER_TO_ULONG( i ) << 7 ) ) )
+#define FTC_FACE_ID_HASH(i)                                \
+          ((FT_UInt32)((FT_POINTER_TO_ULONG(i) >> 3) ^   \
+                       (FT_POINTER_TO_ULONG(i ) << 7 )))
 
 
   /*************************************************************************/
@@ -307,7 +307,7 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    FreeType error code.  0~means success.                             */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_Manager_New( FT_Library          library,
                    FT_UInt             max_faces,
                    FT_UInt             max_sizes,
@@ -329,8 +329,8 @@ FT_BEGIN_HEADER
   /* <InOut>                                                               */
   /*    manager :: A handle to the manager.                                */
   /*                                                                       */
-  FT_EXPORT( void )
-  FTC_Manager_Reset( FTC_Manager  manager );
+  FT_EXPORT(void)
+  FTC_Manager_Reset(FTC_Manager  manager);
 
 
   /*************************************************************************/
@@ -344,8 +344,8 @@ FT_BEGIN_HEADER
   /* <Input>                                                               */
   /*    manager :: A handle to the target cache manager object.            */
   /*                                                                       */
-  FT_EXPORT( void )
-  FTC_Manager_Done( FTC_Manager  manager );
+  FT_EXPORT(void)
+  FTC_Manager_Done(FTC_Manager  manager);
 
 
   /*************************************************************************/
@@ -388,7 +388,7 @@ FT_BEGIN_HEADER
   /*    already been completely flushed, and still no memory was available */
   /*    for the operation.                                                 */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_Manager_LookupFace( FTC_Manager  manager,
                           FTC_FaceID   face_id,
                           FT_Face     *aface );
@@ -485,7 +485,7 @@ FT_BEGIN_HEADER
   /*    already been completely flushed, and still no memory is available  */
   /*    for the operation.                                                 */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_Manager_LookupSize( FTC_Manager  manager,
                           FTC_Scaler   scaler,
                           FT_Size     *asize );
@@ -506,7 +506,7 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /*    manager :: The cache manager handle.                               */
   /*                                                                       */
-  FT_EXPORT( void )
+  FT_EXPORT(void)
   FTC_Node_Unref( FTC_Node     node,
                   FTC_Manager  manager );
 
@@ -538,7 +538,7 @@ FT_BEGIN_HEADER
    *   destroyed when released by all their users.
    *
    */
-  FT_EXPORT( void )
+  FT_EXPORT(void)
   FTC_Manager_RemoveFaceID( FTC_Manager  manager,
                             FTC_FaceID   face_id );
 
@@ -587,7 +587,7 @@ FT_BEGIN_HEADER
    *   manager.
    *
    */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_CMapCache_New( FTC_Manager     manager,
                      FTC_CMapCache  *acache );
 
@@ -619,7 +619,7 @@ FT_BEGIN_HEADER
    *    Glyph index.  0~means `no glyph'.
    *
    */
-  FT_EXPORT( FT_UInt )
+  FT_EXPORT(FT_UInt)
   FTC_CMapCache_Lookup( FTC_CMapCache  cache,
                         FTC_FaceID     face_id,
                         FT_Int         cmap_index,
@@ -692,15 +692,15 @@ FT_BEGIN_HEADER
   /* */
 
 
-#define FTC_IMAGE_TYPE_COMPARE( d1, d2 )      \
+#define FTC_IMAGE_TYPE_COMPARE(d1, d2)      \
           ( (d1)->face_id == (d2)->face_id && \
             (d1)->width   == (d2)->width   && \
             (d1)->flags   == (d2)->flags   )
 
-#define FTC_IMAGE_TYPE_HASH( d )                          \
-          (FT_UFast)( FTC_FACE_ID_HASH( (d)->face_id )  ^ \
-                      ( (d)->width << 8 ) ^ (d)->height ^ \
-                      ( (d)->flags << 4 )               )
+#define FTC_IMAGE_TYPE_HASH(d)                          \
+          (FT_UFast)(FTC_FACE_ID_HASH( (d)->face_id)  ^ \
+                      ((d)->width << 8) ^ (d)->height ^ \
+                      ((d)->flags << 4 )              )
 
 
   /*************************************************************************/
@@ -733,7 +733,7 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    FreeType error code.  0~means success.                             */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_ImageCache_New( FTC_Manager      manager,
                       FTC_ImageCache  *acache );
 
@@ -780,7 +780,7 @@ FT_BEGIN_HEADER
   /*    call to one of the caching sub-system APIs.  Don't assume that it  */
   /*    is persistent!                                                     */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_ImageCache_Lookup( FTC_ImageCache  cache,
                          FTC_ImageType   type,
                          FT_UInt         gindex,
@@ -836,7 +836,7 @@ FT_BEGIN_HEADER
   /*    Calls to @FT_Set_Char_Size and friends have no effect on cached    */
   /*    glyphs; you should always use the FreeType cache API instead.      */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_ImageCache_LookupScaler( FTC_ImageCache  cache,
                                FTC_Scaler      scaler,
                                FT_ULong        load_flags,
@@ -941,7 +941,7 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    FreeType error code.  0~means success.                             */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_SBitCache_New( FTC_Manager     manager,
                      FTC_SBitCache  *acache );
 
@@ -991,7 +991,7 @@ FT_BEGIN_HEADER
   /*    call to one of the caching sub-system APIs.  Don't assume that it  */
   /*    is persistent!                                                     */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_SBitCache_Lookup( FTC_SBitCache    cache,
                         FTC_ImageType    type,
                         FT_UInt          gindex,
@@ -1046,7 +1046,7 @@ FT_BEGIN_HEADER
   /*    call to one of the caching sub-system APIs.  Don't assume that it  */
   /*    is persistent!                                                     */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_SBitCache_LookupScaler( FTC_SBitCache  cache,
                               FTC_Scaler     scaler,
                               FT_ULong       load_flags,
@@ -1088,12 +1088,12 @@ FT_BEGIN_HEADER
   /* */
 
 
-#define FTC_FONT_COMPARE( f1, f2 )                  \
+#define FTC_FONT_COMPARE(f1, f2)                  \
           ( (f1)->face_id    == (f2)->face_id    && \
             (f1)->pix_width  == (f2)->pix_width  && \
             (f1)->pix_height == (f2)->pix_height )
 
-#define FTC_FONT_HASH( f )                              \
+#define FTC_FONT_HASH(f)                              \
           (FT_UInt32)( FTC_FACE_ID_HASH((f)->face_id) ^ \
                        ((f)->pix_width << 8)          ^ \
                        ((f)->pix_height)              )
@@ -1101,12 +1101,12 @@ FT_BEGIN_HEADER
   typedef FTC_FontRec*  FTC_Font;
 
 
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_Manager_Lookup_Face( FTC_Manager  manager,
                            FTC_FaceID   face_id,
                            FT_Face     *aface );
 
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FTC_Manager_Lookup_Size( FTC_Manager  manager,
                            FTC_Font     font,
                            FT_Face     *aface,

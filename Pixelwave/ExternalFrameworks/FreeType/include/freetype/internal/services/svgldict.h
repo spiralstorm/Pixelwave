@@ -45,7 +45,7 @@ FT_BEGIN_HEADER
                                  FT_String*  glyph_name );
 
 
-  FT_DEFINE_SERVICE( GlyphDict )
+  FT_DEFINE_SERVICE(GlyphDict)
   {
     FT_GlyphDict_GetNameFunc    get_name;
     FT_GlyphDict_NameIndexFunc  name_index;  /* optional */

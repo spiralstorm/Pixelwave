@@ -90,7 +90,7 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    List node.  NULL if it wasn't found.                               */
   /*                                                                       */
-  FT_EXPORT( FT_ListNode )
+  FT_EXPORT(FT_ListNode)
   FT_List_Find( FT_List  list,
                 void*    data );
 
@@ -107,7 +107,7 @@ FT_BEGIN_HEADER
   /*    list :: A pointer to the parent list.                              */
   /*    node :: The node to append.                                        */
   /*                                                                       */
-  FT_EXPORT( void )
+  FT_EXPORT(void)
   FT_List_Add( FT_List      list,
                FT_ListNode  node );
 
@@ -124,7 +124,7 @@ FT_BEGIN_HEADER
   /*    list :: A pointer to parent list.                                  */
   /*    node :: The node to insert.                                        */
   /*                                                                       */
-  FT_EXPORT( void )
+  FT_EXPORT(void)
   FT_List_Insert( FT_List      list,
                   FT_ListNode  node );
 
@@ -144,7 +144,7 @@ FT_BEGIN_HEADER
   /* <InOut>                                                               */
   /*    list :: A pointer to the parent list.                              */
   /*                                                                       */
-  FT_EXPORT( void )
+  FT_EXPORT(void)
   FT_List_Remove( FT_List      list,
                   FT_ListNode  node );
 
@@ -162,7 +162,7 @@ FT_BEGIN_HEADER
   /*    list :: A pointer to the parent list.                              */
   /*    node :: The node to move.                                          */
   /*                                                                       */
-  FT_EXPORT( void )
+  FT_EXPORT(void)
   FT_List_Up( FT_List      list,
               FT_ListNode  node );
 
@@ -206,7 +206,7 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    The result (a FreeType error code) of the last iterator call.      */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_List_Iterate( FT_List           list,
                    FT_List_Iterator  iterator,
                    void*             user );
@@ -255,7 +255,7 @@ FT_BEGIN_HEADER
   /*    user    :: A user-supplied field which is passed as the last       */
   /*               argument to the destructor.                             */
   /*                                                                       */
-  FT_EXPORT( void )
+  FT_EXPORT(void)
   FT_List_Finalize( FT_List             list,
                     FT_List_Destructor  destroy,
                     FT_Memory           memory,

@@ -597,7 +597,7 @@ FT_BEGIN_HEADER
   /*    by the sfnt, truetype, and opentype drivers.  See @FT_Sfnt_Tag for */
   /*    a list.                                                            */
   /*                                                                       */
-  FT_EXPORT( void* )
+  FT_EXPORT(void*)
   FT_Get_Sfnt_Table( FT_Face      face,
                      FT_Sfnt_Tag  tag );
 
@@ -650,17 +650,17 @@ FT_BEGIN_HEADER
   *       FT_ULong  length = 0;
   *
   *
-  *       error = FT_Load_Sfnt_Table( face, tag, 0, NULL, &length );
-  *       if ( error ) { ... table does not exist ... }
+  *       error = FT_Load_Sfnt_Table(face, tag, 0, NULL, &length);
+  *       if (error) { ... table does not exist ... }
   *
-  *       buffer = malloc( length );
-  *       if ( buffer == NULL ) { ... not enough memory ... }
+  *       buffer = malloc(length);
+  *       if (buffer == NULL) { ... not enough memory ... }
   *
-  *       error = FT_Load_Sfnt_Table( face, tag, 0, buffer, &length );
-  *       if ( error ) { ... could not load table ... }
+  *       error = FT_Load_Sfnt_Table(face, tag, 0, buffer, &length);
+  *       if (error) { ... could not load table ... }
   *     }
   */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Load_Sfnt_Table( FT_Face    face,
                       FT_ULong   tag,
                       FT_Long    offset,
@@ -698,7 +698,7 @@ FT_BEGIN_HEADER
   *   SFNT tables with length zero are treated as missing.
   *
   */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Sfnt_Table_Info( FT_Face    face,
                       FT_UInt    table_index,
                       FT_ULong  *tag,
@@ -722,8 +722,8 @@ FT_BEGIN_HEADER
   /*    The language ID of `charmap'.  If `charmap' doesn't belong to a    */
   /*    TrueType/sfnt face, just return~0 as the default value.            */
   /*                                                                       */
-  FT_EXPORT( FT_ULong )
-  FT_Get_CMap_Language_ID( FT_CharMap  charmap );
+  FT_EXPORT(FT_ULong)
+  FT_Get_CMap_Language_ID(FT_CharMap  charmap);
 
 
   /*************************************************************************/
@@ -742,8 +742,8 @@ FT_BEGIN_HEADER
   /*    The format of `charmap'.  If `charmap' doesn't belong to a         */
   /*    TrueType/sfnt face, return -1.                                     */
   /*                                                                       */
-  FT_EXPORT( FT_Long )
-  FT_Get_CMap_Format( FT_CharMap  charmap );
+  FT_EXPORT(FT_Long)
+  FT_Get_CMap_Format(FT_CharMap  charmap);
 
   /* */
 

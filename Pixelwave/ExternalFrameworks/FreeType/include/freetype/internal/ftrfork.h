@@ -88,7 +88,7 @@ FT_BEGIN_HEADER
   /*      code of Nth guessing rule function.  If `errors[N]' is not       */
   /*      FT_Err_Ok, `new_names[N]' and `offsets[N]' are meaningless.      */
   /*                                                                       */
-  FT_BASE( void )
+  FT_BASE(void)
   FT_Raccess_Guess( FT_Library  library,
                     FT_Stream   stream,
                     char*       base_name,
@@ -128,7 +128,7 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*    FreeType error code.  FT_Err_Ok means success.                     */
   /*                                                                       */
-  FT_BASE( FT_Error )
+  FT_BASE(FT_Error)
   FT_Raccess_Get_HeaderInfo( FT_Library  library,
                              FT_Stream   stream,
                              FT_Long     rfork_offset,
@@ -178,7 +178,7 @@ FT_BEGIN_HEADER
   /*    Normally you should use `FT_Raccess_Get_HeaderInfo' to get the     */
   /*    value for `map_offset' and `rdata_pos'.                            */
   /*                                                                       */
-  FT_BASE( FT_Error )
+  FT_BASE(FT_Error)
   FT_Raccess_Get_DataOffsets( FT_Library  library,
                               FT_Stream   stream,
                               FT_Long     map_offset,

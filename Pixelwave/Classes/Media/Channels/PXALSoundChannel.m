@@ -431,7 +431,7 @@
 	 float leftPeak = 0.0f;
 	 ALint curByte;
 	 AL_
-	 alGetSourcei( sourceID , AL_SAMPLE_OFFSET , &curByte );
+	 alGetSourcei(sourceID , AL_SAMPLE_OFFSET , &curByte);
 	 
 	 if (format == AL_FORMAT_STEREO8 || format == AL_FORMAT_MONO8)
 	 {
@@ -453,7 +453,7 @@
 	int format = sound->format;
 	 float rightPeak = 0.0f;
 	 ALint curByte;
-	 alGetSourcei( sourceID , AL_SAMPLE_OFFSET , &curByte );
+	 alGetSourcei(sourceID , AL_SAMPLE_OFFSET , &curByte);
 	 
 	 int byteID = 1;
 	 if (format == AL_FORMAT_MONO8 || format == AL_FORMAT_MONO16)

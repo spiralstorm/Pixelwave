@@ -50,12 +50,12 @@ FT_BEGIN_HEADER
                           FT_Bytes  *ckern_table );
 
 
-  FT_DEFINE_SERVICE( GXvalidate )
+  FT_DEFINE_SERVICE(GXvalidate)
   {
     gxv_validate_func  validate;
   };
 
-  FT_DEFINE_SERVICE( CKERNvalidate )
+  FT_DEFINE_SERVICE(CKERNvalidate)
   {
     ckern_validate_func  validate;
   };

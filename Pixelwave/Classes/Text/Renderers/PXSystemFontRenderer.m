@@ -263,10 +263,10 @@
 
 	// Enable the texture, and draw the vertices with the correct color.
 //	PXGLShadeModel(GL_SMOOTH);
-	PXGLEnable( GL_TEXTURE_2D );
-	PXGLEnableClientState( GL_TEXTURE_COORD_ARRAY );
-//	PXGLDisableClientState( GL_POINT_SIZE_ARRAY_OES );
-//	PXGLDisableClientState( GL_COLOR_ARRAY );
+	PXGLEnable(GL_TEXTURE_2D);
+	PXGLEnableClientState(GL_TEXTURE_COORD_ARRAY);
+//	PXGLDisableClientState(GL_POINT_SIZE_ARRAY_OES);
+//	PXGLDisableClientState(GL_COLOR_ARRAY);
 
 	PXGLBindTexture(GL_TEXTURE_2D, textureData->_glName);
 

@@ -115,10 +115,10 @@ FT_BEGIN_HEADER
 
 #ifdef TT_USE_BYTECODE_INTERPRETER
 
-  FT_LOCAL( void )
-  tt_glyphzone_done( TT_GlyphZone  zone );
+  FT_LOCAL(void)
+  tt_glyphzone_done(TT_GlyphZone  zone);
 
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   tt_glyphzone_new( FT_Memory     memory,
                     FT_UShort     maxPoints,
                     FT_Short      maxContours,
@@ -274,7 +274,7 @@ FT_BEGIN_HEADER
   /*       ratio = y_ratio                                                 */
   /*                                                                       */
   /*   - else,                                                             */
-  /*       ratio = sqrt( (proj.x * x_ratio) ^ 2 + (proj.y * y_ratio) ^ 2 ) */
+  /*       ratio = sqrt((proj.x * x_ratio) ^ 2 + (proj.y * y_ratio) ^ 2) */
   /*                                                                       */
   /*   Reading a cvt value returns                                         */
   /*     ratio * cvt[index]                                                */
@@ -398,61 +398,61 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /* Face functions                                                        */
   /*                                                                       */
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   tt_face_init( FT_Stream      stream,
                 FT_Face        ttface,      /* TT_Face */
                 FT_Int         face_index,
                 FT_Int         num_params,
                 FT_Parameter*  params );
 
-  FT_LOCAL( void )
-  tt_face_done( FT_Face  ttface );          /* TT_Face */
+  FT_LOCAL(void)
+  tt_face_done(FT_Face  ttface);          /* TT_Face */
 
 
   /*************************************************************************/
   /*                                                                       */
   /* Size functions                                                        */
   /*                                                                       */
-  FT_LOCAL( FT_Error )
-  tt_size_init( FT_Size  ttsize );          /* TT_Size */
+  FT_LOCAL(FT_Error)
+  tt_size_init(FT_Size  ttsize);          /* TT_Size */
 
-  FT_LOCAL( void )
-  tt_size_done( FT_Size  ttsize );          /* TT_Size */
+  FT_LOCAL(void)
+  tt_size_done(FT_Size  ttsize);          /* TT_Size */
 
 #ifdef TT_USE_BYTECODE_INTERPRETER
 
-  FT_LOCAL( FT_Error )
-  tt_size_run_fpgm( TT_Size  size );
+  FT_LOCAL(FT_Error)
+  tt_size_run_fpgm(TT_Size  size);
 
-  FT_LOCAL( FT_Error )
-  tt_size_run_prep( TT_Size  size );
+  FT_LOCAL(FT_Error)
+  tt_size_run_prep(TT_Size  size);
 
-  FT_LOCAL( FT_Error )
-  tt_size_ready_bytecode( TT_Size  size );
+  FT_LOCAL(FT_Error)
+  tt_size_ready_bytecode(TT_Size  size);
 
 #endif /* TT_USE_BYTECODE_INTERPRETER */
 
-  FT_LOCAL( FT_Error )
-  tt_size_reset( TT_Size  size );
+  FT_LOCAL(FT_Error)
+  tt_size_reset(TT_Size  size);
 
 
   /*************************************************************************/
   /*                                                                       */
   /* Driver functions                                                      */
   /*                                                                       */
-  FT_LOCAL( FT_Error )
-  tt_driver_init( FT_Module  ttdriver );    /* TT_Driver */
+  FT_LOCAL(FT_Error)
+  tt_driver_init(FT_Module  ttdriver);    /* TT_Driver */
 
-  FT_LOCAL( void )
-  tt_driver_done( FT_Module  ttdriver );    /* TT_Driver */
+  FT_LOCAL(void)
+  tt_driver_done(FT_Module  ttdriver);    /* TT_Driver */
 
 
   /*************************************************************************/
   /*                                                                       */
   /* Slot functions                                                        */
   /*                                                                       */
-  FT_LOCAL( FT_Error )
-  tt_slot_init( FT_GlyphSlot  slot );
+  FT_LOCAL(FT_Error)
+  tt_slot_init(FT_GlyphSlot  slot);
 
 
 FT_END_HEADER

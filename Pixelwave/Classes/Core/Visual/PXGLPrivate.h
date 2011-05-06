@@ -64,15 +64,15 @@ void PXGLConsolidateBuffers( );
 
 void PXGLResetStates(PXGLState desiredState);
 
-void PXGLClipRect( GLint x, GLint y, GLint width, GLint height );
+void PXGLClipRect(GLint x, GLint y, GLint width, GLint height);
 PXGLAABB *PXGLGetCurrentAABB( );
-void PXGLResetAABB( bool setToClipRect );
-bool PXGLIsAABBVisible( PXGLAABB *aabb );
+void PXGLResetAABB(bool setToClipRect);
+bool PXGLIsAABBVisible(PXGLAABB *aabb);
 
 void PXGLAABBMult(PXGLAABB *aabb);
 
-//void PXGLGetAbsoluteColorTransform( PXGLColorTransform *transform );
-//void PXGLSetAbsoluteColorTransform( PXGLColorTransform *transform );
+//void PXGLGetAbsoluteColorTransform(PXGLColorTransform *transform);
+//void PXGLSetAbsoluteColorTransform(PXGLColorTransform *transform);
 
 void PXGLSetViewSize(unsigned width, unsigned height, float scaleFactor, bool orientationEnabled);
 

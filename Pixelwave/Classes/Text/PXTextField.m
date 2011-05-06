@@ -585,12 +585,12 @@
 	{
 //		PXGLShadeModel(GL_SMOOTH);
 
-//		PXGLDisable( GL_TEXTURE_2D );
+//		PXGLDisable(GL_TEXTURE_2D);
 //		PXGLDisable(GL_POINT_SPRITE_OES);
 
-//		PXGLDisableClientState( GL_TEXTURE_COORD_ARRAY );
-//		PXGLDisableClientState( GL_POINT_SIZE_ARRAY_OES );
-//		PXGLDisableClientState( GL_COLOR_ARRAY );
+//		PXGLDisableClientState(GL_TEXTURE_COORD_ARRAY);
+//		PXGLDisableClientState(GL_POINT_SIZE_ARRAY_OES);
+//		PXGLDisableClientState(GL_COLOR_ARRAY);
 
 		if (useBackground)
 		{

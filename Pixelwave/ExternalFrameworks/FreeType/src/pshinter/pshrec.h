@@ -79,9 +79,9 @@ FT_BEGIN_HEADER
   } PS_HintRec;
 
 
-#define ps_hint_is_active( x )  ( (x)->flags & PS_HINT_FLAG_ACTIVE )
-#define ps_hint_is_ghost( x )   ( (x)->flags & PS_HINT_FLAG_GHOST  )
-#define ps_hint_is_bottom( x )  ( (x)->flags & PS_HINT_FLAG_BOTTOM )
+#define ps_hint_is_active(x )  ( (x)->flags & PS_HINT_FLAG_ACTIVE)
+#define ps_hint_is_ghost(x )   ((x)->flags & PS_HINT_FLAG_GHOST)
+#define ps_hint_is_bottom(x )  ( (x)->flags & PS_HINT_FLAG_BOTTOM)
 
 
   /* hints table descriptor */
@@ -141,21 +141,21 @@ FT_BEGIN_HEADER
   /* */
 
   /* initialize hints recorder */
-  FT_LOCAL( FT_Error )
+  FT_LOCAL(FT_Error)
   ps_hints_init( PS_Hints   hints,
                  FT_Memory  memory );
 
   /* finalize hints recorder */
-  FT_LOCAL( void )
-  ps_hints_done( PS_Hints  hints );
+  FT_LOCAL(void)
+  ps_hints_done(PS_Hints  hints);
 
   /* initialize Type1 hints recorder interface */
-  FT_LOCAL( void )
-  t1_hints_funcs_init( T1_Hints_FuncsRec*  funcs );
+  FT_LOCAL(void)
+  t1_hints_funcs_init(T1_Hints_FuncsRec*  funcs);
 
   /* initialize Type2 hints recorder interface */
-  FT_LOCAL( void )
-  t2_hints_funcs_init( T2_Hints_FuncsRec*  funcs );
+  FT_LOCAL(void)
+  t2_hints_funcs_init(T2_Hints_FuncsRec*  funcs);
 
 
 #ifdef DEBUG_HINTER

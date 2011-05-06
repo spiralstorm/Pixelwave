@@ -63,12 +63,12 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /* For emboldened outlines the metrics are estimates only; if you need   */
   /* precise values you should call @FT_Outline_Get_CBox.                  */
-  FT_EXPORT( void )
-  FT_GlyphSlot_Embolden( FT_GlyphSlot  slot );
+  FT_EXPORT(void)
+  FT_GlyphSlot_Embolden(FT_GlyphSlot  slot);
 
   /* Slant an outline glyph to the right by about 12 degrees. */
-  FT_EXPORT( void )
-  FT_GlyphSlot_Oblique( FT_GlyphSlot  slot );
+  FT_EXPORT(void)
+  FT_GlyphSlot_Oblique(FT_GlyphSlot  slot);
 
   /* */
 

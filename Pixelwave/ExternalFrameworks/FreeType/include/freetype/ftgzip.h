@@ -87,7 +87,7 @@ FT_BEGIN_HEADER
   *   This function may return `FT_Err_Unimplemented_Feature' if your build
   *   of FreeType was not compiled with zlib support.
   */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Stream_OpenGzip( FT_Stream  stream,
                       FT_Stream  source );
 

@@ -254,7 +254,7 @@ FT_BEGIN_HEADER
    *   This function only works with Windows FNT faces, returning an error
    *   otherwise.
    */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Get_WinFNT_Header( FT_Face               face,
                         FT_WinFNT_HeaderRec  *aheader );
 

@@ -43,7 +43,7 @@ FT_BEGIN_HEADER
 
   /* destroys a given glyph object */
   typedef void
-  (*FT_Glyph_DoneFunc)( FT_Glyph  glyph );
+  (*FT_Glyph_DoneFunc)(FT_Glyph  glyph);
 
   typedef void
   (*FT_Glyph_TransformFunc)( FT_Glyph          glyph,
@@ -184,7 +184,7 @@ FT_BEGIN_HEADER
   /*    To add a new renderer, simply use @FT_Add_Module.  To retrieve a   */
   /*    renderer by its name, use @FT_Get_Module.                          */
   /*                                                                       */
-  FT_EXPORT( FT_Renderer )
+  FT_EXPORT(FT_Renderer)
   FT_Get_Renderer( FT_Library       library,
                    FT_Glyph_Format  format );
 
@@ -216,7 +216,7 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /*    This doesn't change the current renderer for other formats.        */
   /*                                                                       */
-  FT_EXPORT( FT_Error )
+  FT_EXPORT(FT_Error)
   FT_Set_Renderer( FT_Library     library,
                    FT_Renderer    renderer,
                    FT_UInt        num_params,

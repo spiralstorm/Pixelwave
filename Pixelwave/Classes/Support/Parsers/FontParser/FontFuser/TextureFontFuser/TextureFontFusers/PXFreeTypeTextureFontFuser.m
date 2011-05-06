@@ -224,7 +224,7 @@
 		}
 
 		// Render the glyph to it's bitmap.
-		FT_Glyph_To_Bitmap( &(glyph), ft_render_mode_normal, 0, 1 );
+		FT_Glyph_To_Bitmap(&(glyph), ft_render_mode_normal, 0, 1);
 		glyphBitmap = (FT_BitmapGlyph)(glyph);
 		curGlyphDef->bitmapGlyph = glyphBitmap;
 		bitmap = glyphBitmap->bitmap;
@@ -283,7 +283,7 @@
 	[textureData release];
 	textureData = [[PXTextureData alloc] _initWithoutGLName];
 
-	BOOL useKerning = FT_HAS_KERNING( face );
+	BOOL useKerning = FT_HAS_KERNING(face);
 
 	unsigned innerKernIndex;
 	unichar *innerKernChar;
@@ -386,7 +386,7 @@
 				}
 			}
 
-			FT_Done_Glyph( curGlyphDef->bitmapGlyph );
+			FT_Done_Glyph(curGlyphDef->bitmapGlyph);
 		}
 	}
 

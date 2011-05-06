@@ -157,7 +157,7 @@
                                 /*       on certain platforms           */
 
 #define ft_longjmp     longjmp
-#define ft_setjmp( b ) setjmp( *(jmp_buf*) &(b) )    /* same thing here */
+#define ft_setjmp(b ) setjmp( *(jmp_buf*) &(b))    /* same thing here */
 
 
   /* the following is only used for debugging purposes, i.e., if */

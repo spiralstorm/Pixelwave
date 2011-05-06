@@ -70,8 +70,8 @@ FT_BEGIN_HEADER
   /* <Return>                                                              */
   /*   Font format string.  NULL in case of error.                         */
   /*                                                                       */
-  FT_EXPORT( const char* )
-  FT_Get_X11_Font_Format( FT_Face  face );
+  FT_EXPORT(const char*)
+  FT_Get_X11_Font_Format(FT_Face  face);
 
  /* */
 

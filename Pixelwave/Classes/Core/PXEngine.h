@@ -97,10 +97,10 @@ float PXEngineGetLogicFrameRate();
 void PXEngineSetRenderFrameRate(float fps);
 float PXEngineGetRenderFrameRate();
 
-void PXEngineAddFrameListener( PXDisplayObject *displayObject );
-void PXEngineRemoveFrameListener( PXDisplayObject *displayObject );
+void PXEngineAddFrameListener(PXDisplayObject *displayObject);
+void PXEngineRemoveFrameListener(PXDisplayObject *displayObject);
 
-void PXEngineRenderToTexture( PXTextureData *textureData, PXDisplayObject *source, PXGLMatrix *matrix, PXGLColorTransform *colorTransform, CGRect *clipRect, BOOL smoothing, BOOL clearTexture );
+void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source, PXGLMatrix *matrix, PXGLColorTransform *colorTransform, CGRect *clipRect, BOOL smoothing, BOOL clearTexture);
 
 PXObjectPool *PXEngineGetSharedObjectPool();
 

@@ -69,7 +69,7 @@ FT_BEGIN_HEADER
                            TT_CMapInfo  *cmap_info );
 
 
-  FT_DEFINE_SERVICE( TTCMaps )
+  FT_DEFINE_SERVICE(TTCMaps)
   {
     TT_CMap_Info_GetFunc  get_cmap_info;
   };

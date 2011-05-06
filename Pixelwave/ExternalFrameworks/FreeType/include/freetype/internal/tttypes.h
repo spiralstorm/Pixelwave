@@ -511,12 +511,12 @@ FT_BEGIN_HEADER
   /*    min_advance_SB          :: Minimum of                              */
   /*                                                                       */
   /*                                 horizontal advance -                  */
-  /*                                   ( horiBearingX + width )            */
+  /*                                   (horiBearingX + width)            */
   /*                                                                       */
   /*                               resp.                                   */
   /*                                                                       */
   /*                                 vertical advance -                    */
-  /*                                   ( vertBearingY + height )           */
+  /*                                   (vertBearingY + height)           */
   /*                                                                       */
   /*    max_before_BL           :: Maximum of horiBearingY (resp.          */
   /*                               vertBearingY).                          */
@@ -953,7 +953,7 @@ FT_BEGIN_HEADER
 
   /* a function type used for the truetype bytecode interpreter hooks */
   typedef FT_Error
-  (*TT_Interpreter)( void*  exec_context );
+  (*TT_Interpreter)(void*  exec_context);
 
   /* forward declaration */
   typedef struct TT_LoaderRec_*  TT_Loader;
@@ -1042,7 +1042,7 @@ FT_BEGIN_HEADER
   /*    FreeType error code.  0 means success.                             */
   /*                                                                       */
   typedef FT_Error
-  (*TT_Loader_ReadGlyphFunc)( TT_Loader  loader );
+  (*TT_Loader_ReadGlyphFunc)(TT_Loader  loader);
 
 
   /*************************************************************************/
@@ -1057,7 +1057,7 @@ FT_BEGIN_HEADER
   /*    loader :: The current TrueType glyph loader object.                */
   /*                                                                       */
   typedef void
-  (*TT_Loader_EndGlyphFunc)( TT_Loader  loader );
+  (*TT_Loader_EndGlyphFunc)(TT_Loader  loader);
 
 
   /*************************************************************************/
