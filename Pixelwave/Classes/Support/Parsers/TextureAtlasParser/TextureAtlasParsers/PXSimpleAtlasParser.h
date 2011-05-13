@@ -11,6 +11,7 @@
 
 @class PXLinkedList;
 @class PXTextureData;
+@class PXTextureLoader;
 
 typedef struct
 {
@@ -33,7 +34,7 @@ typedef struct
 {
 @private
 	// The texture data of the atlas
-	PXLinkedList *textureDatas;
+	NSMutableArray *textureLoaders;
 	
 	// The list of all the frame names
 	NSMutableArray *names;
@@ -48,5 +49,5 @@ typedef struct
 @interface PXSimpleAtlasParser(Protected)
 - (void) _setupWithTotalFrames:(ushort)totalFrames;
 - (PXGenericAtlasParserFrame *)_addFrameWithName:(NSString *)name;
-- (void) _addTextureData:(PXTextureData *)textureData;
+- (void) _addTextureLoader:(PXTextureLoader *)textureLoader;
 @end

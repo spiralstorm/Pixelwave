@@ -66,15 +66,38 @@
 
 - (BOOL) _parseWithModifier:(id<PXTextureModifier>)modifier
 {
-	////////////////////////////
-	// Parse the texture data //
-	////////////////////////////
+	/////////////////////////
+	// Parse the JSON data //
+	/////////////////////////
+	
+	NSError *error = nil;
+	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error];
+	
+	if (error)
+		return NO;
+	
+	NSDictionary *framesDict = [dict objectForKey:@"frames"];
+	
+	if (!framesDict)
+		return NO;
+	
+	int numFrames = [framesDict count];
+	
+	// No frames, no service.
+	if (numFrames <= 0)
+		return NO;
+	
+	[self _setupWithTotalFrames:numFrames];
+	
+	
+	////////////////////////////////
+	// Read the texture data info //
+	////////////////////////////////
 
 	// Release the old one if it exists
-	PXTextureData *textureData = nil;
 
 	NSString *imagePath = nil;
-
+	
 	// Limitations due to current JSON file not storing the image name:
 	{
 		// Since the current JSON file format doesn't tell us the name of the image
@@ -101,41 +124,16 @@
 	// Require the image to be the same contentScaleFactor as the atlas.
 	[loader setContentScaleFactor:contentScaleFactor];
 
-	textureData = [loader newTextureData];
+	[self _addTextureLoader:loader];
 	[loader release];
 
-	if (!textureData)
-		return NO;
-
 	/////////////////////////
-	// Parse the JSON data //
+	// Read the frame data //
 	/////////////////////////
 
-	// We'll have to divide all the coordinate  values stored in the files by
+	// We'll have to divide all the coordinate  values stored in the file by
 	// the content scale factor to convert them from PIXELS to POINTS.
 	float invScaleFactor = 1.0f / contentScaleFactor;
-
-	NSError *error = nil;
-	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error];
-
-	if (error)
-		return NO;
-
-	NSDictionary *framesDict = [dict objectForKey:@"frames"];
-
-	if (!framesDict)
-		return NO;
-
-	int numFrames = [framesDict count];
-
-	// No frames, no service.
-	if (numFrames <= 0)
-		return NO;
-	
-	[self _setupWithTotalFrames:numFrames];
-	
-	// Add the texture data at index 0
-	[self _addTextureData:textureData];
 	
 	// Start parsing
 	PXGenericAtlasParserFrame *cFrame = NULL;

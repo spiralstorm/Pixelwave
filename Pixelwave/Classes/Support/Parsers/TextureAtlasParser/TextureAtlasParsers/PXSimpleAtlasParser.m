@@ -13,9 +13,9 @@
 #import "PXTexturePadding.h"
 #import "PXPoint.h"
 
-#import "PXAtlasFrame.h"
+#import "PXTextureLoader.h"
 
-#import "PXLinkedList.h"
+#import "PXAtlasFrame.h"
 
 @implementation PXSimpleAtlasParser
 
@@ -30,8 +30,8 @@
 	[names release];
 	names = nil;
 	
-	[textureDatas release];
-	textureDatas = nil;
+	[textureLoaders release];
+	textureLoaders = nil;
 	
 	[super dealloc];
 }
@@ -42,13 +42,13 @@
 
 - (void)_setupWithTotalFrames:(ushort)_totalFrames
 {
-	if(!textureDatas)
-		textureDatas = [[PXLinkedList alloc] init];
+	if(!textureLoaders)
+		textureLoaders = [[NSMutableArray alloc] init];
 	
 	if(!names)
-		names = [[PXLinkedList alloc] init];
+		names = [[NSMutableArray alloc] init];
 	
-	[textureDatas removeAllObjects];
+	[textureLoaders removeAllObjects];
 	[names removeAllObjects];
 	
 	totalFrames = _totalFrames;
@@ -70,9 +70,9 @@
 	return frame;
 }
 
-- (void) _addTextureData:(PXTextureData *)textureData
+- (void) _addTextureLoader:(PXTextureLoader *)textureLoader
 {
-	[textureDatas addObject:textureData];
+	[textureLoaders addObject:textureLoader];
 }
 
 /////////////////////////
@@ -86,8 +86,34 @@
 		return nil;
 	if (!names)
 		return nil;
-	if (!textureDatas)
+	if(!textureLoaders)
 		return nil;
+	
+	// Convert all the loaders to TextureData objects
+	NSMutableArray *textureDatas = [[NSMutableArray alloc] init];
+	
+	PXTextureData *textureData = nil;
+	
+	BOOL allTexturesAreValid = YES;
+	
+	for(PXTextureLoader *textureLoader in textureLoaders){
+		textureData = [textureLoader newTextureData];
+		
+		if(!textureData){
+			allTexturesAreValid = NO;
+			break;
+		}else{
+			[textureDatas addObject:textureData];
+		}
+	}
+	
+	// If any of the textures couldn't be loaded, the atlas can't be created.
+	if(!allTexturesAreValid){
+		[textureDatas release];
+		textureDatas = nil;
+		
+		return nil;
+	}
 	
 	// Create the atlas. There's no going back now...
 	PXTextureAtlas *atlas = [[PXTextureAtlas alloc] init];
@@ -96,7 +122,6 @@
 	PXClipRect *clipRect = [[PXClipRect alloc] init];
 	PXTexturePadding *padding = [[PXTexturePadding alloc] init];
 	PXPoint *anchor = [[PXPoint alloc] init];
-	PXTextureData *textureData = nil;
 	
 	PXAtlasFrame *atlasFrame;
 	NSString *frameName;
@@ -157,6 +182,7 @@
 	[clipRect release];
 	[padding release];
 	[anchor release];
+	[textureDatas release];
 	
 	return atlas;
 }
