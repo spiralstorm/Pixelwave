@@ -119,6 +119,8 @@ typedef struct
 #pragma mark Declerations
 #pragma mark -
 
+BOOL PXMathIsNan(float val);
+
 float PXMathRandom();
 float PXMathFloatInRange(float min, float max);
 int PXMathIntInRange(int min, int max);
