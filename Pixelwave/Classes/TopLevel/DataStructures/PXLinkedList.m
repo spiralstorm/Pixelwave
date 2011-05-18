@@ -908,6 +908,38 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	}
 }
 
+- (void) setIndex:(int)index ofObject:(PXGenericObject)object
+{
+	if (!object)
+		return;
+
+	// We will remove it, and we may have the only retain on it.
+	[object retain];
+
+	BOOL containsObject = NO;
+
+	//find this object
+	PX_LL_START_CHILD_LOOP
+	{
+		if (node->data == object)
+		{
+			//Succesful
+			[self removeNode:node];
+			containsObject = YES;
+			break;
+		}
+	}
+	PX_LL_END_CHILD_LOOP
+
+	if (containsObject)
+	{
+		[self insertObject:object atIndex:index];
+	}
+
+	// We retained it, so we must release it.
+	[object release];
+}
+
 #pragma mark Removing
 
 /**

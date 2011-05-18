@@ -162,6 +162,8 @@ typedef struct _sPXLLNode
 - (void) insertObject:(PXGenericObject)object atIndex:(int)index;
 //-- ScriptName: pushAllFrom
 - (void) addObjectsFromList:(PXLinkedList *)otherList;
+//-- ScriptName: setIndex
+- (void) setIndex:(int)index ofObject:(PXGenericObject)object;
 
 // Removing, -1 retain
 //-- ScriptName: pop
