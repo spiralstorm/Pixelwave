@@ -97,7 +97,7 @@ PXInline void PXSwapv(void *val0, void *val1, size_t size)
 	size_t index;
 	unsigned char *byte0;
 	unsigned char *byte1;
-	for (index = 0, byte0 = val0, byte1 = val1; index < size; ++index, ++byte0, ++byte1)
+	for (index = 0, byte0 = (unsigned char *)val0, byte1 = (unsigned char *)val1; index < size; ++index, ++byte0, ++byte1)
 	{
 		*byte0 ^= *byte1;
 		*byte1 ^= *byte0;
@@ -117,7 +117,7 @@ void *PXStridedMemcpy(void *dest, void *src, size_t size, size_t len, size_t des
 	unsigned char *destData;
 	unsigned char *srcData;
 
-	for (index = 0, destData = dest, srcData = src; index < len; ++index, destData += destStride, srcData += srcStride)
+	for (index = 0, destData = (unsigned char *)dest, srcData = (unsigned char *)src; index < len; ++index, destData += destStride, srcData += srcStride)
 	{
 		memcpy(destData, srcData, size);
 	}
