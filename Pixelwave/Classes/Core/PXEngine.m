@@ -1664,12 +1664,12 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	////////////
 	// RENDER //
 	////////////
-
+	
 	PXEngineRenderDisplayObject(source, false, false);
-
+	
 	// Flush anything, render any queued up commands
 	PXGLPostRender( );
-
+	
 	////////////////////////////////////
 	// Restore screen rendering state //
 	////////////////////////////////////

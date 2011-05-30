@@ -43,6 +43,8 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+	
+// TODO: John, what is the purpose of these?
 
 // BLEND - destination
 #define PX_GL_ZERO							GL_ZERO
