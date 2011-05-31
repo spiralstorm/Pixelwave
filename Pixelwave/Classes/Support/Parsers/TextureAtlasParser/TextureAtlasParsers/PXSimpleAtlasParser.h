@@ -18,7 +18,7 @@ typedef struct
 	CGRect clipRect;
 	CGPoint anchor;
 	float rotation;
-	short padding[4];
+	float padding[4];
 
 	ushort textureDataIndex;
 	ushort _nameIndex; // Private

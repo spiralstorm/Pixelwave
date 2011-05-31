@@ -199,7 +199,7 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 		if (trimmed)
 		{
 			// Calculates the padding values (Also converts to points).
-			short *padding = cFrame->padding;
+			float *padding = cFrame->padding;
 			// Top
 			padding[0] = (spriteColorRect.origin.y) * invScaleFactor;
 			// Right

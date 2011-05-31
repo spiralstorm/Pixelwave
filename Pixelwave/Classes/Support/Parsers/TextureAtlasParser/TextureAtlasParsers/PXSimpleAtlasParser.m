@@ -126,7 +126,7 @@
 	PXAtlasFrame *atlasFrame;
 	NSString *frameName;
 	
-	short *rawPadding = NULL;
+	float *rawPadding = NULL;
 	CGPoint *rawAnchor = NULL;
 	
 	BOOL paddingEnabled, anchorEnabled;

@@ -15,10 +15,10 @@
 @interface PXClipRect : NSObject <NSCopying>
 {
 @private
-	ushort x;
-	ushort y;
-	ushort width;
-	ushort height;
+	float x;
+	float y;
+	float width;
+	float height;
 
 	BOOL invalidated;
 @public
@@ -27,7 +27,7 @@
 	PXGLTextureVertex *_vertices;
 
 	// The size of the frame within the texture atlas
-	ushort _contentWidth, _contentHeight;
+	float _contentWidth, _contentHeight;
 	float _contentRotation;
 }
 
@@ -47,10 +47,10 @@
 
 // Rect specific
 
-@property (nonatomic) ushort x;
-@property (nonatomic) ushort y;
-@property (nonatomic) ushort width;
-@property (nonatomic) ushort height;
+@property (nonatomic) float x;
+@property (nonatomic) float y;
+@property (nonatomic) float width;
+@property (nonatomic) float height;
 
 /////////////
 // Methods //
@@ -59,17 +59,17 @@
 // When making a version of this method without rotation, the compiler freaks
 // out because it can't tell the differnce between it and the similarly named
 // method in PXRectangle
-- (id) initWithX:(ushort)x y:(ushort)y width:(ushort)width height:(ushort)height rotation:(float)rotation;
+- (id) initWithX:(float)x y:(float)y width:(float)width height:(float)height rotation:(float)rotation;
 
-- (void) setX:(ushort)x
-		   y:(ushort)y
-	   width:(ushort)width
-	  height:(ushort)height
-	rotation:(float)rotation;
+- (void) setX:(float)x
+			y:(float)y
+		width:(float)width
+	   height:(float)height
+	 rotation:(float)rotation;
 
 // Utility
-+ (PXClipRect *)clipRectWithX:(ushort)x y:(ushort)y width:(ushort)width height:(ushort)height;
-+ (PXClipRect *)clipRectWithX:(ushort)x y:(ushort)y width:(ushort)width height:(ushort)height rotation:(float)rotation;
++ (PXClipRect *)clipRectWithX:(float)x y:(float)y width:(float)width height:(float)height;
++ (PXClipRect *)clipRectWithX:(float)x y:(float)y width:(float)width height:(float)height rotation:(float)rotation;
 
 @end
 

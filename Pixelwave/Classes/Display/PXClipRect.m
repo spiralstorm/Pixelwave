@@ -20,7 +20,7 @@
 				  rotation:0.0f];
 }
 
-- (id) initWithX:(ushort)_x y:(ushort)_y width:(ushort)_width height:(ushort)_height rotation:(float)_rotation
+- (id) initWithX:(float)_x y:(float)_y width:(float)_width height:(float)_height rotation:(float)_rotation
 {
 	self = [super init];
 	if (self)
@@ -45,7 +45,7 @@
 	[super dealloc];
 }
 
-- (void) setX:(ushort)_x y:(ushort)_y width:(ushort)_width height:(ushort)_height rotation:(float)_rotation;
+- (void) setX:(float)_x y:(float)_y width:(float)_width height:(float)_height rotation:(float)_rotation;
 {
 	x = _x;
 	y = _y;
@@ -61,22 +61,22 @@
 // Properties
 //
 
-- (void) setX:(ushort)val
+- (void) setX:(float)val
 {
 	x = val;
 	invalidated = YES;
 }
-- (void) setY:(ushort)val
+- (void) setY:(float)val
 {
 	y = val;
 	invalidated = YES;
 }
-- (void) setWidth:(ushort)val
+- (void) setWidth:(float)val
 {
 	width = val;
 	invalidated = YES;
 }
-- (void) setHeight:(ushort)val
+- (void) setHeight:(float)val
 {
 	height = val;
 	invalidated = YES;
@@ -202,16 +202,16 @@
 
 #pragma mark Utility
 
-+ (PXClipRect *)clipRectWithX:(ushort)x y:(ushort)y
-					 width:(ushort)width height:(ushort)height
++ (PXClipRect *)clipRectWithX:(float)x y:(float)y
+						width:(float)width height:(float)height
 {
 	return [[[PXClipRect alloc] initWithX:x y:y
 								 width:width height:height
 								 rotation:0.0f] autorelease];
 }
 
-+ (PXClipRect *)clipRectWithX:(ushort)x y:(ushort)y
-					 width:(ushort)width height:(ushort)height
++ (PXClipRect *)clipRectWithX:(float)x y:(float)y
+						width:(float)width height:(float)height
 					 rotation:(float)rotation
 {
 	return [[[PXClipRect alloc] initWithX:x y:y

@@ -49,6 +49,7 @@
 #include "PXEngine.h"
 #include "PXGL.h"
 
+#import "PXMathUtils.h"
 #include "PXPrivateUtils.h"
 
 #include <CoreGraphics/CoreGraphics.h>
@@ -57,10 +58,10 @@
 - (void) validateAnchors;
 - (void) resetClip;
 - (void) validateVertices;
-- (void) setPaddingRaw:(short *)padding;
+- (void) setPaddingRaw:(float *)padding;
 @end
 
-void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *padding, CGRect *retRect);
+void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *padding, CGRect *retRect);
 
 /**
  *	@ingroup Display
@@ -109,8 +110,8 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		_PXGLStateEnable(&_glState, GL_TEXTURE_2D);
 		_PXGLStateEnableClientState(&_glState, GL_TEXTURE_COORD_ARRAY);
 
-		contentWidth = 0;
-		contentHeight = 0;
+		contentWidth = 0.0f;
+		contentHeight = 0.0f;
 		contentRotation = 0.0f;
 
 		paddingEnabled = NO;
@@ -202,18 +203,20 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
  *	@see #setClipRect:
  */
 
-- (void) setClipRectWithX:(int)x
-					 y:(int)y
-				 width:(ushort)width
-				height:(ushort)height
+- (void) setClipRectWithX:(float)x
+						y:(float)y
+					width:(float)width
+				   height:(float)height
 {
-	[self setClipRectWithX:x y:y width:width height:height usingAnchorX:0.0f anchorY:0.0f];
+	PXClipRect *clipRect = [[PXClipRect alloc] initWithX:x y:y width:width height:height rotation:0.0f];
+	self.clipRect = clipRect;
+	[clipRect release];
 }
 
-- (void) setClipRectWithX:(int)x
-						y:(int)y
-					width:(ushort)width
-				   height:(ushort)height
+- (void) setClipRectWithX:(float)x
+						y:(float)y
+					width:(float)width
+				   height:(float)height
 			 usingAnchorX:(float)_anchorX
 				  anchorY:(float)_anchorY
 {
@@ -228,7 +231,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 
 	self.clipRect = clipRect;
 	[clipRect release];
-
+	
 	[self setAnchorWithX:_anchorX y:_anchorY];
 }
 
@@ -428,20 +431,20 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
  */
 - (void) setAnchorWithPointX:(float)x pointY:(float)y
 {
-	if (contentWidth == 0 || contentHeight == 0)
+	if (PXMathIsZero(contentWidth) || PXMathIsZero(contentHeight))
 	{
 		return;
 	}
 
-	[self setAnchorWithX:(x / (float)contentWidth)
-					   y:(y / (float)contentHeight)];
+	[self setAnchorWithX:(x / contentWidth)
+					   y:(y / contentHeight)];
 }
 
 #pragma mark Padding
 
 // Private
 // For setting the padding efficiently
-- (void) setPaddingRaw:(short *)val
+- (void) setPaddingRaw:(float *)val
 {
 	if (val)
 	{
@@ -458,14 +461,16 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 		// Our hit area is the same as our drawing area
 		PX_DISABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
 	}
+	
+	anchorsInvalidated = YES;
 }
 
-- (void) setPaddingWithTop:(short)top
-					 right:(short)right
-					bottom:(short)bottom
-					  left:(short)left
+- (void) setPaddingWithTop:(float)top
+					 right:(float)right
+					bottom:(float)bottom
+					  left:(float)left
 {
-	short newPadding[] = {top, right, bottom, left};
+	float newPadding[] = {top, right, bottom, left};
 	[self setPaddingRaw:newPadding];
 }
 
@@ -473,7 +478,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 {
 	if (val)
 	{
-		short newPadding[] = {val.top, val.right, val.bottom, val.left};
+		float newPadding[] = {val.top, val.right, val.bottom, val.left};
 		[self setPaddingRaw:newPadding];
 	}
 	else
@@ -731,7 +736,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *
 #pragma mark Utility
 
 // Utility
-void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, short *padding, CGRect *retRect)
+void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *padding, CGRect *retRect)
 {
 	PXGLTextureVertex *vert;
 	float x, y;
