@@ -227,6 +227,8 @@ OSStatus PXALSoundLoaderFileSetSize(void *inClientData,
 	byteData.bytes = (void *)[data bytes];
 	byteData.byteCount = [data length];
 
+//	PXDebugLog (@"PXALSoundParser byte count = %u\n", byteData.byteCount);
+
 	OSStatus didAnErrorOccur = AudioFileOpenWithCallbacks(&byteData,
 														  PXALSoundLoaderFileReader,
 														  PXALSoundLoaderFileWriter,
@@ -268,7 +270,7 @@ OSStatus PXALSoundLoaderFileSetSize(void *inClientData,
 
 	AudioStreamBasicDescription fileFormat;
 	UInt64 fileDataSize = 0;
-	UInt32 propertySize = sizeof(UInt64);	
+	UInt32 propertySize = sizeof(UInt64);
 
 	didAnErrorOccur = AudioFileGetProperty(afID, kAudioFilePropertyAudioDataByteCount, &propertySize, &fileDataSize);
 	if (didAnErrorOccur)

@@ -519,20 +519,20 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 			unsigned byteCount = CFDataGetLength(kernTable);
 	//		unsigned chunkCount = byteCount >> 1;
 
-			NSLog (@"Kern table byte count = %u\n", byteCount);
+			PXDebugLog (@"Kern table byte count = %u\n", byteCount);
 
 			unsigned short version = *((unsigned short *)(curByte));
 			curByte += sizeof(unsigned short);
 			unsigned short nTables = *((unsigned short *)(curByte));
 			curByte += sizeof(unsigned short);
-			NSLog (@"version = %X nTables = %u\n", version, nTables);
+			PXDebugLog (@"version = %X nTables = %u\n", version, nTables);
 
 			UInt16 rowWidth = chunks[0];
 			UInt16 leftOffsetTable = chunks[1];
 			UInt16 rightOffsetTable = chunks[2];
 		//	UInt16 *array = &(chunks[3]);
 
-			NSLog (@"rowWidth = %i, leftOffsetTable = %i, rightOffsetTable = %i\n",
+			PXDebugLog (@"rowWidth = %i, leftOffsetTable = %i, rightOffsetTable = %i\n",
 				   rowWidth,
 				   leftOffsetTable,
 				   rightOffsetTable);

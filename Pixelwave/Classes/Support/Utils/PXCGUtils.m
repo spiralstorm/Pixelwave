@@ -14,6 +14,8 @@
 #include "PXEngine.h"
 #import "PXTextureData.h"
 
+#import "PXDebug.h"
+
 void _PXCGUtils_releaseDataProvider(void *info,
 									const void *data,
 									size_t size)
@@ -146,7 +148,7 @@ CGImageRef PXCGUtilsCreateCGImageFromTextureData(PXTextureData *textureData)
 		pixelFormat == PXTextureDataPixelFormat_RGBA_PVRTC2 ||
 		pixelFormat == PXTextureDataPixelFormat_RGBA_PVRTC4)
 	{
-		NSLog(@"Warning: PXTextureData in compressed PVR pixel format cannot be converted to a CGImage");
+		PXDebugLog(@"Warning: PXTextureData in compressed PVR pixel format cannot be converted to a CGImage");
 		return nil;
 	}
 	

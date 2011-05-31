@@ -40,6 +40,10 @@
 #ifndef PX_ENGINE_H
 #define PX_ENGINE_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "PXGL.h"
 //#include "Pixelwave.h"
 #include "PXColorUtils.h"
@@ -137,5 +141,9 @@ float _PXEngineDBGGetTimeWaiting();
 void PXEngineDispatchTouchEvents( );
 void PXEngineDispatchFrameEvents( );
 void PXEngineRender( );
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

@@ -51,7 +51,7 @@ typedef struct
 	unsigned char r;
 	unsigned char g;
 	unsigned char b;
-	unsigned char _padding;
+	//unsigned char _padding;
 } PXColor3;
 
 typedef struct

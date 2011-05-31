@@ -54,6 +54,7 @@
 
 #import "PXRectangle.h"
 #include <CoreGraphics/CGGeometry.h>
+#include "PXColorUtils.h"
 
 BOOL pxTextureDataExpandEdges = YES;
 

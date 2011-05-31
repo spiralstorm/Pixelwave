@@ -103,6 +103,7 @@
 		[self release];
 
 		self = newSound;
+
 	//	if (self)
 	//	{
 	//	}
