@@ -182,6 +182,11 @@
 	invalidated = NO;
 }
 
+- (NSString *)description
+{
+	return [NSString stringWithFormat:@"(x=%f, y=%f, width=%f, height=%f)", x, y, width, height];
+}
+
 #pragma mark NSCopying
 
 - (id) copyWithZone:(NSZone *)zone

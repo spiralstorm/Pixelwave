@@ -306,13 +306,6 @@ BOOL pxTextureDataExpandEdges = YES;
 		{
 			*pixel = col;
 		}
-		//for (int i = 0, index = -1; i < pixelsCount; ++i)
-		//{
-		//	data[++index] = col.r;
-		//	data[++index] = col.g;
-		//	data[++index] = col.b;
-		//	data[++index] = col.a;
-		//}
 	}
 	else
 	{
@@ -336,12 +329,6 @@ BOOL pxTextureDataExpandEdges = YES;
 		{
 			*pixel = col;
 		}
-		/*for (int counter = 0, index = -1; counter < pixelsCount; ++counter)
-		{
-			data[++index] = col.r;
-			data[++index] = col.g;
-			data[++index] = col.b;
-		}*/
 	}
 
 	GLuint boundTex = PXGLBoundTexture();

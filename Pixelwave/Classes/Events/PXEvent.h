@@ -50,8 +50,7 @@
 #define PX_EVENT_REMOVED_FROM_STAGE @"removedFromStage"
 #define PX_EVENT_RENDER @"render"
 #define PX_EVENT_SOUND_COMPLETE @"soundComplete"
-
-#define PX_EVENT_MEMORY_WARNING @"memoryWarning"*/
+*/
 
 PXExtern NSString * const PXEvent_EnterFrame;
 PXExtern NSString * const PXEvent_Added;
@@ -60,8 +59,6 @@ PXExtern NSString * const PXEvent_AddedToStage;
 PXExtern NSString * const PXEvent_RemovedFromStage;
 PXExtern NSString * const PXEvent_Render;
 PXExtern NSString * const PXEvent_SoundComplete;
-
-//PXExtern NSString * const PXEvent_MemoryWarning;
 
 /// @ingroup Events
 /// Event Phases
@@ -72,15 +69,14 @@ typedef enum
 	PXEventPhase_Bubbling
 } PXEventPhase;
 
-// 0 = Keep going.
-// 1 = stopPropegation after the current node (only relevant when using the
-//     displaylist event flow).
-// 2 = stopPropegation now (like calling break; in the middle of the
-//     dispatch loop for the current node)
 typedef enum
 {
 	_PXStopPropegationLevel_KeepGoing = 0,
+	/// stopPropegation after the current node (only relevant when using the
+	/// displaylist event flow).
 	_PXStopPropegationLevel_StopAfter,
+	/// stopPropegation now (like calling break; in the middle of the
+	/// dispatch loop for the current node)
 	_PXStopPropegationLevel_StopNow
 } _PXStopPropegationLevel;
 
