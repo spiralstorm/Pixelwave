@@ -44,7 +44,7 @@
 
 - (void) setToTexture:(PXTexture *)texture;
 
-// Utility
+// Creation methods
 
 + (PXAtlasFrame *)atlasFrameWithClipRect:(PXClipRect *)clipRect
 							 textureData:(PXTextureData *)textureData;

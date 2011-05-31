@@ -146,17 +146,19 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 
 	pxGLDefaultState.blendSource = GL_SRC_ALPHA;
 	pxGLDefaultState.blendDestination = GL_ONE_MINUS_SRC_ALPHA;
+	
 	glBlendFunc(pxGLDefaultState.blendSource, pxGLDefaultState.blendDestination);
-//	pxGLDefaultBlendMode.asStruct.sFactor = GL_SRC_ALPHA;
-//	pxGLDefaultBlendMode.asStruct.dFactor = GL_ONE_MINUS_SRC_ALPHA;
-//	glBlendFunc(pxGLDefaultBlendMode.asStruct.sFactor, pxGLDefaultBlendMode.asStruct.dFactor);
-
-//	pxGLBlendMode.asUInt     = pxGLDefaultBlendMode.asUInt;
-//	pxGLBlendModeInGL.asUInt = pxGLDefaultBlendMode.asUInt;
-
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity( );
-
+	// TODO: This function should be used to make rendering to texture work
+	// better. It doesn't really make a difference when just rendering to the
+	// screen. So, glBlendFunc should be replaced by glBlendFuncSeparateOES
+	// everywhere. The problem is that glBlendFuncSeparateOES is only available
+	// in iOS 3.1 and above. So we need to check if
+	// (glBlendFuncSeparateOES != NULL) before calling it. Otherwise,
+	// glBlendFunc could just be used.
+	//
+	// glBlendFuncSeparateOES(pxGLDefaultState.blendSource, pxGLDefaultState.blendDestination,
+	//					   GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 
@@ -172,10 +174,6 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 	glEnable(GL_BLEND);
 
 	PX_ENABLE_BIT(pxGLDefaultState.clientState, PX_GL_VERTEX_ARRAY);
-	//PX_ENABLE_BIT(pxGLDefaultClientState, PX_GL_VERTEX_ARRAY);
-
-//	pxGLClientState = pxGLDefaultClientState;
-//	pxGLClientStateInGL = pxGLDefaultClientState;
 
 	pxGLState = pxGLDefaultState;
 	pxGLStateInGL = pxGLDefaultState;
@@ -1617,9 +1615,6 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 
 void PXGLBlendFunc(GLenum sfactor, GLenum dfactor)
 {
-	//pxGLBlendMode.asStruct.sFactor = sfactor;
-	//pxGLBlendMode.asStruct.dFactor = dfactor;
-
 	pxGLState.blendSource = sfactor;
 	pxGLState.blendDestination = dfactor;
 }
@@ -2134,13 +2129,13 @@ PXInline_c void PXGLSetupEnables()
 		if (blendModeNotEqual)
 		{
 			glBlendFunc(pxGLState.blendSource, pxGLState.blendDestination);
-			//glBlendFunc(pxGLBlendMode.asStruct.sFactor, pxGLBlendMode.asStruct.dFactor);
+			
+			// glBlendFuncSeparateOES(pxGLState.blendSource, pxGLState.blendDestination,
+			//					   GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		}
 	}
 
-//	pxGLClientStateInGL = pxGLClientState;
 	pxGLStateInGL = pxGLState;
-//	pxGLBlendModeInGL.asUInt = pxGLBlendMode.asUInt;
 }
 
 PXInline_c PXGLState _PXGLDefaultState()
