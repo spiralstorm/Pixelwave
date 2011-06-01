@@ -57,7 +57,6 @@
 	self = [super init];
 	if (self)
 	{
-		//_renderMode = PXRenderMode_BatchAndManageStates;
 		_renderMode = PXRenderMode_Off;
 		_graphics = nil;
 	}
@@ -83,10 +82,7 @@
 		_graphics = [[PXGraphics alloc] init];
 		_renderMode = PXRenderMode_BatchAndManageStates;
 	}
-
-	// TODO: Why is the _renderMode set twice here?
-	_renderMode = PXRenderMode_BatchAndManageStates;
-
+	
 	return _graphics;
 }
 
@@ -103,9 +99,11 @@
 
 - (void) _renderGL
 {
-	//Render the graphics object
+	// Render the graphics object
 	if (_graphics)
+	{
 		[_graphics _renderGL];
+	}
 }
 
 @end
