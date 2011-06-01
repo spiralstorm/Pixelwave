@@ -84,6 +84,7 @@
 		_renderMode = PXRenderMode_BatchAndManageStates;
 	}
 
+	// TODO: Why is the _renderMode set twice here?
 	_renderMode = PXRenderMode_BatchAndManageStates;
 
 	return _graphics;
