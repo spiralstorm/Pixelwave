@@ -12,10 +12,15 @@
 
 @synthesize top, right, bottom, left;
 
-- (id) initWithTop:(short)_top
-			right:(short)_right
-		   bottom:(short)_bottom
-			 left:(short)_left
+- (id) init
+{
+	return [self initWithTop:0.0f right:0.0f bottom:0.0f left:0.0f];
+}
+
+- (id) initWithTop:(float)_top
+			right:(float)_right
+		   bottom:(float)_bottom
+			 left:(float)_left
 {
 	self = [super init];
 	if (self)
@@ -29,26 +34,15 @@
 	return self;
 }
 
-- (void) setTop:(short)_top
-		  right:(short)_right
-		 bottom:(short)_bottom
-		   left:(short)_left
+- (void) setTop:(float)_top
+		  right:(float)_right
+		 bottom:(float)_bottom
+		   left:(float)_left
 {
 	top = _top;
 	right = _right;
 	bottom = _bottom;
 	left = _left;
-}
-
-+ (PXTexturePadding *)texturePaddingWithTop:(short)top
-									  right:(short)right
-									 bottom:(short)bottom
-									   left:(short)left
-{
-	return [[[PXTexturePadding alloc] initWithTop:top
-											right:right
-										   bottom:bottom
-											 left:left] autorelease];
 }
 
 - (id) copyWithZone:(NSZone *)zone
@@ -57,6 +51,17 @@
 														right:right
 													   bottom:bottom
 														 left:left];
+}
+
++ (PXTexturePadding *)texturePaddingWithTop:(float)top
+									  right:(float)right
+									 bottom:(float)bottom
+									   left:(float)left
+{
+	return [[[PXTexturePadding alloc] initWithTop:top
+											right:right
+										   bottom:bottom
+											 left:left] autorelease];
 }
 
 @end

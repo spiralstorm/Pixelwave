@@ -52,8 +52,8 @@
 	PXTextureData *textureData;
 
 	// Info from the clip rect
-	ushort contentWidth;
-	ushort contentHeight;
+	float contentWidth;
+	float contentHeight;
 	float contentRotation;
 
 	// Anchors, saved in percent values
@@ -61,7 +61,7 @@
 	float anchorY;
 
 	// In clock-wise order {top, right, bottom, left}
-	short padding[4];
+	float padding[4];
 	BOOL paddingEnabled;
 
 	// Invalidation
@@ -133,12 +133,12 @@
  *	The width of the clipping area, or of the <code>textureData</code> property
  *	if no clipping area is set.
  */
-@property (nonatomic, readonly) ushort contentWidth;
+@property (nonatomic, readonly) float contentWidth;
 /**
  *	The height of the clipping area, or of the <code>textureData</code> property
  *	if no clipping area is set.
  */
-@property (nonatomic, readonly) ushort contentHeight;
+@property (nonatomic, readonly) float contentHeight;
 
 /**
  *	The rotation offset of the content, as defined by the texture's
@@ -162,17 +162,16 @@
 // Padding //
 /////////////
 
-- (void) setPaddingWithTop:(short)top
-					 right:(short)right
-					bottom:(short)bottom
-					  left:(short)left;
+- (void) setPaddingWithTop:(float)top
+					 right:(float)right
+					bottom:(float)bottom
+					  left:(float)left;
 
-// TODO: Should we keep these, deprecate them, or get rid of them?
 //-- ScriptIgnore
-- (void) setClipRectWithX:(int)x
-						y:(int)y
-					width:(ushort)width
-				   height:(ushort)height;
+- (void) setClipRectWithX:(float)x
+						y:(float)y
+					width:(float)width
+				   height:(float)height;
 
 //-- ScriptName: setClipRect
 //-- ScriptArg[0]: required
@@ -181,12 +180,12 @@
 //-- ScriptArg[3]: required
 //-- ScriptArg[4]: 0.0f
 //-- ScriptArg[5]: 0.0f
-- (void) setClipRectWithX:(int)x
-						y:(int)y
-					width:(ushort)width
-				   height:(ushort)height
+- (void) setClipRectWithX:(float)x
+						y:(float)y
+					width:(float)width
+				   height:(float)height
 			 usingAnchorX:(float)anchorX
-				  anchorY:(float)anchorY;
+				  anchorY:(float)anchorY __attribute__((deprecated));
 
 ////
 

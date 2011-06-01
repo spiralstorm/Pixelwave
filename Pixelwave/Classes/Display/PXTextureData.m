@@ -276,12 +276,13 @@ BOOL pxTextureDataExpandEdges = YES;
 	_fillColor = fillColor;
 
 	// Find the tightest fitting power-of-two box that will hold the texture
-	unsigned int powerOfTwo = PXMathNextPowerOfTwo(MAX(width, height));
+	unsigned int powerOfTwoWidth = PXMathNextPowerOfTwo(width);
+	unsigned int powerOfTwoHeight = PXMathNextPowerOfTwo(height);
 
 	GLint glFormat;
 	GLubyte *data = 0;
 
-	unsigned pixelsCount = powerOfTwo * powerOfTwo;
+	unsigned pixelsCount = powerOfTwoWidth * powerOfTwoHeight;
 	unsigned index;
 	
 	if (transparency)
@@ -306,13 +307,6 @@ BOOL pxTextureDataExpandEdges = YES;
 		{
 			*pixel = col;
 		}
-		//for (int i = 0, index = -1; i < pixelsCount; ++i)
-		//{
-		//	data[++index] = col.r;
-		//	data[++index] = col.g;
-		//	data[++index] = col.b;
-		//	data[++index] = col.a;
-		//}
 	}
 	else
 	{
@@ -336,12 +330,6 @@ BOOL pxTextureDataExpandEdges = YES;
 		{
 			*pixel = col;
 		}
-		/*for (int counter = 0, index = -1; counter < pixelsCount; ++counter)
-		{
-			data[++index] = col.r;
-			data[++index] = col.g;
-			data[++index] = col.b;
-		}*/
 	}
 
 	GLuint boundTex = PXGLBoundTexture();
@@ -350,8 +338,8 @@ BOOL pxTextureDataExpandEdges = YES;
 	glTexImage2D( GL_TEXTURE_2D,
 				 0,
 				 glFormat,
-				 powerOfTwo,
-				 powerOfTwo,
+				 powerOfTwoWidth,
+				 powerOfTwoHeight,
 				 0,
 				 glFormat,
 				 GL_UNSIGNED_BYTE,
@@ -363,8 +351,8 @@ BOOL pxTextureDataExpandEdges = YES;
 	// Bring back the previously bound texture
 	PXGLBindTexture(GL_TEXTURE_2D, boundTex);
 
-	[self _setInternalPropertiesWithWidth:powerOfTwo
-								   height:powerOfTwo
+	[self _setInternalPropertiesWithWidth:powerOfTwoWidth
+								   height:powerOfTwoHeight
 						usingContentWidth:width
 							contentHeight:height
 					   contentScaleFactor:contentScaleFactor
@@ -488,11 +476,11 @@ BOOL pxTextureDataExpandEdges = YES;
 	free(data);
 
 	[self _setInternalPropertiesWithWidth:texWidth
-								height:texHeight
-						usingContentWidth:contentWidth
-						 contentHeight:contentHeight
-					   contentScaleFactor:1.0f
-								   format:PXTextureDataPixelFormat_A8];
+								   height:texHeight
+							usingContentWidth:contentWidth
+							contentHeight:contentHeight
+						contentScaleFactor:1.0f
+									format:PXTextureDataPixelFormat_A8];
 
 	return self;
 }
@@ -662,6 +650,13 @@ BOOL pxTextureDataExpandEdges = YES;
 + (PXTextureData *)textureDataWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:path modifier:modifier];
+	
+	if (!textureLoader)
+	{
+		NSLog(@"PXTextureData: Couldn't resolve file at path %@", path);
+		return nil;
+	}
+	
 	PXTextureData *textureData = [textureLoader newTextureData];
 	[textureLoader release];
 
