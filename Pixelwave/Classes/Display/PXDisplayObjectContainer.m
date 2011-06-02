@@ -54,8 +54,8 @@
  *	If needed, make sure to use PX_CONTINUE_CHILD_LOOP and not just 'continue'.
  *	Variables 'i' and 'child' are available within the START and END tags
  */
-#define PXDOCForEach(_head_, _child_, _index_, _count_) \
-	for (_index_ = 0, _child_ = _head_; _index_ < _count_; ++_index_, _child_ = _child_->_next)
+//#define PXDOCForEach(_head_, _child_, _index_, _count_) \
+//	for (_index_ = 0, _child_ = _head_; _index_ < _count_; ++_index_, _child_ = _child_->_next)
 
 //#define PX_DOC_START_CHILD_LOOP {PXDisplayObject *child = _childrenHead; for (unsigned short i = 0; i < _numChildren; ++i){
 //#define PX_DOC_END_CHILD_LOOP child = child->_next; }}
@@ -351,8 +351,7 @@
 	{
 		PXDisplayObject *loopChild;
 		unsigned loopIndex;
-		unsigned loopCount = _numChildren;
-		PXDOCForEach(_childrenHead, loopChild, loopIndex, loopCount)
+		for (loopIndex = 0, loopChild = _childrenHead; loopIndex < _numChildren; ++loopIndex, loopChild = loopChild->_next)
 		{
 			if (loopIndex == index)
 			{
@@ -360,15 +359,6 @@
 				break;
 			}
 		}
-		/*PX_DOC_START_CHILD_LOOP
-		{
-			if (i == index)
-			{
-				childToAddBefore = child;
-				break;
-			}
-		}
-		PX_DOC_END_CHILD_LOOP*/
 
 		NSAssert(child != nil, @"Assuming that the child was found and there are no holes in the linked list chain");
 	}
@@ -610,8 +600,7 @@
 
 	PXDisplayObject *loopChild;
 	unsigned loopIndex;
-	unsigned loopCount = _numChildren;
-	PXDOCForEach(_childrenHead, loopChild, loopIndex, loopCount)
+	for (loopIndex = 0, loopChild = _childrenHead; loopIndex < _numChildren; ++loopIndex, loopChild = loopChild->_next)
 	{
 		if (loopChild == childToCheck)
 			return YES;
@@ -622,18 +611,6 @@
 				return YES;
 		}
 	}
-	/*PX_DOC_START_CHILD_LOOP
-	{
-		if (child == childToCheck)
-			return YES;
-
-		if (child->_isContainer)
-		{
-			if ([(PXDisplayObjectContainer *)child containsChild:childToCheck])
-				return YES;
-		}
-	}
-	PX_DOC_END_CHILD_LOOP*/
 
 	return NO;
 
@@ -685,20 +662,11 @@
 
 	PXDisplayObject *loopChild;
 	unsigned loopIndex;
-	unsigned loopCount = _numChildren;
-	PXDOCForEach(_childrenHead, loopChild, loopIndex, loopCount)
+	for (loopIndex = 0, loopChild = _childrenHead; loopIndex < _numChildren; ++loopIndex, loopChild = loopChild->_next)
 	{
 		if (loopChild == childToCheck)
 			return loopIndex;
 	}
-	/*PX_DOC_START_CHILD_LOOP
-	{
-		if (child == childToCheck)
-		{
-			return i;
-		}
-	}
-	PX_DOC_END_CHILD_LOOP*/
 
 	// The code should never get here.. if the parent of childToCheck is self,
 	// it should be found in the above loop
@@ -740,19 +708,11 @@
 
 	PXDisplayObject *loopChild;
 	unsigned loopIndex;
-	unsigned loopCount = _numChildren;
-	PXDOCForEach(_childrenHead, loopChild, loopIndex, loopCount)
+	for (loopIndex = 0, loopChild = _childrenHead; loopIndex < _numChildren; ++loopIndex, loopChild = loopChild->_next)
 	{
 		if (loopIndex == index)
 			return loopChild;
 	}
-	/*PX_DOC_START_CHILD_LOOP
-	{
-		if (i == index)
-			return child;
-
-	}
-	PX_DOC_END_CHILD_LOOP*/
 
 	// The code should never get here.. if the parent of childToCheck is self,
 	// it should be found in the above loop
@@ -797,22 +757,13 @@
 
 	PXDisplayObject *loopChild;
 	unsigned loopIndex;
-	unsigned loopCount = _numChildren;
-	PXDOCForEach(_childrenHead, loopChild, loopIndex, loopCount)
+	for (loopIndex = 0, loopChild = _childrenHead; loopIndex < _numChildren; ++loopIndex, loopChild = loopChild->_next)
 	{
 		if ([loopChild.name isEqualToString:name])
 		{
 			return loopChild;
 		}
 	}
-	/*PX_DOC_START_CHILD_LOOP
-	{
-		if ([child.name isEqualToString:name])
-		{
-			return child;
-		}
-	}
-	PX_DOC_END_CHILD_LOOP*/
 
 	return nil;
 }
@@ -888,8 +839,7 @@
 
 		PXDisplayObject *loopChild;
 		unsigned loopIndex;
-		unsigned loopCount = _numChildren;
-		PXDOCForEach(_childrenHead, loopChild, loopIndex, loopCount)
+		for (loopIndex = 0, loopChild = _childrenHead; loopIndex < _numChildren; ++loopIndex, loopChild = loopChild->_next)
 		{
 			if (loopIndex == index)
 			{
@@ -897,16 +847,6 @@
 				break;
 			}
 		}
-		/*PX_DOC_START_CHILD_LOOP
-		{
-			if (i == index)
-			{
-				childAtIndex = child;
-				break;
-			}
-			
-		}
-		PX_DOC_END_CHILD_LOOP*/
 
 		// Now add it back at the right index
 		_impAddChildBefore(self, nil, child, childAtIndex, NO);
@@ -1135,8 +1075,7 @@
 
 	PXDisplayObject *loopChild;
 	unsigned loopIndex;
-	unsigned loopCount = _numChildren;
-	PXDOCForEach(_childrenHead, loopChild, loopIndex, loopCount)
+	for (loopIndex = 0, loopChild = _childrenHead; loopIndex < _numChildren; ++loopIndex, loopChild = loopChild->_next)
 	{
 		// If the point is within the child, then add the child.  This also adds
 		// the child if it is a display object container when the point is
@@ -1158,29 +1097,6 @@
 			[list addObjectsFromList:addList];
 		}
 	}
-	/*PX_DOC_START_CHILD_LOOP
-	{
-		// If the point is within the child, then add the child.  This also adds
-		// the child if it is a display object container when the point is
-		// within the container itself and not it's children.  This is extremly
-		// useful for the example of using a sprite that has a grahpics object,
-		// and the point lies within the graphics object.
-		if ([child _hitTestPointWithoutRecursionWithGlobalX:point.x globalY:point.y shapeFlag:YES])
-		{
-			[list addObject:child];
-		}
-
-		// If it is a display object container, then add each child that is also
-		// under the point.
-		if ([child isKindOfClass:PXDisplayObjectContainer.class])
-		{
-			container = (PXDisplayObjectContainer *)(child);
-			addList = [container objectsUnderPoint:point];
-
-			[list addObjectsFromList:addList];
-		}
-	}
-	PX_DOC_END_CHILD_LOOP*/
 
 	return [list autorelease];
 }
@@ -1290,9 +1206,8 @@
 
 	PXDisplayObject *loopChild;
 	unsigned loopIndex;
-	unsigned loopCount = _numChildren;
 
-	PXDOCForEach(_childrenHead, loopChild, loopIndex, loopCount)
+	for (loopIndex = 0, loopChild = _childrenHead; loopIndex < _numChildren; ++loopIndex, loopChild = loopChild->_next)
 	{
 		_bounds = CGRectZero;
 		[loopChild _measureGlobalBounds:&_bounds];
@@ -1324,37 +1239,6 @@
 		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(xMin, xMax, yMin, yMax, x4, y4);
 	}
 
-	/*PX_DOC_START_CHILD_LOOP
-	{
-		[child _measureGlobalBounds:&_bounds];
-		rectX = _bounds.origin.x;
-		rectY = _bounds.origin.y;
-		rectW = _bounds.size.width;
-		rectH = _bounds.size.height;
-
-		x1 = rectX;
-		y1 = rectY;
-		x2 = rectX;
-		y2 = rectY + rectH;
-		x3 = rectX + rectW;
-		y3 = rectY;
-		x4 = rectX + rectW;
-		y4 = rectY + rectH;
-
-		PXGLMatrixConvert4Pointsv(&(child->_matrix),
-								  &x1, &y1,
-								  &x2, &y2,
-								  &x3, &y3,
-								  &x4, &y4);
-	//	PX_GL_CONVERT_4POINTS_TO_MATRIX(child->_matrix, x1, y1, x2, y2, x3, y3, x4, y4);
-		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(xMin, xMax, yMin, yMax, x1, y1);
-		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(xMin, xMax, yMin, yMax, x2, y2);
-		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(xMin, xMax, yMin, yMax, x3, y3);
-		_PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(xMin, xMax, yMin, yMax, x4, y4);
-
-	}
-	PX_DOC_END_CHILD_LOOP*/
-
 	retBounds->origin.x = xMin;
 	retBounds->origin.y = yMin;
 	retBounds->size.width  = xMax - xMin;
@@ -1367,18 +1251,11 @@
 {
 	PXDisplayObject *loopChild;
 	unsigned loopIndex;
-	unsigned loopCount = _numChildren;
-	PXDOCForEach(_childrenHead, loopChild, loopIndex, loopCount)
+	for (loopIndex = 0, loopChild = _childrenHead; loopIndex < _numChildren; ++loopIndex, loopChild = loopChild->_next)
 	{
 		if ([loopChild _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag])
 			return YES;
 	}
-	/*PX_DOC_START_CHILD_LOOP
-	{
-		if ([child _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag])
-			return YES;
-	}
-	PX_DOC_END_CHILD_LOOP*/
 
 	return [self _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag];
 }
