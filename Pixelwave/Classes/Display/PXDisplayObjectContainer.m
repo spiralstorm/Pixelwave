@@ -54,12 +54,6 @@
  *	If needed, make sure to use PX_CONTINUE_CHILD_LOOP and not just 'continue'.
  *	Variables 'i' and 'child' are available within the START and END tags
  */
-//#define PXDOCForEach(_head_, _child_, _index_, _count_) \
-//	for (_index_ = 0, _child_ = _head_; _index_ < _count_; ++_index_, _child_ = _child_->_next)
-
-//#define PX_DOC_START_CHILD_LOOP {PXDisplayObject *child = _childrenHead; for (unsigned short i = 0; i < _numChildren; ++i){
-//#define PX_DOC_END_CHILD_LOOP child = child->_next; }}
-//#define PX_DOC_CONTINUE_CHILD_LOOP child = child->_next; continue
 
 #define PXThrowDispNotChild PXThrow(PXArgumentException, @"The supplied DisplayObject must be a child of the caller.");
 
@@ -101,11 +95,11 @@
 		_childrenHead = nil; _childrenTail = nil;
 		_numChildren = 0;
 		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_isContainer);
-		//_isContainer = YES;
+
 		_renderMode = PXRenderMode_Off;
 		_touchChildren = YES;
 
-		//Optimization:
+		// Optimization:
 		_impPreChildRenderGL = (void (*)(id, SEL))[self methodForSelector:@selector(_preChildRenderGL)];
 		_impPostChildRenderGL = (void (*)(id, SEL))[self methodForSelector:@selector(_postChildRenderGL)];
 
@@ -116,10 +110,10 @@
 	return self;
 }
 
-//Removes all the children
+// Removes all the children
 - (void) dealloc
 {
-	//Remove all of my children
+	// Remove all of my children
 	[self removeAllChildren];
 
 	_impPreChildRenderGL = 0;
@@ -894,6 +888,8 @@
 	// Implementation //
 	////////////////////
 
+	// TODO: This needs to change. Please see PXLinkedList for the same method;
+	// it also needs to get changed.
 	PXDisplayObject *_next1 = child1->_next;
 	PXDisplayObject *_prev1 = child1->_prev;
 

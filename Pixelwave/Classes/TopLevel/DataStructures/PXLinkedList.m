@@ -294,14 +294,6 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	return self;
 }
 
-- (void) reset
-{
-	[self removeAllObjects];
-
-	_keepStrongReference = YES;
-	_pooledNodes = PX_LINKED_LISTS_USE_POOLED_NODES;
-}
-
 - (void) encodeWithCoder:(NSCoder *)aCoder
 {
 	[aCoder encodeBool:_pooledNodes forKey:@"pooledNodes"];
@@ -324,6 +316,42 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 		[aCoder encodeObject:object forKey:str];
 		[str release];
 	}
+}
+
+- (void) reset
+{
+	[self removeAllObjects];
+
+	_keepStrongReference = YES;
+	_pooledNodes = PX_LINKED_LISTS_USE_POOLED_NODES;
+}
+
+- (NSString *)description
+{
+	NSMutableString *str = [[NSMutableString alloc] initWithString:@""];
+
+	[str appendString:@"(PXLinkedList: [ "];
+
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	{
+		if (index != 0)
+			[str appendString:@", "];
+
+		if (node->data)
+		{
+			[str appendString:[node->data description]];
+		}
+		else
+		{
+			[str appendString:@"nil"];
+		}
+	}
+
+	[str appendString : @" ]"];
+
+	return [str autorelease];
 }
 
 /////
@@ -526,35 +554,6 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 }
 
 ////
-
-#pragma mark Debugging
-- (NSString *)description
-{
-	NSMutableString *str = [[NSMutableString alloc] initWithString:@""];
-
-	[str appendString:@"(PXLinkedList: [ "];
-
-	_PXLLNode *node;
-	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
-	{
-		if (index != 0)
-			[str appendString:@", "];
-
-		if (node->data)
-		{
-			[str appendString:[node->data description]];
-		}
-		else
-		{
-			[str appendString:@"nil"];
-		}
-	}
-
-	[str appendString : @" ]"];
-
-	return [str autorelease];
-}
 
 #pragma mark Adding
 
@@ -914,6 +913,43 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	}
 }
 
+/**
+ *	Sets the index of the object in the list, to the index provided. This shifts
+ *	the data over properly in the process.
+ *
+ *	@b Example:
+ *	@code
+ *	PXPoint *point0 = [PXPoint pointWithX:3 y:4];
+ *	PXPoint *point1 = [PXPoint pointWithX:2 y:5];
+ *	PXPoint *point2 = [PXPoint pointWithX:1 y:6];
+ *	PXPoint *point3 = [PXPoint pointWithX:0 y:7];
+ *	// point0 has no index
+ *	// point1 has no index
+ *	// point2 has no index
+ *	// point3 has no index
+ *
+ *	PXLinkedList *list = [[PXLinkedList alloc] init];
+ *
+ *	[list addObject:point0];
+ *	[list addObject:point1];
+ *	[list addObject:point2];
+ *	[list addObject:point3];
+ *	// point0 has an index of 0
+ *	// point1 has an index of 1
+ *	// point2 has an index of 2
+ *	// point3 has an index of 3
+ *
+ *	[list setIndex:2 ofObject:point0];
+ *	// point0 has an index of 2
+ *	// point1 has an index of 0
+ *	// point2 has an index of 1
+ *	// point3 has an index of 3
+ *
+ *	[list release];
+ *	@endcode
+ *
+ *	@see PXPoint
+ */
 - (void) setIndex:(int)newIndexOfObject ofObject:(PXGenericObject)object
 {
 	if (!object)
@@ -1458,7 +1494,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	[self swapNodes:node1:node2];
 }
 
-// TODO: Oz, clean this method up. Also, convert it to take proper arguments.
+// TODO: Clean this method up. Also, convert it to take proper arguments.
 - (void) swapNodes:(_PXLLNode *) node1:(_PXLLNode *)node2
 {
 	_PXLLNode *next1 = node1->next;
@@ -1477,7 +1513,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	// _b_ = the 'other' node.
 	// _n_ = next/prev
 	// _p_ = prev/next
-	// TODO: Oz, this needs to be fixed. This is not clean nor mobile.
+	// TODO: This needs to be fixed. This is not clean nor mobile. It also has
+	// a duplicate method, as many of these are, in PXDisplayObjectContainer
 #define PX_LL_LINK_SWITCH(_a_,_b_,_n_,_p_) \
 	if (_n_ ## _b_ == node ## _a_)\
 	{ \
@@ -1652,16 +1689,73 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	PXLinkedListShrinkPoolNodes(0);
 }
 
+/**
+ *	Creates a linked list with strong references.
+ *
+ *	@param pooledNodes
+ *		Whether or not too use pooled nodes internally. <b>It's	recommended that
+ *		this value always be set to	<code>YES</code></b>.
+ *
+ *	@return
+ *		The created linked list.
+ *
+ *	@b Example:
+ *	@code
+ *	PXLinkedList *list = [PXLinkedList linkedListWithPooledNodes:YES];
+ *	// list will use pooled nodes
+ *	list = [PXLinkedList linkedListWithPooledNodes:NO];
+ *	// list will not use pooled nodes
+ *	@endcode
+ */
 + (PXLinkedList *)linkedListWithPooledNodes:(BOOL)pooledNodes
 {
 	return [[[PXLinkedList alloc] initWithPooledNodes:pooledNodes] autorelease];
 }
 
+/**
+ *	Creates a linked list without using pooled nodes.
+ *
+ *	@param weakReferences
+ *		<code>YES</code> if the list should not retain added elements;
+ *		<code>NO</code> if it should. Setting this to <code>YES</code> is only
+ *		useful in very rare circumstances and should be used with caution. The
+ *		default value is <code>NO</code>.
+ *
+ *	@return
+ *		The created linked list.
+ *
+ *	@b Example:
+ *	@code
+ *	PXLinkedList *list = [PXLinkedList linkedWithWeakReferences:YES];
+ *	// list will use weak references (will not retain objects added to it)
+ *	@endcode
+ */
 + (PXLinkedList *)linkedWithWeakReferences:(BOOL)weakReferences
 {
 	return [[[PXLinkedList alloc] initWithWeakReferences:weakReferences] autorelease];
 }
 
+/**
+ *	Creates a linked list.
+ *
+ *	@param pooledNodes
+ *		Whether or not too use pooled nodes internally. <b>It's	recommended that
+ *		this value always be set to	<code>YES</code></b>.
+ *	@param weakReferences
+ *		<code>YES</code> if the list should not retain added elements;
+ *		<code>NO</code> if it should. Setting this to <code>YES</code> is only
+ *		useful in very rare circumstances and should be used with caution. The
+ *		default value is <code>NO</code>.
+ *
+ *	@return
+ *		The created linked list.
+ *
+ *	@b Example:
+ *	@code
+ *	PXLinkedList *list = [PXLinkedList linkedWithWeakReferences:YES usePooledNodes:YES];
+ *	// list will use weak references (will not retain objects added to it) and will use pooled nodes.
+ *	@endcode
+ */
 + (PXLinkedList *)linkedListWithWeakReferences:(BOOL)weakReferences usePooledNodes:(BOOL)pooledNodes
 {
 	return [[[PXLinkedList alloc] initWithWeakReferences:weakReferences usePooledNodes:pooledNodes] autorelease];

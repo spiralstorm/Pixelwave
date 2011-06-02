@@ -114,6 +114,7 @@ typedef struct _sPXLLNode
 	_PXLLNode *_head;
 	_PXLLNode *_tail;
 
+	// TODO: Rename to _nodeCount
 	unsigned _numNodes;
 
 	BOOL _pooledNodes;
