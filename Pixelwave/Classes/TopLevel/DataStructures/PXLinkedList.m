@@ -45,10 +45,6 @@
 #import "PXDebugUtils.h"
 
 /// @cond DX_IGNORE
-#define PX_LL_START_CHILD_LOOP {_PXLLNode *node = _head; for (unsigned i = 0; i < _numNodes; ++i){
-#define PX_LL_END_CHILD_LOOP node = node->next; }}
-#define PX_LL_CONTINUE_CHILD_LOOP node = node->next; continue
-
 // Pooled nodes
 static _PXLLNode **pxLLPooledNodesStack = 0; // C-array
 static unsigned pxLLPooledNodesCount = 0; // Items in stack
@@ -234,6 +230,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 			   usePooledNodes:(BOOL)pooledNodes;
 {
 	self = [super init];
+
 	if (self)
 	{
 		_head = nil;
@@ -265,6 +262,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 - (id) initWithCoder:(NSCoder *)aDecoder
 {
 	self = [super init];
+
 	if (self)
 	{
 		_head = nil;
@@ -315,16 +313,17 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 
 	NSString *str = nil;
 	// Loop through all the objects
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 	{
 		object = node->data;
 		NSAssert(object, @"PXLinkedList: Every node's data must be non-nil");
 
-		str = [[NSString alloc] initWithFormat:@"PX.object.%u", i];
+		str = [[NSString alloc] initWithFormat:@"PX.object.%u", index];
 		[aCoder encodeObject:object forKey:str];
 		[str release];
 	}
-	PX_LL_END_CHILD_LOOP
 }
 
 /////
@@ -332,30 +331,32 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 #pragma mark Querying
 
 //Private
-- (_PXLLNode *)getNodeByIndex:(int)index
+- (_PXLLNode *)getNodeByIndex:(int)indexOfObject
 {
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 	{
-		if (i == index)
+		if (index == indexOfObject)
 		{
 			return node;
 		}
 	}
-	PX_LL_END_CHILD_LOOP
 
 	return 0;
 }
 
 - (_PXLLNode *)getNodeByObject:(PXGenericObject)object
 {
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 	{
 		if (node->data == object)
 		{
 			return node;
 		}
 	}
-	PX_LL_END_CHILD_LOOP
 
 	return 0;
 }
@@ -390,26 +391,27 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *	// foundObject == add1
  *	@endcode
  */
-- (PXGenericObject) objectAtIndex:(int)index
+- (PXGenericObject) objectAtIndex:(int)indexOfObject
 {
-	if (index < 0 || index >= _numNodes)
+	if (indexOfObject < 0 || indexOfObject >= _numNodes)
 	{
 		PXThrowIndexOutOfBounds;
 		return nil;
 	}
 
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 	{
-		if (i == index)
+		if (index == indexOfObject)
 		{
 			return node->data;
 		}
 	}
-	PX_LL_END_CHILD_LOOP
 
 	NSAssert(NO, @"Linked List: Weird error... objectAtIndex:%i");
 
-	PXDebugLog (@"Linked List: Weird error... objectAtIndex:%i", index);
+	PXDebugLog (@"Linked List: Weird error... objectAtIndex:%i", indexOfObject);
 
 	return nil;
 }
@@ -447,12 +449,13 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 		return NO;
 	}
 	
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 	{
 		if (node->data == object)
 			return YES;
 	}
-	PX_LL_END_CHILD_LOOP
 
 	return NO;
 }
@@ -490,12 +493,13 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 		return -1;
 	}
 	
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 	{
 		if (node->data == object)
-			return i;
+			return index;
 	}
-	PX_LL_END_CHILD_LOOP
 
 	return -1;
 }
@@ -530,9 +534,11 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 
 	[str appendString:@"(PXLinkedList: [ "];
 
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 	{
-		if (i > 0)
+		if (index != 0)
 			[str appendString:@", "];
 
 		if (node->data)
@@ -544,7 +550,6 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 			[str appendString:@"nil"];
 		}
 	}
-	PX_LL_END_CHILD_LOOP
 
 	[str appendString : @" ]"];
 
@@ -705,7 +710,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *	// add2 has a retain count of 1, and an index of 0
  *	@endcode
  */
-- (void) insertObject:(PXGenericObject)object atIndex:(int)index
+- (void) insertObject:(PXGenericObject)object atIndex:(int)indexOfObject
 {
 	if (!object)
 	{
@@ -714,17 +719,17 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	}
 		
 	// A slight optimization for edge cases
-	if (index == 0)
+	if (indexOfObject == 0)
 	{
 		// Add to the head
 		[self addObject:object beforeNode:_head];
 	}
-	else if (index == _numNodes)
+	else if (indexOfObject == _numNodes)
 	{
 		// Add to the tail
 		[self addObject:object beforeNode:nil];
 	}
-	else if (index < 0 || index > _numNodes)
+	else if (indexOfObject < 0 || indexOfObject > _numNodes)
 	{
 		PXThrowIndexOutOfBounds;
 		return;
@@ -732,17 +737,18 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	else
 	{
 		// Find the node at the provided index, then add the object before it
-		PX_LL_START_CHILD_LOOP
+		_PXLLNode *node;
+		unsigned index;
+		for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 		{
-			if (i == index)
+			if (index == indexOfObject)
 			{
 				[self addObject:object beforeNode:node];
 				return;
 			}
 		}
-		PX_LL_END_CHILD_LOOP
 
-		PXDebugLog(@"Linked List: Weird error... addChildAt:%i", index);
+		PXDebugLog(@"Linked List: Weird error... addChildAt:%i", indexOfObject);
 	}
 }
 
@@ -908,7 +914,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	}
 }
 
-- (void) setIndex:(int)index ofObject:(PXGenericObject)object
+- (void) setIndex:(int)newIndexOfObject ofObject:(PXGenericObject)object
 {
 	if (!object)
 		return;
@@ -916,24 +922,18 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	// We will remove it, and we may have the only retain on it.
 	[object retain];
 
-	BOOL containsObject = NO;
-
-	//find this object
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 	{
 		if (node->data == object)
 		{
 			//Succesful
 			[self removeNode:node];
-			containsObject = YES;
+
+			[self insertObject:object atIndex:newIndexOfObject];
 			break;
 		}
-	}
-	PX_LL_END_CHILD_LOOP
-
-	if (containsObject)
-	{
-		[self insertObject:object atIndex:index];
 	}
 
 	// We retained it, so we must release it.
@@ -1001,7 +1001,9 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	}
 
 	//find this object
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 	{
 		if (node->data == object)
 		{
@@ -1010,7 +1012,6 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 			return;
 		}
 	}
-	PX_LL_END_CHILD_LOOP
 
 	//Unsuccessful
 	//PXDebugLog(@"The object provided must be contained in the list in order to be removed");
@@ -1067,24 +1068,25 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@see PXPoint
  */
-- (void) removeObjectAtIndex:(int)index
+- (void) removeObjectAtIndex:(int)indexOfObject
 {
-	if (index < 0 || index >= _numNodes)
+	if (indexOfObject < 0 || indexOfObject >= _numNodes)
 	{
 		PXThrowIndexOutOfBounds;
 		return;
 	}
 
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
 	{
-		if (i == index)
+		if (index == indexOfObject)
 		{
 			//Succesful
 			[self removeNode:node];
 			return;
 		}
 	}
-	PX_LL_END_CHILD_LOOP
 }
 
 /**
@@ -1456,6 +1458,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	[self swapNodes:node1:node2];
 }
 
+// TODO: Oz, clean this method up. Also, convert it to take proper arguments.
 - (void) swapNodes:(_PXLLNode *) node1:(_PXLLNode *)node2
 {
 	_PXLLNode *next1 = node1->next;
@@ -1474,6 +1477,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	// _b_ = the 'other' node.
 	// _n_ = next/prev
 	// _p_ = prev/next
+	// TODO: Oz, this needs to be fixed. This is not clean nor mobile.
 #define PX_LL_LINK_SWITCH(_a_,_b_,_n_,_p_) \
 	if (_n_ ## _b_ == node ## _a_)\
 	{ \
@@ -1603,11 +1607,13 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 
 	id *cArray = malloc(sizeof(id) * len);
 
-	PX_LL_START_CHILD_LOOP
+	_PXLLNode *node;
+	unsigned index;
+	id *curID;
+	for (index = 0, node = _head, curID = cArray; index < _numNodes; ++index, node = node->next, ++curID)
 	{
-		cArray[i] = node->data;
+		*curID = node->data;
 	}
-	PX_LL_END_CHILD_LOOP
 
 	return cArray;
 }

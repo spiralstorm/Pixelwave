@@ -79,6 +79,8 @@
 //-- ScriptName: clean
 - (void) purgeCachedData;
 
+// TODO Later: Have the shared object pool be created in _PXTopLevelInitialize
+// and released in _PXTopLevelDealloc? This way we do not have floating memory.
 //-- ScriptName: sharedPool
 + (PXObjectPool *)sharedObjectPool;
 

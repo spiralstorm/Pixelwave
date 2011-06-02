@@ -42,6 +42,8 @@
 #include "PXSettings.h"
 #include "PXHeaderUtils.h"
 
+// TODO: Oz, why are indicies passed in as signed integers?
+
 /**
  *	@ingroup TopLevel
  *
