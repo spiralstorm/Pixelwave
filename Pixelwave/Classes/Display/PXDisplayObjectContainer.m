@@ -884,47 +884,76 @@
 		return;
 	}
 
-	////////////////////
-	// Implementation //
-	////////////////////
+	if (child1 == child2)
+		return;
 
-	// TODO: This needs to change. Please see PXLinkedList for the same method;
-	// it also needs to get changed.
-	PXDisplayObject *_next1 = child1->_next;
-	PXDisplayObject *_prev1 = child1->_prev;
+	// Grab the next and previous of the children
+	PXDisplayObject *next1 = child1->_next;
+	PXDisplayObject *prev1 = child1->_prev;
 
-	PXDisplayObject *_next2 = child2->_next;
-	PXDisplayObject *_prev2 = child2->_prev;
+	PXDisplayObject *next2 = child2->_next;
+	PXDisplayObject *prev2 = child2->_prev;
 
-	//_a_ = the 'me' node.
-	//_b_ = the 'other' node.
-	//_n_ = next/prev
-	//_p_ = prev/next
-#define PX_LINK_SWITCH(_a_,_b_,_n_,_p_) \
-	/*If the other node's next/prev points at me, point my next/prev back at him.*/ \
-	if (_n_ ## _b_ == child ## _a_) \
-	{ \
-		child ## _a_->_n_ = child ## _b_; \
-	} \
-	/*Otherwise do a regular switch. Make his next/prev my new next/prev. Change the neighbor's link as well (next/prev neighbor's prev/next becomes me)*/ \
-	else \
-	{ \
-		child ## _a_->_n_ = _n_ ## _b_; \
-		if (_n_ ## _b_) \
-		{ \
-			_n_ ## _b_->_p_ = child ## _a_; \
-		} \
+	// Set their next and previous to the other child's next and previous (this
+	// does the initial swap).
+	child1->_next = next2;
+	child1->_prev = prev2;
+	child2->_next = next1;
+	child2->_prev = prev1;
+
+	// Special Case:	If the children are next to eachother, then they would
+	//					be pointing back at themselves from the previous swap.
+	//					This must be corrected, or it would cause an infinite
+	//					loop when looping through the children.
+	if (next1 == child2)
+	{
+		// Case 1:		The RIGHT side swap. This is when the first child's next
+		//				is equal to the second child. The other case is when the
+		//				second child's next is equal to the first child, this
+		//				would be called the LEFT swap.
+
+		// If the next of the first child is equal to the second, then they are
+		// next to eachother and we must set their next and previous to the
+		// other child rather then themselves (which they would be currently
+		// set to).
+		child2->_next = child1;
+		child1->_prev = child2;
+	}
+	else
+	{
+		// If they are not next to eachother on the RIGHT side, then we can set
+		// the next's previous and the previous's next normally.
+		if (next1)
+			next1->_prev = child2;
+		if (prev2)
+			prev2->_next = child1;
+	}
+	if (next2 == child1)
+	{
+		// Case 2:		The LEFT side swap. This is when the second child's next
+		//				is equal to the first child. The other case is when the
+		//				first child's next is equal to the second child, this
+		//				would be called the RIGHT swap.
+
+		// If the next of the second child is equal to the first, then they are
+		// next to eachother and we must set their next and previous to the
+		// other child rather then themselves (which they would be currently
+		// set to).
+		child2->_prev = child1;
+		child1->_next = child2;
+	}
+	else
+	{
+		// If they are not next to eachother on the LEFT side, then we can set
+		// the next's previous and the previous's next normally.
+		if (prev1)
+			prev1->_next = child2;
+		if (next2)
+			next2->_prev = child1;
 	}
 
-	//Modify Node0's next & prev
-	PX_LINK_SWITCH(1, 2, _next, _prev);
-	PX_LINK_SWITCH(1, 2, _prev, _next);
-
-	//Modify Node1's next & prev
-	PX_LINK_SWITCH(2, 1, _next, _prev);
-	PX_LINK_SWITCH(2, 1, _prev, _next);
-
-	//Modify the head/tail
+	// Special Case:	If our head or tail pointer points to either of the
+	//					children, we must update it to point to the other now.
 	if (_childrenHead == child1)
 		_childrenHead = child2;
 	else if (_childrenHead == child2)

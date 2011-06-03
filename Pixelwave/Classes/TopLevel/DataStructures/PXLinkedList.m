@@ -44,6 +44,8 @@
 
 #import "PXDebugUtils.h"
 
+#import "PXPrivateUtils.h"
+
 /// @cond DX_IGNORE
 // Pooled nodes
 static _PXLLNode **pxLLPooledNodesStack = 0; // C-array
@@ -59,7 +61,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 - (void) removeNode:(_PXLLNode *)node;
 - (_PXLLNode *)getNodeByIndex:(int)index;
 - (_PXLLNode *)getNodeByObject:(PXGenericObject)object;
-- (void) swapNodes:(_PXLLNode *)node1:(_PXLLNode *)node2;
+- (void) swapNode:(_PXLLNode *)node1 withNode:(_PXLLNode *)node2;
 @end
 /// @endcond
 
@@ -1438,6 +1440,9 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  */
 - (void) swapObject:(PXGenericObject)object1 withObject:(PXGenericObject)object2
 {
+	if (object1 == object2)
+		return;
+
 	_PXLLNode *node1 = [self getNodeByObject:object1];
 	_PXLLNode *node2 = [self getNodeByObject:object2];
 
@@ -1446,7 +1451,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 		PXThrow(PXArgumentException, @"Parameter object must be contained in list");
 	}
 
-	[self swapNodes:node1:node2];
+	[self swapNode:node1 withNode:node2];
 }
 
 /**
@@ -1483,6 +1488,9 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  */
 - (void) swapObjectAtIndex:(int)index1 withObjectAtIndex:(int)index2
 {
+	if (index1 == index2)
+		return;
+
 	_PXLLNode *node1 = [self getNodeByIndex:index1];
 	_PXLLNode *node2 = [self getNodeByIndex:index2];
 
@@ -1491,62 +1499,20 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 		PXThrow(PXArgumentException, @"Parameter object must be contained in list");
 	}
 
-	[self swapNodes:node1:node2];
+	[self swapNode:node1 withNode:node2];
 }
 
-// TODO: Clean this method up. Also, convert it to take proper arguments.
-- (void) swapNodes:(_PXLLNode *) node1:(_PXLLNode *)node2
+- (void) swapNode:(_PXLLNode *)node1 withNode:(_PXLLNode *)node2
 {
-	_PXLLNode *next1 = node1->next;
-	_PXLLNode *prev1 = node1->prev;
+	if (!node1 || !node2)
+		return;
 
-	_PXLLNode *next2 = node2->next;
-	_PXLLNode *prev2 = node2->prev;
-	
-	// - If the other node's next/prev points at me, point my next/prev back at
-	// him.
-	// - Otherwise do a regular switch. Make his next/prev my new next/prev.
-	// Change the neighbor's link as well (next/prev neighbor's prev/next
-	// becomes me)
-	
-	// _a_ = the 'me' node.
-	// _b_ = the 'other' node.
-	// _n_ = next/prev
-	// _p_ = prev/next
-	// TODO: This needs to be fixed. This is not clean nor mobile. It also has
-	// a duplicate method, as many of these are, in PXDisplayObjectContainer
-#define PX_LL_LINK_SWITCH(_a_,_b_,_n_,_p_) \
-	if (_n_ ## _b_ == node ## _a_)\
-	{ \
-		node ## _a_->_n_ = node ## _b_; \
-	} \
-	else \
-	{ \
-		node ## _a_->_n_ = _n_ ## _b_; \
-		if (_n_ ## _b_) \
-		{ \
-			_n_ ## _b_->_p_ = node ## _a_; \
-		} \
-	}
+	if (node1 == node2)
+		return;
 
-	// Modify Node0's next & prev
-	PX_LL_LINK_SWITCH(1, 2, next, prev);
-	PX_LL_LINK_SWITCH(1, 2, prev, next);
-
-	// Modify Node1's next & prev
-	PX_LL_LINK_SWITCH(2, 1, next, prev);
-	PX_LL_LINK_SWITCH(2, 1, prev, next);
-
-	// Modify the head/tail
-	if (_head == node1)
-		_head = node2;
-	else if (_head == node2)
-		_head = node1;
-
-	if (_tail == node1)
-		_tail = node2;
-	else if (_tail == node2)
-		_tail = node1;
+	PXGenericObject data1 = node1->data;
+	node1->data = node2->data;
+	node2->data = data1;
 }
 
 #pragma mark Fast Enumeration
