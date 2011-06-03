@@ -65,6 +65,8 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 @end
 /// @endcond
 
+_PXLLNode pxLinkedListBadNode;
+
 /**
  *	@ingroup TopLevel
  *
@@ -761,11 +763,6 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	//head and tail must both be null or both be non-null
 	NSAssert((_head && _tail) || (!_head && !_tail), @"");
 
-	if (_keepStrongReference)
-	{
-		[object retain];
-	}
-
 	_PXLLNode *newNode = 0;
 	if (_pooledNodes)
 	{
@@ -774,6 +771,14 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	else
 	{
 		newNode = malloc(sizeof(_PXLLNode));
+	}
+
+	if (!newNode)
+		return;
+
+	if (_keepStrongReference)
+	{
+		[object retain];
 	}
 
 	// If the last index was picked, add it to the tail.  Otherwise insert
@@ -1602,20 +1607,19 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  *
  *	@see PXLinkedList::count
  */
-- (id *)cArray
+- (PXGenericObject *)cArray
 {
-	int len = self.count;
-	if (len <= 0)
-		return 0;
+	if (_nodeCount == 0)
+		return NULL;
 
-	id *cArray = malloc(sizeof(id) * len);
+	PXGenericObject *cArray = malloc(sizeof(PXGenericObject) * _nodeCount);
 
 	_PXLLNode *node;
 	unsigned index;
-	id *curID;
-	for (index = 0, node = _head, curID = cArray; index < _nodeCount; ++index, node = node->next, ++curID)
+	PXGenericObject *currentObject;
+	for (index = 0, node = _head, currentObject = cArray; index < _nodeCount; ++index, node = node->next, ++currentObject)
 	{
-		*curID = node->data;
+		*currentObject = node->data;
 	}
 
 	return cArray;
@@ -1748,12 +1752,16 @@ _PXLLNode *PXLinkedListGetPooledNode()
 	{
 		// Grab one out of the stack
 		--pxLLPooledNodesCount;
-		newNode = pxLLPooledNodesStack[pxLLPooledNodesCount];
+
+		_PXLLNode **nodePtr = pxLLPooledNodesStack + pxLLPooledNodesCount;
+		newNode = *nodePtr;
+		*nodePtr = &pxLinkedListBadNode;
+
+		int newSize = pxLLPooledNodesSize >> 2; // division by 4
 
 		// If the stack is too big, shrink it down
-		if (pxLLPooledNodesCount < (pxLLPooledNodesSize >> 2)) // division by 4
+		if ((int)(pxLLPooledNodesCount) < newSize)
 		{
-			int newSize = pxLLPooledNodesSize >> 2; // division of 4
 			PXLinkedListShrinkPoolNodes(newSize);
 		}
 	}
@@ -1772,7 +1780,7 @@ void PXLinkedListReturnPooledNode(_PXLLNode *node)
 		pxLLPooledNodesSize <<= 1; // Multiply by 2
 
 		// Size up
-		pxLLPooledNodesStack = realloc(pxLLPooledNodesStack, sizeof(_PXLLNode *) * pxLLPooledNodesSize );
+		pxLLPooledNodesStack = realloc(pxLLPooledNodesStack, sizeof(_PXLLNode *) * pxLLPooledNodesSize);
 	}
 
 	pxLLPooledNodesStack[pxLLPooledNodesCount] = node;
@@ -1787,9 +1795,7 @@ void PXLinkedListShrinkPoolNodes(int newSize)
 	// Clear the pool nodes
 	unsigned index;
 	_PXLLNode **curNode;
-	for (index = newSize, curNode = pxLLPooledNodesStack + index;
-		 index < pxLLPooledNodesCount;
-		 ++index, ++curNode)
+	for (index = newSize, curNode = pxLLPooledNodesStack + index; index < pxLLPooledNodesCount; ++index, ++curNode)
 	{
 		// Deallocate the node
 		free(*curNode);

@@ -39,9 +39,10 @@
 
 #import "PXDisplayObject.h"
 
+#import "PXTexturePadding.h"
+
 @class PXTextureData;
 @class PXClipRect;
-@class PXTexturePadding;
 
 @protocol PXTextureModifier;
 
@@ -60,8 +61,7 @@
 	float anchorX;
 	float anchorY;
 
-	// In clock-wise order {top, right, bottom, left}
-	float padding[4];
+	_PXTexturePadding padding;
 	BOOL paddingEnabled;
 
 	// Invalidation

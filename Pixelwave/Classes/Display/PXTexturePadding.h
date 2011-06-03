@@ -6,16 +6,18 @@
 //  Copyright 2011 Spiralstorm Games. All rights reserved.
 //
 
-// TODO: Oz, this class could really be a struct instead that lives in
-// PXTexture. This way you don't need to memcpy or have multiple instances of
-// the variable living around (ex. in setPaddingWithTop:right:bottom:left there
-// is: short newPadding[] = {top, right, bottom, left}; which then gets sent.
-// Also accessing the variable will be a lot more clear (ex. padding.left vs
-// padding[3]).
+typedef struct
+{
+	float top;
+	float right;
+	float bottom;
+	float left;
+} _PXTexturePadding;
+
 @interface PXTexturePadding : NSObject <NSCopying>
 {
 @private
-	float top, right, bottom, left;
+	_PXTexturePadding padding;
 }
 
 @property (nonatomic, assign) float top;
@@ -39,3 +41,27 @@
 									   left:(float)left;
 
 @end
+
+/// @cond DX_IGNORE
+@interface PXTexturePadding (PrivateButPublic)
+- (id) _initWithPadding:(_PXTexturePadding)padding;
+- (void) setPadding:(_PXTexturePadding)padding;
+- (_PXTexturePadding) _padding;
++ (PXTexturePadding *)_texturePaddingWithPadding:(_PXTexturePadding)padding;
+@end
+
+#ifndef _PX_TEXTURE_PADDING_H_
+#define _PX_TEXTURE_PADDING_H_
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+_PXTexturePadding _PXTexturePaddingMake(float top, float right, float bottom, float left);
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+
+/// @endcond

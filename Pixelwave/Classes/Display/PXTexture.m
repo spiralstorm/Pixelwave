@@ -58,10 +58,10 @@
 - (void) validateAnchors;
 - (void) resetClip;
 - (void) validateVertices;
-- (void) setPaddingRaw:(float *)padding;
+- (void) setPaddingEnabled:(BOOL)enabled;
 @end
 
-void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *padding, CGRect *retRect);
+PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXTexturePadding padding, BOOL paddingEnabled);
 
 /**
  *	@ingroup Display
@@ -444,12 +444,11 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *
 
 // Private
 // For setting the padding efficiently
-- (void) setPaddingRaw:(float *)val
+- (void) setPaddingEnabled:(BOOL)enabled
 {
-	if (val)
+	if (enabled)
 	{
 		paddingEnabled = YES;
-		memcpy(padding, val, sizeof(padding));
 
 		// Our hit area is different from our drawing area
 		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
@@ -470,20 +469,20 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *
 					bottom:(float)bottom
 					  left:(float)left
 {
-	float newPadding[] = {top, right, bottom, left};
-	[self setPaddingRaw:newPadding];
+	padding = _PXTexturePaddingMake(top, right, bottom, left);
+	[self setPaddingEnabled:YES];
 }
 
 - (void) setPadding:(PXTexturePadding *)val
 {
 	if (val)
 	{
-		float newPadding[] = {val.top, val.right, val.bottom, val.left};
-		[self setPaddingRaw:newPadding];
+		padding = [val _padding];
+		[self setPaddingEnabled:YES];
 	}
 	else
 	{
-		[self setPaddingRaw:0];
+		[self setPaddingEnabled:NO];
 	}
 
 }
@@ -492,14 +491,7 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *
 	if (!paddingEnabled)
 		return nil;
 
-	PXTexturePadding *texturePadding = [PXTexturePadding new];
-
-	texturePadding.top    = padding[0];
-	texturePadding.right  = padding[1];
-	texturePadding.bottom = padding[2];
-	texturePadding.left   = padding[3];
-
-	return [texturePadding autorelease];
+	return [PXTexturePadding _texturePaddingWithPadding:padding];
 }
 
 #pragma mark -
@@ -517,19 +509,18 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *
 	///////////////////////////////////////////////////////
 
 	// Calculate the aabb
-
-	CGRect aabb;
-	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), &aabb);
+	PXGLAABBf aabb = PXTextureCalcAABB(verts, numVerts, padding, paddingEnabled);
+	CGSize size = CGSizeMake(aabb.xMax - aabb.xMin, aabb.yMax - aabb.yMin);
 
 	// Now shift all the vertices to align with the new anchor
 
-	float shiftX = -aabb.origin.x - (aabb.size.width) * anchorX;
-	float shiftY = -aabb.origin.y - (aabb.size.height) * anchorY;
+	float shiftX = -aabb.xMin - (size.width)  * anchorX;
+	float shiftY = -aabb.yMin - (size.height) * anchorY;
 
-	int i;
-	PXGLTextureVertex *vert = &verts[0];
+	unsigned index;
+	PXGLTextureVertex *vert;
 
-	for (i = 0; i < numVerts; ++i, ++vert)
+	for (index = 0, vert = verts; index < numVerts; ++index, ++vert)
 	{
 		vert->x += shiftX;
 		vert->y += shiftY;
@@ -585,7 +576,10 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *
 	if (!verts || numVerts == 0)
 		return;
 
-	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), retBounds);
+	PXGLAABBf aabb = PXTextureCalcAABB(verts, numVerts, padding, paddingEnabled);
+	CGSize size = CGSizeMake(aabb.xMax - aabb.xMin, aabb.yMax - aabb.yMin);
+	
+	*retBounds = CGRectMake(aabb.xMin, aabb.yMin, size.width, size.height);
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
@@ -597,15 +591,8 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *
 	// The vertices must be validated before checking their bounding boxes
 	[self validateVertices];
 
-	CGRect aabb;
-	PXTextureCalcAABB(verts, numVerts, (paddingEnabled ? padding : 0), &aabb);
-
-	BOOL b = ((x >= aabb.origin.x) &&
-			  (x <= aabb.origin.x + aabb.size.width) &&
-			  (y >= aabb.origin.y) &&
-			  (y <= aabb.origin.y + aabb.size.height));
-
-	return b;
+	PXGLAABBf aabb = PXTextureCalcAABB(verts, numVerts, padding, paddingEnabled);
+	return PXGLAABBfContainsPointv(&aabb, x, y);
 }
 
 #pragma Rendering
@@ -736,46 +723,25 @@ void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *
 #pragma mark Utility
 
 // Utility
-void PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned char numVerts, float *padding, CGRect *retRect)
+PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXTexturePadding padding, BOOL paddingEnabled)
 {
-	PXGLTextureVertex *vert;
-	float x, y;
+	PXGLAABBf aabb = PXGLAABBfReset;
 
-	vert = &verts[0];
-	x = vert->x;
-	y = vert->y;
+	unsigned index;
+	PXGLTextureVertex *currentVertex;
 
-	float minX = x;
-	float maxX = x;
-	float minY = y;
-	float maxY = y;
-
-	unsigned char i;
-
-	// Start at verts[1]
-	++vert;
-	for (i = 1; i < numVerts; ++i, ++vert)
+	for (index = 0, currentVertex = verts; index < numVerts; ++index, ++currentVertex)
 	{
-		x = vert->x;
-		y = vert->y;
-
-		if (x < minX) minX = x;
-		if (x > maxX) maxX = x;
-
-		if (y < minY) minY = y;
-		if (y > maxY) maxY = y;
+		PXGLAABBfExpandv(&aabb, currentVertex->x, currentVertex->y);
 	}
 
-	if (padding)
+	if (paddingEnabled)
 	{
-		minY -= padding[0]; // top
-		maxX += padding[1]; // right
-		maxY += padding[2]; // bottom
-		minX -= padding[3]; // left
+		aabb.yMin -= padding.top;
+		aabb.xMax += padding.right;
+		aabb.yMax += padding.bottom;
+		aabb.xMin -= padding.left;
 	}
 
-	retRect->origin.x = minX;
-	retRect->origin.y = minY;
-	retRect->size.width = (maxX - minX);
-	retRect->size.height = (maxY - minY);
+	return aabb;
 }

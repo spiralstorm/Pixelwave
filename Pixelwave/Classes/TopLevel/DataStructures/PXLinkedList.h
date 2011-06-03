@@ -200,7 +200,7 @@ typedef struct _sPXLLNode
 ///////////////
 
 //-- ScriptIgnore
-- (id *)cArray;
+- (PXGenericObject *)cArray;
 //-- ScriptName: clone
 - (id) copy;
 
