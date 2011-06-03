@@ -378,13 +378,6 @@
 
 - (void) updateOrientation
 {
-	// TODO: Test this out more.
-	// if (!firstOrientationChange)
-	// {
-	//	firstOrientationChange = YES;
-	//	return;
-	// }
-
 	PXStage *_stage = self.stage;
 	if (!_stage.autoOrients)
 	{
