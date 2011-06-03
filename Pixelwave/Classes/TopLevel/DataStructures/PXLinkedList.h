@@ -65,7 +65,7 @@
         _PXLLNode *PX_UNIQUE_VAR(_node_) = (_list_)->_head; \
         if (PX_UNIQUE_VAR(_node_)) (_obj_) = PX_UNIQUE_VAR(_node_)->data; \
 		\
-        for (	int PX_UNIQUE_VAR(_i_) = 0, PX_UNIQUE_VAR(_len_) = (_list_)->_numNodes; \
+        for (	int PX_UNIQUE_VAR(_i_) = 0, PX_UNIQUE_VAR(_len_) = (_list_)->_nodeCount; \
 				PX_UNIQUE_VAR(_i_) < PX_UNIQUE_VAR(_len_); \
 				++PX_UNIQUE_VAR(_i_), PX_UNIQUE_VAR(_node_) = PX_UNIQUE_VAR(_node_)->next, _obj_ = (PX_UNIQUE_VAR(_node_) ? PX_UNIQUE_VAR(_node_)->data : 0))
 
@@ -91,7 +91,7 @@
         _PXLLNode *PX_UNIQUE_VAR(_node_) = (_list_)->_tail; \
         if (PX_UNIQUE_VAR(_node_)) (_obj_) = PX_UNIQUE_VAR(_node_)->data; \
 		\
-        for (	int PX_UNIQUE_VAR(_i_) = (_list_)->_numNodes - 1; \
+        for (	int PX_UNIQUE_VAR(_i_) = (_list_)->_nodeCount - 1; \
 				PX_UNIQUE_VAR(_i_) >= 0; \
 				--PX_UNIQUE_VAR(_i_), PX_UNIQUE_VAR(_node_) = PX_UNIQUE_VAR(_node_)->prev, _obj_ = (PX_UNIQUE_VAR(_node_) ? PX_UNIQUE_VAR(_node_)->data : 0))
 
@@ -114,8 +114,7 @@ typedef struct _sPXLLNode
 	_PXLLNode *_head;
 	_PXLLNode *_tail;
 
-	// TODO: Rename to _nodeCount
-	unsigned _numNodes;
+	unsigned _nodeCount;
 
 	BOOL _pooledNodes;
 	BOOL _keepStrongReference;

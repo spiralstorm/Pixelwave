@@ -150,7 +150,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  */
 @implementation PXLinkedList
 
-@synthesize count = _numNodes;
+@synthesize count = _nodeCount;
 
 - (id) init
 {
@@ -237,7 +237,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	{
 		_head = nil;
 		_tail = nil;
-		_numNodes = 0;
+		_nodeCount = 0;
 
 		_keepStrongReference = !weakReferences;
 		_pooledNodes = pooledNodes;
@@ -269,7 +269,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	{
 		_head = nil;
 		_tail = nil;
-		_numNodes = 0;
+		_nodeCount = 0;
 
 		_pooledNodes = [aDecoder decodeBoolForKey:@"pooledNodes"];
 		_keepStrongReference = [aDecoder decodeBoolForKey:@"keepStrongReference"];
@@ -309,7 +309,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	// Loop through all the objects
 	_PXLLNode *node;
 	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 	{
 		object = node->data;
 		NSAssert(object, @"PXLinkedList: Every node's data must be non-nil");
@@ -336,7 +336,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 
 	_PXLLNode *node;
 	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 	{
 		if (index != 0)
 			[str appendString:@", "];
@@ -365,7 +365,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 {
 	_PXLLNode *node;
 	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 	{
 		if (index == indexOfObject)
 		{
@@ -380,7 +380,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 {
 	_PXLLNode *node;
 	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 	{
 		if (node->data == object)
 		{
@@ -423,7 +423,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  */
 - (PXGenericObject) objectAtIndex:(int)indexOfObject
 {
-	if (indexOfObject < 0 || indexOfObject >= _numNodes)
+	if (indexOfObject < 0 || indexOfObject >= _nodeCount)
 	{
 		PXThrowIndexOutOfBounds;
 		return nil;
@@ -431,7 +431,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 
 	_PXLLNode *node;
 	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 	{
 		if (index == indexOfObject)
 		{
@@ -481,7 +481,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	
 	_PXLLNode *node;
 	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 	{
 		if (node->data == object)
 			return YES;
@@ -525,7 +525,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	
 	_PXLLNode *node;
 	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 	{
 		if (node->data == object)
 			return index;
@@ -725,12 +725,12 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 		// Add to the head
 		[self addObject:object beforeNode:_head];
 	}
-	else if (indexOfObject == _numNodes)
+	else if (indexOfObject == _nodeCount)
 	{
 		// Add to the tail
 		[self addObject:object beforeNode:nil];
 	}
-	else if (indexOfObject < 0 || indexOfObject > _numNodes)
+	else if (indexOfObject < 0 || indexOfObject > _nodeCount)
 	{
 		PXThrowIndexOutOfBounds;
 		return;
@@ -740,7 +740,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 		// Find the node at the provided index, then add the object before it
 		_PXLLNode *node;
 		unsigned index;
-		for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+		for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 		{
 			if (index == indexOfObject)
 			{
@@ -811,7 +811,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	else
 	{
 		//Assume that the list isn't empty at this point
-		NSAssert(_numNodes > 0, @"Assuming there's at least one node in the list");
+		NSAssert(_nodeCount > 0, @"Assuming there's at least one node in the list");
 
 		//
 		//				   Inserted here
@@ -853,7 +853,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	}
 
 	newNode->data = object;
-	++_numNodes;
+	++_nodeCount;
 }
 
 /**
@@ -962,7 +962,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 
 	_PXLLNode *node;
 	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 	{
 		if (node->data == object)
 		{
@@ -1041,7 +1041,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	//find this object
 	_PXLLNode *node;
 	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 	{
 		if (node->data == object)
 		{
@@ -1108,7 +1108,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
  */
 - (void) removeObjectAtIndex:(int)indexOfObject
 {
-	if (indexOfObject < 0 || indexOfObject >= _numNodes)
+	if (indexOfObject < 0 || indexOfObject >= _nodeCount)
 	{
 		PXThrowIndexOutOfBounds;
 		return;
@@ -1116,7 +1116,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 
 	_PXLLNode *node;
 	unsigned index;
-	for (index = 0, node = _head; index < _numNodes; ++index, node = node->next)
+	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
 	{
 		if (index == indexOfObject)
 		{
@@ -1281,7 +1281,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 
 	_head = nil;
 	_tail = nil;
-	_numNodes = 0;
+	_nodeCount = 0;
 }
 
 /**
@@ -1406,7 +1406,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 		free(node);
 	}
 
-	--_numNodes;
+	--_nodeCount;
 }
 
 #pragma mark Swapping
@@ -1613,7 +1613,7 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 	_PXLLNode *node;
 	unsigned index;
 	id *curID;
-	for (index = 0, node = _head, curID = cArray; index < _numNodes; ++index, node = node->next, ++curID)
+	for (index = 0, node = _head, curID = cArray; index < _nodeCount; ++index, node = node->next, ++curID)
 	{
 		*curID = node->data;
 	}
