@@ -121,8 +121,6 @@ PXInline_h void _PXGLStateBlendFunc(PXGLState *state, GLenum sfactor, GLenum dfa
 PXInline_h bool _PXGLStateIsEnabled(PXGLState *state, GLenum cap);
 PXInline_h void _PXGLStateGetIntegerv(PXGLState *state, GLenum pname, GLint *params);
 
-//void PXGLReadPixelsInverted(GLint x, GLint y, GLsizei width, GLsizei height, GLubyte *pixels);
-
 #ifdef __cplusplus
 }
 #endif
