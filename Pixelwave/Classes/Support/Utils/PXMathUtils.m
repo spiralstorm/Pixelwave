@@ -42,7 +42,7 @@
 
 #include <math.h>
 
-float pxMathUtilsOneOverMaxRand = 1.0f / ((float)RAND_MAX + 1);
+static const float pxMathUtilsOneOverMaxRand = 1.0f / ((float)RAND_MAX + 1);
 
 BOOL PXMathIsNan(float val)
 {
@@ -56,16 +56,16 @@ float PXMathRandom()
 
 float PXMathFloatInRange(float min, float max)
 {
-	float newMin = PXMathMin (min, max);
-	float newMax = PXMathMax (min, max);
+	float newMin = PXMathMin(min, max);
+	float newMax = PXMathMax(min, max);
 
 	return ((newMax - newMin) * PXMathRandom()) + newMin;
 }
 
 int PXMathIntInRange(int min, int max)
 {
-	int newMin = PXMathMin (min, max);
-	int newMax = PXMathMax (min, max);
+	int newMin = PXMathMin(min, max);
+	int newMax = PXMathMax(min, max);
 
 	return rand() % (newMax - newMin + 1) + newMin;
 }
@@ -90,7 +90,7 @@ bool PXMathPointInLine(PXMathPoint *ans, PXMathPoint *point, PXMathLine *line)
 	float xDelta = x2 - x1;
 	float yDelta = y2 - y1;
 
-	if (PXMathIsZero(xDelta ) && PXMathIsZero( yDelta))
+	if (PXMathIsZero(xDelta) && PXMathIsZero(yDelta))
 		return false;
 
 	float x3 = point->x;
@@ -145,11 +145,6 @@ float PXMathContentRoundf(float val)
 
 int32_t PXMathNextPowerOfTwo(int32_t val)
 {
-	//int newVal = 1;
-	//while (newVal < val)
-	//	newVal *= 2;
-	//return newVal;
-
 	val -= 1;
 		val |= (val >> 1);
 		val |= (val >> 2);
@@ -180,7 +175,7 @@ bool PXMathIsPointInLine(PXMathPoint *point, PXMathLine *line)
 	return PXMathIsZero(PXMathPointDistanceToLine(point, line));
 }
 
-//Barycentric Technique
+// Barycentric Technique
 bool PXMathIsPointInTriangle(PXMathPoint *point, PXMathTriangle *triangle)
 {
 	// Compute vectors

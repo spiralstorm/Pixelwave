@@ -226,7 +226,7 @@ PXInline float PXMathPointDistSq(PXMathPoint point1, PXMathPoint point2)
 
 	return (xSq + ySq);
 }
-PXInline void PXMathPointNorm(PXMathPoint * point)
+PXInline void PXMathPointNorm(PXMathPoint *point)
 {
 	float xSq = point->x * point->x;
 	float ySq = point->y * point->y;
@@ -248,7 +248,7 @@ PXInline void PXMathPointSet(PXMathPoint *point, float x, float y)
 }
 
 PXInline PXMathLine PXMathLineMake(float x1, float y1,
-										float x2, float y2)
+								   float x2, float y2)
 {
 	PXMathLine line;
 
@@ -261,8 +261,8 @@ PXInline PXMathLine PXMathLineMake(float x1, float y1,
 }
 
 PXInline void PXMathLineSet(PXMathLine *line,
-								 float x1, float y1,
-								 float x2, float y2)
+							float x1, float y1,
+							float x2, float y2)
 {
 	line->pointA.x = x1;
 	line->pointA.y = y1;
@@ -287,9 +287,9 @@ PXInline PXMathTriangle PXMathTriangleMake(float x1, float y1,
 }
 
 PXInline void PXMathTriangleSet(PXMathTriangle *triangle,
-									 float x1, float y1,
-									 float x2, float y2,
-									 float x3, float y3)
+								float x1, float y1,
+								float x2, float y2,
+								float x3, float y3)
 {
 	triangle->pointA.x = x1;
 	triangle->pointA.y = y1;
@@ -337,7 +337,7 @@ PXInline float PXMathPoint3DDist(PXMathPoint3D point1, PXMathPoint3D point2)
 	ySq *= ySq;
 	float zSq = point2.z - point1.z;
 	zSq *= zSq;
-	
+
 	return sqrtf(xSq + ySq + zSq);
 }
 PXInline float PXMathPoint3DDistSq(PXMathPoint3D point1, PXMathPoint3D point2)
@@ -385,7 +385,7 @@ PXInline void PXMathPoint3DSet(PXMathPoint3D *point, float x, float y, float z)
 	point->z = z;
 }
 PXInline PXMathLine3D PXMathLine3DMake(float x1, float y1, float z1,
-											float x2, float y2, float z2)
+									   float x2, float y2, float z2)
 {
 	PXMathLine3D line;
 
@@ -414,8 +414,8 @@ PXInline void PXMathLine3DSet(PXMathLine3D *line,
 }
 
 PXInline PXMathTriangle3D PXMathTriangle3DMake(float x1, float y1, float z1,
-													float x2, float y2, float z2,
-													float x3, float y3, float z3)
+											   float x2, float y2, float z2,
+											   float x3, float y3, float z3)
 {
 	PXMathTriangle3D triangle;
 
@@ -425,19 +425,19 @@ PXInline PXMathTriangle3D PXMathTriangle3DMake(float x1, float y1, float z1,
 
 	triangle.pointB.x = x2;
 	triangle.pointB.y = y2;
-	triangle.pointB.z = z1;
+	triangle.pointB.z = z2;
 
 	triangle.pointC.x = x3;
 	triangle.pointC.y = y3;
-	triangle.pointC.z = z1;
-	
+	triangle.pointC.z = z3;
+
 	return triangle;
 }
 
 PXInline void PXMathTriangl3DeSet(PXMathTriangle3D *triangle,
-									   float x1, float y1, float z1,
-									   float x2, float y2, float z2,
-									   float x3, float y3, float z3)
+								  float x1, float y1, float z1,
+								  float x2, float y2, float z2,
+								  float x3, float y3, float z3)
 {
 	triangle->pointA.x = x1;
 	triangle->pointA.y = y1;
