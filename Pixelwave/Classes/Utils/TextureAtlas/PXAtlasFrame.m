@@ -53,6 +53,7 @@
 				padding:(PXTexturePadding *)_padding
 {
 	self = [super init];
+
 	if (self)
 	{	
 		self.textureData = _textureData;
@@ -66,8 +67,11 @@
 
 - (void) dealloc
 {
-	[textureData release]; textureData = nil;
-	[clipRect release]; clipRect = nil;
+	[textureData release];
+	textureData = nil;
+	[clipRect release];
+	clipRect = nil;
+
 	self.anchor = nil;
 	self.padding = nil;
 	
@@ -116,6 +120,7 @@
 {
 	texture.textureData = textureData;
 	texture.clipRect = clipRect;
+
 	if (anchor)
 	{
 		[texture setAnchorWithX:anchor.x y:anchor.y];

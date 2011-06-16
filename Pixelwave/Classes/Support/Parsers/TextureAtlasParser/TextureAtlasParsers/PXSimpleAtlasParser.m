@@ -105,6 +105,7 @@
 		}else{
 			[textureDatas addObject:textureData];
 		}
+		[textureData release];
 	}
 	
 	// If any of the textures couldn't be loaded, the atlas can't be created.
