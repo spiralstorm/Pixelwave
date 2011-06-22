@@ -1131,6 +1131,74 @@ void PXGLTexEnvxv(GLenum target, GLenum pname, const GLfixed *params)
 	glTexEnvxv(target, pname, params);
 }
 
+PXInline void PXGLDefineVertex(PXGLColoredTextureVertex *point,
+							   GLfloat *pointSize,
+							   const GLfloat **verticesPtr,
+							   const GLfloat **texCoordsPtr,
+							   const GLubyte **colorsPtr,
+							   const GLfloat **pointSizesPtr,
+							   float a, float b, float c, float d, float tx, float ty)
+{
+	float x;
+	float y;
+
+	float oX = **verticesPtr; ++(*verticesPtr);
+	y = **verticesPtr;
+
+	// Do the matrix multiplication on them.
+	x = oX * a + y * c + tx;
+	y = oX * b + y * d + ty;
+	
+	// Store the point
+	point->x = x;
+	point->y = y;
+	
+	// If it is textured we need to grab the texture info
+	if (*texCoordsPtr)
+	{
+		point->s = **texCoordsPtr; ++(*texCoordsPtr);
+		point->t = **texCoordsPtr;
+	}
+	
+	// If it is colored we need to grab the color info
+	if (*colorsPtr)
+	{
+#if (!PX_ACCURATE_COLOR_TRANSFORMATION_MODE)
+		// If we are going to round the color value, we are going to use
+		// this method.
+		point->r = ((**colorsPtr) * pxGLRed)   >> 8; ++(*colorsPtr);
+		point->g = ((**colorsPtr) * pxGLGreen) >> 8; ++(*colorsPtr);
+		point->b = ((**colorsPtr) * pxGLBlue)  >> 8; ++(*colorsPtr);
+		point->a = ((**colorsPtr) * pxGLAlpha) >> 8;
+#else
+		// If we want accurate info, then we will use this method.
+		point->r = ((**colorsPtr) * pxGLCurrentColor->redMultiplier);   ++(*colorsPtr);
+		point->g = ((**colorsPtr) * pxGLCurrentColor->greenMultiplier); ++(*colorsPtr);
+		point->b = ((**colorsPtr) * pxGLCurrentColor->blueMultiplier);  ++(*colorsPtr);
+		point->a = ((**colorsPtr) * pxGLCurrentColor->alphaMultiplier);
+#endif
+	}
+	else
+	{
+		// If we weren't colored, and are using our special color array
+		// method, then we have to set the values for the array.
+		point->r = pxGLRed;
+		point->g = pxGLGreen;
+		point->b = pxGLBlue;
+		point->a = pxGLAlpha;
+	}
+	
+	// If we haven't had multiple values for colors yet, then we have to
+	// check if this addition will make it so.
+	if (!(pxGLBufferVertexColorState == PX_GL_VERTEX_COLOR_MULTIPLE))
+		PXGLSetBufferLastVertexColor(point->r, point->g, point->b, point->a);
+
+	if (*pointSizesPtr)
+	{
+		*pointSize = **pointSizesPtr * pxGLScaleFactor;
+	}
+}
+
 /*
  *	When PXGLDrawArrays is called, it uses count sequential elements from each
  *	enabled array to construct a sequence of geometric primitives, beginning
@@ -1191,7 +1259,7 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 
 	int isStrip = (mode == GL_TRIANGLE_STRIP);
 
-	float x, y, oX;
+	//float x, y, oX;
 	float a = pxGLCurrentMatrix->a;
 	float b = pxGLCurrentMatrix->b;
 	float c = pxGLCurrentMatrix->c;
@@ -1242,84 +1310,38 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	{
 		pointSize = PXGLAskForPointSizes(count);
 	}
+	else
+		pointSize = NULL;
 
 	for (GLsizei index = 0; index < count; ++index, ++point)
 	{
-		// Grab the vertex x coord, then increment the pointer so we can grab
-		// the y coord.
-		oX = *vertices; ++vertices;
-		y = *vertices;
+		PXGLDefineVertex(point,
+						 pointSize,
+						 &vertices,
+						 &texCoords,
+						 &colors,
+						 &pointSizes,
+						 a, b, c, d, tx, ty);
+		nX = point->x;
+		nY = point->y;
 
-		// Apply the matrix transformation on the coordinates.
-		x = oX * a + y * c + tx;
-		y = oX * b + y * d + ty;
-
-		// Lets keep a copy in integer form around of the point.
-		nX = x;
-		nY = y;
-
-		// Lets set the points actual value
-		point->x = x;
-		point->y = y;
-
-		// We need to increment the pointer by the stride amount from the
-		// current point's starting position.
 		vertices = currentVertex + vertexStride;
 		currentVertex = vertices;
 
-		// If it is textured, then we need to grab the texture info
 		if (isTextured)
 		{
-			point->s = *texCoords; ++texCoords;
-			point->t = *texCoords;
-
 			texCoords = currentTexCoord + texStride;
 			currentTexCoord = texCoords;
 		}
-
-		// If it is colored, then we need to grab the color info
 		if (isColored)
 		{
-#if (!PX_ACCURATE_COLOR_TRANSFORMATION_MODE)
-			// If we are going to round the color value, we are going to use
-			// this method.
-			point->r = ((*colors) * pxGLRed)   >> 8; ++colors;
-			point->g = ((*colors) * pxGLGreen) >> 8; ++colors;
-			point->b = ((*colors) * pxGLBlue)  >> 8; ++colors;
-			point->a = ((*colors) * pxGLAlpha) >> 8;
-#else
-			// If we want accurate info, then we will use this method.
-			point->r = ((*colors) * pxGLCurrentColor->redMultiplier);   ++colors;
-			point->g = ((*colors) * pxGLCurrentColor->greenMultiplier); ++colors;
-			point->b = ((*colors) * pxGLCurrentColor->blueMultiplier);  ++colors;
-			point->a = ((*colors) * pxGLCurrentColor->alphaMultiplier);
-#endif
-
 			// No matter what, we need to increment the pointer from the current
 			// beginning point.
 			colors = currentColor + colorStride;
 			currentColor = colors;
 		}
-		else
-		{
-			// If we weren't colored, and are using our special color array
-			// method, then we have to set the values for the array.
-			point->r = pxGLRed;
-			point->g = pxGLGreen;
-			point->b = pxGLBlue;
-			point->a = pxGLAlpha;
-		}
-
-		// If we haven't had multiple values for colors yet, then we have to
-		// check if this addition will make it so.
-		if (!(pxGLBufferVertexColorState == PX_GL_VERTEX_COLOR_MULTIPLE))
-			PXGLSetBufferLastVertexColor(point->r, point->g, point->b, point->a);
-
-		// If we are using a point size array, then we need to grab the info
 		if (isPointSizeArray)
 		{
-			//pointSize = PXGLNextPointSize( );
-			*pointSize = *pointSizes * pxGLScaleFactor;
 			++pointSize;
 
 			pointSizes = currentPointSize + pointSizeStride;
@@ -1403,20 +1425,20 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	const void const *startVertex = pxGLVertexPointer.pointer;
 	const GLfloat *vertices;
 
-	const void const *startTex = pxGLTexCoordPointer.pointer;
+	const void const *startTex = isTextured ? pxGLTexCoordPointer.pointer : NULL;
 	const GLfloat *texCoords;
 
-	const void const *startColor = pxGLColorPointer.pointer;
+	const void const *startColor = isColored ? pxGLColorPointer.pointer : NULL;
 	const GLubyte *colors;
 
-	const void const *startPointSizes = pxGLPointSizePointer.pointer;
+	const void const *startPointSizes = isPointSizeArray ? pxGLPointSizePointer.pointer : NULL;
 	const GLfloat *pointSizes;
 
 	GLuint eVal = 0; // HAS TO BE SHORT OR LARGER
 
 	int isStrip = (mode == GL_TRIANGLE_STRIP);
 
-	float x, y, oX;
+	//float x, y, oX;
 	float a = pxGLCurrentMatrix->a;
 	float b = pxGLCurrentMatrix->b;
 	float c = pxGLCurrentMatrix->c;
@@ -1462,6 +1484,8 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	{
 		pointSize = PXGLAskForPointSizes(count);
 	}
+	else
+		pointSize = NULL;
 
 	// These values are used for creating a bounding box for the object drawn.
 
@@ -1486,74 +1510,34 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		// stride to find the pointers location.
 		vertices = startVertex + eVal * vertexStride;
 
-		// Lets get the actual vertex locations
-		oX = *vertices; ++vertices;
-		y = *vertices;
-
-		// Do the matrix multiplication on them.
-		x = oX * a + y * c + tx;
-		y = oX * b + y * d + ty;
-
-		// Store an integer version for the bounding box
-		nX = x;
-		nY = y;
-
-		// Store the point
-		point->x = x;
-		point->y = y;
-
-		// If it is textured we need to grab the texture info
 		if (isTextured)
-		{
 			texCoords = startTex + eVal * texStride;
-
-			point->s = *texCoords; ++texCoords;
-			point->t = *texCoords;
-		}
-
-		// If it is colored we need to grab the color info
-		if (isColored)
-		{
-			colors = startColor + eVal * colorStride;
-
-#if (!PX_ACCURATE_COLOR_TRANSFORMATION_MODE)
-			// If we are going to round the color value, we are going to use
-			// this method.
-			point->r = ((*colors) * pxGLRed)   >> 8; ++colors;
-			point->g = ((*colors) * pxGLGreen) >> 8; ++colors;
-			point->b = ((*colors) * pxGLBlue)  >> 8; ++colors;
-			point->a = ((*colors) * pxGLAlpha) >> 8;
-#else
-			// If we want accurate info, then we will use this method.
-			point->r = ((*colors) * pxGLCurrentColor->redMultiplier);   ++colors;
-			point->g = ((*colors) * pxGLCurrentColor->greenMultiplier); ++colors;
-			point->b = ((*colors) * pxGLCurrentColor->blueMultiplier);  ++colors;
-			point->a = ((*colors) * pxGLCurrentColor->alphaMultiplier);
-#endif
-		}
 		else
-		{
-			// If we weren't colored, and are using our special color array
-			// method, then we have to set the values for the array.
-			point->r = pxGLRed;
-			point->g = pxGLGreen;
-			point->b = pxGLBlue;
-			point->a = pxGLAlpha;
-		}
+			texCoords = NULL;
 
-		// If we haven't had multiple values for colors yet, then we have to
-		// check if this addition will make it so.
-		if (!(pxGLBufferVertexColorState == PX_GL_VERTEX_COLOR_MULTIPLE))
-			PXGLSetBufferLastVertexColor(point->r, point->g, point->b, point->a);
+		if (isColored)
+			colors = startColor + eVal * colorStride;
+		else
+			colors = NULL;
 
-		// If we are using a point size array, then we need to grab the info
 		if (isPointSizeArray)
-		{
-			//pointSize = PXGLNextPointSize();
 			pointSizes = startPointSizes + eVal * pointSizeStride;
+		else
+			pointSizes = NULL;
+
+		PXGLDefineVertex(point,
+						 pointSize,
+						 &vertices,
+						 &texCoords,
+						 &colors,
+						 &pointSizes,
+						 a, b, c, d, tx, ty);
+
+		nX = point->x;
+		nY = point->y;
+
+		if (isPointSizeArray)
 			++pointSize;
-			*pointSize = *pointSizes * pxGLScaleFactor;
-		}
 
 		// Lets figure out the bounding box
 		PXGLAABBExpandv(&aabb, nX, nY);
@@ -1705,25 +1689,6 @@ void PXGLAABBMult(PXGLAABB *aabb)
 	PXGLMatrixConvertAABBv(pxGLCurrentMatrix,
 						  &(aabb->xMin), &(aabb->yMin),
 						  &(aabb->xMax), &(aabb->yMax));
-	//*aabb = PXGLMatrixConvertAABB(pxGLCurrentMatrix, *aabb);
-
-	/*PX_GL_CONVERT_POINT_TO_MATRIX((*pxGLCurrentMatrix),
-								  aabb->xMin, aabb->yMin);
-	PX_GL_CONVERT_POINT_TO_MATRIX((*pxGLCurrentMatrix),
-								  aabb->xMax, aabb->yMax);
-
-	if (aabb->xMin > aabb->xMax)
-	{
-		int temp = aabb->xMin;
-		aabb->xMin = aabb->xMax;
-		aabb->xMax = temp;
-	}
-	if (aabb->yMin > aabb->yMax)
-	{
-		int temp = aabb->yMin;
-		aabb->yMin = aabb->yMax;
-		aabb->yMax = temp;
-	}*/
 }
 
 /*
@@ -1830,25 +1795,6 @@ void PXGLSetColorTransform(PXGLColorTransform *transform)
 	pxGLBlue  = PX_COLOR_FLOAT_TO_BYTE(pxGLCurrentColor->blueMultiplier );
 	pxGLAlpha = PX_COLOR_FLOAT_TO_BYTE(pxGLCurrentColor->alphaMultiplier);
 }
-
-/*void PXGLGetAbsoluteColorTransform(PXGLColorTransform *transform)
-{
-	assert(transform);
-
-	transform->redMultiplier   = pxGLCurrentColor->redMultiplier;
-	transform->greenMultiplier = pxGLCurrentColor->greenMultiplier;
-	transform->blueMultiplier  = pxGLCurrentColor->blueMultiplier;
-	transform->alphaMultiplier = pxGLCurrentColor->alphaMultiplier;
-}
-void PXGLSetAbsoluteColorTransform(PXGLColorTransform *transform)
-{
-	assert(transform);
-	
-	pxGLCurrentColor->redMultiplier   = transform->redMultiplier;
-	pxGLCurrentColor->greenMultiplier = transform->greenMultiplier;
-	pxGLCurrentColor->blueMultiplier  = transform->blueMultiplier;
-	pxGLCurrentColor->alphaMultiplier = transform->alphaMultiplier;
-}*/
 
 /*
  *	PXGLLoadColorTransformIdentity sets the current color's transform to the
