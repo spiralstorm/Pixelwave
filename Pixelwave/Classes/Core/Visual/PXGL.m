@@ -1153,17 +1153,6 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	if (!pxGLVertexPointer.pointer || count == 0) //|| pxGLCurrentColor->alphaMultiplier < 0.001f )
 		return;
 
-	// If we were previously drawing elements, but now are drawing arrays, then
-	// we need to flush the buffer and disable the bit that specifies that we
-	// were drawing elements.
-//	if (PX_IS_BIT_ENABLED(pxGLState, PX_GL_DRAW_ELEMENTS))
-//	{
-		// Lets flush the buffer
-//		PXGLFlushBuffer( );
-//		PX_DISABLE_BIT(pxGLState, PX_GL_DRAW_ELEMENTS);
-//	}
-
-	//PX_DISABLE_BIT(pxGLState, PX_GL_DRAW_ELEMENTS);
 	PX_DISABLE_BIT(pxGLState.state, PX_GL_DRAW_ELEMENTS);
 	PXGLSetupEnables();
 
@@ -1174,44 +1163,33 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	PXGLColoredTextureVertex *point;
 	GLfloat *pointSize;
 
-	PXGLColoredTextureVertex *pointForStrip;
-	// Byte count = 12
-
 	// Lets store the strides of each of these so we do not need to access them
 	// again.
 	GLsizei vertexStride = pxGLVertexPointer.stride;
 	GLsizei texStride = pxGLTexCoordPointer.stride;
 	GLsizei colorStride = pxGLColorPointer.stride;
 	GLsizei pointSizeStride = pxGLPointSizePointer.stride;
-	// Byte count = 28
 
 	// What was the vertex index before we added points.
-	unsigned oldVertexIndex = PXGLGetCurrentVertexIndex( );
-	// Byte count = 32
+	unsigned oldVertexIndex = PXGLGetCurrentVertexIndex();
 
 	char isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
 	char isColored = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_COLOR_ARRAY);
 	short isPointSizeArray = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
-	//char isTextured = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_TEXTURE_COORD_ARRAY);
-	//char isColored = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_COLOR_ARRAY);
-	//short isPointSizeArray = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
-	// Byte count = 36
 
 	// Lets set the pointer to the starting point of the vertices, texture
 	// coords, colors and point sizes; however we only want to grab the pointer
 	// info if it is applicable.
 	const GLfloat *vertices = pxGLVertexPointer.pointer + first * vertexStride;
 	const void *currentVertex = vertices;
-	const GLfloat *texCoords = isTextured ? pxGLTexCoordPointer.pointer + first * texStride : 0;
+	const GLfloat *texCoords = isTextured ? pxGLTexCoordPointer.pointer + first * texStride : NULL;
 	const void *currentTexCoord = texCoords;
-	const GLubyte *colors = isColored ? pxGLColorPointer.pointer + first * colorStride : 0;
+	const GLubyte *colors = isColored ? pxGLColorPointer.pointer + first * colorStride : NULL;
 	const void *currentColor = colors;
-	const GLfloat *pointSizes = isPointSizeArray ? pxGLPointSizePointer.pointer + first * pointSizeStride : 0;
+	const GLfloat *pointSizes = isPointSizeArray ? pxGLPointSizePointer.pointer + first * pointSizeStride : NULL;
 	const void *currentPointSize = pointSizes;
-	// Byte count = 68
 
 	int isStrip = (mode == GL_TRIANGLE_STRIP);
-	// Byte count = 72
 
 	float x, y, oX;
 	float a = pxGLCurrentMatrix->a;
@@ -1220,7 +1198,6 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	float d = pxGLCurrentMatrix->d;
 	float tx = pxGLCurrentMatrix->tx;
 	float ty = pxGLCurrentMatrix->ty;
-	// Byte count = 108
 
 	// If the old vertex is 0, then it is the first vertex being used... thus we
 	// do not need to add points at the start if we were going to.
@@ -1228,29 +1205,41 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	{
 		isStrip = NO;
 	}
-	else if (isStrip)
-	{
-		pointForStrip = PXGLNextVertex( );
-
-		// Grab the old point AFTER next is called, because next has a chance to
-		// realloc memory for the array, thus possibly moving the pointer.
-		point = PXGLGetVertexAt(oldVertexIndex - 1);
-		*pointForStrip = *point;
-	}
 
 	// This is set up for the bounding box of the item being drawn.
 	PXGLAABB aabb = PXGLAABBReset;
-	// Byte count = 124
 
-	int nX, nY;
-	// Byte count = 132
+	int nX;
+	int nY;
 
-	for (int index = 0; index < count; ++index)
+	unsigned usedPointCount = isStrip ? count + 2 : count;
+	// Grab an array of vertices
+	point = PXGLAskForVertices(usedPointCount);
+
+	// For strips
+	PXGLColoredTextureVertex *preFirstPoint;
+	PXGLColoredTextureVertex *firstPoint;
+
+	if (isStrip)
 	{
-		// Get the next available point, this method changes the size of the
-		// array accordingly.
-		point = PXGLNextVertex( );
+		// If it is a strip, copy the last point (this won't happen if this is
+		// the first object ever in this array)
+		*point = *(point - 1);
+		++point;
 
+		// We will also want to copy our first point, so we are setting up
+		// pointers to get that ready. The preFirstPoint is a pointer to the
+		// value prior to the first value we are going to manipulate. The
+		// firstPoint is the first point we will read and manipulate. After we
+		// manipulate the point, we will copy it back into preFirstPoint. This
+		// will create a degenerate triangle that gl will optimize out.
+		preFirstPoint = point;
+		++point;
+		firstPoint = point;
+	}
+
+	for (GLsizei index = 0; index < count; ++index, ++point)
+	{
 		// Grab the vertex x coord, then increment the pointer so we can grab
 		// the y coord.
 		oX = *vertices; ++vertices;
@@ -1333,22 +1322,11 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 
 		// Lets figure out the bounding box
 		PXGLAABBExpandv(&aabb, nX, nY);
+	}
 
-		// TODO Later: Optimize this... perhaps pull the first iteration out of
-		// the loop?
-		// If we are using a strip (triangle strip) and our index is 0, then we
-		// need to add a copy of this point to the list.
-		if (index == 0 && isStrip)
-		{
-			pointForStrip = PXGLNextVertex( );
-			// Grab the old point AFTER next is called, because next has a
-			// chance to realloc memory for the array, thus possibly moving the
-			// pointer.
-			point = PXGLGetVertexAt(PXGLGetCurrentVertexIndex( ) - 2);
-
-			// Copy the points info
-			*pointForStrip = *point;
-		}
+	if (isStrip)
+	{
+		*preFirstPoint = *firstPoint;
 	}
 
 	// Updates the points and colors based upon the parents rotation and

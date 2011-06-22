@@ -401,6 +401,24 @@ PXGLColoredTextureVertex *PXGLCurrentVertex( )
 	return pxGLVertexBufferCurrentObject - 1;
 }
 
+PXGLColoredTextureVertex *PXGLAskForVertices(unsigned count)
+{
+	while (pxGLVertexBuffer.size + count >= pxGLVertexBuffer.maxSize)
+	{
+		//Lets double the size of the array
+		pxGLVertexBuffer.maxSize <<= 1;
+		pxGLVertexBuffer.array = realloc(pxGLVertexBuffer.array, sizeof(PXGLColoredTextureVertex) * pxGLVertexBuffer.maxSize);
+		pxGLVertexBufferCurrentObject = pxGLVertexBuffer.array + pxGLVertexBuffer.size;
+	}
+
+	PXGLColoredTextureVertex *cur = pxGLVertexBufferCurrentObject;
+	pxGLVertexBufferCurrentObject += count;
+	pxGLVertexBuffer.size += count;
+
+	// Lets return the next available vertex for use.
+	return cur;
+}
+
 /*
  *	This method returns a pointer to the next index in the buffer.  If the next
  *	index is outside of the buffer's range, then the buffer doubles in size.
