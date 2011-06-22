@@ -79,10 +79,12 @@ PXGLColoredTextureVertex *PXGLAskForVertices(unsigned count);
 GLushort *PXGLNextIndex( );
 GLushort *PXGLGetIndexAt(unsigned index);
 GLushort *PXGLCurrentIndex( );
+GLushort *PXGLAskForIndices(unsigned count);
 
 GLfloat *PXGLNextPointSize( );
 GLfloat *PXGLGetPointSizeAt(unsigned index);
 GLfloat *PXGLCurrentPointSize( );
+GLfloat *PXGLAskForPointSizes(unsigned count);
 
 void PXGLRendererPreRender( );
 void PXGLRendererPostRender( );

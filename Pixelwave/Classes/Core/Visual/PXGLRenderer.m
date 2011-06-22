@@ -471,6 +471,24 @@ GLushort *PXGLCurrentIndex( )
 	return pxGLIndexBufferCurrentObject - 1;
 }
 
+GLushort *PXGLAskForIndices(unsigned count)
+{
+	while (pxGLIndexBuffer.size + count >= pxGLIndexBuffer.maxSize)
+	{
+		//Lets double the size of the array
+		pxGLIndexBuffer.maxSize <<= 1;
+		pxGLIndexBuffer.array = realloc(pxGLIndexBuffer.array, pxGLSizeOfIndex * pxGLIndexBuffer.maxSize);
+		pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array + pxGLIndexBuffer.size;
+	}
+
+	GLushort *cur = pxGLIndexBufferCurrentObject;
+	pxGLIndexBufferCurrentObject += count;
+	pxGLIndexBuffer.size += count;
+
+	// Lets return the next available vertex for use.
+	return cur;
+}
+
 /*
  *	This method returns a pointer to the next point size in the buffer.  If the
  *	next point size  is outside of the buffer's range, then the buffer doubles
@@ -523,6 +541,24 @@ GLfloat *PXGLCurrentPointSize( )
 	assert(pxGLPointSizeBuffer.size != 0);
 
 	return pxGLPointSizeBufferCurrentObject - 1;
+}
+
+GLfloat *PXGLAskForPointSizes(unsigned count)
+{
+	while (pxGLPointSizeBuffer.size + count >= pxGLPointSizeBuffer.maxSize)
+	{
+		//Lets double the size of the array
+		pxGLPointSizeBuffer.maxSize <<= 1;
+		pxGLPointSizeBuffer.array = realloc(pxGLPointSizeBuffer.array, pxGLSizeOfPointSize * pxGLPointSizeBuffer.maxSize);
+		pxGLPointSizeBufferCurrentObject = pxGLPointSizeBuffer.array + pxGLPointSizeBuffer.size;
+	}
+
+	GLfloat *cur = pxGLPointSizeBufferCurrentObject;
+	pxGLPointSizeBufferCurrentObject += count;
+	pxGLPointSizeBuffer.size += count;
+
+	// Lets return the next available vertex for use.
+	return cur;
 }
 
 /*

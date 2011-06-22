@@ -1238,6 +1238,11 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 		firstPoint = point;
 	}
 
+	if (isPointSizeArray)
+	{
+		pointSize = PXGLAskForPointSizes(count);
+	}
+
 	for (GLsizei index = 0; index < count; ++index, ++point)
 	{
 		// Grab the vertex x coord, then increment the pointer so we can grab
@@ -1313,8 +1318,9 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 		// If we are using a point size array, then we need to grab the info
 		if (isPointSizeArray)
 		{
-			pointSize = PXGLNextPointSize( );
+			//pointSize = PXGLNextPointSize( );
 			*pointSize = *pointSizes * pxGLScaleFactor;
+			++pointSize;
 
 			pointSizes = currentPointSize + pointSizeStride;
 			currentPointSize = pointSizes;
@@ -1375,7 +1381,6 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		return;
 
 	const GLushort *indices = ids;
-	// Byte count = 4
 
 	PX_ENABLE_BIT(pxGLState.state, PX_GL_DRAW_ELEMENTS);
 	PXGLSetupEnables();
@@ -1385,40 +1390,31 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	PXGLColoredTextureVertex *point;
 	GLushort *index;
 	GLfloat *pointSize;
-	// Byte count = 16
 
 	GLsizei vertexStride = pxGLVertexPointer.stride;
 	GLsizei texStride = pxGLTexCoordPointer.stride;
 	GLsizei colorStride = pxGLColorPointer.stride;
 	GLsizei pointSizeStride = pxGLPointSizePointer.stride;
-	// Byte count = 32
 
 	GLubyte isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
 	GLubyte isColored = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_COLOR_ARRAY);
 	GLushort isPointSizeArray = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
-	// Byte count = 36
 
 	const void const *startVertex = pxGLVertexPointer.pointer;
 	const GLfloat *vertices;
-	// Byte count = 44
 
 	const void const *startTex = pxGLTexCoordPointer.pointer;
 	const GLfloat *texCoords;
-	// Byte count = 52
 
 	const void const *startColor = pxGLColorPointer.pointer;
 	const GLubyte *colors;
-	// Byte count = 60
 
 	const void const *startPointSizes = pxGLPointSizePointer.pointer;
 	const GLfloat *pointSizes;
-	// Byte count = 68
 
 	GLuint eVal = 0; // HAS TO BE SHORT OR LARGER
-	// Byte count = 72
 
 	int isStrip = (mode == GL_TRIANGLE_STRIP);
-	// Byte count = 76
 
 	float x, y, oX;
 	float a = pxGLCurrentMatrix->a;
@@ -1427,51 +1423,62 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	float d = pxGLCurrentMatrix->d;
 	float tx = pxGLCurrentMatrix->tx;
 	float ty = pxGLCurrentMatrix->ty;
-	// Byte count = 112
 
 	unsigned vertexIndex = 0;
-	// Byte count = 116
 
 	unsigned oldIndex = PXGLGetCurrentIndex( );
 	unsigned oldVertexIndex = PXGLGetCurrentVertexIndex( );
-	// Byte count = 124
+
 	vertexIndex = oldVertexIndex;
 
 	if (oldIndex == 0)
 	{
 		isStrip = NO;
 	}
-	// If it is a strip (triangle strip), then we are going to copy the last
-	// point and inject it before we read values from the new list.  This is
-	// done to create a degenerate triangle between polygons.
-	else if (isStrip)
+
+	unsigned usedIndexCount = isStrip ? count + 2 : count;
+	// Grab an array of vertices
+	index = PXGLAskForIndices(usedIndexCount);
+
+	// For strips
+	GLushort *preFirstIndex;
+	GLushort *firstIndex;
+
+	if (isStrip)
 	{
-		index = PXGLNextIndex( );
-		*index = oldIndex;
+		// If it is a strip, copy the last index (this won't happen if this is
+		// the first object ever in this array)
+		*index = *(index - 1);
+		++index;
+
+		preFirstIndex = index;
+		++index;
+		firstIndex = index;
+	}
+
+	if (isPointSizeArray)
+	{
+		pointSize = PXGLAskForPointSizes(count);
 	}
 
 	// These values are used for creating a bounding box for the object drawn.
 
 	PXGLAABB aabb = PXGLAABBReset;
-	// Byte count = 140
 
 	int nX, nY;
-	// Byte count = 148
 
 	const GLushort *curIndex;
 	unsigned counter;
-	// Byte count = 152
-	for (counter = 0, curIndex = indices + counter; counter < count; ++counter, ++vertexIndex, ++curIndex)
+
+	for (counter = 0, curIndex = indices + counter; counter < count; ++counter, ++vertexIndex, ++curIndex, ++index)
 	{
 		// Get the next available point, this method needs to also change the
 		// size of the array accordingly.  If the array ever gets larger then
 		// MAX_VERTICES, we should flush it.  Keep in mind that if we do
 		// that here, then offset and translation needs to change also.
 		point = PXGLNextVertex( );
-		index = PXGLNextIndex( );
 		*index = vertexIndex;
 		eVal = *curIndex;
-	//	eVal = indices[counter];
 
 		// Lets grab the next vertex, which is done by getting the actual index
 		// value of the vertex held by eVal, then we can multiply it by the
@@ -1541,22 +1548,19 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		// If we are using a point size array, then we need to grab the info
 		if (isPointSizeArray)
 		{
-			pointSize = PXGLNextPointSize();
+			//pointSize = PXGLNextPointSize();
 			pointSizes = startPointSizes + eVal * pointSizeStride;
+			++pointSize;
 			*pointSize = *pointSizes * pxGLScaleFactor;
 		}
 
 		// Lets figure out the bounding box
 		PXGLAABBExpandv(&aabb, nX, nY);
+	}
 
-		// If we are using a strip (triangle strip) and our index is 0, then we
-		// need to add a copy of this point to the list.
-		if (counter == 0 && isStrip)
-		{
-			eVal = *index;
-			index = PXGLNextIndex();
-			*index = eVal;
-		}
+	if (isStrip)
+	{
+		*preFirstIndex = *firstIndex;
 	}
 
 	// Updates the points and colors based upon the parents rotation and
