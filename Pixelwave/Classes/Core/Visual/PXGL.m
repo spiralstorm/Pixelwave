@@ -1393,23 +1393,13 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
  */
 void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids)
 {
-	if (!pxGLVertexPointer.pointer) // || pxGLCurrentColor->alphaMultiplier < 0.001f )
+	if (!pxGLVertexPointer.pointer)
 		return;
 
 	const GLushort *indices = ids;
 	// Byte count = 4
 
-	// If we were previously drawing arrays, but now are drawing elements, then
-	// we need to flush the buffer and enable the bit that specifies that we
-	// were drawing elements.
-//	if (!PX_IS_BIT_ENABLED(pxGLState, PX_GL_DRAW_ELEMENTS))
-//	{
-//		PXGLFlushBuffer( );
-//		PX_ENABLE_BIT(pxGLState, PX_GL_DRAW_ELEMENTS);
-//	}
-
 	PX_ENABLE_BIT(pxGLState.state, PX_GL_DRAW_ELEMENTS);
-	//PX_ENABLE_BIT(pxGLState, PX_GL_DRAW_ELEMENTS);
 	PXGLSetupEnables();
 
 	PXGLSetDrawMode(mode);
@@ -1428,9 +1418,6 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	GLubyte isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
 	GLubyte isColored = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_COLOR_ARRAY);
 	GLushort isPointSizeArray = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
-	//GLubyte isTextured = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_TEXTURE_COORD_ARRAY);
-	//GLubyte isColored = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_COLOR_ARRAY);
-	//GLushort isPointSizeArray = PX_IS_BIT_ENABLED(pxGLClientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
 	// Byte count = 36
 
 	const void const *startVertex = pxGLVertexPointer.pointer;
@@ -1493,9 +1480,10 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	int nX, nY;
 	// Byte count = 148
 
+	const GLushort *curIndex;
 	unsigned counter;
 	// Byte count = 152
-	for (counter = 0; counter < count; ++counter, ++vertexIndex)
+	for (counter = 0, curIndex = indices + counter; counter < count; ++counter, ++vertexIndex, ++curIndex)
 	{
 		// Get the next available point, this method needs to also change the
 		// size of the array accordingly.  If the array ever gets larger then
@@ -1504,7 +1492,8 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		point = PXGLNextVertex( );
 		index = PXGLNextIndex( );
 		*index = vertexIndex;
-		eVal = indices[counter];
+		eVal = *curIndex;
+	//	eVal = indices[counter];
 
 		// Lets grab the next vertex, which is done by getting the actual index
 		// value of the vertex held by eVal, then we can multiply it by the
@@ -1530,7 +1519,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		// If it is textured we need to grab the texture info
 		if (isTextured)
 		{
-			texCoords = startTex + (eVal * texStride);
+			texCoords = startTex + eVal * texStride;
 
 			point->s = *texCoords; ++texCoords;
 			point->t = *texCoords;
@@ -1539,7 +1528,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		// If it is colored we need to grab the color info
 		if (isColored)
 		{
-			colors = startColor + (eVal * colorStride);
+			colors = startColor + eVal * colorStride;
 
 #if (!PX_ACCURATE_COLOR_TRANSFORMATION_MODE)
 			// If we are going to round the color value, we are going to use
@@ -1574,7 +1563,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		// If we are using a point size array, then we need to grab the info
 		if (isPointSizeArray)
 		{
-			pointSize = PXGLNextPointSize( );
+			pointSize = PXGLNextPointSize();
 			pointSizes = startPointSizes + eVal * pointSizeStride;
 			*pointSize = *pointSizes * pxGLScaleFactor;
 		}
@@ -1587,7 +1576,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		if (counter == 0 && isStrip)
 		{
 			eVal = *index;
-			index = PXGLNextIndex( );
+			index = PXGLNextIndex();
 			*index = eVal;
 		}
 	}

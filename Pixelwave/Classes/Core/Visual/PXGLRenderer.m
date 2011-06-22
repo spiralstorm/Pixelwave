@@ -79,23 +79,15 @@ typedef struct
 	GLfloat *array;
 } _PXGLPointSizeBuffer;
 
+PXGLColoredTextureVertex *pxGLVertexBufferCurrentObject = NULL;
+GLushort *pxGLIndexBufferCurrentObject = NULL;
+GLfloat *pxGLPointSizeBufferCurrentObject = NULL;
+
 PXGLState pxGLDefaultState;
 PXGLState pxGLState;
 PXGLState pxGLStateInGL;
 
 GLuint pxGLBufferVertexColorState = PX_GL_VERTEX_COLOR_RESET;
-
-/*GLubyte pxGLDefaultClientState = 0;
-GLubyte pxGLClientState = 0;
-GLubyte pxGLClientStateInGL = 0;
-
-GLubyte pxGLDefaultState = 0;
-GLubyte pxGLState = 0;
-GLubyte pxGLStateInGL = 0;
-
-PXGLBlendMode pxGLDefaultBlendMode;
-PXGLBlendMode pxGLBlendMode;
-PXGLBlendMode pxGLBlendModeInGL;*/
 
 unsigned pxGLVertexBufferMaxSize = 0;
 unsigned pxGLVertexOldBufferMaxSize = 0;
@@ -154,6 +146,10 @@ void PXGLRendererInit( )
 	pxGLPointSizeBuffer.size = 0;
 	pxGLPointSizeBuffer.maxSize = PX_GL_RENDERER_MIN_BUFFER_SIZE;
 	pxGLPointSizeBuffer.array = malloc(pxGLSizeOfPointSize * pxGLPointSizeBuffer.maxSize);
+
+	pxGLVertexBufferCurrentObject = pxGLVertexBuffer.array;
+	pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array;
+	pxGLPointSizeBufferCurrentObject = pxGLPointSizeBuffer.array;
 
 #ifdef PX_RENDER_VBO
 	glGenBuffers(1, &PXGLBufferVertexID);
@@ -291,11 +287,12 @@ unsigned PXGLGetCurrentVertexIndex( )
  */
 void PXGLSetCurrentVertexIndex(unsigned index)
 {
-	//The index should never be greater or equal to the max size, the max size
-	//denotes the actual size that is allocated by the buffer array.
+	// The index should never be greater or equal to the max size, the max size
+	// denotes the actual size that is allocated by the buffer array.
 	assert(index < pxGLVertexBuffer.maxSize);
 
 	pxGLVertexBuffer.size = index;
+	pxGLVertexBufferCurrentObject = pxGLVertexBuffer.array + pxGLVertexBuffer.size;
 }
 
 /*
@@ -321,6 +318,7 @@ void PXGLSetCurrentIndex(unsigned index)
 	assert(index < pxGLIndexBuffer.maxSize);
 
 	pxGLIndexBuffer.size = index;
+	pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array + pxGLIndexBuffer.size;
 }
 
 /*
@@ -347,6 +345,7 @@ void PXGLSetCurrentPointSizeIndex(unsigned index)
 	assert(index < pxGLPointSizeBuffer.maxSize);
 
 	pxGLPointSizeBuffer.size = index;
+	pxGLPointSizeBufferCurrentObject = pxGLPointSizeBuffer.array + pxGLPointSizeBuffer.size;
 }
 
 /*
@@ -365,10 +364,15 @@ PXGLColoredTextureVertex *PXGLNextVertex( )
 		//Lets double the size of the array
 		pxGLVertexBuffer.maxSize <<= 1;
 		pxGLVertexBuffer.array = realloc(pxGLVertexBuffer.array, sizeof(PXGLColoredTextureVertex) * pxGLVertexBuffer.maxSize);
+		pxGLVertexBufferCurrentObject = pxGLVertexBuffer.array + pxGLVertexBuffer.size;
 	}
 
-	//Lets return the next available vertex for use.
-	return &pxGLVertexBuffer.array[pxGLVertexBuffer.size++];
+	PXGLColoredTextureVertex *cur = pxGLVertexBufferCurrentObject;
+	++pxGLVertexBufferCurrentObject;
+	++(pxGLVertexBuffer.size);
+
+	// Lets return the next available vertex for use.
+	return cur;
 }
 
 /*
@@ -381,7 +385,7 @@ PXGLColoredTextureVertex *PXGLGetVertexAt(unsigned index)
 {
 	assert(pxGLVertexBuffer.size != 0 && index < pxGLVertexBuffer.size);
 
-	return &pxGLVertexBuffer.array[index];
+	return pxGLVertexBuffer.array + index;
 }
 
 /*
@@ -394,7 +398,7 @@ PXGLColoredTextureVertex *PXGLCurrentVertex( )
 {
 	assert(pxGLVertexBuffer.size != 0);
 
-	return &pxGLVertexBuffer.array[pxGLVertexBuffer.size - 1];
+	return pxGLVertexBufferCurrentObject - 1;
 }
 
 /*
@@ -405,18 +409,22 @@ PXGLColoredTextureVertex *PXGLCurrentVertex( )
  */
 GLushort *PXGLNextIndex( )
 {
-	//Check to see if our size (you could also think of this as the current
-	//index for our purposes) is at the end of the array.  If so, then we need
-	//to increase the size of the array.
+	// Check to see if our size (you could also think of this as the current
+	// index for our purposes) is at the end of the array.  If so, then we need
+	// to increase the size of the array.
 	if (pxGLIndexBuffer.size == pxGLIndexBuffer.maxSize)
 	{
 		//Lets double the size of the array
 		pxGLIndexBuffer.maxSize <<= 1;
 		pxGLIndexBuffer.array = realloc(pxGLIndexBuffer.array, pxGLSizeOfIndex * pxGLIndexBuffer.maxSize);
+		pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array + pxGLIndexBuffer.size;
 	}
 
-	//Lets return the next available vertex for use.
-	return &pxGLIndexBuffer.array[pxGLIndexBuffer.size++];
+	GLushort *cur = pxGLIndexBufferCurrentObject;
+	++pxGLIndexBufferCurrentObject;
+	++(pxGLIndexBuffer.size);
+	// Lets return the next available vertex for use.
+	return cur;
 }
 
 /*
@@ -429,7 +437,7 @@ GLushort *PXGLGetIndexAt(unsigned index)
 {
 	assert(pxGLIndexBuffer.size != 0 && index < pxGLIndexBuffer.size);
 
-	return &pxGLIndexBuffer.array[index];
+	return pxGLIndexBuffer.array + index;
 }
 
 /*
@@ -442,7 +450,7 @@ GLushort *PXGLCurrentIndex( )
 {
 	assert(pxGLIndexBuffer.size != 0);
 
-	return &pxGLIndexBuffer.array[pxGLIndexBuffer.size - 1];
+	return pxGLIndexBufferCurrentObject - 1;
 }
 
 /*
@@ -462,10 +470,15 @@ GLfloat *PXGLNextPointSize( )
 		//Lets double the size of the array
 		pxGLPointSizeBuffer.maxSize <<= 1;
 		pxGLPointSizeBuffer.array = realloc(pxGLPointSizeBuffer.array, pxGLSizeOfPointSize * pxGLPointSizeBuffer.maxSize);
+		pxGLPointSizeBufferCurrentObject = pxGLPointSizeBuffer.array + pxGLPointSizeBuffer.size;
 	}
 
-	//Lets return the next available vertex for use.
-	return &pxGLPointSizeBuffer.array[pxGLPointSizeBuffer.size++];
+	float *cur = pxGLPointSizeBufferCurrentObject;
+	++pxGLPointSizeBufferCurrentObject;
+	++(pxGLPointSizeBuffer.size);
+
+	// Lets return the next available vertex for use.
+	return cur;
 }
 
 /*
@@ -478,7 +491,7 @@ GLfloat *PXGLGetPointSizeAt(unsigned index)
 {
 	assert(pxGLPointSizeBuffer.size != 0 && index < pxGLPointSizeBuffer.size);
 
-	return &pxGLPointSizeBuffer.array[index];
+	return pxGLPointSizeBuffer.array + index;
 }
 
 /*
@@ -491,7 +504,7 @@ GLfloat *PXGLCurrentPointSize( )
 {
 	assert(pxGLPointSizeBuffer.size != 0);
 
-	return &pxGLPointSizeBuffer.array[pxGLPointSizeBuffer.size - 1];
+	return pxGLPointSizeBufferCurrentObject - 1;
 }
 
 /*
@@ -534,6 +547,7 @@ void PXGLConsolidateBuffer( )
 		{
 			pxGLVertexBuffer.maxSize = newMaxSize;
 			pxGLVertexBuffer.array = realloc(pxGLVertexBuffer.array, sizeof(PXGLColoredTextureVertex) * pxGLVertexBuffer.maxSize);
+			pxGLVertexBufferCurrentObject = pxGLVertexBuffer.array + pxGLVertexBuffer.size;
 		}
 	}
 
@@ -545,6 +559,7 @@ void PXGLConsolidateBuffer( )
 		{
 			pxGLIndexBuffer.maxSize = newMaxSize;
 			pxGLIndexBuffer.array = realloc(pxGLIndexBuffer.array, pxGLSizeOfIndex * pxGLIndexBuffer.maxSize);
+			pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array + pxGLIndexBuffer.size;
 		}
 	}
 
@@ -556,6 +571,7 @@ void PXGLConsolidateBuffer( )
 		{
 			pxGLPointSizeBuffer.maxSize = newMaxSize;
 			pxGLPointSizeBuffer.array = realloc(pxGLPointSizeBuffer.array, pxGLSizeOfPointSize * pxGLPointSizeBuffer.maxSize);
+			pxGLPointSizeBufferCurrentObject = pxGLPointSizeBuffer.array + pxGLPointSizeBuffer.size;
 		}
 	}
 
@@ -574,6 +590,29 @@ void PXGLConsolidateBuffer( )
 	pxGLHadDrawnElements = false;
 }
 
+PXInline void PXGLDraw()
+{
+	// If the array is larger then max vertices, we should flush it in chunks.
+	// This is best done by flushing up until MAX_VERTICES - 2, then again from
+	// MAX_VERTICES - 2 until whatever happens next.  This could be
+	// 2 * (MAX_VERTICES - 2) or size.  This needs to continue until it is empty
+
+	// HAVE TO BE SIGNED
+	int start;
+	int amountToDraw = pxGLDrawElements ? pxGLIndexBuffer.size : pxGLVertexBuffer.size;
+
+	if (pxGLDrawElements)
+	{
+		for (start = 0; amountToDraw > 0; start += PX_GL_RENDERER_MAX_VERTICES_MINUS_2, amountToDraw -= PX_GL_RENDERER_MAX_VERTICES_MINUS_2)
+			glDrawElements(pxGLDrawMode, ((amountToDraw < PX_GL_RENDERER_MAX_VERTICES) ? amountToDraw : PX_GL_RENDERER_MAX_VERTICES), GL_UNSIGNED_SHORT, pxGLIndexBuffer.array + start);
+	}
+	else
+	{
+		for (start = 0; amountToDraw > 0; start += PX_GL_RENDERER_MAX_VERTICES_MINUS_2, amountToDraw -= PX_GL_RENDERER_MAX_VERTICES_MINUS_2)
+			glDrawArrays(pxGLDrawMode, start, ((amountToDraw < PX_GL_RENDERER_MAX_VERTICES) ? amountToDraw : PX_GL_RENDERER_MAX_VERTICES));
+	}
+}
+
 /*
  *	This method flushes the buffer to GL, meaning that it takes whatever the
  *	buffer status is right now, and calls the appropriate methods in gl to
@@ -581,26 +620,6 @@ void PXGLConsolidateBuffer( )
  */
 void PXGLFlushBufferToGL( )
 {
-	// If the array is larger then max vertices, we should flush it in chunks.
-	// This is best done by flushing up until MAX_VERTICES - 2, then again from
-	// MAX_VERTICES - 2 until whatever happens next.  This could be
-	// 2 * (MAX_VERTICES - 2) or size.  This needs to continue until it is empty
-	#define PXGLDraw( ) \
-	{\
-		int amountToDraw = pxGLDrawElements ? pxGLIndexBuffer.size : pxGLVertexBuffer.size; \
-        \
-		if (pxGLDrawElements)\
-		{\
-			for (int start = 0; amountToDraw > 0; start += PX_GL_RENDERER_MAX_VERTICES_MINUS_2, amountToDraw -= PX_GL_RENDERER_MAX_VERTICES_MINUS_2) \
-				glDrawElements(pxGLDrawMode, ((amountToDraw < PX_GL_RENDERER_MAX_VERTICES) ? amountToDraw : PX_GL_RENDERER_MAX_VERTICES), GL_UNSIGNED_SHORT, pxGLIndexBuffer.array + start); \
-		}\
-		else\
-		{\
-			for (int start = 0; amountToDraw > 0; start += PX_GL_RENDERER_MAX_VERTICES_MINUS_2, amountToDraw -= PX_GL_RENDERER_MAX_VERTICES_MINUS_2) \
-				glDrawArrays( pxGLDrawMode, start, ((amountToDraw < PX_GL_RENDERER_MAX_VERTICES) ? amountToDraw : PX_GL_RENDERER_MAX_VERTICES)); \
-		}\
-	}
-
 	// Check to see if the color array is enabled, or if we are going to use a
 	// color array anyway, if so... lets turn it on!
 	if (pxGLBufferVertexColorState == PX_GL_VERTEX_COLOR_MULTIPLE ||
@@ -621,7 +640,7 @@ void PXGLFlushBufferToGL( )
 	// If the point size array is enabled, then lets set the pointer for it.
 	if (PX_IS_BIT_ENABLED(pxGLStateInGL.clientState, PX_GL_POINT_SIZE_ARRAY))
 	//if (PX_IS_BIT_ENABLED(pxGLClientStateInGL, PX_GL_POINT_SIZE_ARRAY))
-		glPointSizePointerOES(GL_FLOAT, 0, &pxGLPointSizeBuffer.array[0]);
+		glPointSizePointerOES(GL_FLOAT, 0, pxGLPointSizeBuffer.array);
 
 	// shorts even though it is actually a boolean, for alignment
 	int isTextured = PX_IS_BIT_ENABLED(pxGLStateInGL.clientState, PX_GL_TEXTURE_COORD_ARRAY);
@@ -805,6 +824,7 @@ void PXGLFlushBuffer( )
 		pxGLVertexBufferMaxSize = pxGLVertexBuffer.size;
 
 	pxGLVertexBuffer.size = 0;
+	pxGLVertexBufferCurrentObject = pxGLVertexBuffer.array;
 
 	//If the max size is less then the current size, lets set the max size to
 	//the current size... then reset the size to 0.
@@ -812,6 +832,7 @@ void PXGLFlushBuffer( )
 		pxGLIndexBufferMaxSize = pxGLIndexBuffer.size;
 
 	pxGLIndexBuffer.size = 0;
+	pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array;
 
 	//If the max size is less then the current size, lets set the max size to
 	//the current size... then reset the size to 0.
@@ -819,6 +840,7 @@ void PXGLFlushBuffer( )
 		pxGLPointSizeBufferMaxSize = pxGLPointSizeBuffer.size;
 
 	pxGLPointSizeBuffer.size = 0;
+	pxGLPointSizeBufferCurrentObject = pxGLPointSizeBuffer.array;
 
 	//Lets reset the colors to their max... aka white and visible.
 	pxGLBufferLastVertexRed   = 0xFF;

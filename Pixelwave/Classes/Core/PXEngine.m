@@ -226,6 +226,9 @@ typedef struct
 } _PXEngineDisplayObjectBuffer;
 
 _PXEngineDisplayObjectBuffer pxEngineDOBuffer;
+PXDisplayObject **pxEngineDOBufferCurrentObject = NULL;
+
+
 unsigned pxEngineDOBufferMaxSize = 0;
 unsigned pxEngineDOBufferOldMaxSize = 0;
 
@@ -248,6 +251,7 @@ void PXEngineInit(PXView *view)
 	pxEngineDOBuffer.size = 0;
 	pxEngineDOBuffer.maxSize = PX_ENGINE_MIN_BUFFER_SIZE;
 	pxEngineDOBuffer.array = malloc(sizeof(PXDisplayObject *) * pxEngineDOBuffer.maxSize);
+	pxEngineDOBufferCurrentObject = pxEngineDOBuffer.array;
 
 	///////////
 	// Timer //
@@ -379,11 +383,16 @@ void PXEngineDealloc( )
 
 	if (pxEngineDOBuffer.array)
 	{
-		for (int index = 0; index < pxEngineDOBuffer.size; ++index)
-			[pxEngineDOBuffer.array[index] release];
+		PXDisplayObject **curDisplayObject;
+		unsigned index;
+		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
+		{
+			[(*curDisplayObject) release];
+		}
 
 		free(pxEngineDOBuffer.array);
 		pxEngineDOBuffer.array = 0;
+		pxEngineDOBufferCurrentObject = 0;
 	}
 
 	_PXTopLevelDealloc();
@@ -393,18 +402,22 @@ void PXEngineDealloc( )
 
 PXDisplayObject **PXEngineNextBufferObject( )
 {
-	//Check to see if our size (you could also think of this as the current
-	//index for our purposes) is at the end of the array.  If so, then we need
-	//to increase the size of the array.
+	// Check to see if our size (you could also think of this as the current
+	// index for our purposes) is at the end of the array.  If so, then we need
+	// to increase the size of the array.
 	if (pxEngineDOBuffer.size == pxEngineDOBuffer.maxSize)
 	{
 		//Lets double the size of the array
 		pxEngineDOBuffer.maxSize <<= 1;
 		pxEngineDOBuffer.array = realloc(pxEngineDOBuffer.array, sizeof(PXDisplayObject *) * pxEngineDOBuffer.maxSize);
+		pxEngineDOBufferCurrentObject = pxEngineDOBuffer.array + pxEngineDOBuffer.size;
 	}
 
+	PXDisplayObject **cur = pxEngineDOBufferCurrentObject;
+	++pxEngineDOBufferCurrentObject;
+	++(pxEngineDOBuffer.size);
 	//Lets return the next available vertex for use.
-	return &pxEngineDOBuffer.array[pxEngineDOBuffer.size++];
+	return cur;
 }
 
 PXView *PXEngineGetView( )
@@ -989,8 +1002,12 @@ void PXEngineDispatchFrameEvents()
 void PXEngineRender()
 {
 	assert(pxEngineDOBuffer.array);
-	for (int index = 0; index < pxEngineDOBuffer.size; ++index)
-		[pxEngineDOBuffer.array[index] release];
+	unsigned index;
+	PXDisplayObject **curDisplayObject;
+	for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
+	{
+		[*curDisplayObject release];
+	}
 
 	pxEngineDOBuffer.size = 0;
 
@@ -1006,6 +1023,7 @@ void PXEngineRender()
 
 	pxEngineDOBufferOldMaxSize = pxEngineDOBufferMaxSize;
 	pxEngineDOBufferMaxSize = 0;
+	pxEngineDOBufferCurrentObject = pxEngineDOBuffer.array;
 
 	if (pxEngineShouldClear)
 	{
@@ -1068,7 +1086,6 @@ void PXEngineRender()
 		PXGLAABB *aabbPtr;
 		PXDisplayObject *doAABB;
 		PXDisplayObject **curDisplayObject;
-		unsigned index;
 
 		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
 		{
@@ -1112,7 +1129,7 @@ void PXEngineRender()
 		CGPoint topRight;
 		CGPoint bottomLeft;
 		CGPoint bottomRight;
-		unsigned index;
+
 		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
 		{
 			doAABB = *curDisplayObject;
