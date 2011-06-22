@@ -1437,8 +1437,10 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	}
 
 	unsigned usedIndexCount = isStrip ? count + 2 : count;
-	// Grab an array of vertices
+
+	// Grab an array of indices and vertices
 	index = PXGLAskForIndices(usedIndexCount);
+	point = PXGLAskForVertices(count);
 
 	// For strips
 	GLushort *preFirstIndex;
@@ -1470,13 +1472,12 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	const GLushort *curIndex;
 	unsigned counter;
 
-	for (counter = 0, curIndex = indices + counter; counter < count; ++counter, ++vertexIndex, ++curIndex, ++index)
+	for (counter = 0, curIndex = indices + counter; counter < count; ++counter, ++vertexIndex, ++curIndex, ++index, ++point)
 	{
 		// Get the next available point, this method needs to also change the
 		// size of the array accordingly.  If the array ever gets larger then
 		// MAX_VERTICES, we should flush it.  Keep in mind that if we do
 		// that here, then offset and translation needs to change also.
-		point = PXGLNextVertex( );
 		*index = vertexIndex;
 		eVal = *curIndex;
 
