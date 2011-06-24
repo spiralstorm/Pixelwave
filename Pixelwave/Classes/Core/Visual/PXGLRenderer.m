@@ -349,33 +349,6 @@ void PXGLSetCurrentPointSizeIndex(unsigned index)
 }
 
 /*
- *	This method returns a pointer to the next vertex in the buffer.  If the next
- *	vertex is outside of the buffer's range, then the buffer doubles in size.
- *
- *	@return - A pointer to the next vertex in the buffer.
- */
-PXGLColoredTextureVertex *PXGLNextVertex( )
-{
-	//Check to see if our size (you could also think of this as the current
-	//index for our purposes) is at the end of the array.  If so, then we need
-	//to increase the size of the array.
-	if (pxGLVertexBuffer.size == pxGLVertexBuffer.maxSize)
-	{
-		//Lets double the size of the array
-		pxGLVertexBuffer.maxSize <<= 1;
-		pxGLVertexBuffer.array = realloc(pxGLVertexBuffer.array, sizeof(PXGLColoredTextureVertex) * pxGLVertexBuffer.maxSize);
-		pxGLVertexBufferCurrentObject = pxGLVertexBuffer.array + pxGLVertexBuffer.size;
-	}
-
-	PXGLColoredTextureVertex *cur = pxGLVertexBufferCurrentObject;
-	++pxGLVertexBufferCurrentObject;
-	++(pxGLVertexBuffer.size);
-
-	// Lets return the next available vertex for use.
-	return cur;
-}
-
-/*
  *	This method returns a pointer to the vertex at a given index.  If the index
  *	is out of bounds then an assertion is thrown (in debug mode).
  *
@@ -411,38 +384,14 @@ PXGLColoredTextureVertex *PXGLAskForVertices(unsigned count)
 		pxGLVertexBufferCurrentObject = pxGLVertexBuffer.array + pxGLVertexBuffer.size;
 	}
 
-	PXGLColoredTextureVertex *cur = pxGLVertexBufferCurrentObject;
-	pxGLVertexBufferCurrentObject += count;
-	pxGLVertexBuffer.size += count;
-
 	// Lets return the next available vertex for use.
-	return cur;
+	return pxGLVertexBufferCurrentObject;
 }
 
-/*
- *	This method returns a pointer to the next index in the buffer.  If the next
- *	index is outside of the buffer's range, then the buffer doubles in size.
- *
- *	@return - A pointer to the next index in the buffer.
- */
-GLushort *PXGLNextIndex( )
+void PXGLUsedVertices(unsigned count)
 {
-	// Check to see if our size (you could also think of this as the current
-	// index for our purposes) is at the end of the array.  If so, then we need
-	// to increase the size of the array.
-	if (pxGLIndexBuffer.size == pxGLIndexBuffer.maxSize)
-	{
-		//Lets double the size of the array
-		pxGLIndexBuffer.maxSize <<= 1;
-		pxGLIndexBuffer.array = realloc(pxGLIndexBuffer.array, pxGLSizeOfIndex * pxGLIndexBuffer.maxSize);
-		pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array + pxGLIndexBuffer.size;
-	}
-
-	GLushort *cur = pxGLIndexBufferCurrentObject;
-	++pxGLIndexBufferCurrentObject;
-	++(pxGLIndexBuffer.size);
-	// Lets return the next available vertex for use.
-	return cur;
+	pxGLVertexBufferCurrentObject += count;
+	pxGLVertexBuffer.size += count;
 }
 
 /*
@@ -481,40 +430,13 @@ GLushort *PXGLAskForIndices(unsigned count)
 		pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array + pxGLIndexBuffer.size;
 	}
 
-	GLushort *cur = pxGLIndexBufferCurrentObject;
+	// Lets return the next available vertex for use.
+	return pxGLIndexBufferCurrentObject;
+}
+void PXGLUsedIndices(unsigned count)
+{
 	pxGLIndexBufferCurrentObject += count;
 	pxGLIndexBuffer.size += count;
-
-	// Lets return the next available vertex for use.
-	return cur;
-}
-
-/*
- *	This method returns a pointer to the next point size in the buffer.  If the
- *	next point size  is outside of the buffer's range, then the buffer doubles
- *	in size.
- *
- *	@return - A pointer to the next point size in the buffer.
- */
-GLfloat *PXGLNextPointSize( )
-{
-	//Check to see if our size (you could also think of this as the current
-	//index for our purposes) is at the end of the array.  If so, then we need
-	//to increase the size of the array.
-	if (pxGLPointSizeBuffer.size == pxGLPointSizeBuffer.maxSize)
-	{
-		//Lets double the size of the array
-		pxGLPointSizeBuffer.maxSize <<= 1;
-		pxGLPointSizeBuffer.array = realloc(pxGLPointSizeBuffer.array, pxGLSizeOfPointSize * pxGLPointSizeBuffer.maxSize);
-		pxGLPointSizeBufferCurrentObject = pxGLPointSizeBuffer.array + pxGLPointSizeBuffer.size;
-	}
-
-	float *cur = pxGLPointSizeBufferCurrentObject;
-	++pxGLPointSizeBufferCurrentObject;
-	++(pxGLPointSizeBuffer.size);
-
-	// Lets return the next available vertex for use.
-	return cur;
 }
 
 /*
@@ -553,12 +475,14 @@ GLfloat *PXGLAskForPointSizes(unsigned count)
 		pxGLPointSizeBufferCurrentObject = pxGLPointSizeBuffer.array + pxGLPointSizeBuffer.size;
 	}
 
-	GLfloat *cur = pxGLPointSizeBufferCurrentObject;
+	// Lets return the next available vertex for use.
+	return pxGLPointSizeBufferCurrentObject;
+}
+
+void PXGLUsedPointSizes(unsigned count)
+{
 	pxGLPointSizeBufferCurrentObject += count;
 	pxGLPointSizeBuffer.size += count;
-
-	// Lets return the next available vertex for use.
-	return cur;
 }
 
 /*

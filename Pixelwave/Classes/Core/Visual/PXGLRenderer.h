@@ -55,6 +55,13 @@ extern PXGLState pxGLStateInGL;
 
 extern GLuint pxGLBufferVertexColorState;
 
+typedef struct
+{
+	PXGLColoredTextureVertex *vertex;
+	GLfloat *pointSize;
+	GLuint vertexIndex;
+} PXGLElementBucket;
+
 void PXGLRendererInit( );
 void PXGLRendererDealloc( );
 
@@ -71,20 +78,24 @@ void PXGLSetCurrentIndex(unsigned index);
 unsigned PXGLGetCurrentPointSizeIndex( );
 void PXGLSetCurrentPointSizeIndex(unsigned index);
 
-PXGLColoredTextureVertex *PXGLNextVertex( );
+//PXGLColoredTextureVertex *PXGLNextVertex( );
 PXGLColoredTextureVertex *PXGLGetVertexAt(unsigned index);
 PXGLColoredTextureVertex *PXGLCurrentVertex( );
 PXGLColoredTextureVertex *PXGLAskForVertices(unsigned count);
+void PXGLUsedVertices(unsigned count);
 
-GLushort *PXGLNextIndex( );
 GLushort *PXGLGetIndexAt(unsigned index);
 GLushort *PXGLCurrentIndex( );
 GLushort *PXGLAskForIndices(unsigned count);
+void PXGLUsedIndices(unsigned count);
 
-GLfloat *PXGLNextPointSize( );
+//GLfloat *PXGLNextPointSize( );
 GLfloat *PXGLGetPointSizeAt(unsigned index);
 GLfloat *PXGLCurrentPointSize( );
 GLfloat *PXGLAskForPointSizes(unsigned count);
+void PXGLUsedPointSizes(unsigned count);
+
+//PXGLElementBucket *PXGLGetElementBucket
 
 void PXGLRendererPreRender( );
 void PXGLRendererPostRender( );
