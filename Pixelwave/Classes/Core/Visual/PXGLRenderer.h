@@ -95,7 +95,7 @@ GLfloat *PXGLCurrentPointSize( );
 GLfloat *PXGLAskForPointSizes(unsigned count);
 void PXGLUsedPointSizes(unsigned count);
 
-//PXGLElementBucket *PXGLGetElementBucket
+PXGLElementBucket *PXGLGetElementBuckets(unsigned maxBucketVal);
 
 void PXGLRendererPreRender( );
 void PXGLRendererPostRender( );

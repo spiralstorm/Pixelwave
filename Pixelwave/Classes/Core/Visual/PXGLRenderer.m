@@ -79,9 +79,18 @@ typedef struct
 	GLfloat *array;
 } _PXGLPointSizeBuffer;
 
+typedef struct
+{
+	unsigned size;
+	unsigned maxSize;
+	
+	PXGLElementBucket *array;
+} _PXGLElementBucketBuffer;
+
 PXGLColoredTextureVertex *pxGLVertexBufferCurrentObject = NULL;
 GLushort *pxGLIndexBufferCurrentObject = NULL;
 GLfloat *pxGLPointSizeBufferCurrentObject = NULL;
+PXGLElementBucket *pxGLElementBucketBufferCurrentObject = NULL;
 
 PXGLState pxGLDefaultState;
 PXGLState pxGLState;
@@ -98,9 +107,13 @@ unsigned pxGLIndexOldBufferMaxSize = 0;
 unsigned pxGLPointSizeBufferMaxSize = 0;
 unsigned pxGLPointSizeOldBufferMaxSize = 0;
 
+unsigned pxGLElementBucketBufferMaxSize = 0;
+unsigned pxGLElementBucketOldBufferMaxSize = 0;
+
 _PXGLVertexBuffer pxGLVertexBuffer;
 _PXGLIndexBuffer pxGLIndexBuffer;
 _PXGLPointSizeBuffer pxGLPointSizeBuffer;
+_PXGLElementBucketBuffer pxGLElementBucketBuffer;
 
 GLenum pxGLDrawMode = 0;
 
@@ -147,6 +160,10 @@ void PXGLRendererInit( )
 	pxGLPointSizeBuffer.maxSize = PX_GL_RENDERER_MIN_BUFFER_SIZE;
 	pxGLPointSizeBuffer.array = malloc(pxGLSizeOfPointSize * pxGLPointSizeBuffer.maxSize);
 
+	pxGLElementBucketBuffer.size = 0;
+	pxGLElementBucketBuffer.maxSize = PX_GL_RENDERER_MIN_BUFFER_SIZE;
+	pxGLElementBucketBuffer.array = malloc(sizeof(PXGLElementBucket) * pxGLElementBucketBuffer.maxSize);
+
 	pxGLVertexBufferCurrentObject = pxGLVertexBuffer.array;
 	pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array;
 	pxGLPointSizeBufferCurrentObject = pxGLPointSizeBuffer.array;
@@ -165,19 +182,28 @@ void PXGLRendererDealloc( )
 	//If the buffer arrays exist, we should free their memory.
 
 	if (pxGLVertexBuffer.array)
+	{
 		free(pxGLVertexBuffer.array);
-
-	pxGLVertexBuffer.array = 0;
+		pxGLVertexBuffer.array = NULL;
+	}
 
 	if (pxGLIndexBuffer.array)
+	{
 		free(pxGLIndexBuffer.array);
-
-	pxGLIndexBuffer.array = 0;
+		pxGLIndexBuffer.array = NULL;
+	}
 
 	if (pxGLPointSizeBuffer.array)
+	{
 		free(pxGLPointSizeBuffer.array);
+		pxGLPointSizeBuffer.array = NULL;
+	}
 
-	pxGLPointSizeBuffer.array = 0;
+	if (pxGLElementBucketBuffer.array)
+	{
+		free(pxGLElementBucketBuffer.array);
+		pxGLElementBucketBuffer.array = NULL;
+	}
 
 #ifdef PX_RENDER_VBO
 	if (PXGLBufferVertexID)
@@ -202,7 +228,7 @@ void PXGLSetDrawMode(GLenum mode)
 	//strip; if so, then we need to flush the buffer and change modes.
 	if (mode != pxGLDrawMode || mode == GL_LINE_LOOP || mode == GL_LINE_STRIP)
 	{
-		PXGLFlushBuffer( );
+		PXGLFlushBuffer();
 		pxGLDrawMode = mode;
 	}
 }
@@ -485,11 +511,31 @@ void PXGLUsedPointSizes(unsigned count)
 	pxGLPointSizeBuffer.size += count;
 }
 
+PXGLElementBucket *PXGLGetElementBuckets(unsigned maxBucketVal)
+{
+	pxGLElementBucketBuffer.size = maxBucketVal;
+
+	while (pxGLElementBucketBuffer.size >= pxGLElementBucketBuffer.maxSize)
+	{
+		//Lets double the size of the array
+		pxGLElementBucketBuffer.maxSize <<= 1;
+		pxGLElementBucketBuffer.array = realloc(pxGLElementBucketBuffer.array, sizeof(PXGLElementBucket) * pxGLElementBucketBuffer.maxSize);
+	}
+
+	if (pxGLElementBucketBufferMaxSize < pxGLElementBucketBuffer.size)
+		pxGLElementBucketBufferMaxSize = pxGLElementBucketBuffer.size;
+
+	memset(pxGLElementBucketBuffer.array, 0, sizeof(PXGLElementBucket) * pxGLElementBucketBuffer.size);
+
+	// Lets return the next available vertex for use.
+	return pxGLElementBucketBuffer.array;
+}
+
 /*
  *	This method runs through all of the pre-render commands... which as of now
  *	none exist.
  */
-void PXGLRendererPreRender( )
+void PXGLRendererPreRender()
 {
 }
 
@@ -511,7 +557,7 @@ void PXGLRendererPostRender( )
  *	then 1/4 of their max size, then it will reduce the size of the buffer to
  *	half of it's normal size.
  */
-void PXGLConsolidateBuffer( )
+void PXGLConsolidateBuffer()
 {
 	assert(pxGLVertexBuffer.array);
 
@@ -553,15 +599,27 @@ void PXGLConsolidateBuffer( )
 		}
 	}
 
+	if (pxGLHadDrawnElements && pxGLElementBucketBufferMaxSize < (pxGLElementBucketBufferMaxSize >> 2))
+	{
+		int newMaxSize = pxGLElementBucketBuffer.maxSize >> 1;
+		if (newMaxSize > PX_GL_RENDERER_MIN_BUFFER_SIZE)
+		{
+			pxGLElementBucketBuffer.maxSize = newMaxSize;
+			pxGLElementBucketBuffer.array = realloc(pxGLElementBucketBuffer.array, sizeof(PXGLElementBucket) * pxGLElementBucketBuffer.maxSize);
+		}
+	}
+
 	//Set the old max to the new max.
 	pxGLVertexOldBufferMaxSize = pxGLVertexBufferMaxSize;
 	pxGLIndexOldBufferMaxSize = pxGLIndexBufferMaxSize;
 	pxGLPointSizeOldBufferMaxSize = pxGLPointSizeBufferMaxSize;
+	pxGLElementBucketOldBufferMaxSize = pxGLElementBucketBufferMaxSize;
 
 	//Reset the max.
 	pxGLVertexBufferMaxSize = 0;
 	pxGLIndexBufferMaxSize = 0;
 	pxGLPointSizeBufferMaxSize = 0;
+	pxGLElementBucketBufferMaxSize = 0;
 
 	//Set the variables to have yet been drawn.
 	pxGLHadDrawnArrays = false;

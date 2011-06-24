@@ -1416,12 +1416,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 			maxIndex = *curIndex;
 	}
 
-	PXGLElementBucket *buckets = calloc((maxIndex + 1), sizeof(PXGLElementBucket));
-	if (!buckets)
-		return;
-
-//	PXGLElementStruct buckets[maxIndex + 1];
-//	memset(buckets, 0, sizeof(PXGLElementStruct) * (maxIndex +1));
+	PXGLElementBucket *buckets = PXGLGetElementBuckets(maxIndex + 1);
 	PXGLElementBucket *bucket;
 
 	for (counter = 0, curIndex = indices + counter; counter < count; ++counter, ++curIndex, ++index)
@@ -1486,8 +1481,6 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 
 		*index = bucket->vertexIndex;
 	}
-
-	free(buckets);
 
 	if (isStrip)
 	{
