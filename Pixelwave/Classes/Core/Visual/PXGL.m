@@ -1095,10 +1095,10 @@ PXInline void PXGLDefineVertex(PXGLColoredTextureVertex *point,
 		point->b = pxGLBlue;
 		point->a = pxGLAlpha;
 	}
-	
+
 	// If we haven't had multiple values for colors yet, then we have to
 	// check if this addition will make it so.
-	if (!(pxGLBufferVertexColorState == PX_GL_VERTEX_COLOR_MULTIPLE))
+	if (pxGLBufferVertexColorState != PX_GL_VERTEX_COLOR_MULTIPLE)
 		PXGLSetBufferLastVertexColor(point->r, point->g, point->b, point->a);
 
 	if (*pointSizesPtr)
@@ -1410,7 +1410,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	unsigned counter;
 
 	GLushort maxIndex = *indices;
-	for (counter = 1, curIndex = indices + counter; counter < count; ++counter, ++curIndex, ++index)
+	for (counter = 1, curIndex = indices + counter; counter < count; ++counter, ++curIndex)
 	{
 		if (maxIndex < *curIndex)
 			maxIndex = *curIndex;
