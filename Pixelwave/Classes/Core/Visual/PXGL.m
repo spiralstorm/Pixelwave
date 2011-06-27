@@ -1409,12 +1409,12 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	const GLushort *curIndex;
 	GLsizei counter;
 
-	GLushort maxIndex = *indices;
-	for (counter = 1, curIndex = indices + counter; counter < count; ++counter, ++curIndex)
+	GLushort maxIndex = count;//*indices;
+	/*for (counter = 1, curIndex = indices + counter; counter < count; ++counter, ++curIndex)
 	{
 		if (maxIndex < *curIndex)
 			maxIndex = *curIndex;
-	}
+	}*/
 
 	PXGLElementBucket *buckets = PXGLGetElementBuckets(maxIndex + 1);
 	PXGLElementBucket *bucket;
@@ -1427,6 +1427,12 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		// here, then offset and translation needs to change also.
 
 		eVal = *curIndex;
+
+		if (eVal > maxIndex)
+		{
+			maxIndex = eVal;
+			buckets = PXGLGetElementBuckets(maxIndex + 1);
+		}
 
 		bucket = buckets + eVal;
 
