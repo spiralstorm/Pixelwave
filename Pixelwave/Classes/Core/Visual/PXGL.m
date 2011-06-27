@@ -1407,7 +1407,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	int nX, nY;
 
 	const GLushort *curIndex;
-	unsigned counter;
+	GLsizei counter;
 
 	GLushort maxIndex = *indices;
 	for (counter = 1, curIndex = indices + counter; counter < count; ++counter, ++curIndex)
