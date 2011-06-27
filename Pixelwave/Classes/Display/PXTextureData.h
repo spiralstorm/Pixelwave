@@ -204,6 +204,13 @@
 				 smoothing:(BOOL)smoothing
 			  clearTexture:(BOOL)clearTexture;
 
+- (void) drawTextureData:(PXTextureData *)source
+				  matrix:(PXMatrix *)matrix
+		  colorTransform:(PXColorTransform *)colorTransform
+				clipRect:(PXRectangle *)clipRect
+			   smoothing:(BOOL)smoothing
+			clearTexture:(BOOL)clearTexture;
+
 //-- ScriptName: setExpandEdges
 //-- ScriptArg[0]: required
 + (void) setExpandEdges:(BOOL)expandEdges;

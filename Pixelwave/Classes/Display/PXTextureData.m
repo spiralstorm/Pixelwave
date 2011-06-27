@@ -56,6 +56,9 @@
 #include <CoreGraphics/CGGeometry.h>
 #include "PXColorUtils.h"
 
+// For drawTextureData
+#import "PXTexture.h"
+
 BOOL pxTextureDataExpandEdges = YES;
 
 /**
@@ -508,7 +511,52 @@ BOOL pxTextureDataExpandEdges = YES;
 	_tPerPixel = _maxT / (float)_contentHeight;
 }
 
-// TODO Later: Let the draw method draw other TextureData objects.
+/**
+ *	Renders the source TextureData onto this TextureData. To modify
+ *	the transformation with which the source is drawn onto the texture you can
+ *	pass custom <code>matrix</code> and <code>colorTransform</code> objects, or
+ *	<code>nil</code> for the default transformations.
+ *
+ *	@param source
+ *		A PXTextureData to draw onto this PXTextureData.
+ *	@param matrix
+ *		A PXMatrix object representing the transformation with which
+ *		<code>source</code> will be rendered. Pass <code>nil</code> to use the
+ *		default (identity) matrix.
+ *	@param colorTransform
+ *		A PXColorTransform object representing the color transformation with
+ *		which <code>source</code> will be rendered. Pass <code>nil</code> to use
+ *		the default transformation.
+ *	@param clipRect
+ *		A PXRectangle object defining the area of the <code>source</code> object
+ *		to draw. Pass <code>nil</code> to use the entire area of
+ *		<code>source</code>.
+ *	@param smoothing
+ *		A boolean value indicating if a TextureData object should be smoothed
+ *		when rotated or scaled. Only applies when drawing a TextureData object.
+ *	@param clearTexture
+ *		A boolean value indicating if the TextureData should be cleared before
+ *		being drawn onto. Pass <code>NO</code> for this value as an optimization
+ *		if the entire surface of the PXTextureData will be drawn into.
+ */
+- (void) drawTextureData:(PXTextureData *)source
+				  matrix:(PXMatrix *)matrix
+		  colorTransform:(PXColorTransform *)colorTransform
+				clipRect:(PXRectangle *)clipRect
+			   smoothing:(BOOL)smoothing
+			clearTexture:(BOOL)clearTexture
+{
+	PXTexture *texture = [[PXTexture alloc] initWithTextureData:source];
+	
+	[self drawDisplayObject:texture
+					 matrix:matrix
+			 colorTransform:colorTransform
+				   clipRect:clipRect
+				  smoothing:smoothing
+			   clearTexture:clearTexture];
+	
+	[texture release];
+}
 
 /**
  *	Renders the given display object onto the texture data with the default
