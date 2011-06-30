@@ -177,4 +177,10 @@ typedef enum
  */
 @property (nonatomic, readonly) PXView *nativeView;
 
+/**
+ *	Statically returns a reference to the main stage associated with the
+ *	Pixelwave engine.
+ */
++ (PXStage *)mainStage;
+
 @end

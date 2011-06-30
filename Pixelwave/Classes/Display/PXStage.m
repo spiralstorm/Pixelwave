@@ -335,4 +335,9 @@
 	[self onUnsettablePropertyAccess];
 }
 
++ (PXStage *)mainStage
+{
+	return PXEngineGetStage();
+}
+
 @end
