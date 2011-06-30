@@ -263,11 +263,6 @@
 	return PXEngineGetView();
 }
 
-- (void) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener
-{
-	[super addEventListenerOfType:type listener:listener];
-}
-
 #pragma mark Unsettable Properties
 
 - (void) onUnsettablePropertyAccess
