@@ -1012,36 +1012,54 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 #pragma mark Per frame event listeners
-- (void) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
+- (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
+	BOOL shouldAddEngineListener = NO;
+	
+	// If this is an ENTER_FRAME event, and I'm not already listening on the engine
+	// then add me
 	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
 	{
 		if (![self hasEventListenerOfType:type])
 		{
-			//Add me to the engine's list of onFrame listeners
-
-			if (!PXEngineIsInitialized( ))
-			{
-				PXThrow(PXException, @"Can't add enterFrame event before a PXView is created.");
-				return;
-			}
-
-			PXEngineAddFrameListener(self);
+			shouldAddEngineListener = YES;
 		}
 	}
-
-	[super addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
+	
+	BOOL added = [super addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
+	
+	if(!added) return NO;
+	
+	if(shouldAddEngineListener){
+		if (!PXEngineIsInitialized( ))
+		{
+			PXThrow(PXException, @"Can't add enterFrame event before a PXView is created.");
+			return NO;
+		}
+		
+		PXEngineAddFrameListener(self);
+	}
+	
+	return YES;
 }
 
-- (void) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
+- (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
 {
+	BOOL removed = [super removeEventListenerOfType:type listener:listener useCapture:useCapture];
+	
+	if(!removed) return NO;
+	
 	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
 	{
-		if ([self hasEventListenerOfType:type])
+		// If nothing else needs to recieve enter frame events from the engine
+		// we can stop listening
+		if (![self hasEventListenerOfType:type])
+		{
 			PXEngineRemoveFrameListener(self);
+		}
 	}
-
-	[super removeEventListenerOfType:type listener:listener useCapture:useCapture];
+	
+	return YES;
 }
 
 #pragma mark the Event Flow
