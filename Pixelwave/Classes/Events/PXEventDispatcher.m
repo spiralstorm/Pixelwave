@@ -161,9 +161,9 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * }
  *	@endcode
  */
-- (void) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener
+- (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener
 {
-	[self addEventListenerOfType:type listener:listener useCapture:NO priority:0];
+	return [self addEventListenerOfType:type listener:listener useCapture:NO priority:0];
 }
 
 /**
@@ -192,17 +192,17 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * }
  *	@endcode
  */
-- (void) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
+- (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
 	if (!type)
 	{
 		PXThrowNilParam(type);
-		return;
+		return NO;
 	}
 	if (!listener)
 	{
 		PXThrowNilParam(listener);
-		return;
+		return NO;
 	}
 
 	// Event priority must be >= zero... Could be negative in Flash player, but
@@ -211,7 +211,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	if (priority < 0)
 	{
 		PXThrow(PXArgumentException, @"Parameter priority must be >= 0");
-		return;
+		return NO;
 	}
 
 	if (!eventListeners)
@@ -241,7 +241,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	// if ([self getSimilarListener:listener inArr:listenersArray] != nil)
 	if (PXGetSimilarListener(listener, listenersArray))
 	{
-		return;
+		return NO;
 	}
 
 	// Add this listener into the list given its priority
@@ -279,6 +279,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	}
 
 	listener->_priority = priority;
+	
+	return YES;
 }
 
 #pragma mark Removing Listeners
@@ -291,9 +293,9 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  *	@param listener
  *		The listener
  */
-- (void) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener
+- (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener
 {
-	[self removeEventListenerOfType:type listener:listener useCapture:NO];
+	return [self removeEventListenerOfType:type listener:listener useCapture:NO];
 }
 
 /**
@@ -306,22 +308,22 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  *	@param capture
  *		If it should use capture
  */
-- (void) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
+- (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
 {
 	if (!type)
 	{
 		PXThrowNilParam(type);
-		return;
+		return NO;
 	}
 	if (!listener)
 	{
 		PXThrowNilParam(listener);
-		return;
+		return NO;
 	}
 	
 	// Can't remove an event listeners if there aren't any
 	if (!eventListeners)
-		return;
+		return NO;
 
 	if (useCapture)
 	{
@@ -332,7 +334,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 	// Can't remove an event listener if there aren't any for that type
 	if (!listenersArray)
-		return;
+		return NO;
 
 	// Remove the listener from the array
 	//[self getSimilarListener:listener inArr:listenersArray];
@@ -340,7 +342,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 	//Can't remove a listener if it doesn't exist in my list
 	if (!realListener)
-		return;
+		return NO;
 
 	[listenersArray removeObject:realListener];
 
@@ -356,6 +358,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 		[eventListeners release];
 		eventListeners = nil;
 	}
+	
+	return YES;
 }
 
 /**
