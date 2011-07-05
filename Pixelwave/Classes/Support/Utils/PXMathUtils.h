@@ -50,6 +50,12 @@ extern "C" {
 #pragma mark Macros
 #pragma mark -
 
+static const float pxMath1_3 = 1.0f / 3.0f;
+static const float pxMath2_3 = 2.0f / 3.0f;
+
+static const float pxMathPI_180 = M_PI / 180.0f;
+static const float pxMath180_PI = 180.0f / M_PI;
+
 #define PX_SMALL_NUM 0.00001f
 
 #define PXMathIsZero(_num_) ((_num_) <= PX_SMALL_NUM && (_num_) >= -PX_SMALL_NUM)
@@ -57,10 +63,8 @@ extern "C" {
 #define PXMathIsNearlyEqual(_num1_, _num2_, _tol_) ((_num1_) <= ((_num2_) + _tol_) && (_num1_) >= ((_num2_) - _tol_))
 #define PXMathIsEqual(_num1_, _num2_) PXMathIsNearlyEqual(_num1_, _num2_, PX_SMALL_NUM)
 
-// 180/PI
-#define PXMathToDeg(_rads_) ((_rads_) * 57.295780f)
-// PI/180
-#define PXMathToRad(_degs_) ((_degs_) * 0.017453f)
+#define PXMathToDeg(_rads_) ((_rads_) * pxMath180_PI)
+#define PXMathToRad(_degs_) ((_degs_) * pxMathPI_180)
 
 #define PXMathMin(_val1_, _val2_) (((_val1_) < (_val2_)) ? (_val1_) : (_val2_))
 #define PXMathMax(_val1_, _val2_) (((_val1_) > (_val2_)) ? (_val1_) : (_val2_))
@@ -127,6 +131,8 @@ int PXMathIntInRange(int min, int max);
 
 void PXMathSeedRandomWithTime();
 void PXMathSeedRandomWithValue(unsigned value);
+
+float PXMathLog(float val, float base);
 
 float PXMathLerpf(float start, float end, float percent);
 float PXMathContentRoundf(float val);

@@ -1036,7 +1036,8 @@ void PXEngineRender()
 	//glPushMatrix();
 
 #ifdef PX_DEBUG_MODE
-	if (PXDebugIsEnabled(PXDebugSetting_HalveStage))
+	bool pushedMatrixForHalveStage = PXDebugIsEnabled(PXDebugSetting_HalveStage);
+	if (pushedMatrixForHalveStage)
 	{
 		/*
 		glPushMatrix();
@@ -1054,7 +1055,7 @@ void PXEngineRender()
 #ifdef PX_DEBUG_MODE
 	
 	// Draw a magenta border around the smaller stage
-	if (PXDebugIsEnabled(PXDebugSetting_HalveStage))
+	if (pushedMatrixForHalveStage)
 	{
 		float locs[8];
 		
