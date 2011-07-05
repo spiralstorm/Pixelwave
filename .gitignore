@@ -22,6 +22,7 @@ Thumbs.db
 ###############
 *.pbxuser
 *.mode1v3
+xcuserdata
 
 # Specifics #
 #############

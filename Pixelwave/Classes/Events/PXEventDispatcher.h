@@ -107,19 +107,19 @@
  * // Implementation of protocol methods. They just pass the parameters to the
  * // internal PXEventDispatcher object.
  *
- * - (void) addEventListenerOfType:(NSString *)type
+ * - (BOOL) addEventListenerOfType:(NSString *)type
  *                        listener:(PXEventListener *)listener
  *                      useCapture:(BOOL)useCapture
  *                        priority:(int)priority
  * {
- *	[eventDispatcher addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
+ *	return [eventDispatcher addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
  * }
  *
- * - (void) removeEventListenerOfType:(NSString *)type
+ * - (BOOL) removeEventListenerOfType:(NSString *)type
  *                           listener:(PXEventListener *)listener
  *                         useCapture:(BOOL)useCapture
  * {
- *	[eventDispatcher removeEventListenerOfType:type listener:listener useCapture:useCapture];
+ *	return [eventDispatcher removeEventListenerOfType:type listener:listener useCapture:useCapture];
  * }
  *
  * - (BOOL) dispatchEvent:(PXEvent *)event
@@ -148,7 +148,7 @@
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: NO
 //-- ScriptArg[3]: 0
-- (void) addEventListenerOfType:(NSString *)type
+- (BOOL) addEventListenerOfType:(NSString *)type
 					   listener:(PXEventListener *)listener
 					 useCapture:(BOOL)useCapture
 					   priority:(int)priority;
@@ -156,7 +156,7 @@
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: NO
-- (void) removeEventListenerOfType:(NSString *)type
+- (BOOL) removeEventListenerOfType:(NSString *)type
 						  listener:(PXEventListener *)listener
 						useCapture:(BOOL)useCapture;
 //-- ScriptName: dispatchEvent
@@ -195,26 +195,26 @@
 - (id) initWithTarget:(id<PXEventDispatcherProtocol>)target;
 
 //-- ScriptIgnore
-- (void) addEventListenerOfType:(NSString *)type
+- (BOOL) addEventListenerOfType:(NSString *)type
 					   listener:(PXEventListener *)listener;
 //-- ScriptName: addEventListener
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: NO
 //-- ScriptArg[3]: 0
-- (void) addEventListenerOfType:(NSString *)type
+- (BOOL) addEventListenerOfType:(NSString *)type
 					   listener:(PXEventListener *)listener
 					 useCapture:(BOOL) useCapture
 					   priority:(int)priority;
 
 //-- ScriptIgnore
-- (void) removeEventListenerOfType:(NSString *)type
+- (BOOL) removeEventListenerOfType:(NSString *)type
 						  listener:(PXEventListener *)listener;
 //-- ScriptName: removeEventListener
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: NO
-- (void) removeEventListenerOfType:(NSString *)type
+- (BOOL) removeEventListenerOfType:(NSString *)type
 						  listener:(PXEventListener *)listener
 						useCapture:(BOOL)useCapture;
 
