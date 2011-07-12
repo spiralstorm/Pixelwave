@@ -48,4 +48,13 @@
  */
 @implementation PXSimpleSprite
 
++ (PXSimpleSprite *)simpleSpriteWithChild:(PXDisplayObject *)child
+{
+	PXSimpleSprite *simpleSprite = [[PXSimpleSprite alloc] init];
+	if(child){
+		[simpleSprite addChild:child];
+	}
+	return [simpleSprite autorelease];
+}
+
 @end
