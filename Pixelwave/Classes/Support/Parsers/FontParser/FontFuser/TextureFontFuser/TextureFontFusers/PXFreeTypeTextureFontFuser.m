@@ -123,12 +123,12 @@
 
 + (Class) parserType
 {
-	return PXFreeTypeFontParser.class;
+	return [PXFreeTypeFontParser class];
 }
 
 + (Class) optionsType
 {
-	return PXTextureFontOptions.class;
+	return [PXTextureFontOptions class];
 }
 
 - (BOOL) _parseFontWithOptions:(PXTextureFontOptions *)tfOptions parser:(PXFreeTypeFontParser *)ftParser

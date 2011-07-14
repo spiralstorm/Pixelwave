@@ -178,12 +178,12 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 
 + (Class) parserType
 {
-	return PXSystemFontParser.class;
+	return [PXSystemFontParser class];
 }
 
 + (Class) optionsType
 {
-	return PXTextureFontOptions.class;
+	return [PXTextureFontOptions class];
 }
 
 - (BOOL) parseFontWithSystemFontName:(NSString *)systemFontName options:(PXTextureFontOptions *)tfOptions

@@ -23,6 +23,7 @@
 - (id) initWithX:(float)_x y:(float)_y width:(float)_width height:(float)_height rotation:(float)_rotation
 {
 	self = [super init];
+
 	if (self)
 	{
 		[self setX:_x y:_y width:_width height:_height rotation:_rotation];

@@ -206,6 +206,7 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
 					modifier:(id<PXSoundModifier>)modifier
 {
 	self = [super _initWithContentsOfFile:path orURL:url];
+
 	if (self)
 	{
 		if (![self _load])

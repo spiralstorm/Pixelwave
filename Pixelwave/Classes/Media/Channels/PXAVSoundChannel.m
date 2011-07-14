@@ -62,6 +62,7 @@
 	  soundTransform:(PXSoundTransform *)_soundTransform
 {
 	self = [super _initWithStartTime:_startTime loopCount:_loops soundTransform:_soundTransform];
+
 	if (self)
 	{
 		player = [PXAVSoundParser newPlayerFromData:data];
@@ -127,7 +128,7 @@
 		return;
 	}
 
-	if ([_soundTransform isKindOfClass:PXSoundTransform3D.class])
+	if ([_soundTransform isKindOfClass:[PXSoundTransform3D class]])
 	{
 		PXDebugLog(@"PXSoundChannel warning: 3D playback is not supported for compressed audio (such as mp3)");
 	}

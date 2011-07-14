@@ -99,6 +99,7 @@ BOOL pxSoundListenerInitialized = NO;
 	}
 
 	self = [super init];
+
 	if (self)
 	{
 		pxSoundListenerInitialized = YES;

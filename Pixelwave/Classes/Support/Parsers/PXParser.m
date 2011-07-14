@@ -79,6 +79,7 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 - (id) _initWithData:(NSData *)_data origin:(NSString *)_origin
 {
 	self = [super init];
+
 	if (self)
 	{
 		data = [_data retain];
@@ -124,7 +125,7 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 + (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
 {
 	// Each parser should implement their own version
-	[extensions addObject:[NSString stringWithFormat:@"NOT IMPLEMENTED FOR: %@", NSStringFromClass(self.class)]];
+	[extensions addObject:[NSString stringWithFormat:@"NOT IMPLEMENTED FOR: %@", NSStringFromClass([self class])]];
 }
 
 
@@ -255,7 +256,7 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 	PXLinkedList *extensions = [[PXLinkedList alloc] init];
 	
 	// Get all the supported file extensions from the parsers
-	PXLinkedList *parsers = [PXParser parsersForBaseClass:self.class];
+	PXLinkedList *parsers = [PXParser parsersForBaseClass:[self class]];
 	
 	NSMutableSet *set = [[NSMutableSet alloc] init];
 	

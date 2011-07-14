@@ -64,6 +64,7 @@
 - (id) initWithUIFont:(UIFont *)_font
 {
 	self = [super init];
+
 	if (self)
 	{
 		uiFont = [_font retain];

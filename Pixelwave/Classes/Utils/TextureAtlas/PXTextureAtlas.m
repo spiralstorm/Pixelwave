@@ -29,6 +29,7 @@
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		frames = [NSMutableDictionary new];

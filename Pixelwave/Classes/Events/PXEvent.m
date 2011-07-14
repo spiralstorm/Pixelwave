@@ -108,6 +108,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 	}
 
 	self = [super init];
+
 	if (self)
 	{
 		//PXPrecParamNotNil(type);

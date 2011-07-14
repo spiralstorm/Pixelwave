@@ -89,6 +89,7 @@
  * - (id) init
  * {
  *	self = [super init];
+ *
  *	if (self)
  *	{
  * 		eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];

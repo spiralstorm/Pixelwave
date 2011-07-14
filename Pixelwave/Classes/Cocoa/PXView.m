@@ -153,6 +153,7 @@
 		colorQuality:(PXViewColorQuality)_colorQuality
 {
 	self = [super initWithFrame:frame];
+
 	if (self)
 	{
 		if (_contentScaleFactor <= 0.0f)
@@ -177,6 +178,7 @@
 - (id) initWithCoder:(NSCoder *)coder
 {
 	self = [super initWithCoder:coder];
+
 	if (self)
 	{
 		if (![self setupWithScaleFactor:PXEngineGetMainScreenScale()

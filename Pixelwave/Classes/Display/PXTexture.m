@@ -103,6 +103,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 - (id) initWithTextureData:(PXTextureData *)_textureData
 {
 	self = [super init];
+
 	if (self)
 	{
 		// Only have to do this once, alternatively, you could just call the

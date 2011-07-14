@@ -79,6 +79,7 @@
 	}
 
 	self = [super init];
+
 	if (self)
 	{
 		// TODO Later: Check if the function accepts type of PXEvent?

@@ -59,18 +59,6 @@
 
 @implementation PXCGTextureParser
 
-/*
-- (id) init
-{
- self = [super init];
-	if (self)
-	{
-	}
-
-	return self;
-}
-*/
-
 - (void) dealloc
 {
 	//CGContextRelease(context);
@@ -504,6 +492,7 @@
 	
 	// This will invoke [_parse]
 	self = [super _initWithData:nil modifier:_modifier origin:nil];
+
 	if (self)
 	{
 		contentScaleFactor = scaleFactor;

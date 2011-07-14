@@ -52,6 +52,7 @@
 		 channelCount:(unsigned)channelCount
 {
 	self = [super _initWithLength:_length];
+
 	if (self)
 	{
 		PXSoundEngineInitAL();

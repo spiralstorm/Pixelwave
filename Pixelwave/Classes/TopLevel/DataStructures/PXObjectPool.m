@@ -65,6 +65,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		pools = nil;

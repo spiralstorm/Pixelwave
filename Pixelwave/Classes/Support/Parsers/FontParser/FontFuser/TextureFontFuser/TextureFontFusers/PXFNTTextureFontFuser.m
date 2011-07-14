@@ -276,12 +276,12 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 
 + (Class) parserType
 {
-	return PXFNTFontParser.class;
+	return [PXFNTFontParser class];
 }
 
 + (Class) optionsType
 {
-	return PXTextureFontOptions.class;
+	return [PXTextureFontOptions class];
 }
 
 - (BOOL) parseFontWithParser:(PXFNTFontParser *)fntParser
@@ -352,7 +352,7 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 
 	PXTextureFontOptions *tfOptions = nil;
 
-	if ([options isKindOfClass:PXTextureFontOptions.class])
+	if ([options isKindOfClass:[PXTextureFontOptions class]])
 	{
 		tfOptions = (PXTextureFontOptions *)options;
 	}

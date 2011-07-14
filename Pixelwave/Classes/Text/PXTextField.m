@@ -99,6 +99,7 @@
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		isValid = NO;
@@ -158,6 +159,7 @@
 - (id) initWithFont:(NSString *)_fontName
 {
 	self = [self init];
+
 	if (self)
 	{
 		if (_fontName)
@@ -169,7 +171,7 @@
 
 			if (font)
 			{
-				if ([font isKindOfClass:PXTextureFont.class])
+				if ([font isKindOfClass:[PXTextureFont class]])
 				{
 					self.fontSize = ((PXTextureFont *)font)->_fontSize;
 				}

@@ -55,6 +55,7 @@
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		_renderMode = PXRenderMode_Off;

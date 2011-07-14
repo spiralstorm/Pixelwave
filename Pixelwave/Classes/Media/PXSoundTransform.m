@@ -80,6 +80,7 @@
 - (id) initWithVolume:(float)_volume pitch:(float)_pitch
 {
 	self = [super init];
+
 	if (self)
 	{
 		volume = _volume;

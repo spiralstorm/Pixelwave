@@ -48,6 +48,7 @@
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		// Initialize the variables.

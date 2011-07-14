@@ -115,6 +115,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 - (id) initWithTarget:(id<PXEventDispatcherProtocol>)_target
 {
 	self = [super init];
+
 	if (self)
 	{
 		target = _target;

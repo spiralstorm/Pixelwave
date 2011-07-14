@@ -67,6 +67,7 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
    afterOrientation:(PXStageOrientation)_afterOrientation
 {
 	self = [super initWithType:type doesBubble:bubbles isCancelable:cancelable];
+
 	if (self)
 	{
 		beforeOrientation = _beforeOrientation;

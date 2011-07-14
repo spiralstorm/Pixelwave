@@ -60,6 +60,7 @@
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		textureData = nil;

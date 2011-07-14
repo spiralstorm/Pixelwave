@@ -135,6 +135,7 @@
 	}
 
 	self = [super init];
+
 	if (self)
 	{
 		// Set my regex pointer to nil

@@ -263,7 +263,7 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 		return NO;
 
 	id val = [dict objectForKey:key];
-	if (![val isKindOfClass:NSNumber.class])
+	if (![val isKindOfClass:[NSNumber class]])
 		return NO;
 
 	*ret = [(NSNumber *)val boolValue];
@@ -277,7 +277,7 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 		return NO;
 
 	id val = [dict objectForKey:key];
-	if (![val isKindOfClass:NSString.class])
+	if (![val isKindOfClass:[NSString class]])
 		return NO;
 
 	pxZwopAtlasParserRectMatcher.input = val;
@@ -310,7 +310,7 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 		return NO;
 
 	id val = [dict objectForKey:key];
-	if (![val isKindOfClass:NSString.class])
+	if (![val isKindOfClass:[NSString class]])
 		return NO;
 
 	pxZwopAtlasParserSizeMatcher.input = val;

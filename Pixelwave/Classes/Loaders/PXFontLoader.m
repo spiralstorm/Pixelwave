@@ -203,6 +203,7 @@
 					  options:(PXFontOptions *)_options
 {
 	self = [super _initWithContentsOfFile:path orURL:url];
+
 	if (self)
 	{
 		[self _load];

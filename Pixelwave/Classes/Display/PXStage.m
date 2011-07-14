@@ -93,6 +93,7 @@
 	}
 
 	self = [super init];
+
 	if (self)
 	{
 		// Ha ha, laugh it up...

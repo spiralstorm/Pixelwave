@@ -48,6 +48,7 @@
 			  origin:(NSString *)_origin
 {
 	self = [super _initWithData:_data options:_options origin:_origin];
+
 	if (self)
 	{
 	}

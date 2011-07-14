@@ -126,6 +126,7 @@
 - (id) _initWithRegex:(NSString *)_regex flags:(unsigned)_flags
 {
 	self = [super init];
+
 	if (self)
 	{
 		[self _setFlags:_flags];

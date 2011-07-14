@@ -933,7 +933,7 @@ void PXEngineDispatchTouchEvents()
 				} // PXLinkedListForEach
 			} // if (didTouchUpOrCancel || didTouchDown)
 
-			if ([target isKindOfClass:PXInteractiveObject.class])
+			if ([target isKindOfClass:[PXInteractiveObject class]])
 				interactiveTarget = (PXInteractiveObject *)target;
 			else
 				interactiveTarget = nil;
@@ -2020,20 +2020,22 @@ float _PXEngineDBGGetTimeWaiting()
 - (id) init
 {
 	self = [super init];
-	if (!self)
-		return nil;
 
-	displayLinkSupported = NO;
+	if (self)
+	{
+		displayLinkSupported = NO;
+
 #ifdef __IPHONE_3_1
-	NSString *reqSysVer = @"3.1";
-	NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-	if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
-		displayLinkSupported = YES;
+		NSString *reqSysVer = @"3.1";
+		NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+		if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
+			displayLinkSupported = YES;
 #endif
 
-	animationTimer = nil;
+		animationTimer = nil;
 
-	displayLink = nil;
+		displayLink = nil;
+	}
 
 	return self;
 }

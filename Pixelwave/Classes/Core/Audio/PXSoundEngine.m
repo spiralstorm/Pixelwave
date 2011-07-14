@@ -299,7 +299,7 @@ void PXSoundEngineSetSoundTransform(PXSoundTransform *transform)
 	PXSoundChannel *sound;
 	for (sound in pxSoundEngineListOfSounds)
 	{
-		if ([sound isKindOfClass:PXAVSoundChannel.class])
+		if ([sound isKindOfClass:[PXAVSoundChannel class]])
 		{
 			[((PXAVSoundChannel *)sound) _setEngineVolume:pxSoundEngineSoundTransform.volume];
 		}
@@ -420,7 +420,7 @@ void PXSoundEngineSetDistanceModel(PXSoundMixerDistanceModel distanceModel)
 	PXSoundChannel *sound;
 	for (sound in pxSoundEngineListOfSounds)
 	{
-		if ([sound isKindOfClass:PXALSoundChannel.class])
+		if ([sound isKindOfClass:[PXALSoundChannel class]])
 		{
 			[((PXALSoundChannel *)sound) _updateDistanceModel];
 		}

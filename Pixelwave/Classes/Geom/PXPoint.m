@@ -83,6 +83,7 @@
 - (id) initWithX:(float)_x y:(float)_y
 {
 	self = [super init];
+
 	if (self)
 	{
 		[self setX:_x y:_y];

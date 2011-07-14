@@ -75,6 +75,7 @@
 {
 	self = [super initWithCharacterSets:characterSets
 					  specialCharacters:specialCharacters];
+
 	if (self)
 	{
 		size = _size;
