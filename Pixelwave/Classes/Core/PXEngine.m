@@ -753,9 +753,9 @@ PXDisplayObject *PXEngineFindTouchTarget(float x, float y)
 			}
 		}
 
-		// Now we loop up through the target's ancestors, stoping right
-		// before the root. We do this so that the ancestor closest to target
-		// which can recieve touch events gets to handle the touch.
+		// Now we loop up through the target's ancestors, stoping right before
+		// the root. We do this so that the ancestor closest to target which can
+		// recieve touch events gets to handle the touch.
 		//
 		// We stop short before root because....
 		while (parent && parent != pxEngineRoot)
@@ -771,9 +771,9 @@ PXDisplayObject *PXEngineFindTouchTarget(float x, float y)
 			// If the parent allows its chidren to recieve touch events
 			if (parent->_touchChildren)
 			{
-				// If the target can't recieve touch events, but the parent
-				// can, the parent becomes the current valid target, and we
-				// keep going up the chain
+				// If the target can't recieve touch events, but the parent can,
+				// the parent becomes the current valid target, and we keep
+				// going up the chain
 				if (!touchEnabled && parentTouchEnabled)
 				{
 					possibleParentTarget = parent;
@@ -784,8 +784,8 @@ PXDisplayObject *PXEngineFindTouchTarget(float x, float y)
 			else
 			{
 				// The target's parent doesn't allow touch events, which means
-				// the target cannot be asociated with that event at all, make the
-				// parent the new target
+				// the target cannot be asociated with that event at all, make
+				// the parent the new target
 				target = parent;
 				possibleParentTarget = nil;
 				onceHadTarget = NO;
@@ -811,6 +811,9 @@ PXDisplayObject *PXEngineFindTouchTarget(float x, float y)
 			return target;
 		}
 	}
+
+	if (possibleParentTarget != nil)
+		NSLog (@"PXEngineFindTouchTarget WARNING: possibleParentTarget != nil as expected\n");
 
 	// TODO: John, check to see if this line can just return nil.
 	// Look through the code and try to proove it won't fail
@@ -856,9 +859,13 @@ void PXEngineDispatchTouchEvents()
 			// touching up, we need to release it.  This is because we need to
 			// ensure the object doesn't disappear prior to sending out the
 			// event.
-			didTouchCancel = [eventType isEqualToString:PXTouchEvent_TouchCancel];
-			didTouchUp     = [eventType isEqualToString:PXTouchEvent_TouchUp];
-			didTouchDown   = [eventType isEqualToString:PXTouchEvent_TouchDown];
+			didTouchDown = [eventType isEqualToString:PXTouchEvent_TouchDown];
+			if (!didTouchDown)
+			{
+				didTouchUp = [eventType isEqualToString:PXTouchEvent_TouchUp];
+				if (!didTouchUp)
+					didTouchCancel = [eventType isEqualToString:PXTouchEvent_TouchCancel];
+			}
 			didTouchUpOrCancel = didTouchUp || didTouchCancel;
 
 			if (didTouchUpOrCancel || didTouchDown)
@@ -1080,8 +1087,8 @@ void PXEngineRender()
 	
 	if (PXDebugIsEnabled(PXDebugSetting_DrawBoundingBoxes))
 	{
-		float locs[8];
-		
+		PXGLVertex vertices[4];
+
 		PXGLAABB aabb;
 		PXGLAABB *aabbPtr;
 		PXDisplayObject *doAABB;
@@ -1102,23 +1109,23 @@ void PXEngineRender()
 			aabb.yMax = aabbPtr->yMax;
 
 			PX_ENGINE_CONVERT_AABB_FROM_STAGE_ORIENTATION(&aabb, pxEngineStage);
-			
-			locs[0] = aabb.xMin; locs[1] = aabb.yMin;
-			locs[2] = aabb.xMin; locs[3] = aabb.yMax;
-			locs[4] = aabb.xMax; locs[5] = aabb.yMax;
-			locs[6] = aabb.xMax; locs[7] = aabb.yMin;
-			
+
+			vertices[0] = PXGLVertexMake(aabb.xMin, aabb.yMin);
+			vertices[1] = PXGLVertexMake(aabb.xMin, aabb.yMax);
+			vertices[2] = PXGLVertexMake(aabb.xMax, aabb.yMax);
+			vertices[3] = PXGLVertexMake(aabb.xMax, aabb.yMin);
+
 			PXGLShadeModel(GL_SMOOTH);
 			PXGLDisable(GL_TEXTURE_2D);
 			PXGLColor4ub(0xFF, 0, 0, 0xFF);
-			PXGLVertexPointer(2, GL_FLOAT, 0, locs);
+			PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
 			PXGLDrawArrays(GL_LINE_LOOP, 0, 4);
 		}
 	}
 
 	if (PXDebugIsEnabled(PXDebugSetting_DrawHitAreas))
 	{
-		float locs[8];
+		PXGLVertex vertices[4];
 
 		PXDisplayObject *doAABB;
 		PXDisplayObject **curDisplayObject;
@@ -1150,15 +1157,15 @@ void PXEngineRender()
 			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(topRight.x, topRight.y, pxEngineStage);
 			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(bottomRight.x, bottomRight.y, pxEngineStage);
 
-			locs[0] = topLeft.x;		locs[1] = topLeft.y;
-			locs[2] = bottomLeft.x;		locs[3] = bottomLeft.y;
-			locs[4] = bottomRight.x;	locs[5] = bottomRight.y;
-			locs[6] = topRight.x;		locs[7] = topRight.y;
+			vertices[0] = PXGLVertexMake(topLeft.x, topLeft.y);
+			vertices[1] = PXGLVertexMake(bottomLeft.x, bottomLeft.y);
+			vertices[2] = PXGLVertexMake(bottomRight.x, bottomRight.y);
+			vertices[3] = PXGLVertexMake(topRight.x, topRight.y);
 
 			PXGLShadeModel(GL_SMOOTH);
 			PXGLDisable(GL_TEXTURE_2D);
 			PXGLColor4ub(0, 0, 0xFF, 0xFF);
-			PXGLVertexPointer(2, GL_FLOAT, 0, locs);
+			PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
 			PXGLDrawArrays(GL_LINE_LOOP, 0, 4);
 		}
 	}
