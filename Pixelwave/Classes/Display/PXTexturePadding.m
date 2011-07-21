@@ -8,6 +8,12 @@
 
 #import "PXTexturePadding.h"
 
+/**
+ *	@ingroup Display
+ *
+ *	A simple object representing the white-space (if any)
+ *	to be included around a PXTexture.
+ */
 @implementation PXTexturePadding
 
 #pragma mark -

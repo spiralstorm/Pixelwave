@@ -17,6 +17,15 @@
 
 #import "PXExceptionUtils.h"
 
+/**
+ *	@ingroup Utils
+ *
+ *	Represents a sub-image within a PXTextureAtlas object.
+ *	A PXAtlasFrame is a simple data object containing information
+ *	about the sub-image such as its location within the master
+ *	atlas image and how it should be translated, rotated, and
+ *	padded before being displayed on the screen.
+ */
 @implementation PXAtlasFrame
 
 @synthesize textureData, clipRect, anchor, padding;
@@ -29,6 +38,15 @@
 	return nil;
 }
 
+/**
+ *	Initializes the PXAtlasFrame object with the given parameters.
+ *
+ *	@param clipRect
+ *		The position and area (in points) of the sub-image within the master
+ *		atlas image.
+ *	@param textureData
+ *		The PXTextureData within which this sub-image is contained.
+ */
 - (id) initWithClipRect:(PXClipRect *)_clipRect
 			textureData:(PXTextureData *)_textureData
 {
@@ -37,6 +55,18 @@
 						   anchor:nil];
 }
 
+/**
+ *	Initializes the PXAtlasFrame object with the given parameters.
+ *
+ *	@param clipRect
+ *		The position and area (in points) of the sub-image within the master
+ *		atlas image.
+ *	@param textureData
+ *		The PXTextureData within which this sub-image is contained.
+ *	@param anchor
+ *		The anchor point to be assigned to this sub-image when extracted from the
+ *		texture atlas. Pass <code>nil</code> for the default value (<code>{0, 0}</code>).
+ */
 - (id) initWithClipRect:(PXClipRect *)_clipRect
 			textureData:(PXTextureData *)_textureData
 				 anchor:(PXPoint *)_anchor
@@ -47,6 +77,21 @@
 						  padding:nil];
 }
 
+/**
+ *	Initializes the PXAtlasFrame object with the given parameters.
+ *
+ *	@param clipRect
+ *		The position and area (in points) of the sub-image within the master
+ *		atlas image.
+ *	@param textureData
+ *		The PXTextureData within which this sub-image is contained.
+ *	@param anchor
+ *		The anchor point to be assigned to this sub-image when extracted from the
+ *		texture atlas. Pass <code>nil</code> for the default value (<code>{0, 0}</code>).
+ *	@param padding
+ *		The amount of padding (white space) that should exists around the sub-image
+ *		when extracted from the texture atlas.
+ */
 - (id) initWithClipRect:(PXClipRect *)_clipRect
 			textureData:(PXTextureData *)_textureData
 				 anchor:(PXPoint *)_anchor
@@ -116,6 +161,11 @@
 #pragma mark Methods
 #pragma mark -
 
+/**
+ *	A utility method for quickly updating the
+ *	given PXTexture object to represent
+ *	this frame's sub-image.
+ */
 - (void) setToTexture:(PXTexture *)texture
 {
 	texture.textureData = textureData;
@@ -134,12 +184,51 @@
 
 #pragma mark Utility Methods
 
+/**
+ *	A utility method for quicly creating a PXAtlasFrame
+ *	object with the given parameters.
+ *
+ *	@param clipRect
+ *		The position and area (in points) of the sub-image within the master
+ *		atlas image.
+ *	@param textureData
+ *		The PXTextureData within which this sub-image is contained.
+ *	@param anchor
+ *		The anchor point to be assigned to this sub-image when extracted from the texture atlas.
+ *		pass <code>nil</code> for the default value (<code>{0, 0}</code>).
+ *	@param padding
+ *		The amount of padding (white space) that should exists around the sub-image
+ *		when extracted from the texture atlas.
+ *
+ *	@return
+ *		An auto-released PXAtlasFrame object with the given parameters.
+ */
 + (PXAtlasFrame *)atlasFrameWithClipRect:(PXClipRect *)clipRect
 							 textureData:(PXTextureData *)textureData
 {
 	return [[[PXAtlasFrame alloc] initWithClipRect:clipRect
 									   textureData:textureData] autorelease];
 }
+
+/**
+ *	A utility method for quicly creating a PXAtlasFrame
+ *	object with the given parameters.
+ *
+ *	@param clipRect
+ *		The position and area (in points) of the sub-image within the master
+ *		atlas image.
+ *	@param textureData
+ *		The PXTextureData within which this sub-image is contained.
+ *	@param anchorX
+ *		The anchorX amount (in percent) to be assigned to this sub-image
+ *		when extracted from the texture atlas.
+ *	@param anchorY
+ *		The anchorY amount (in percent) to be assigned to this sub-image
+ *		when extracted from the texture atlas.
+ *
+ *	@return
+ *		An auto-released PXAtlasFrame object with the given parameters.
+ */
 
 + (PXAtlasFrame *)atlasFrameWithClipRect:(PXClipRect *)clipRect
 							 textureData:(PXTextureData *)textureData
