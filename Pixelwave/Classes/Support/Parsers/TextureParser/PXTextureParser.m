@@ -120,12 +120,13 @@
 			 origin:(NSString *)_origin
 {
 	self = [super init];
+
 	if (self)
 	{
 		// Find the real type of parser to use.
 		Class realClass = [PXParser parserForData:_data
 											 origin:_origin
-										  baseClass:PXTextureParser.class];
+										  baseClass:[PXTextureParser class]];
 
 		// If no real parser exists, then we can't do anything
 		if (!realClass)
@@ -136,8 +137,8 @@
 
 		// Make the new parser.
 		PXTextureParser *newParser = [[realClass alloc] _initWithData:_data
-															  modifier:_modifier
-																 origin:_origin];
+															 modifier:_modifier
+															   origin:_origin];
 
 		// Release ourself, as we are going to become the real parser
 		[self release];
@@ -158,6 +159,7 @@
 {
 	// Set the data and origin
 	self = [super _initWithData:_data origin:_origin];
+
 	if (self)
 	{
 		// Make the texture info (it's bytes and other)

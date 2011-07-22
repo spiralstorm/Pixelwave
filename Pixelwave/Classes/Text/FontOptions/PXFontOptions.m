@@ -101,6 +101,7 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 		   specialCharacters:(NSString *)specialCharacters
 {
 	self = [super init];
+
 	if (self)
 	{
 		self.characters = [NSString stringWithFormat:@"%@%@",

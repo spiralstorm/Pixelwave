@@ -224,7 +224,7 @@
 		return NO;
 
 	id val = [dict objectForKey:key];
-	if (![val isKindOfClass:NSNumber.class])
+	if (![val isKindOfClass:[NSNumber class]])
 		return NO;
 
 	*ret = [(NSNumber *)val boolValue];
@@ -237,7 +237,7 @@
 		return NO;
 
 	id val = [dict objectForKey:key];
-	if (![val isKindOfClass:NSNumber.class])
+	if (![val isKindOfClass:[NSNumber class]])
 		return NO;
 
 	*ret = [(NSNumber *)val intValue];
@@ -250,7 +250,7 @@
 		return NO;
 
 	id val = [dict objectForKey:key];
-	if (![val isKindOfClass:NSDictionary.class])
+	if (![val isKindOfClass:[NSDictionary class]])
 	{
 		return NO;
 	}
@@ -281,7 +281,7 @@
 		return NO;
 
 	id val = [dict objectForKey:key];
-	if (![val isKindOfClass:NSDictionary.class])
+	if (![val isKindOfClass:[NSDictionary class]])
 	{
 		return NO;
 	}

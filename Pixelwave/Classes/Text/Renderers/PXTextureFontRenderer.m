@@ -66,6 +66,7 @@
 - (id) initWithFont:(PXTextureFont *)_font
 {
 	self = [super init];
+
 	if (self)
 	{
 		// Set our font.

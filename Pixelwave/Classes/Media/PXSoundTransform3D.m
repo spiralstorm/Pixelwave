@@ -95,6 +95,7 @@
 - (id) initWithVolume:(float)_volume pitch:(float)_pitch
 {
 	self = [super initWithVolume:_volume pitch:_pitch];
+
 	if (self)
 	{
 		[self setX:0.0f y:0.0f z:0.0f];

@@ -118,6 +118,7 @@ typedef enum
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		verts = calloc(PX_GRAPHICS_GROUP_MAX_POINTS, sizeof(PXGLVertex));
@@ -185,6 +186,7 @@ typedef enum
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		groups = [[PXLinkedList alloc] init];
@@ -286,7 +288,7 @@ typedef enum
 	}
 	else
 	{
-		cGroup = (PXGraphicsGroup *)([PXEngineGetSharedObjectPool() newObjectUsingClass:PXGraphicsGroup.class]);
+		cGroup = (PXGraphicsGroup *)([PXEngineGetSharedObjectPool() newObjectUsingClass:[PXGraphicsGroup class]]);
 		[groups addObject:cGroup];
 	}
 

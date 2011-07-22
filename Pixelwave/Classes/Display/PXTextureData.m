@@ -97,6 +97,7 @@ BOOL pxTextureDataExpandEdges = YES;
 - (id) _initWithoutGLName
 {
 	self = [super init];
+
 	if (self)
 	{
 		// No smoothing
@@ -119,6 +120,7 @@ BOOL pxTextureDataExpandEdges = YES;
 - (id) _init
 {
 	self = [self _initWithoutGLName];
+
 	if (self)
 	{
 		if (![self _makeGLName])
@@ -181,6 +183,7 @@ BOOL pxTextureDataExpandEdges = YES;
 - (id) initWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier
 {
 	self = [super init];
+
 	if (self)
 	{
 		PXTextureParser *textureParser = [[PXTextureParser alloc] initWithData:data
@@ -192,6 +195,7 @@ BOOL pxTextureDataExpandEdges = YES;
 		[self release];
 
 		self = newTextureData;
+
 		if (self)
 		{
 			// Add init code here if needed
@@ -273,93 +277,94 @@ BOOL pxTextureDataExpandEdges = YES;
 {
 	// A little unconservative, but necessary
 	self = [self _init];
-	if (!self)
-		return nil;
-	
-	_fillColor = fillColor;
 
-	// Find the tightest fitting power-of-two box that will hold the texture
-	unsigned int powerOfTwoWidth = PXMathNextPowerOfTwo(width);
-	unsigned int powerOfTwoHeight = PXMathNextPowerOfTwo(height);
-
-	GLint glFormat;
-	GLubyte *data = 0;
-
-	unsigned pixelsCount = powerOfTwoWidth * powerOfTwoHeight;
-	unsigned index;
-	
-	if (transparency)
+	if (self)
 	{
-		glFormat = GL_RGBA;
+		_fillColor = fillColor;
 
-		PXColor4 col;
-		PXColorHexToARGB(fillColor, &col);
+		// Find the tightest fitting power-of-two box that will hold the texture
+		unsigned int powerOfTwoWidth = PXMathNextPowerOfTwo(width);
+		unsigned int powerOfTwoHeight = PXMathNextPowerOfTwo(height);
 
-		data = malloc(sizeof(PXColor4) * pixelsCount);
+		GLint glFormat;
+		GLubyte *data = 0;
 
-		if (!data)
+		unsigned pixelsCount = powerOfTwoWidth * powerOfTwoHeight;
+		unsigned index;
+		
+		if (transparency)
 		{
-			PXThrow(PXException, @"Couldn't allocate enough cpu memory to generate pixel data for this TextureData");
-			[self release];
-			return nil;
+			glFormat = GL_RGBA;
+
+			PXColor4 col;
+			PXColorHexToARGB(fillColor, &col);
+
+			data = malloc(sizeof(PXColor4) * pixelsCount);
+
+			if (!data)
+			{
+				PXThrow(PXException, @"Couldn't allocate enough cpu memory to generate pixel data for this TextureData");
+				[self release];
+				return nil;
+			}
+
+			PXColor4 *pixels = (PXColor4 *)data;
+			PXColor4 *pixel;
+			for (index = 0, pixel = pixels; index < pixelsCount; ++index, ++pixel)
+			{
+				*pixel = col;
+			}
+		}
+		else
+		{
+			glFormat = GL_RGB;
+
+			PXColor3 col;
+			PXColorHexToRGB(fillColor, &col);
+
+			data = malloc(sizeof(PXColor3) * pixelsCount);
+
+			if (!data)
+			{
+				PXThrow(PXException, @"Couldn't allocate enough cpu memory to generate pixel data for this TextureData");
+				[self release];
+				return nil;
+			}
+
+			PXColor3 *pixels = (PXColor3 *)data;
+			PXColor3 *pixel;
+			for (index = 0, pixel = pixels; index < pixelsCount; ++index, ++pixel)
+			{
+				*pixel = col;
+			}
 		}
 
-		PXColor4 *pixels = (PXColor4 *)data;
-		PXColor4 *pixel;
-		for (index = 0, pixel = pixels; index < pixelsCount; ++index, ++pixel)
-		{
-			*pixel = col;
-		}
+		GLuint boundTex = PXGLBoundTexture();
+		PXGLBindTexture(GL_TEXTURE_2D, _glName);
+
+		glTexImage2D( GL_TEXTURE_2D,
+					 0,
+					 glFormat,
+					 powerOfTwoWidth,
+					 powerOfTwoHeight,
+					 0,
+					 glFormat,
+					 GL_UNSIGNED_BYTE,
+					 data );
+
+		free(data);
+		data = 0;
+
+		// Bring back the previously bound texture
+		PXGLBindTexture(GL_TEXTURE_2D, boundTex);
+
+		[self _setInternalPropertiesWithWidth:powerOfTwoWidth
+									   height:powerOfTwoHeight
+							usingContentWidth:width
+								contentHeight:height
+						   contentScaleFactor:contentScaleFactor
+									   format:glFormat];
 	}
-	else
-	{
-		glFormat = GL_RGB;
-
-		PXColor3 col;
-		PXColorHexToRGB(fillColor, &col);
-
-		data = malloc(sizeof(PXColor3) * pixelsCount);
-
-		if (!data)
-		{
-			PXThrow(PXException, @"Couldn't allocate enough cpu memory to generate pixel data for this TextureData");
-			[self release];
-			return nil;
-		}
-
-		PXColor3 *pixels = (PXColor3 *)data;
-		PXColor3 *pixel;
-		for (index = 0, pixel = pixels; index < pixelsCount; ++index, ++pixel)
-		{
-			*pixel = col;
-		}
-	}
-
-	GLuint boundTex = PXGLBoundTexture();
-	PXGLBindTexture(GL_TEXTURE_2D, _glName);
-
-	glTexImage2D( GL_TEXTURE_2D,
-				 0,
-				 glFormat,
-				 powerOfTwoWidth,
-				 powerOfTwoHeight,
-				 0,
-				 glFormat,
-				 GL_UNSIGNED_BYTE,
-				 data );
-
-	free(data);
-	data = 0;
-
-	// Bring back the previously bound texture
-	PXGLBindTexture(GL_TEXTURE_2D, boundTex);
-
-	[self _setInternalPropertiesWithWidth:powerOfTwoWidth
-								   height:powerOfTwoHeight
-						usingContentWidth:width
-							contentHeight:height
-					   contentScaleFactor:contentScaleFactor
-								   format:glFormat];
 
 	return self;
 }
@@ -761,10 +766,6 @@ BOOL pxTextureDataExpandEdges = YES;
 		   orientation:(UIImageOrientation)cgImageOrientation
 			  modifier:(id<PXTextureModifier>)modifier
 {
-	//self = [super init]
-	//if (self)
-	//{
-	
 	[self release];
 	self = nil;
 	
@@ -778,6 +779,7 @@ BOOL pxTextureDataExpandEdges = YES;
 	[parser release];
 
 	self = newTextureData;
+
 	if (self)
 	{
 		// Add init code here if needed

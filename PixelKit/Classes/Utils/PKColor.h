@@ -41,21 +41,11 @@
 #define _PK_COLOR_H_
 
 #import "PXPrivateUtils.h"
-
-#define PK_INTERPOLATE(_from_, _to_, _percent_) (_from_ + ((_to_ - _from_) * _percent_))
+#import "PKInterpolater.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-/*#define PK_COLOR_TO_HEX(_alpha_, _red_, _green_, _blue_) (((_alpha_) << 24) | ((_red_) << 16) | ((_green_) << 8) | (_blue_))
-#define PK_COLOR_FROM_HEX(_hex_, _alpha_, _red_, _green_, _blue_)\
-{\
-	(_alpha_) = 0xFF & ((_hex_) >> 24);\
-	(_red_)   = 0xFF & ((_hex_) >> 16);\
-	(_green_) = 0xFF & ((_hex_) >> 8);\
-	(_blue_)  = 0xFF & (_hex_);\
-}*/
 
 typedef struct
 {
@@ -86,6 +76,7 @@ typedef union
 #pragma mark Declerations
 #pragma mark -
 
+PXInline PKColor PKColorMake(unsigned hex);
 PXInline PKColor PKColorMakeRGBA(unsigned char red,
 								 unsigned char green,
 								 unsigned char blue,
@@ -97,11 +88,20 @@ PXInline PKColor PKColorMakeARGB(unsigned char alpha,
 
 PXInline PKColor PKColorRGBAToARGB(PKColor color);
 PXInline PKColor PKColorARGBToRGBA(PKColor color);
-PXInline PKColor PKColorInterpolate(PKColor from, PKColor to, float percent);
+PXInline void PKColorInterpolate(void *retVal, void *from, void *to, float percent);
 
 #pragma mark -
 #pragma mark Implementations
 #pragma mark -
+
+PXInline PKColor PKColorMake(unsigned hex)
+{
+	PKColor retVal;
+
+	retVal.asUInt = hex;
+
+	return retVal;
+}
 
 PXInline PKColor PKColorMakeRGBA(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
 {
@@ -137,12 +137,21 @@ PXInline PKColor PKColorARGBToRGBA(PKColor color)
 	return PKColorMakeARGB(color.asRGBA.a, color.asRGBA.r, color.asRGBA.g, color.asRGBA.b);
 }
 
-PXInline PKColor PKColorInterpolate(PKColor from, PKColor to, float percent)
+PXInline void PKColorInterpolate(void *retVal, void *from, void *to, float percent)
 {
-	return PKColorMakeRGBA(PK_INTERPOLATE(from.asRGBA.r, to.asRGBA.r, percent),
-						   PK_INTERPOLATE(from.asRGBA.g, to.asRGBA.g, percent),
-						   PK_INTERPOLATE(from.asRGBA.b, to.asRGBA.b, percent),
-						   PK_INTERPOLATE(from.asRGBA.a, to.asRGBA.a, percent));
+	// Must have a return, a from and a to value
+	assert(retVal);
+	assert(from);
+	assert(to);
+
+	PKColor *colorRet  = (PKColor *)retVal;
+	PKColor *colorFrom = (PKColor *)from;
+	PKColor *colorTo   = (PKColor *)to;
+
+	*colorRet = PKColorMakeRGBA(PK_INTERPOLATE(colorFrom->asRGBA.r, colorTo->asRGBA.r, percent),
+								PK_INTERPOLATE(colorFrom->asRGBA.g, colorTo->asRGBA.g, percent),
+								PK_INTERPOLATE(colorFrom->asRGBA.b, colorTo->asRGBA.b, percent),
+								PK_INTERPOLATE(colorFrom->asRGBA.a, colorTo->asRGBA.a, percent));
 }
 
 #ifdef __cplusplus

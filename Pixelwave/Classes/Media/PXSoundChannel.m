@@ -70,6 +70,7 @@
 		   soundTransform:(PXSoundTransform *)_soundTransform
 {
 	self = [super init];
+
 	if (self)
 	{
 		loopCount = _loops;

@@ -72,6 +72,7 @@
 	   soundTransform:(PXSoundTransform *)_soundTransform
 {
 	self = [super _initWithStartTime:_startTime loopCount:_loops soundTransform:_soundTransform];
+
 	if (self)
 	{
 		sound = [_sound retain];
@@ -274,8 +275,8 @@
 		return;
 	}
 
-	BOOL isCurrent3D = [soundTransform isKindOfClass:PXSoundTransform3D.class];
-	BOOL isNew3D = [_soundTransform isKindOfClass:PXSoundTransform3D.class];
+	BOOL isCurrent3D = [soundTransform isKindOfClass:[PXSoundTransform3D class]];
+	BOOL isNew3D = [_soundTransform isKindOfClass:[PXSoundTransform3D class]];
 
 	if (isNew3D && !sound.is3DReady)
 	{
@@ -359,7 +360,7 @@
 
 	distanceModel = newDistanceModel;
 
-	if ([soundTransform isKindOfClass:PXSoundTransform3D.class])
+	if ([soundTransform isKindOfClass:[PXSoundTransform3D class]])
 	{
 		PXSoundTransform3D *currentSoundTransform3D = (PXSoundTransform3D *)soundTransform;
 

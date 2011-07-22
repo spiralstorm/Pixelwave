@@ -143,7 +143,7 @@ CGPoint PXUtilsLocalToGlobal(PXDisplayObject *displayObject, CGPoint point)
 
 PXLinkedList *PXUtilsNewPooledList()
 {
-	return (PXLinkedList *)([PXEngineGetSharedObjectPool() newObjectUsingClass:PXLinkedList.class]);
+	return (PXLinkedList *)([PXEngineGetSharedObjectPool() newObjectUsingClass:[PXLinkedList class]]);
 }
 void PXUtilsReleasePooledList(PXLinkedList *list)
 {
@@ -151,7 +151,7 @@ void PXUtilsReleasePooledList(PXLinkedList *list)
 }
 PXPoint *PXUtilsNewPooledPoint()
 {
-	return (PXPoint *)([PXEngineGetSharedObjectPool() newObjectUsingClass:PXPoint.class]);
+	return (PXPoint *)([PXEngineGetSharedObjectPool() newObjectUsingClass:[PXPoint class]]);
 }
 void PXUtilsReleasePooledPoint(PXPoint *point)
 {

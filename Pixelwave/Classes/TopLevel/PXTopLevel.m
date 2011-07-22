@@ -91,27 +91,27 @@ void _PXTopLevelInitialize( )
 
 	///////////////////////////// Add the Parsers \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-	[PXParser registerParser:PXCGTextureParser.class	forBaseClass:PXTextureParser.class];
-	[PXParser registerParser:PXPVRTextureParser.class	forBaseClass:PXTextureParser.class];
+	[PXParser registerParser:[PXCGTextureParser class]		forBaseClass:[PXTextureParser class]];
+	[PXParser registerParser:[PXPVRTextureParser class]		forBaseClass:[PXTextureParser class]];
 #if(PX_TEXTURE_PARSER_USE_LIBPNG)
-	[PXParser registerParser:PXPNGTextureParser.class	forBaseClass:PXTextureParser.class];
+	[PXParser registerParser:[PXPNGTextureParser class]		forBaseClass:[PXTextureParser class]];
 #endif
 
-	[PXParser registerParser:PXAVSoundParser.class		forBaseClass:PXSoundParser.class];
-	[PXParser registerParser:PXALSoundParser.class		forBaseClass:PXSoundParser.class];
+	[PXParser registerParser:[PXAVSoundParser class]		forBaseClass:[PXSoundParser class]];
+	[PXParser registerParser:[PXALSoundParser class]		forBaseClass:[PXSoundParser class]];
 
-	[PXParser registerParser:PXFreeTypeFontParser.class	forBaseClass:PXFontParser.class];
-	[PXParser registerParser:PXSystemFontParser.class	forBaseClass:PXFontParser.class];
-	[PXParser registerParser:PXFNTFontParser.class		forBaseClass:PXFontParser.class];
+	[PXParser registerParser:[PXFreeTypeFontParser class]	forBaseClass:[PXFontParser class]];
+	[PXParser registerParser:[PXSystemFontParser class]		forBaseClass:[PXFontParser class]];
+	[PXParser registerParser:[PXFNTFontParser class]		forBaseClass:[PXFontParser class]];
 
-	[PXParser registerParser:PXTPAtlasParser.class		forBaseClass:PXTextureAtlasParser.class];
-	[PXParser registerParser:PXZwopAtlasParser.class	forBaseClass:PXTextureAtlasParser.class];
+	[PXParser registerParser:[PXTPAtlasParser class]		forBaseClass:[PXTextureAtlasParser class]];
+	[PXParser registerParser:[PXZwopAtlasParser class]		forBaseClass:[PXTextureAtlasParser class]];
 
 	////////////////////////////// Add the Fusers \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-	[PXFontFuser registerFontFuser:PXFreeTypeTextureFontFuser.class];
-	[PXFontFuser registerFontFuser:PXSystemTextureFontFuser.class];
-	[PXFontFuser registerFontFuser:PXFNTTextureFontFuser.class];
+	[PXFontFuser registerFontFuser:[PXFreeTypeTextureFontFuser class]];
+	[PXFontFuser registerFontFuser:[PXSystemTextureFontFuser class]];
+	[PXFontFuser registerFontFuser:[PXFNTTextureFontFuser class]];
 }
 
 void _PXTopLevelDealloc()

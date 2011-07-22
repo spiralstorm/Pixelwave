@@ -114,6 +114,7 @@ static unsigned _pxDisplayObjectCount = 0;
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		userData = NULL;
@@ -609,7 +610,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	CGPoint touchPoint = PXEngineTouchToScreenCoordinates(nativeTouch);
 
 	PXObjectPool *pool = PXEngineGetSharedObjectPool();
-	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:PXPoint.class];
+	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:[PXPoint class]];
 
 #ifdef PX_DEBUG_MODE
 	if (PXDebugIsEnabled(PXDebugSetting_HalveStage))
@@ -939,7 +940,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	/*// This is where most of the magic happens.
 	// The global position gets converted to local coords
 	PXObjectPool *pool = PXEngineGetSharedObjectPool();
-	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:PXPoint.class];
+	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:[PXPoint class]];
 	point.x = x;
 	point.y = y;
 	PXPoint *globalPoint = [self globalToLocal:point];
@@ -992,7 +993,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	return [self _containsPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];
 
 	/*PXObjectPool *pool = PXEngineGetSharedObjectPool();
-	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:PXPoint.class];
+	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:[PXPoint class]];
 	point.x = x;
 	point.y = y;
 	PXPoint *globalPoint = [self globalToLocal:point];

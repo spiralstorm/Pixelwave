@@ -113,12 +113,13 @@
 			 origin:(NSString *)_origin
 {
 	self = [super init];
+
 	if (self)
 	{
 		// Find the real class needed
 		Class realClass = [PXParser parserForData:_data
 											 origin:_origin
-										  baseClass:PXSoundParser.class];
+										  baseClass:[PXSoundParser class]];
 
 		// If the real parser doesn't exist, give up - there is nothing else we
 		// can do.
@@ -130,8 +131,8 @@
 
 		// Make a new instance of the parser
 		PXSoundParser *newParser = [[realClass alloc] _initWithData:_data
-															modifier:_modifier
-															   origin:_origin];
+														   modifier:_modifier
+															 origin:_origin];
 
 		// Release ourself, as we are going to transform into the new parser.
 		[self release];
@@ -152,6 +153,7 @@
 {
 	// Set the data and origin
 	self = [super _initWithData:_data origin:_origin];
+
 	if (self)
 	{
 		// Make the sound info (it's bytes and other)

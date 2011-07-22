@@ -99,7 +99,7 @@
 
 - (Class) defaultFuser
 {
-	return PXFNTTextureFontFuser.class;
+	return [PXFNTTextureFontFuser class];
 }
 
 #pragma mark -

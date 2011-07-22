@@ -76,6 +76,7 @@
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		// Default font information.

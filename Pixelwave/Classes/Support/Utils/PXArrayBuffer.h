@@ -46,9 +46,17 @@
 
 #define PXArrayBufferForEach(_array_, _obj_) \
 	unsigned PX_UNIQUE_VAR(_index_); \
-	unsigned PX_UNIQUE_VAR(_count_) = PXArrayBufferCount(_array_); \
-	unsigned PX_UNIQUE_VAR(_size_) = (_array_)->_elementSize; \
-	uint8_t *PX_UNIQUE_VAR(_bytes_) = (_array_)->array; \
+	unsigned PX_UNIQUE_VAR(_count_) = 0; \
+	unsigned PX_UNIQUE_VAR(_size_) = 0; \
+	uint8_t *PX_UNIQUE_VAR(_bytes_) = NULL;\
+\
+	if (_array_) \
+	{ \
+		PX_UNIQUE_VAR(_count_) = PXArrayBufferCount(_array_); \
+		PX_UNIQUE_VAR(_size_) = (_array_)->_elementSize; \
+		PX_UNIQUE_VAR(_bytes_) = (uint8_t *)((_array_)->array); \
+	} \
+\
 	for (PX_UNIQUE_VAR(_index_) = 0, (_obj_) = (void *)(PX_UNIQUE_VAR(_bytes_)); \
 		 PX_UNIQUE_VAR(_index_) < PX_UNIQUE_VAR(_count_); \
 		 ++PX_UNIQUE_VAR(_index_), (PX_UNIQUE_VAR(_bytes_)) += (PX_UNIQUE_VAR(_size_)), (_obj_) = (void *)(PX_UNIQUE_VAR(_bytes_)))
@@ -115,7 +123,7 @@ PXInline void PXArrayBufferListUpdate(PXArrayBuffer *buffer,
 
 PXInline PXArrayBuffer *PXArrayBufferCreate()
 {
-	PXArrayBuffer *buffer = calloc(1, sizeof(PXArrayBuffer));
+	PXArrayBuffer *buffer = (PXArrayBuffer *)(calloc(1, sizeof(PXArrayBuffer)));
 
 	if (buffer)
 	{
@@ -213,7 +221,7 @@ PXInline void *PXArrayBufferNext(PXArrayBuffer *buffer)
 		PXArrayBufferResize(buffer, newSize);
 	}
 
-	void *current = buffer->array + preUsedSize;
+	void *current = (void *)(((uint8_t *)(buffer->array)) + preUsedSize);
 //	buffer->_next.index = buffer->_usedSize / buffer->_elementSize;
 //	void *current = buffer->_next.pointer;
 
@@ -277,9 +285,9 @@ PXInline void PXArrayBufferListUpdate(PXArrayBuffer *buffer,
 	assert(buffer);
 
 	size_t elementSize = buffer->_elementSize;
-	uint8_t *bytes = buffer->array;
+	uint8_t *bytes = (uint8_t *)(buffer->array);
 	uint8_t *alive = bytes;
-	uint8_t *element = bytes;
+	void *element = bytes;
 
 //	unsigned index;
 	unsigned aliveCount = 0;

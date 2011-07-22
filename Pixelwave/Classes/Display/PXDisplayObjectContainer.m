@@ -90,6 +90,7 @@
 - (id) init
 {
 	self = [super init];
+
 	if (self)
 	{
 		_childrenHead = nil; _childrenTail = nil;
@@ -1114,7 +1115,7 @@
 
 		// If it is a display object container, then add each child that is also
 		// under the point.
-		if ([loopChild isKindOfClass:PXDisplayObjectContainer.class])
+		if ([loopChild isKindOfClass:[PXDisplayObjectContainer class]])
 		{
 			container = (PXDisplayObjectContainer *)(loopChild);
 			addList = [container objectsUnderPoint:point];

@@ -72,6 +72,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 		   tapCount:(unsigned)tapCount
 {
 	self = [super initWithType:type doesBubble:YES isCancelable:NO];
+
 	if (self)
 	{
 		_nativeTouch = [touch retain];
@@ -134,7 +135,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 - (PXPoint *)localPosition
 {
-	if (_target && [_target isKindOfClass:PXDisplayObject.class] && _target)
+	if (_target && [_target isKindOfClass:[PXDisplayObject class]] && _target)
 	{
 		return [((PXDisplayObject *)_target) positionOfTouch:_nativeTouch];
 	}
@@ -149,7 +150,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 - (float) localX
 {
-	if (_target && [_target isKindOfClass:PXDisplayObject.class])
+	if (_target && [_target isKindOfClass:[PXDisplayObject class]])
 	{
 		return [((PXDisplayObject *)_target) positionOfTouch:_nativeTouch].x;
 	}
@@ -159,7 +160,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 - (float) localY
 {
-	if (_target && [_target isKindOfClass:PXDisplayObject.class])
+	if (_target && [_target isKindOfClass:[PXDisplayObject class]])
 	{
 		return [((PXDisplayObject *)_target) positionOfTouch:_nativeTouch].y;
 	}

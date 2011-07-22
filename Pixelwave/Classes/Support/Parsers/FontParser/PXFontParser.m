@@ -142,12 +142,13 @@
 - (id) initWithData:(NSData *)_data options:(PXFontOptions *)_options origin:(NSString *)_origin
 {
 	self = [super init];
+
 	if (self)
 	{
 		// Find the real type of parser to use.
 		Class realClass = [PXParser parserForData:_data
 										   origin:_origin
-										baseClass:PXFontParser.class];
+										baseClass:[PXFontParser class]];
 
 		// If no real parser exists, then we can't do anything
 		if (!realClass)
@@ -180,6 +181,7 @@
 {
 	// Set the data and origin
 	self = [super _initWithData:_data origin:_origin];
+
 	if (self)
 	{
 		// Copy the options, as we can not assume that they will not change on
@@ -203,7 +205,7 @@
 		}
 		else
 		{
-			fuserType = [PXFontFuser fontFuserTypeForParser:self.class options:options.class];
+			fuserType = [PXFontFuser fontFuserTypeForParser:[self class] options:[options class]];
 		}
 
 		if (fuserType)

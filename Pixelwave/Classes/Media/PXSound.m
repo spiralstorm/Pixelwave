@@ -76,6 +76,7 @@
 - (id) _initWithLength:(unsigned)_length
 {
 	self = [super init];
+
 	if (self)
 	{
 		length = _length;
@@ -92,6 +93,7 @@
 - (id) initWithData:(NSData *)data modifier:(id<PXSoundModifier>)modifier
 {
 	self = [super init];
+
 	if (self)
 	{
 		PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data

@@ -248,6 +248,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 					modifier:(id<PXTextureModifier>)modifier
 {
 	self = [super _initWithContentsOfFile:path orURL:url];
+
 	if (self)
 	{
 		// Initialize the content scale factor

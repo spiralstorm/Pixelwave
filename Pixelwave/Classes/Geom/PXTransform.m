@@ -79,6 +79,7 @@
 - (id) _initWithDisplayObject:(PXDisplayObject *)dispObject
 {
 	self = [super init];
+
 	if (self)
 	{
 		_displayObject = dispObject;
