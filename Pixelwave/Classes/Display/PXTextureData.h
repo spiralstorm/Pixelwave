@@ -282,11 +282,16 @@
  *	Please note, this is not a fast method. Refrain from using it in real-time
  *	code.
  *
- *	@param textureData the PXTextureData object to read the pixels from.
- *	@param x The left coordinate of the clipping rectangle.
- *	@param y The top coordinate of the clipping rectangle.
- *	@param width The width of the clipping rectangle.
- *	@param height The height of the clipping rectangle
+ *	@param textureData
+ *		The PXTextureData object to read the pixels from.
+ *	@param x
+ *		The left coordinate of the clipping rectangle.
+ *	@param y
+ *		The top coordinate of the clipping rectangle.
+ *	@param width
+ *		The width of the clipping rectangle.
+ *	@param height
+ *		The height of the clipping rectangle
  *	@param pixels
  *		An unsigned byte array with a length of <code>width * height * 4</code>
  *	
