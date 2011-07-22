@@ -205,7 +205,7 @@ float pxEngineLogicTimeAccum = 0.0f;
 
 // The size of the view in POINTS. Always in PORTRAIT
 CGSize pxEngineViewSize;
-PXColor3f pxEngineClearColor = {1.0f, 1.0f, 1.0f}; // Initialize to white
+PXColor4f pxEngineClearColor = {1.0f, 1.0f, 1.0f, 1.0f}; // Initialize to white
 
 #ifdef PX_DEBUG_MODE
 float pxEngineTimeBetweenFrames = 0.0f;
@@ -534,11 +534,11 @@ BOOL PXEngineShouldClearScreen( )
 	return pxEngineShouldClear;
 }
 
-void PXEngineSetClearColor(PXColor3f color)
+void PXEngineSetClearColor(PXColor4f color)
 {
 	pxEngineClearColor = color;
 }
-PXColor3f PXEngineGetClearColor()
+PXColor4f PXEngineGetClearColor()
 {
 	return pxEngineClearColor;
 }
@@ -1034,8 +1034,7 @@ void PXEngineRender()
 
 	if (pxEngineShouldClear)
 	{
-		//glClearColor(pxEngineStage->_bgColorR, pxEngineStage->_bgColorG, pxEngineStage->_bgColorB, 1.0f);
-		glClearColor(pxEngineClearColor.r, pxEngineClearColor.g, pxEngineClearColor.b, 1.0f);
+		glClearColor(pxEngineClearColor.r, pxEngineClearColor.g, pxEngineClearColor.b, pxEngineClearColor.a);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 

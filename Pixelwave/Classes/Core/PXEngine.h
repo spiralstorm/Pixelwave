@@ -88,8 +88,8 @@ PXDisplayObject *PXEngineGetRoot( );
 
 void PXEngineSetClearScreen(BOOL clear);
 BOOL PXEngineShouldClearScreen();
-void PXEngineSetClearColor(PXColor3f color);
-PXColor3f PXEngineGetClearColor();
+void PXEngineSetClearColor(PXColor4f color);
+PXColor4f PXEngineGetClearColor();
 
 void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transformationsEnabled, bool canBeUsedForTouches);
 
