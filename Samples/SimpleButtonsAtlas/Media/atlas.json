@@ -1,0 +1,43 @@
+{"frames": {
+
+"FurryArrow.png":
+{
+	"frame": {"x":185,"y":0,"w":87,"h":66},
+	"rotated": true,
+	"trimmed": true,
+	"spriteSourceSize": {"x":22,"y":20,"w":87,"h":66},
+	"sourceSize": {"w":131,"h":106}
+},
+"FurryArrowGlow.png":
+{
+	"frame": {"x":0,"y":183,"w":131,"h":106},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":131,"h":106},
+	"sourceSize": {"w":131,"h":106}
+},
+"Rocky.png":
+{
+	"frame": {"x":0,"y":0,"w":183,"h":181},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":183,"h":181},
+	"sourceSize": {"w":183,"h":181}
+},
+"Shadow.png":
+{
+	"frame": {"x":185,"y":89,"w":149,"h":44},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":149,"h":44},
+	"sourceSize": {"w":149,"h":44}
+}
+}, 
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "atlas.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":512}
+}
+}
