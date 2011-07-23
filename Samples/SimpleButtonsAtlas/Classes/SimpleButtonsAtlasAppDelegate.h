@@ -37,24 +37,15 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#import "Pixelwave.h"
+#import <UIKit/UIKit.h>
+@class PXView;
 
-@interface SimpleButtonsRoot : PXSprite
+@interface SimpleButtonsAtlasAppDelegate : NSObject <UIApplicationDelegate>
 {
-@private
-	PXTexture *raccoon;
-	PXTexture *shadow;
-
-	PXSimpleButton *leftArrow;
-	PXSimpleButton *rightArrow;
-
-	float floorY;
-	float direction;
-	float slideVelocity;
-	
-	BOOL isIpad;
+    UIWindow *window;
+	PXView *pixelView;
 }
 
-- (void) initializeAsRoot;
+@property (nonatomic, retain) IBOutlet UIWindow *window;
 
 @end

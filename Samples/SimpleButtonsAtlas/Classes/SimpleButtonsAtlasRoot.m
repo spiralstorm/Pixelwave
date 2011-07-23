@@ -37,9 +37,9 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#import "SimpleButtonsRoot.h"
+#import "SimpleButtonsAtlasRoot.h"
 
-@interface SimpleButtonsRoot(Private)
+@interface SimpleButtonsAtlasRoot(Private)
 - (void) onFrame:(PXEvent *)event;
 
 - (void) addTouchListeners;
@@ -56,7 +56,7 @@
 //  "Clean before you build, otherwise the dust will get in." - John
 //
 
-@implementation SimpleButtonsRoot
+@implementation SimpleButtonsAtlasRoot
 
 - (void) initializeAsRoot
 {

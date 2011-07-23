@@ -38,10 +38,10 @@
  */
 
 #import "Pixelwave.h"
-#import "SimpleButtonsAppDelegate.h"
-#import "SimpleButtonsRoot.h"
+#import "SimpleButtonsAtlasAppDelegate.h"
+#import "SimpleButtonsAtlasRoot.h"
 
-@implementation SimpleButtonsAppDelegate
+@implementation SimpleButtonsAtlasAppDelegate
 
 @synthesize window;
 
@@ -56,7 +56,7 @@
 	pixelView = [[PXView alloc] initWithFrame:window.frame];
 	
 	// Create an instance of SimpleButtonsRoot and set it as the new Root.
-	SimpleButtonsRoot *root = [[SimpleButtonsRoot alloc] init];
+	SimpleButtonsAtlasRoot *root = [[SimpleButtonsAtlasRoot alloc] init];
 	[pixelView setRoot:root];
 	[root release];
 
