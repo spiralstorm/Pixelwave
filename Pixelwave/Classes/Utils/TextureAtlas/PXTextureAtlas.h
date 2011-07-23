@@ -148,4 +148,5 @@
 
 // Creation methods
 + (PXTextureAtlas *)textureAtlas;
++ (PXTextureAtlas *)textureAtlasWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier;
 @end

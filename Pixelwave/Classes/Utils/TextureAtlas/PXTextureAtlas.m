@@ -454,4 +454,17 @@
 	return [[[PXTextureAtlas alloc] init] autorelease];
 }
 
+/**
+ *	A utility method for quickly creating a texture atlas with
+ *	the contents of an atlas definition file on the hard drive.
+ *
+ *	@return
+ *		An autoreleased PXTextureAtlas object.
+ */
+
++ (PXTextureAtlas *)textureAtlasWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
+{
+	return [[[PXTextureAtlas alloc] initWithContentsOfFile:path modifier:modifier] autorelease];
+}
+
 @end
