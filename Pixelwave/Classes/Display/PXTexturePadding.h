@@ -7,6 +7,9 @@
 //
 
 /// @cond DX_IGNORE
+#ifndef _PX_TEXTURE_PADDING_H_
+#define _PX_TEXTURE_PADDING_H_
+
 typedef struct
 {
 	float top;
@@ -14,12 +17,24 @@ typedef struct
 	float bottom;
 	float left;
 } _PXTexturePadding;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+	
+	_PXTexturePadding _PXTexturePaddingMake(float top, float right, float bottom, float left);
+	
+#ifdef __cplusplus
+}
+#endif
+#endif
 /// @endcond
+
 
 @interface PXTexturePadding : NSObject <NSCopying>
 {
-@private
-	_PXTexturePadding padding;
+@public
+	_PXTexturePadding _padding;
 }
 
 /**
@@ -59,27 +74,3 @@ typedef struct
 									   left:(float)left;
 
 @end
-
-/// @cond DX_IGNORE
-@interface PXTexturePadding (PrivateButPublic)
-- (id) _initWithPadding:(_PXTexturePadding)padding;
-- (void) setPadding:(_PXTexturePadding)padding;
-- (_PXTexturePadding) _padding;
-+ (PXTexturePadding *)_texturePaddingWithPadding:(_PXTexturePadding)padding;
-@end
-
-#ifndef _PX_TEXTURE_PADDING_H_
-#define _PX_TEXTURE_PADDING_H_
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-_PXTexturePadding _PXTexturePaddingMake(float top, float right, float bottom, float left);
-
-#ifdef __cplusplus
-}
-#endif
-#endif
-
-/// @endcond

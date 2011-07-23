@@ -478,7 +478,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 {
 	if (val)
 	{
-		padding = [val _padding];
+		padding = val->_padding;
 		[self setPaddingEnabled:YES];
 	}
 	else
@@ -492,7 +492,10 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 	if (!paddingEnabled)
 		return nil;
 
-	return [PXTexturePadding _texturePaddingWithPadding:padding];
+	return [PXTexturePadding texturePaddingWithTop:padding.top
+											 right:padding.right
+											bottom:padding.bottom
+											  left:padding.left];
 }
 
 #pragma mark -

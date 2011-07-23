@@ -27,24 +27,21 @@
 
 - (id) initWithTop:(float)top right:(float)right bottom:(float)bottom left:(float)left
 {
-	return [self _initWithPadding:_PXTexturePaddingMake(top, right, bottom, left)];
-}
-
-- (id) _initWithPadding:(_PXTexturePadding)_padding
-{
 	self = [super init];
-
+	
 	if (self)
 	{
-		padding = _padding;
+		_padding = _PXTexturePaddingMake(top, right, bottom, left);
 	}
-
 	return self;
 }
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	return [[PXTexturePadding allocWithZone:zone] _initWithPadding:padding];
+	return [[PXTexturePadding allocWithZone:zone] initWithTop:_padding.top
+														right:_padding.right
+													   bottom:_padding.bottom
+														 left:_padding.left];
 }
 
 #pragma mark -
@@ -53,40 +50,40 @@
 
 - (float) top
 {
-	return padding.top;
+	return _padding.top;
 }
 - (void) setTop:(float)top
 {
-	padding.top = MAX(0.0f, top);
+	_padding.top = MAX(0.0f, top);
 }
 - (float) right
 {
-	return padding.right;
+	return _padding.right;
 }
 - (void) setRight:(float)right
 {
-	padding.right = MAX(0.0f, right);
+	_padding.right = MAX(0.0f, right);
 }
 - (float) bottom
 {
-	return padding.bottom;
+	return _padding.bottom;
 }
 - (void) setBottom:(float)bottom
 {
-	padding.bottom = MAX(0.0f, bottom);
+	_padding.bottom = MAX(0.0f, bottom);
 }
 - (float) left
 {
-	return padding.left;
+	return _padding.left;
 }
 - (void) setLeft:(float)left
 {
-	padding.left = MAX(0.0f, left);
+	_padding.left = MAX(0.0f, left);
 }
 
 - (void) setTop:(float)top right:(float)right bottom:(float)bottom left:(float)left
 {
-	padding = _PXTexturePaddingMake(top, right, bottom, left);
+	_padding = _PXTexturePaddingMake(top, right, bottom, left);
 }
 
 #pragma mark -
@@ -95,7 +92,7 @@
 
 + (PXTexturePadding *)texturePaddingWithTop:(float)top right:(float)right bottom:(float)bottom left:(float)left
 {
-	return [[[PXTexturePadding alloc] _initWithPadding:_PXTexturePaddingMake(top, right, bottom, left)] autorelease];
+	return [[[PXTexturePadding alloc] initWithTop:top right:right bottom:bottom left:left] autorelease];
 }
 
 @end
