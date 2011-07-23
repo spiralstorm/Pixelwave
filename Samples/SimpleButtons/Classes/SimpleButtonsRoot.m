@@ -168,11 +168,15 @@
 	raccoon.x = self.stage.stageWidth * 0.5f;
 	raccoon.y = floorY;
 	
+	raccoon.smoothing = YES;
+	
 	[self addChild:raccoon];
 	
 	/** Shadow **/
 	[shadow setAnchorWithX:0.5f y:0.5f];
-	[self addChild:shadow];	
+	[self addChild:shadow];
+	
+	shadow.smoothing = YES;
 	
 	/** Arrows **/
 	
