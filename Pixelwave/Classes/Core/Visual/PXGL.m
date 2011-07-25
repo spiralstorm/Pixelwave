@@ -1148,6 +1148,7 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 
 	// What was the vertex index before we added points.
 	unsigned oldVertexIndex = PXGLGetCurrentVertexIndex();
+	unsigned oldPointSizeIndex = PXGLGetCurrentPointSizeIndex();
 
 	char isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
 	char isColored = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_COLOR_ARRAY);
@@ -1280,6 +1281,7 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 
 	if (!_PXGLRectContainsAABB(&pxGLRectClip, &aabb))
 	{
+		PXGLSetCurrentPointSizeIndex(oldPointSizeIndex);
 		PXGLSetCurrentVertexIndex(oldVertexIndex);
 	}
 
@@ -1362,6 +1364,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 
 	unsigned oldIndex = PXGLGetCurrentIndex();
 	unsigned oldVertexIndex = PXGLGetCurrentVertexIndex();
+	unsigned oldPointSizeIndex = PXGLGetCurrentPointSizeIndex();
 
 	vertexIndex = oldVertexIndex;
 
@@ -1511,6 +1514,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	if (!_PXGLRectContainsAABB(&pxGLRectClip, &aabb))
 	{
 		PXGLSetCurrentIndex(oldIndex);
+		PXGLSetCurrentPointSizeIndex(oldPointSizeIndex);
 		PXGLSetCurrentVertexIndex(oldVertexIndex);
 	}
 
