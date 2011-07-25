@@ -254,12 +254,12 @@
 {
 	if (!path)
 		return nil;
-	
+
 	float scaleFactor = 1.0f;
-	
+
 	// Device scale factor
 	int screenScaleFactor = PXEngineGetMainScreenScale();
-	
+
 	// If the screen scale factor is larger then 1, then we should check for
 	// alternate images.
 	if (screenScaleFactor > 1)
@@ -273,7 +273,7 @@
 		NSString *preExtension = [path stringByDeletingPathExtension];
 		NSString *appendString = [NSString stringWithFormat:@"@%dx.", screenScaleFactor];
 		NSString *xPath = [[preExtension stringByAppendingString:appendString] stringByAppendingString:extension];
-		
+
 		// If we find a file with this naming convetion, we need to use that
 		// file instead, however if we don't, then use the original.
 		if ([PXLoader fileExistsAtPath:xPath])
@@ -282,8 +282,10 @@
 			scaleFactor = screenScaleFactor;
 		}
 	}
-	
-	*outScale = scaleFactor;
+
+	if (outScale)
+		*outScale = scaleFactor;
+
 	return path;
 }
 
