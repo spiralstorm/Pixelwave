@@ -37,9 +37,9 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#import "SimpleButtonsRoot.h"
+#import "SimpleButtonsAtlasRoot.h"
 
-@interface SimpleButtonsRoot(Private)
+@interface SimpleButtonsAtlasRoot(Private)
 - (void) onFrame:(PXEvent *)event;
 
 - (void) addTouchListeners;
@@ -56,7 +56,7 @@
 //  "Clean before you build, otherwise the dust will get in." - John
 //
 
-@implementation SimpleButtonsRoot
+@implementation SimpleButtonsAtlasRoot
 
 - (void) initializeAsRoot
 {
@@ -93,20 +93,14 @@
 	fileName = isIpad ? @"Background-iPad.png" : @"Background.png";
 	PXTexture *backgroundImage = [PXTexture textureWithContentsOfFile:fileName];;
 	
-	/** Load the raccoon **/
-	fileName = isIpad ? @"Rocky@2x.png" : @"Rocky.png";
-	raccoon = [PXTexture textureWithContentsOfFile:fileName];
+	fileName = isIpad ? @"atlas@2x.json" : @"atlas.json";
+	PXTextureAtlas *atlas = [PXTextureAtlas textureAtlasWithContentsOfFile:fileName modifier:nil];
 	
-	/** Load the shadow **/
-	fileName = isIpad ? @"Shadow@2x.png" : @"Shadow.png";
-	shadow = [PXTexture textureWithContentsOfFile:fileName];
+	raccoon = [atlas textureForFrame:@"Rocky.png"];
+	shadow = [atlas textureForFrame:@"Shadow.png"];
 	
-	/** Load the arrows **/
-	fileName = isIpad ? @"FurryArrow@2x.png" : @"FurryArrow.png";
-	PXTextureData *arrowTextureData = [PXTextureData textureDataWithContentsOfFile:fileName];
-	
-	fileName = isIpad ? @"FurryArrowGlow@2x.png" : @"FurryArrowGlow.png";
-	PXTextureData *arrowDownTextureData = [PXTextureData textureDataWithContentsOfFile:fileName];
+	raccoon.smoothing = YES;
+	shadow.smoothing = YES;
 	
 	//////////////////////
 	// Make the buttons //
@@ -117,12 +111,12 @@
 	// Both left and right arrows use the same TextureData for their up state.
 	// Both left and right arrows use the same TextureData for their down state.
 	
-	PXTexture *leftArrowUp    = [[PXTexture alloc] initWithTextureData:arrowTextureData];
-	PXTexture *leftArrowDown  = [[PXTexture alloc] initWithTextureData:arrowDownTextureData];
+	PXTexture *leftArrowUp    = [atlas textureForFrame:@"FurryArrow.png"];
+	PXTexture *leftArrowDown  = [atlas textureForFrame:@"FurryArrowGlow.png"];
 	
-	PXTexture *rightArrowUp   = [[PXTexture alloc] initWithTextureData:arrowTextureData];
-	PXTexture *rightArrowDown = [[PXTexture alloc] initWithTextureData:arrowDownTextureData];
-	
+	PXTexture *rightArrowUp   = [atlas textureForFrame:@"FurryArrow.png"];
+	PXTexture *rightArrowDown = [atlas textureForFrame:@"FurryArrowGlow.png"];
+		
 	// Set the anchor point of these arrows to the bottom right to make
 	// positioning them easier
 	//
@@ -146,13 +140,7 @@
 	
 	// Make the left arrow point left by flipping it in the horizontal direction
 	leftArrow.scaleX = -1.0f;
-	
-	// Release the textures, as their retain is now being held by the buttons.
-	[leftArrowUp release];
-	[leftArrowDown release];
-	[rightArrowUp release];
-	[rightArrowDown release];
-	
+		
 	/////////////////////////
 	// Setup everything //
 	/////////////////////////
@@ -168,15 +156,11 @@
 	raccoon.x = self.stage.stageWidth * 0.5f;
 	raccoon.y = floorY;
 	
-	raccoon.smoothing = YES;
-	
 	[self addChild:raccoon];
 	
 	/** Shadow **/
 	[shadow setAnchorWithX:0.5f y:0.5f];
-	[self addChild:shadow];
-	
-	shadow.smoothing = YES;
+	[self addChild:shadow];	
 	
 	/** Arrows **/
 	

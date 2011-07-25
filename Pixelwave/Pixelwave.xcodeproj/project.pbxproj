@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,7 +14,7 @@
 		1D776D0F1057F9EA00516B26 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D776D0B1057F9EA00516B26 /* CoreGraphics.framework */; };
 		1DAD0FD41056FFB800A5AC03 /* PXView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DAD0FD21056FFB800A5AC03 /* PXView.h */; };
 		1DAD0FD51056FFB800A5AC03 /* PXView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DAD0FD31056FFB800A5AC03 /* PXView.m */; };
-		1DAD0FF01057014100A5AC03 /* Pixelwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DAD0FEF1057014100A5AC03 /* Pixelwave.h */; };
+		1DAD0FF01057014100A5AC03 /* Pixelwave.h in Headers */ = {isa = PBXBuildFile; fileRef = 1DAD0FEF1057014100A5AC03 /* Pixelwave.h */; settings = {ATTRIBUTES = (); }; };
 		2D0E8CE81353F2C200A42B3D /* PXTextureAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8CE61353F2C200A42B3D /* PXTextureAtlasParser.h */; };
 		2D0E8CE91353F2C200A42B3D /* PXTextureAtlasParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8CE71353F2C200A42B3D /* PXTextureAtlasParser.m */; };
 		2D0E8D1E1353F8A900A42B3D /* PXTPAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8D1C1353F8A900A42B3D /* PXTPAtlasParser.h */; };
@@ -2091,7 +2091,6 @@
 			files = (
 				2D74A14610F7A65500830235 /* PXTopLevel.h in Headers */,
 				1DAD0FD41056FFB800A5AC03 /* PXView.h in Headers */,
-				1DAD0FF01057014100A5AC03 /* Pixelwave.h in Headers */,
 				2D85D525107E58C900F46896 /* PXMath.h in Headers */,
 				2DD9E9AD10EBFDE400710F4E /* PXMathUtils.h in Headers */,
 				2DD9E9AF10EBFDE400710F4E /* PXColorUtils.h in Headers */,
@@ -2138,6 +2137,7 @@
 				52C63C3611E505BB0010A572 /* zconf.h in Headers */,
 				52C63C3711E505BB0010A572 /* zlib.h in Headers */,
 				52C63C3911E505BB0010A572 /* zutil.h in Headers */,
+				1DAD0FF01057014100A5AC03 /* Pixelwave.h in Headers */,
 				5231F498124D5756002B8A27 /* PXFontRenderer.h in Headers */,
 				5231F49A124D5756002B8A27 /* PXTextureFontRenderer.h in Headers */,
 				5231F49C124D5756002B8A27 /* PXSystemFontRenderer.h in Headers */,
@@ -2415,8 +2415,11 @@
 /* Begin PBXProject section */
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0410;
+			};
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "Pixelwave" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -2637,12 +2640,12 @@
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/Pixelwave.dst;
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Pixelwave_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -2673,6 +2676,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Pixelwave_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = 4.2;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				LIBRARY_SEARCH_PATHS = (
@@ -2708,7 +2712,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";
@@ -2731,7 +2734,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "";
 				OTHER_LDFLAGS = "-ObjC";
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "";

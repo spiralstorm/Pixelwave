@@ -126,12 +126,17 @@
 	PXColor3f c;
 	PXColorHexToRGBf(color, &c);
 	
-	PXEngineSetClearColor(c);
+	PXColor4f realColor = PXEngineGetClearColor();
+	realColor.r = c.r;
+	realColor.g = c.g;
+	realColor.b = c.b;
+	
+	PXEngineSetClearColor(realColor);
 }
 
 - (unsigned int) backgroundColor
 {
-	PXColor3f c = PXEngineGetClearColor();
+	PXColor4f c = PXEngineGetClearColor();
 	int hex = 0;
 	PXColorRGBToHex(c.r * 0xFF, c.g * 0xFF, c.b * 0xFF, &hex);
 	

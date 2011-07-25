@@ -320,8 +320,8 @@
 		[[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"])
 	{
 		surfaceColorFormat = kEAGLColorFormatRGBA8;
-	}	
-	
+	}
+		
 	NSDictionary *drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
 										surfaceRetainedBacking,	kEAGLDrawablePropertyRetainedBacking,
 										surfaceColorFormat,		kEAGLDrawablePropertyColorFormat,
@@ -478,6 +478,29 @@
 #endif
 
 	return 1.0f;
+}
+
+- (void) setOpaque:(BOOL)value
+{
+	[super setOpaque:value];
+	
+	PXColor4f clearColor = PXEngineGetClearColor();
+	
+	if(self.opaque){
+		clearColor.a = 1.0f;
+	}else{
+		// This is needed in order for a non-opaque view to work correctly
+		clearColor.r = 0.0f;
+		clearColor.g = 0.0f;
+		clearColor.b = 0.0f;
+		clearColor.a = 0.0f;
+		
+		if(colorQuality != PXViewColorQuality_High){
+			NSLog(@"Pixelwave Warning: Setting PXView.opaque = NO when the colorQuality of the view isn't 'high' will have no effect.");
+		}
+	}
+	
+	PXEngineSetClearColor(clearColor);
 }
 
 - (PXStage *)stage
