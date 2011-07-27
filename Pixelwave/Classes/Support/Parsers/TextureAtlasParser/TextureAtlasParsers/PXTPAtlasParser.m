@@ -17,6 +17,8 @@
 #import "PXTextureLoader.h"
 #import "PXTextureData.h"
 
+#import "PXDebug.h"
+
 // How much TexturePacker rotates the image when it says 'rotated'
 #define PX_TP_ROTATION_AMOUNT 90.0f
 
@@ -74,7 +76,13 @@
 	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error];
 	
 	if (error)
+	{
+		NSString *localOrigin = self.origin;
+		localOrigin = [[localOrigin pathComponents] lastObject];
+
+		PXDebugLog(@"Couldn't parse file:%@ reason:%@\n", localOrigin ? localOrigin : @"JSON", error);
 		return NO;
+	}
 	
 	NSDictionary *framesDict = [dict objectForKey:@"frames"];
 	

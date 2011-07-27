@@ -19,27 +19,6 @@
 		2D0E8CE91353F2C200A42B3D /* PXTextureAtlasParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8CE71353F2C200A42B3D /* PXTextureAtlasParser.m */; };
 		2D0E8D1E1353F8A900A42B3D /* PXTPAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8D1C1353F8A900A42B3D /* PXTPAtlasParser.h */; };
 		2D0E8D1F1353F8A900A42B3D /* PXTPAtlasParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8D1D1353F8A900A42B3D /* PXTPAtlasParser.m */; };
-		2D0E8DEA1354044A00A42B3D /* CDataScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DD21354044A00A42B3D /* CDataScanner.h */; };
-		2D0E8DEB1354044A00A42B3D /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8DD31354044A00A42B3D /* CDataScanner.m */; };
-		2D0E8DEC1354044A00A42B3D /* CFilteringJSONSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DD51354044A00A42B3D /* CFilteringJSONSerializer.h */; };
-		2D0E8DED1354044A00A42B3D /* CFilteringJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8DD61354044A00A42B3D /* CFilteringJSONSerializer.m */; };
-		2D0E8DEE1354044A00A42B3D /* CJSONDeserializer_BlocksExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DD71354044A00A42B3D /* CJSONDeserializer_BlocksExtensions.h */; };
-		2D0E8DEF1354044A00A42B3D /* CJSONDeserializer_BlocksExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8DD81354044A00A42B3D /* CJSONDeserializer_BlocksExtensions.m */; };
-		2D0E8DF01354044A00A42B3D /* CJSONSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DD91354044A00A42B3D /* CJSONSerialization.h */; };
-		2D0E8DF11354044A00A42B3D /* CJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8DDA1354044A00A42B3D /* CJSONSerialization.m */; };
-		2D0E8DF21354044A00A42B3D /* CJSONSerializedData.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DDB1354044A00A42B3D /* CJSONSerializedData.h */; };
-		2D0E8DF31354044A00A42B3D /* CJSONSerializedData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8DDC1354044A00A42B3D /* CJSONSerializedData.m */; };
-		2D0E8DF41354044A00A42B3D /* CDataScanner_Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DDE1354044A00A42B3D /* CDataScanner_Extensions.h */; };
-		2D0E8DF51354044A00A42B3D /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8DDF1354044A00A42B3D /* CDataScanner_Extensions.m */; };
-		2D0E8DF61354044A00A42B3D /* NSDictionary_JSONExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DE01354044A00A42B3D /* NSDictionary_JSONExtensions.h */; };
-		2D0E8DF71354044A00A42B3D /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8DE11354044A00A42B3D /* NSDictionary_JSONExtensions.m */; };
-		2D0E8DF81354044A00A42B3D /* CJSONDeserializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DE31354044A00A42B3D /* CJSONDeserializer.h */; };
-		2D0E8DF91354044A00A42B3D /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8DE41354044A00A42B3D /* CJSONDeserializer.m */; };
-		2D0E8DFA1354044A00A42B3D /* CJSONScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DE51354044A00A42B3D /* CJSONScanner.h */; };
-		2D0E8DFB1354044A00A42B3D /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8DE61354044A00A42B3D /* CJSONScanner.m */; };
-		2D0E8DFC1354044A00A42B3D /* CJSONSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DE71354044A00A42B3D /* CJSONSerializer.h */; };
-		2D0E8DFD1354044A00A42B3D /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8DE81354044A00A42B3D /* CJSONSerializer.m */; };
-		2D0E8DFE1354044A00A42B3D /* JSONRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8DE91354044A00A42B3D /* JSONRepresentation.h */; };
 		2D35BD7A11AD8E46005645F0 /* PXMathUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D35BD7911AD8E46005645F0 /* PXMathUtils.m */; };
 		2D3783EB135A2AB600E223BD /* PXCGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D3783E9135A2AB600E223BD /* PXCGUtils.h */; };
 		2D3783EC135A2AB600E223BD /* PXCGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3783EA135A2AB600E223BD /* PXCGUtils.m */; };
@@ -389,6 +368,27 @@
 		5280DEA5133407AF00B0F353 /* PXGLStatePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280DEA4133407AF00B0F353 /* PXGLStatePrivate.h */; };
 		52834A8A12F0C59B000227DD /* PXTextureFontOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 52834A8812F0C59B000227DD /* PXTextureFontOptions.h */; };
 		52834A8B12F0C59B000227DD /* PXTextureFontOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 52834A8912F0C59B000227DD /* PXTextureFontOptions.m */; };
+		5286DBD913E0CFCA00E5971F /* CDataScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBC113E0CFCA00E5971F /* CDataScanner.h */; };
+		5286DBDA13E0CFCA00E5971F /* CDataScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBC213E0CFCA00E5971F /* CDataScanner.m */; };
+		5286DBDB13E0CFCA00E5971F /* CFilteringJSONSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBC413E0CFCA00E5971F /* CFilteringJSONSerializer.h */; };
+		5286DBDC13E0CFCA00E5971F /* CFilteringJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBC513E0CFCA00E5971F /* CFilteringJSONSerializer.m */; };
+		5286DBDD13E0CFCA00E5971F /* CJSONDeserializer_BlocksExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBC613E0CFCA00E5971F /* CJSONDeserializer_BlocksExtensions.h */; };
+		5286DBDE13E0CFCA00E5971F /* CJSONDeserializer_BlocksExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBC713E0CFCA00E5971F /* CJSONDeserializer_BlocksExtensions.m */; };
+		5286DBDF13E0CFCA00E5971F /* CJSONSerialization.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBC813E0CFCA00E5971F /* CJSONSerialization.h */; };
+		5286DBE013E0CFCA00E5971F /* CJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBC913E0CFCA00E5971F /* CJSONSerialization.m */; };
+		5286DBE113E0CFCA00E5971F /* CJSONSerializedData.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBCA13E0CFCA00E5971F /* CJSONSerializedData.h */; };
+		5286DBE213E0CFCA00E5971F /* CJSONSerializedData.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBCB13E0CFCA00E5971F /* CJSONSerializedData.m */; };
+		5286DBE313E0CFCA00E5971F /* CDataScanner_Extensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBCD13E0CFCA00E5971F /* CDataScanner_Extensions.h */; };
+		5286DBE413E0CFCA00E5971F /* CDataScanner_Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBCE13E0CFCA00E5971F /* CDataScanner_Extensions.m */; };
+		5286DBE513E0CFCA00E5971F /* NSDictionary_JSONExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBCF13E0CFCA00E5971F /* NSDictionary_JSONExtensions.h */; };
+		5286DBE613E0CFCA00E5971F /* NSDictionary_JSONExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBD013E0CFCA00E5971F /* NSDictionary_JSONExtensions.m */; };
+		5286DBE713E0CFCA00E5971F /* CJSONDeserializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBD213E0CFCA00E5971F /* CJSONDeserializer.h */; };
+		5286DBE813E0CFCA00E5971F /* CJSONDeserializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBD313E0CFCA00E5971F /* CJSONDeserializer.m */; };
+		5286DBE913E0CFCA00E5971F /* CJSONScanner.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBD413E0CFCA00E5971F /* CJSONScanner.h */; };
+		5286DBEA13E0CFCA00E5971F /* CJSONScanner.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBD513E0CFCA00E5971F /* CJSONScanner.m */; };
+		5286DBEB13E0CFCA00E5971F /* CJSONSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBD613E0CFCA00E5971F /* CJSONSerializer.h */; };
+		5286DBEC13E0CFCA00E5971F /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBD713E0CFCA00E5971F /* CJSONSerializer.m */; };
+		5286DBED13E0CFCA00E5971F /* JSONRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBD813E0CFCA00E5971F /* JSONRepresentation.h */; };
 		5288459512B7DA44000F88E3 /* PXEngineUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5288459312B7DA44000F88E3 /* PXEngineUtils.h */; };
 		5288459612B7DA44000F88E3 /* PXEngineUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5288459412B7DA44000F88E3 /* PXEngineUtils.m */; };
 		528845F512B7E997000F88E3 /* PXPooledObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 528845F412B7E997000F88E3 /* PXPooledObject.h */; };
@@ -512,27 +512,6 @@
 		2D0E8CE71353F2C200A42B3D /* PXTextureAtlasParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureAtlasParser.m; sourceTree = "<group>"; };
 		2D0E8D1C1353F8A900A42B3D /* PXTPAtlasParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTPAtlasParser.h; sourceTree = "<group>"; };
 		2D0E8D1D1353F8A900A42B3D /* PXTPAtlasParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTPAtlasParser.m; sourceTree = "<group>"; };
-		2D0E8DD21354044A00A42B3D /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
-		2D0E8DD31354044A00A42B3D /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
-		2D0E8DD51354044A00A42B3D /* CFilteringJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFilteringJSONSerializer.h; sourceTree = "<group>"; };
-		2D0E8DD61354044A00A42B3D /* CFilteringJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFilteringJSONSerializer.m; sourceTree = "<group>"; };
-		2D0E8DD71354044A00A42B3D /* CJSONDeserializer_BlocksExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer_BlocksExtensions.h; sourceTree = "<group>"; };
-		2D0E8DD81354044A00A42B3D /* CJSONDeserializer_BlocksExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer_BlocksExtensions.m; sourceTree = "<group>"; };
-		2D0E8DD91354044A00A42B3D /* CJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerialization.h; sourceTree = "<group>"; };
-		2D0E8DDA1354044A00A42B3D /* CJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerialization.m; sourceTree = "<group>"; };
-		2D0E8DDB1354044A00A42B3D /* CJSONSerializedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializedData.h; sourceTree = "<group>"; };
-		2D0E8DDC1354044A00A42B3D /* CJSONSerializedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializedData.m; sourceTree = "<group>"; };
-		2D0E8DDE1354044A00A42B3D /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner_Extensions.h; sourceTree = "<group>"; };
-		2D0E8DDF1354044A00A42B3D /* CDataScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner_Extensions.m; sourceTree = "<group>"; };
-		2D0E8DE01354044A00A42B3D /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
-		2D0E8DE11354044A00A42B3D /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
-		2D0E8DE31354044A00A42B3D /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer.h; sourceTree = "<group>"; };
-		2D0E8DE41354044A00A42B3D /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer.m; sourceTree = "<group>"; };
-		2D0E8DE51354044A00A42B3D /* CJSONScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONScanner.h; sourceTree = "<group>"; };
-		2D0E8DE61354044A00A42B3D /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONScanner.m; sourceTree = "<group>"; };
-		2D0E8DE71354044A00A42B3D /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
-		2D0E8DE81354044A00A42B3D /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
-		2D0E8DE91354044A00A42B3D /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
 		2D35BD7911AD8E46005645F0 /* PXMathUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXMathUtils.m; sourceTree = "<group>"; };
 		2D3783E9135A2AB600E223BD /* PXCGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXCGUtils.h; sourceTree = "<group>"; };
 		2D3783EA135A2AB600E223BD /* PXCGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXCGUtils.m; sourceTree = "<group>"; };
@@ -882,6 +861,27 @@
 		5280DEA4133407AF00B0F353 /* PXGLStatePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLStatePrivate.h; sourceTree = "<group>"; };
 		52834A8812F0C59B000227DD /* PXTextureFontOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureFontOptions.h; sourceTree = "<group>"; };
 		52834A8912F0C59B000227DD /* PXTextureFontOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureFontOptions.m; sourceTree = "<group>"; };
+		5286DBC113E0CFCA00E5971F /* CDataScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner.h; sourceTree = "<group>"; };
+		5286DBC213E0CFCA00E5971F /* CDataScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner.m; sourceTree = "<group>"; };
+		5286DBC413E0CFCA00E5971F /* CFilteringJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CFilteringJSONSerializer.h; sourceTree = "<group>"; };
+		5286DBC513E0CFCA00E5971F /* CFilteringJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CFilteringJSONSerializer.m; sourceTree = "<group>"; };
+		5286DBC613E0CFCA00E5971F /* CJSONDeserializer_BlocksExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer_BlocksExtensions.h; sourceTree = "<group>"; };
+		5286DBC713E0CFCA00E5971F /* CJSONDeserializer_BlocksExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer_BlocksExtensions.m; sourceTree = "<group>"; };
+		5286DBC813E0CFCA00E5971F /* CJSONSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerialization.h; sourceTree = "<group>"; };
+		5286DBC913E0CFCA00E5971F /* CJSONSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerialization.m; sourceTree = "<group>"; };
+		5286DBCA13E0CFCA00E5971F /* CJSONSerializedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializedData.h; sourceTree = "<group>"; };
+		5286DBCB13E0CFCA00E5971F /* CJSONSerializedData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializedData.m; sourceTree = "<group>"; };
+		5286DBCD13E0CFCA00E5971F /* CDataScanner_Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CDataScanner_Extensions.h; sourceTree = "<group>"; };
+		5286DBCE13E0CFCA00E5971F /* CDataScanner_Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CDataScanner_Extensions.m; sourceTree = "<group>"; };
+		5286DBCF13E0CFCA00E5971F /* NSDictionary_JSONExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDictionary_JSONExtensions.h; sourceTree = "<group>"; };
+		5286DBD013E0CFCA00E5971F /* NSDictionary_JSONExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDictionary_JSONExtensions.m; sourceTree = "<group>"; };
+		5286DBD213E0CFCA00E5971F /* CJSONDeserializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONDeserializer.h; sourceTree = "<group>"; };
+		5286DBD313E0CFCA00E5971F /* CJSONDeserializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONDeserializer.m; sourceTree = "<group>"; };
+		5286DBD413E0CFCA00E5971F /* CJSONScanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONScanner.h; sourceTree = "<group>"; };
+		5286DBD513E0CFCA00E5971F /* CJSONScanner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONScanner.m; sourceTree = "<group>"; };
+		5286DBD613E0CFCA00E5971F /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
+		5286DBD713E0CFCA00E5971F /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
+		5286DBD813E0CFCA00E5971F /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
 		5288459312B7DA44000F88E3 /* PXEngineUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEngineUtils.h; sourceTree = "<group>"; };
 		5288459412B7DA44000F88E3 /* PXEngineUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEngineUtils.m; sourceTree = "<group>"; };
 		528845F412B7E997000F88E3 /* PXPooledObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXPooledObject.h; sourceTree = "<group>"; };
@@ -1227,61 +1227,9 @@
 		2D0E8DCF1354042600A42B3D /* TouchJSON */ = {
 			isa = PBXGroup;
 			children = (
-				2D0E8DD11354044A00A42B3D /* Source */,
+				5286DBC013E0CFCA00E5971F /* Source */,
 			);
 			path = TouchJSON;
-			sourceTree = "<group>";
-		};
-		2D0E8DD11354044A00A42B3D /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				2D0E8DD21354044A00A42B3D /* CDataScanner.h */,
-				2D0E8DD31354044A00A42B3D /* CDataScanner.m */,
-				2D0E8DD41354044A00A42B3D /* Experimental */,
-				2D0E8DDD1354044A00A42B3D /* Extensions */,
-				2D0E8DE21354044A00A42B3D /* JSON */,
-			);
-			path = Source;
-			sourceTree = "<group>";
-		};
-		2D0E8DD41354044A00A42B3D /* Experimental */ = {
-			isa = PBXGroup;
-			children = (
-				2D0E8DD51354044A00A42B3D /* CFilteringJSONSerializer.h */,
-				2D0E8DD61354044A00A42B3D /* CFilteringJSONSerializer.m */,
-				2D0E8DD71354044A00A42B3D /* CJSONDeserializer_BlocksExtensions.h */,
-				2D0E8DD81354044A00A42B3D /* CJSONDeserializer_BlocksExtensions.m */,
-				2D0E8DD91354044A00A42B3D /* CJSONSerialization.h */,
-				2D0E8DDA1354044A00A42B3D /* CJSONSerialization.m */,
-				2D0E8DDB1354044A00A42B3D /* CJSONSerializedData.h */,
-				2D0E8DDC1354044A00A42B3D /* CJSONSerializedData.m */,
-			);
-			path = Experimental;
-			sourceTree = "<group>";
-		};
-		2D0E8DDD1354044A00A42B3D /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				2D0E8DDE1354044A00A42B3D /* CDataScanner_Extensions.h */,
-				2D0E8DDF1354044A00A42B3D /* CDataScanner_Extensions.m */,
-				2D0E8DE01354044A00A42B3D /* NSDictionary_JSONExtensions.h */,
-				2D0E8DE11354044A00A42B3D /* NSDictionary_JSONExtensions.m */,
-			);
-			path = Extensions;
-			sourceTree = "<group>";
-		};
-		2D0E8DE21354044A00A42B3D /* JSON */ = {
-			isa = PBXGroup;
-			children = (
-				2D0E8DE31354044A00A42B3D /* CJSONDeserializer.h */,
-				2D0E8DE41354044A00A42B3D /* CJSONDeserializer.m */,
-				2D0E8DE51354044A00A42B3D /* CJSONScanner.h */,
-				2D0E8DE61354044A00A42B3D /* CJSONScanner.m */,
-				2D0E8DE71354044A00A42B3D /* CJSONSerializer.h */,
-				2D0E8DE81354044A00A42B3D /* CJSONSerializer.m */,
-				2D0E8DE91354044A00A42B3D /* JSONRepresentation.h */,
-			);
-			path = JSON;
 			sourceTree = "<group>";
 		};
 		2D23FE9A1321B53300443F1D /* Utils */ = {
@@ -1922,6 +1870,58 @@
 			path = TextureModifiers;
 			sourceTree = "<group>";
 		};
+		5286DBC013E0CFCA00E5971F /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				5286DBC113E0CFCA00E5971F /* CDataScanner.h */,
+				5286DBC213E0CFCA00E5971F /* CDataScanner.m */,
+				5286DBC313E0CFCA00E5971F /* Experimental */,
+				5286DBCC13E0CFCA00E5971F /* Extensions */,
+				5286DBD113E0CFCA00E5971F /* JSON */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		5286DBC313E0CFCA00E5971F /* Experimental */ = {
+			isa = PBXGroup;
+			children = (
+				5286DBC413E0CFCA00E5971F /* CFilteringJSONSerializer.h */,
+				5286DBC513E0CFCA00E5971F /* CFilteringJSONSerializer.m */,
+				5286DBC613E0CFCA00E5971F /* CJSONDeserializer_BlocksExtensions.h */,
+				5286DBC713E0CFCA00E5971F /* CJSONDeserializer_BlocksExtensions.m */,
+				5286DBC813E0CFCA00E5971F /* CJSONSerialization.h */,
+				5286DBC913E0CFCA00E5971F /* CJSONSerialization.m */,
+				5286DBCA13E0CFCA00E5971F /* CJSONSerializedData.h */,
+				5286DBCB13E0CFCA00E5971F /* CJSONSerializedData.m */,
+			);
+			path = Experimental;
+			sourceTree = "<group>";
+		};
+		5286DBCC13E0CFCA00E5971F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				5286DBCD13E0CFCA00E5971F /* CDataScanner_Extensions.h */,
+				5286DBCE13E0CFCA00E5971F /* CDataScanner_Extensions.m */,
+				5286DBCF13E0CFCA00E5971F /* NSDictionary_JSONExtensions.h */,
+				5286DBD013E0CFCA00E5971F /* NSDictionary_JSONExtensions.m */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		5286DBD113E0CFCA00E5971F /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				5286DBD213E0CFCA00E5971F /* CJSONDeserializer.h */,
+				5286DBD313E0CFCA00E5971F /* CJSONDeserializer.m */,
+				5286DBD413E0CFCA00E5971F /* CJSONScanner.h */,
+				5286DBD513E0CFCA00E5971F /* CJSONScanner.m */,
+				5286DBD613E0CFCA00E5971F /* CJSONSerializer.h */,
+				5286DBD713E0CFCA00E5971F /* CJSONSerializer.m */,
+				5286DBD813E0CFCA00E5971F /* JSONRepresentation.h */,
+			);
+			path = JSON;
+			sourceTree = "<group>";
+		};
 		52AE696212DF649800A9A921 /* FontOptions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2333,17 +2333,6 @@
 				2D65292A1353CADA00EB0412 /* PXTexturePadding.h in Headers */,
 				2D0E8CE81353F2C200A42B3D /* PXTextureAtlasParser.h in Headers */,
 				2D0E8D1E1353F8A900A42B3D /* PXTPAtlasParser.h in Headers */,
-				2D0E8DEA1354044A00A42B3D /* CDataScanner.h in Headers */,
-				2D0E8DEC1354044A00A42B3D /* CFilteringJSONSerializer.h in Headers */,
-				2D0E8DEE1354044A00A42B3D /* CJSONDeserializer_BlocksExtensions.h in Headers */,
-				2D0E8DF01354044A00A42B3D /* CJSONSerialization.h in Headers */,
-				2D0E8DF21354044A00A42B3D /* CJSONSerializedData.h in Headers */,
-				2D0E8DF41354044A00A42B3D /* CDataScanner_Extensions.h in Headers */,
-				2D0E8DF61354044A00A42B3D /* NSDictionary_JSONExtensions.h in Headers */,
-				2D0E8DF81354044A00A42B3D /* CJSONDeserializer.h in Headers */,
-				2D0E8DFA1354044A00A42B3D /* CJSONScanner.h in Headers */,
-				2D0E8DFC1354044A00A42B3D /* CJSONSerializer.h in Headers */,
-				2D0E8DFE1354044A00A42B3D /* JSONRepresentation.h in Headers */,
 				2D3783EB135A2AB600E223BD /* PXCGUtils.h in Headers */,
 				5238EF1813607C5E00A12477 /* PXHeaderUtils.h in Headers */,
 				2D543D2F1360F48D004AA569 /* PXSimpleAtlasParser.h in Headers */,
@@ -2387,6 +2376,17 @@
 				526CAA06136B697C001F481A /* PXTextureModifier4444.h in Headers */,
 				526CAA10136B6AEC001F481A /* PXTextureModifier8888.h in Headers */,
 				5230170013706DC8000FE6D6 /* PXZwopAtlasParser.h in Headers */,
+				5286DBD913E0CFCA00E5971F /* CDataScanner.h in Headers */,
+				5286DBDB13E0CFCA00E5971F /* CFilteringJSONSerializer.h in Headers */,
+				5286DBDD13E0CFCA00E5971F /* CJSONDeserializer_BlocksExtensions.h in Headers */,
+				5286DBDF13E0CFCA00E5971F /* CJSONSerialization.h in Headers */,
+				5286DBE113E0CFCA00E5971F /* CJSONSerializedData.h in Headers */,
+				5286DBE313E0CFCA00E5971F /* CDataScanner_Extensions.h in Headers */,
+				5286DBE513E0CFCA00E5971F /* NSDictionary_JSONExtensions.h in Headers */,
+				5286DBE713E0CFCA00E5971F /* CJSONDeserializer.h in Headers */,
+				5286DBE913E0CFCA00E5971F /* CJSONScanner.h in Headers */,
+				5286DBEB13E0CFCA00E5971F /* CJSONSerializer.h in Headers */,
+				5286DBED13E0CFCA00E5971F /* JSONRepresentation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2603,16 +2603,6 @@
 				2D65292B1353CADA00EB0412 /* PXTexturePadding.m in Sources */,
 				2D0E8CE91353F2C200A42B3D /* PXTextureAtlasParser.m in Sources */,
 				2D0E8D1F1353F8A900A42B3D /* PXTPAtlasParser.m in Sources */,
-				2D0E8DEB1354044A00A42B3D /* CDataScanner.m in Sources */,
-				2D0E8DED1354044A00A42B3D /* CFilteringJSONSerializer.m in Sources */,
-				2D0E8DEF1354044A00A42B3D /* CJSONDeserializer_BlocksExtensions.m in Sources */,
-				2D0E8DF11354044A00A42B3D /* CJSONSerialization.m in Sources */,
-				2D0E8DF31354044A00A42B3D /* CJSONSerializedData.m in Sources */,
-				2D0E8DF51354044A00A42B3D /* CDataScanner_Extensions.m in Sources */,
-				2D0E8DF71354044A00A42B3D /* NSDictionary_JSONExtensions.m in Sources */,
-				2D0E8DF91354044A00A42B3D /* CJSONDeserializer.m in Sources */,
-				2D0E8DFB1354044A00A42B3D /* CJSONScanner.m in Sources */,
-				2D0E8DFD1354044A00A42B3D /* CJSONSerializer.m in Sources */,
 				2D3783EC135A2AB600E223BD /* PXCGUtils.m in Sources */,
 				2D543D301360F48D004AA569 /* PXSimpleAtlasParser.m in Sources */,
 				523932A31365DE48009F9EDB /* cff.c in Sources */,
@@ -2626,6 +2616,16 @@
 				526CAA07136B697C001F481A /* PXTextureModifier4444.m in Sources */,
 				526CAA11136B6AEC001F481A /* PXTextureModifier8888.m in Sources */,
 				5230170113706DC8000FE6D6 /* PXZwopAtlasParser.m in Sources */,
+				5286DBDA13E0CFCA00E5971F /* CDataScanner.m in Sources */,
+				5286DBDC13E0CFCA00E5971F /* CFilteringJSONSerializer.m in Sources */,
+				5286DBDE13E0CFCA00E5971F /* CJSONDeserializer_BlocksExtensions.m in Sources */,
+				5286DBE013E0CFCA00E5971F /* CJSONSerialization.m in Sources */,
+				5286DBE213E0CFCA00E5971F /* CJSONSerializedData.m in Sources */,
+				5286DBE413E0CFCA00E5971F /* CDataScanner_Extensions.m in Sources */,
+				5286DBE613E0CFCA00E5971F /* NSDictionary_JSONExtensions.m in Sources */,
+				5286DBE813E0CFCA00E5971F /* CJSONDeserializer.m in Sources */,
+				5286DBEA13E0CFCA00E5971F /* CJSONScanner.m in Sources */,
+				5286DBEC13E0CFCA00E5971F /* CJSONSerializer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
