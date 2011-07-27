@@ -269,9 +269,7 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 		{
 			ext = [ext lowercaseString];
 			
-			//if ([ret containsObject:ext]) continue;
-			
-			//[ret addObject:ext];
+			// Redundant objects are ignored by sets.
 			[set addObject:ext];
 		}
 	}
