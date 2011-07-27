@@ -38,7 +38,6 @@
  */
 
 @class PXRegexPattern;
-@class PXLinkedList;
 
 @interface PXRegexMatcher : NSObject
 {
@@ -83,7 +82,7 @@
 /**
  *	A list of every group found.
  */
-@property (nonatomic, readonly) PXLinkedList *groups;
+@property (nonatomic, readonly) NSArray *groups;
 
 - (id) initWithPattern:(PXRegexPattern *)pattern;
 
