@@ -436,7 +436,8 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 					// Grab the char line and parse it.
 					// The char line in this case is the same as a glyph, so
 					// make the glyph to store the data we are parsing.
-					if (info->newGlyph = [[PXTextureGlyph alloc] init])
+					info->newGlyph = [[PXTextureGlyph alloc] init];
+					if (info->newGlyph)
 					{
 						// Initialize the y advance to 0, as y is an optional
 						// value, and we may not parse it.

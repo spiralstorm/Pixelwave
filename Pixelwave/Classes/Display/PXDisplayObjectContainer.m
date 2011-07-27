@@ -611,8 +611,6 @@
 
 }
 
-//- (NSArray *)getObjectsUnderPoint:
-
 /**
  *	Retrieves the index of the specified child.  If the specified child is not
  *	part of this container, then <code>-1</code> is returned instead and a
