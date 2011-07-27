@@ -56,7 +56,7 @@
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* SimpleButtonsAtlasAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SimpleButtonsAtlasAppDelegate.h; sourceTree = "<group>"; };
+		1D3623240D0F684500981E51 /* SimpleButtonsAtlasAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleButtonsAtlasAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* SimpleButtonsAtlasAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleButtonsAtlasAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* SimpleButtonsAtlas.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleButtonsAtlas.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -68,7 +68,7 @@
 		2D70C42213DA788B00C00830 /* atlas@2x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "atlas@2x.json"; sourceTree = "<group>"; };
 		2D70C42313DA788B00C00830 /* atlas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "atlas@2x.png"; sourceTree = "<group>"; };
 		2D7E9077107B872300B98F2B /* Pixelwave.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pixelwave.xcodeproj; sourceTree = PIXELWAVE_SRC; };
-		2D7E9117107B896900B98F2B /* SimpleButtonsAtlasRoot.h */ = {isa = PBXFileReference; fileEncoding = 4; path = SimpleButtonsAtlasRoot.h; sourceTree = "<group>"; };
+		2D7E9117107B896900B98F2B /* SimpleButtonsAtlasRoot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleButtonsAtlasRoot.h; sourceTree = "<group>"; };
 		2D7E9118107B896900B98F2B /* SimpleButtonsAtlasRoot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleButtonsAtlasRoot.m; sourceTree = "<group>"; };
 		2D7E91D0107B8F7400B98F2B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2D7E91D1107B8F7400B98F2B /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
