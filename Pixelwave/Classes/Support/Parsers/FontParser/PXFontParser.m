@@ -71,6 +71,7 @@
 @implementation PXFontParser
 
 @synthesize options;
+@synthesize contentScaleFactor;
 
 - (id) init
 {
@@ -111,6 +112,7 @@
 {
 	return [self initWithData:nil options:_options origin:systemFont];
 }
+
 /**
  *	Makes a new font parser that parses the given data and allows you to create
  *	a new font. This version also stores the origin, in case you need/want it.
@@ -141,6 +143,40 @@
  */
 - (id) initWithData:(NSData *)_data options:(PXFontOptions *)_options origin:(NSString *)_origin
 {
+	return [self initWithData:_data options:_options origin:_origin contentScaleFactor:1.0f];
+}
+/**
+ *	Makes a new font parser that parses the given data and allows you to create
+ *	a new font. This version also stores the origin, in case you need/want it.
+ *
+ *	@param data
+ *		The loaded data.
+ *	@param options
+ *		The options that describe what type of font you want back. If
+ *		<code>nil</code> is supplied, then the default type of font for the font
+ *		type is used. If no default type is found, then no new font can be made.
+ *	@param origin
+ *		The origin of the font.
+ *	@param contentScaleFactor
+ *		The content scale factor of the parsed font.
+ *
+ *	@b Example:
+ *	@code
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
+ *	PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil origin:@"font.fnt"];
+ *	PXFont *font = [fontParser newFont];
+ *
+ *	[PXFont registerFont:font withName:@"font"];
+ *	// The font is now registered as the name "font", so any time you want to
+ *	// reference it, you can use "font.
+ *
+ *	[font release];
+ *	[fontParser release];
+ *	[data release];
+ *	@endcode
+ */
+- (id) initWithData:(NSData *)_data options:(PXFontOptions *)_options origin:(NSString *)_origin contentScaleFactor:(float)_contentScaleFactor
+{
 	self = [super init];
 
 	if (self)
@@ -160,7 +196,8 @@
 		// Make the new parser.
 		PXFontParser *newParser = [[realClass alloc] _initWithData:_data
 														   options:_options
-															origin:_origin];
+															origin:_origin
+												contentScaleFactor:_contentScaleFactor];
 
 		// Release ourself, as we are going to become the real parser
 		[self release];
@@ -178,12 +215,15 @@
 - (id) _initWithData:(NSData *)_data
 			 options:(PXFontOptions *)_options
 			  origin:(NSString *)_origin
+  contentScaleFactor:(float)_contentScaleFactor
 {
 	// Set the data and origin
 	self = [super _initWithData:_data origin:_origin];
 
 	if (self)
 	{
+		contentScaleFactor = _contentScaleFactor;
+
 		// Copy the options, as we can not assume that they will not change on
 		// the users side.
 		options = [_options copy];
@@ -195,9 +235,9 @@
 			[self release];
 			return nil;
 		}
-		
+
 		Class fuserType = nil;
-		
+
 		// If no options exist, try to find the default fuser.
 		if (!options)
 		{

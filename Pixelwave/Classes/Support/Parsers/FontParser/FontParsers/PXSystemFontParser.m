@@ -46,8 +46,9 @@
 - (id) _initWithData:(NSData *)_data
 			 options:(PXFontOptions *)_options
 			  origin:(NSString *)_origin
+  contentScaleFactor:(float)_contentScaleFactor
 {
-	self = [super _initWithData:_data options:_options origin:_origin];
+	self = [super _initWithData:_data options:_options origin:_origin contentScaleFactor:_contentScaleFactor];
 
 	if (self)
 	{

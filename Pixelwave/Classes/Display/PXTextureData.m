@@ -703,13 +703,13 @@ BOOL pxTextureDataExpandEdges = YES;
 + (PXTextureData *)textureDataWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:path modifier:modifier];
-	
+
 	if (!textureLoader)
 	{
-		NSLog(@"PXTextureData: Couldn't resolve file at path %@", path);
+		PXDebugLog (@"PXTextureData: Couldn't resolve file at path %@", path);
 		return nil;
 	}
-	
+
 	PXTextureData *textureData = [textureLoader newTextureData];
 	[textureLoader release];
 

@@ -364,7 +364,7 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 	PXPoint *kernPoint = nil;
 	PXTextureLoader *textureLoader;
 
-	float contentScaleFactor = PXEngineGetContentScaleFactor();
+	float contentScaleFactor = PXEngineGetContentScaleFactor() / fntParser.contentScaleFactor;
 
 	// Grab the next match - If none exist, we are done parsing the file
 	while ([keyMatcher next])

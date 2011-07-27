@@ -47,6 +47,8 @@
 {
 @protected
 	PXFontParser *fontParser;
+
+	float contentScaleFactor;
 }
 
 /**

@@ -45,11 +45,15 @@
 #import "PXFontParser.h"
 #import "PXFontOptions.h"
 
+#include "PXMathUtils.h"
+#include "PXEngine.h"
+
 /// @cond DX_IGNORE
 @interface PXFontLoader(Private)
 - (id) initWithContentsOfFile:(NSString *)path
 						orURL:(NSURL *)url
 					  options:(PXFontOptions *)options;
+- (NSString *)updatePath:(NSString *)path;
 @end
 /// @endcond
 
@@ -206,6 +210,21 @@
 
 	if (self)
 	{
+		contentScaleFactor = 1.0f;
+
+		if (path)
+		{
+			path = [self updatePath:path];
+
+			if (!path)
+			{
+				[self release];
+				return nil;
+			}
+
+			[self _setOrigin:path];
+		}
+
 		[self _load];
 
 		fontParser = nil;
@@ -239,7 +258,8 @@
 	// Make a parser with the given options.
 	fontParser = [[PXFontParser alloc] initWithData:data
 											options:_options
-											 origin:origin];
+											 origin:origin
+								 contentScaleFactor:contentScaleFactor];
 
 	[_options release];
 }
@@ -261,6 +281,27 @@
 	}
 
 	return [fontParser newFont];
+}
+
+/*
+ *	Auto-completes the extension of the file if one wasn't provided.
+ *	This method also checks for a file with the @2x extension in it and returns
+ *	its name if it finds it. Otherwise it returns the original path.
+ *
+ */
+- (NSString *)updatePath:(NSString *)path
+{
+	if (!path)
+		return nil;
+
+	float scaleFactor = 0.0f;
+	path = [PXLoader pathForRetinaVersionOfFile:path retScale:&scaleFactor];
+	if (!PXMathIsOne(scaleFactor))
+	{
+		contentScaleFactor = PXEngineGetContentScaleFactor();
+	}
+
+	return path;
 }
 
 /**
