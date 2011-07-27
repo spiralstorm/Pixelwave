@@ -687,9 +687,9 @@ NSMutableDictionary *pxFonts = nil;
  *
  *	@see PXTextField#font
  */
-+ (PXLinkedList *)availableSystemFonts
++ (NSArray *)availableSystemFonts
 {
-	PXLinkedList *list = [[PXLinkedList alloc] init];
+	NSMutableArray *list = [[NSMutableArray alloc] init];
 
 	NSArray *familyNames = [UIFont familyNames];
 	NSArray *fontNames;
@@ -718,7 +718,7 @@ NSMutableDictionary *pxFonts = nil;
  */
 + (BOOL) isSystemFontAvailable:(NSString *)name
 {
-	PXLinkedList *list = [PXFont availableSystemFonts];
+	NSArray *list = [PXFont availableSystemFonts];
 
 	return [list containsObject:name];
 }
