@@ -506,9 +506,9 @@ static unsigned _pxDisplayObjectCount = 0;
 	return point.y;
 }
 */
-- (PXLinkedList *)touchPositions
+- (NSArray *)touchPositions
 {
-	PXLinkedList *list = [[PXLinkedList alloc] init];
+	NSMutableArray *list = [[NSMutableArray alloc] init];
 
 	PXPoint *addPoint;
 	PXLinkedList *touchList = PXEngineGetAllTouches();

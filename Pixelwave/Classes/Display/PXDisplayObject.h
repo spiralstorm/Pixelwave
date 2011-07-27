@@ -297,10 +297,10 @@ typedef enum
 @property (nonatomic, readonly) PXPoint *touchPosition;
 /**
  *	A list of <code>PXPoint</code>s that represent the positions of every touch
- *	on the screen in this PXDisplayObject's coordinate space.  If there is no
- *	fingers (touches) on the screen, then <code>nil</code> is returned.
+ *	on the screen in this PXDisplayObject's coordinate space.  If there are no
+ *	current touches on the screen, <code>nil</code> is returned.
  */
-@property (nonatomic, readonly) PXLinkedList *touchPositions;
+@property (nonatomic, readonly) NSArray *touchPositions;
 
 //-- ScriptName: positionOfTouch
 - (PXPoint *)positionOfTouch:(UITouch *)nativeTouch;
