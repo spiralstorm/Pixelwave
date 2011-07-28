@@ -196,10 +196,8 @@ BOOL pxTextureDataExpandEdges = YES;
 
 		self = newTextureData;
 
-		if (self)
-		{
-			// Add init code here if needed
-		}
+		// If initialization code is needed, do a check if self exists prior to
+		// doing any code.
 	}
 
 	return self;

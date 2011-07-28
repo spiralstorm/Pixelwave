@@ -43,15 +43,6 @@
 #import "PXPooledObject.h"
 
 //EVENT CONSTANTS
-/*#define PX_EVENT_ENTER_FRAME @"enterFrame"
-#define PX_EVENT_ADDED @"added"
-#define PX_EVENT_REMOVED @"removed"
-#define PX_EVENT_ADDED_TO_STAGE @"addedToStage"
-#define PX_EVENT_REMOVED_FROM_STAGE @"removedFromStage"
-#define PX_EVENT_RENDER @"render"
-#define PX_EVENT_SOUND_COMPLETE @"soundComplete"
-*/
-
 PXExtern NSString * const PXEvent_EnterFrame;
 PXExtern NSString * const PXEvent_Added;
 PXExtern NSString * const PXEvent_Removed;

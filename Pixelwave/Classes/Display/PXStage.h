@@ -91,10 +91,10 @@ typedef enum
 /**
  *	If <code>YES</code> then the stage automatically rotates to the orientations
  *	acceptable It will send out a <code>PXStageOrientation</code> with the type
- *	<code>PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGING</code>. If that event is canceled
+ *	<code>PXStageOrientationEvent_OrientationChanging</code>. If that event is canceled
  *	(using <code>preventDefault</code>) then the orientation will not take
  *	affect. If the orientation is accepted then a
- *	<code>PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGE</code> will be sent.
+ *	<code>PXStageOrientationEvent_OrientationChange</code> will be sent.
  *
  *	@b Default: NO
  */

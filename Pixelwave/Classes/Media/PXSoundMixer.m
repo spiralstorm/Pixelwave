@@ -137,7 +137,7 @@
 	PXSoundEngineSetSpeedOfSound(speedOfSound);
 }
 /**
- *	Returns the speed of sound (default is 340.29f).
+ *	Returns the speed of sound.
  *
  *	@return
  *		The speed of sound.
@@ -146,6 +146,8 @@
  *	@code
  *	float speedOfSound = [PXSoundMixer speedOfSound];
  *	@endcode
+ *
+ *	@b Default: 340.29f
  */
 + (float) speedOfSound
 {
@@ -153,11 +155,10 @@
 }
 
 /**
- *	Sets the distance model for the sound.  This means that the further the
- *	sound gets from the listener, how it the volume will change.  The two
+ *	Sets the distance model for the sound. This means that the further the
+ *	sound gets from the listener, how it the volume will change. The two
  *	options available are either <code>PXSoundMixerDistanceModel_Linear</code>
- *	or <code>PXSoundMixerDistanceModel_Logarithmic</code>.  The default is
- *	<code>PXSoundMixerDistanceModel_Logarithmic</code>.
+ *	or <code>PXSoundMixerDistanceModel_Logarithmic</code>.
  *
  *	@param distanceModel
  *		The distance model.
@@ -168,6 +169,8 @@
  *	@endcode
  *
  *	@see PXSoundListener
+ *
+ *	@b Default: <code>PXSoundMixerDistanceModel_Logarithmic</code>
  */
 + (void) setDistanceModel:(PXSoundMixerDistanceModel)distanceModel
 {

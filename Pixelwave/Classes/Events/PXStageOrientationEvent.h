@@ -40,9 +40,6 @@
 #import "PXEvent.h"
 #import "PXStage.h"
 
-/*#define PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGING @"orientationChanging"
-#define PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGE @"orientationChange"
-*/
 PXExtern NSString * const PXStageOrientationEvent_OrientationChanging;
 PXExtern NSString * const PXStageOrientationEvent_OrientationChange;
 
@@ -54,11 +51,11 @@ PXExtern NSString * const PXStageOrientationEvent_OrientationChange;
 }
 
 /**
- *	The old orientation.
+ *	The old orientation of the stage.
  */
 @property (nonatomic, readonly) PXStageOrientation beforeOrientation;
 /**
- *	The new orientation.
+ *	The new orientation of the stage.
  */
 @property (nonatomic, readonly) PXStageOrientation afterOrientation;
 
