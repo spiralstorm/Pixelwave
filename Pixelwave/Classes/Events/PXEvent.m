@@ -81,9 +81,9 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  *	@param type
  *		A string representing the type of the event
  */
-- (id) initWithType:(NSString *)t
+- (id) initWithType:(NSString *)type
 {
-	return [self initWithType:t doesBubble:NO isCancelable:NO];
+	return [self initWithType:type doesBubble:NO isCancelable:NO];
 }
 
 /**
