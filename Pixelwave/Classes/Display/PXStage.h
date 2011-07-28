@@ -46,9 +46,17 @@
  */
 typedef enum
 {
+	/// Portrait mode is when the device is upright with the home button closest
+	/// to the ground
 	PXStageOrientation_Portrait = 0,
+	/// PortraitUpsideDown mode is when the device is upside down, as in, the
+	/// home button is closest to the sky.
 	PXStageOrientation_PortraitUpsideDown,
+	/// LandscapeLeft is when the device is sideways with the home button on the
+	/// left hand side.
 	PXStageOrientation_LandscapeLeft,
+	/// LandscapeRight is when the device is sideways with the home button on
+	///	the right hand side.
 	PXStageOrientation_LandscapeRight
 } PXStageOrientation;
 

@@ -65,14 +65,29 @@
  */
 @implementation PXException
 
-- (id) initWithReason:(NSString *)reason
+/**
+ *	Creates a Pixelwave based exception.
+ *
+ *	@param reason
+ *		A human-readable message string summarizing the reason for the exception
+ */
+- (id) initWithReason:(NSString *)_reason
 {
-	return [self initWithReason:reason userInfo:nil];
+	return [self initWithReason:_reason userInfo:nil];
 }
 
-- (id) initWithReason:(NSString *)reason userInfo:(NSDictionary *)userInfo
+/**
+ *	Creates a Pixelwave based exception.
+ *
+ *	@param reason
+ *		A human-readable message string summarizing the reason for the exception
+ *	@param userInfo
+ *		A dictionary containing user-defined information relating to the
+ *		exception
+ */
+- (id) initWithReason:(NSString *)_reason userInfo:(NSDictionary *)_userInfo
 {
-	return [super initWithName:@"PXException" reason:reason userInfo:userInfo];
+	return [super initWithName:@"PXException" reason:_reason userInfo:_userInfo];
 }
 
 @end

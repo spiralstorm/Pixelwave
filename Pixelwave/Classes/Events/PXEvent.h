@@ -42,7 +42,7 @@
 
 #import "PXPooledObject.h"
 
-//EVENT CONSTANTS
+// EVENT CONSTANTS
 PXExtern NSString * const PXEvent_EnterFrame;
 PXExtern NSString * const PXEvent_Added;
 PXExtern NSString * const PXEvent_Removed;
@@ -55,13 +55,18 @@ PXExtern NSString * const PXEvent_SoundComplete;
 /// Event Phases
 typedef enum
 {
+	/// The capture phase happens when the event travers downwards toward's the
+	/// target.
 	PXEventPhase_Capture = 1,
+	/// The target phase is when the event is on the target.
 	PXEventPhase_Target,
+	/// The bubbling phase is when the event is 'bubbling' back up the hierachy.
 	PXEventPhase_Bubbling
 } PXEventPhase;
 
 typedef enum
 {
+	/// Keeps the propegation going (it's default value).
 	_PXStopPropegationLevel_KeepGoing = 0,
 	/// stopPropegation after the current node (only relevant when using the
 	/// displaylist event flow).

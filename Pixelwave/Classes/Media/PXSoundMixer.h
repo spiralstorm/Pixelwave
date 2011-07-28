@@ -49,7 +49,13 @@
  */
 typedef enum
 {
+	/// The linear distance model means that the sound falls off in a linear
+	/// fashion the further it is away from the listener.
 	PXSoundMixerDistanceModel_Linear = 0,
+	/// The linear distance model means that the sound falls off in a
+	/// logarithmic fashion the further it is away from the listener. The
+	/// exponent is defined in <code>PXSoundChannel3D</code>.
+	/// @see PXSoundChannel3D
 	PXSoundMixerDistanceModel_Logarithmic
 } PXSoundMixerDistanceModel;
 

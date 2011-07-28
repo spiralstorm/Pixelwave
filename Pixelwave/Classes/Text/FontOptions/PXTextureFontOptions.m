@@ -128,7 +128,7 @@
 
 - (NSString *)description
 {
-	return [NSString stringWithFormat:@"(size=%f, character==%@)",
+	return [NSString stringWithFormat:@"(size=%f, character=%@)",
 			size,
 			characters];
 }
