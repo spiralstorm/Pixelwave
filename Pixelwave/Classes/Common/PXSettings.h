@@ -40,6 +40,8 @@
 #ifndef _PX_SETTINGS_H_
 #define _PX_SETTINGS_H_
 
+#include "PXHeaderUtils.h"
+
 /*
  *	Global properties that can be tweaked / read by the user.
  */
@@ -90,7 +92,7 @@ extern PXVersion pxVersion;
 #define PX_ENGINE_IDLE_TIME_INCLUDES_BETWEEN_SYSTEM_CALLS 0
 
 // Text
-#define PX_TEXT_FIELD_DEFAULT_FONT @"Helvetica"
+PXExtern NSString * const PXTextFieldDefaultFont;
 
 // Using libpng or CoreImage
 #define PX_TEXTURE_PARSER_USE_LIBPNG 1

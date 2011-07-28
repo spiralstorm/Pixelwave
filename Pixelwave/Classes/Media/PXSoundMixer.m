@@ -54,6 +54,12 @@
  */
 @implementation PXSoundMixer
 
+/**
+ *	Initializes the sound engine so that when you go to play a sound there is
+ *	not the initial delay of setting up the engine. This is suggested to do at
+ *	the start of your program if you are in need of playing sounds immediately
+ *	within the duration of your app.
+ */
 + (void) warmUp
 {
 	PXSoundEngineInit();
