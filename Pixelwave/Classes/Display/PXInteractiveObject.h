@@ -45,6 +45,7 @@
 @public
 	BOOL _doubleTapEnabled;
 	BOOL _touchEnabled;
+	BOOL _captureTouches;
 /// @endcond
 }
 
@@ -56,5 +57,9 @@
  *	Specifies whether the object can recieve touch events.
  */
 @property (nonatomic) BOOL touchEnabled;
+/**
+ *	Specifies whether the object captures touch recieve touch events.
+ */
+@property (nonatomic) BOOL captureTouches;
 
 @end

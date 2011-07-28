@@ -72,6 +72,7 @@ typedef enum
 
 	BOOL dispatchesDisplayListEvents;
 	BOOL autoOrients;
+	BOOL autoCaptureTouches;
 /// @endcond
 }
 
@@ -107,6 +108,11 @@ typedef enum
  *	@b Default: NO
  */
 @property (nonatomic, assign) BOOL autoOrients;
+
+/**
+ *	@b Default: YES
+ */
+@property (nonatomic, assign) BOOL autoCaptureTouches;
 
 /**
  *	The color with which to clear the stage every frame.

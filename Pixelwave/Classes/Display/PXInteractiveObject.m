@@ -41,15 +41,19 @@
 
 #include "PXPrivateUtils.h"
 
+#import "PXStage.h"
+
 /**
  *	@ingroup Display
  *
- *	A PXInteractiveObject is the abstract base class for all PXDisplayObject s
+ *	A PXInteractiveObject is the abstract base class for all PXDisplayObjects
  *	that can recieve user interaction events.
  */
 @implementation PXInteractiveObject
 
-@synthesize doubleTapEnabled = _doubleTapEnabled, touchEnabled = _touchEnabled;
+@synthesize doubleTapEnabled = _doubleTapEnabled;
+@synthesize touchEnabled = _touchEnabled;
+@synthesize captureTouches = _captureTouches;
 
 - (id) init
 {
@@ -59,6 +63,8 @@
 	{
 		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_isInteractive);
 		_touchEnabled = YES;
+
+		_captureTouches = [[PXStage mainStage] autoCaptureTouches];
 	}
 
 	return self;

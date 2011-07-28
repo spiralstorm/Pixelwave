@@ -169,6 +169,8 @@ void PXEngineRenderStage( );
 
 PXTouchEvent *pxEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSString *type, BOOL orientTouch);
 
+CFMutableDictionaryRef pxEngineTouchAssociations = NULL;
+
 PXObjectPool *pxEngineSharedObjectPool = nil;
 
 PXLinkedList *pxEngineCachedListeners = nil;			//Strongly referenced
@@ -282,6 +284,8 @@ void PXEngineInit(PXView *view)
 	// Events //
 	////////////
 
+	pxEngineTouchAssociations = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+
 	// Initialized with weak references so that DisplayObjects with an
 	// ENTER_FRAME listener can get deallocated when they leave the Display
 	// list. It's the object's responsibility to remove all of the event
@@ -363,11 +367,15 @@ void PXEngineDealloc( )
 		[savedTouch->_target release];
 	}
 
-	[pxEngineSavedTouchEvents release]; pxEngineSavedTouchEvents = nil;
+	[pxEngineSavedTouchEvents release];
+	pxEngineSavedTouchEvents = nil;
 
-	[pxEngineTouchEvents release]; pxEngineTouchEvents = nil;
-	[pxEngineCachedListeners release]; pxEngineCachedListeners = nil;
-	[pxEngineFrameListeners release]; pxEngineFrameListeners = nil;
+	[pxEngineTouchEvents release];
+	pxEngineTouchEvents = nil;
+	[pxEngineCachedListeners release];
+	pxEngineCachedListeners = nil;
+	[pxEngineFrameListeners release];
+	pxEngineFrameListeners = nil;
 
 	// Get rid of the render-to-texture buffer
 	if (pxEngineRTTFBO != 0)
@@ -375,6 +383,9 @@ void PXEngineDealloc( )
 	pxEngineRTTFBO = 0;
 
 	PXGLDealloc( );
+
+	CFRelease(pxEngineTouchAssociations);
+	pxEngineTouchAssociations = NULL;
 
 	[pxEngine dealloc];
 	pxEngine = nil;
