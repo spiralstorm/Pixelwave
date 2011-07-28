@@ -336,6 +336,25 @@
 	return sqrtf((x * x) + (y * y));
 }
 
+/**
+ *	Returns the angle between pt1 and pt2.
+ *
+ *	@param pt1
+ *		The first point.
+ *	@param pt2
+ *		The second point.
+ *
+ *	@return
+ *		The angle between the first and second degrees.
+ *
+ *	@b Example:
+ *	@code
+ *	PXPoint *pt1 = [[PXPoint alloc] initWithX:0.0f y:0.0f];
+ *	PXPoint *pt2 = [[PXPoint alloc] initWithX:5.0f y:-5.0f];
+ *	float angle = [PXPoint angleBetweenPointA:pt1 pointB:pt2];
+ *	// angle will be 45.0f
+ *	@endcode
+ */
 + (float) angleBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2
 {
 	float angle = atan2f(pt2.y - pt1.y, pt2.x - pt1.x);
