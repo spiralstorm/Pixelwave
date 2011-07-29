@@ -82,7 +82,7 @@
 @synthesize orientation;
 @synthesize dispatchesDisplayListEvents;
 @synthesize autoOrients;
-@synthesize autoCaptureTouches;
+@synthesize defaultCaptureTouchesValue;
 
 - (id) init
 {
@@ -101,7 +101,7 @@
 		_touchChildren = YES;
 
 		autoOrients = NO;
-		autoCaptureTouches = YES;
+		defaultCaptureTouchesValue = YES;
 
 		dispatchesDisplayListEvents = YES;
 

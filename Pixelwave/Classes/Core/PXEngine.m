@@ -60,11 +60,16 @@
 #import "PXSprite.h"
 #import "PXPoint.h"
 
+#import "PXEventDispatcher.h"
+
 #import "PXDebugUtils.h"
 #import "PXExceptionUtils.h"
 
 #define PX_ENGINE_MIN_BUFFER_SIZE 4
 #define PX_ENGINE_MIN_FRAME_RATE 30
+
+// 32 * 32
+#define PX_ENGINE_TOUCH_RADIUS_SQ 1024
 
 #define PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_) \
 { \
@@ -169,8 +174,14 @@ void PXEngineRenderStage( );
 
 PXTouchEvent *pxEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSString *type, BOOL orientTouch);
 
-CFMutableDictionaryRef pxEngineTouchChangeAssociations = NULL;
-CFMutableDictionaryRef pxEngineTouchAssociations = NULL;
+// A dictionary which holds the associations between a UITouch and
+// the object which captured it.
+CFMutableDictionaryRef pxEngineTouchCapturingObjects = NULL;
+// Holds on to changes that the user made to the dictionary
+// before the end of the current frame. At the end of the frame the
+// changes are copied over the the 'pxEngineTouchCapturingObjects'
+// dictionary.
+CFMutableDictionaryRef pxEngineTouchCapturingObjectsBuffer = NULL;
 
 PXObjectPool *pxEngineSharedObjectPool = nil;
 
@@ -286,8 +297,8 @@ void PXEngineInit(PXView *view)
 	// Events //
 	////////////
 
-	pxEngineTouchChangeAssociations = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-	pxEngineTouchAssociations = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+	pxEngineTouchCapturingObjectsBuffer = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+	pxEngineTouchCapturingObjects = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 
 	// Initialized with weak references so that DisplayObjects with an
 	// ENTER_FRAME listener can get deallocated when they leave the Display
@@ -390,10 +401,10 @@ void PXEngineDealloc( )
 
 	PXGLDealloc( );
 
-	CFRelease(pxEngineTouchChangeAssociations);
-	pxEngineTouchChangeAssociations = NULL;
-	CFRelease(pxEngineTouchAssociations);
-	pxEngineTouchAssociations = NULL;
+	CFRelease(pxEngineTouchCapturingObjectsBuffer);
+	pxEngineTouchCapturingObjectsBuffer = NULL;
+	CFRelease(pxEngineTouchCapturingObjects);
+	pxEngineTouchCapturingObjects = NULL;
 
 	[pxEngine dealloc];
 	pxEngine = nil;
@@ -864,28 +875,28 @@ void PXEngineDispatchTouchEvents()
 	const void *captureKey = NULL;
 	const void *captureTarget = NULL;
 
-	CFIndex dictionaryCount = CFDictionaryGetCount(pxEngineTouchChangeAssociations);
+	CFIndex dictionaryCount = CFDictionaryGetCount(pxEngineTouchCapturingObjectsBuffer);
 
 	// If we wish to change the capture target of a touch then the function
-	// 'PXEngineAssignTouchToTarget' was called. This will add the touch to the
-	// dictionary 'pxEngineTouchChangeAssociations'. We need to change the value
-	// of the real dictionary, pxEngineTouchChangeAssociations, to the
+	// 'PXEngineSetTouchCapturingObject' was called. This will add the touch to the
+	// dictionary 'pxEngineTouchCapturingObjectsBuffer'. We need to change the value
+	// of the real dictionary, pxEngineTouchCapturingObjectsBuffer, to the
 	// corresponding new value. That is what this check is for.
 	if (dictionaryCount > 0)
 	{
 		CFIndex dictionaryIndex;
 
 		CFTypeRef *keysTypeRef = (CFTypeRef *)malloc(dictionaryCount * sizeof(CFTypeRef));
-		CFDictionaryGetKeysAndValues(pxEngineTouchChangeAssociations, (const void **)keysTypeRef, NULL);
+		CFDictionaryGetKeysAndValues(pxEngineTouchCapturingObjectsBuffer, (const void **)keysTypeRef, NULL);
 
 		CFTypeRef *cfKey;
 
 		for (dictionaryIndex = 0, cfKey = keysTypeRef; dictionaryIndex < dictionaryCount; ++dictionaryIndex, ++cfKey)
 		{
-			CFDictionarySetValue(pxEngineTouchAssociations, cfKey, CFDictionaryGetValue(pxEngineTouchChangeAssociations, cfKey));
+			CFDictionarySetValue(pxEngineTouchCapturingObjects, cfKey, CFDictionaryGetValue(pxEngineTouchCapturingObjectsBuffer, cfKey));
 		}
 		free(keysTypeRef);
-		CFDictionaryRemoveAllValues(pxEngineTouchChangeAssociations);
+		CFDictionaryRemoveAllValues(pxEngineTouchCapturingObjectsBuffer);
 	}
 
 	if (pxEngineStage->_touchChildren)
@@ -906,7 +917,7 @@ void PXEngineDispatchTouchEvents()
 
 			// Grab the 'key' for the dictoinary of captures, and the target
 			captureKey = originalEvent.nativeTouch;
-			captureTarget = CFDictionaryGetValue(pxEngineTouchAssociations, captureKey);
+			captureTarget = CFDictionaryGetValue(pxEngineTouchCapturingObjects, captureKey);
 
 			// If a capture target exists, then we don't need to find a new one
 			if (captureTarget)
@@ -922,9 +933,9 @@ void PXEngineDispatchTouchEvents()
 				if (didTouchDown && target && PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_isInteractive))
 				{
 					// Only set the capture, if this target allows it.
-					if (((PXInteractiveObject *)(target)).captureTouches)
+					if (((PXInteractiveObject *)(target))->_captureTouches)
 					{
-						CFDictionarySetValue(pxEngineTouchAssociations, captureKey, target);
+						CFDictionarySetValue(pxEngineTouchCapturingObjects, captureKey, target);
 					}
 				}
 			}
@@ -1072,10 +1083,11 @@ void PXEngineDispatchTouchEvents()
 	}
 	[pxEngineRemoveFromSavedTouchEvents removeAllObjects];
 
-	// Remvoe all captured touches from the dictionary.
+	// Remove all captured touches from the dictionary.
 	PXLinkedListForEach(pxEngineRemoveFromCaptureTouchEvents, captureKey)
 	{
-		CFDictionaryRemoveValue(pxEngineTouchAssociations, captureKey);
+		CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, captureKey);
+		CFDictionaryRemoveValue(pxEngineTouchCapturingObjectsBuffer, captureKey);
 	}
 	[pxEngineRemoveFromCaptureTouchEvents removeAllObjects];
 }
@@ -1917,19 +1929,27 @@ PXObjectPool *PXEngineGetSharedObjectPool()
 
 #pragma mark Touches
 
-void PXEngineAssignTouchToTarget(UITouch *nativeTouch, PXDisplayObject *target)
+void PXEngineSetTouchCapturingObject(UITouch *nativeTouch, id capturingObject)
 {
 	if (!nativeTouch)
 		return;
 
-	if (!target)
+	if (!capturingObject)
 	{
-		CFDictionaryRemoveValue(pxEngineTouchChangeAssociations, nativeTouch);
+		CFDictionaryRemoveValue(pxEngineTouchCapturingObjectsBuffer, nativeTouch);
 	}
 	else
 	{
-		CFDictionarySetValue(pxEngineTouchChangeAssociations, nativeTouch, target);
+		CFDictionarySetValue(pxEngineTouchCapturingObjectsBuffer, nativeTouch, capturingObject);
 	}
+}
+
+id PXEngineGetTouchCapturingObject(UITouch *nativeTouch)
+{
+	if(!nativeTouch)
+		return nil;
+	
+	return (id)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
 }
 
 UITouch *PXEngineGetFirstTouch()

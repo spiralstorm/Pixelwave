@@ -546,7 +546,7 @@
 		2DABCBC81352BA8300FB437A /* PXAtlasFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAtlasFrame.h; sourceTree = "<group>"; };
 		2DABCBC91352BA8300FB437A /* PXAtlasFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAtlasFrame.m; sourceTree = "<group>"; };
 		2DAF677211C58DEA00A66884 /* PXEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEngine.h; sourceTree = "<group>"; };
-		2DAF677311C58DEA00A66884 /* PXEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEngine.m; sourceTree = "<group>"; };
+		2DAF677311C58DEA00A66884 /* PXEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXEngine.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2DAF678011C58DF900A66884 /* PXColorTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXColorTransform.h; sourceTree = "<group>"; };
 		2DAF678111C58DF900A66884 /* PXColorTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXColorTransform.m; sourceTree = "<group>"; };
 		2DAF678211C58DF900A66884 /* PXMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXMatrix.h; sourceTree = "<group>"; };

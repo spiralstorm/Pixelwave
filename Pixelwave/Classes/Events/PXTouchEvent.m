@@ -40,6 +40,7 @@
 #import "PXTouchEvent.h"
 #import "PXDisplayObject.h"
 #import "PXPoint.h"
+#import "PXEngine.h"
 
 #include "PXPrivateUtils.h"
 
@@ -149,6 +150,12 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 	_tapCount = 0;
 	_stageX = 0.0f;
 	_stageY = 0.0f;
+}
+
+- (BOOL) captured
+{
+	id capturingObject = PXEngineGetTouchCapturingObject(_nativeTouch);
+	return (capturingObject == _target);
 }
 
 - (PXPoint *)localPosition

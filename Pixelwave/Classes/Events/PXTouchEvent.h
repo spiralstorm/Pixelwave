@@ -71,6 +71,15 @@ PXExtern NSString * const PXTouchEvent_TouchCancel;
 @property (nonatomic, readonly) UITouch *nativeTouch;
 
 /**
+ *	Indicates if the touch which triggered this event has been captured by the target.
+ *	The object which captured the event will usually be a PXInteractiveObject for
+ *	for which the PXInteractiveObject::captureTouches property has been set to
+ *	<code>YES</code>. If it has been captured, the capturing object will always be
+ *	object referenced by the PXTouchEvent::target property.
+ */
+@property (nonatomic, readonly) BOOL captured;
+
+/**
  *	The horizontal location in global (stage) coordinates where the touch
  *	occured.
  */

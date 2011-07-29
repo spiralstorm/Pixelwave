@@ -55,12 +55,12 @@ PXExtern NSString * const PXEvent_SoundComplete;
 /// Event Phases
 typedef enum
 {
-	/// The capture phase happens when the event travers downwards toward's the
+	/// The capture phase happens when the event travels downwards toward's the
 	/// target.
 	PXEventPhase_Capture = 1,
 	/// The target phase is when the event is on the target.
 	PXEventPhase_Target,
-	/// The bubbling phase is when the event is 'bubbling' back up the hierachy.
+	/// The bubbling phase is when the event is 'bubbling' back up the hierarchy.
 	PXEventPhase_Bubbling
 } PXEventPhase;
 

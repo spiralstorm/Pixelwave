@@ -72,7 +72,7 @@ typedef enum
 
 	BOOL dispatchesDisplayListEvents;
 	BOOL autoOrients;
-	BOOL autoCaptureTouches;
+	BOOL defaultCaptureTouchesValue;
 /// @endcond
 }
 
@@ -110,9 +110,12 @@ typedef enum
 @property (nonatomic, assign) BOOL autoOrients;
 
 /**
+ *	The value the <code>captureTouches</code> property of
+ *	a PXInteractiveObject should be set to when initialized.
+ *
  *	@b Default: YES
  */
-@property (nonatomic, assign) BOOL autoCaptureTouches;
+@property (nonatomic, assign) BOOL defaultCaptureTouchesValue;
 
 /**
  *	The color with which to clear the stage every frame.

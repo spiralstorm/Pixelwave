@@ -64,7 +64,7 @@
 		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_isInteractive);
 		_touchEnabled = YES;
 
-		_captureTouches = [[PXStage mainStage] autoCaptureTouches];
+		_captureTouches = [PXStage mainStage].defaultCaptureTouchesValue;
 	}
 
 	return self;

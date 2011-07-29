@@ -45,11 +45,7 @@ extern "C" {
 #endif
 
 #include "PXGL.h"
-//#include "Pixelwave.h"
 #include "PXColorUtils.h"
-
-#define PX_ENGINE_TOUCH_RADIUS 32
-#define PX_ENGINE_TOUCH_RADIUS_SQ 1024
 
 @class UITouch;
 
@@ -59,6 +55,7 @@ extern "C" {
 @class PXDisplayObject;
 @class PXTextureData;
 @class PXLinkedList;
+@protocol PXEventDispatcherProtocol;
 
 // TODO: Organize all these methods into groups (with comment headers)
 
@@ -114,7 +111,8 @@ void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pi
 /////////////
 // Touches //
 /////////////
-void PXEngineAssignTouchToTarget(UITouch *nativeTouch, PXDisplayObject *target);
+void PXEngineSetTouchCapturingObject(UITouch *nativeTouch, id capturingObject);	
+id PXEngineGetTouchCapturingObject(UITouch *nativeTouch);
 
 UITouch * PXEngineGetFirstTouch();
 PXLinkedList * PXEngineGetAllTouches();

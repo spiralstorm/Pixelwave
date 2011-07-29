@@ -58,7 +58,7 @@
  */
 @property (nonatomic) BOOL touchEnabled;
 /**
- *	Specifies whether the object captures touch recieve touch events.
+ *	Specifies whether the object captures touch events.
  */
 @property (nonatomic) BOOL captureTouches;
 
