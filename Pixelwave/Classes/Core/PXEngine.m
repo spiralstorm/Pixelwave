@@ -68,9 +68,6 @@
 #define PX_ENGINE_MIN_BUFFER_SIZE 4
 #define PX_ENGINE_MIN_FRAME_RATE 30
 
-// 32 * 32
-#define PX_ENGINE_TOUCH_RADIUS_SQ 1024
-
 #define PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_) \
 { \
 	PXStageOrientation _orientation_ = _stage_.orientation; \
@@ -174,13 +171,12 @@ void PXEngineRenderStage( );
 
 PXTouchEvent *pxEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSString *type, BOOL orientTouch);
 
-// A dictionary which holds the associations between a UITouch and
-// the object which captured it.
+// A dictionary which holds the associations between a UITouch and the object
+// which captured it.
 CFMutableDictionaryRef pxEngineTouchCapturingObjects = NULL;
-// Holds on to changes that the user made to the dictionary
-// before the end of the current frame. At the end of the frame the
-// changes are copied over the the 'pxEngineTouchCapturingObjects'
-// dictionary.
+// Holds on to changes that the user made to the dictionary before the end of
+// the current frame. At the end of the frame the changes are copied over the
+// 'pxEngineTouchCapturingObjects' dictionary.
 CFMutableDictionaryRef pxEngineTouchCapturingObjectsBuffer = NULL;
 
 PXObjectPool *pxEngineSharedObjectPool = nil;
@@ -878,10 +874,10 @@ void PXEngineDispatchTouchEvents()
 	CFIndex dictionaryCount = CFDictionaryGetCount(pxEngineTouchCapturingObjectsBuffer);
 
 	// If we wish to change the capture target of a touch then the function
-	// 'PXEngineSetTouchCapturingObject' was called. This will add the touch to the
-	// dictionary 'pxEngineTouchCapturingObjectsBuffer'. We need to change the value
-	// of the real dictionary, pxEngineTouchCapturingObjectsBuffer, to the
-	// corresponding new value. That is what this check is for.
+	// 'PXEngineSetTouchCapturingObject' was called. This will add the touch to
+	// the dictionary 'pxEngineTouchCapturingObjectsBuffer'. We need to change
+	// the value of the real dictionary, pxEngineTouchCapturingObjectsBuffer, to
+	// the corresponding new value. That is what this check is for.
 	if (dictionaryCount > 0)
 	{
 		CFIndex dictionaryIndex;
@@ -1099,17 +1095,23 @@ void PXEngineDispatchFrameEvents()
 
 	PXDisplayObject *child = nil;
 
-	// Dispatch it on all listeners (listeners must be PXDisplayObject's, but aren't necessarily on the display list, don't have to have a non-nil 'parent')
+	// Dispatch it on all listeners (listeners must be PXDisplayObject's, but
+	// aren't necessarily on the display list, don't have to have a non-nil
+	// 'parent')
 	PXLinkedListForEach(pxEngineFrameListeners, child)
 	{
 		[pxEngineCachedListeners addObject:child];
 	}
 
 	// From Flash API:
-	// Note: This event has neither a "capture phase" nor a "bubble phase", which means that event listeners must be added directly to any potential targets, whether the target is on the display list or not.
+	// Note:	This event has neither a "capture phase" nor a "bubble phase",
+	//			which means that event listeners must be added directly to any
+	//			potential targets, whether the target is on the display list or
+	//			not.
 	PXLinkedListForEach(pxEngineCachedListeners, child)
 	{
-		//The enterFrame event doesn't follow the event flow, even though it's dispatched into the display list in some cases
+		// The enterFrame event doesn't follow the event flow, even though it's
+		// dispatched into the display list in some cases
 		[child _dispatchEventNoFlow:pxEngineEnterFrameEvent];
 	}
 
@@ -2000,7 +2002,7 @@ CGPoint PXEngineTouchToScreenCoordinates(UITouch *touch)
 
 PXTouchEvent *pxEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSString *type, BOOL orientTouch)
 {
-	PXTouchEvent *event;
+	//PXTouchEvent *event;
 
 	CGPoint location = CGPointMake(0.0f, 0.0f);
 
@@ -2021,9 +2023,9 @@ PXTouchEvent *pxEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSStr
 #endif
 	}
 
-	event = [[PXTouchEvent alloc] initWithType:type nativeTouch:touch stageX:location.x stageY:location.y tapCount:touch.tapCount];
+	//event = [[PXTouchEvent alloc] initWithType:type nativeTouch:touch stageX:location.x stageY:location.y tapCount:touch.tapCount];
 
-	return event;
+	return [[PXTouchEvent alloc] initWithType:type nativeTouch:touch stageX:location.x stageY:location.y tapCount:touch.tapCount];
 }
 
 void PXEngineInvokeTouchBegan(UITouch *touch, CGPoint *pos)
@@ -2074,7 +2076,7 @@ void PXEngineInvokeTouchEnded(UITouch *touch, CGPoint *pos)
 			//PX_ENGINE_IS_TOUCH_SAME_PLACE((int)savedTouch->_stageX, (int)savedTouch->_stageY, x, y)
 			//if ((int)savedTouch->_stageX == x
 			//&& (int)savedTouch->_stageY == y)
-			if (touchDistanceSq < PX_ENGINE_TOUCH_RADIUS_SQ)
+			if (touchDistanceSq < PXEngineTouchRadiusSquared)
 			{
 				[pxEngineTouchEvents addObject:savedTouch];
 			}

@@ -82,6 +82,9 @@ extern PXVersion pxVersion;
 // Misc //
 //////////
 
+PXExtern const float PXEngineTouchRadius;
+PXExtern const float PXEngineTouchRadiusSquared;
+
 // Should the engine randomize the timer when it starts out? Why not.
 #define PX_SEED_RAND_WITH_TIME_ON_INIT 1
 
