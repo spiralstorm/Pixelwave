@@ -55,8 +55,7 @@
 	// Set up the main loop //
 	/////////////////////////
 
-	[self addEventListenerOfType:PX_EVENT_ENTER_FRAME
-						listener:PXListener(onFrame)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 
 	/////////////////////////////////////
 	// Set up the debug graphics layer //
@@ -114,10 +113,7 @@
 
 	//// Create bounds /////
 
-	PXRectangle *bounds = [PXRectangle rectangleWithX:0.0f
-												 andY:0.0f
-											 andWidth:stageWidth
-											andHeight:stageHeight];
+	PXRectangle *bounds = [PXRectangle rectangleWithX:0.0f y:0.0f width:stageWidth height:stageHeight];
 	
 	[Box2DUtils staticBorderInWorld:physicsWorld
 							   rect:bounds

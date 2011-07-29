@@ -9,7 +9,7 @@
 «OPTIONALHEADERIMPORTLINE»
 @implementation «FILEBASENAMEASIDENTIFIER»
 
-- (id)initWithReason:(NSString *)reason userInfo:(NSDictionary *)userInfo
+- (id) initWithReason:(NSString *)reason userInfo:(NSDictionary *)userInfo
 {
 	return [super initWithName:@"«FILEBASENAMEASIDENTIFIER»" reason:reason userInfo:userInfo];
 }

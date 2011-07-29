@@ -15,8 +15,11 @@
 {
 @private
 	b2World *physicsWorld;
+
 	float timeStep;
-	int velocityIterations, positionIterations;
+
+	int velocityIterations;
+	int positionIterations;
 
 	// Listeners
 	DestructionListener *destructionListener;

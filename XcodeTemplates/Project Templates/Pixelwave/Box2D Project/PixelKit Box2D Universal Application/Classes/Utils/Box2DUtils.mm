@@ -22,15 +22,15 @@
 {
 	va_list args;
 	va_start(args, shape0);
-	
+
 	b2Body *body = [Box2DUtils bodyInWorld:physicsWorld
 							   withBodyDef:bodyDef
 								fixtureDef:fixtureDef
 									shape0:shape0
 								shapesList:args];
-	
+
 	va_end(args);
-	
+
 	return body;
 }
 
@@ -39,18 +39,18 @@
 						 andY:(float)yInPoints
 {
 	b2Vec2 pos = b2Vec2_px2m(xInPoints, yInPoints);
-	
+
 	b2AABB aabb;
 	float touchRadius = 32.0f;
 	b2Vec2 size_2 = b2Vec2_px2m(touchRadius, touchRadius);
 	aabb.lowerBound = pos - size_2;
 	aabb.upperBound = pos + size_2;
-	
+
 	// Query the world for overlapping shapes.
 	QueryCallback callback(pos);
-	
+
 	physicsWorld->QueryAABB(&callback, aabb);
-	
+
 	return callback.m_fixture;
 }
 
@@ -63,14 +63,14 @@
 					   shapes:(b2Shape *)shape0, ...
 {
 	b2BodyDef bodyDef;
-	
+
 	b2FixtureDef fixtureDef;
 	fixtureDef.friction = friction;
 	fixtureDef.restitution = restitution;
-	
+
 	va_list args;
 	va_start(args, shape0);
-	
+
 	b2Body *body = [Box2DUtils bodyInWorld:physicsWorld
 							   withBodyDef:&bodyDef
 								fixtureDef:&fixtureDef
@@ -78,7 +78,7 @@
 								shapesList:args];
 	
 	va_end(args);
-	
+
 	return body;
 }
 
@@ -91,7 +91,7 @@
 	b2FixtureDef fixtureDef;
 	fixtureDef.friction = friction;
 	fixtureDef.restitution = restitution;
-	
+
 	return [Box2DUtils bodyInWorld:physicsWorld
 					   withBodyDef:&bodyDef
 						fixtureDef:&fixtureDef
@@ -103,7 +103,7 @@
 {
 	b2BodyDef bodyDef;
 	b2FixtureDef fixtureDef;
-	
+
 	return [Box2DUtils bodyInWorld:physicsWorld
 					   withBodyDef:&bodyDef
 						fixtureDef:&fixtureDef
@@ -117,23 +117,23 @@
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	
+
 	b2FixtureDef fixtureDef;
 	fixtureDef.friction = friction;
 	fixtureDef.restitution = restitution;
 	fixtureDef.density = 1.0f;
-	
+
 	va_list args;
 	va_start(args, shape0);
-	
+
 	b2Body *body = [Box2DUtils bodyInWorld:physicsWorld
 							   withBodyDef:&bodyDef
 								fixtureDef:&fixtureDef
 									shape0:shape0
 								shapesList:args];
-	
+
 	va_end(args);
-	
+
 	return body;
 }
 + (b2Body *)dynamicBodyInWorld:(b2World *)physicsWorld
@@ -143,12 +143,12 @@
 {
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	
+
 	b2FixtureDef fixtureDef;
 	fixtureDef.friction = friction;
 	fixtureDef.restitution = restitution;
 	fixtureDef.density = 1.0f;
-	
+
 	return [Box2DUtils bodyInWorld:physicsWorld
 					   withBodyDef:&bodyDef
 						fixtureDef:&fixtureDef
@@ -161,7 +161,7 @@
 	bodyDef.type = b2_dynamicBody;
 	b2FixtureDef fixtureDef;
 	fixtureDef.density = 1.0f;
-	
+
 	return [Box2DUtils bodyInWorld:physicsWorld
 					   withBodyDef:&bodyDef
 						fixtureDef:&fixtureDef
@@ -175,40 +175,40 @@
 	// Convert all the values to meters
 	float halfWidth = PointsToMeters(rect.width * 0.5f);
 	float halfHeight = PointsToMeters(rect.height * 0.5f);
-	
+
 	float left = PointsToMeters(rect.left);
 	float right = PointsToMeters(rect.right);
 	float top = PointsToMeters(rect.top);
 	float bottom = PointsToMeters(rect.bottom);
-	
+
 	thickness = PointsToMeters(thickness);
-	
+
 	// Create a body to hold the border shapes
 	b2BodyDef bodyDef;
 	b2Body *body = physicsWorld->CreateBody(&bodyDef);
-	
+
 	// Create all the shapes
 	b2PolygonShape box;
 	b2FixtureDef fixtureDef;
-	
+
 	fixtureDef.shape = &box;
-	
+
 	// Bottom
 	box.SetAsBox(halfWidth, thickness, b2Vec2(left + halfWidth, bottom), 0.0f);
 	body->CreateFixture(&fixtureDef);
-	
+
 	// Top
 	box.SetAsBox(halfWidth, thickness, b2Vec2(left + halfWidth, top), 0.0f);
 	body->CreateFixture(&fixtureDef);
-	
+
 	// Left
 	box.SetAsBox(thickness, halfHeight, b2Vec2(left, top + halfHeight), 0.0f);
 	body->CreateFixture(&fixtureDef);
-	
+
 	// Right
 	box.SetAsBox(thickness, halfHeight, b2Vec2(right, top + halfHeight), 0.0f);
 	body->CreateFixture(&fixtureDef);
-	
+
 	return body;
 }
 
@@ -223,16 +223,16 @@
 {
 	b2Shape *shape = NULL;
 	b2Body *body = NULL;
-	
+
 	body = physicsWorld->CreateBody(bodyDef);
-	
+
 	// Loop through the shapes
-	for(shape = shape0; shape != nil; shape = va_arg(list, b2Shape *))
+	for (shape = shape0; shape != nil; shape = va_arg(list, b2Shape *))
 	{
 		fixtureDef->shape = shape;
 		body->CreateFixture(fixtureDef);
 	}
-	
+
 	return body;
 }
 

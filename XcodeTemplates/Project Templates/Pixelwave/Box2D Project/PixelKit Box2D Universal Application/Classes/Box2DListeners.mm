@@ -94,7 +94,7 @@ QueryCallback::QueryCallback(const b2Vec2& point)
 bool QueryCallback::ReportFixture(b2Fixture* fixture)
 {
 	b2Body *body = fixture->GetBody();
-	
+
 	if (body->GetType() != b2_staticBody)
 	{
 		bool inside = fixture->TestPoint(m_point);
@@ -105,7 +105,7 @@ bool QueryCallback::ReportFixture(b2Fixture* fixture)
 			return false;
 		}
 	}
-	
+
 	return true;
 }
 

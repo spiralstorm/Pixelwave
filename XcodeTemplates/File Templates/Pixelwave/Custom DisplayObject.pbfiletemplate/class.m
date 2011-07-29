@@ -11,7 +11,9 @@
 
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+
+	if (self)
 	{
 		_renderMode = PXRenderMode_BatchAndManageStates;
 		
@@ -58,7 +60,7 @@
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x
-						andLocalY:(float)y
+						   localY:(float)y
 						shapeFlag:(BOOL)shapeFlag
 {
 	// Return YES if the point lies within your local area.  If shape flag is

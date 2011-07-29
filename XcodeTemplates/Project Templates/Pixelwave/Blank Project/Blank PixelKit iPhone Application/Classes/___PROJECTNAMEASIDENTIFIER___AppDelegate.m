@@ -16,15 +16,16 @@
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-    
+- (BOOL) application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
 	// Set the orientation to landscape
 	[UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationLandscapeRight;
 	// Disable the idle timer. This is useful for most interactive applications.
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
-	
+
 	// Create a new Pixelwave View
-	pixelView = [[PXView alloc] initWithFrame:window.frame];	
+	pixelView = [[PXView alloc] initWithFrame:window.frame];
+
 	// Set some basic settings
 	pixelView.stage.backgroundColor = 0x808080;
 	pixelView.stage.frameRate = 60;
@@ -50,6 +51,7 @@
 {
 	[pixelView release];
     [window release];
+
     [super dealloc];
 }
 
