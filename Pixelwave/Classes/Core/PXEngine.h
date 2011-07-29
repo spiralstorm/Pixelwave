@@ -114,6 +114,7 @@ void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pi
 /////////////
 // Touches //
 /////////////
+void PXEngineAssignTouchToTarget(UITouch *nativeTouch, PXDisplayObject *target);
 
 UITouch * PXEngineGetFirstTouch();
 PXLinkedList * PXEngineGetAllTouches();

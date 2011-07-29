@@ -169,6 +169,7 @@ void PXEngineRenderStage( );
 
 PXTouchEvent *pxEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSString *type, BOOL orientTouch);
 
+CFMutableDictionaryRef pxEngineTouchChangeAssociations = NULL;
 CFMutableDictionaryRef pxEngineTouchAssociations = NULL;
 
 PXObjectPool *pxEngineSharedObjectPool = nil;
@@ -178,6 +179,7 @@ PXLinkedList *pxEngineFrameListeners = nil;				//Strongly referenced
 PXLinkedList *pxEngineTouchEvents = nil;				//Strongly referenced
 PXLinkedList *pxEngineSavedTouchEvents = nil;			//Strongly referenced
 PXLinkedList *pxEngineRemoveFromSavedTouchEvents = nil;	//Strongly referenced
+PXLinkedList *pxEngineRemoveFromCaptureTouchEvents = nil;//Strongly referenced
 
 PXEvent *pxEngineEnterFrameEvent = nil;					//Strongly referenced
 PXStage *pxEngineStage = nil;							//Strongly referenced
@@ -284,6 +286,7 @@ void PXEngineInit(PXView *view)
 	// Events //
 	////////////
 
+	pxEngineTouchChangeAssociations = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 	pxEngineTouchAssociations = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 
 	// Initialized with weak references so that DisplayObjects with an
@@ -296,6 +299,7 @@ void PXEngineInit(PXView *view)
 	pxEngineTouchEvents = [[PXLinkedList alloc] init];
 	pxEngineSavedTouchEvents = [[PXLinkedList alloc] init];
 	pxEngineRemoveFromSavedTouchEvents = [[PXLinkedList alloc] init];
+	pxEngineRemoveFromCaptureTouchEvents = [[PXLinkedList alloc] init];
 
 	// Create a reusable enter frame event instead of creating one every frame.
 	pxEngineEnterFrameEvent = [[PXEvent alloc] initWithType:PXEvent_EnterFrame
@@ -356,6 +360,8 @@ void PXEngineDealloc( )
 
 	[pxEngineRemoveFromSavedTouchEvents release];
 	pxEngineRemoveFromSavedTouchEvents = nil;
+	[pxEngineRemoveFromCaptureTouchEvents release];
+	pxEngineRemoveFromCaptureTouchEvents = nil;
 
 	// Loops through each of the saved touches, and releases their hold on the
 	// target.  This is used in checking if the finger was released inside or
@@ -384,6 +390,8 @@ void PXEngineDealloc( )
 
 	PXGLDealloc( );
 
+	CFRelease(pxEngineTouchChangeAssociations);
+	pxEngineTouchChangeAssociations = NULL;
 	CFRelease(pxEngineTouchAssociations);
 	pxEngineTouchAssociations = NULL;
 
@@ -853,23 +861,40 @@ void PXEngineDispatchTouchEvents()
 	bool didTouchDown   = false;
 	bool didTouchUpOrCancel = false;
 
+	const void *captureKey = NULL;
+	const void *captureTarget = NULL;
+
+	CFIndex dictionaryCount = CFDictionaryGetCount(pxEngineTouchChangeAssociations);
+
+	// If we wish to change the capture target of a touch then the function
+	// 'PXEngineAssignTouchToTarget' was called. This will add the touch to the
+	// dictionary 'pxEngineTouchChangeAssociations'. We need to change the value
+	// of the real dictionary, pxEngineTouchChangeAssociations, to the
+	// corresponding new value. That is what this check is for.
+	if (dictionaryCount > 0)
+	{
+		CFIndex dictionaryIndex;
+
+		CFTypeRef *keysTypeRef = (CFTypeRef *)malloc(dictionaryCount * sizeof(CFTypeRef));
+		CFDictionaryGetKeysAndValues(pxEngineTouchChangeAssociations, (const void **)keysTypeRef, NULL);
+
+		CFTypeRef *cfKey;
+
+		for (dictionaryIndex = 0, cfKey = keysTypeRef; dictionaryIndex < dictionaryCount; ++dictionaryIndex, ++cfKey)
+		{
+			CFDictionarySetValue(pxEngineTouchAssociations, cfKey, CFDictionaryGetValue(pxEngineTouchChangeAssociations, cfKey));
+		}
+		free(keysTypeRef);
+		CFDictionaryRemoveAllValues(pxEngineTouchChangeAssociations);
+	}
+
 	if (pxEngineStage->_touchChildren)
 	{
 		PXLinkedListForEach(pxEngineTouchEvents, originalEvent)
 		{
-			target = PXEngineFindTouchTarget(originalEvent.stageX, originalEvent.stageY);
-
-			if (!target)
-				target = pxEngineStage;
-
 			eventType = originalEvent.type;
 
-			// Ok, this is pretty complicated.  If either the user touched up,
-			// or down, we need to make this check.  If they touched down, then
-			// we need to retain the target they were going for, if they are
-			// touching up, we need to release it.  This is because we need to
-			// ensure the object doesn't disappear prior to sending out the
-			// event.
+			// Find what type of touch even this is
 			didTouchDown = [eventType isEqualToString:PXTouchEvent_TouchDown];
 			if (!didTouchDown)
 			{
@@ -879,6 +904,56 @@ void PXEngineDispatchTouchEvents()
 			}
 			didTouchUpOrCancel = didTouchUp || didTouchCancel;
 
+			// Grab the 'key' for the dictoinary of captures, and the target
+			captureKey = originalEvent.nativeTouch;
+			captureTarget = CFDictionaryGetValue(pxEngineTouchAssociations, captureKey);
+
+			// If a capture target exists, then we don't need to find a new one
+			if (captureTarget)
+			{
+				target = (PXDisplayObject *)captureTarget;
+			}
+			else
+			{
+				// Find the target at the position
+				target = PXEngineFindTouchTarget(originalEvent.stageX, originalEvent.stageY);
+
+				// If it is a down event, then we can set the capture
+				if (didTouchDown && target && PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_isInteractive))
+				{
+					// Only set the capture, if this target allows it.
+					if (((PXInteractiveObject *)(target)).captureTouches)
+					{
+						CFDictionarySetValue(pxEngineTouchAssociations, captureKey, target);
+					}
+				}
+			}
+
+			// If the target exists and is not equal to the captured target,
+			// then we need to check if it is a target that cares about captures
+			// and it failed the on touch down, it means that the target was not
+			// captured in touch down, thus it should not recieve these events.
+			if (!didTouchDown && target && target != captureTarget)
+			{
+				if (PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_isInteractive))
+				{
+					if (((PXInteractiveObject *)(target)).captureTouches)
+					{
+						target = NULL;
+					}
+				}
+			}
+
+			// If no target exists, send it to the stage!
+			if (!target)
+				target = pxEngineStage;
+
+			// Ok, this is pretty complicated.  If either the user touched up,
+			// or down, we need to make this check.  If they touched down, then
+			// we need to retain the target they were going for, if they are
+			// touching up, we need to release it.  This is because we need to
+			// ensure the object doesn't disappear prior to sending out the
+			// event.
 			if (didTouchUpOrCancel || didTouchDown)
 			{
 				// Go through each of the saved touch events, and check to see
@@ -968,7 +1043,16 @@ void PXEngineDispatchTouchEvents()
 				originalEvent->_target = target;
 				[target dispatchEvent:originalEvent];
 			}
-		}
+
+			// If a touch up or cancel happened, then we need to remove the
+			// capture target from the dictionary. This shouldn't be done in the
+			// loop, so instead we add it to another list which will remove all
+			// of it's elements from the dictionary after the loop.
+			if (didTouchUpOrCancel)
+			{
+				[pxEngineRemoveFromCaptureTouchEvents addObject:(PXGenericObject)(captureKey)];
+			}
+		} // PXLinkedListForEach
 	}
 	else
 	{
@@ -981,12 +1065,19 @@ void PXEngineDispatchTouchEvents()
 
 	[pxEngineTouchEvents removeAllObjects];
 
+	// Remove all saved touches
 	PXLinkedListForEach(pxEngineRemoveFromSavedTouchEvents, originalEvent)
 	{
 		[pxEngineSavedTouchEvents removeObject:originalEvent];
 	}
-
 	[pxEngineRemoveFromSavedTouchEvents removeAllObjects];
+
+	// Remvoe all captured touches from the dictionary.
+	PXLinkedListForEach(pxEngineRemoveFromCaptureTouchEvents, captureKey)
+	{
+		CFDictionaryRemoveValue(pxEngineTouchAssociations, captureKey);
+	}
+	[pxEngineRemoveFromCaptureTouchEvents removeAllObjects];
 }
 
 void PXEngineDispatchFrameEvents()
@@ -1825,6 +1916,21 @@ PXObjectPool *PXEngineGetSharedObjectPool()
 }
 
 #pragma mark Touches
+
+void PXEngineAssignTouchToTarget(UITouch *nativeTouch, PXDisplayObject *target)
+{
+	if (!nativeTouch)
+		return;
+
+	if (!target)
+	{
+		CFDictionaryRemoveValue(pxEngineTouchChangeAssociations, nativeTouch);
+	}
+	else
+	{
+		CFDictionarySetValue(pxEngineTouchChangeAssociations, nativeTouch, target);
+	}
+}
 
 UITouch *PXEngineGetFirstTouch()
 {
