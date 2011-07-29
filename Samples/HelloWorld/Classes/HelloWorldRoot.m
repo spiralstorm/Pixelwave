@@ -59,13 +59,10 @@
 	// Grid
 	// The short way to load a texture
 	grid = [PXTexture textureWithContentsOfFile:@"GridBox.png"];
-	[grid setClipRectWithX:0.0f
-						 y:0.0f
-					 width:self.stage.stageHeight * 3.0f
-					height:self.stage.stageHeight * 3.0f];
-	
+
+	grid.clipRect = [PXClipRect clipRectWithX:0.0f y:0.0f width:self.stage.stageHeight * 3.0f height:self.stage.stageHeight * 3.0f];
 	[grid setAnchorWithX:0.5f y:0.5f];
-	
+
 	grid.alpha = 0.3f;
 	grid.smoothing = YES;
 
