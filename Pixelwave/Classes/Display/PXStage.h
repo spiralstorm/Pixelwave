@@ -111,7 +111,7 @@ typedef enum
 
 /**
  *	The value the <code>captureTouches</code> property of
- *	a PXInteractiveObject should be set to when initialized.
+ *	a PXInteractiveObject instance should be set to when initialized.
  *
  *	@b Default: YES
  */
