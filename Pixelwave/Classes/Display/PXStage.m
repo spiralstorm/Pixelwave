@@ -107,7 +107,7 @@
 
 		[_name release];
 		_name = nil;
-		
+
 		_captureTouches = NO;
 
 	//	self.orientation = PXStageOrientation_Portrait;
@@ -120,6 +120,7 @@
 {
 	return self;
 }
+
 - (PXDisplayObject *)root
 {
 	return self;
@@ -161,6 +162,7 @@
 {
 	PXEngineSetRunning(val);
 }
+
 - (BOOL) playing
 {
 	return PXEngineGetRunning();
@@ -170,6 +172,7 @@
 {
 	PXEngineSetLogicFrameRate(fps);
 }
+
 - (float) frameRate
 {
 	return PXEngineGetLogicFrameRate();
@@ -179,6 +182,7 @@
 {
 	PXEngineSetRenderFrameRate(fps);
 }
+
 - (float) renderFrameRate
 {
 	return PXEngineGetRenderFrameRate();
@@ -289,6 +293,7 @@
 {
 	[self onUnsettablePropertyAccess];
 }
+
 - (void) setCaptureTouches:(BOOL)val
 {
 	[self onUnsettablePropertyAccess];

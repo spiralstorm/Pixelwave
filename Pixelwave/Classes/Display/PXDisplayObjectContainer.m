@@ -387,6 +387,7 @@
 	// Events //
 	////////////
 
+	// Removes all touch captures that may be associating with this child.
 	PXEngineRemoveAllTouchCapturesFromObject(child);
 
 	// Removed events come before things get romoved
