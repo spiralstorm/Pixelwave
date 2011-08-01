@@ -51,7 +51,9 @@
  *	and display the current time using several TextField objects to emulate
  *	the look of a digital clock. We also use the HSV (Hue, Saturation, Value)
  *	color space to easily animate through all the colors of the rainbow on our
- *	"LED" display
+ *	"LED" display.
+ *
+ *	NOTE: This app is designed for the iPad.
  */
 @implementation CustomFontRoot
 
