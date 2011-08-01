@@ -39,8 +39,8 @@
 
 #import "PKBox2DTouchPickerEvent.h"
 
-NSString * const PKBox2DTouchPickerEvent_PickStart = @"PickStart";
-NSString * const PKBox2DTouchPickerEvent_PickEnd = @"PickEnd";
+NSString * const PKBox2DTouchPickerEvent_PickStart = @"pickStart";
+NSString * const PKBox2DTouchPickerEvent_PickEnd = @"pickEnd";
 
 @implementation PKBox2DTouchPickerEvent
 
