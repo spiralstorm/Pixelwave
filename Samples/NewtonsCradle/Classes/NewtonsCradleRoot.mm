@@ -63,6 +63,8 @@
 - (void) onPickStart:(PKBox2DTouchPickerEvent *)event;
 - (void) onPickEnd:(PKBox2DTouchPickerEvent *)event;
 
+- (void) onOrientationChanging:(PXStageOrientationEvent *)event;
+
 @end
 
 @implementation NewtonsCradleRoot
@@ -121,6 +123,9 @@
 	
 	// Set up the main loop
 	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
+	
+	self.stage.autoOrients = YES;
+	[self.stage addEventListenerOfType:PXStageOrientationEvent_OrientationChanging listener:PXListener(onOrientationChanging:)];
 }
 
 - (void) dealloc
@@ -147,6 +152,17 @@
 	[collisionSound release];
 
 	[super dealloc];
+}
+
+- (void) onOrientationChanging:(PXStageOrientationEvent *)event
+{
+	PXStageOrientation orientation = event.afterOrientation;
+	
+	if(orientation != PXStageOrientation_LandscapeLeft &&
+	   orientation != PXStageOrientation_LandscapeRight)
+	{
+		[event preventDefault];
+	}
 }
 
 //////////////////////////
@@ -356,10 +372,10 @@
 			 normalForce:(float)normalForce
 {
 	// Cushion the volume
-	float volume = (normalForce / GRAVITY) * 4.0f;
+	float volume = (normalForce / GRAVITY) * 8.0f;
 
 	// Efficency addition, if the volume is less then 1 percent, ignore it.
-	if (volume < 0.01f)
+	if (volume < 0.08f)
 		return;
 
 	// A small randomization of the pitch makes it sound cooler and slightly
