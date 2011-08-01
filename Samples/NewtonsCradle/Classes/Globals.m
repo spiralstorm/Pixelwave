@@ -42,6 +42,13 @@
 BOOL isIPad = NO;
 float myContentScale = 1.0f;
 
+// We use globals to store information
+// that any file in the application can access.
+// We're storing what type of device this is
+// (iPhone/iPad) and a scaling factor we
+// can use when positioning the graphics to make
+// sure that the graphics on the iPhone and the
+// iPad are positioned in the same relative locations.
 void initGlobals()
 {
 	// Check if we're on an iPad.

@@ -65,6 +65,10 @@
     return self;
 }
 
+// We override the rotation property so that
+// we can rotate the shadow and glow of the ball
+// in the opposite direction. This creates the effect
+// that they aren't rotating.
 - (void) setRotation:(float)value
 {
 	[super setRotation:value];

@@ -65,6 +65,8 @@
 	[super dealloc];
 }
 
+// (Overriden) Synchronizes the display object to match the position and
+// rotation of the physics body.
 - (void) update
 {
 	// If there is no body, or no display object, then there is nothing to

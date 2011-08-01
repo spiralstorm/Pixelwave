@@ -75,7 +75,7 @@
 }
 
 // Used to make it seem like the highlights/shadows of the
-// sphere are more realistic, by keeping their rotation
+// sphere are more realistic by keeping their rotation
 // static.
 - (void) setShadeRotation:(float)rotation{
 	shadeTexture.rotation = rotation;

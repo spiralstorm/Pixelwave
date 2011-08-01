@@ -67,6 +67,26 @@
 
 @end
 
+// Newton's Cradle
+// ===============
+//
+// This application demostrates:
+//
+//	-	How to use Box2D to create a newton's cradle. Notice that the physics
+//		are a bit wonky. That's because Box2D isn't designed to handle this kind of
+//		precise simualtion (hence the label on the plaque). Still, it works pretty well.
+//
+//	-	How to connect the Box2D world with real graphics. Drawing the output of Box2D using
+//		the PKBox2DDebugLayer class is pretty simple. Here we take it a step further and
+//		connect real display objects to the physical ones. This functionallity is achieved
+//		with the BodyAttacher class (included in this project).
+//
+//	-	How to include sounds in a physical simulation. Here we simply listen to the collision
+//		events dispatched by Box2D (using the code in Box2DListener.mm, included in this project)
+//		and respond by playing a wooden click sound every time two objects collide. We adjust the
+//		volume of the sound to reflect the impact of the collision, and randomely adjust its
+//		pitch to make it sound more realistic.
+
 @implementation NewtonsCradleRoot
 
 - (void) initializeAsRoot
@@ -232,7 +252,7 @@
 	bodyDef.type = b2_dynamicBody;
 	
 	// Using friction of 0.0f and high restitution
-	// to simulate a real newton's cradle
+	// to simulate the conditions in a real Newton's cradle
 	b2FixtureDef fixtureDef;
 	fixtureDef.friction = 0.0f;
 	fixtureDef.restitution = 0.995f;
@@ -282,7 +302,7 @@
 		// Add the joint to the world
 		physicsWorld->CreateJoint(&jointDef);
 		
-		/// Graphics ////
+		//// Graphics ////
 		
 		// Wall shadow
 		shadowSprite = [[CradleItemShadowSprite alloc] initWithAtlas:atlas ropeLength:stringLength];
@@ -398,6 +418,8 @@
 	[self updateAttachers];
 }
 
+// Updates all the Pixelwave display objects which were attached to
+// physics bodies so that they match their transformations.
 - (void) updateAttachers
 {
 	BodyAttacher *bodyAttacher;

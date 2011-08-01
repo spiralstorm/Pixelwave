@@ -41,7 +41,7 @@
 #define _GLOBALS_H_
 
 // This extern decleration is important so that
-// out cpp code (NewtonsCradleRoot.mm) can use
+// our cpp code (NewtonsCradleRoot.mm) can use
 // this header file.
 #ifdef __cplusplus
 extern "C" {
