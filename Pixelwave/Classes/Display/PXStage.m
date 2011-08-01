@@ -107,6 +107,8 @@
 
 		[_name release];
 		_name = nil;
+		
+		_captureTouches = NO;
 
 	//	self.orientation = PXStageOrientation_Portrait;
 	}
@@ -284,6 +286,10 @@
 }
 
 - (void) setTouchEnabled:(BOOL)val
+{
+	[self onUnsettablePropertyAccess];
+}
+- (void) setCaptureTouches:(BOOL)val
 {
 	[self onUnsettablePropertyAccess];
 }

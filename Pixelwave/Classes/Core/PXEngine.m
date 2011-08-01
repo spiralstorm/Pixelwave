@@ -890,7 +890,7 @@ void PXEngineDispatchTouchEvents()
 			}
 			didTouchUpOrCancel = didTouchUp || didTouchCancel;
 
-			// Grab the 'key' for the dictoinary of captures, and the target
+			// Grab the 'key' for the dictionary of captures, and the target
 			captureKey = originalEvent.nativeTouch;
 			captureTarget = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(localizedTouchSearchDictionary, captureKey);
 			if (!captureTarget)

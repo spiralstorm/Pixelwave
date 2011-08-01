@@ -387,12 +387,7 @@
 	// Events //
 	////////////
 
-	BOOL onStage = child.stage != nil;
-
-	if (onStage)
-	{
-		PXEngineRemoveAllTouchCapturesFromObject(child);
-	}
+	PXEngineRemoveAllTouchCapturesFromObject(child);
 
 	// Removed events come before things get romoved
 	if (dispatchEvents)
@@ -413,7 +408,7 @@
 
 		// If the child hasn't been removed while we dispatched the remove event
 		// on it, dispatch the next event
-		if (onStage)
+		if (child.stage != nil)
 		{
 			// REMOVED_FROM_STAGE event
 
