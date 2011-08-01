@@ -101,7 +101,7 @@ PXExtern NSString * const PXTextFieldDefaultFont;
 // Screen colors //
 ///////////////////
 
-#define PX_VIEW_DEFAULT_COLOR_QUALITY PXViewColorQuality_Medium
+#define PX_VIEW_DEFAULT_COLOR_QUALITY PXViewColorQuality_High
 
 // Point color conversion.
 // Faster if this is set to 0, however less accurate when it comes to floating
