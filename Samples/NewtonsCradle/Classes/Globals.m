@@ -8,16 +8,22 @@
 
 #import "Globals.h"
 
-@implementation Globals
+BOOL isIPad = NO;
+float myContentScale = 1.0f;
 
-- (id)init
+void initGlobals()
 {
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
-}
+	// Check if we're on an iPad.
+	// This variable is used later to see which images we need to load
+	// and how we should scale our movemement values
+	
+#ifdef UI_USER_INTERFACE_IDIOM
+	isIPad = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
+#endif
 
-@end
+	if(isIPad){
+		myContentScale = 2.0f;
+	}else{
+		myContentScale = 1.0f;
+	}
+}

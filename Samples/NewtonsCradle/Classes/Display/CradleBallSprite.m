@@ -8,16 +8,49 @@
 
 #import "CradleBallSprite.h"
 
+@interface CradleBallSprite (Private)
+- (void) onTouchDown;
+- (void) onTouchUp;
+@end
+
 @implementation CradleBallSprite
 
-- (id)init
+- (id) initWithAtlas:(PXTextureAtlas *)atlas
 {
     self = [super init];
     if (self) {
-        // Initialization code here.
+		PXTexture *baseTexture = [atlas textureForFrame:@"BallBase.png"];
+		shadeTexture = [atlas textureForFrame:@"BallShade.png"];
+		glowTexture = [atlas textureForFrame:@"TouchGlow.png"];
+		
+		baseTexture.smoothing = YES;
+		
+		// We don't need to smooth the shade texture because it'll never rotate
+		
+		[baseTexture setAnchorWithX:0.5f y:0.5f];
+		[shadeTexture setAnchorWithX:0.5f y:0.5f];
+		[glowTexture setAnchorWithX:0.5f y:0.5f];
+		
+		baseTexture.rotation = [PXMath randomFloatInRangeFrom:0.0f to:360.0f];
+		
+		[self addChild:baseTexture];
+		[self addChild:shadeTexture];
+		[self addChild:glowTexture];
+		
+		[self setSelected:NO];
     }
     
     return self;
+}
+
+- (void) setShadeRotation:(float)rotation{
+	shadeTexture.rotation = rotation;
+	glowTexture.rotation = rotation;
+}
+
+- (void) setSelected:(BOOL)selected
+{
+	glowTexture.visible = selected;
 }
 
 @end

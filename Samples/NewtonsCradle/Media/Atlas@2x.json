@@ -1,0 +1,83 @@
+{"frames": {
+
+"BallBase.png":
+{
+	"frame": {"x":110,"y":422,"w":98,"h":98},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":98},
+	"sourceSize": {"w":100,"h":100}
+},
+"BallFloorShadow.png":
+{
+	"frame": {"x":214,"y":2,"w":102,"h":26},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":102,"h":26},
+	"sourceSize": {"w":102,"h":26}
+},
+"BallShade.png":
+{
+	"frame": {"x":2,"y":422,"w":100,"h":100},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
+	"sourceSize": {"w":100,"h":100}
+},
+"BallWallShadow.png":
+{
+	"frame": {"x":2,"y":214,"w":200,"h":201},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":200,"h":201},
+	"sourceSize": {"w":200,"h":201}
+},
+"Rod.png":
+{
+	"frame": {"x":248,"y":2,"w":4,"h":419},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":4,"y":0,"w":4,"h":419},
+	"sourceSize": {"w":12,"h":419}
+},
+"RodWallShadow.png":
+{
+	"frame": {"x":2,"y":1560,"w":58,"h":460},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":58,"h":460},
+	"sourceSize": {"w":58,"h":460}
+},
+"TopBar.png":
+{
+	"frame": {"x":110,"y":528,"w":1024,"h":95},
+	"rotated": true,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":1024,"h":95},
+	"sourceSize": {"w":1024,"h":95}
+},
+"TopBarShadow.png":
+{
+	"frame": {"x":214,"y":112,"w":4,"h":93},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":4,"h":93},
+	"sourceSize": {"w":4,"h":93}
+},
+"TouchGlow.png":
+{
+	"frame": {"x":2,"y":2,"w":204,"h":204},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":204,"h":204},
+	"sourceSize": {"w":204,"h":204}
+}},
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "Atlas@2x.png",
+	"format": "RGBA8888",
+	"size": {"w":256,"h":2048},
+	"scale": "1"
+}
+}

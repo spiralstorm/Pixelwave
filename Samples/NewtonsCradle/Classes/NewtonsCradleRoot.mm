@@ -47,16 +47,30 @@
 
 #import "BodyAttacher.h"
 
+#import "CradleItemSprite.h"
+#import "CradleItemShadowSprite.h"
+
+#import "Globals.h"
+
 // We consider these methods private
 @interface NewtonsCradleRoot(Private)
 - (void) createScene;
-- (void) addConnectedDisplayObject:(PXDisplayObject *)displayObject atX:(float)x y:(float)y;
+
+- (void) onTap:(PXTouchEvent *)event;
+- (void) resetBalls;
+- (void) updateAttachers;
+
+- (void) onPickStart:(PKBox2DTouchPickerEvent *)event;
+- (void) onPickEnd:(PKBox2DTouchPickerEvent *)event;
+
 @end
 
 @implementation NewtonsCradleRoot
 
 - (void) initializeAsRoot
 {
+	initGlobals();
+	
 	// Warm up the sound engine so that our first sound plays on time
 	[PXSoundMixer warmUp];
 
@@ -105,15 +119,21 @@
 	// Set up the main loop
 	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 
-
-	// Add a touch picker to grab the balls
-	PKBox2DTouchPicker *touchPicker = [[PKBox2DTouchPicker alloc] initWithWorld:physicsWorld];
+	// Add a touch picker to allow the user to grab the objects.
+	touchPicker = [[PKBox2DTouchPicker alloc] initWithWorld:physicsWorld];
 	touchPicker.scale = POINTS_PER_METER;
+	
+	[touchPicker addEventListenerOfType:PKBox2DTouchPickerEvent_PickStart listener:PXListener(onPickStart:)];
+	[touchPicker addEventListenerOfType:PKBox2DTouchPickerEvent_PickEnd listener:PXListener(onPickEnd:)];
+	
 	[self addChild:touchPicker];
 	[touchPicker release];
-
+	
 	// Populate the world
 	[self createScene];
+	[self updateAttachers];
+	
+	[self.stage addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap:)];
 }
 
 - (void) dealloc
@@ -142,6 +162,9 @@
 	// Cleaning up: Release retained objects, remove event listeners, etc.
 	delete physicsWorld;
 	physicsWorld = NULL;
+	
+	delete[] ballBodies;
+	ballBodies = NULL;
 
 	// Release the sound
 	[collisionSound release];
@@ -155,153 +178,184 @@
 
 - (void) createScene
 {
-	// Grab the size of the screen, half sizes are also useful
+	// Grab the size of the screen.
 	float stageWidth  = self.stage.stageWidth;
-	float stageHeight = self.stage.stageHeight;
-	float stageWidth_2  = stageWidth  * 0.5f;
-	float stageHeight_2 = stageHeight * 0.5f;
-
-	// TODO: Oz, want to make a @2x version too, pweese?
-	// Load the background
-	PXTexture *backgroundTex = [PXTexture textureWithContentsOfFile:@"background.png"];
-	[backgroundTex setAnchorWithX:0.5f y:0.5f];
-	backgroundTex.x = stageWidth_2;
-	backgroundTex.y = stageHeight_2;
+	
+	//////////////
+	// Graphics //
+	//////////////
+	
+	// Load the atlas
+	PXTextureAtlas *atlas = [PXTextureAtlas textureAtlasWithContentsOfFile: isIPad ? @"Atlas@2x.json" : @"Atlas.json"
+																  modifier:nil];
+	
+	// Background
+	NSString *bgImageName = isIPad ? @"BGiPad.png" : @"BGiPhone.png";
+	
+	PXTexture *backgroundTex = [PXTexture textureWithContentsOfFile:bgImageName];
 	[self addChild:backgroundTex];
+	
+	PKBox2DDebugLayer *debugLayer = [[PKBox2DDebugLayer alloc] initWithPhysicsWorld:physicsWorld];
+	debugLayer.scale = POINTS_PER_METER;
+	debugLayer.touchPicking = NO;
+	[self addChild:debugLayer];
+	[debugLayer release];
+	
+	debugLayer.visible = NO;
+	
+	worldSprite = [[PXSimpleSprite alloc] init];
+	[self addChild:worldSprite];
+	[worldSprite release];
+	
+	// Top Strip
+	PXTexture *topPiece = [atlas textureForFrame:@"TopBar.png"];
+	[topPiece setAnchorWithX:0.5f y:0.0f];
+	topPiece.x = stageWidth * 0.5f;
+	[self addChild:topPiece];
+	
+	// The top strip shadow
+	PXTexture *topPieceShadow = [atlas textureForFrame:@"TopBarShadow.png"];
+	topPieceShadow.width = stageWidth;
+	topPieceShadow.y = topPiece.y + topPiece.height;
+	[self addChild:topPieceShadow];
 
-	// Load the ball clacker pics
-	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"Clacker.png"];
-	PXTextureData *textureData = [textureLoader newTextureData];
-	PXTexture *texture;
-
+	/////////////
+	// Physics //
+	/////////////
+	
+	// The number of balls for the cradle
+	ballCount = 5;
+	
+	// Set the size of balls to be pendant on the size of the stage (aka. they
+	// will be bigger on the iPad)
+	float radius = 24.0f * myContentScale;
+	float stringLength = 250.0f * myContentScale;
+	
 	// Create a body to have the balls hang from
 	b2BodyDef bodyDef;
 	ceilingBody = physicsWorld->CreateBody(&bodyDef);
-
-	// The number of balls for the ball clicker
-	unsigned ballCount = 5;
-
-	// Set the size of balls to be pendant on the size of the stage (aka. they
-	// will be bigger on the iPad)
-	float radius = ceilf(self.stage.stageWidth * 0.07f);
-	float spaceBetween = (radius * 2.0f) + 2;
-	float xPos = (stageWidth * 0.5f) - (ballCount * radius) + radius;
-	float stringLength = stageHeight * 0.6f;
-
-	// Texture info...
-	unsigned ballTextureSize = 304;
-	unsigned short stringTextureWidth = 8;
-	unsigned short stringTextureHeight = 352;
-
-	// The scale of the texture so that it will be the size of the radius
-	float ballTextureScale = (radius * 2.0f) / ((float)(ballTextureSize));
-
-	// A sprite for each of the "ball and chains" and an attacher to hold them.
-	PXSimpleSprite *simpleSprite;
-	BodyAttacher *attacher;
-
+	
 	// A circle for the physics of the ball
 	b2CircleShape circle;
 	circle.m_radius = PointsToMeters(radius);
 	circle.m_p.y = PointsToMeters(stringLength);
-
+	
 	// ... it will be dynamic
 	bodyDef.type = b2_dynamicBody;
-
-	// Setting the information of the balls.  Friction of 0 and high restitution
-	// to simulate the ball clicker.
+	
+	// Using friction of 0.0f and high restitution
+	// to simulate a real newton's cradle
 	b2FixtureDef fixtureDef;
 	fixtureDef.friction = 0.0f;
 	fixtureDef.restitution = 0.995f;
-
 	// All dynamic objects need a density
 	fixtureDef.density = 1.0f;
-
+	
 	b2Body *body;
 	b2RevoluteJointDef jointDef;
-
-	// Loop through and make each of the "ball and chains"
-	unsigned index;
-	for (index = 0; index < ballCount; ++index)
-	{
-		simpleSprite = [[PXSimpleSprite alloc] init];
-		[self addChild:simpleSprite];
-		[simpleSprite release];
-
-		simpleSprite.x = xPos;
-		simpleSprite.y = 0.0f;
-
-		// Make a texture for the ball
-		texture = [[PXTexture alloc] initWithTextureData:textureData];
-		[simpleSprite addChild:texture];
-		[texture release];
-
-		// Set the area of the texture that the ball lives.
-		[texture setClipRectWithX:0 y:0 width:ballTextureSize height:ballTextureSize usingAnchorX:0.5f anchorY:0.5f];
-		texture.x = 0.0f;
-		texture.y = stringLength;
-		texture.scale = ballTextureScale;
-		texture.smoothing = YES;
-
-		// Make a texture for the rope
-		texture = [[PXTexture alloc] initWithTextureData:textureData];
-		[simpleSprite addChild:texture];
-		[texture release];
-
-		// Set the area of the texture that the rope lives.
-		[texture setClipRectWithX:512 - stringTextureWidth y:0 width:stringTextureWidth height:stringTextureHeight usingAnchorX:0.5f anchorY:0.0f];
-		texture.width = stringTextureWidth;
-		texture.height = stringLength;
-		texture.smoothing = YES;
-
+	
+	ballBodies = new b2Body*[ballCount];
+	
+	float spaceBetween = (radius * 2.0f) + 2;
+	float xPos = (stageWidth * 0.5f) - (ballCount * radius) + radius;
+	float yPos = 0.0f;
+	
+	// Graphics
+	BodyAttacher *attacher;
+	CradleItemShadowSprite *shadowSprite;
+	CradleItemSprite *itemSprite;
+	
+	int i;
+	for(i = 0; i < ballCount; ++i){
 		// Set the position of the body
-		bodyDef.position = b2Vec2_px2m(xPos, 0.0f);
-
+		bodyDef.position = b2Vec2_px2m(xPos, yPos);
+		
 		body = [Box2DUtils bodyInWorld:physicsWorld
 						   withBodyDef:&bodyDef
 							fixtureDef:&fixtureDef
 								shapes:&circle, nil];
-
-		body->SetUserData(simpleSprite);
-
+		
+		ballBodies[i] = body;
+		
 		// Make a revolute joint so the ball will rotate around
-		jointDef.Initialize(ceilingBody, body, b2Vec2_px2m(simpleSprite.x, simpleSprite.y));
-		jointDef.collideConnected = true;
-
+		jointDef.Initialize(ceilingBody, body, bodyDef.position);
+		
 		// Set the limits so that it doesn't go further then the ceiling
 		jointDef.enableLimit = YES;
 		jointDef.lowerAngle = PXMathToRad(-74.5f);
 		jointDef.upperAngle = PXMathToRad( 74.5f);
-
+		
 		// Add the joint to the world
 		physicsWorld->CreateJoint(&jointDef);
-
-		// Make an attacher and set it's properties
+		
+		/// Graphics ////
+		
+		// Shadow
+		shadowSprite = [[CradleItemShadowSprite alloc] initWithAtlas:atlas ropeLength:stringLength];
+		[worldSprite addChild:shadowSprite];
+		[shadowSprite release];
+		
 		attacher = [[BodyAttacher alloc] init];
+		attacher.body = body;
+		attacher.displayObject = shadowSprite;
+		attacher.xOffset = 10.0f * myContentScale;
+		
 		[bodyAttachers addObject:attacher];
 		[attacher release];
-
+		
+		// Main
+		itemSprite = [[CradleItemSprite alloc] initWithAtlas:atlas ropeLength:stringLength];
+		[worldSprite addChild:itemSprite];
+		[itemSprite release];
+		
+		attacher = [[BodyAttacher alloc] init];
 		attacher.body = body;
-		attacher.displayObject = simpleSprite;
-
+		attacher.displayObject = itemSprite;
+		
+		[bodyAttachers addObject:attacher];
+		[attacher release];
+		
+		// To update the glow:
+		body->SetUserData(itemSprite);
+		
 		// Iterate to the position of the next ball
 		xPos += spaceBetween;
+	}	
+}
+	 
+- (void) onPickStart:(PKBox2DTouchPickerEvent *)event
+{
+	// Grab the touched display object
+	CradleItemSprite *itemSprite = (CradleItemSprite *)event.fixture->GetBody()->GetUserData();
+	[itemSprite setSelected:YES];
+}
+- (void) onPickEnd:(PKBox2DTouchPickerEvent *)event
+{
+	// Grab the touched display object
+	CradleItemSprite *itemSprite = (CradleItemSprite *)event.fixture->GetBody()->GetUserData();
+	[itemSprite setSelected:NO];
+}
+
+- (void) onTap:(PXTouchEvent *)e
+{
+	if(e.tapCount == 2){
+		[self resetBalls];
 	}
+}
 
-	// Set a texture for the ceiling
-	texture = [[PXTexture alloc] initWithTextureData:textureData];
-	[self addChild:texture];
-	[texture release];
-
-	// Set the area of the texture that the ceiling lives.
-	[texture setClipRectWithX:0 y:384 width:512 height:128];
-
-	texture.x = 0.0f;
-	texture.y = (stageHeight * 0.05f) - texture.height;
-	texture.width = stageWidth;
-
-	[textureData release];
-	[textureLoader release];
+- (void) resetBalls
+{
+	[touchPicker resetTouches];
+	
+	b2Body *ballBody;
+	for(int i = 0; i < ballCount; ++i){
+		ballBody = ballBodies[i];
+		
+		b2Vec2 ballPos = ballBody->GetPosition();
+		ballBody->SetTransform(ballPos, 0.0f);
+		ballBody->SetAngularVelocity(0.0f);
+		ballBody->SetLinearVelocity(b2Vec2_zero);
+	}
 }
 
 - (void) contactListener:(ContactListener *)listener
@@ -310,7 +364,7 @@
 			 normalForce:(float)normalForce
 {
 	// Cushion the volume
-	float volume = (normalForce / GRAVITY);
+	float volume = (normalForce / GRAVITY) * 4.0f;
 
 	// Efficency addition, if the volume is less then 1 percent, ignore it.
 	if (volume < 0.01f)
@@ -333,7 +387,11 @@
 {
 	physicsWorld->Step(timeStep, velocityIterations, positionIterations);
 
-	// Update the attachers.
+	[self updateAttachers];
+}
+
+- (void) updateAttachers
+{
 	BodyAttacher *bodyAttacher;
 	for (bodyAttacher in bodyAttachers)
 	{

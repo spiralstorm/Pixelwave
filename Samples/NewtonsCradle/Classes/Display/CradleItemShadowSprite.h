@@ -8,16 +8,6 @@
 
 #import "Pixelwave.h"
 
-@class CradleBallSprite;
-
-@interface CradleItemSprite : PXSimpleSprite
-{
-@private
-	CradleBallSprite *ballSprite;
-}
-
+@interface CradleItemShadowSprite : PXSimpleSprite
 - (id) initWithAtlas:(PXTextureAtlas *)atlas ropeLength:(float)ropeLength;
-
-- (void) setSelected:(BOOL)selected;
-
 @end

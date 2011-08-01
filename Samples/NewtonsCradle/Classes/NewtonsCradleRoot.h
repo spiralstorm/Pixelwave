@@ -43,15 +43,25 @@
 
 class b2World;
 class b2body;
+@class PKBox2DTouchPicker;
 
 @interface NewtonsCradleRoot : PXSprite<Box2DListenerDelegate>
 {
 @private
-	b2World *physicsWorld;
+	
+	PXSimpleSprite *worldSprite;
+	
 	b2Body *ceilingBody;
 	PXSound *collisionSound;
+	
+	// Physics
+	b2World *physicsWorld;
 	PXLinkedList *bodyAttachers;
-
+	int ballCount;
+	b2Body **ballBodies;
+	
+	PKBox2DTouchPicker *touchPicker;
+	
 	// Listeners
 	DestructionListener *destructionListener;
 	ContactListener *contactListener;

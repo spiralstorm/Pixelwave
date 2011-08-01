@@ -6,8 +6,17 @@
 //  Copyright 2011 NA. All rights reserved.
 //
 
-#import "PXSimpleSprite.h"
+#import "Pixelwave.h"
 
 @interface CradleBallSprite : PXSimpleSprite
+{
+@private
+	PXTexture *shadeTexture;
+	PXTexture *glowTexture;
+}
+- (id) initWithAtlas:(PXTextureAtlas *)atlas;
+- (void) setShadeRotation:(float)rotation;
+
+- (void) setSelected:(BOOL)selected;
 
 @end

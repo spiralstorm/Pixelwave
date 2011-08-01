@@ -6,8 +6,23 @@
 //  Copyright 2011 NA. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#ifndef _GLOBALS_H_
+#define _GLOBALS_H_
 
-@interface Globals : NSObject
+// This extern decleration is important so that
+// out cpp code (NewtonsCradleRoot.mm) can use
+// this header file.
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-@end
+extern BOOL isIPad;
+extern float myContentScale;
+
+void initGlobals();
+
+#ifdef __cplusplus
+}
+#endif
+	
+#endif
