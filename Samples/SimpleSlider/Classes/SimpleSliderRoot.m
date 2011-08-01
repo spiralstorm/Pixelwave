@@ -41,9 +41,6 @@
 
 #import "Slider.h"
 
-// TODO: Remove this line
-#import "PXTextureFontOptions.h"
-
 #define REFLECTION_ALPHA 0.05f
 static NSString *fontName = @"TrebuchetMS";
 
