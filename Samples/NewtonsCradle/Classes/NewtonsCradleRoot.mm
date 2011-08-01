@@ -39,6 +39,8 @@
 
 #import "NewtonsCradleRoot.h"
 
+#import "Globals.h"
+
 #import "Box2D.h"
 #import "PKBox2DDebugLayer.h"
 
@@ -50,14 +52,12 @@
 #import "CradleItemSprite.h"
 #import "CradleItemShadowSprite.h"
 
-#import "Globals.h"
-
 // We consider these methods private
 @interface NewtonsCradleRoot(Private)
 - (void) createScene;
 
 - (void) onTap:(PXTouchEvent *)event;
-- (void) resetBalls;
+- (void) resetScene;
 - (void) updateAttachers;
 
 - (void) onPickStart:(PKBox2DTouchPickerEvent *)event;
@@ -73,15 +73,13 @@
 	
 	// Warm up the sound engine so that our first sound plays on time
 	[PXSoundMixer warmUp];
-
-	ceilingBody = nil;
-
+	
 	// Allocate a list to store our bodies and display objects
 	bodyAttachers = [[PXLinkedList alloc] init];
 
 	// Load a sound to play for collisons
-	collisionSound = [[PXSound soundWithContentsOfFile:@"would.wav"] retain];
-
+	collisionSound = [[PXSound soundWithContentsOfFile:@"wood.wav"] retain];
+	
 	// Setup the physics engine
 	// Define some simulation parameters
 	timeStep = 1.0f / self.stage.frameRate;
@@ -91,34 +89,18 @@
 	velocityIterations = 10;
 	positionIterations = 10;
 
-	// Define the force of gravity (in meters / second ^ 2)
+	// Set up the Box2D world
 	b2Vec2 gravity(0.0f, GRAVITY);
-
-	// Should physics bodies sleep when not moving? Why not?
 	bool doSleep = true;
 
 	physicsWorld = new b2World(gravity, doSleep);
 	physicsWorld->SetContinuousPhysics(true);
-
-	// Zero out the callbacks
-	destructionListener = NULL;
-	contactListener = NULL;
-
-	// If you want a destruction listener, un-comment these lines.
-	//destructionListener = new DestructionListener();
-	//physicsWorld->SetDestructionListener(destructionListener);
-
+	
 	// Add the contact listener so that when the balls collide we play a sound.
 	contactListener = new ContactListener();
 	physicsWorld->SetContactListener(contactListener);
-
-	// Made a delegate for this sample as an example on how you could callback
-	// functions in objective-c
 	contactListener->delegate = self;
-
-	// Set up the main loop
-	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
-
+	
 	// Add a touch picker to allow the user to grab the objects.
 	touchPicker = [[PKBox2DTouchPicker alloc] initWithWorld:physicsWorld];
 	touchPicker.scale = POINTS_PER_METER;
@@ -133,24 +115,20 @@
 	[self createScene];
 	[self updateAttachers];
 	
+	// Listen to tap events so the user can reset the scene
+	// by double tapping
 	[self.stage addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap:)];
+	
+	// Set up the main loop
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 }
 
 - (void) dealloc
 {
-	// Release the list
+	// Cleaning up: Release retained objects, remove event listeners, etc.
+	
 	[bodyAttachers release];
-
-	// Unload all the listeners
-	if (destructionListener)
-	{
-		physicsWorld->SetDestructionListener(NULL);
-
-		delete destructionListener;
-		destructionListener = NULL;
-	}
-
-	// Release the contact listener
+	
 	if (contactListener)
 	{
 		physicsWorld->SetContactListener(NULL);
@@ -159,7 +137,6 @@
 		contactListener = NULL;
 	}
 
-	// Cleaning up: Release retained objects, remove event listeners, etc.
 	delete physicsWorld;
 	physicsWorld = NULL;
 	
@@ -186,23 +163,14 @@
 	//////////////
 	
 	// Load the atlas
-	PXTextureAtlas *atlas = [PXTextureAtlas textureAtlasWithContentsOfFile: isIPad ? @"Atlas@2x.json" : @"Atlas.json"
-																  modifier:nil];
+	PXTextureAtlas *atlas = [PXTextureAtlas textureAtlasWithContentsOfFile: isIPad ? @"Atlas@2x.json" : @"Atlas.json" modifier:nil];
 	
 	// Background
 	NSString *bgImageName = isIPad ? @"BGiPad.png" : @"BGiPhone.png";
 	
 	PXTexture *backgroundTex = [PXTexture textureWithContentsOfFile:bgImageName];
 	[self addChild:backgroundTex];
-	
-	PKBox2DDebugLayer *debugLayer = [[PKBox2DDebugLayer alloc] initWithPhysicsWorld:physicsWorld];
-	debugLayer.scale = POINTS_PER_METER;
-	debugLayer.touchPicking = NO;
-	[self addChild:debugLayer];
-	[debugLayer release];
-	
-	debugLayer.visible = NO;
-	
+		
 	worldSprite = [[PXSimpleSprite alloc] init];
 	[self addChild:worldSprite];
 	[worldSprite release];
@@ -218,29 +186,33 @@
 	topPieceShadow.width = stageWidth;
 	topPieceShadow.y = topPiece.y + topPiece.height;
 	[self addChild:topPieceShadow];
+	
+	// Uncomment these lines to render the raw Box2D output:
+	//
+	// PKBox2DDebugLayer *debugLayer = [[PKBox2DDebugLayer alloc] initWithPhysicsWorld:physicsWorld];
+	// debugLayer.scale = POINTS_PER_METER;
+	// debugLayer.touchPicking = NO;
+	// [self addChild:debugLayer];
+	// [debugLayer release];
 
 	/////////////
 	// Physics //
 	/////////////
 	
-	// The number of balls for the cradle
+	// Set up some values
 	ballCount = 5;
-	
-	// Set the size of balls to be pendant on the size of the stage (aka. they
-	// will be bigger on the iPad)
-	float radius = 24.0f * myContentScale;
+	float radius = 25.0f * myContentScale;
 	float stringLength = 250.0f * myContentScale;
 	
-	// Create a body to have the balls hang from
+	// Create a static body to have joints connected to
 	b2BodyDef bodyDef;
-	ceilingBody = physicsWorld->CreateBody(&bodyDef);
+	b2Body *staticBody = physicsWorld->CreateBody(&bodyDef);
 	
-	// A circle for the physics of the ball
+	// Define the shape to be used for the ball objects
 	b2CircleShape circle;
 	circle.m_radius = PointsToMeters(radius);
 	circle.m_p.y = PointsToMeters(stringLength);
 	
-	// ... it will be dynamic
 	bodyDef.type = b2_dynamicBody;
 	
 	// Using friction of 0.0f and high restitution
@@ -248,15 +220,18 @@
 	b2FixtureDef fixtureDef;
 	fixtureDef.friction = 0.0f;
 	fixtureDef.restitution = 0.995f;
+	
 	// All dynamic objects need a density
 	fixtureDef.density = 1.0f;
 	
 	b2Body *body;
 	b2RevoluteJointDef jointDef;
 	
+	// Hold a reference to all the bodies in the world. We'll use this
+	// list when resetting the scene.
 	ballBodies = new b2Body*[ballCount];
 	
-	float spaceBetween = (radius * 2.0f) + 2;
+	float spaceBetween = (radius * 2.0f) + 2.0f;
 	float xPos = (stageWidth * 0.5f) - (ballCount * radius) + radius;
 	float yPos = 0.0f;
 	
@@ -264,6 +239,8 @@
 	BodyAttacher *attacher;
 	CradleItemShadowSprite *shadowSprite;
 	CradleItemSprite *itemSprite;
+	
+	// Time to create the cradle ball objects.
 	
 	int i;
 	for(i = 0; i < ballCount; ++i){
@@ -277,8 +254,9 @@
 		
 		ballBodies[i] = body;
 		
-		// Make a revolute joint so the ball will rotate around
-		jointDef.Initialize(ceilingBody, body, bodyDef.position);
+		// Make a revolute joint. This will let the objects of the cradle
+		// rotate around a hinge at the top of the screen.
+		jointDef.Initialize(staticBody, body, bodyDef.position);
 		
 		// Set the limits so that it doesn't go further then the ceiling
 		jointDef.enableLimit = YES;
@@ -290,7 +268,7 @@
 		
 		/// Graphics ////
 		
-		// Shadow
+		// Wall shadow
 		shadowSprite = [[CradleItemShadowSprite alloc] initWithAtlas:atlas ropeLength:stringLength];
 		[worldSprite addChild:shadowSprite];
 		[shadowSprite release];
@@ -315,14 +293,22 @@
 		[bodyAttachers addObject:attacher];
 		[attacher release];
 		
-		// To update the glow:
+		// The body should keep a reference its display object so that
+		// when the body it gets picked up by the user we can grab a reference
+		// to the display and turn the glow on/off.
 		body->SetUserData(itemSprite);
 		
-		// Iterate to the position of the next ball
+		// Increment to the position of the next ball
 		xPos += spaceBetween;
 	}	
 }
-	 
+
+/////////////////////
+// Event listeners //
+/////////////////////
+
+// Listeners dispatched by the Box2D touch picker
+
 - (void) onPickStart:(PKBox2DTouchPickerEvent *)event
 {
 	// Grab the touched display object
@@ -336,14 +322,20 @@
 	[itemSprite setSelected:NO];
 }
 
+// Dispatched when the user taps anywhere on the screen
+
 - (void) onTap:(PXTouchEvent *)e
 {
 	if(e.tapCount == 2){
-		[self resetBalls];
+		[self resetScene];
 	}
 }
 
-- (void) resetBalls
+//////////////////////
+// Scene management //
+//////////////////////
+
+- (void) resetScene
 {
 	[touchPicker resetTouches];
 	
@@ -370,7 +362,7 @@
 	if (volume < 0.01f)
 		return;
 
-	// A small randomization of the pitch to make it sound cooler and slightly
+	// A small randomization of the pitch makes it sound cooler and slightly
 	// 'unique' each time a ball collides.
 	PXSoundTransform *soundTransform = [PXSoundTransform soundTransformWithVolume:volume
 																			pitch:[PXMath randomFloatInRangeFrom:0.9f to:1.1f]];

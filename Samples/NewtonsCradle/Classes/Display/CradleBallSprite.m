@@ -43,11 +43,16 @@
     return self;
 }
 
+// Used to make it seem like the highlights/shadows of the
+// sphere are more realistic, by keeping their rotation
+// static.
 - (void) setShadeRotation:(float)rotation{
 	shadeTexture.rotation = rotation;
 	glowTexture.rotation = rotation;
 }
 
+// Used to turn the glow on/off as the user presses/releases
+// the ball.
 - (void) setSelected:(BOOL)selected
 {
 	glowTexture.visible = selected;
