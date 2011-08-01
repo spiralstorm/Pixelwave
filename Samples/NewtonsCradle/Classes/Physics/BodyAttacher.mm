@@ -66,23 +66,25 @@
 }
 
 // (Overriden) Synchronizes the display object to match the position and
-// rotation of the physics body.
+// rotation of the physics body. This method gets invoked once per frame
+// by the NewtonsCradleRoot class.
 - (void) update
 {
-	// If there is no body, or no display object, then there is nothing to
-	// update.
 	if (!body || !displayObject)
 	{
 		return;
 	}
-
-	// Synchronize the displayObject with the physics
+	
 	b2Vec2 position = body->GetPosition();
 	float  angle    = body->GetAngle();
-
+	
+	// We need to convert Box2D's position units (meters) to Pixelwave's
+	// position units (points).
 	displayObject.x = MetersToPoints(position.x) + xOffset;
 	displayObject.y = MetersToPoints(position.y) + yOffset;
-
+	
+	// We also need to convert Box2D's angle units (radians) to Pixelwave's
+	// angle units (degrees).
 	displayObject.rotation = PXMathToDeg(angle) + rotationOffset;
 }
 

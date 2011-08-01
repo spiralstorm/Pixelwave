@@ -68,7 +68,9 @@
 
 - (void) update
 {
-	// You should override this method
+	// You should override this method to syncronize the
+	// transformation of the display object to that of the physics
+	// object.
 }
 
 @end

@@ -206,24 +206,25 @@
 	
 	PXTexture *backgroundTex = [PXTexture textureWithContentsOfFile:bgImageName];
 	[self addChild:backgroundTex];
-		
+	
+	// This empty sprite will hold the graphics of the ball objects.
 	worldSprite = [[PXSimpleSprite alloc] init];
 	[self addChild:worldSprite];
 	[worldSprite release];
 	
-	// Top Strip
+	// Top bar with the plaque
 	PXTexture *topPiece = [atlas textureForFrame:@"TopBar.png"];
 	[topPiece setAnchorWithX:0.5f y:0.0f];
 	topPiece.x = stageWidth * 0.5f;
 	[self addChild:topPiece];
 	
-	// The top strip shadow
+	// The top bar's shadow
 	PXTexture *topPieceShadow = [atlas textureForFrame:@"TopBarShadow.png"];
 	topPieceShadow.width = stageWidth;
 	topPieceShadow.y = topPiece.y + topPiece.height;
 	[self addChild:topPieceShadow];
 	
-	// Uncomment these lines to render the raw Box2D output:
+	// Uncomment the next block to render the raw Box2D output:
 	//
 	// PKBox2DDebugLayer *debugLayer = [[PKBox2DDebugLayer alloc] initWithPhysicsWorld:physicsWorld];
 	// debugLayer.scale = POINTS_PER_METER;
@@ -267,19 +268,24 @@
 	// list when resetting the scene.
 	ballBodies = new b2Body*[ballCount];
 	
+	// We pre-calculate what we can regarding the placement
+	// of the objects.
 	float spaceBetween = (radius * 2.0f) + 2.0f;
 	float xPos = (stageWidth * 0.5f) - (ballCount * radius) + radius;
 	float yPos = 0.0f;
 	
 	// Graphics
-	BodyAttacher *attacher;
-	CradleItemShadowSprite *shadowSprite;
-	CradleItemSprite *itemSprite;
+	BodyAttacher *attacher = nil;
+	CradleItemShadowSprite *shadowSprite = nil;
+	CradleItemSprite *itemSprite = nil;
 	
 	// Time to create the cradle ball objects.
 	
 	int i;
 	for(i = 0; i < ballCount; ++i){
+		
+		//// PHYSICS ////
+		
 		// Set the position of the body
 		bodyDef.position = b2Vec2_px2m(xPos, yPos);
 		
@@ -288,6 +294,8 @@
 							fixtureDef:&fixtureDef
 								shapes:&circle, nil];
 		
+		// Keep a reference to this body. This is used later when the
+		// user double-taps the screen to reset the scene.
 		ballBodies[i] = body;
 		
 		// Make a revolute joint. This will let the objects of the cradle
@@ -302,9 +310,9 @@
 		// Add the joint to the world
 		physicsWorld->CreateJoint(&jointDef);
 		
-		//// Graphics ////
+		//// GRAPHICS ////
 		
-		// Wall shadow
+		// Wall shadow graphic
 		shadowSprite = [[CradleItemShadowSprite alloc] initWithAtlas:atlas ropeLength:stringLength];
 		[worldSprite addChild:shadowSprite];
 		[shadowSprite release];
@@ -317,7 +325,7 @@
 		[bodyAttachers addObject:attacher];
 		[attacher release];
 		
-		// Main
+		// Main graphic
 		itemSprite = [[CradleItemSprite alloc] initWithAtlas:atlas ropeLength:stringLength];
 		[worldSprite addChild:itemSprite];
 		[itemSprite release];
@@ -347,14 +355,16 @@
 
 - (void) onPickStart:(PKBox2DTouchPickerEvent *)event
 {
-	// Grab the touched display object
+	// Get a reference to the touched display object
 	CradleItemSprite *itemSprite = (CradleItemSprite *)event.fixture->GetBody()->GetUserData();
+	// Turn on the glow
 	[itemSprite setSelected:YES];
 }
 - (void) onPickEnd:(PKBox2DTouchPickerEvent *)event
 {
-	// Grab the touched display object
+	// Get a reference to the touched display object
 	CradleItemSprite *itemSprite = (CradleItemSprite *)event.fixture->GetBody()->GetUserData();
+	// Turn off the glow
 	[itemSprite setSelected:NO];
 }
 
@@ -371,6 +381,7 @@
 // Scene management //
 //////////////////////
 
+// Places all the objects back to their original state.
 - (void) resetScene
 {
 	[touchPicker resetTouches];
@@ -386,6 +397,19 @@
 	}
 }
 
+// This method is invoked by Box2D when two objects collide.
+// We use the normal force of the collision to calculate how
+// foreful the collision was and adjust the volume of the
+// impact noise accordingly.
+//
+// Side note: If you're interested in playing a sound when two
+// objects slide on one another you would need to know the
+// tangential force of the contact (this is the force in
+// the direction perpendicular to the collision normal).
+// This method only provides the normal force, but you can
+// implement a different one to grab the tangential force.
+// See Box2DListenerDelegate for more.
+
 - (void) contactListener:(ContactListener *)listener
 	  collisionWithBodyA:(b2Body *)bodyA
 				   bodyB:(b2Body *)bodyB
@@ -399,7 +423,7 @@
 		return;
 
 	// A small randomization of the pitch makes it sound cooler and slightly
-	// 'unique' each time a ball collides.
+	// 'unique' each a pair of objects collide.
 	PXSoundTransform *soundTransform = [PXSoundTransform soundTransformWithVolume:volume
 																			pitch:[PXMath randomFloatInRangeFrom:0.9f to:1.1f]];
 
