@@ -11,6 +11,8 @@
 		2D0D876C12CD41BC00A887AF /* PKBox2DTouchPicker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2D0D876A12CD41BC00A887AF /* PKBox2DTouchPicker.mm */; };
 		2DC35AB812CBC4BF00B2F195 /* PKBox2DDebugLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC35AB612CBC4BF00B2F195 /* PKBox2DDebugLayer.h */; };
 		2DC35AB912CBC4BF00B2F195 /* PKBox2DDebugLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DC35AB712CBC4BF00B2F195 /* PKBox2DDebugLayer.mm */; };
+		2DF9AF5913E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DF9AF5713E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h */; };
+		2DF9AF5A13E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */; };
 		2DFFF7C212CD2820009AA3C3 /* Box2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFFF76912CD2820009AA3C3 /* Box2D.h */; };
 		2DFFF7C312CD2820009AA3C3 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DFFF76B12CD2820009AA3C3 /* b2BroadPhase.cpp */; };
 		2DFFF7C412CD2820009AA3C3 /* b2BroadPhase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFFF76C12CD2820009AA3C3 /* b2BroadPhase.h */; };
@@ -119,11 +121,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		17C52DAC10DC000C00A7001D /* Pixelwave.xcodeproj */ = {isa = PBXFileReference; path = Pixelwave.xcodeproj; sourceTree = PIXELWAVE_SRC; };
+		17C52DAC10DC000C00A7001D /* Pixelwave.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pixelwave.xcodeproj; sourceTree = PIXELWAVE_SRC; };
 		2D0D876912CD41BC00A887AF /* PKBox2DTouchPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBox2DTouchPicker.h; sourceTree = "<group>"; };
 		2D0D876A12CD41BC00A887AF /* PKBox2DTouchPicker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PKBox2DTouchPicker.mm; sourceTree = "<group>"; };
 		2DC35AB612CBC4BF00B2F195 /* PKBox2DDebugLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBox2DDebugLayer.h; sourceTree = "<group>"; };
 		2DC35AB712CBC4BF00B2F195 /* PKBox2DDebugLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PKBox2DDebugLayer.mm; sourceTree = "<group>"; };
+		2DF9AF5713E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBox2DTouchPickerEvent.h; sourceTree = "<group>"; };
+		2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PKBox2DTouchPickerEvent.mm; sourceTree = "<group>"; };
 		2DFFF76912CD2820009AA3C3 /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
 		2DFFF76B12CD2820009AA3C3 /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
 		2DFFF76C12CD2820009AA3C3 /* b2BroadPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2BroadPhase.h; sourceTree = "<group>"; };
@@ -290,6 +294,8 @@
 				2DC35AB712CBC4BF00B2F195 /* PKBox2DDebugLayer.mm */,
 				2D0D876912CD41BC00A887AF /* PKBox2DTouchPicker.h */,
 				2D0D876A12CD41BC00A887AF /* PKBox2DTouchPicker.mm */,
+				2DF9AF5713E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h */,
+				2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */,
 			);
 			path = Box2D;
 			sourceTree = "<group>";
@@ -504,6 +510,7 @@
 				2D0D876B12CD41BC00A887AF /* PKBox2DTouchPicker.h in Headers */,
 				5297FE121337B82B009856BE /* PKColor.h in Headers */,
 				52E83E2A13D779B400BF26BC /* PKInterpolater.h in Headers */,
+				2DF9AF5913E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -620,6 +627,7 @@
 				2DFFF81112CD2821009AA3C3 /* b2RevoluteJoint.cpp in Sources */,
 				2DFFF81312CD2821009AA3C3 /* b2WeldJoint.cpp in Sources */,
 				2D0D876C12CD41BC00A887AF /* PKBox2DTouchPicker.mm in Sources */,
+				2DF9AF5A13E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -71,6 +71,13 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 @synthesize target = _target;
 @synthesize type = _type;
 
+// Should never be used.
+- (id) init
+{
+	[self release];
+	return nil;
+}
+
 /**
  *	Makes a new event with the given properties. These properties may not change
  *	after the event object is created.

@@ -136,6 +136,8 @@ typedef enum
  */
 @property (nonatomic, readonly) PXEventPhase eventPhase;
 
+// TODO: Change isCancelable to 'cancelable' in method label
+
 //-- ScriptIgnore
 - (id) initWithType:(NSString *)type;
 //-- ScriptName: Event
