@@ -56,8 +56,8 @@
 	PXTexture *barBody;
 	PXTexture *barRightCap;
 	PXTexture *sliderButtonTexture;
-
-	PXSimpleButton *sliderButton;
+	
+	PXSimpleSprite *sliderSprite;
 
 	UITouch *currentTouch;
 

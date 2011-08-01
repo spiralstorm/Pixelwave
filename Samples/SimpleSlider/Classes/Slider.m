@@ -104,16 +104,13 @@
 		barRightCap.scaleX = -1.0f;
 
 		// Create the button that will actually slide around.
-		// We use the same texture to represent all 3 states of the button.
 		// Note that we can't just use the sliderButtonTexture as the button
 		// because PXTextures can't handle touch events (as they don't extend
-		// PXInteractiveObject), only buttons and sprites can.
+		// PXInteractiveObject), but sprites sure can.
 
 		sliderButtonTexture = [PXTexture textureWithTextureData:skin];
-		sliderButton = [PXSimpleButton simpleButtonWithUpState:sliderButtonTexture
-													 downState:sliderButtonTexture
-												  hitTestState:sliderButtonTexture];
-		[self addChild:sliderButton];
+		sliderSprite = [PXSimpleSprite simpleSpriteWithChild:sliderButtonTexture];
+		[self addChild:sliderSprite];
 
 		// Uncomment these lines to smooth the textures (useful for rotations
 		// and scaling)
@@ -125,26 +122,16 @@
 		sliderButtonTexture.smoothing = smoothing;
 		*/
 
-		// Set up the touch event listener.
-		// We start out only listening for a TOUCH_DOWN event on the slider
-		// button.
-		// Once a touch occurs on the button for the first time we initiate the
-		// drag by adding the move and release event listeners. These listeners
-		// only handle events specific to the touch that started the drag. The
-		// drag ends when the same touch that started it is released.
-		//
-		// As such the touch that initiated the drag is the only one that will
-		// actually affect it.
-		// This is what makes the slider component 'multi-touch ready'; when
-		// there are multiple sliders on the stage
-
-		[sliderButton addEventListenerOfType:PXTouchEvent_TouchDown
-									listener:PXListener(onSliderPress:)];
-
+		// Set up the touch event listeners
+		
+		[sliderSprite addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onSliderPress:)];
+		[sliderSprite addEventListenerOfType:PXTouchEvent_TouchMove	listener:PXListener(onSliderMove:)];
+		[sliderSprite addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(onSliderRelease:)];
+		[sliderSprite addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(onSliderRelease:)];
+		
 		// Set up the default slider values
 		[self setHighlighted:NO];
 		value = 0.0f;
-		selected = NO;
 		self.length = 100.0f;
 	}
 
@@ -158,15 +145,10 @@
 	// listener that wasn't removed before being deallocated
 	// (also known as a "Zombie Listener" .. ooooohhahaha).
 
-	[sliderButton removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onSliderPress:)];
-
-	PXStage *stage = self.stage;
-	if (stage)
-	{
-		[stage removeEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(onSliderMove:)];
-		[stage removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(onSliderRelease:)];
-		[stage removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(onSliderRelease:)];
-	}
+	[sliderSprite removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onSliderPress:)];
+	[sliderSprite removeEventListenerOfType:PXTouchEvent_TouchMove	listener:PXListener(onSliderMove:)];
+	[sliderSprite removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(onSliderRelease:)];
+	[sliderSprite removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(onSliderRelease:)];
 
 	// Usual cleaning up operations
 	currentTouch = nil;
@@ -221,7 +203,7 @@
 - (void) setRotation:(float)val
 {
 	super.rotation = val;
-	sliderButton.rotation = -val;
+	sliderSprite.rotation = -val;
 }
 
 ///////////////////////
@@ -236,33 +218,37 @@
 	float startX = barBody.x;
 	float endX = barBody.x + barBody.width;
 
-	sliderButton.y = 4.5f;
-	sliderButton.x = PXMathLerpf(startX, endX, percent);
+	sliderSprite.y = 4.5f;
+	sliderSprite.x = PXMathLerpf(startX, endX, percent);
 }
 
 // Tells all the textures which coordinates to use from the skin texture
 // depending on whether the slider needs to be highlighted or not
 - (void)setHighlighted:(BOOL)highlighted
 {
+	selected = highlighted;
+	
 	if(!highlighted)
 	{
 		// Set up the texture coordinates to use the gray color scheme
 		[barLeftCap setClipRectWithX:24 y:4 width:5 height:8];
-		[barRightCap setClipRectWithX:24 y:4 width:5 height:8 usingAnchorX:1.0f anchorY:0.0f];
+		[barRightCap setClipRectWithX:24 y:4 width:5 height:8];
+		[barRightCap setAnchorWithX:1.0f y:0.0f];
 		[barBody setClipRectWithX:35 y:4 width:4 height:8];
 		[sliderButtonTexture setClipRectWithX:48 y:9 width:42 height:42];
 		[sliderButtonTexture setAnchorWithPointX:17.5f pointY:17.5f];
-		sliderButton.alpha = 1.0f;
+		sliderSprite.alpha = 1.0f;
 	}
 	else
 	{
 		// Set up the texture coordinates to use the blue color scheme
 		[barLeftCap setClipRectWithX:4 y:4 width:5 height:8];
-		[barRightCap setClipRectWithX:4 y:4 width:5 height:8 usingAnchorX:1.0f anchorY:0.0f];
+		[barRightCap setClipRectWithX:4 y:4 width:5 height:8];
+		[barRightCap setAnchorWithX:1.0f y:0.0f];
 		[barBody setClipRectWithX:15 y:4 width:4 height:8];
 		[sliderButtonTexture setClipRectWithX:4 y:17 width:42 height:42];
 		[sliderButtonTexture setAnchorWithPointX:17.6 pointY:17.5];
-		sliderButton.alpha = 0.5f;
+		sliderSprite.alpha = 0.5f;
 	}
 }
 
@@ -278,28 +264,7 @@
 		return;
 
 	currentTouch = event.nativeTouch;
-
-	// Now that the user decided to control the slider, let's listen to all
-	// events pertaining to MOVE and RELEASE. Note that a touch can be released
-	// by lifting the finger (TOUCH_UP) or the system cancelling it
-	// (TOUCH_CANCEL). Cancelation of touches is rare, but must be handled for
-	// completeness (events such as getting a phone call while touching the
-	// screen may invoke a TOUCH_CANCEL event).
-	PXStage *stage = self.stage;
-
-	// We listen to all these events on the stage because it's the most
-	// top-level display object. If the stage property is nil, the slider isn't
-	// on the main display list, which means the user can't see it and has no
-	// way to touch it
-	if (stage)
-	{
-		[stage addEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(onSliderMove:)];
-		[stage addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(onSliderRelease:)];
-		[stage addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(onSliderRelease:)];
-	}
-
-	// Update our own local variables
-	selected = YES;
+	
 	// Make the slider blue
 	[self setHighlighted:YES];
 	// Tell my delegate that the user started dragging the slider
@@ -336,17 +301,7 @@
 		return;
 
 	currentTouch = nil;
-
-	PXStage *stage = self.stage;
-
-	if (stage)
-	{
-		[stage removeEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(onSliderMove:)];
-		[stage removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(onSliderRelease:)];
-		[stage removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(onSliderRelease:)];
-	}
-
-	selected = NO;
+	
 	[self setHighlighted:NO];
 	[delegate sliderDidEndDrag:self];
 }
