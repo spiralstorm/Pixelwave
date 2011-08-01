@@ -111,8 +111,9 @@ void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pi
 /////////////
 // Touches //
 /////////////
-void PXEngineSetTouchCapturingObject(UITouch *nativeTouch, id capturingObject);	
-id PXEngineGetTouchCapturingObject(UITouch *nativeTouch);
+void PXEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol> capturingObject);
+void PXEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispatcherProtocol> capturingObject);	
+id<PXEventDispatcherProtocol> PXEngineGetTouchCapturingObject(UITouch *nativeTouch);
 
 UITouch * PXEngineGetFirstTouch();
 PXLinkedList * PXEngineGetAllTouches();

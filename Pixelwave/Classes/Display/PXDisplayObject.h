@@ -113,7 +113,7 @@ typedef enum
 	// used for the first round of touch coordinate tests.
 	PXGLAABB _aabb;
 
-	unsigned _flags;
+	_PXDisplayObjectFlags _flags;
 @protected
 	void *userData;
 /// @endcond

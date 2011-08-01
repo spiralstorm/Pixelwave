@@ -51,6 +51,10 @@ NSString * const PXEvent_Render = @"render";
 NSString * const PXEvent_SoundComplete = @"soundComplete";
 //NSString * const PXEvent_MemoryWarning = @"memoryWarning";
 
+@interface PXEvent(Private)
+- (void) setType:(NSString *)type;
+@end
+
 /**
  *	@ingroup Events
  *
@@ -120,7 +124,8 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 	{
 		//PXPrecParamNotNil(type);
 
-		_type = [type copy];
+		[self setType:type];
+
 		_bubbles = bubbles;
 		_cancelable = cancelable;
 
@@ -141,8 +146,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 
 - (void) dealloc
 {
-	[_type release];
-	_type = nil;
+	[self setType:nil];
 
 	[super dealloc];
 }
@@ -176,8 +180,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 
 - (void) reset
 {
-	[_type release];
-	_type = nil;
+	[self setType:nil];
 
 	_bubbles = NO;
 	_cancelable = NO;
@@ -190,6 +193,13 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 	_stopPropegationLevel = _PXStopPropegationLevel_KeepGoing;
 
 	_isBeingDispatched = NO;
+}
+
+- (void) setType:(NSString *)type
+{
+	NSString *copy = [type copy];
+	[_type release];
+	_type = copy;
 }
 
 /**

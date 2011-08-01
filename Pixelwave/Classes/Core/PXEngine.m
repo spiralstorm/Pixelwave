@@ -161,7 +161,6 @@
 }
 
 - (void) updateMainLoopInterval;
-
 @end
 
 void PXEngineUpdateMainLoopInterval();
@@ -174,10 +173,6 @@ PXTouchEvent *pxEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSStr
 // A dictionary which holds the associations between a UITouch and the object
 // which captured it.
 CFMutableDictionaryRef pxEngineTouchCapturingObjects = NULL;
-// Holds on to changes that the user made to the dictionary before the end of
-// the current frame. At the end of the frame the changes are copied over the
-// 'pxEngineTouchCapturingObjects' dictionary.
-CFMutableDictionaryRef pxEngineTouchCapturingObjectsBuffer = NULL;
 
 PXObjectPool *pxEngineSharedObjectPool = nil;
 
@@ -245,6 +240,9 @@ unsigned pxEngineDOBufferOldMaxSize = 0;
 
 void PXEngineInit(PXView *view)
 {
+	if (pxEngine)
+		return;
+
 #ifdef PIXELWAVE_DEBUG
 	PXDebug.logErrors = YES;
 #endif
@@ -293,7 +291,6 @@ void PXEngineInit(PXView *view)
 	// Events //
 	////////////
 
-	pxEngineTouchCapturingObjectsBuffer = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 	pxEngineTouchCapturingObjects = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 
 	// Initialized with weak references so that DisplayObjects with an
@@ -397,8 +394,6 @@ void PXEngineDealloc( )
 
 	PXGLDealloc( );
 
-	CFRelease(pxEngineTouchCapturingObjectsBuffer);
-	pxEngineTouchCapturingObjectsBuffer = NULL;
 	CFRelease(pxEngineTouchCapturingObjects);
 	pxEngineTouchCapturingObjects = NULL;
 
@@ -665,11 +660,12 @@ float PXEngineGetRenderFrameRate()
 {
 	if (PXMathIsZero(pxEngineRenderDT))
 		return 0.0f;
+
 	return 1.0f / pxEngineRenderDT;
 }
 
 /**
- * Plays and pauses the engine
+ *	Plays and pauses the engine
  */
 void PXEngineSetRunning(bool val)
 {
@@ -724,7 +720,7 @@ PXDisplayObject *PXEngineFindTouchTarget(float x, float y)
 	BOOL origTouchEnabled = NO;
 	BOOL parentTouchEnabled = NO;
 	BOOL onceHadTarget = NO;
-	
+
 	bool usesCustomHitArea;
 
 	PXDisplayObject **curDisplayObject;
@@ -743,7 +739,7 @@ PXDisplayObject *PXEngineFindTouchTarget(float x, float y)
 		aabb = &target->_aabb;
 
 		usesCustomHitArea = PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_useCustomHitArea);
-		
+
 		// Broad phase hit-test (AABB)
 		// We only check for AABB containment if the disp doesn't have a custom
 		// hit area. If there is a custom hit area, we can't rely only on the 
@@ -868,32 +864,15 @@ void PXEngineDispatchTouchEvents()
 	bool didTouchDown   = false;
 	bool didTouchUpOrCancel = false;
 
-	const void *captureKey = NULL;
-	const void *captureTarget = NULL;
+	id<NSObject> captureKey = NULL;
+	id<PXEventDispatcherProtocol> captureTarget = NULL;
 
-	CFIndex dictionaryCount = CFDictionaryGetCount(pxEngineTouchCapturingObjectsBuffer);
+	CFDictionaryRef copiedDictionary = CFDictionaryCreateCopy(NULL, pxEngineTouchCapturingObjects);
 
-	// If we wish to change the capture target of a touch then the function
-	// 'PXEngineSetTouchCapturingObject' was called. This will add the touch to
-	// the dictionary 'pxEngineTouchCapturingObjectsBuffer'. We need to change
-	// the value of the real dictionary, pxEngineTouchCapturingObjectsBuffer, to
-	// the corresponding new value. That is what this check is for.
-	if (dictionaryCount > 0)
-	{
-		CFIndex dictionaryIndex;
-
-		CFTypeRef *keysTypeRef = (CFTypeRef *)malloc(dictionaryCount * sizeof(CFTypeRef));
-		CFDictionaryGetKeysAndValues(pxEngineTouchCapturingObjectsBuffer, (const void **)keysTypeRef, NULL);
-
-		CFTypeRef *cfKey;
-
-		for (dictionaryIndex = 0, cfKey = keysTypeRef; dictionaryIndex < dictionaryCount; ++dictionaryIndex, ++cfKey)
-		{
-			CFDictionarySetValue(pxEngineTouchCapturingObjects, cfKey, CFDictionaryGetValue(pxEngineTouchCapturingObjectsBuffer, cfKey));
-		}
-		free(keysTypeRef);
-		CFDictionaryRemoveAllValues(pxEngineTouchCapturingObjectsBuffer);
-	}
+	// This dictionary tracks who actually got the touch. In the case where the
+	// same touch happens more then once a frame, we will automatically
+	// associate it with the previous owner for this frame.
+	CFMutableDictionaryRef localizedTouchSearchDictionary = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 
 	if (pxEngineStage->_touchChildren)
 	{
@@ -913,7 +892,11 @@ void PXEngineDispatchTouchEvents()
 
 			// Grab the 'key' for the dictoinary of captures, and the target
 			captureKey = originalEvent.nativeTouch;
-			captureTarget = CFDictionaryGetValue(pxEngineTouchCapturingObjects, captureKey);
+			captureTarget = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(localizedTouchSearchDictionary, captureKey);
+			if (!captureTarget)
+				captureTarget = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(copiedDictionary, captureKey);
+
+			[captureKey retain];
 
 			// If a capture target exists, then we don't need to find a new one
 			if (captureTarget)
@@ -955,6 +938,10 @@ void PXEngineDispatchTouchEvents()
 			if (!target)
 				target = pxEngineStage;
 
+			// If the same touch has happened more than once this frame, we are
+			// just going to automatically associate it with the previous owner.
+			CFDictionarySetValue(localizedTouchSearchDictionary, captureKey, target);
+
 			// Ok, this is pretty complicated.  If either the user touched up,
 			// or down, we need to make this check.  If they touched down, then
 			// we need to retain the target they were going for, if they are
@@ -963,6 +950,13 @@ void PXEngineDispatchTouchEvents()
 			// event.
 			if (didTouchUpOrCancel || didTouchDown)
 			{
+				// We remove BEFORE sending out any events so that if they
+				// remove themselves from their parent, they will not then also
+				// spawn a cancel event upwards which could cause an infinate
+				// loop of cancel events.
+				if (didTouchUpOrCancel)
+					CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, captureKey);
+
 				// Go through each of the saved touch events, and check to see
 				// if our native touch... meaning the touch given to us by the
 				// UI device, is the same as the touch we are checking against.
@@ -1051,14 +1045,7 @@ void PXEngineDispatchTouchEvents()
 				[target dispatchEvent:originalEvent];
 			}
 
-			// If a touch up or cancel happened, then we need to remove the
-			// capture target from the dictionary. This shouldn't be done in the
-			// loop, so instead we add it to another list which will remove all
-			// of it's elements from the dictionary after the loop.
-			if (didTouchUpOrCancel)
-			{
-				[pxEngineRemoveFromCaptureTouchEvents addObject:(PXGenericObject)(captureKey)];
-			}
+			[captureKey release];
 		} // PXLinkedListForEach
 	}
 	else
@@ -1079,13 +1066,8 @@ void PXEngineDispatchTouchEvents()
 	}
 	[pxEngineRemoveFromSavedTouchEvents removeAllObjects];
 
-	// Remove all captured touches from the dictionary.
-	PXLinkedListForEach(pxEngineRemoveFromCaptureTouchEvents, captureKey)
-	{
-		CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, captureKey);
-		CFDictionaryRemoveValue(pxEngineTouchCapturingObjectsBuffer, captureKey);
-	}
-	[pxEngineRemoveFromCaptureTouchEvents removeAllObjects];
+	CFRelease(copiedDictionary);
+	CFRelease(localizedTouchSearchDictionary);
 }
 
 void PXEngineDispatchFrameEvents()
@@ -1174,32 +1156,31 @@ void PXEngineRender()
 	PXEngineRenderDisplayObject(pxEngineStage, true, true);
 
 #ifdef PX_DEBUG_MODE
-	
 	// Draw a magenta border around the smaller stage
 	if (PXDebugIsEnabled(PXDebugSetting_HalveStage))
 	{
-		float locs[8];
-		
+		PXGLVertex vertices[4];
+
 		float viewWidth  = pxEngineViewSize.width;
 		float viewHeight = pxEngineViewSize.height;
-		
-		locs[0] = 0.0f;			locs[1] = 0.0f;
-		locs[2] = 0.0f;			locs[3] = viewHeight;
-		locs[4] = viewWidth;	locs[5] = viewHeight;
-		locs[6] = viewWidth;	locs[7] = 0.0f;
-		
+
+		vertices[0] = PXGLVertexMake(0.0f, 0.0f);
+		vertices[1] = PXGLVertexMake(0.0f, viewHeight);
+		vertices[2] = PXGLVertexMake(viewWidth, viewHeight);
+		vertices[3] = PXGLVertexMake(viewWidth, 0.0f);
+
 		PXGLLineWidth(1.0f);
 		PXGLShadeModel(GL_SMOOTH);
 		PXGLDisable(GL_TEXTURE_2D);
 		PXGLDisable(GL_POINT_SPRITE_OES);
 		PXGLColor4ub(0xFF, 0x00, 0xFF, 0xFF);
-		PXGLVertexPointer(2, GL_FLOAT, 0, locs);
+		PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
 		PXGLDrawArrays(GL_LINE_LOOP, 0, 4);
 		//PXGLFlush();
-		
+
 		PXGLPopMatrix();
 	}
-	
+
 	if (PXDebugIsEnabled(PXDebugSetting_DrawBoundingBoxes))
 	{
 		PXGLVertex vertices[4];
@@ -1321,21 +1302,24 @@ void PXEngineLogicPhase()
 	if (pxEngineLogicTimeAccum >= pxEngineLogicDT)
 	{
 #ifdef PX_DEBUG_MODE
+		NSTimeInterval start = 0;
+
 		if (PXDebugIsEnabled(PXDebugSetting_CalculateFrameRate))
 		{
-			NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
-			NSTimeInterval end = 0;
-			PXEngineDispatchFrameEvents( ); //Frame
-			pxEngineLogicTimeAccum -= pxEngineLogicDT;
-			end = [NSDate timeIntervalSinceReferenceDate];
-			pxEngineTimeBetweenLogic = end - start;
-
-			return;
+			start = [NSDate timeIntervalSinceReferenceDate];
 		}
 #endif
 
 		PXEngineDispatchFrameEvents(); //Frame
 		pxEngineLogicTimeAccum -= pxEngineLogicDT;
+
+#ifdef PX_DEBUG_MODE
+		if (PXDebugIsEnabled(PXDebugSetting_CalculateFrameRate))
+		{
+			NSTimeInterval end = [NSDate timeIntervalSinceReferenceDate];
+			pxEngineTimeBetweenLogic = end - start;
+		}
+#endif
 	}
 }
 
@@ -1348,23 +1332,24 @@ void PXEngineRenderPhase()
 		if (pxEngineRenderTimeAccum >= pxEngineRenderDT)
 		{
 #ifdef PX_DEBUG_MODE
+			NSTimeInterval start = 0;
+
 			if (PXDebugIsEnabled(PXDebugSetting_CalculateFrameRate))
 			{
-				NSTimeInterval start = [NSDate timeIntervalSinceReferenceDate];
-				NSTimeInterval end = 0;
-	
-				PXEngineRender( ); //Render
-				pxEngineRenderTimeAccum -= pxEngineRenderDT;
-
-				end = [NSDate timeIntervalSinceReferenceDate];
-				pxEngineTimeBetweenRendering = end - start;
-
-				return;
+				start = [NSDate timeIntervalSinceReferenceDate];
 			}
 #endif
 
 			PXEngineRender(); //Render
 			pxEngineRenderTimeAccum -= pxEngineRenderDT;
+
+#ifdef PX_DEBUG_MODE
+			if (PXDebugIsEnabled(PXDebugSetting_CalculateFrameRate))
+			{
+				NSTimeInterval end = [NSDate timeIntervalSinceReferenceDate];
+				pxEngineTimeBetweenRendering = end - start;
+			}
+#endif
 		}
 	}
 }
@@ -1417,20 +1402,16 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 
 		//if (doAlpha < 0.0001f)
 		//	return;
-	}	
-
-	//Byte count = 12
+	}
 
 	bool matrixPushed = false;
 	bool transformPushed = false;
 	bool crippleAABB = false;
 	bool useCustomHitArea = PX_IS_BIT_ENABLED(displayObject->_flags, _PXDisplayObjectFlags_useCustomHitArea);
-	//Byte count = 16
 
 	bool isCustom = displayObject->_renderMode == PXRenderMode_Custom;
 	bool isCustomOrManaged = (displayObject->_renderMode == PXRenderMode_ManageStates) || isCustom;
 	bool isRenderOn = !(displayObject->_renderMode == PXRenderMode_Off);
-	//Byte count = 20
 
 	if (isCustomOrManaged)
 	{
@@ -1442,14 +1423,12 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 		float doX = displayObject->_matrix.tx;
 		float doY = displayObject->_matrix.ty;
 		float doRotation = displayObject->_rotation;
-		// ByteCount = 32
 
 		// Color Transform
 		PXGLColorTransform *doColorTransform = &displayObject->_colorTransform;
-		// Byte count = 36
 
 		// Matrix Transform
-		//Should translate, scale or rotate
+		// Should translate, scale or rotate
 		if (!PXMathIsZero(doX) ||
 			!PXMathIsZero(doY) ||
 		    !PXMathIsOne(doScaleX) ||
@@ -1468,7 +1447,6 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 			!PXMathIsOne(doAlpha))
 		{
 			PXGLColorTransform colorTransform;
-			// Byte count = 52
 
 			colorTransform.redMultiplier   = doColorTransform->redMultiplier;
 			colorTransform.greenMultiplier = doColorTransform->greenMultiplier;
@@ -1480,13 +1458,9 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 
 			transformPushed = true;
 		}
-		// Byte count = 36
 	}
 
-	// Byte count = 20
-
 	PXGLAABB *doAABB = &displayObject->_aabb;
-	//Byte count = 24
 
 	// Used for debugging - will only have an aabb if it can be used for
 	// touching.
@@ -1536,7 +1510,6 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 		// Grab the current AABB of the drawn display object (only itself, not
 		// it's children).
 		PXGLAABB *aabb = PXGLGetCurrentAABB( );
-		// Byte count = 28
 
 		/*
 		if (useCustomHitArea)
@@ -1569,7 +1542,6 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 			// drawn display objects for looping on when asking for touch
 			// events.
 			PXDisplayObject **objPtr = PXEngineNextBufferObject();
-			//Byte count = 32
 
 		//	if (orientationEnabled)
 		//	{
@@ -1598,8 +1570,6 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 		crippleAABB = true;
 	}
 
-	//Byte count = 24
-
 	if (crippleAABB)
 	{
 		// Setting the aabb to a bounds that makes no sense, and can not be both
@@ -1622,12 +1592,11 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	{
 		PXDisplayObjectContainer *container = (PXDisplayObjectContainer *)displayObject;
 		PXDisplayObject *child = container->_childrenHead;
-		//Byte count = 32
 
 		container->_impPreChildRenderGL(container, nil);
 
 		unsigned index;
-		//Byte count = 36
+
 		for (index = 0; index < container->_numChildren; ++index)
 		{
 			PXEngineRenderDisplayObject(child, true, canBeUsedForTouches);
@@ -1637,7 +1606,6 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 
 		container->_impPostChildRenderGL(container, nil);
 	}
-	// Byte count = 24
 
 	// If we pushed a color transform, we need to pop it.
 	if (transformPushed)
@@ -1685,21 +1653,22 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	{
 		PXDebugLog(@"Framebuffer object is not complete, error: %x", status);
 
-		if (status == GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_OES)
+		switch (status)
 		{
-			PXDebugLog(@"GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT");
-		}
-		else if (status == GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_OES)
-		{
-			PXDebugLog(@"GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_OES");
-		}
-		else if (status == GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_OES)
-		{
-			PXDebugLog(@"GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT");
-		}
-		else if (status == GL_FRAMEBUFFER_INCOMPLETE_FORMATS_OES)
-		{
-			PXDebugLog(@"GL_FRAMEBUFFER_INCOMPLETE_FORMATS_OES");
+			case GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT_OES:
+				PXDebugLog(@"GL_FRAMEBUFFER_INCOMPLETE_ATTACHMENT");
+				break;
+			case GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_OES:
+				PXDebugLog(@"GL_FRAMEBUFFER_INCOMPLETE_DIMENSIONS_OES");
+				break;
+			case GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT_OES:
+				PXDebugLog(@"GL_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT");
+				break;
+			case GL_FRAMEBUFFER_INCOMPLETE_FORMATS_OES:
+				PXDebugLog(@"GL_FRAMEBUFFER_INCOMPLETE_FORMATS_OES");
+				break;
+			default:
+				break;
 		}
 
 		PXThrow(PXGLException, @"Framebuffer object is not complete. renderToTexture could not be completed");
@@ -1931,27 +1900,105 @@ PXObjectPool *PXEngineGetSharedObjectPool()
 
 #pragma mark Touches
 
-void PXEngineSetTouchCapturingObject(UITouch *nativeTouch, id capturingObject)
+void PXEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol> capturingObject)
+{
+	if (!capturingObject)
+		return;
+
+	// If the dictionary does not contain the object, just return.
+	if (CFDictionaryGetCountOfValue(pxEngineTouchCapturingObjects, capturingObject) <= 0)
+		return;
+
+	CFIndex count = CFDictionaryGetCount(pxEngineTouchCapturingObjects);
+
+	if (count > 0)
+	{
+		// Make temporary parallel arrays to store the keys and the values.
+		CFTypeRef keys[count];
+		CFTypeRef values[count];
+
+		// Gives us a parallel array structure so that you can iterate through
+		// the posabilities.
+		CFDictionaryGetKeysAndValues(pxEngineTouchCapturingObjects, (const void **)(keys), (const void **)(values));
+
+		PXPoint *pxPoint;
+		CGPoint point;
+		PXTouchEvent *event;
+
+		CFIndex index;
+		CFTypeRef *key;
+		CFTypeRef *value;
+
+		id<PXEventDispatcherProtocol> target;
+		UITouch *touch;
+
+		// Loop through the dictionary and see if the object has any association
+		// with a touch; if it does, we need to cancel it.
+		for (index = 0, key = keys, value = values; index < count; ++index, ++key, ++value)
+		{
+			// Convert the value and key into a usable form
+			target = (id<PXEventDispatcherProtocol>)(*value);
+			touch = (UITouch *)(*key);
+
+			// Compare the target, if it is the capturing object, then we know
+			// that it is a touch we need to cancel.
+			if (target == capturingObject)
+			{
+				// Remove the key from the dictionary. THIS IS ALRIGHT and
+				// should be done BEFORE sending the event. Why before the
+				// event? Well, if someone 'removesAllChildren' or something
+				// silly like that during the event, then this will enter again,
+				// and become an infinate loop... which is bad.
+				CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, touch);
+
+				// Get the position of the touch
+				pxPoint = [pxEngineStage positionOfTouch:touch];
+				point = CGPointMake(pxPoint.x, pxPoint.y);
+
+				// Send out the cancel event
+				event = pxEngineNewTouchEventWithTouch(touch, &point, PXTouchEvent_TouchCancel, NO);
+				[target dispatchEvent:event];
+				[event release];
+			}
+		}
+	}
+}
+
+void PXEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispatcherProtocol> capturingObject)
 {
 	if (!nativeTouch)
 		return;
 
-	if (!capturingObject)
+	id<PXEventDispatcherProtocol> originalObject = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
+
+	// Only do work if the object is actually changing
+	if (originalObject != capturingObject)
 	{
-		CFDictionaryRemoveValue(pxEngineTouchCapturingObjectsBuffer, nativeTouch);
-	}
-	else
-	{
-		CFDictionarySetValue(pxEngineTouchCapturingObjectsBuffer, nativeTouch, capturingObject);
+		// Send out a cancel event on the OLD object.
+		PXPoint *pxPoint = [pxEngineStage positionOfTouch:nativeTouch];
+		CGPoint point = CGPointMake(pxPoint.x, pxPoint.y);
+		PXTouchEvent *event = pxEngineNewTouchEventWithTouch(nativeTouch, &point, PXTouchEvent_TouchCancel, NO);
+		[originalObject dispatchEvent:event];
+		[event release];
+
+		// Change or remove the target
+		if (!capturingObject)
+		{
+			CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, nativeTouch);
+		}
+		else
+		{
+			CFDictionarySetValue(pxEngineTouchCapturingObjects, nativeTouch, capturingObject);
+		}
 	}
 }
 
-id PXEngineGetTouchCapturingObject(UITouch *nativeTouch)
+id<PXEventDispatcherProtocol> PXEngineGetTouchCapturingObject(UITouch *nativeTouch)
 {
 	if(!nativeTouch)
 		return nil;
-	
-	return (id)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
+
+	return (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
 }
 
 UITouch *PXEngineGetFirstTouch()

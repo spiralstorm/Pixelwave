@@ -263,6 +263,7 @@
 	
 	b2Body *body;
 	b2RevoluteJointDef jointDef;
+<<<<<<< HEAD
 	
 	// Hold a reference to all the bodies in the world. We'll use this
 	// list when resetting the scene.
@@ -286,6 +287,45 @@
 		
 		//// PHYSICS ////
 		
+=======
+
+	// Loop through and make each of the "ball and chains"
+	unsigned index;
+	for (index = 0; index < ballCount; ++index)
+	{
+		simpleSprite = [[PXSimpleSprite alloc] init];
+		[self addChild:simpleSprite];
+		[simpleSprite release];
+
+		simpleSprite.x = xPos;
+		simpleSprite.y = 0.0f;
+
+		// Make a texture for the ball
+		texture = [[PXTexture alloc] initWithTextureData:textureData];
+		[simpleSprite addChild:texture];
+		[texture release];
+
+		// Set the area of the texture that the ball lives.
+		texture.clipRect = [PXClipRect clipRectWithX:0.0f y:0.0f width:ballTextureSize height:ballTextureSize];
+		[texture setAnchorWithX:0.5f y:0.5f];
+		texture.x = 0.0f;
+		texture.y = stringLength;
+		texture.scale = ballTextureScale;
+		texture.smoothing = YES;
+
+		// Make a texture for the rope
+		texture = [[PXTexture alloc] initWithTextureData:textureData];
+		[simpleSprite addChild:texture];
+		[texture release];
+
+		// Set the area of the texture that the rope lives.
+		texture.clipRect = [PXClipRect clipRectWithX:512 - stringTextureWidth y:0.0f width:stringTextureWidth height:stringTextureHeight];
+		[texture setAnchorWithX:0.5f y:0.0f];
+		texture.width = stringTextureWidth;
+		texture.height = stringLength;
+		texture.smoothing = YES;
+
+>>>>>>> Updated the touch heirachy to properly handle display objects being removed whom have captured a touch. They now send a cancel event out which will trickle upwards incase any of it's parents need it as well. Also, updated some of the samples so they work with the new pixelwave system
 		// Set the position of the body
 		bodyDef.position = b2Vec2_px2m(xPos, yPos);
 		

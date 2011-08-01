@@ -90,8 +90,7 @@
 	// Set up the main loop //
 	/////////////////////////
 
-	[self addEventListenerOfType:PXEvent_EnterFrame
-						listener:PXListener(onFrame)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 
 	///////////////////////////
 	// Add some instructions //

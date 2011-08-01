@@ -48,6 +48,9 @@
 
 #import "PXExceptionUtils.h"
 
+// DELETE
+#import "PXTouchEvent.h"
+
 /* More info about the Event Flow:
  http://livedocs.adobe.com/flex/3/html/help.html?content=events_08.html#203937
  */

@@ -52,6 +52,12 @@ NSString * const PXTouchEvent_TouchUp = @"touchUp";
 NSString * const PXTouchEvent_TouchOut = @"touchOut";
 NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
+/// @cond DX_IGNORE
+@interface PXTouchEvent(Private)
+- (void) setNativeTouch:(UITouch *)touch;
+@end
+/// @endcond
+
 /**
  *	@ingroup Events
  *
@@ -94,7 +100,8 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 	if (self)
 	{
-		_nativeTouch = [touch retain];
+		[self setNativeTouch:touch];
+
 		_stageX = stageX;
 		_stageY = stageY;
 		_tapCount = tapCount;
@@ -105,8 +112,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 - (void) dealloc
 {
-	[_nativeTouch release];
-	_nativeTouch = nil;
+	[self setNativeTouch:nil];
 
 	[super dealloc];
 }
@@ -118,7 +124,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 	// TODO: Is this valid? does it return a TouchEvent???
 	PXTouchEvent *event = [super copyWithZone:zone];
 
-	event->_nativeTouch = _nativeTouch;
+	[event setNativeTouch:_nativeTouch];
 	event->_tapCount = _tapCount;
 	event->_stageX = _stageX;
 	event->_stageY = _stageY;
@@ -142,14 +148,20 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 {
 	[super reset];
 
-	[_nativeTouch release];
-	_nativeTouch = nil;
+	[self setNativeTouch:nil];
 
 	_bubbles = YES;
 
 	_tapCount = 0;
 	_stageX = 0.0f;
 	_stageY = 0.0f;
+}
+
+- (void) setNativeTouch:(UITouch *)touch
+{
+	touch = [touch retain];
+	[_nativeTouch release];
+	_nativeTouch = touch;
 }
 
 - (BOOL) captured

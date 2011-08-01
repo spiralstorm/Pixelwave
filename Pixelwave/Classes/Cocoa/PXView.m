@@ -163,7 +163,7 @@
 
 		autoresize = YES;
 		firstOrientationChange = NO;
-		
+
 		if (![self setupWithScaleFactor:_contentScaleFactor
 						   colorQuality:_colorQuality])
 		{
@@ -199,7 +199,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 
-	PXEngineDealloc( );
+	PXEngineDealloc();
 
 	[self destroySurface];
 
@@ -228,12 +228,12 @@
 - (BOOL) setupWithScaleFactor:(float)_contentScaleFactor
 				 colorQuality:(PXViewColorQuality)_colorQuality
 {
-	if (PXEngineIsInitialized( ))
+	if (PXEngineIsInitialized())
 	{
 		PXThrow(PXException, @"Only one PXView should exist at a time");
 		return NO;
 	}
-	
+
 	contentScaleFactorSupported = NO;
 #ifdef __IPHONE_4_0
 	NSString *reqSysVer = @"4.0";
@@ -244,7 +244,7 @@
 		self.contentScaleFactor = _contentScaleFactor;
 	}
 #endif
-	
+
 	colorQuality = _colorQuality;
 
 	/////////////////
@@ -293,9 +293,9 @@
 		ePos.y -= yOffset;
 		eaglLayer.position = ePos;
 	}
-	
+
 	// Set the drawable properties
-	
+
 	NSNumber *surfaceRetainedBacking = [NSNumber numberWithBool:NO];
 	NSString *surfaceColorFormat = kEAGLColorFormatRGBA8;
 	BOOL surfaceDither = NO;
@@ -315,7 +315,7 @@
 			surfaceDither = NO;
 			break;
 	}
-	
+
 	// Since the simulator doesn't seem to support dithering...
 	// If dithering is on always use RGBA8 to simulate the effect
 	if (surfaceDither && surfaceColorFormat == kEAGLColorFormatRGB565 &&
@@ -323,14 +323,14 @@
 	{
 		surfaceColorFormat = kEAGLColorFormatRGBA8;
 	}
-		
+
 	NSDictionary *drawableProperties = [NSDictionary dictionaryWithObjectsAndKeys:
 										surfaceRetainedBacking,	kEAGLDrawablePropertyRetainedBacking,
 										surfaceColorFormat,		kEAGLDrawablePropertyColorFormat,
 										nil];
 
 	[eaglLayer setDrawableProperties: drawableProperties];
-	
+
 	// Create the EAGL Context, using ES 1.1
 	[eaglContext release];
 	eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
@@ -358,7 +358,7 @@
 
 	PXEngineInit(self);
 
-	PXStage *stage = PXEngineGetStage( );
+	PXStage *stage = PXEngineGetStage();
 
 	UIInterfaceOrientation io = [UIApplication sharedApplication].statusBarOrientation;
 	if (io == UIInterfaceOrientationPortrait)
@@ -374,7 +374,8 @@
 	[[NSNotificationCenter defaultCenter] addObserver:self
 											 selector:@selector(updateOrientation)
 												 name:UIDeviceOrientationDidChangeNotification
-											   object:nil];	
+											   object:nil];
+
 	return YES;
 }
 
@@ -420,6 +421,7 @@
 											 isCancelable:YES
 										beforeOrientation:beforeOrientation
 										 afterOrientation:afterOrientation];
+
 	if (event)
 	{
 		event->_target = _stage;
@@ -438,6 +440,7 @@
 												 isCancelable:NO
 											beforeOrientation:beforeOrientation
 											 afterOrientation:afterOrientation];
+
 		if (event)
 		{
 			event->_target = _stage;
@@ -485,9 +488,9 @@
 - (void) setOpaque:(BOOL)value
 {
 	[super setOpaque:value];
-	
+
 	PXColor4f clearColor = PXEngineGetClearColor();
-	
+
 	if (self.opaque)
 	{
 		clearColor.a = 1.0f;
@@ -499,19 +502,19 @@
 		clearColor.g = 0.0f;
 		clearColor.b = 0.0f;
 		clearColor.a = 0.0f;
-		
+
 		if (colorQuality != PXViewColorQuality_High)
 		{
 			PXDebugLog (@"Pixelwave Warning: Setting PXView.opaque = NO when the colorQuality of the view isn't 'high' will have no effect.");
 		}
 	}
-	
+
 	PXEngineSetClearColor(clearColor);
 }
 
 - (PXStage *)stage
 {
-	return PXEngineGetStage( );
+	return PXEngineGetStage();
 }
 
 /**
@@ -527,7 +530,7 @@
 		PXThrowNilParam(root);
 		return;
 	}
-	
+
 	PXEngineSetRoot(root);
 }
 - (PXDisplayObject *)root
@@ -585,7 +588,7 @@
 	glGenFramebuffersOES(1, &_pxViewFramebuffer);
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _pxViewFramebuffer);
 	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, renderbufferName);
-	
+
 	size = newSize;
 	if (!hasBeenCurrent)
 	{
@@ -600,18 +603,18 @@
 - (void) destroySurface
 {
 	EAGLContext *oldContext = [EAGLContext currentContext];
-	
+
 	if (oldContext != eaglContext)
 		[EAGLContext setCurrentContext:eaglContext];
-		
+
 	glDeleteRenderbuffersOES(1, &renderbufferName);
 	renderbufferName = 0;
-	
+
 	glDeleteFramebuffersOES(1, &_pxViewFramebuffer);
 	_pxViewFramebuffer = 0;
-	
+
 	[EAGLContext setCurrentContext:nil];
-	
+
 	if (oldContext != eaglContext)
 		[EAGLContext setCurrentContext:oldContext];
 }
@@ -649,7 +652,7 @@
 - (void) layoutSubviews
 {
 	CGRect bounds = [self bounds];
-	
+
 	if (autoresize && ((roundf(bounds.size.width) != size.width) || (roundf(bounds.size.height) != size.height)))
 	{
 		[self destroySurface];
@@ -724,7 +727,7 @@
 
 		p.x += pos.x;
 		p.y += pos.y;
-		
+
 		PXEngineInvokeTouchEnded(touch, &p);
 	}
 }
@@ -774,15 +777,15 @@
 {
 	// Render the current state of the display list
 	PXEngineRender();
-	
+
 	CGImageRef cgImage = PXCGUtilsCreateCGImageFromScreenBuffer();
 
 	// Figure out the orientation of the stage and use it to set the
 	// orientation of the UIImage.
 	PXStageOrientation stageOrientation = PXEngineGetStage().orientation;
-	
+
 	UIImageOrientation imageOrientation = UIImageOrientationUp;
-	
+
 	switch (stageOrientation)
 	{
 		case PXStageOrientation_Portrait:
@@ -798,12 +801,13 @@
 			imageOrientation = UIImageOrientationRight;
 			break;
 	}
-	
+
 	UIImage *image = [[UIImage alloc] initWithCGImage:cgImage
 												scale:PXEngineGetContentScaleFactor()
 										  orientation:imageOrientation];
+
 	CGImageRelease(cgImage);
-	
+
 	return [image autorelease];
 }
 

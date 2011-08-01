@@ -63,66 +63,66 @@
 	//////////////////////////////
 	// Set up initial variables //
 	//////////////////////////////
-	
+
 	// Check if we're on an iPad.
 	// This variable is used later to see which images we need to load
 	// and how we should scale our movemement values
-	
+
 	isIpad = NO;
 	
 #ifdef UI_USER_INTERFACE_IDIOM
 	isIpad = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 #endif
-	
+
 	// Set up where the shadow will fall
 	floorY = self.stage.stageHeight * 0.85f;
-	
+
 	slideVelocity = 0.0f;
-	
+
 	/////////////////
 	// Load images //
 	/////////////////
-	
+
 	// This demo is going to load two images.  The first image will be the one
 	// to move around the screen.  The second will be the arrow to control the
 	// actions.
-	
+
 	NSString *fileName = nil;
-	
-	/** Load a background image **/
+
+	// Load a background image
 	fileName = isIpad ? @"Background-iPad.png" : @"Background.png";
 	PXTexture *backgroundImage = [PXTexture textureWithContentsOfFile:fileName];;
-	
-	/** Load the raccoon **/
+
+	// Load the raccoon
 	fileName = isIpad ? @"Rocky@2x.png" : @"Rocky.png";
 	raccoon = [PXTexture textureWithContentsOfFile:fileName];
-	
-	/** Load the shadow **/
+
+	// Load the shadow
 	fileName = isIpad ? @"Shadow@2x.png" : @"Shadow.png";
 	shadow = [PXTexture textureWithContentsOfFile:fileName];
-	
-	/** Load the arrows **/
+
+	// Load the arrows
 	fileName = isIpad ? @"FurryArrow@2x.png" : @"FurryArrow.png";
 	PXTextureData *arrowTextureData = [PXTextureData textureDataWithContentsOfFile:fileName];
-	
+
 	fileName = isIpad ? @"FurryArrowGlow@2x.png" : @"FurryArrowGlow.png";
 	PXTextureData *arrowDownTextureData = [PXTextureData textureDataWithContentsOfFile:fileName];
-	
+
 	//////////////////////
 	// Make the buttons //
 	//////////////////////
-	
+
 	// The four different states of the arrow: left up, left down, right up and
 	// right down.
 	// Both left and right arrows use the same TextureData for their up state.
 	// Both left and right arrows use the same TextureData for their down state.
-	
+
 	PXTexture *leftArrowUp    = [[PXTexture alloc] initWithTextureData:arrowTextureData];
 	PXTexture *leftArrowDown  = [[PXTexture alloc] initWithTextureData:arrowDownTextureData];
-	
+
 	PXTexture *rightArrowUp   = [[PXTexture alloc] initWithTextureData:arrowTextureData];
 	PXTexture *rightArrowDown = [[PXTexture alloc] initWithTextureData:arrowDownTextureData];
-	
+
 	// Set the anchor point of these arrows to the bottom right to make
 	// positioning them easier
 	//
@@ -133,7 +133,7 @@
 	// |             | 
 	// |____________ x  - The anchor point is here, on the bottom right
 	// 
-	
+
 	[leftArrowUp setAnchorWithX:1.0f y:1.0f];
 	[leftArrowDown setAnchorWithX:1.0f y:1.0f];
 	[rightArrowUp setAnchorWithX:1.0f y:1.0f];
@@ -143,55 +143,55 @@
 	// arrow.
 	leftArrow = [[PXSimpleButton alloc] initWithUpState:leftArrowUp downState:leftArrowDown hitTestState:leftArrowUp];
 	rightArrow = [[PXSimpleButton alloc] initWithUpState:rightArrowUp downState:rightArrowDown hitTestState:rightArrowUp];
-	
+
 	// Make the left arrow point left by flipping it in the horizontal direction
 	leftArrow.scaleX = -1.0f;
-	
+
 	// Release the textures, as their retain is now being held by the buttons.
 	[leftArrowUp release];
 	[leftArrowDown release];
 	[rightArrowUp release];
 	[rightArrowDown release];
-	
+
 	/////////////////////////
 	// Setup everything //
 	/////////////////////////
-	
-	/** Background image **/
+
+	// Background image
 	[self addChild:backgroundImage];
-	
+
 	// Set the raccoon's anchor point to be in the bottom-center to make it
 	// easier to align with the shadow
 	[raccoon setAnchorWithX:0.5f y:1.0f];
-	
+
 	// Place the raccoon on the floor
 	raccoon.x = self.stage.stageWidth * 0.5f;
 	raccoon.y = floorY;
-	
+
 	raccoon.smoothing = YES;
-	
+
 	[self addChild:raccoon];
-	
-	/** Shadow **/
+
+	// Shadow
 	[shadow setAnchorWithX:0.5f y:0.5f];
 	[self addChild:shadow];
-	
+
 	shadow.smoothing = YES;
-	
+
 	/** Arrows **/
-	
+
 	// Move the arrows into the bottom left and right corners.
 	leftArrow.x = 0.0f;
 	leftArrow.y = self.stage.stageHeight;
 	rightArrow.x = self.stage.stageWidth;
 	rightArrow.y = self.stage.stageHeight;
-	
+
 	// Add and release the arrows, as this sprite is holding their retain.
 	[self addChild:leftArrow];
 	[self addChild:rightArrow];
 	[leftArrow release];
 	[rightArrow release];
-	
+
 	// The initial direction the image is going in will be neither right nor
 	// left.
 	direction = 0.0f;
@@ -297,8 +297,8 @@
 - (void) touchDown:(PXTouchEvent *)event
 {
 	// If the left arrows is pressed, then set the direction to the left
-	//	(negative), otherwise the right arrow was pressed, so set the direction
-	//	to the right (positive).
+	// (negative), otherwise the right arrow was pressed, so set the direction
+	// to the right (positive).
 	if (event.target == leftArrow)
 	{
 		direction = -1.0f;
