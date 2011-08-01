@@ -50,10 +50,9 @@
 @end
 
 //
-//  This example explains how to use simple buttons, listen to their events and
-//	respond accordingly.
-//
-//  "Clean before you build, otherwise the dust will get in." - John
+//  This project is identical to the 'SimpleButtons' project
+//	Except it uses a texture atlas instead of loading each image
+//	individually.
 //
 
 @implementation SimpleButtonsAtlasRoot
@@ -83,16 +82,13 @@
 	// Load images //
 	/////////////////
 	
-	// This demo is going to load two images.  The first image will be the one
-	// to move around the screen.  The second will be the arrow to control the
-	// actions.
-	
 	NSString *fileName = nil;
 	
-	/** Load a background image **/
+	// Load the background image
 	fileName = isIpad ? @"Background-iPad.png" : @"Background.png";
 	PXTexture *backgroundImage = [PXTexture textureWithContentsOfFile:fileName];;
 	
+	// Load the atlas
 	fileName = isIpad ? @"atlas@2x.json" : @"atlas.json";
 	PXTextureAtlas *atlas = [PXTextureAtlas textureAtlasWithContentsOfFile:fileName modifier:nil];
 	
@@ -105,11 +101,6 @@
 	//////////////////////
 	// Make the buttons //
 	//////////////////////
-	
-	// The four different states of the arrow: left up, left down, right up and
-	// right down.
-	// Both left and right arrows use the same TextureData for their up state.
-	// Both left and right arrows use the same TextureData for their down state.
 	
 	PXTexture *leftArrowUp    = [atlas textureForFrame:@"FurryArrow.png"];
 	PXTexture *leftArrowDown  = [atlas textureForFrame:@"FurryArrowGlow.png"];
@@ -203,7 +194,7 @@
 	// Add listeners to the left and right arrows.
 	// Note:	It is important to listen to the out and cancel events as they
 	//			will inform you of when you release a button even if your finger
-	//			was no longer over it.  We can use the same function to listen
+	//			was no longer over it, or was canceled.  We can use the same function to listen
 	//			to these events as they will have the same effect as the
 	//			'touchUp' functionality in this example.  This will not always
 	//			be the case, it is important you decide what is the best course
