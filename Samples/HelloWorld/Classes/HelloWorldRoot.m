@@ -62,10 +62,10 @@
 	[grid setClipRectWithX:0.0f
 						 y:0.0f
 					 width:self.stage.stageHeight * 3.0f
-					height:self.stage.stageHeight * 3.0f
-			  usingAnchorX:0.5f
-				   anchorY:0.5f];
-
+					height:self.stage.stageHeight * 3.0f];
+	
+	[grid setAnchorWithX:0.5f y:0.5f];
+	
 	grid.alpha = 0.3f;
 	grid.smoothing = YES;
 
