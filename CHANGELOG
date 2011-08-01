@@ -1,3 +1,43 @@
+Version 0.11.0 (Current)
+==============
+NEW:
+- PXTexture display object now supports specifying extra inner padding and a content rotation offset.
+- Added an official Pixelwave texture atlas which supports some common file formats (TexturePacker and Zwoptex), and is extendable.
+- Embedded the TouchJSON library in Pixelwave. Used for parsing texture atlas JSON files.
+- Added some useful utility methods related to working with files to the PXLoader and PXTextureLoader classes.
+- Made the texture loader a bit smarter: Now the user doesn't have to provide the extension of the image to load.
+- Added the ability to convert a UIImage to PXTextureData and vice versa.
+- Added ability to take a screenshot (PXView::screenshot), producing a UIImage object.
+- The texture loader and sound loaders can now have default modifiers which get applied if no modifier is specified.
+- Added utility method [PXFont availableSystemFonts] which returns a list of names that can be used with PXTextField::font.
+- Added the drawHitAreas flag to the PXDebug class, which draws blue rectangle around object hit areas.
+- When loading a texture and its size needs to be expanded, Pixelwave will now automatically extrude the edges of the image (for smoother antialiasing). This can be turned off.
+- PXTextureData now has a method to draw the contents of another texture data directly.
+- The main stage object can now be accessed statically with the new [PXStage mainStage] method.
+- PXView can now be made translucent by setting its opaque property to NO and making sure that its color quality is 'high'
+- Added a sample project to show usage of a texture atlas.
+- Re-skinned the Newton's cradle sample. It now uses a texture atlas as well.
+- In PixelKit, the Box2DTouchPicker now dispatches events when a pick starts and ends, allowing the user to cancel certain ones.
+CHANGED:
+- PXTexture's clip rect property is no longer a PXRectangle. It is now a PXClipRect object which allows to specify how the content of the texture should be rotated.
+- Event constants are no longer #defines, so instead of looking like this (PX_EVENT_ENTER_FRAME) they look like this PXEvent_EnterFrame. Much easier on the eyes.
+- Some method names had a lot of 'and' in them (such as initWithX:andY:andWidth:andHeight:). Following Apple's convention we removed all 'and's but the first one in method names.
+- Memory warning events are no longer dispatched by Pixelwave. If needed they can be tracked using the native iOS framework.
+- Enhanced the code documentation, and added a few more entries.
+- Added the method PXLinkedList::setIndex:ofObject:
+- Made Pixelwave more Xcode 4 friendly.
+- Added some more utility creation methods.
+- Re-organized the docs folder to be more user friendly (all 'dirty' scripts are now in a hidden folder).
+- All public methods now use only NSArray objects for lists (as opposed to PXLinkedList).
+- Removed all (of 1) deprecated methods.
+FIXED:
+- General clean up including fixing several memory leaks, reorganizing code, and doing performance enhancements.
+- Now the '-all_load' linked flag (which is required by some frameworks) won't prevent Pixelwave from compiling.
+- Fixed a bug with PXDebug.halveStage not being applied to touches.
+- Long time bug involving adding and removing enterFrame events.
+- Bitmap fonts now work as expected with the retina display (thanks sumiguchi).
+- Fixed a bug where loading an incorrect texture atlas JSON file crashes the app. The error is now gracefully outputted to the console (thanks Alex).
+
 Version 0.10.1 (Apr. 7, 2011)
 ==============
 NEW:
