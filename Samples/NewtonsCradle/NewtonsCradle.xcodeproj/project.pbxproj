@@ -108,8 +108,8 @@
 		2DD624EB12BAD4BF00F200F1 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		2DE6D0B013E7381000B85014 /* Atlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Atlas.png; sourceTree = "<group>"; };
 		2DE6D0B113E7381000B85014 /* Atlas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Atlas@2x.png"; sourceTree = "<group>"; };
-		2DF9AF1513E5BDDC006BF50F /* Atlas.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Atlas.json; sourceTree = "<group>"; };
-		2DF9AF1713E5BDDC006BF50F /* Atlas@2x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Atlas@2x.json"; sourceTree = "<group>"; };
+		2DF9AF1513E5BDDC006BF50F /* Atlas.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Atlas.json; sourceTree = "<group>"; };
+		2DF9AF1713E5BDDC006BF50F /* Atlas@2x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Atlas@2x.json"; sourceTree = "<group>"; };
 		2DF9AF1913E5BDDC006BF50F /* BGiPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BGiPad.png; sourceTree = "<group>"; };
 		2DF9AF1A13E5BDDC006BF50F /* BGiPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BGiPhone.png; sourceTree = "<group>"; };
 		2DF9AF1B13E5BDDC006BF50F /* BGiPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BGiPhone@2x.png"; sourceTree = "<group>"; };
