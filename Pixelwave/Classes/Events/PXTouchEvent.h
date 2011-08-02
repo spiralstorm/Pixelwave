@@ -49,7 +49,7 @@ PXExtern NSString * const PXTouchEvent_DoubleTap;
 PXExtern NSString * const PXTouchEvent_TouchDown;
 PXExtern NSString * const PXTouchEvent_TouchMove;
 PXExtern NSString * const PXTouchEvent_TouchUp;
-PXExtern NSString * const PXTouchEvent_TouchOut;
+//PXExtern NSString * const PXTouchEvent_TouchOut;
 PXExtern NSString * const PXTouchEvent_TouchCancel;
 
 @interface PXTouchEvent : PXEvent <NSCopying, PXPooledObject>
@@ -79,6 +79,12 @@ PXExtern NSString * const PXTouchEvent_TouchCancel;
  *	object which captured this touch.
  */
 @property (nonatomic, readonly) BOOL captured;
+
+/**
+ *	Returns <code>YES</code> if the touch is contained within the bounds of the
+ *	target.
+ */
+@property (nonatomic, readonly) BOOL insideTarget;
 
 /**
  *	The horizontal location in global (stage) coordinates where the touch

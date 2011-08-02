@@ -54,8 +54,6 @@ extern "C" {
 @class PXStage;
 @class PXDisplayObject;
 @class PXTextureData;
-@class PXLinkedList;
-@protocol PXEventDispatcherProtocol;
 
 // TODO: Organize all these methods into groups (with comment headers)
 
@@ -107,22 +105,6 @@ PXObjectPool *PXEngineGetSharedObjectPool();
 
 CGSize PXEngineGetScreenBufferSize();
 void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pixels);
-
-/////////////
-// Touches //
-/////////////
-void PXEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol> capturingObject);
-void PXEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispatcherProtocol> capturingObject);	
-id<PXEventDispatcherProtocol> PXEngineGetTouchCapturingObject(UITouch *nativeTouch);
-
-UITouch * PXEngineGetFirstTouch();
-PXLinkedList * PXEngineGetAllTouches();
-CGPoint PXEngineTouchToScreenCoordinates(UITouch *touch);
-
-void PXEngineInvokeTouchBegan(UITouch *touch, CGPoint *pos);
-void PXEngineInvokeTouchMoved(UITouch *touch, CGPoint *pos);
-void PXEngineInvokeTouchEnded(UITouch *touch, CGPoint *pos);
-void PXEngineInvokeTouchCanceled(UITouch *touch);
 
 ///////////
 // Debug //

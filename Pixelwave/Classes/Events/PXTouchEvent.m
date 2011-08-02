@@ -41,6 +41,8 @@
 #import "PXDisplayObject.h"
 #import "PXPoint.h"
 #import "PXEngine.h"
+#import "PXTouchEngine.h"
+#import "PXTouchEngine.h"
 
 #include "PXPrivateUtils.h"
 
@@ -49,7 +51,7 @@ NSString * const PXTouchEvent_DoubleTap = @"doubleTap";
 NSString * const PXTouchEvent_TouchDown = @"touchDown";
 NSString * const PXTouchEvent_TouchMove = @"touchMove";
 NSString * const PXTouchEvent_TouchUp = @"touchUp";
-NSString * const PXTouchEvent_TouchOut = @"touchOut";
+//NSString * const PXTouchEvent_TouchOut = @"touchOut";
 NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 /// @cond DX_IGNORE
@@ -166,13 +168,23 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 - (BOOL) captured
 {
-	id capturingObject = PXEngineGetTouchCapturingObject(_nativeTouch);
+	id<PXEventDispatcherProtocol> capturingObject = PXTouchEngineGetTouchCapturingObject(_nativeTouch);
 	return (capturingObject == _target);
+}
+
+- (BOOL) insideTarget
+{
+	if (_target && [_target isKindOfClass:[PXDisplayObject class]])
+	{
+		return [((PXDisplayObject *)_target) _hitTestPointWithoutRecursionWithGlobalX:_stageX globalY:_stageY shapeFlag:YES];
+	}
+
+	return NO;
 }
 
 - (PXPoint *)localPosition
 {
-	if (_target && [_target isKindOfClass:[PXDisplayObject class]] && _target)
+	if (_target && [_target isKindOfClass:[PXDisplayObject class]])
 	{
 		return [((PXDisplayObject *)_target) positionOfTouch:_nativeTouch];
 	}

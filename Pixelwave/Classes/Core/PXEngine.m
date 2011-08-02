@@ -39,113 +39,9 @@
 
 #include "PXEngine.h"
 
-#import <QuartzCore/QuartzCore.h>
-#import <UIKit/UITouch.h>
+#include "PXEnginePrivate.h"
 
-#include "PXGLPrivate.h"
-#include "PXMathUtils.h"
-#include "PXPrivateUtils.h"
-#include "PXSettings.h"
-
-#include "PXEngineUtils.h"
-
-#import "PXStage.h"
-#import "PXView.h"
-#import "PXDisplayObject.h"
-#import "PXTextureData.h"
-#import "PXLinkedList.h"
-#import "PXObjectPool.h"
-#import "PXSoundEngine.h"
-#import "PXTouchEvent.h"
-#import "PXSprite.h"
-#import "PXPoint.h"
-
-#import "PXEventDispatcher.h"
-
-#import "PXDebugUtils.h"
-#import "PXExceptionUtils.h"
-
-#define PX_ENGINE_MIN_BUFFER_SIZE 4
-#define PX_ENGINE_MIN_FRAME_RATE 30
-
-#define PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_) \
-{ \
-	PXStageOrientation _orientation_ = _stage_.orientation; \
-	\
-	if (_orientation_ == PXStageOrientation_PortraitUpsideDown) \
-	{ \
-		(_x_) = _stage_.stageWidth  - (_x_); \
-		(_y_) = _stage_.stageHeight - (_y_); \
-	} \
-	else if (_orientation_ == PXStageOrientation_LandscapeLeft) \
-	{ \
-		float _oldX_ = _x_; \
-		(_x_) = _stage_.stageWidth - (_y_); \
-		(_y_) = _oldX_; \
-	} \
-	else if (_orientation_ == PXStageOrientation_LandscapeRight) \
-	{ \
-		float _oldX_ = _x_; \
-		(_x_) = (_y_); \
-		(_y_) = _stage_.stageHeight - _oldX_; \
-	} \
-}
-
-#define PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(_x_, _y_, _stage_) \
-{ \
-	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_); \
-	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_); \
-	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_); \
-}
-
-#define PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_) \
-{ \
-	PXStageOrientation _orientation_ = _stage_.orientation; \
-	int _stageWidth_  = _stage_.stageWidth; \
-	int _stageHeight_ = _stage_.stageHeight; \
-\
-	if (_orientation_ == PXStageOrientation_PortraitUpsideDown) \
-	{ \
-		float _xMin_ = (_aabb_)->xMin; \
-		float _xMax_ = (_aabb_)->xMax; \
-		float _yMin_ = (_aabb_)->yMin; \
-		float _yMax_ = (_aabb_)->yMax; \
-\
-		(_aabb_)->xMin = _stageWidth_  - _xMax_; \
-		(_aabb_)->xMax = _stageWidth_  - _xMin_; \
-		(_aabb_)->yMin = _stageHeight_ - _yMax_; \
-		(_aabb_)->yMax = _stageHeight_ - _yMin_; \
-	} \
-	else if (_orientation_ == PXStageOrientation_LandscapeLeft) \
-	{ \
-		float _xMin_ = (_aabb_)->xMin; \
-		float _xMax_ = (_aabb_)->xMax; \
-		float _yMin_ = (_aabb_)->yMin; \
-		float _yMax_ = (_aabb_)->yMax; \
-\
-		(_aabb_)->xMin = _stageWidth_ - _yMax_; \
-		(_aabb_)->xMax = _stageWidth_ - _yMin_; \
-		(_aabb_)->yMin = _xMin_; \
-		(_aabb_)->yMax = _xMax_; \
-	} \
-	else if (_orientation_ == PXStageOrientation_LandscapeRight) \
-	{ \
-		float _xMin_ = (_aabb_)->xMin; \
-		float _xMax_ = (_aabb_)->xMax; \
-\
-		(_aabb_)->xMin = (_aabb_)->yMin; \
-		(_aabb_)->xMax = (_aabb_)->yMax; \
-		(_aabb_)->yMin = _stageHeight_ - _xMax_; \
-		(_aabb_)->yMax = _stageHeight_ - _xMin_; \
-	} \
-}
-
-#define PX_ENGINE_CONVERT_AABB_FROM_STAGE_ORIENTATION(_aabb_, _stage_) \
-{ \
-	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_); \
-	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_); \
-	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_); \
-}
+#include "PXTouchEngine.h"
 
 /**
  *	@internal
@@ -163,31 +59,17 @@
 - (void) updateMainLoopInterval;
 @end
 
-void PXEngineUpdateMainLoopInterval();
+#define PX_ENGINE_MIN_FRAME_RATE 30.0f
 
-void PXEngineOnFrame( );
-void PXEngineRenderStage( );
-
-PXTouchEvent *pxEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSString *type, BOOL orientTouch);
-
-// A dictionary which holds the associations between a UITouch and the object
-// which captured it.
-CFMutableDictionaryRef pxEngineTouchCapturingObjects = NULL;
+const unsigned PXEngineMinBufferSize = 4;
+const float PXEngineMinFrameRate = PX_ENGINE_MIN_FRAME_RATE;
 
 PXObjectPool *pxEngineSharedObjectPool = nil;
 
 PXLinkedList *pxEngineCachedListeners = nil;			//Strongly referenced
 PXLinkedList *pxEngineFrameListeners = nil;				//Strongly referenced
-PXLinkedList *pxEngineTouchEvents = nil;				//Strongly referenced
-PXLinkedList *pxEngineSavedTouchEvents = nil;			//Strongly referenced
-PXLinkedList *pxEngineRemoveFromSavedTouchEvents = nil;	//Strongly referenced
-PXLinkedList *pxEngineRemoveFromCaptureTouchEvents = nil;//Strongly referenced
 
 PXEvent *pxEngineEnterFrameEvent = nil;					//Strongly referenced
-PXStage *pxEngineStage = nil;							//Strongly referenced
-PXEngine *pxEngine = nil;								//Strongly referenced
-PXDisplayObject *pxEngineRoot = nil;					//Weakly referenced
-PXView *pxEngineView = nil;								//Weakly referenced
 
 bool pxEngineInitialized = false;
 bool pxEngineShouldClear = false;
@@ -224,19 +106,12 @@ float pxEngineTimeWaiting = 0.0f;
 NSTimeInterval pxEngineInterval = 0.0f;
 #endif
 
-typedef struct
-{
-	unsigned size;
-	unsigned maxSize;
-	PXDisplayObject **array;
-} _PXEngineDisplayObjectBuffer;
+PXEngine *pxEngine = nil; //Strongly referenced
 
-_PXEngineDisplayObjectBuffer pxEngineDOBuffer;
-PXDisplayObject **pxEngineDOBufferCurrentObject = NULL;
+void PXEngineUpdateMainLoopInterval();
 
-
-unsigned pxEngineDOBufferMaxSize = 0;
-unsigned pxEngineDOBufferOldMaxSize = 0;
+void PXEngineOnFrame();
+void PXEngineRenderStage();
 
 void PXEngineInit(PXView *view)
 {
@@ -252,13 +127,14 @@ void PXEngineInit(PXView *view)
 	///////////////
 
 	_PXTopLevelInitialize();
+	PXTouchEngineInit();
 
 	////////
 	// ?? //
 	////////
 
 	pxEngineDOBuffer.size = 0;
-	pxEngineDOBuffer.maxSize = PX_ENGINE_MIN_BUFFER_SIZE;
+	pxEngineDOBuffer.maxSize = PXEngineMinBufferSize;
 	pxEngineDOBuffer.array = malloc(sizeof(PXDisplayObject *) * pxEngineDOBuffer.maxSize);
 	pxEngineDOBufferCurrentObject = pxEngineDOBuffer.array;
 
@@ -291,8 +167,6 @@ void PXEngineInit(PXView *view)
 	// Events //
 	////////////
 
-	pxEngineTouchCapturingObjects = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-
 	// Initialized with weak references so that DisplayObjects with an
 	// ENTER_FRAME listener can get deallocated when they leave the Display
 	// list. It's the object's responsibility to remove all of the event
@@ -300,15 +174,9 @@ void PXEngineInit(PXView *view)
 	pxEngineFrameListeners = [[PXLinkedList alloc] initWithWeakReferences:YES];
 
 	pxEngineCachedListeners = [[PXLinkedList alloc] init];
-	pxEngineTouchEvents = [[PXLinkedList alloc] init];
-	pxEngineSavedTouchEvents = [[PXLinkedList alloc] init];
-	pxEngineRemoveFromSavedTouchEvents = [[PXLinkedList alloc] init];
-	pxEngineRemoveFromCaptureTouchEvents = [[PXLinkedList alloc] init];
 
 	// Create a reusable enter frame event instead of creating one every frame.
-	pxEngineEnterFrameEvent = [[PXEvent alloc] initWithType:PXEvent_EnterFrame
-												 doesBubble:NO
-											   isCancelable:NO];
+	pxEngineEnterFrameEvent = [[PXEvent alloc] initWithType:PXEvent_EnterFrame doesBubble:NO isCancelable:NO];
 
 	//////////
 	// Misc //
@@ -340,13 +208,12 @@ void PXEngineInit(PXView *view)
 	PXSprite *defaultRoot = [PXSprite new];
 	PXEngineSetRoot(defaultRoot);
 	[defaultRoot release];
-
-	//PXSoundEngineInit();
 }
 
-void PXEngineDealloc( )
+void PXEngineDealloc()
 {
 	PXSoundEngineDealloc();
+	PXTouchEngineDealloc();
 
 	// Backwards of init()
 	if (pxEngineSharedObjectPool)
@@ -362,26 +229,6 @@ void PXEngineDealloc( )
 	[pxEngineEnterFrameEvent release];
 	pxEngineEnterFrameEvent = nil;
 
-	[pxEngineRemoveFromSavedTouchEvents release];
-	pxEngineRemoveFromSavedTouchEvents = nil;
-	[pxEngineRemoveFromCaptureTouchEvents release];
-	pxEngineRemoveFromCaptureTouchEvents = nil;
-
-	// Loops through each of the saved touches, and releases their hold on the
-	// target.  This is used in checking if the finger was released inside or
-	// outside of the bounding area of the first target.
-
-	PXTouchEvent *savedTouch;
-	PXLinkedListForEach(pxEngineSavedTouchEvents, savedTouch)
-	{
-		[savedTouch->_target release];
-	}
-
-	[pxEngineSavedTouchEvents release];
-	pxEngineSavedTouchEvents = nil;
-
-	[pxEngineTouchEvents release];
-	pxEngineTouchEvents = nil;
 	[pxEngineCachedListeners release];
 	pxEngineCachedListeners = nil;
 	[pxEngineFrameListeners release];
@@ -392,10 +239,7 @@ void PXEngineDealloc( )
 		glDeleteFramebuffersOES(1, &pxEngineRTTFBO);
 	pxEngineRTTFBO = 0;
 
-	PXGLDealloc( );
-
-	CFRelease(pxEngineTouchCapturingObjects);
-	pxEngineTouchCapturingObjects = NULL;
+	PXGLDealloc();
 
 	[pxEngine dealloc];
 	pxEngine = nil;
@@ -695,381 +539,6 @@ void PXEngineRemoveFrameListener(PXDisplayObject *displayObject)
 	[pxEngineFrameListeners removeObject:displayObject];
 }
 
-#pragma mark -
-#pragma mark TOUCHES
-#pragma mark -
-
-/**
- *	The function first cycles through all the display objects on the screen in
- *	reverse order, looking for the most immediate target of a touch event, and
- *	then traverses up the display hierarchy until it finds an interactive object
- *	for which touches are enabled.
- *		- Beken, Pixelwave forums
- *
- *	Returns the displayObject that should recieve the event (could be nil)
- */
-PXDisplayObject *PXEngineFindTouchTarget(float x, float y)
-{
-	PXDisplayObject *target;
-	PXDisplayObjectContainer *parent;
-	PXDisplayObject *possibleParentTarget = nil;
-	PXGLAABB *aabb;
-
-	BOOL touchEnabled = NO;
-	// Keeps track of if the current target can recieve touch events
-	BOOL origTouchEnabled = NO;
-	BOOL parentTouchEnabled = NO;
-	BOOL onceHadTarget = NO;
-
-	bool usesCustomHitArea;
-
-	PXDisplayObject **curDisplayObject;
-	int index;
-	int startIndex = pxEngineDOBuffer.size - 1;
-
-	// Loop through the list of possible touch targets.
-	// Since items were added to the list in back-to-front order, we iterate
-	// backwards to go front-to-back.
-	for (index = startIndex, curDisplayObject = &(pxEngineDOBuffer.array[startIndex]);
-		 index >= 0;
-		 --index, --curDisplayObject)
-	{
-		target = *curDisplayObject;
-
-		aabb = &target->_aabb;
-
-		usesCustomHitArea = PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_useCustomHitArea);
-
-		// Broad phase hit-test (AABB)
-		// We only check for AABB containment if the disp doesn't have a custom
-		// hit area. If there is a custom hit area, we can't rely only on the 
-		// visual bounds for a hit test.
-		if (!usesCustomHitArea && !PXGLAABBContainsPointv(aabb, x, y))
-		{
-			continue;
-		}
-
-		// Narrow phase - This is the expensive one.
-		if (!([target _hitTestPointWithoutRecursionWithGlobalX:x globalY:y shapeFlag:YES]))
-		{
-			continue;
-		}
-
-		origTouchEnabled = PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_isInteractive) ? ((PXInteractiveObject *)(target))->_touchEnabled : NO;
-		touchEnabled = origTouchEnabled;
-
-		parent = (PXDisplayObjectContainer *)(target->_parent);
-		onceHadTarget = NO;
-
-		// This checks if the parent is root, and it has touches enabled, but
-		// not touch children. If true, then
-		if (parent)
-		{
-			//parentTouchEnabled = PX_IS_BIT_ENABLED(parent->_flags, _PXDisplayObjectFlags_isInteractive) ? ((PXInteractiveObject *)(parent))->_touchEnabled : NO;
-			parentTouchEnabled = parent->_touchEnabled;
-
-			if (!(parent->_touchChildren) && parent == pxEngineRoot && parentTouchEnabled)
-			{
-				onceHadTarget = YES;
-				possibleParentTarget = parent;
-			}
-		}
-
-		// Now we loop up through the target's ancestors, stoping right before
-		// the root. We do this so that the ancestor closest to target which can
-		// recieve touch events gets to handle the touch.
-		//
-		// We stop short before root because....
-		while (parent && parent != pxEngineRoot)
-		{
-			if (parent == possibleParentTarget)
-			{
-				onceHadTarget = YES;
-			}
-
-			//parentTouchEnabled = PX_IS_BIT_ENABLED(parent->_flags, _PXDisplayObjectFlags_isInteractive) ? ((PXInteractiveObject *)(parent))->_touchEnabled : NO;
-			parentTouchEnabled = parent->_touchEnabled;
-
-			// If the parent allows its chidren to recieve touch events
-			if (parent->_touchChildren)
-			{
-				// If the target can't recieve touch events, but the parent can,
-				// the parent becomes the current valid target, and we keep
-				// going up the chain
-				if (!touchEnabled && parentTouchEnabled)
-				{
-					possibleParentTarget = parent;
-					onceHadTarget = YES;
-					touchEnabled = parentTouchEnabled;
-				}
-			}
-			else
-			{
-				// The target's parent doesn't allow touch events, which means
-				// the target cannot be asociated with that event at all, make
-				// the parent the new target
-				target = parent;
-				possibleParentTarget = nil;
-				onceHadTarget = NO;
-				// Update these value to reflect the new target
-				touchEnabled = parentTouchEnabled;
-				origTouchEnabled = parentTouchEnabled;
-			}
-
-			parent = parent->_parent;
-		}
-
-		// If along the traversal we found a target willing to accept the event
-		// but the parent should recieve it, give it to the parent
-		if (onceHadTarget && possibleParentTarget)
-		{
-			return possibleParentTarget;
-		}
-
-		// If there's no ancesstor of target stopping it from recieving the
-		// event, let target have it.
-		if (origTouchEnabled)
-		{
-			return target;
-		}
-	}
-
-	if (possibleParentTarget != nil)
-		PXDebugLog (@"PXEngineFindTouchTarget WARNING: possibleParentTarget != nil as expected\n");
-
-	// TODO: John, check to see if this line can just return nil.
-	// Look through the code and try to proove it won't fail
-	return possibleParentTarget;
-}
-
-void PXEngineDispatchTouchEvents()
-{
-	if (pxEngineTouchEvents.count == 0)
-	{
-		return;
-	}
-
-	PXTouchEvent *originalEvent = nil;
-	PXTouchEvent *savedEvent = nil;
-	PXDisplayObject *target = pxEngineStage;
-	PXDisplayObject *savedTarget = nil;
-	PXTouchEvent *outOrCancelEvent;
-	PXTouchEvent *doubleTapEvent;
-	PXInteractiveObject *interactiveTarget;
-	CGPoint pos;
-	NSString *eventType = nil;
-
-	bool didTouchUp     = false;
-	bool didTouchCancel = false;
-	bool didTouchDown   = false;
-	bool didTouchUpOrCancel = false;
-
-	id<NSObject> captureKey = NULL;
-	id<PXEventDispatcherProtocol> captureTarget = NULL;
-
-	CFDictionaryRef copiedDictionary = CFDictionaryCreateCopy(NULL, pxEngineTouchCapturingObjects);
-
-	// This dictionary tracks who actually got the touch. In the case where the
-	// same touch happens more then once a frame, we will automatically
-	// associate it with the previous owner for this frame.
-	CFMutableDictionaryRef localizedTouchSearchDictionary = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-
-	if (pxEngineStage->_touchChildren)
-	{
-		PXLinkedListForEach(pxEngineTouchEvents, originalEvent)
-		{
-			eventType = originalEvent.type;
-
-			// Find what type of touch even this is
-			didTouchDown = [eventType isEqualToString:PXTouchEvent_TouchDown];
-			if (!didTouchDown)
-			{
-				didTouchUp = [eventType isEqualToString:PXTouchEvent_TouchUp];
-				if (!didTouchUp)
-					didTouchCancel = [eventType isEqualToString:PXTouchEvent_TouchCancel];
-			}
-			didTouchUpOrCancel = didTouchUp || didTouchCancel;
-
-			// Grab the 'key' for the dictionary of captures, and the target
-			captureKey = originalEvent.nativeTouch;
-			captureTarget = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(localizedTouchSearchDictionary, captureKey);
-			if (!captureTarget)
-				captureTarget = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(copiedDictionary, captureKey);
-
-			[captureKey retain];
-
-			// If a capture target exists, then we don't need to find a new one
-			if (captureTarget)
-			{
-				target = (PXDisplayObject *)captureTarget;
-			}
-			else
-			{
-				// Find the target at the position
-				target = PXEngineFindTouchTarget(originalEvent.stageX, originalEvent.stageY);
-
-				// If it is a down event, then we can set the capture
-				if (didTouchDown && target && PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_isInteractive))
-				{
-					// Only set the capture, if this target allows it.
-					if (((PXInteractiveObject *)(target))->_captureTouches)
-					{
-						CFDictionarySetValue(pxEngineTouchCapturingObjects, captureKey, target);
-					}
-				}
-			}
-
-			// If the target exists and is not equal to the captured target,
-			// then we need to check if it is a target that cares about captures
-			// and it failed the on touch down, it means that the target was not
-			// captured in touch down, thus it should not recieve these events.
-			if (!didTouchDown && target && target != captureTarget)
-			{
-				if (PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_isInteractive))
-				{
-					if (((PXInteractiveObject *)(target)).captureTouches)
-					{
-						target = NULL;
-					}
-				}
-			}
-
-			// If no target exists, send it to the stage!
-			if (!target)
-				target = pxEngineStage;
-
-			// If the same touch has happened more than once this frame, we are
-			// just going to automatically associate it with the previous owner.
-			CFDictionarySetValue(localizedTouchSearchDictionary, captureKey, target);
-
-			// Ok, this is pretty complicated.  If either the user touched up,
-			// or down, we need to make this check.  If they touched down, then
-			// we need to retain the target they were going for, if they are
-			// touching up, we need to release it.  This is because we need to
-			// ensure the object doesn't disappear prior to sending out the
-			// event.
-			if (didTouchUpOrCancel || didTouchDown)
-			{
-				// We remove BEFORE sending out any events so that if they
-				// remove themselves from their parent, they will not then also
-				// spawn a cancel event upwards which could cause an infinate
-				// loop of cancel events.
-				if (didTouchUpOrCancel)
-					CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, captureKey);
-
-				// Go through each of the saved touch events, and check to see
-				// if our native touch... meaning the touch given to us by the
-				// UI device, is the same as the touch we are checking against.
-				PXLinkedListForEach(pxEngineSavedTouchEvents, savedEvent)
-				{
-					if (savedEvent.nativeTouch == originalEvent.nativeTouch)
-					{
-						savedTarget = savedEvent->_target;
-
-						// If our saved target isn't the same as our current
-						// target, then we need to update the previous target.
-						// Otherwise we need to release the event we are holding
-						// so that we do not hold it into memory forever.
-						if (savedTarget != target)
-						{
-							if (didTouchUpOrCancel && savedTarget)
-							{
-								// Make a cgpoint out of the position.
-								pos = CGPointMake(savedEvent->_stageX, savedEvent->_stageY);
-								// Make an event to dispatch upon releasing the
-								// button outside of it's place.
-								outOrCancelEvent = pxEngineNewTouchEventWithTouch(savedEvent->_nativeTouch,
-																				  &pos,
-																				  (didTouchUp ? PXTouchEvent_TouchOut : PXTouchEvent_TouchCancel),
-																				  NO);
-
-								[savedTarget dispatchEvent:outOrCancelEvent];
-								[outOrCancelEvent release];
-
-								// Make sure we release the target we kept a
-								// retain on.
-								[savedTarget release];
-								savedEvent->_target = nil;
-							}
-							else
-							{
-								// If we had a previous saved target, we should
-								// release it before swapping the pointer.
-								if (savedTarget)
-									[savedTarget release];
-
-								// Lets retain it, so it can't die while we are
-								// using it; then we should set the pointer.
-								[target retain];
-								savedEvent->_target = target;
-							}
-						}
-						else if (didTouchUpOrCancel)
-						{
-							// We touched up in the same area we touched down
-							// on, so we just need to release the target as no
-							// out event will be sent.. the up event was already
-							// sent also.
-							[savedEvent->_target release];
-							savedEvent->_target = nil;
-							savedTarget = nil;
-						}
-
-						break;
-					} // if (savedEvent.nativeTouch == event.nativeTouch)
-				} // PXLinkedListForEach
-			} // if (didTouchUpOrCancel || didTouchDown)
-
-			if ([target isKindOfClass:[PXInteractiveObject class]])
-				interactiveTarget = (PXInteractiveObject *)target;
-			else
-				interactiveTarget = nil;
-
-			if ([eventType isEqualToString:PXTouchEvent_Tap] &&
-				(interactiveTarget.doubleTapEnabled && savedEvent.tapCount == 2))
-			{
-				CGPointMake(savedEvent->_stageX, savedEvent->_stageY);
-				// Make an event to dispatch upon releasing the
-				// button outside of it's place.
-				doubleTapEvent = pxEngineNewTouchEventWithTouch(savedEvent->_nativeTouch,
-																&pos,
-																PXTouchEvent_DoubleTap,
-																NO);
-
-				[target dispatchEvent:doubleTapEvent];
-				[doubleTapEvent release];
-			}
-			else
-			{
-				originalEvent->_target = target;
-				[target dispatchEvent:originalEvent];
-			}
-
-			[captureKey release];
-		} // PXLinkedListForEach
-	}
-	else
-	{
-		PXLinkedListForEach(pxEngineTouchEvents, originalEvent)
-		{
-			originalEvent->_target = target;
-			[target dispatchEvent:originalEvent];
-		}
-	}
-
-	[pxEngineTouchEvents removeAllObjects];
-
-	// Remove all saved touches
-	PXLinkedListForEach(pxEngineRemoveFromSavedTouchEvents, originalEvent)
-	{
-		[pxEngineSavedTouchEvents removeObject:originalEvent];
-	}
-	[pxEngineRemoveFromSavedTouchEvents removeAllObjects];
-
-	CFRelease(copiedDictionary);
-	CFRelease(localizedTouchSearchDictionary);
-}
-
 void PXEngineDispatchFrameEvents()
 {
 	if (pxEngineFrameListeners.count == 0)
@@ -1119,7 +588,7 @@ void PXEngineRender()
 	if (pxEngineDOBufferMaxSize < (pxEngineDOBufferOldMaxSize >> 2))
 	{
 		int newMaxSize = pxEngineDOBuffer.maxSize >> 1;
-		if (newMaxSize > PX_ENGINE_MIN_BUFFER_SIZE)
+		if (newMaxSize > PXEngineMinBufferSize)
 		{
 			pxEngineDOBuffer.maxSize = newMaxSize;
 			pxEngineDOBuffer.array = realloc(pxEngineDOBuffer.array, sizeof(PXDisplayObject *) * pxEngineDOBuffer.maxSize);
@@ -1295,7 +764,7 @@ void PXEngineRender()
 
 void PXEngineLogicPhase()
 {
-	PXEngineDispatchTouchEvents(); //Touch
+	PXTouchEngineDispatchTouchEvents(); //Touch
 
 	pxEngineLogicTimeAccum += pxEngineMainDT;
 
@@ -1899,257 +1368,6 @@ PXObjectPool *PXEngineGetSharedObjectPool()
 }
 
 #pragma mark Touches
-
-void PXEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol> capturingObject)
-{
-	if (!capturingObject)
-		return;
-
-	// If the dictionary does not contain the object, just return.
-	if (CFDictionaryGetCountOfValue(pxEngineTouchCapturingObjects, capturingObject) <= 0)
-		return;
-
-	CFIndex count = CFDictionaryGetCount(pxEngineTouchCapturingObjects);
-
-	if (count > 0)
-	{
-		// Make temporary parallel arrays to store the keys and the values.
-		CFTypeRef keys[count];
-		CFTypeRef values[count];
-
-		// Gives us a parallel array structure so that you can iterate through
-		// the posabilities.
-		CFDictionaryGetKeysAndValues(pxEngineTouchCapturingObjects, (const void **)(keys), (const void **)(values));
-
-		PXPoint *pxPoint;
-		CGPoint point;
-		PXTouchEvent *event;
-
-		CFIndex index;
-		CFTypeRef *key;
-		CFTypeRef *value;
-
-		id<PXEventDispatcherProtocol> target;
-		UITouch *touch;
-
-		// Loop through the dictionary and see if the object has any association
-		// with a touch; if it does, we need to cancel it.
-		for (index = 0, key = keys, value = values; index < count; ++index, ++key, ++value)
-		{
-			// Convert the value and key into a usable form
-			target = (id<PXEventDispatcherProtocol>)(*value);
-			touch = (UITouch *)(*key);
-
-			// Compare the target, if it is the capturing object, then we know
-			// that it is a touch we need to cancel.
-			if (target == capturingObject)
-			{
-				// Remove the key from the dictionary. THIS IS ALRIGHT and
-				// should be done BEFORE sending the event. Why before the
-				// event? Well, if someone 'removesAllChildren' or something
-				// silly like that during the event, then this will enter again,
-				// and become an infinate loop... which is bad.
-				CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, touch);
-
-				// Get the position of the touch
-				pxPoint = [pxEngineStage positionOfTouch:touch];
-				point = CGPointMake(pxPoint.x, pxPoint.y);
-
-				// Send out the cancel event
-				event = pxEngineNewTouchEventWithTouch(touch, &point, PXTouchEvent_TouchCancel, NO);
-				[target dispatchEvent:event];
-				[event release];
-			}
-		}
-	}
-}
-
-void PXEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispatcherProtocol> capturingObject)
-{
-	if (!nativeTouch)
-		return;
-
-	id<PXEventDispatcherProtocol> originalObject = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
-
-	// Only do work if the object is actually changing
-	if (originalObject != capturingObject)
-	{
-		// Send out a cancel event on the OLD object.
-		PXPoint *pxPoint = [pxEngineStage positionOfTouch:nativeTouch];
-		CGPoint point = CGPointMake(pxPoint.x, pxPoint.y);
-		PXTouchEvent *event = pxEngineNewTouchEventWithTouch(nativeTouch, &point, PXTouchEvent_TouchCancel, NO);
-		[originalObject dispatchEvent:event];
-		[event release];
-
-		// Change or remove the target
-		if (!capturingObject)
-		{
-			CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, nativeTouch);
-		}
-		else
-		{
-			CFDictionarySetValue(pxEngineTouchCapturingObjects, nativeTouch, capturingObject);
-		}
-	}
-}
-
-id<PXEventDispatcherProtocol> PXEngineGetTouchCapturingObject(UITouch *nativeTouch)
-{
-	if(!nativeTouch)
-		return nil;
-
-	return (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
-}
-
-UITouch *PXEngineGetFirstTouch()
-{
-	if (!pxEngineSavedTouchEvents)
-		return nil;
-
-	if ([pxEngineSavedTouchEvents count] <= 0)
-		return nil;
-
-	PXTouchEvent *event = (PXTouchEvent *)[pxEngineSavedTouchEvents objectAtIndex:0];
-
-	return event.nativeTouch;
-}
-PXLinkedList *PXEngineGetAllTouches()
-{
-	if (!pxEngineSavedTouchEvents)
-		return nil;
-
-	PXLinkedList *list = [[PXLinkedList alloc] init];
-	PXTouchEvent *event;
-	for (event in pxEngineSavedTouchEvents)
-	{
-		if (event.nativeTouch)
-			[list addObject:event.nativeTouch];
-	}
-
-	return [list autorelease];
-}
-
-CGPoint PXEngineTouchToScreenCoordinates(UITouch *touch)
-{
-	if (!touch || !pxEngineView)
-		return CGPointMake(0.0f, 0.0f);
-
-	CGPoint point = [touch locationInView:pxEngineView];
-
-	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[pxEngineView layer];
-	CGPoint pos = eaglLayer.position;
-
-	point.x += pos.x;
-	point.y += pos.y;
-
-	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(point.x, point.y, pxEngineStage);
-
-	return point;
-}
-
-PXTouchEvent *pxEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSString *type, BOOL orientTouch)
-{
-	//PXTouchEvent *event;
-
-	CGPoint location = CGPointMake(0.0f, 0.0f);
-
-	if (pos)
-	{
-		location = *pos;
-	}
-
-	if (orientTouch)
-	{
-		PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(location.x, location.y, pxEngineStage);
-#ifdef PX_DEBUG_MODE
-		if (PXDebugIsEnabled(PXDebugSetting_HalveStage) && pos)
-		{
-			location.x = 2.0f * ((pxEngineStage.stageWidth  * 0.75f) + ((location.x) - (pxEngineStage.stageWidth)));
-			location.y = 2.0f * ((pxEngineStage.stageHeight * 0.75f) + ((location.y) - (pxEngineStage.stageHeight)));
-		}
-#endif
-	}
-
-	//event = [[PXTouchEvent alloc] initWithType:type nativeTouch:touch stageX:location.x stageY:location.y tapCount:touch.tapCount];
-
-	return [[PXTouchEvent alloc] initWithType:type nativeTouch:touch stageX:location.x stageY:location.y tapCount:touch.tapCount];
-}
-
-void PXEngineInvokeTouchBegan(UITouch *touch, CGPoint *pos)
-{
-	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PXTouchEvent_TouchDown, YES);
-	[pxEngineTouchEvents addObject:event];
-	[event release];
-
-	event = pxEngineNewTouchEventWithTouch(touch, pos, PXTouchEvent_Tap, YES);
-	[pxEngineSavedTouchEvents addObject:event];
-	[event release];
-}
-void PXEngineInvokeTouchMoved(UITouch *touch, CGPoint *pos)
-{
-	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PXTouchEvent_TouchMove, YES);
-	[pxEngineTouchEvents addObject:event];
-	[event release];
-}
-
-void PXEngineInvokeTouchEnded(UITouch *touch, CGPoint *pos)
-{
-	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, pos, PXTouchEvent_TouchUp, YES);
-	[pxEngineTouchEvents addObject:event];
-	[event release];
-
-	PXTouchEvent *savedTouch;
-	//PXGenericObject object;
-
-	int x = pos->x;
-	int y = pos->y;
-
-	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(x, y, pxEngineStage);
-
-	float distX;
-	float distY;
-	float touchDistanceSq;
-	// 30 point radius
-
-	PXLinkedListForEach(pxEngineSavedTouchEvents, savedTouch)
-	{
-		if (savedTouch.nativeTouch == touch)
-		{
-			distX = savedTouch->_stageX - x;
-			distX *= distX;
-			distY = savedTouch->_stageY - y;
-			distY *= distY;
-			touchDistanceSq = distX + distY;
-			//PX_ENGINE_IS_TOUCH_SAME_PLACE((int)savedTouch->_stageX, (int)savedTouch->_stageY, x, y)
-			//if ((int)savedTouch->_stageX == x
-			//&& (int)savedTouch->_stageY == y)
-			if (touchDistanceSq < PXEngineTouchRadiusSquared)
-			{
-				[pxEngineTouchEvents addObject:savedTouch];
-			}
-
-			[pxEngineRemoveFromSavedTouchEvents addObject:savedTouch];
-			break;
-		}
-	}
-}
-void PXEngineInvokeTouchCanceled(UITouch *touch)
-{
-	PXTouchEvent *event = pxEngineNewTouchEventWithTouch(touch, nil, PXTouchEvent_TouchCancel, YES);
-	[pxEngineTouchEvents addObject:event];
-	[event release];
-
-	PXTouchEvent *savedTouch;
-
-	PXLinkedListForEach(pxEngineSavedTouchEvents, savedTouch)
-	{
-		if (savedTouch.nativeTouch == touch)
-		{
-			[pxEngineRemoveFromSavedTouchEvents addObject:savedTouch];
-			break;
-		}
-	}
-}
 
 float _PXEngineDBGGetTimeBetweenFrames()
 {

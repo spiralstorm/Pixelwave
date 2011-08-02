@@ -271,7 +271,7 @@ public:
 	[stage addEventListenerOfType:PXTouchEvent_TouchDown		listener:PXListener(onTouchDown:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchMove		listener:PXListener(onTouchMove:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchUp		listener:PXListener(onTouchUp:)];
-	[stage addEventListenerOfType:PXTouchEvent_TouchOut		listener:PXListener(onTouchUp:)];
+//	[stage addEventListenerOfType:PXTouchEvent_TouchOut		listener:PXListener(onTouchUp:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchCancel	listener:PXListener(onTouchUp:)];
 }
 - (void)onRemovedFromStage
@@ -283,7 +283,7 @@ public:
 	[stage removeEventListenerOfType:PXTouchEvent_TouchDown	listener:PXListener(onTouchDown:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchMove	listener:PXListener(onTouchMove:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchUp		listener:PXListener(onTouchUp:)];
-	[stage removeEventListenerOfType:PXTouchEvent_TouchOut	listener:PXListener(onTouchUp:)];
+//	[stage removeEventListenerOfType:PXTouchEvent_TouchOut	listener:PXListener(onTouchUp:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchCancel	listener:PXListener(onTouchUp:)];
 }
 

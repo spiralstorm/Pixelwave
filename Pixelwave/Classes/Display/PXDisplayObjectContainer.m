@@ -41,6 +41,7 @@
 #import "PXEvent.h"
 
 #import "PXEngine.h"
+#import "PXTouchEngine.h"
 #import "PXStage.h"
 
 #import "PXPrivateUtils.h"
@@ -388,7 +389,7 @@
 	////////////
 
 	// Removes all touch captures that may be associating with this child.
-	PXEngineRemoveAllTouchCapturesFromObject(child);
+	PXTouchEngineRemoveAllTouchCapturesFromObject(child);
 
 	// Removed events come before things get romoved
 	if (dispatchEvents)

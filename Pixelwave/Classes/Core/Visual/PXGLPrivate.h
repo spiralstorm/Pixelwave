@@ -47,20 +47,23 @@ extern "C" {
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 
-void PXGLInit( unsigned width, unsigned height, float scaleFactor);
-void PXGLDealloc( );
+#include "PXGLUtils.h"
+#include "PXGLState.h"
 
-void PXGLFlush( );
-//GLuint PXGLGetTextureBuffer( );
-void PXGLSyncPXToGL( );
-void PXGLSyncGLToPX( );
+void PXGLInit(unsigned width, unsigned height, float scaleFactor);
+void PXGLDealloc();
+
+void PXGLFlush();
+//GLuint PXGLGetTextureBuffer();
+void PXGLSyncPXToGL();
+void PXGLSyncGLToPX();
 
 void PXGLSyncTransforms();
 void PXGLUnSyncTransforms();
 
-void PXGLPreRender( );
-void PXGLPostRender( );
-void PXGLConsolidateBuffers( );
+void PXGLPreRender();
+void PXGLPostRender();
+void PXGLConsolidateBuffers();
 
 void PXGLResetStates(PXGLState desiredState);
 

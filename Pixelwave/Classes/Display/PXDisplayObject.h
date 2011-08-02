@@ -330,15 +330,9 @@ typedef enum
 - (BOOL) _dispatchEventNoFlow:(PXEvent *)event;
 - (void) _measureGlobalBounds:(CGRect *)retBounds;
 
-- (BOOL) _hitTestPointWithoutRecursionWithGlobalX:(float)x
-										  globalY:(float)y
-										shapeFlag:(BOOL)shapeFlag;
-- (BOOL) _hitTestPointWithParentX:(float)x
-						  parentY:(float)y
-						shapeFlag:(BOOL)shapeFlag;
-- (BOOL) _hitTestPointWithLocalX:(float)x
-						  localY:(float)y
-					   shapeFlag:(BOOL)shapeFlag;
+- (BOOL) _hitTestPointWithoutRecursionWithGlobalX:(float)x globalY:(float)y shapeFlag:(BOOL)shapeFlag;
+- (BOOL) _hitTestPointWithParentX:(float)x parentY:(float)y shapeFlag:(BOOL)shapeFlag;
+- (BOOL) _hitTestPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag;
 
 // Used by the transform property
 - (void) _setMatrix:(PXGLMatrix *)matrix;
@@ -350,9 +344,7 @@ typedef enum
 
 @interface PXDisplayObject (Override)
 - (void) _renderGL;
-- (BOOL) _containsPointWithLocalX:(float)x
-						   localY:(float)y
-						shapeFlag:(BOOL)shapeFlag;
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag;
 - (void) _measureLocalBounds:(CGRect *)retBounds;
 @end
 /// @endcond

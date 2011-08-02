@@ -51,6 +51,7 @@
 
 #import "PXObjectPool.h"
 #include "PXEngine.h"
+#include "PXTouchEngine.h"
 #include "PXMathUtils.h"
 #import "PXEvent.h"
 
@@ -488,7 +489,7 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 - (PXPoint *)touchPosition
 {
-	return [self positionOfTouch:PXEngineGetFirstTouch()];
+	return [self positionOfTouch:PXTouchEngineGetFirstTouch()];
 }
 /*
 - (float) localX:(UITouch *)touch
@@ -511,7 +512,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	NSMutableArray *list = [[NSMutableArray alloc] init];
 
 	PXPoint *addPoint;
-	PXLinkedList *touchList = PXEngineGetAllTouches();
+	PXLinkedList *touchList = PXTouchEngineGetAllTouches();
 	for (UITouch *touch in touchList)
 	{
 		addPoint = [self positionOfTouch:touch];
@@ -607,7 +608,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	if (!nativeTouch)
 		return nil;
 
-	CGPoint touchPoint = PXEngineTouchToScreenCoordinates(nativeTouch);
+	CGPoint touchPoint = PXTouchEngineTouchToScreenCoordinates(nativeTouch);
 
 	PXObjectPool *pool = PXEngineGetSharedObjectPool();
 	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:[PXPoint class]];
@@ -992,19 +993,6 @@ static unsigned _pxDisplayObjectCount = 0;
 	CGPoint globalPoint = CGPointMake(x, y);
 	globalPoint = PXUtilsGlobalToLocal(self, globalPoint);
 	return [self _containsPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];
-
-	/*PXObjectPool *pool = PXEngineGetSharedObjectPool();
-	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:[PXPoint class]];
-	point.x = x;
-	point.y = y;
-	PXPoint *globalPoint = [self globalToLocal:point];
-	[pool releaseObject:point];
-
-	//PXPoint *pt = [[PXPoint alloc] initWithX:x y:y];
-	//PXPoint *pt2 = [self globalToLocal:pt];
-	//[pt release];
-	
-	return [self _containsPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];*/
 }
 
 #pragma mark GL Rendering

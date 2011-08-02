@@ -44,6 +44,7 @@
 #import <OpenGLES/ES1/gl.h>
 
 #import "PXEngine.h"
+#import "PXTouchEngine.h"
 #import "PXStage.h"
 #import "PXDisplayObject.h"
 
@@ -63,6 +64,8 @@
 				 colorQuality:(PXViewColorQuality)colorQuality;
 - (BOOL) createSurface;
 - (void) destroySurface;
+
+- (void) touchHandeler:(NSSet *)touches function:(void(*)(UITouch *touch, CGPoint *pos))function;
 @end
 /// @endcond
 
@@ -678,8 +681,11 @@
 #pragma mark Touch Handling
 //These methods get called automatically on every UIView
 
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)e
+- (void) touchHandeler:(NSSet *)touches function:(void(*)(UITouch *touch, CGPoint *pos))function
 {
+	if (function == NULL)
+		return;
+
 	CGPoint p;
 
 	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
@@ -692,52 +698,28 @@
 		p.x += pos.x;
 		p.y += pos.y;
 
-		PXEngineInvokeTouchBegan(touch, &p);
+		function(touch, &p);
 	}
+}
+
+- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)e
+{
+	[self touchHandeler:touches function:PXTouchEngineInvokeTouchDown];
 }
 
 - (void) touchesMoved:(NSSet *)touches withEvent:(UIEvent *)e
 {
-	CGPoint p;
-
-	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
-	CGPoint pos = eaglLayer.position;
-
-	for (UITouch *touch in touches)
-	{
-		p = [touch locationInView:self];
-
-		p.x += pos.x;
-		p.y += pos.y;
-
-		PXEngineInvokeTouchMoved(touch, &p);
-	}
+	[self touchHandeler:touches function:PXTouchEngineInvokeTouchMove];
 }
 
 - (void) touchesEnded:(NSSet *)touches withEvent:(UIEvent *)e
 {
-	CGPoint p;
-
-	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
-	CGPoint pos = eaglLayer.position;
-
-	for (UITouch *touch in touches)
-	{
-		p = [touch locationInView:self];
-
-		p.x += pos.x;
-		p.y += pos.y;
-
-		PXEngineInvokeTouchEnded(touch, &p);
-	}
+	[self touchHandeler:touches function:PXTouchEngineInvokeTouchUp];
 }
 
 - (void) touchesCanceled:(NSSet *)touches
 {
-	for (UITouch *touch in touches)
-	{
-		PXEngineInvokeTouchCanceled(touch);
-	}
+	[self touchHandeler:touches function:PXTouchEngineInvokeTouchCancel];
 }
 
 - (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event

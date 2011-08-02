@@ -160,7 +160,6 @@
 	{
 		[self removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(pxSimpleButtonTouchDown:)];
 		[self removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(pxSimpleButtonTouchUp:)];
-		[self removeEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(pxSimpleButtonTouchUp:)];
 		[self removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(pxSimpleButtonTouchUp:)];
 	}
 	
@@ -172,7 +171,6 @@
 	{
 		[self addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(pxSimpleButtonTouchDown:)];
 		[self addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(pxSimpleButtonTouchUp:)];
-		[self addEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(pxSimpleButtonTouchUp:)];
 		[self addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(pxSimpleButtonTouchUp:)];
 	}
 }
