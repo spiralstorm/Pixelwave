@@ -46,6 +46,16 @@
 	BOOL _doubleTapEnabled;
 	BOOL _touchEnabled;
 	BOOL _captureTouches;
+@private
+	BOOL pxInteractiveObjectListenToTap;
+	BOOL pxInteractiveObjectListenToDoubleTap;
+	BOOL pxInteractiveObjectAddedListeners;
+
+	PXEventListener *pxInteractiveObjectOnTouchDown;
+	PXEventListener *pxInteractiveObjectOnTouchUp;
+	PXEventListener *pxInteractiveObjectOnTouchCancel;
+
+	CFMutableDictionaryRef pxInteractiveObjectTouchDictionary;
 /// @endcond
 }
 

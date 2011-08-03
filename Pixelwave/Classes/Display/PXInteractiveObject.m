@@ -43,6 +43,19 @@
 
 #import "PXStage.h"
 
+// TODO: Remove this
+#import "PXTouchEvent.h"
+#import "PXEvent.h"
+#import "PXPoint.h"
+
+/// @cond DX_IGNORE
+@interface PXInteractiveObject(Private)
+- (void) pxInteractiveObjectOnTouchDown:(PXTouchEvent *)event;
+- (void) pxInteractiveObjectOnTouchUp:(PXTouchEvent *)event;
+- (void) pxInteractiveObjectOnTouchCancel:(PXTouchEvent *)event;
+@end
+/// @endcond
+
 /**
  *	@ingroup Display
  *
@@ -65,9 +78,175 @@
 		_touchEnabled = YES;
 
 		_captureTouches = [PXStage mainStage].defaultCaptureTouchesValue;
+
+		pxInteractiveObjectOnTouchDown   = [PXListener(pxInteractiveObjectOnTouchDown:)   retain];
+		pxInteractiveObjectOnTouchUp     = [PXListener(pxInteractiveObjectOnTouchUp:)     retain];
+		pxInteractiveObjectOnTouchCancel = [PXListener(pxInteractiveObjectOnTouchCancel:) retain];
+
+		pxInteractiveObjectAddedListeners = NO;
+		pxInteractiveObjectTouchDictionary = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 	}
 
 	return self;
+}
+
+- (void) dealloc
+{
+	if (pxInteractiveObjectAddedListeners == YES)
+	{
+		[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxInteractiveObjectOnTouchDown];
+		[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxInteractiveObjectOnTouchUp];
+		[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxInteractiveObjectOnTouchCancel];
+	}
+
+	if (pxInteractiveObjectTouchDictionary != NULL)
+	{
+		CFRelease(pxInteractiveObjectTouchDictionary);
+		pxInteractiveObjectTouchDictionary = NULL;
+	}
+
+	[pxInteractiveObjectOnTouchDown   release];
+	[pxInteractiveObjectOnTouchUp     release];
+	[pxInteractiveObjectOnTouchCancel release];
+
+	[super dealloc];
+}
+
+- (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
+{
+	BOOL properlyAdded = [super addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
+
+	BOOL isTapEvent = [type isEqualToString:PXTouchEvent_Tap];
+	BOOL isDoubleTapEvent = [type isEqualToString:PXTouchEvent_DoubleTap];
+
+	if (properlyAdded && (isTapEvent || isDoubleTapEvent))
+	{
+		if (pxInteractiveObjectAddedListeners == NO)
+		{
+			pxInteractiveObjectAddedListeners = YES;
+
+			BOOL properlyAddedDown   = [super addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxInteractiveObjectOnTouchDown   useCapture:useCapture priority:priority];
+			BOOL properlyAddedUp     = [super addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxInteractiveObjectOnTouchUp     useCapture:useCapture priority:priority];
+			BOOL properlyAddedCancel = [super addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxInteractiveObjectOnTouchCancel useCapture:useCapture priority:priority];
+
+			properlyAdded = properlyAddedDown && properlyAddedUp && properlyAddedCancel;
+
+			if (properlyAdded == NO)
+			{
+				[super removeEventListenerOfType:type listener:listener useCapture:useCapture];
+
+				if (properlyAddedDown)
+					[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxInteractiveObjectOnTouchDown   useCapture:useCapture];
+				if (properlyAddedUp)
+					[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxInteractiveObjectOnTouchUp     useCapture:useCapture];
+				if (properlyAddedCancel)
+					[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxInteractiveObjectOnTouchCancel useCapture:useCapture];
+
+				pxInteractiveObjectAddedListeners = NO;
+			}
+		}
+
+		if (pxInteractiveObjectAddedListeners == YES && properlyAdded == YES)
+		{
+			if (isTapEvent == YES)
+				pxInteractiveObjectListenToTap = YES;
+			else if (isDoubleTapEvent == YES)
+				pxInteractiveObjectListenToDoubleTap = YES;
+		}
+	}
+
+	return properlyAdded;
+}
+
+- (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
+{
+	BOOL properlyRemoved = [super removeEventListenerOfType:type listener:listener useCapture:useCapture];
+
+	BOOL isTapEvent = [type isEqualToString:PXTouchEvent_Tap];
+	BOOL isDoubleTapEvent = [type isEqualToString:PXTouchEvent_DoubleTap];
+
+	BOOL stillHas = [self hasEventListenerOfType:type];
+
+	if (stillHas == NO)
+	{
+		if (isTapEvent)
+			pxInteractiveObjectListenToTap = NO;
+		else if (isDoubleTapEvent)
+			pxInteractiveObjectListenToDoubleTap = NO;
+
+		if (pxInteractiveObjectAddedListeners == YES && pxInteractiveObjectListenToTap == NO && pxInteractiveObjectListenToDoubleTap == NO)
+		{
+			pxInteractiveObjectAddedListeners = NO;
+
+			[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxInteractiveObjectOnTouchDown   useCapture:useCapture];
+			[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxInteractiveObjectOnTouchUp     useCapture:useCapture];
+			[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxInteractiveObjectOnTouchCancel useCapture:useCapture];
+
+			CFDictionaryRemoveAllValues(pxInteractiveObjectTouchDictionary);
+		}
+	}
+
+	return properlyRemoved;
+}
+
+- (void) pxInteractiveObjectOnTouchDown:(PXTouchEvent *)event
+{
+	// Do not check if the event phase is equal to target. Why? Because they may
+	// also have a touch down listener that will interfere with this.
+
+	CFDictionarySetValue(pxInteractiveObjectTouchDictionary, event.nativeTouch, event);
+}
+- (void) pxInteractiveObjectOnTouchUp:(PXTouchEvent *)event
+{
+	PXTouchEvent *oldEvent = (PXTouchEvent *)CFDictionaryGetValue(pxInteractiveObjectTouchDictionary, event.nativeTouch);
+
+	if (oldEvent != nil)
+	{
+		[self pxInteractiveObjectOnTouchCancel:event];
+
+		PXPoint *oldPosition = oldEvent.stagePosition;
+		PXPoint *newPosition = event.stagePosition;
+
+		float distance = [PXPoint distanceBetweenPointA:oldPosition pointB:newPosition];
+
+		if (distance < PXEngineTouchRadius)
+		{
+			UITouch *touch = event.nativeTouch;
+			unsigned tapCount = touch.tapCount;
+
+			PXTouchEvent *event;
+
+			if (pxInteractiveObjectListenToTap == YES)
+			{
+				event = [[PXTouchEvent alloc] initWithType:PXTouchEvent_Tap
+											   nativeTouch:touch
+													stageX:newPosition.x
+													stageY:newPosition.y
+												  tapCount:tapCount];
+
+				event->_target = self;
+				[self dispatchEvent:event];
+				[event release];
+			}
+
+			if (pxInteractiveObjectListenToDoubleTap == YES && self.doubleTapEnabled == YES && tapCount == 2)
+			{
+				event = [[PXTouchEvent alloc] initWithType:PXTouchEvent_DoubleTap
+											   nativeTouch:touch
+													stageX:newPosition.x
+													stageY:newPosition.y
+												  tapCount:tapCount];
+
+				event->_target = self;
+				[self dispatchEvent:event];
+				[event release];
+			}
+		}
+	}
+}
+- (void) pxInteractiveObjectOnTouchCancel:(PXTouchEvent *)event
+{
+	CFDictionaryRemoveValue(pxInteractiveObjectTouchDictionary, event.nativeTouch);
 }
 
 @end

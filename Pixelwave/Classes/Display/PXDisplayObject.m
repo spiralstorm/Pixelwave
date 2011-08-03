@@ -1005,7 +1005,7 @@ static unsigned _pxDisplayObjectCount = 0;
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
 	BOOL shouldAddEngineListener = NO;
-	
+
 	// If this is an ENTER_FRAME event, and I'm not already listening on the engine
 	// then add me
 	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
@@ -1015,30 +1015,37 @@ static unsigned _pxDisplayObjectCount = 0;
 			shouldAddEngineListener = YES;
 		}
 	}
-	
+
 	BOOL added = [super addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
-	
-	if(!added) return NO;
-	
-	if(shouldAddEngineListener){
-		if (!PXEngineIsInitialized( ))
+
+	if (!added)
+	{
+		return NO;
+	}
+
+	if (shouldAddEngineListener)
+	{
+		if (!PXEngineIsInitialized())
 		{
 			PXThrow(PXException, @"Can't add enterFrame event before a PXView is created.");
 			return NO;
 		}
-		
+
 		PXEngineAddFrameListener(self);
 	}
-	
+
 	return YES;
 }
 
 - (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
 {
 	BOOL removed = [super removeEventListenerOfType:type listener:listener useCapture:useCapture];
-	
-	if(!removed) return NO;
-	
+
+	if (!removed)
+	{
+		return NO;
+	}
+
 	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
 	{
 		// If nothing else needs to recieve enter frame events from the engine
@@ -1048,7 +1055,7 @@ static unsigned _pxDisplayObjectCount = 0;
 			PXEngineRemoveFrameListener(self);
 		}
 	}
-	
+
 	return YES;
 }
 

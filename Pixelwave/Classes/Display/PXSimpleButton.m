@@ -46,6 +46,14 @@
 #include "PXEngine.h"
 #include "PXPrivateUtils.h"
 
+/// @cond DX_IGNORE
+@interface PXSimpleButton(Private)
+- (void) pxSimpleButtonOnTouchDown:(PXTouchEvent *)event;
+- (void) pxSimpleButtonOnTouchUp:(PXTouchEvent *)event;
+- (void) pxSimpleButtonOnTouchCancel:(PXTouchEvent *)event;
+@end
+/// @endcond
+
 /**
  *	@ingroup Display
  *
@@ -67,7 +75,10 @@
  */
 @implementation PXSimpleButton
 
-@synthesize downState, upState, hitTestState, enabled;
+@synthesize downState;
+@synthesize upState;
+@synthesize hitTestState;
+@synthesize enabled;
 
 - (id) init
 {
@@ -138,6 +149,10 @@
 		visibleState = _PXSimpleButtonVisibleState_Up;
 
 		listOfTouches = [[PXLinkedList alloc] init];
+
+		pxSimpleButtonOnTouchDown   = [PXListener(pxSimpleButtonOnTouchDown:)   retain];
+		pxSimpleButtonOnTouchUp     = [PXListener(pxSimpleButtonOnTouchUp:)     retain];
+		pxSimpleButtonOnTouchCancel = [PXListener(pxSimpleButtonOnTouchCancel:) retain];
 	}
 
 	return self;
@@ -150,6 +165,10 @@
 	self.downState = nil;
 	self.upState = nil;
 	self.hitTestState = nil;
+
+	[pxSimpleButtonOnTouchDown   release];
+	[pxSimpleButtonOnTouchUp     release];
+	[pxSimpleButtonOnTouchCancel release];
 
 	[super dealloc];
 }
@@ -173,6 +192,16 @@
 		[self addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(pxSimpleButtonTouchUp:)];
 		[self addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(pxSimpleButtonTouchUp:)];
 	}
+}
+
+- (void) pxSimpleButtonOnTouchDown:(PXTouchEvent *)event
+{
+}
+- (void) pxSimpleButtonOnTouchUp:(PXTouchEvent *)event
+{
+}
+- (void) pxSimpleButtonOnTouchCancel:(PXTouchEvent *)event
+{
 }
 
 - (void) pxSimpleButtonTouchDown:(PXTouchEvent *)event
