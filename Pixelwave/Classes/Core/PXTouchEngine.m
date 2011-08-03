@@ -431,7 +431,7 @@ void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol>
 	if (count <= 0)
 		return;
 
-	if ([capturingObject isKindOfClass:PXDisplayObject.class])
+	if ([capturingObject isKindOfClass:[PXDisplayObject class]])
 	{
 		PXDisplayObject *displayObject = (PXDisplayObject *)capturingObject;
 
@@ -467,6 +467,12 @@ void PXTouchEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispat
 	// Only do work if the object is actually changing
 	if (originalObject != capturingObject)
 	{
+		if ([capturingObject isKindOfClass:[PXDisplayObject class]])
+		{
+			if (((PXDisplayObject *)(capturingObject)).stage == nil)
+				return;
+		}
+
 		// Send out a cancel event on the OLD object.
 		PXTouchEngineCancelTouch(nativeTouch);
 

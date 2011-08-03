@@ -49,7 +49,6 @@ PXExtern NSString * const PXTouchEvent_DoubleTap;
 PXExtern NSString * const PXTouchEvent_TouchDown;
 PXExtern NSString * const PXTouchEvent_TouchMove;
 PXExtern NSString * const PXTouchEvent_TouchUp;
-//PXExtern NSString * const PXTouchEvent_TouchOut;
 PXExtern NSString * const PXTouchEvent_TouchCancel;
 
 @interface PXTouchEvent : PXEvent <NSCopying, PXPooledObject>

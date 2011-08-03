@@ -46,17 +46,19 @@
 	BOOL _doubleTapEnabled;
 	BOOL _touchEnabled;
 	BOOL _captureTouches;
+
+	// For listening to tap and double tap events.
 @private
-	BOOL pxInteractiveObjectListenToTap;
-	BOOL pxInteractiveObjectListenToDoubleTap;
-	BOOL pxInteractiveObjectAddedListeners;
+	BOOL listenToTap;
+	BOOL listenToDoubleTap;
+	BOOL addedListeners;
 
-	PXEventListener *pxInteractiveObjectOnTouchDown;
-	PXEventListener *pxInteractiveObjectOnTouchUp;
-	PXEventListener *pxInteractiveObjectOnTouchCancel;
+	PXEventListener *onTouchDown;
+	PXEventListener *onTouchUp;
+	PXEventListener *onTouchCancel;
 
-	CFMutableDictionaryRef pxInteractiveObjectTouchDictionary;
-	PXLinkedList *pxInteractiveObjectTouchUpList;
+	PXLinkedList *touchList;
+	PXLinkedList *touchUpHistoryList;
 /// @endcond
 }
 

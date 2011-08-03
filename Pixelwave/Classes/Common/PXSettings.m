@@ -44,6 +44,8 @@
 const float PXEngineTouchRadius = PX_ENGINE_TOUCH_RADIUS;
 const float PXEngineTouchRadiusSquared = PX_ENGINE_TOUCH_RADIUS * PX_ENGINE_TOUCH_RADIUS;
 
+const float PXEngineTapDuration = 0.2f;
+
 NSString * const PXTextFieldDefaultFont = @"Helvetica";
 
 PXVersion pxVersion = {0, 10, 1};
