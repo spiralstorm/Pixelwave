@@ -47,6 +47,7 @@
 #import "PXTouchEvent.h"
 #import "PXEvent.h"
 #import "PXPoint.h"
+#import "PXLinkedList.h"
 
 /// @cond DX_IGNORE
 @interface PXInteractiveObject(Private)
@@ -84,7 +85,8 @@
 		pxInteractiveObjectOnTouchCancel = [PXListener(pxInteractiveObjectOnTouchCancel:) retain];
 
 		pxInteractiveObjectAddedListeners = NO;
-		pxInteractiveObjectTouchDictionary = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+		pxInteractiveObjectTouchDictionary   = CFDictionaryCreateMutable(NULL, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+		pxInteractiveObjectTouchUpList = [[PXLinkedList alloc] init];
 	}
 
 	return self;
@@ -104,6 +106,8 @@
 		CFRelease(pxInteractiveObjectTouchDictionary);
 		pxInteractiveObjectTouchDictionary = NULL;
 	}
+
+	[pxInteractiveObjectTouchUpList release];
 
 	[pxInteractiveObjectOnTouchDown   release];
 	[pxInteractiveObjectOnTouchUp     release];
@@ -200,49 +204,68 @@
 {
 	PXTouchEvent *oldEvent = (PXTouchEvent *)CFDictionaryGetValue(pxInteractiveObjectTouchDictionary, event.nativeTouch);
 
-	if (oldEvent != nil)
+	if (oldEvent == nil)
+		return;
+
+	[self pxInteractiveObjectOnTouchCancel:event];
+
+	if (self != [PXStage mainStage] && event.insideTarget == NO)
+		return;
+
+	UITouch *touch = event.nativeTouch;
+	unsigned tapCount = 1;
+
+	PXPoint *oldPosition;
+	float distance;
+
+	PXPoint *touchPosition = event.stagePosition;
+	
+	for (PXTouchEvent *checkEvent in pxInteractiveObjectTouchUpList)
 	{
-		[self pxInteractiveObjectOnTouchCancel:event];
-
-		PXPoint *oldPosition = oldEvent.stagePosition;
-		PXPoint *newPosition = event.stagePosition;
-
-		float distance = [PXPoint distanceBetweenPointA:oldPosition pointB:newPosition];
-
+		oldPosition = checkEvent.stagePosition;
+		distance = [PXPoint distanceBetweenPointA:oldPosition pointB:touchPosition];
+		
 		if (distance < PXEngineTouchRadius)
 		{
-			UITouch *touch = event.nativeTouch;
-			unsigned tapCount = touch.tapCount;
+			tapCount = checkEvent.tapCount + 1;
 
-			PXTouchEvent *event;
+			[pxInteractiveObjectTouchUpList removeObject:checkEvent];
 
-			if (pxInteractiveObjectListenToTap == YES)
-			{
-				event = [[PXTouchEvent alloc] initWithType:PXTouchEvent_Tap
-											   nativeTouch:touch
-													stageX:newPosition.x
-													stageY:newPosition.y
-												  tapCount:tapCount];
-
-				event->_target = self;
-				[self dispatchEvent:event];
-				[event release];
-			}
-
-			if (pxInteractiveObjectListenToDoubleTap == YES && self.doubleTapEnabled == YES && tapCount == 2)
-			{
-				event = [[PXTouchEvent alloc] initWithType:PXTouchEvent_DoubleTap
-											   nativeTouch:touch
-													stageX:newPosition.x
-													stageY:newPosition.y
-												  tapCount:tapCount];
-
-				event->_target = self;
-				[self dispatchEvent:event];
-				[event release];
-			}
+			break;
 		}
 	}
+
+	PXTouchEvent *sendEvent;
+
+	if (pxInteractiveObjectListenToTap == YES)
+	{
+		sendEvent = [[PXTouchEvent alloc] initWithType:PXTouchEvent_Tap
+										   nativeTouch:touch
+												stageX:touchPosition.x
+												stageY:touchPosition.y
+											  tapCount:tapCount];
+
+		sendEvent->_target = self;
+		[self dispatchEvent:sendEvent];
+		[sendEvent release];
+	}
+
+	if (pxInteractiveObjectListenToDoubleTap == YES && self.doubleTapEnabled == YES && tapCount == 2)
+	{
+		sendEvent = [[PXTouchEvent alloc] initWithType:PXTouchEvent_DoubleTap
+										   nativeTouch:touch
+												stageX:touchPosition.x
+												stageY:touchPosition.y
+											  tapCount:tapCount];
+
+		sendEvent->_target = self;
+		[self dispatchEvent:sendEvent];
+		[sendEvent release];
+	}
+
+	event->_tapCount = tapCount;
+	[pxInteractiveObjectTouchUpList addObject:event];
+	[pxInteractiveObjectTouchUpList performSelector:@selector(removeObject:) withObject:event afterDelay:0.2f];
 }
 - (void) pxInteractiveObjectOnTouchCancel:(PXTouchEvent *)event
 {

@@ -50,6 +50,7 @@
 @interface PXSimpleButton(Private)
 - (void) pxSimpleButtonOnTouchDown:(PXTouchEvent *)event;
 - (void) pxSimpleButtonOnTouchUp:(PXTouchEvent *)event;
+- (void) pxSimpleBuuttonOnTouchMove:(PXTouchEvent *)event;
 - (void) pxSimpleButtonOnTouchCancel:(PXTouchEvent *)event;
 @end
 /// @endcond
@@ -152,6 +153,7 @@
 
 		pxSimpleButtonOnTouchDown   = [PXListener(pxSimpleButtonOnTouchDown:)   retain];
 		pxSimpleButtonOnTouchUp     = [PXListener(pxSimpleButtonOnTouchUp:)     retain];
+		pxSimpleButtonOnTouchMove   = [PXListener(pxSimpleBuuttonOnTouchMove:)  retain];
 		pxSimpleButtonOnTouchCancel = [PXListener(pxSimpleButtonOnTouchCancel:) retain];
 	}
 
@@ -168,6 +170,7 @@
 
 	[pxSimpleButtonOnTouchDown   release];
 	[pxSimpleButtonOnTouchUp     release];
+	[pxSimpleButtonOnTouchMove   release];
 	[pxSimpleButtonOnTouchCancel release];
 
 	[super dealloc];
@@ -177,34 +180,26 @@
 {
 	if (hitTestState)
 	{
-		[self removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(pxSimpleButtonTouchDown:)];
-		[self removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(pxSimpleButtonTouchUp:)];
-		[self removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(pxSimpleButtonTouchUp:)];
+		[self removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSimpleButtonOnTouchDown];
+		[self removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSimpleButtonOnTouchUp];
+		[self removeEventListenerOfType:PXTouchEvent_TouchMove   listener:pxSimpleButtonOnTouchMove];
+		[self removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxSimpleButtonOnTouchCancel];
 	}
-	
+
 	[newState retain];
 	[hitTestState release];
 	hitTestState = newState;
 
 	if (hitTestState)
 	{
-		[self addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(pxSimpleButtonTouchDown:)];
-		[self addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(pxSimpleButtonTouchUp:)];
-		[self addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(pxSimpleButtonTouchUp:)];
+		[self addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSimpleButtonOnTouchDown];
+		[self addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSimpleButtonOnTouchUp];
+		[self addEventListenerOfType:PXTouchEvent_TouchMove   listener:pxSimpleButtonOnTouchMove];
+		[self addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxSimpleButtonOnTouchCancel];
 	}
 }
 
 - (void) pxSimpleButtonOnTouchDown:(PXTouchEvent *)event
-{
-}
-- (void) pxSimpleButtonOnTouchUp:(PXTouchEvent *)event
-{
-}
-- (void) pxSimpleButtonOnTouchCancel:(PXTouchEvent *)event
-{
-}
-
-- (void) pxSimpleButtonTouchDown:(PXTouchEvent *)event
 {
 	if (event.eventPhase != PXEventPhase_Target)
 		return;
@@ -213,8 +208,22 @@
 
 	visibleState = _PXSimpleButtonVisibleState_Down;
 }
-
-- (void) pxSimpleButtonTouchUp:(PXTouchEvent *)event
+- (void) pxSimpleButtonOnTouchUp:(PXTouchEvent *)event
+{
+	[self pxSimpleButtonOnTouchCancel:event];
+}
+- (void) pxSimpleBuuttonOnTouchMove:(PXTouchEvent *)event
+{
+	if (event.insideTarget == YES)
+	{
+		visibleState = _PXSimpleButtonVisibleState_Down;
+	}
+	else
+	{
+		visibleState = _PXSimpleButtonVisibleState_Up;
+	}
+}
+- (void) pxSimpleButtonOnTouchCancel:(PXTouchEvent *)event
 {
 	[listOfTouches removeObject:event.nativeTouch];
 

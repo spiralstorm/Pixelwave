@@ -63,6 +63,7 @@ typedef enum
 @private
 	PXEventListener *pxSimpleButtonOnTouchDown;
 	PXEventListener *pxSimpleButtonOnTouchUp;
+	PXEventListener *pxSimpleButtonOnTouchMove;
 	PXEventListener *pxSimpleButtonOnTouchCancel;
 /// @endcond
 }

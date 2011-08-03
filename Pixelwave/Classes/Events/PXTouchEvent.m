@@ -123,13 +123,16 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	// TODO: Is this valid? does it return a TouchEvent???
-	PXTouchEvent *event = [super copyWithZone:zone];
+	PXEvent *event = [[[self class] allocWithZone:zone] initWithType:_type nativeTouch:_nativeTouch stageX:_stageX stageY:_stageY tapCount:_tapCount];
+	event->_currentTarget = _currentTarget;
+	event->_target = _target;
+	event->_eventPhase = _eventPhase;
 
-	[event setNativeTouch:_nativeTouch];
-	event->_tapCount = _tapCount;
-	event->_stageX = _stageX;
-	event->_stageY = _stageY;
+	event->_defaultPrevented = _defaultPrevented;
+	event->_stopPropegationLevel = _stopPropegationLevel;
+
+	event->_bubbles = _bubbles;
+	event->_cancelable = _cancelable;
 
 	return event;
 }

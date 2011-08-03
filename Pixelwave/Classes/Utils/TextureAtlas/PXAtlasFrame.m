@@ -150,10 +150,11 @@
 
 	self.anchor = nil;
 	self.padding = nil;
-	
+
 	[super dealloc];
 }
 
+#pragma mark -
 #pragma mark Properties
 #pragma mark -
 
@@ -164,10 +165,10 @@
 		PXThrowNilParam(textureData);
 		return;
 	}
-	
+
 	[val retain];
 	[textureData release];
-	
+
 	textureData = val;
 }
 
@@ -178,10 +179,10 @@
 		PXThrowNilParam(clipRect);
 		return;
 	}
-	
+
 	val = [val copy];
 	[clipRect release];
-	
+
 	clipRect = val;
 }
 - (PXClipRect *)clipRect
@@ -189,13 +190,13 @@
 	return [[clipRect copy] autorelease];
 }
 
+#pragma mark -
 #pragma mark Methods
 #pragma mark -
 
 /**
- *	A utility method for quickly updating the
- *	given PXTexture object to represent
- *	this frame's sub-image.
+ *	A utility method for quickly updating the given PXTexture object to
+ *	represent this frame's sub-image.
  */
 - (void) setToTexture:(PXTexture *)texture
 {
@@ -216,8 +217,8 @@
 #pragma mark Utility Methods
 
 /**
- *	A utility method for quicly creating a PXAtlasFrame
- *	object with the given parameters.
+ *	A utility method for quicly creating a PXAtlasFrame object with the given
+ *	parameters.
  *
  *	@param clipRect
  *		The position and area (in points) of the sub-image within the master
@@ -225,11 +226,12 @@
  *	@param textureData
  *		The PXTextureData within which this sub-image is contained.
  *	@param anchor
- *		The anchor point to be assigned to this sub-image when extracted from the texture atlas.
- *		pass <code>nil</code> for the default value (<code>{0, 0}</code>).
+ *		The anchor point to be assigned to this sub-image when extracted from
+ *		the texture atlas. Pass <code>nil</code> for the default value
+ *		(<code>{0, 0}</code>).
  *	@param padding
- *		The amount of padding (white space) that should exists around the sub-image
- *		when extracted from the texture atlas.
+ *		The amount of padding (white space) that should exists around the
+ *		sub-image when extracted from the texture atlas.
  *
  *	@return
  *		An auto-released PXAtlasFrame object with the given parameters.
@@ -251,11 +253,11 @@
  *	@param textureData
  *		The PXTextureData within which this sub-image is contained.
  *	@param anchorX
- *		The anchorX amount (in percent) to be assigned to this sub-image
- *		when extracted from the texture atlas.
+ *		The anchorX amount (in percent) to be assigned to this sub-image when
+ *		extracted from the texture atlas.
  *	@param anchorY
- *		The anchorY amount (in percent) to be assigned to this sub-image
- *		when extracted from the texture atlas.
+ *		The anchorY amount (in percent) to be assigned to this sub-image when
+ *		extracted from the texture atlas.
  *
  *	@return
  *		An auto-released PXAtlasFrame object with the given parameters.
@@ -268,8 +270,7 @@
 {
 	return [[[PXAtlasFrame alloc] initWithClipRect:clipRect
 									   textureData:textureData
-											anchor:[PXPoint pointWithX:anchorX
-																  y:anchorY]] autorelease];
+											anchor:[PXPoint pointWithX:anchorX y:anchorY]] autorelease];
 }
 
 @end

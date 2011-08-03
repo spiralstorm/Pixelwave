@@ -56,6 +56,7 @@
 	PXEventListener *pxInteractiveObjectOnTouchCancel;
 
 	CFMutableDictionaryRef pxInteractiveObjectTouchDictionary;
+	PXLinkedList *pxInteractiveObjectTouchUpList;
 /// @endcond
 }
 
