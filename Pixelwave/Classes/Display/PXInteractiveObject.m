@@ -85,9 +85,9 @@
 
 		// Grab the listener and retain it. They are autoreleased, thus at the
 		// end of this function w/o a retain they would evaporate.
-		onTouchDown   = [PXListener(pxInteractiveObjectOnTouchDown:)   retain];
-		onTouchUp     = [PXListener(pxInteractiveObjectOnTouchUp:)     retain];
-		onTouchCancel = [PXListener(pxInteractiveObjectOnTouchCancel:) retain];
+		pxIOOnTouchDown   = [PXListener(pxInteractiveObjectOnTouchDown:)   retain];
+		pxIOOnTouchUp     = [PXListener(pxInteractiveObjectOnTouchUp:)     retain];
+		pxIOOnTouchCancel = [PXListener(pxInteractiveObjectOnTouchCancel:) retain];
 
 		// We have not added the listeners yet, just gotten pointers to them.
 		addedListeners = NO;
@@ -100,9 +100,9 @@
 {
 	if (addedListeners == YES)
 	{
-		[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:onTouchDown];
-		[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:onTouchUp];
-		[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:onTouchCancel];
+		[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown];
+		[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp];
+		[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel];
 	}
 
 	[touchList release];
@@ -111,12 +111,12 @@
 	[touchUpHistoryList release];
 	touchUpHistoryList = nil;
 
-	[onTouchDown release];
-	onTouchDown = nil;
-	[onTouchUp release];
-	onTouchUp = nil;
-	[onTouchCancel release];
-	onTouchCancel = nil;
+	[pxIOOnTouchDown release];
+	pxIOOnTouchDown = nil;
+	[pxIOOnTouchUp release];
+	pxIOOnTouchUp = nil;
+	[pxIOOnTouchCancel release];
+	pxIOOnTouchCancel = nil;
 
 	[super dealloc];
 }
@@ -149,9 +149,9 @@
 			addedListeners = YES;
 
 			// Ensure that each of these listeners was added properly
-			BOOL properlyAddedDown   = [super addEventListenerOfType:PXTouchEvent_TouchDown   listener:onTouchDown   useCapture:useCapture priority:priority];
-			BOOL properlyAddedUp     = [super addEventListenerOfType:PXTouchEvent_TouchUp     listener:onTouchUp     useCapture:useCapture priority:priority];
-			BOOL properlyAddedCancel = [super addEventListenerOfType:PXTouchEvent_TouchCancel listener:onTouchCancel useCapture:useCapture priority:priority];
+			BOOL properlyAddedDown   = [super addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown   useCapture:useCapture priority:priority];
+			BOOL properlyAddedUp     = [super addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp     useCapture:useCapture priority:priority];
+			BOOL properlyAddedCancel = [super addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:useCapture priority:priority];
 
 			// A generic value to see if everything was added properly
 			properlyAdded = (properlyAddedDown == YES) && (properlyAddedUp == YES) && (properlyAddedCancel == YES);
@@ -163,11 +163,11 @@
 				[super removeEventListenerOfType:type listener:listener useCapture:useCapture];
 
 				if (properlyAddedDown == YES)
-					[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:onTouchDown   useCapture:useCapture];
+					[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown   useCapture:useCapture];
 				if (properlyAddedUp == YES)
-					[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:onTouchUp     useCapture:useCapture];
+					[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp     useCapture:useCapture];
 				if (properlyAddedCancel == YES)
-					[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:onTouchCancel useCapture:useCapture];
+					[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:useCapture];
 
 				// The listeners are no longer added
 				addedListeners = NO;
@@ -238,9 +238,9 @@
 			addedListeners = NO;
 
 			// Remove the listeners
-			[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:onTouchDown   useCapture:useCapture];
-			[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:onTouchUp     useCapture:useCapture];
-			[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:onTouchCancel useCapture:useCapture];
+			[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown   useCapture:useCapture];
+			[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp     useCapture:useCapture];
+			[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:useCapture];
 
 			// Free the lists
 			[touchList release];

@@ -61,10 +61,10 @@ typedef enum
 
 	BOOL enabled;
 @private
-	PXEventListener *pxSimpleButtonOnTouchDown;
-	PXEventListener *pxSimpleButtonOnTouchUp;
-	PXEventListener *pxSimpleButtonOnTouchMove;
-	PXEventListener *pxSimpleButtonOnTouchCancel;
+	PXEventListener *pxSBOnTouchDown;
+	PXEventListener *pxSBOnTouchUp;
+	PXEventListener *pxSBOnTouchMove;
+	PXEventListener *pxSBOnTouchCancel;
 /// @endcond
 }
 

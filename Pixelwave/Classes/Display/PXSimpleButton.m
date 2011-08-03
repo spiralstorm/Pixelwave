@@ -151,10 +151,10 @@
 
 		listOfTouches = [[PXLinkedList alloc] init];
 
-		pxSimpleButtonOnTouchDown   = [PXListener(pxSimpleButtonOnTouchDown:)   retain];
-		pxSimpleButtonOnTouchUp     = [PXListener(pxSimpleButtonOnTouchUp:)     retain];
-		pxSimpleButtonOnTouchMove   = [PXListener(pxSimpleBuuttonOnTouchMove:)  retain];
-		pxSimpleButtonOnTouchCancel = [PXListener(pxSimpleButtonOnTouchCancel:) retain];
+		pxSBOnTouchDown   = [PXListener(pxSimpleButtonOnTouchDown:)   retain];
+		pxSBOnTouchUp     = [PXListener(pxSimpleButtonOnTouchUp:)     retain];
+		pxSBOnTouchMove   = [PXListener(pxSimpleBuuttonOnTouchMove:)  retain];
+		pxSBOnTouchCancel = [PXListener(pxSimpleButtonOnTouchCancel:) retain];
 	}
 
 	return self;
@@ -168,10 +168,10 @@
 	self.upState = nil;
 	self.hitTestState = nil;
 
-	[pxSimpleButtonOnTouchDown   release];
-	[pxSimpleButtonOnTouchUp     release];
-	[pxSimpleButtonOnTouchMove   release];
-	[pxSimpleButtonOnTouchCancel release];
+	[pxSBOnTouchDown   release];
+	[pxSBOnTouchUp     release];
+	[pxSBOnTouchMove   release];
+	[pxSBOnTouchCancel release];
 
 	[super dealloc];
 }
@@ -180,10 +180,10 @@
 {
 	if (hitTestState)
 	{
-		[self removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSimpleButtonOnTouchDown];
-		[self removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSimpleButtonOnTouchUp];
-		[self removeEventListenerOfType:PXTouchEvent_TouchMove   listener:pxSimpleButtonOnTouchMove];
-		[self removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxSimpleButtonOnTouchCancel];
+		[self removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSBOnTouchDown];
+		[self removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSBOnTouchUp];
+		[self removeEventListenerOfType:PXTouchEvent_TouchMove   listener:pxSBOnTouchMove];
+		[self removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxSBOnTouchCancel];
 	}
 
 	[newState retain];
@@ -192,10 +192,10 @@
 
 	if (hitTestState)
 	{
-		[self addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSimpleButtonOnTouchDown];
-		[self addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSimpleButtonOnTouchUp];
-		[self addEventListenerOfType:PXTouchEvent_TouchMove   listener:pxSimpleButtonOnTouchMove];
-		[self addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxSimpleButtonOnTouchCancel];
+		[self addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSBOnTouchDown];
+		[self addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSBOnTouchUp];
+		[self addEventListenerOfType:PXTouchEvent_TouchMove   listener:pxSBOnTouchMove];
+		[self addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxSBOnTouchCancel];
 	}
 }
 

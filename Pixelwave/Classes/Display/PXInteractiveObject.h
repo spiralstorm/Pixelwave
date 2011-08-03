@@ -53,9 +53,9 @@
 	BOOL listenToDoubleTap;
 	BOOL addedListeners;
 
-	PXEventListener *onTouchDown;
-	PXEventListener *onTouchUp;
-	PXEventListener *onTouchCancel;
+	PXEventListener *pxIOOnTouchDown;
+	PXEventListener *pxIOOnTouchUp;
+	PXEventListener *pxIOOnTouchCancel;
 
 	PXLinkedList *touchList;
 	PXLinkedList *touchUpHistoryList;
