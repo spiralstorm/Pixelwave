@@ -50,6 +50,8 @@
 #import "PXLinkedList.h"
 
 /// @cond DX_IGNORE
+// We give these methods names that hopefully won't be used by the user.
+// If the user defines these and overrides them shit will get real.
 @interface PXInteractiveObject(Private)
 - (void) pxInteractiveObjectOnTouchDown:(PXTouchEvent *)event;
 - (void) pxInteractiveObjectOnTouchUp:(PXTouchEvent *)event;

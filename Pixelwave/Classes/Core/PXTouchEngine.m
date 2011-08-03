@@ -238,7 +238,13 @@ void PXTouchEngineDispatchTouchEvents()
 		{
 			eventType = event.type;
 
-			// Find what type of touch even this is
+			didTouchUp     = false;
+			didTouchCancel = false;
+			didTouchDown   = false;
+			didTouchUpOrCancel = false;
+
+			// Find what type of touch even this is. Since string comparison
+			// isn't cheap, we do a lazy check.
 			didTouchDown = [eventType isEqualToString:PXTouchEvent_TouchDown];
 			if (!didTouchDown)
 			{
@@ -295,6 +301,9 @@ void PXTouchEngineDispatchTouchEvents()
 			if (!target)
 				target = pxEngineStage;
 
+			// If a touch was lifted (up) or canceled by UIKit (cancel), it needs to
+			// be deassociated from anything that captured it because it's likely to
+			// not exist anymore (and even if it still exists, we can't track it).
 			if (didTouchUpOrCancel)
 				CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, captureKey);
 
@@ -304,6 +313,10 @@ void PXTouchEngineDispatchTouchEvents()
 	}
 	else
 	{
+		// This is an optimization. When the user sets stage.touchChildren == NO it means
+		// we can skip the regular touch dispatch flow through the hierarchy.
+		// Because of that, no touches can be captured again either (remember that stage never
+		// captures touches) so we cancel any touches that are currently captured by something.
 		PXLinkedListForEach(pxTouchEngineTouchEvents, event)
 		{
 			captureKey = event.nativeTouch;
@@ -313,7 +326,8 @@ void PXTouchEngineDispatchTouchEvents()
 			{
 				PXTouchEngineCancelTouch(captureKey);
 			}
-
+			
+			// At this point target = stage.
 			event->_target = target;
 			[target dispatchEvent:event];
 		}
@@ -393,7 +407,7 @@ void _PXTouchEngineRemoveAllTouchCapturesFromObjects(PXLinkedList *objects)
 	id<PXEventDispatcherProtocol> target;
 	UITouch *touch;
 
-	id<PXEventDispatcherProtocol> currentTarget;
+	//id<PXEventDispatcherProtocol> currentTarget;
 
 	// Loop through the dictionary and see if the object has any association
 	// with a touch; if it does, we need to cancel it.
@@ -409,21 +423,24 @@ void _PXTouchEngineRemoveAllTouchCapturesFromObjects(PXLinkedList *objects)
 
 		touch = (UITouch *)(*key);
 
-		for (currentTarget in objects)
+		if ([objects containsObject:target])
+//		for (currentTarget in objects)
 		{
-			if (currentTarget == target)
-			{
+//			if (currentTarget == target)
+//			{
 				PXTouchEngineCancelTouch(touch);
 
 				// You can not remove the current target from the list. It may
 				// have more then one association that needs to get taken care
 				// of, and the object will only appear once in the list.
-				break;
-			}
+				//break;
+//			}
 		}
 	}
 }
 
+// TODO: Comment me and my friends :)
+// talk about the rules we set.
 void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol> capturingObject)
 {
 	CFIndex count = CFDictionaryGetCount(pxEngineTouchCapturingObjects);
@@ -431,10 +448,13 @@ void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol>
 	if (count <= 0)
 		return;
 
+	// Rule: Display objects can't have touch events disptached on them by the
+	// system if they are not on the display list.
 	if ([capturingObject isKindOfClass:[PXDisplayObject class]])
 	{
 		PXDisplayObject *displayObject = (PXDisplayObject *)capturingObject;
 
+		// TODO: Use a pooled list
 		PXLinkedList *displayHierarchy = [[PXLinkedList alloc] init];
 		PXTouchEngineGetTouchDisplayHierarchy(displayObject, displayHierarchy);
 
@@ -450,6 +470,7 @@ void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol>
 		if (!CFDictionaryContainsValue(pxEngineTouchCapturingObjects, capturingObject))
 			return;
 
+		// TODO: Pool list
 		PXLinkedList *list = [[PXLinkedList alloc] init];
 		[list addObject:capturingObject];
 		_PXTouchEngineRemoveAllTouchCapturesFromObjects(list);
@@ -457,6 +478,7 @@ void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol>
 	}
 }
 
+// Only used by the user
 void PXTouchEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispatcherProtocol> capturingObject)
 {
 	if (!nativeTouch)
@@ -473,10 +495,12 @@ void PXTouchEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispat
 				return;
 		}
 
-		// Send out a cancel event on the OLD object.
-		PXTouchEngineCancelTouch(nativeTouch);
+		// Send out a cancel event on the OLD object, if one exists.
+		if (originalObject != NULL){
+			PXTouchEngineCancelTouch(nativeTouch);
+		}
 
-		// Change or remove the target
+		// Change the target
 		if (capturingObject)
 		{
 			CFDictionarySetValue(pxEngineTouchCapturingObjects, nativeTouch, capturingObject);

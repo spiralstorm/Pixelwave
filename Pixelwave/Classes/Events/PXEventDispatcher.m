@@ -366,6 +366,9 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	return YES;
 }
 
+// TODO: Change this up so that individual removeEventListener methods are called.
+// This way subclasses won't have to override this method to know when private event
+// listeners are removed when this method is called.
 /**
  *	Removes all of the event listeners.
  */
