@@ -43,16 +43,19 @@
 
 #import "PXStage.h"
 
-// TODO: Remove this
+// TODO Later: Remove these and their tap interaction - It should be a gesture.
 #import "PXTouchEvent.h"
 #import "PXEvent.h"
 #import "PXPoint.h"
 #import "PXLinkedList.h"
 
 /// @cond DX_IGNORE
-// We give these methods names that hopefully won't be used by the user.
-// If the user defines these and overrides them shit will get real.
+// We give these methods names that hopefully won't be used by the user. If the
+// user defines these and overrides them then we will not get proper interaction
+// of events and tap will fail.
 @interface PXInteractiveObject(Private)
+- (BOOL) pxInteractiveObjectAddListeners;
+- (void) pxInteractiveObjectRemoveListeners;
 - (void) pxInteractiveObjectOnTouchDown:(PXTouchEvent *)event;
 - (void) pxInteractiveObjectOnTouchUp:(PXTouchEvent *)event;
 - (void) pxInteractiveObjectOnTouchCancel:(PXTouchEvent *)event;
@@ -99,18 +102,7 @@
 
 - (void) dealloc
 {
-	if (addedListeners == YES)
-	{
-		[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown];
-		[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp];
-		[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel];
-	}
-
-	[touchList release];
-	touchList = nil;
-
-	[touchUpHistoryList release];
-	touchUpHistoryList = nil;
+	[self pxInteractiveObjectRemoveListeners];
 
 	[pxIOOnTouchDown release];
 	pxIOOnTouchDown = nil;
@@ -120,6 +112,72 @@
 	pxIOOnTouchCancel = nil;
 
 	[super dealloc];
+}
+
+- (BOOL) pxInteractiveObjectAddListeners
+{
+	// If the listeners were already added, we don't need to add them again.
+	// Return YES because the check for this is actaully just wondering if they
+	// were added ever, not just now.
+	if (addedListeners == YES)
+		return YES;
+
+	addedListeners = YES;
+
+	// add the listeners
+	BOOL addedDown   = [super addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown];
+	BOOL addedUp     = [super addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp];
+	BOOL addedCancel = [super addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel];
+	BOOL addedAll = addedDown && addedUp && addedCancel;
+
+	// If any of them failed to add, then we will have to remove any we added
+	// and inform them that it failed.
+	if (addedAll == NO)
+	{
+		addedListeners = NO;
+
+		if (addedDown)
+			[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown];
+		if (addedUp)
+			[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp];
+		if (addedCancel)
+			[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel];
+	}
+
+	// If they added correctly, we need to make our lists that store information
+	// required to keep track of the taps.
+	if (addedAll == YES)
+	{
+		if (touchList == NULL)
+		{
+			touchList = [[PXLinkedList alloc] init];
+		}
+		if (touchUpHistoryList == NULL)
+		{
+			touchUpHistoryList = [[PXLinkedList alloc] init];
+		}
+	}
+
+	return addedAll;
+}
+- (void) pxInteractiveObjectRemoveListeners
+{
+	// Do not need to remove the listeners if they weren't added.
+	if (addedListeners == NO)
+		return;
+
+	addedListeners = NO;
+
+	// Remove the listeners
+	[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown];
+	[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp];
+	[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel];
+
+	// Release the lists that keep track of the events to check for taps.
+	[touchList release];
+	touchList = nil;
+	[touchUpHistoryList release];
+	touchUpHistoryList = nil;
 }
 
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
@@ -141,46 +199,10 @@
 	// so we can convert up events into tap events if needed.
 	
 	// If we have not added the listeners, add them!
-	if (addedListeners == NO)
+	properlyAdded = [self pxInteractiveObjectAddListeners];
+	if (properlyAdded == NO)
 	{
-		addedListeners = YES;
-
-		// Ensure that each of these listeners was added properly
-		BOOL properlyAddedDown   = [super addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown   useCapture:useCapture priority:priority];
-		BOOL properlyAddedUp     = [super addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp     useCapture:useCapture priority:priority];
-		BOOL properlyAddedCancel = [super addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:useCapture priority:priority];
-
-		// A generic value to see if everything was added properly
-		properlyAdded = (properlyAddedDown == YES) && (properlyAddedUp == YES) && (properlyAddedCancel == YES);
-
-		// If something failed adding, then we must remove everything and
-		// inform the user of failure!
-		if (properlyAdded == NO)
-		{
-			[super removeEventListenerOfType:type listener:listener useCapture:useCapture];
-
-			if (properlyAddedDown == YES)
-				[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown   useCapture:useCapture];
-			if (properlyAddedUp == YES)
-				[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp     useCapture:useCapture];
-			if (properlyAddedCancel == YES)
-				[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:useCapture];
-
-			// The listeners are no longer added
-			addedListeners = NO;
-		}
-		else
-		{
-			// Everything was added properly, we need to create our lists.
-			if (touchList == NULL)
-			{
-				touchList = [[PXLinkedList alloc] init];
-			}
-			if (touchUpHistoryList == NULL)
-			{
-				touchUpHistoryList = [[PXLinkedList alloc] init];
-			}
-		}
+		[super removeEventListenerOfType:type listener:listener useCapture:useCapture];
 	}
 
 	// If we added the listeners, and everything was properly added then we
@@ -219,24 +241,7 @@
 	{
 		listenToTap = NO;
 
-		// They both need to be off for us to remove our listeners. This is the
-		// second step of the test.
-		if (addedListeners == YES)
-		{
-			addedListeners = NO;
-
-			// Remove the listeners
-			[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown   useCapture:useCapture];
-			[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp     useCapture:useCapture];
-			[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:useCapture];
-
-			// Free the lists
-			[touchList release];
-			touchList = nil;
-
-			[touchUpHistoryList release];
-			touchUpHistoryList = nil;
-		}
+		[self pxInteractiveObjectRemoveListeners];
 	}
 
 	// Return to them the overall result

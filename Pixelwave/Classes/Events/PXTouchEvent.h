@@ -124,4 +124,3 @@ PXExtern NSString * const PXTouchEvent_TouchCancel;
 			 stageY:(float)stageY
 		   tapCount:(unsigned)tapCount;
 @end
-
