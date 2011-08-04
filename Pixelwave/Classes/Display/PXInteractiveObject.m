@@ -248,6 +248,16 @@
 	return properlyRemoved;
 }
 
+// A workaround to the fact that the original removeAllEventListeners
+// is a bit broken.
+// TODO: Once it's fixed this method should be deleted.
+- (void) removeAllEventListeners
+{
+	[self pxInteractiveObjectRemoveListeners];
+	
+	[super removeAllEventListeners];
+}
+
 - (void) pxInteractiveObjectOnTouchDown:(PXTouchEvent *)event
 {
 	// Only add the touch if we are the target of it, this way we do not add it

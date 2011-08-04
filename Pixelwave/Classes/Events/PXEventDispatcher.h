@@ -173,6 +173,10 @@
 // Event Dispatcher //
 //////////////////////
 
+// TODO Later: Keep all the capture phase listeners in a separate
+// dictionary instead of doing string contcatenation with the keys
+// of a single dictionary.
+
 @interface PXEventDispatcher : NSObject <PXEventDispatcherProtocol>
 {
 /// @cond DX_IGNORE
@@ -180,8 +184,7 @@
 	id<PXEventDispatcherProtocol> target;
 
 	NSMutableDictionary *eventListeners;
-
-	//PXLinkedList *cachedListeners;
+	
 	BOOL dispatchEvents;
 /// @endcond
 }
