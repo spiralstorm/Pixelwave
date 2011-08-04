@@ -67,7 +67,7 @@ void PXTouchEngineDealloc()
  *	reverse order, looking for the most immediate target of a touch event, and
  *	then traverses up the display hierarchy until it finds an interactive object
  *	for which touches are enabled.
- *		- Beken, Pixelwave forums
+ *		- Bekenn, Pixelwave forums
  *
  *	Returns the displayObject that should recieve the event (could be nil)
  */
@@ -89,8 +89,8 @@ PXDisplayObject *PXTouchEngineFindTouchTarget(float x, float y)
 	PXDisplayObject **curDisplayObject;
 
 	// Signed due to reverse traversal
-	int index;
-	int startIndex = pxEngineDOBuffer.size - 1;
+	signed int index;
+	signed int startIndex = pxEngineDOBuffer.size - 1;
 
 	// Loop through the list of possible touch targets.
 	// Since items were added to the list in back-to-front order, we iterate
@@ -101,7 +101,7 @@ PXDisplayObject *PXTouchEngineFindTouchTarget(float x, float y)
 	{
 		target = *curDisplayObject;
 
-		aabb = &target->_aabb;
+		aabb = &(target->_aabb);
 
 		usesCustomHitArea = PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_useCustomHitArea);
 
@@ -148,8 +148,6 @@ PXDisplayObject *PXTouchEngineFindTouchTarget(float x, float y)
 		// Now we loop up through the target's ancestors, stoping right before
 		// the root. We do this so that the ancestor closest to target which can
 		// recieve touch events gets to handle the touch.
-		//
-		// We stop short before root because....
 		while (parent && parent != pxEngineRoot)
 		{
 			if (parent == possibleParentTarget)
@@ -204,11 +202,7 @@ PXDisplayObject *PXTouchEngineFindTouchTarget(float x, float y)
 		}
 	}
 
-	if (possibleParentTarget != nil)
-		PXDebugLog (@"PXEngineFindTouchTarget WARNING: possibleParentTarget != nil as expected\n");
-
-	// TODO: John, check to see if this line can just return nil.
-	// Look through the code and try to proove it won't fail
+	// Will be nil at this point
 	return possibleParentTarget;
 }
 
@@ -232,8 +226,12 @@ void PXTouchEngineDispatchTouchEvents()
 	id<NSObject> captureKey = NULL;
 	id<PXEventDispatcherProtocol> captureTarget = NULL;
 
+	// If stage's touch children is off, then the only reciever of any touches
+	// would automatically be stage.
 	if (pxEngineStage->_touchChildren)
 	{
+		// Loop through all of the cached touch events so we can find them a
+		// target and dispatch them apropriately.
 		PXLinkedListForEach(pxTouchEngineTouchEvents, event)
 		{
 			eventType = event.type;
@@ -246,15 +244,18 @@ void PXTouchEngineDispatchTouchEvents()
 			// Find what type of touch even this is. Since string comparison
 			// isn't cheap, we do a lazy check.
 			didTouchDown = [eventType isEqualToString:PXTouchEvent_TouchDown];
-			if (!didTouchDown)
+			if (didTouchDown == false)
 			{
 				didTouchUp = [eventType isEqualToString:PXTouchEvent_TouchUp];
-				if (!didTouchUp)
+				if (didTouchUp == false)
 				{
 					didTouchCancel = [eventType isEqualToString:PXTouchEvent_TouchCancel];
 				}
 			}
 
+			// Keep track of if the touch was up or canceled. This is important
+			// as we will need to deassociate the touch with it's captured
+			// target if it has one.
 			didTouchUpOrCancel = didTouchUp || didTouchCancel;
 
 			// Grab the 'key' for the dictionary of captures, and the target
@@ -262,7 +263,7 @@ void PXTouchEngineDispatchTouchEvents()
 			captureTarget = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, captureKey);
 
 			// If a capture target exists, then we don't need to find a new one
-			if (captureTarget)
+			if (captureTarget != nil)
 			{
 				target = (PXDisplayObject *)captureTarget;
 			}
@@ -286,7 +287,7 @@ void PXTouchEngineDispatchTouchEvents()
 			// then we need to check if it is a target that cares about captures
 			// and it failed the on touch down, it means that the target was not
 			// captured in touch down, thus it should not recieve these events.
-			if (!didTouchDown && target && target != captureTarget)
+			if (didTouchDown == false && target != nil && target != captureTarget)
 			{
 				if (PX_IS_BIT_ENABLED(target->_flags, _PXDisplayObjectFlags_isInteractive))
 				{
@@ -298,14 +299,19 @@ void PXTouchEngineDispatchTouchEvents()
 			}
 
 			// If no target exists, send it to the stage!
-			if (!target)
+			if (target == nil)
+			{
 				target = pxEngineStage;
+			}
 
-			// If a touch was lifted (up) or canceled by UIKit (cancel), it needs to
-			// be deassociated from anything that captured it because it's likely to
-			// not exist anymore (and even if it still exists, we can't track it).
-			if (didTouchUpOrCancel)
+			// If a touch was lifted (up) or canceled by UIKit (cancel), it
+			// needs to be deassociated from anything that captured it because
+			// it's likely to not exist anymore (and even if it still exists, we
+			// can't track it).
+			if (didTouchUpOrCancel == true)
+			{
 				CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, captureKey);
+			}
 
 			event->_target = target;
 			[target dispatchEvent:event];
@@ -313,20 +319,21 @@ void PXTouchEngineDispatchTouchEvents()
 	}
 	else
 	{
-		// This is an optimization. When the user sets stage.touchChildren == NO it means
-		// we can skip the regular touch dispatch flow through the hierarchy.
-		// Because of that, no touches can be captured again either (remember that stage never
-		// captures touches) so we cancel any touches that are currently captured by something.
+		// This is an optimization. When the user sets stage.touchChildren == NO
+		// it means we can skip the regular touch dispatch flow through the
+		// hierarchy. Because of that, no touches can be captured again either
+		// (remember that stage never captures touches) so we cancel any touches
+		// that are currently captured by something.
 		PXLinkedListForEach(pxTouchEngineTouchEvents, event)
 		{
 			captureKey = event.nativeTouch;
 			captureTarget = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, captureKey);
 
-			if (captureTarget)
+			if (captureTarget != nil)
 			{
 				PXTouchEngineCancelTouch(captureKey);
 			}
-			
+
 			// At this point target = stage.
 			event->_target = target;
 			[target dispatchEvent:event];
@@ -338,50 +345,82 @@ void PXTouchEngineDispatchTouchEvents()
 
 #pragma mark -
 
+// Internal method for canceling a touch. It will dispatch the cancel event to a
+// captured target (if one exists) and remove it from the association list.
 void PXTouchEngineCancelTouch(UITouch *touch)
 {
+	// Get the object that is captured by the touch.
 	id<PXEventDispatcherProtocol> object = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, touch);
 
-	if (!object)
+	// If the object is nil, then the touch does not have a capturing target,
+	// thus it is not in our list, and we can just return.
+	if (object == nil)
 		return;
 
+	// Remove the touch, it will soon not be capturing.
+	// NOTE:	This must be done BEFORE sending the event out. This is because
+	//			a cancel event could remove a child which would then send out a
+	//			cancel event which would then reomve the child, etc. The child
+	//			is not actually removed from the list until AFTER the cancel
+	//			events are sent out. This is because the display hierarchy must
+	//			remain in tact until all events are handeled.
 	CFDictionaryRemoveValue(pxEngineTouchCapturingObjects, touch);
 
 	// Find the position of the touch on the stage.
 	PXPoint *pxPoint = [pxEngineStage positionOfTouch:touch];
 	CGPoint point = CGPointMake(pxPoint.x, pxPoint.y);
 
+	// Send out the cancel event.
 	PXTouchEvent *event = PXTouchEngineNewTouchEventWithTouch(touch, &point, PXTouchEvent_TouchCancel, NO);
 	[object dispatchEvent:event];
 	[event release];
 }
 
+// A recursive method that will fill the 'addList' with any display object in
+// the display hierarchy who has a touch associated with them. The list in order
+// will go parent->parent's child->child's child->parent's child... etc.
+// Will return false if there is nothing left to add.
+// Note:	The return value is ONLY for the inner recursive method. You do not
+//			need to care about it. Instead, only care about the list you are
+//			sending it. It must be a VALID list (as in, one that is empty and
+//			allocated).
 bool PXTouchEngineGetTouchDisplayHierarchy(PXDisplayObject *object, PXLinkedList *addList)
 {
 	CFIndex count = CFDictionaryGetCount(pxEngineTouchCapturingObjects);
 
+	// If we have found all targets, or there were none for us to find, then we
+	// can just say we are done.
 	if (count <= 0 || [addList count] == count)
 		return false;
 
-	if (CFDictionaryContainsValue(pxEngineTouchCapturingObjects, object))
+	// If this object is within the capturing list, add it to the list the user
+	// wants.
+	if (CFDictionaryContainsValue(pxEngineTouchCapturingObjects, object) == true)
 	{
 		[addList addObject:object];
 	}
 
-	if (PX_IS_BIT_ENABLED(object->_flags, _PXDisplayObjectFlags_isContainer))
+	// If it is a display object container, we need to go through it's children
+	// and add them to the list as well.
+	if (PX_IS_BIT_ENABLED(object->_flags, _PXDisplayObjectFlags_isContainer) == true)
 	{
 		PXDisplayObjectContainer *container = (PXDisplayObjectContainer *)object;
 
 		unsigned index;
 		PXDisplayObject *child;
 
+		// Loop through each of the children and add them to the list if needed.
 		for (index = 0, child = container->_childrenHead; index < container->_numChildren; ++index, child = child->_next)
 		{
-			if (!PXTouchEngineGetTouchDisplayHierarchy(child, addList))
+			// If we returned false, then it means we are done looking and can
+			// just return. This will trickle up through the call stack
+			// returning false and thus completing the search.
+			if (PXTouchEngineGetTouchDisplayHierarchy(child, addList) == false)
 				return false;
 		}
 	}
 
+	// We may not be done yet.
 	return true;
 }
 
@@ -397,17 +436,14 @@ void _PXTouchEngineRemoveAllTouchCapturesFromObjects(PXLinkedList *objects)
 
 	CFTypeRef keys[count];
 
-	// Gives us a parallel array structure so that you can iterate through
-	// the posabilities.
+	// Gives us a parallel array structure so that you can iterate through the
+	// posabilities.
 	CFDictionaryGetKeysAndValues(pxEngineTouchCapturingObjects, (const void **)(keys), NULL);
 
 	CFIndex index;
 	CFTypeRef *key;
 
 	id<PXEventDispatcherProtocol> target;
-	UITouch *touch;
-
-	//id<PXEventDispatcherProtocol> currentTarget;
 
 	// Loop through the dictionary and see if the object has any association
 	// with a touch; if it does, we need to cancel it.
@@ -418,70 +454,75 @@ void _PXTouchEngineRemoveAllTouchCapturesFromObjects(PXLinkedList *objects)
 		target = (id<PXEventDispatcherProtocol>)(CFDictionaryGetValue(pxEngineTouchCapturingObjects, *key));
 
 		// If no target exists, continue.
-		if (!target)
+		if (target == nil)
 			continue;
 
-		touch = (UITouch *)(*key);
-
-		if ([objects containsObject:target])
-//		for (currentTarget in objects)
+		if ([objects containsObject:target] == true)
 		{
-//			if (currentTarget == target)
-//			{
-				PXTouchEngineCancelTouch(touch);
+			PXTouchEngineCancelTouch((UITouch *)(*key));
 
-				// You can not remove the current target from the list. It may
-				// have more then one association that needs to get taken care
-				// of, and the object will only appear once in the list.
-				//break;
-//			}
+			// You can not remove the current target from the list. It may have
+			// more then one association that needs to get taken care of, and
+			// the object will only appear once in the list.
 		}
 	}
 }
 
-// TODO: Comment me and my friends :)
 // talk about the rules we set.
 void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol> capturingObject)
 {
+	// Cheap function to ensure that we actually need to do something.
 	CFIndex count = CFDictionaryGetCount(pxEngineTouchCapturingObjects);
 
+	// If no touch events are captured, then there is nothing to do, so just
+	// return.
 	if (count <= 0)
 		return;
 
-	// Rule: Display objects can't have touch events disptached on them by the
-	// system if they are not on the display list.
+	PXObjectPool *pool = PXEngineGetSharedObjectPool();
+
+	// Grab a pooled list to add stuff to.
+	// NOTE:	After this point, you can not quick return unless you release
+	//			this pool!
+	PXLinkedList *hierarchy = [pool newObjectUsingClass:[PXLinkedList class]];
+
+	// RULE:	If the capturing object is a display object, then we must
+	//			dispatch a cancel event to all of it's children when we are
+	//			removing the display object from the hierarchy.
+	// RULE:	The capturing object does not need to be a display object, it
+	//			just needs to enforce the event dispatcher protocol.
 	if ([capturingObject isKindOfClass:[PXDisplayObject class]])
 	{
-		PXDisplayObject *displayObject = (PXDisplayObject *)capturingObject;
-
-		// TODO: Use a pooled list
-		PXLinkedList *displayHierarchy = [[PXLinkedList alloc] init];
-		PXTouchEngineGetTouchDisplayHierarchy(displayObject, displayHierarchy);
-
-		if ([displayHierarchy count] > 0)
-		{
-			_PXTouchEngineRemoveAllTouchCapturesFromObjects(displayHierarchy);
-		}
-
-		[displayHierarchy release];
+		PXTouchEngineGetTouchDisplayHierarchy((PXDisplayObject *)capturingObject, hierarchy);
 	}
-	else
+	else if (CFDictionaryContainsValue(pxEngineTouchCapturingObjects, capturingObject) == true)
 	{
-		if (!CFDictionaryContainsValue(pxEngineTouchCapturingObjects, capturingObject))
-			return;
-
-		// TODO: Pool list
-		PXLinkedList *list = [[PXLinkedList alloc] init];
-		[list addObject:capturingObject];
-		_PXTouchEngineRemoveAllTouchCapturesFromObjects(list);
-		[list release];
+		[hierarchy addObject:capturingObject];
 	}
+
+	// Ensure that the hierarchy actually contains something prior to calling
+	// the method that says do all checks prior to calling it. Also, there would
+	// be no need to remove all capture objects from the list that contains
+	// nothing.
+	if ([hierarchy count] > 0)
+	{
+		_PXTouchEngineRemoveAllTouchCapturesFromObjects(hierarchy);
+	}
+
+	// Release the list back to the pool
+	[pool releaseObject:hierarchy];
 }
 
 // Only used by the user
+// NOTE:	It is impossible for us to ensure that the touch is 'real'. Meaning,
+//			if you kept a touch around (long after it died), or created one and
+//			sent it to this method to associated it with you, then we have no
+//			way of ensuring that the touch is real. So, please don't do that. It
+//			won't break anything, but could yield strange results.
 void PXTouchEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispatcherProtocol> capturingObject)
 {
-	if (!nativeTouch)
+	// If you send us a nil touch, then there is nothing for us to do.
+	if (nativeTouch == nil)
 		return;
 
 	id<PXEventDispatcherProtocol> originalObject = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
@@ -491,54 +532,62 @@ void PXTouchEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispat
 	{
 		if ([capturingObject isKindOfClass:[PXDisplayObject class]])
 		{
+			// RULE:	Display objects can't have touch events disptached on
+			//			them by the system if they are not on the display list.
 			if (((PXDisplayObject *)(capturingObject)).stage == nil)
 				return;
 		}
 
 		// Send out a cancel event on the OLD object, if one exists.
-		if (originalObject != NULL){
+		if (originalObject != nil)
+		{
 			PXTouchEngineCancelTouch(nativeTouch);
 		}
 
 		// Change the target
-		if (capturingObject)
+		if (capturingObject != nil)
 		{
 			CFDictionarySetValue(pxEngineTouchCapturingObjects, nativeTouch, capturingObject);
 		}
 	}
 }
 
+// Returns the capturing target if one exists.
 id<PXEventDispatcherProtocol> PXTouchEngineGetTouchCapturingObject(UITouch *nativeTouch)
 {
-	if (!nativeTouch)
+	if (nativeTouch == nil)
 		return nil;
 	
 	return (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
 }
 
+// Returns the first NATIVE touch found in the list.
 UITouch *PXTouchEngineGetFirstTouch()
 {
-	if (!pxTouchEngineTouchEvents)
+	// No touches could exist.
+	if (pxTouchEngineTouchEvents == nil || [pxTouchEngineTouchEvents count] <= 0)
 		return nil;
 
-	if ([pxTouchEngineTouchEvents count] <= 0)
-		return nil;
-
+	// Find the event
 	PXTouchEvent *event = (PXTouchEvent *)[pxTouchEngineTouchEvents objectAtIndex:0];
 
+	// Return to them the native touch
 	return event.nativeTouch;
 }
+
+// Returns all NATIVE touches in our list
 PXLinkedList *PXTouchEngineGetAllTouches()
 {
-	if (!pxTouchEngineTouchEvents)
+	if (pxTouchEngineTouchEvents == nil || [pxTouchEngineTouchEvents count] <= 0)
 		return nil;
 
 	PXLinkedList *list = [[PXLinkedList alloc] init];
 	PXTouchEvent *event;
 
+	// Loop through the events and add them if the native touch exists.
 	for (event in pxTouchEngineTouchEvents)
 	{
-		if (event.nativeTouch)
+		if (event.nativeTouch != nil)
 			[list addObject:event.nativeTouch];
 	}
 
@@ -547,19 +596,23 @@ PXLinkedList *PXTouchEngineGetAllTouches()
 
 CGPoint PXTouchEngineTouchToScreenCoordinates(UITouch *touch)
 {
-	if (!touch || !pxEngineView)
-		return CGPointMake(0.0f, 0.0f);
-	
+	// If the view doesn't exist, then we can not convert the touch, so give up.
+	if (touch == nil || pxEngineView == nil)
+		return CGPointZero;
+
+	// Grab the location of the touch in the view
 	CGPoint point = [touch locationInView:pxEngineView];
-	
+
 	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[pxEngineView layer];
 	CGPoint pos = eaglLayer.position;
-	
+
+	// Add the layer's position, this way we are always in the correct spot.
 	point.x += pos.x;
 	point.y += pos.y;
-	
+
+	// Convert it to stage coordinates.
 	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(point.x, point.y, pxEngineStage);
-	
+
 	return point;
 }
 
@@ -572,15 +625,19 @@ PXTouchEvent *PXTouchEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, 
 		location = *pos;
 	}
 
-	if (orientTouch)
+	// If orientTouch == NO then this has already been done.
+	if (orientTouch == YES)
 	{
+		// Convert the touch to stage coordinates.
 		PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(location.x, location.y, pxEngineStage);
 
+		// Do half screen magic...
 #ifdef PX_DEBUG_MODE
 		if (PXDebugIsEnabled(PXDebugSetting_HalveStage) && pos != NULL)
 		{
 			CGSize stageSize = CGSizeMake(pxEngineStage.stageWidth, pxEngineStage.stageHeight);
 
+			// Conversion magic
 			location.x = 2.0f * ((stageSize.width  * 0.75f) + ((location.x) - (stageSize.width)));
 			location.y = 2.0f * ((stageSize.height * 0.75f) + ((location.y) - (stageSize.height)));
 		}
@@ -592,6 +649,7 @@ PXTouchEvent *PXTouchEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, 
 
 void PXTouchEngineInvokeTouch(UITouch *touch, CGPoint *pos, NSString *type)
 {
+	// Add the event to the queue.
 	PXTouchEvent *event = PXTouchEngineNewTouchEventWithTouch(touch, pos, type, YES);
 	[pxTouchEngineTouchEvents addObject:event];
 	[event release];
