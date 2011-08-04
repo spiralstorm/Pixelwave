@@ -47,7 +47,6 @@
 #include "PXPrivateUtils.h"
 
 NSString * const PXTouchEvent_Tap = @"tap";
-NSString * const PXTouchEvent_DoubleTap = @"doubleTap";
 NSString * const PXTouchEvent_TouchDown = @"touchDown";
 NSString * const PXTouchEvent_TouchMove = @"touchMove";
 NSString * const PXTouchEvent_TouchUp = @"touchUp";
@@ -155,6 +154,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 	[self setNativeTouch:nil];
 
 	_bubbles = YES;
+	_cancelable = NO;
 
 	_tapCount = 0;
 	_stageX = 0.0f;

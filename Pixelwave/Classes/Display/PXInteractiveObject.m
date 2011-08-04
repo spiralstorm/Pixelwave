@@ -67,7 +67,6 @@
  */
 @implementation PXInteractiveObject
 
-@synthesize doubleTapEnabled = _doubleTapEnabled;
 @synthesize touchEnabled = _touchEnabled;
 @synthesize captureTouches = _captureTouches;
 
@@ -132,73 +131,66 @@
 	if (properlyAdded == NO)
 		return NO;
 
-	// We only care about tap and double tap events.
-	BOOL isTapEvent = NO;
-	BOOL isDoubleTapEvent = NO;
+	// We only care about tap events.
+	BOOL isTapEvent = isTapEvent = [type isEqualToString:PXTouchEvent_Tap];
 
-	// Compare the type in an efficient way.
-	isTapEvent = [type isEqualToString:PXTouchEvent_Tap];
 	if (isTapEvent == NO)
-		isDoubleTapEvent = [type isEqualToString:PXTouchEvent_DoubleTap];
+		return YES;
 
 	// If it is a double tap or tap event, then we need to add our own listeners
 	// so we can convert up events into tap events if needed.
-	if (isTapEvent || isDoubleTapEvent)
+	
+	// If we have not added the listeners, add them!
+	if (addedListeners == NO)
 	{
-		// If we have not added the listeners, add them!
-		if (addedListeners == NO)
+		addedListeners = YES;
+
+		// Ensure that each of these listeners was added properly
+		BOOL properlyAddedDown   = [super addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown   useCapture:useCapture priority:priority];
+		BOOL properlyAddedUp     = [super addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp     useCapture:useCapture priority:priority];
+		BOOL properlyAddedCancel = [super addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:useCapture priority:priority];
+
+		// A generic value to see if everything was added properly
+		properlyAdded = (properlyAddedDown == YES) && (properlyAddedUp == YES) && (properlyAddedCancel == YES);
+
+		// If something failed adding, then we must remove everything and
+		// inform the user of failure!
+		if (properlyAdded == NO)
 		{
-			addedListeners = YES;
+			[super removeEventListenerOfType:type listener:listener useCapture:useCapture];
 
-			// Ensure that each of these listeners was added properly
-			BOOL properlyAddedDown   = [super addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown   useCapture:useCapture priority:priority];
-			BOOL properlyAddedUp     = [super addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp     useCapture:useCapture priority:priority];
-			BOOL properlyAddedCancel = [super addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:useCapture priority:priority];
+			if (properlyAddedDown == YES)
+				[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown   useCapture:useCapture];
+			if (properlyAddedUp == YES)
+				[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp     useCapture:useCapture];
+			if (properlyAddedCancel == YES)
+				[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:useCapture];
 
-			// A generic value to see if everything was added properly
-			properlyAdded = (properlyAddedDown == YES) && (properlyAddedUp == YES) && (properlyAddedCancel == YES);
-
-			// If something failed adding, then we must remove everything and
-			// inform the user of failure!
-			if (properlyAdded == NO)
+			// The listeners are no longer added
+			addedListeners = NO;
+		}
+		else
+		{
+			// Everything was added properly, we need to create our lists.
+			if (touchList == NULL)
 			{
-				[super removeEventListenerOfType:type listener:listener useCapture:useCapture];
-
-				if (properlyAddedDown == YES)
-					[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown   useCapture:useCapture];
-				if (properlyAddedUp == YES)
-					[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp     useCapture:useCapture];
-				if (properlyAddedCancel == YES)
-					[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:useCapture];
-
-				// The listeners are no longer added
-				addedListeners = NO;
+				touchList = [[PXLinkedList alloc] init];
 			}
-			else
+			if (touchUpHistoryList == NULL)
 			{
-				// Everything was added properly, we need to create our lists.
-				if (touchList == NULL)
-				{
-					touchList = [[PXLinkedList alloc] init];
-				}
-				if (touchUpHistoryList == NULL)
-				{
-					touchUpHistoryList = [[PXLinkedList alloc] init];
-				}
+				touchUpHistoryList = [[PXLinkedList alloc] init];
 			}
 		}
+	}
 
-		// If we added the listeners, and everything was properly added then we
-		// can confirm the users want to listen to a tap or double tap event.
-		// Note:	addedListeners is rechecked, as the previous if-statement
-		//			could have reset it back to NO
-		if (addedListeners == YES && properlyAdded == YES)
-		{
-			if (isTapEvent == YES)
-				listenToTap = YES;
-			else if (isDoubleTapEvent == YES)
-				listenToDoubleTap = YES;
-		}
+	// If we added the listeners, and everything was properly added then we
+	// can confirm the users want to listen to a tap or double tap event.
+	// Note:	addedListeners is rechecked, as the previous if-statement
+	//			could have reset it back to NO
+	if (addedListeners == YES && properlyAdded == YES)
+	{
+		if (isTapEvent == YES)
+			listenToTap = YES;
 	}
 
 	// Return to them the overall result
@@ -215,27 +207,21 @@
 		return NO;
 
 	// We only care about tap and double tap events.
-	BOOL isTapEvent = NO;
-	BOOL isDoubleTapEvent = NO;
+	BOOL isTapEvent = [type isEqualToString:PXTouchEvent_Tap];
 
-	// Compare the type in an efficient way.
-	isTapEvent = [type isEqualToString:PXTouchEvent_Tap];
 	if (isTapEvent == NO)
-		isDoubleTapEvent = [type isEqualToString:PXTouchEvent_DoubleTap];
+		return YES;
 
 	// We do not want to remove our own listeners unless NO one is listening to
 	// any form of tap event. This if-statement is the first test for that.
-	if ([self hasEventListenerOfType:type] == NO)
+	// NOTE:	This is why we remove the real event first.
+	if ([self hasEventListenerOfType:PXTouchEvent_Tap] == NO)
 	{
-		// Turn off the correct variable
-		if (isTapEvent)
-			listenToTap = NO;
-		else if (isDoubleTapEvent)
-			listenToDoubleTap = NO;
+		listenToTap = NO;
 
 		// They both need to be off for us to remove our listeners. This is the
 		// second step of the test.
-		if (addedListeners == YES && listenToTap == NO && listenToDoubleTap == NO)
+		if (addedListeners == YES)
 		{
 			addedListeners = NO;
 
@@ -320,21 +306,6 @@
 	if (listenToTap == YES)
 	{
 		sendEvent = [[PXTouchEvent alloc] initWithType:PXTouchEvent_Tap
-										   nativeTouch:touch
-												stageX:touchPosition.x
-												stageY:touchPosition.y
-											  tapCount:tapCount];
-
-		sendEvent->_target = self;
-		[self dispatchEvent:sendEvent];
-		[sendEvent release];
-	}
-
-	// Send a double tap event out if we are listening to it, we can send them,
-	// and if the tap count is equal to two (aka. double).
-	if (listenToDoubleTap == YES && self.doubleTapEnabled == YES && tapCount == 2)
-	{
-		sendEvent = [[PXTouchEvent alloc] initWithType:PXTouchEvent_DoubleTap
 										   nativeTouch:touch
 												stageX:touchPosition.x
 												stageY:touchPosition.y

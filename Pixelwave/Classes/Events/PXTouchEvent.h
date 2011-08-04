@@ -45,7 +45,6 @@
 @class PXPoint;
 
 PXExtern NSString * const PXTouchEvent_Tap;
-PXExtern NSString * const PXTouchEvent_DoubleTap;
 PXExtern NSString * const PXTouchEvent_TouchDown;
 PXExtern NSString * const PXTouchEvent_TouchMove;
 PXExtern NSString * const PXTouchEvent_TouchUp;
