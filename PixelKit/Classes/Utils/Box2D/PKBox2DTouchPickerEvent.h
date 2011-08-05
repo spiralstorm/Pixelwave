@@ -55,6 +55,6 @@ PXExtern NSString * const PKBox2DTouchPickerEvent_PickEnd;
 @property (nonatomic, readonly) b2Fixture *fixture;
 @property (nonatomic, readonly) UITouch	*nativeTouch;
 
-- (id) initWithType:(NSString *)type isCancelable:(BOOL)cancelable fixture:(b2Fixture *)fixture nativeTouch:(UITouch *)nativeTouch;
+- (id) initWithType:(NSString *)type cancelable:(BOOL)cancelable fixture:(b2Fixture *)fixture nativeTouch:(UITouch *)nativeTouch;
 
 @end

@@ -136,15 +136,13 @@ typedef enum
  */
 @property (nonatomic, readonly) PXEventPhase eventPhase;
 
-// TODO: Change isCancelable to 'cancelable' in method label
-
 //-- ScriptIgnore
 - (id) initWithType:(NSString *)type;
 //-- ScriptName: Event
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: NO
 //-- ScriptArg[2]: NO
-- (id) initWithType:(NSString *)type doesBubble:(BOOL)bubbles isCancelable:(BOOL)cancelable;
+- (id) initWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable;
 
 //-- ScriptName: preventDefault
 - (void) preventDefault;
@@ -161,6 +159,6 @@ typedef enum
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: NO
 //-- ScriptArg[2]: NO
-- (PXEvent *)eventWithType:(NSString *)type doesBubble:(BOOL)bubbles isCancelable:(BOOL)cancelable;
+- (PXEvent *)eventWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable;
 
 @end

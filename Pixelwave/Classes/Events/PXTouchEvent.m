@@ -96,7 +96,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 			 stageY:(float)stageY
 		   tapCount:(unsigned)tapCount
 {
-	self = [super initWithType:type doesBubble:YES isCancelable:NO];
+	self = [super initWithType:type bubbles:YES cancelable:NO];
 
 	if (self)
 	{

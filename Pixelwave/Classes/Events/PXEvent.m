@@ -94,7 +94,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  */
 - (id) initWithType:(NSString *)type
 {
-	return [self initWithType:type doesBubble:NO isCancelable:NO];
+	return [self initWithType:type bubbles:NO cancelable:NO];
 }
 
 /**
@@ -109,7 +109,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  *	@param cancelable
  *		Whether the behavior described by the event can be canceled by the user.
  */
-- (id) initWithType:(NSString *)type doesBubble:(BOOL)bubbles isCancelable:(BOOL)cancelable
+- (id) initWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable
 {
 	if (!type)
 	{
@@ -155,7 +155,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	PXEvent *e = [[[self class] allocWithZone:zone] initWithType:_type doesBubble:_bubbles isCancelable:_cancelable];
+	PXEvent *e = [[[self class] allocWithZone:zone] initWithType:_type bubbles:_bubbles cancelable:_cancelable];
 	e->_currentTarget = _currentTarget;
 	e->_target = _target;
 	e->_eventPhase = _eventPhase;
@@ -277,9 +277,9 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  *	@param cancelable
  *		Whether the behavior described by the event can be canceled by the user.
  */
-- (PXEvent *)eventWithType:(NSString *)type doesBubble:(BOOL) bubbles isCancelable:(BOOL) cancelable
+- (PXEvent *)eventWithType:(NSString *)type bubbles:(BOOL) bubbles cancelable:(BOOL) cancelable
 {
-	return [[[PXEvent alloc] initWithType:type doesBubble:bubbles isCancelable:cancelable] autorelease];
+	return [[[PXEvent alloc] initWithType:type bubbles:bubbles cancelable:cancelable] autorelease];
 }
 
 @end

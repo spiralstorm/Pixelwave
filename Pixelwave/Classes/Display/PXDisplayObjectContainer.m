@@ -232,8 +232,8 @@
 		
 		// ADDED event
 		e = [[PXEvent alloc] initWithType:PXEvent_Added
-							   doesBubble:YES
-							 isCancelable:NO];
+							   bubbles:YES
+							 cancelable:NO];
 		[child dispatchEvent:e];
 		[e release];
 		
@@ -246,8 +246,8 @@
 			// dispatch ADDED_TO_STAGE event
 			
 			e = [[PXEvent alloc] initWithType:PXEvent_AddedToStage
-											doesBubble:NO
-										  isCancelable:NO];
+											bubbles:NO
+										  cancelable:NO];
 			
 			[child _dispatchAndPropegateEvent:e];
 			// Note child is not guaranteed to be in the display list, or even
@@ -402,8 +402,8 @@
 
 		// REMOVED event
 		event = [[PXEvent alloc] initWithType:PXEvent_Removed
-								   doesBubble:YES
-								 isCancelable:NO];
+								   bubbles:YES
+								 cancelable:NO];
 
 		[child dispatchEvent:event];
 		[event release];
@@ -415,8 +415,8 @@
 			// REMOVED_FROM_STAGE event
 
 			event = [[PXEvent alloc] initWithType:PXEvent_RemovedFromStage
-									   doesBubble:NO
-									 isCancelable:NO];
+									   bubbles:NO
+									 cancelable:NO];
 
 			[child _dispatchAndPropegateEvent:event];
 

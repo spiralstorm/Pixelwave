@@ -176,7 +176,7 @@ void PXEngineInit(PXView *view)
 	pxEngineCachedListeners = [[PXLinkedList alloc] init];
 
 	// Create a reusable enter frame event instead of creating one every frame.
-	pxEngineEnterFrameEvent = [[PXEvent alloc] initWithType:PXEvent_EnterFrame doesBubble:NO isCancelable:NO];
+	pxEngineEnterFrameEvent = [[PXEvent alloc] initWithType:PXEvent_EnterFrame bubbles:NO cancelable:NO];
 
 	//////////
 	// Misc //
