@@ -76,15 +76,15 @@
 	{
 		return;
 	}
-	
+
 	b2Vec2 position = body->GetPosition();
 	float  angle    = body->GetAngle();
-	
+
 	// We need to convert Box2D's position units (meters) to Pixelwave's
 	// position units (points).
 	displayObject.x = MetersToPoints(position.x) + xOffset;
 	displayObject.y = MetersToPoints(position.y) + yOffset;
-	
+
 	// We also need to convert Box2D's angle units (radians) to Pixelwave's
 	// angle units (degrees).
 	displayObject.rotation = PXMathToDeg(angle) + rotationOffset;

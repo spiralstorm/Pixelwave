@@ -42,8 +42,8 @@
 NSString * const imageFileName = @"Rocky.png";
 
 @interface ImageLoadingRoot(Private)
-- (PXTexture *) method1;
-- (PXTexture *) method2;
+- (PXTexture *)method1;
+- (PXTexture *)method2;
 - (void) pureCodeSummary;
 @end
 
@@ -59,10 +59,9 @@ NSString * const imageFileName = @"Rocky.png";
 
 - (void) initializeAsRoot
 {
-	
 	// Set the background color to a sexy gray
 	self.stage.backgroundColor = 0x454545;
-	
+
 	// There are many different ways to load a file, and many combinations of
 	// them.  This sample will show the two most popular ways to load an image,
 	// and add it to the screen.
@@ -85,12 +84,12 @@ NSString * const imageFileName = @"Rocky.png";
 	// degrees.
 
 	// ------------------------------- Pure Code -------------------------------
-	
+
 	texture.x = self.stage.stageWidth * 0.5f;
 	texture.y = self.stage.stageHeight * 0.5f;
 	texture.anchorX = 0.5f;
 	texture.anchorY = 0.5f;
-	
+
 	// Things to try:
 	//texture.scale = 0.5f;
 	//texture.smoothing = YES;
@@ -101,13 +100,13 @@ NSString * const imageFileName = @"Rocky.png";
 	// 60% the size it was.
 	//texture.scale = 0.6f;
 
-	// Note: Setting the scale property changes the scale of both the width and
-	// height, the line above is the same as doing.
+	// Note:	Setting the scale property changes the scale of both the width
+	//			and height, the line above is the same as doing.
 	//texture.scaleX = 0.6f;
 	//texture.scaleY = 0.6f;
 
 	// Next we want to set the anchor of the texture to the middle of the
-	// screen.  The anchor is a float value, 0.5 (50%) would represent the
+	// screen. The anchor is a float value, 0.5 (50%) would represent the
 	// middle of the texture.
 	//texture.anchorX = 0.5f;
 	//texture.anchorY = 0.5f;
@@ -192,6 +191,8 @@ NSString * const imageFileName = @"Rocky.png";
 
 #pragma mark -
 #pragma mark Pure Code Summary
+#pragma mark -
+
 - (void) pureCodeSummary
 {
 	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:imageFileName];

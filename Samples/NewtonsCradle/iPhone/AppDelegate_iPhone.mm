@@ -81,6 +81,7 @@
 {
     [window release];
 	[pixelView release];
+
     [super dealloc];
 }
 

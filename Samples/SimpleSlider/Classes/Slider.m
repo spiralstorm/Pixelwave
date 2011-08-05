@@ -41,13 +41,13 @@
 #import "PXMathUtils.h"
 
 @interface Slider(Private)
-- (void)updateSlider;
+- (void) updateSlider;
 
-- (void)setHighlighted:(BOOL)highlighted;
+- (void) setHighlighted:(BOOL)highlighted;
 
-- (void)onSliderPress:(PXTouchEvent *)event;
-- (void)onSliderRelease:(PXTouchEvent *)event;
-- (void)onSliderMove:(PXTouchEvent *)event;
+- (void) onSliderPress:(PXTouchEvent *)event;
+- (void) onSliderRelease:(PXTouchEvent *)event;
+- (void) onSliderMove:(PXTouchEvent *)event;
 @end
 
 // This is a reusable slider component. It's built to behave correctly in a 
@@ -84,14 +84,16 @@
 		return nil;
 	}
 
-	if (self = [super init])
+	self = [super init];
+
+	if (self)
 	{
 		delegate = nil;
 		currentTouch = nil;
 
-		// Create the parts of the slider bar
-		// The bar is made of two end caps and a body. The end caps
-		// are always the same size, while the body's width can change
+		// Create the parts of the slider bar. The bar is made of two end caps
+		// and a body. The end caps are always the same size, while the body's
+		// width can change
 
 		barLeftCap = [PXTexture textureWithTextureData:skin];
 		[self addChild:barLeftCap];
@@ -104,9 +106,9 @@
 		barRightCap.scaleX = -1.0f;
 
 		// Create the button that will actually slide around.
-		// Note that we can't just use the sliderButtonTexture as the button
-		// because PXTextures can't handle touch events (as they don't extend
-		// PXInteractiveObject), but sprites sure can.
+		// Note:	That we can't just use the sliderButtonTexture as the button
+		//			because PXTextures can't handle touch events (as they don't
+		//			extend PXInteractiveObject), but sprites sure can.
 
 		sliderButtonTexture = [PXTexture textureWithTextureData:skin];
 		sliderSprite = [PXSimpleSprite simpleSpriteWithChild:sliderButtonTexture];
@@ -114,21 +116,19 @@
 
 		// Uncomment these lines to smooth the textures (useful for rotations
 		// and scaling)
-		/*
-		BOOL smoothing = YES;
-		barLeftCap.smoothing = smoothing;
-		barRightCap.smoothing = smoothing;
-		barBody.smoothing = smoothing;
-		sliderButtonTexture.smoothing = smoothing;
-		*/
+		//BOOL smoothing = YES;
+		//barLeftCap.smoothing = smoothing;
+		//barRightCap.smoothing = smoothing;
+		//barBody.smoothing = smoothing;
+		//sliderButtonTexture.smoothing = smoothing;
 
 		// Set up the touch event listeners
-		
+
 		[sliderSprite addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onSliderPress:)];
 		[sliderSprite addEventListenerOfType:PXTouchEvent_TouchMove	listener:PXListener(onSliderMove:)];
 		[sliderSprite addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(onSliderRelease:)];
 		[sliderSprite addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(onSliderRelease:)];
-		
+
 		// Set up the default slider values
 		[self setHighlighted:NO];
 		value = 0.0f;
@@ -142,8 +142,8 @@
 {
 	// We must remove all the event listeners on deallocation to prevent nasty
 	// crashes. These crashes could occur if an event gets triggered on a
-	// listener that wasn't removed before being deallocated
-	// (also known as a "Zombie Listener" .. ooooohhahaha).
+	// listener that wasn't removed before being deallocated (also known as a
+	// "Zombie Listener" .. ooooohhahaha).
 
 	[sliderSprite removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onSliderPress:)];
 	[sliderSprite removeEventListenerOfType:PXTouchEvent_TouchMove	listener:PXListener(onSliderMove:)];
@@ -203,6 +203,7 @@
 - (void) setRotation:(float)val
 {
 	super.rotation = val;
+
 	sliderSprite.rotation = -val;
 }
 
@@ -224,11 +225,11 @@
 
 // Tells all the textures which coordinates to use from the skin texture
 // depending on whether the slider needs to be highlighted or not
-- (void)setHighlighted:(BOOL)highlighted
+- (void) setHighlighted:(BOOL)highlighted
 {
 	selected = highlighted;
-	
-	if(!highlighted)
+
+	if (!highlighted)
 	{
 		// Set up the texture coordinates to use the gray color scheme
 		[barLeftCap setClipRectWithX:24 y:4 width:5 height:8];
@@ -257,14 +258,14 @@
 /////////////////////
 
 // Once the slider button gets pressed, this function is called.
-- (void)onSliderPress:(PXTouchEvent *)event
+- (void) onSliderPress:(PXTouchEvent *)event
 {
 	// If this slider is already being dragged, ignore the touch
 	if (currentTouch)
 		return;
 
 	currentTouch = event.nativeTouch;
-	
+
 	// Make the slider blue
 	[self setHighlighted:YES];
 	// Tell my delegate that the user started dragging the slider
@@ -284,9 +285,9 @@
 	// allows the bar to be rotated and skewed with no interactivity issues
 	PXPoint *globalPos = [PXPoint pointWithX:event.stageX y:event.stageY];
 	PXPoint *localPos = [self globalToLocal:globalPos];
-	
+
 	self.value = (localPos.x - barBody.x) / barBody.width;
-	
+
 	// Tell our delegate that the slider has been moved
 	[delegate slider:self didChangeValue:value];
 }

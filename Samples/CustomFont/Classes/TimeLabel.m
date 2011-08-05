@@ -63,7 +63,9 @@
  */
 - (id) init
 {
-	if (self = [super init])
+	self = [super init];
+
+	if (self)
 	{
 		txtTimeBack = [PXTextField textFieldWithFont:@"myFont"];
 		txtTimeBack.textColor = 0xFFFFFF;
@@ -117,9 +119,12 @@
 {
 	militaryTime = val;
 	
-	if(militaryTime){
+	if (militaryTime)
+	{
 		dateFormatter.dateFormat = @"HH:mm:ss";
-	}else{
+	}
+	else
+	{
 		dateFormatter.dateFormat = @"hh:mm:ss";
 	}
 
@@ -130,18 +135,18 @@
  *	a formatted string. Also figures out if the am/pm symbol should be shown
  *	given the hour and if military time is used.
  */
-- (void)setTimeWithDate:(NSDate *)date
+- (void) setTimeWithDate:(NSDate *)date
 {
 	txtTime.text = [dateFormatter stringFromDate:date];
-	
+
 	NSDateComponents *components = [[NSCalendar currentCalendar] components:NSHourCalendarUnit fromDate:date];
-	
+
 	BOOL isPM = components.hour >= 12;
-	
+
 	txtAM.alpha = MARK_HIDE_ALPHA;
 	txtPM.alpha = MARK_HIDE_ALPHA;
-	
-	if(!militaryTime)
+
+	if (militaryTime == NO)
 	{
 		(isPM ? txtPM : txtAM).alpha = MARK_SHOW_ALPHA;
 	}
@@ -157,13 +162,13 @@
 {
 	float color[3];
 	HSVToRGB(hue, 1.0f, 1.0f, color);
-	
+
 	PXColorTransform *ct = self.transform.colorTransform;
-	
-	ct.redMultiplier = color[0];
+
+	ct.redMultiplier   = color[0];
 	ct.greenMultiplier = color[1];
-	ct.blueMultiplier = color[2];
-	
+	ct.blueMultiplier  = color[2];
+
 	self.transform.colorTransform = ct;
 }
 

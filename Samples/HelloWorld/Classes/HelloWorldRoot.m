@@ -101,22 +101,22 @@
 	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame:)];
 }
 
-- (void)onFrame:(PXEvent *)event
-{
-	planet.rotation += 0.5f;
-	grid.rotation -= 0.1f;
-
-	if(background.scale < 1.5f)
-	{
-		background.scale += 0.0004f;
-	}
-}
-
 - (void) dealloc
 {
 	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame:)];
 
 	[super dealloc];
+}
+
+- (void) onFrame:(PXEvent *)event
+{
+	planet.rotation += 0.5f;
+	grid.rotation -= 0.1f;
+
+	if (background.scale < 1.5f)
+	{
+		background.scale += 0.0004f;
+	}
 }
 
 @end

@@ -112,6 +112,7 @@
 	[self.stage removeEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap)];
 	[self.stage removeEventListenerOfType:PXStageOrientationEvent_OrientationChanging listener:PXListener(orientationChanging:)];
 	[self.stage removeEventListenerOfType:PXStageOrientationEvent_OrientationChange listener:PXListener(orientationChange:)];
+
 	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 	
 	[timeLabel release];
@@ -122,11 +123,10 @@
 	[super dealloc];
 }
 
-/*
+/**
  *	The main loop
- *
  */
-- (void)onFrame
+- (void) onFrame
 {
 	// Set the label to display the current time
 	[timeLabel setTimeWithDate:[NSDate date]];
@@ -138,7 +138,7 @@
 	[timeLabel setHue:hue];
 }
 
-- (void)onTap
+- (void) onTap
 {
 	timeLabel.militaryTime = !timeLabel.militaryTime;
 }
@@ -157,9 +157,9 @@
  *	Just for s#!ts and giggles, let's support all orientation except
  *	updside down.
  */
-- (void)orientationChanging:(PXStageOrientationEvent *)e
+- (void) orientationChanging:(PXStageOrientationEvent *)e
 {
-	if(e.afterOrientation == PXStageOrientation_PortraitUpsideDown)
+	if (e.afterOrientation == PXStageOrientation_PortraitUpsideDown)
 	{
 		[e preventDefault];
 	}
@@ -169,7 +169,7 @@
  *	When the orientation of the device changes, update the label to be
  *	in the center
  */
-- (void)orientationChange:(PXStageOrientationEvent *)e
+- (void) orientationChange:(PXStageOrientationEvent *)e
 {
 	[self centerLabel];
 }

@@ -69,7 +69,7 @@ class QueryCallback : public b2QueryCallback
 public:
 	b2Vec2 m_point;
 	b2Fixture* m_fixture;
-	
+
 	QueryCallback(const b2Vec2& point);
 	virtual bool ReportFixture(b2Fixture* fixture);
 };

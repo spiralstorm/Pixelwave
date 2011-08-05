@@ -70,7 +70,7 @@
 	// and how we should scale our movemement values
 
 	isIpad = NO;
-	
+
 #ifdef UI_USER_INTERFACE_IDIOM
 	isIpad = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 #endif
@@ -139,7 +139,7 @@
 	[leftArrowDown setAnchorWithX:1.0f y:1.0f];
 	[rightArrowUp setAnchorWithX:1.0f y:1.0f];
 	[rightArrowDown setAnchorWithX:1.0f y:1.0f];
-	
+
 	// Make the two simple buttons, one for the left arrow and one for the right
 	// arrow.
 	leftArrow = [[PXSimpleButton alloc] initWithUpState:leftArrowUp downState:leftArrowDown hitTestState:leftArrowUp];
@@ -178,8 +178,6 @@
 	[self addChild:shadow];
 
 	shadow.smoothing = YES;
-
-	/** Arrows **/
 
 	// Move the arrows into the bottom left and right corners.
 	leftArrow.x = 0.0f;
@@ -225,7 +223,7 @@
 	//			'touchUp' functionality in this example.  This will not always
 	//			be the case, it is important you decide what is the best course
 	//			of action for your program.
-	
+
 	[leftArrow addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(touchDown:)];
 	[leftArrow addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(touchUp:)];
 	[leftArrow addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
@@ -254,37 +252,37 @@
 {
 	// If we're on the iPad, let's scale all the movement values
 	float scaleMult = isIpad ? 2.0f : 1.0f;
-	
+
 	/////////////////////////
 	// Moving side to side //
 	/////////////////////////
-	
+
 	// Move the raccoon with some momentum
 	slideVelocity += 1.0f * direction;
 	raccoon.x += slideVelocity * scaleMult;
 	slideVelocity *= 0.9f;
-	
+
 	//////////////
 	// Floating //
 	//////////////
-	
+
 	// Float our raccoon 20 units up and down
 	float floatMagnitude = 20.0;
 	float currFloatDistance = sinf(PXGetTimer() * 0.002f) * floatMagnitude;
-	
+
 	raccoon.y = floorY - (40.0f * scaleMult) - currFloatDistance * scaleMult; 
-	
+
 	///////////////////////
 	// Update the shadow //
 	///////////////////////
-	
+
 	// Make the shadow get smaller and more faded out when the raccoon is
 	// further up
 	float floatPercent = (currFloatDistance + floatMagnitude) / (floatMagnitude * 2.0f);
-	
+
 	shadow.scale = (1 - floatPercent) * 0.2f + 0.8f;
 	shadow.alpha = (1 - floatPercent) * 0.5f + 0.5f;
-	
+
 	shadow.x = raccoon.x;
 	shadow.y = floorY;
 }

@@ -44,9 +44,9 @@
 - (void) initializeAsRoot
 {
 	// ------------------------------- Pure Code -------------------------------
-	
-	self.stage.backgroundColor = 0x454545; // Sexy gray
-	
+
+	self.stage.backgroundColor = 0x454545;
+
 	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"Rocky.png"];
 	PXTextureData *data = [loader newTextureData];
 
@@ -65,7 +65,7 @@
 	[self.stage addEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(moveTexture:)];
 
 	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onEnterFrame:)];
-	
+
 	// ------------------------- Detailed Description --------------------------
 	// Lets load the texture.
 	//PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"Rocky.png"];
@@ -109,8 +109,8 @@
 	// Making the stage itself the listener for this event, thus it will catch
 	// any touch to the screen; even if it is not touching the texture itself.
 	//[self.stage addEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(moveTexture:)];
-	
-	// Listen to ENTER_FRAME events in order to pulsate the image
+
+	// Listen to EnterFrame events in order to pulsate the image
 	//[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onEnterFrame:)];
 }
 

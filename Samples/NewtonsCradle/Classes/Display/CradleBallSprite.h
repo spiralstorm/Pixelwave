@@ -46,8 +46,8 @@
 	PXTexture *glowTexture;
 }
 - (id) initWithAtlas:(PXTextureAtlas *)atlas;
-- (void) setShadeRotation:(float)rotation;
 
+- (void) setShadeRotation:(float)rotation;
 - (void) setSelected:(BOOL)selected;
 
 @end

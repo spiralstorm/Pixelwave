@@ -255,11 +255,11 @@
 	float currFloatDistance = sinf(PXGetTimer() * 0.002f) * floatMagnitude;
 
 	raccoon.y = floorY - (40.0f * scaleMult) - currFloatDistance * scaleMult; 
-	
+
 	///////////////////////
 	// Update the shadow //
 	///////////////////////
-	
+
 	// Make the shadow get smaller and more faded out when the raccoon is
 	// further up
 	float floatPercent = (currFloatDistance + floatMagnitude) / (floatMagnitude * 2.0f);

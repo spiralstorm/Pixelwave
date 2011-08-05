@@ -68,7 +68,6 @@
 			 fixtureDef:(b2FixtureDef *)fixtureDef
 				 shapes:(b2Shape *)shape0, ...;
 
-
 // Utilities
 + (b2Body *)staticBodyInWorld:(b2World *)physicsWorld
 				 withFriction:(float)friction

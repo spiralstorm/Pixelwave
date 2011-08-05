@@ -92,7 +92,7 @@
 	///////////
 
 	// Make all the text white
-	uint textColor = 0xFFFFFF;
+	unsigned int textColor = 0xFFFFFF;
 
 	txt0.textColor = txt1.textColor = txt2.textColor = textColor;
 

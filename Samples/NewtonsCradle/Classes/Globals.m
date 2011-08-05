@@ -54,14 +54,17 @@ void initGlobals()
 	// Check if we're on an iPad.
 	// This variable is used later to see which images we need to load
 	// and how we should scale our movemement values
-	
+
 #ifdef UI_USER_INTERFACE_IDIOM
 	isIPad = (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad);
 #endif
 
-	if(isIPad){
+	if (isIPad)
+	{
 		myContentScale = 2.0f;
-	}else{
+	}
+	else
+	{
 		myContentScale = 1.0f;
 	}
 }

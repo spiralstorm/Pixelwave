@@ -47,7 +47,7 @@ static NSString *fontName = @"TrebuchetMS";
 @interface SimpleSliderRoot(Private)
 - (PXTextField *)newTextField;
 - (PXTextField *)textFieldForSlider:(Slider *)slider;
-- (void)updateTextField:(PXTextField *)textField withValue:(float)value;
+- (void) updateTextField:(PXTextField *)textField withValue:(float)value;
 - (PXTextField *)refForTextField:(PXTextField *)txt;
 @end
 

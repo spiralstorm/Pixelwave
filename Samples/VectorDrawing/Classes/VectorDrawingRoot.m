@@ -45,13 +45,13 @@
 {
 	// Make the background black
 	self.stage.backgroundColor = 0x000000;
-	
+
 	period = 0.0f;
 	circleShape = YES;
 
 	// An optimizatoin - we are only listening to touch events on the stage.
 	self.stage.touchChildren = NO;
-	
+
 	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 	[self.stage addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap)];
 }

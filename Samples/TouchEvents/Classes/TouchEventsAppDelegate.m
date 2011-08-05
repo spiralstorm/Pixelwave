@@ -49,6 +49,7 @@
 {
 	// Set the orientation to landscape
 	[UIApplication sharedApplication].statusBarOrientation = UIInterfaceOrientationLandscapeRight;
+
 	// Disable the idle timer. This is useful for most games.
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 
@@ -79,6 +80,7 @@
 {
 	[pixelView release];
     [window release];
+
     [super dealloc];
 }
 

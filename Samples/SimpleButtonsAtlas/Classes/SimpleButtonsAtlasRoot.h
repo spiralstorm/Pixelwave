@@ -51,7 +51,7 @@
 	float floorY;
 	float direction;
 	float slideVelocity;
-	
+
 	BOOL isIpad;
 }
 

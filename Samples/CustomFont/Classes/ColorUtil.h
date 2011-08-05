@@ -48,44 +48,45 @@ void HSVToRGB(float h, float s, float v, float color[3])
 	float p = v * (1.0f - s);
 	float q = v * (1.0f - (f * s));
 	float t = v * (1.0f - ((1.0f - f) * s));
-	
-	switch ((int)h1) {
+
+	switch ((int)h1)
+	{
 		case 0:
 			color[0] = v;
 			color[1] = t;
 			color[2] = p;
 			break;
-			
+
 		case 1:
 			color[0] = q;
 			color[1] = v;
 			color[2] = p;
 			break;
-			
+
 		case 2:
 			color[0] = p;
 			color[1] = v;
 			color[2] = t;
 			break;
-			
+
 		case 3:
 			color[0] = p;
 			color[1] = q;
 			color[2] = v;
 			break;
-			
+
 		case 4:
 			color[0] = t;
 			color[1] = p;
 			color[2] = v;
 			break;
-			
+
 		case 5:
 			color[0] = v;
 			color[1] = p;
 			color[2] = q;
 			break;
-			
+
 		default:
 			color[0] = color[1] = color[2] = 0.0f;
 			break;
