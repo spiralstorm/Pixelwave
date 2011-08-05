@@ -47,6 +47,7 @@
 
 - (void) touchUp:(PXTouchEvent *)event;
 - (void) touchDown:(PXTouchEvent *)event;
+- (void) touchMove:(PXTouchEvent *)event;
 @end
 
 //
@@ -209,26 +210,26 @@
 
 	[leftArrow addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(touchDown:)];
 	[leftArrow addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(touchUp:)];
-	[leftArrow addEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(touchUp:)];
 	[leftArrow addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
+	[leftArrow addEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(touchMove:)];
 
 	[rightArrow addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(touchDown:)];
 	[rightArrow addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(touchUp:)];
-	[rightArrow addEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(touchUp:)];
 	[rightArrow addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
+	[rightArrow addEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(touchMove:)];
 }
 - (void) removeTouchListeners
 {
 	// Remove the listeners for the left and right arrows.
 	[leftArrow removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(touchDown:)];
 	[leftArrow removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(touchUp:)];
-	[leftArrow removeEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(touchUp:)];
 	[leftArrow removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
+	[leftArrow removeEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(touchMove:)];
 
 	[rightArrow removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(touchDown:)];
 	[rightArrow removeEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(touchUp:)];
-	[rightArrow removeEventListenerOfType:PXTouchEvent_TouchOut listener:PXListener(touchUp:)];
 	[rightArrow removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
+	[rightArrow removeEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(touchMove:)];
 }
 
 - (void) onFrame:(PXEvent *)event
@@ -288,6 +289,21 @@
 	else
 	{
 		direction =  1.0f;
+	}
+}
+
+- (void) touchMove:(PXTouchEvent *)event
+{
+	// If the touch is inside the target, then we can handle this just like the
+	// touch down event. Likewise if it is not inside the target then we can
+	// handle it like a touch up event.
+	if (event.insideTarget == YES)
+	{
+		[self touchDown:event];
+	}
+	else
+	{
+		[self touchUp:event];
 	}
 }
 

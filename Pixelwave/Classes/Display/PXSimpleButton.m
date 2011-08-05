@@ -141,10 +141,6 @@
 		upState = nil;
 		hitTestState = nil;
 
-		self.downState = _downState;
-		self.upState = _upState;
-		self.hitTestState = _hitTestState;
-
 		enabled = YES;
 
 		visibleState = _PXSimpleButtonVisibleState_Up;
@@ -155,6 +151,11 @@
 		pxSBOnTouchUp     = [PXListener(pxSimpleButtonOnTouchUp:)     retain];
 		pxSBOnTouchMove   = [PXListener(pxSimpleBuuttonOnTouchMove:)  retain];
 		pxSBOnTouchCancel = [PXListener(pxSimpleButtonOnTouchCancel:) retain];
+
+		// Don't set any states until after the listeners are made.
+		self.downState = _downState;
+		self.upState = _upState;
+		self.hitTestState = _hitTestState;
 	}
 
 	return self;

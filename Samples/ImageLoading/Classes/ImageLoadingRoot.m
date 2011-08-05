@@ -39,7 +39,7 @@
 
 #import "ImageLoadingRoot.h"
 
-#define IMAGE_FILE_NAME @"Rocky.png"
+NSString * const imageFileName = @"Rocky.png";
 
 @interface ImageLoadingRoot(Private)
 - (PXTexture *) method1;
@@ -135,7 +135,7 @@
 - (PXTexture *) method1
 {
 	// ------------------------------- Pure Code -------------------------------
-	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:IMAGE_FILE_NAME];
+	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:imageFileName];
 	PXTextureData *data = [loader newTextureData];
 	PXTexture *texture = [[PXTexture alloc] initWithTextureData:data];
 
@@ -184,7 +184,7 @@
 	// Using the static method of PXTexture to load the texture will return an
 	// autoreleased form of the texture, thus there is no release of it after we
 	// add it.
-	PXTexture *texture = [PXTexture textureWithContentsOfFile:IMAGE_FILE_NAME];
+	PXTexture *texture = [PXTexture textureWithContentsOfFile:imageFileName];
 	[self addChild:texture];
 
 	return texture;
@@ -194,7 +194,7 @@
 #pragma mark Pure Code Summary
 - (void) pureCodeSummary
 {
-	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:IMAGE_FILE_NAME];
+	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:imageFileName];
 	PXTextureData *data = [loader newTextureData];
 	PXTexture *texture = [[PXTexture alloc] initWithTextureData:data];
 

@@ -48,6 +48,9 @@
 	
 	period = 0.0f;
 	circleShape = YES;
+
+	// An optimizatoin - we are only listening to touch events on the stage.
+	self.stage.touchChildren = NO;
 	
 	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 	[self.stage addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap)];
@@ -75,7 +78,7 @@
 	// Clear the previous frame
 	[g clear];
 
-	int count = 100;
+	static const unsigned int count = 100;
 
 	float cX, cY;
 	float radius;
@@ -83,21 +86,21 @@
 
 	period += 0.05f;
 
-	for (int i = 0; i < count; ++i)
+	for (unsigned int index = 0; index < count; ++index)
 	{
-		t = i/(float)count;
+		t = index / (float)count;
 
 		// Set the style of the line
 		[g lineStyleWithThickness:7.0f * t + 1
 							color:0xFF0000 
-							alpha: (i + 1.0f)/count];
+							alpha:(index + 1.0f) / count];
 
-		cX = self.stage.stageWidth * t * 0.7f + 40.0;
+		cX = self.stage.stageWidth  * t * 0.7f + 40.0;
 		cY = self.stage.stageHeight * 0.5f + sinf(t * M_PI * 2.0f * 2.0f - period) * 60.0f;
 
 		radius = t * 50.0f + 25.0f;
 
-		if(circleShape)
+		if (circleShape)
 		{
 			// Draw a circle with the specified line style
 			[g drawCircleWithX:cX y:cY radius:radius];

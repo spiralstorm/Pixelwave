@@ -65,7 +65,7 @@ class b2body;
 	PKBox2DTouchPicker *touchPicker;
 	
 	// Logic
-	int ballCount;
+	unsigned int ballCount;
 	b2Body **ballBodies;
 	ContactListener *contactListener;
 }

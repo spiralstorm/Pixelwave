@@ -72,6 +72,9 @@
 	txtInstructions.text = @"[Touch for sound]";
 	
 	[self addChild:txtInstructions];
+
+	// An optimization - we are only listening to touches on the stage anyway.
+	self.stage.touchChildren = NO;
 	
 	/////////////////////
 	// Event Listeners //
@@ -83,7 +86,7 @@
 	[self.stage addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown)];
 }
 
-- (void)onTouchDown
+- (void) onTouchDown
 {
 	// Specify the volume and pitch we want to use in a SoundTransform object
 	PXSoundTransform *t = [PXSoundTransform soundTransformWithVolume:[PXMath randomFloatInRangeFrom:0.5f to:1.0f] 

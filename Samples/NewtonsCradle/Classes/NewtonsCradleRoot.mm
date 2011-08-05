@@ -263,8 +263,7 @@
 	
 	b2Body *body;
 	b2RevoluteJointDef jointDef;
-<<<<<<< HEAD
-	
+
 	// Hold a reference to all the bodies in the world. We'll use this
 	// list when resetting the scene.
 	ballBodies = new b2Body*[ballCount];
@@ -282,106 +281,64 @@
 	
 	// Time to create the cradle ball objects.
 	
-	int i;
-	for(i = 0; i < ballCount; ++i){
-		
-		//// PHYSICS ////
-		
-=======
-
-	// Loop through and make each of the "ball and chains"
-	unsigned index;
-	for (index = 0; index < ballCount; ++index)
+	for (unsigned int index = 0; index < ballCount; ++index)
 	{
-		simpleSprite = [[PXSimpleSprite alloc] init];
-		[self addChild:simpleSprite];
-		[simpleSprite release];
-
-		simpleSprite.x = xPos;
-		simpleSprite.y = 0.0f;
-
-		// Make a texture for the ball
-		texture = [[PXTexture alloc] initWithTextureData:textureData];
-		[simpleSprite addChild:texture];
-		[texture release];
-
-		// Set the area of the texture that the ball lives.
-		texture.clipRect = [PXClipRect clipRectWithX:0.0f y:0.0f width:ballTextureSize height:ballTextureSize];
-		[texture setAnchorWithX:0.5f y:0.5f];
-		texture.x = 0.0f;
-		texture.y = stringLength;
-		texture.scale = ballTextureScale;
-		texture.smoothing = YES;
-
-		// Make a texture for the rope
-		texture = [[PXTexture alloc] initWithTextureData:textureData];
-		[simpleSprite addChild:texture];
-		[texture release];
-
-		// Set the area of the texture that the rope lives.
-		texture.clipRect = [PXClipRect clipRectWithX:512 - stringTextureWidth y:0.0f width:stringTextureWidth height:stringTextureHeight];
-		[texture setAnchorWithX:0.5f y:0.0f];
-		texture.width = stringTextureWidth;
-		texture.height = stringLength;
-		texture.smoothing = YES;
-
->>>>>>> Updated the touch heirachy to properly handle display objects being removed whom have captured a touch. They now send a cancel event out which will trickle upwards incase any of it's parents need it as well. Also, updated some of the samples so they work with the new pixelwave system
 		// Set the position of the body
 		bodyDef.position = b2Vec2_px2m(xPos, yPos);
-		
+
 		body = [Box2DUtils bodyInWorld:physicsWorld
 						   withBodyDef:&bodyDef
 							fixtureDef:&fixtureDef
 								shapes:&circle, nil];
-		
+
 		// Keep a reference to this body. This is used later when the
 		// user double-taps the screen to reset the scene.
-		ballBodies[i] = body;
-		
+		ballBodies[index] = body;
+
 		// Make a revolute joint. This will let the objects of the cradle
 		// rotate around a hinge at the top of the screen.
 		jointDef.Initialize(staticBody, body, bodyDef.position);
-		
+
 		// Set the limits so that it doesn't go further then the ceiling
 		jointDef.enableLimit = YES;
 		jointDef.lowerAngle = PXMathToRad(-74.5f);
 		jointDef.upperAngle = PXMathToRad( 74.5f);
-		
+
 		// Add the joint to the world
 		physicsWorld->CreateJoint(&jointDef);
-		
+
 		//// GRAPHICS ////
-		
+
 		// Wall shadow graphic
 		shadowSprite = [[CradleItemShadowSprite alloc] initWithAtlas:atlas ropeLength:stringLength];
 		[worldSprite addChild:shadowSprite];
 		[shadowSprite release];
-		
+
 		attacher = [[BodyAttacher alloc] init];
 		attacher.body = body;
 		attacher.displayObject = shadowSprite;
 		attacher.xOffset = 10.0f * myContentScale;
-		
+
 		[bodyAttachers addObject:attacher];
 		[attacher release];
-		
+
 		// Main graphic
 		itemSprite = [[CradleItemSprite alloc] initWithAtlas:atlas ropeLength:stringLength];
 		[worldSprite addChild:itemSprite];
 		[itemSprite release];
-		
+
 		attacher = [[BodyAttacher alloc] init];
 		attacher.body = body;
 		attacher.displayObject = itemSprite;
-		
+
 		[bodyAttachers addObject:attacher];
 		[attacher release];
-		
+
 		// The body should keep a reference its display object so that
 		// when the body it gets picked up by the user we can grab a reference
 		// to the display and turn the glow on/off.
 		body->SetUserData(itemSprite);
-		
+
 		// Increment to the position of the next ball
 		xPos += spaceBetween;
 	}	

@@ -73,6 +73,9 @@
 	
 	timeLabel = [TimeLabel new];
 	[self addChild:timeLabel];
+
+	// Optimization - We are only going to listen to touch events on the stage.
+	self.stage.touchChildren = NO;
 	
 	// Position the label is the initial spot
 	[self centerLabel];
@@ -101,12 +104,12 @@
 	///////////////////////
 	
 	// On click, let's toggle between military/non-military time
-	[self.stage addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTap)];
+	[self.stage addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap)];
 }
 
 - (void) dealloc
 {
-	[self.stage removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTap)];
+	[self.stage removeEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap)];
 	[self.stage removeEventListenerOfType:PXStageOrientationEvent_OrientationChanging listener:PXListener(orientationChanging:)];
 	[self.stage removeEventListenerOfType:PXStageOrientationEvent_OrientationChange listener:PXListener(orientationChange:)];
 	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];

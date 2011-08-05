@@ -98,24 +98,20 @@
 	//texture.y = self.stage.stageHeight * 0.5f;
 
 	// Touch event types include:
-	// PX_TOUCH_EVENT_TOUCH_DOWN
-	// PX_TOUCH_EVENT_TOUCH_UP
-	// PX_TOUCH_EVENT_TOUCH_CANCEL
-	// PX_TOUCH_EVENT_TOUCH_OUT
-	// PX_TOUCH_EVENT_TOUCH_MOVE
+	// PXTouchEvent_TouchDown
+	// PXTouchEvent_TouchUp
+	// PXTouchEvent_TouchCancel
+	// PXTouchEvent_TouchMove
+	// PXTouchEvent_Tap
 	// PXListener is a macro that will make a function pointer to your function,
 	// the colon ':' states that it will take an argument (in this case a
 	// PXTouchEvent).
 	// Making the stage itself the listener for this event, thus it will catch
 	// any touch to the screen; even if it is not touching the texture itself.
-	//[self.stage addEventListenerOfType:PX_TOUCH_EVENT_TOUCH_MOVE listener:PXListener(moveTexture:)];
+	//[self.stage addEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(moveTexture:)];
 	
 	// Listen to ENTER_FRAME events in order to pulsate the image
-	//[self addEventListenerOfType:PX_EVENT_ENTER_FRAME listener:PXListener(onEnterFrame:)];
-}
-
-- (void)onEnterFrame:(PXEvent *)event{
-	texture.alpha = sinf(PXGetTimer() * 0.003f) * 0.35f + 0.65f;
+	//[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onEnterFrame:)];
 }
 
 - (void) dealloc
@@ -123,10 +119,17 @@
 	// Release the texture.
 	[texture release];
 
+	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onEnterFrame:)];
+
 	// Remove the event listener.
 	[self.stage removeEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(moveTexture:)];
 
 	[super dealloc];
+}
+
+- (void) onEnterFrame:(PXEvent *)event
+{
+	texture.alpha = sinf(PXGetTimer() * 0.003f) * 0.35f + 0.65f;
 }
 
 - (void) moveTexture:(PXTouchEvent *)event
