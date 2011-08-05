@@ -62,16 +62,16 @@
  *	to have event dispatching capabilities. The easy thing to do would be to
  *	have our class extend PXEventDispatcher. But since it already extends from
  *	<code>SomeOtherClass</code> we need a different solution. The solution is
- *	to implement the PXEventDispatcherProtocol, since one class can implement
+ *	to implement the PXEventDispatcher protocol, since one class can implement
  *	any number of protocols but only inherit from a single class. Here's what
- *	our class would need to do to support the PXEventDispatcherProtocol:
+ *	our class would need to do to support the PXEventDispatcher protocol:
  
  *	@i Header:
  *	@code
  * #import "SomeOtherClass.h"
  * #import "PXEventDispatcher.h"
  *	
- * @interface MyEventDispatchingClass : SomeOtherClass <PXEventDispatcherProtocol>
+ * @interface MyEventDispatchingClass : SomeOtherClass <PXEventDispatcher>
  *	{
  * @private
  *	PXEventDispatcher *eventDispatcher;
@@ -143,7 +143,7 @@
  *
  *	@see PXEventDispatcher
  */
-@protocol PXEventDispatcherProtocol<NSObject>
+@protocol PXEventDispatcher<NSObject>
 @required
 //-- ScriptName: addEventListener
 //-- ScriptArg[0]: required
@@ -177,11 +177,11 @@
 // dictionary instead of doing string contcatenation with the keys
 // of a single dictionary.
 
-@interface PXEventDispatcher : NSObject <PXEventDispatcherProtocol>
+@interface PXEventDispatcher : NSObject <PXEventDispatcher>
 {
 /// @cond DX_IGNORE
 @private
-	id<PXEventDispatcherProtocol> target;
+	id<PXEventDispatcher> target;
 
 	NSMutableDictionary *eventListeners;
 	
@@ -197,7 +197,7 @@
 @property (nonatomic, assign) BOOL dispatchEvents;
 
 //-- ScriptName: EventDispatcher
-- (id) initWithTarget:(id<PXEventDispatcherProtocol>)target;
+- (id) initWithTarget:(id<PXEventDispatcher>)target;
 
 //-- ScriptIgnore
 - (BOOL) addEventListenerOfType:(NSString *)type

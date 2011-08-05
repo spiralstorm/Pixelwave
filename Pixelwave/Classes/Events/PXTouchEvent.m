@@ -170,7 +170,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 - (BOOL) captured
 {
-	id<PXEventDispatcherProtocol> capturingObject = PXTouchEngineGetTouchCapturingObject(_nativeTouch);
+	id<PXEventDispatcher> capturingObject = PXTouchEngineGetTouchCapturingObject(_nativeTouch);
 	return (capturingObject == _target);
 }
 

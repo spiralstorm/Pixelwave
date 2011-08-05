@@ -17,14 +17,14 @@ extern "C" {
 
 @class PXLinkedList;
 @class UITouch;
-@protocol PXEventDispatcherProtocol;
+@protocol PXEventDispatcher;
 	
 void PXTouchEngineInit();
 void PXTouchEngineDealloc();
 
-void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol> capturingObject);
-void PXTouchEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispatcherProtocol> capturingObject);	
-id<PXEventDispatcherProtocol> PXTouchEngineGetTouchCapturingObject(UITouch *nativeTouch);
+void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcher> capturingObject);
+void PXTouchEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispatcher> capturingObject);	
+id<PXEventDispatcher> PXTouchEngineGetTouchCapturingObject(UITouch *nativeTouch);
 
 UITouch *PXTouchEngineGetFirstTouch();
 PXLinkedList *PXTouchEngineGetAllTouches();

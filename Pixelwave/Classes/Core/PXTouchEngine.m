@@ -224,7 +224,7 @@ void PXTouchEngineDispatchTouchEvents()
 	bool didTouchUpOrCancel = false;
 
 	id<NSObject> captureKey = NULL;
-	id<PXEventDispatcherProtocol> captureTarget = NULL;
+	id<PXEventDispatcher> captureTarget = NULL;
 
 	// If stage's touch children is off, then the only reciever of any touches
 	// would automatically be stage.
@@ -260,7 +260,7 @@ void PXTouchEngineDispatchTouchEvents()
 
 			// Grab the 'key' for the dictionary of captures, and the target
 			captureKey = event.nativeTouch;
-			captureTarget = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, captureKey);
+			captureTarget = (id<PXEventDispatcher>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, captureKey);
 
 			// If a capture target exists, then we don't need to find a new one
 			if (captureTarget != nil)
@@ -327,7 +327,7 @@ void PXTouchEngineDispatchTouchEvents()
 		PXLinkedListForEach(pxTouchEngineTouchEvents, event)
 		{
 			captureKey = event.nativeTouch;
-			captureTarget = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, captureKey);
+			captureTarget = (id<PXEventDispatcher>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, captureKey);
 
 			if (captureTarget != nil)
 			{
@@ -350,7 +350,7 @@ void PXTouchEngineDispatchTouchEvents()
 void PXTouchEngineCancelTouch(UITouch *touch)
 {
 	// Get the object that is captured by the touch.
-	id<PXEventDispatcherProtocol> object = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, touch);
+	id<PXEventDispatcher> object = (id<PXEventDispatcher>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, touch);
 
 	// If the object is nil, then the touch does not have a capturing target,
 	// thus it is not in our list, and we can just return.
@@ -443,7 +443,7 @@ void _PXTouchEngineRemoveAllTouchCapturesFromObjects(PXLinkedList *objects)
 	CFIndex index;
 	CFTypeRef *key;
 
-	id<PXEventDispatcherProtocol> target;
+	id<PXEventDispatcher> target;
 
 	// Loop through the dictionary and see if the object has any association
 	// with a touch; if it does, we need to cancel it.
@@ -451,7 +451,7 @@ void _PXTouchEngineRemoveAllTouchCapturesFromObjects(PXLinkedList *objects)
 	{
 		// Grab the target EVERY TIME this way even if the dictionary changes
 		// during this loop, we are only doing the most up to date interactions.
-		target = (id<PXEventDispatcherProtocol>)(CFDictionaryGetValue(pxEngineTouchCapturingObjects, *key));
+		target = (id<PXEventDispatcher>)(CFDictionaryGetValue(pxEngineTouchCapturingObjects, *key));
 
 		// If no target exists, continue.
 		if (target == nil)
@@ -469,7 +469,7 @@ void _PXTouchEngineRemoveAllTouchCapturesFromObjects(PXLinkedList *objects)
 }
 
 // talk about the rules we set.
-void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol> capturingObject)
+void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcher> capturingObject)
 {
 	// Cheap function to ensure that we actually need to do something.
 	CFIndex count = CFDictionaryGetCount(pxEngineTouchCapturingObjects);
@@ -519,13 +519,13 @@ void PXTouchEngineRemoveAllTouchCapturesFromObject(id<PXEventDispatcherProtocol>
 //			sent it to this method to associated it with you, then we have no
 //			way of ensuring that the touch is real. So, please don't do that. It
 //			won't break anything, but could yield strange results.
-void PXTouchEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispatcherProtocol> capturingObject)
+void PXTouchEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispatcher> capturingObject)
 {
 	// If you send us a nil touch, then there is nothing for us to do.
 	if (nativeTouch == nil)
 		return;
 
-	id<PXEventDispatcherProtocol> originalObject = (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
+	id<PXEventDispatcher> originalObject = (id<PXEventDispatcher>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
 
 	// Only do work if the object is actually changing
 	if (originalObject != capturingObject)
@@ -553,12 +553,12 @@ void PXTouchEngineSetTouchCapturingObject(UITouch *nativeTouch, id<PXEventDispat
 }
 
 // Returns the capturing target if one exists.
-id<PXEventDispatcherProtocol> PXTouchEngineGetTouchCapturingObject(UITouch *nativeTouch)
+id<PXEventDispatcher> PXTouchEngineGetTouchCapturingObject(UITouch *nativeTouch)
 {
 	if (nativeTouch == nil)
 		return nil;
 	
-	return (id<PXEventDispatcherProtocol>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
+	return (id<PXEventDispatcher>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
 }
 
 // Returns the first NATIVE touch found in the list.

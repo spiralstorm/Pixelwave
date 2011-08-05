@@ -18,7 +18,10 @@ NEW:
 - Added a sample project to show usage of a texture atlas.
 - Re-skinned the Newton's cradle sample. It now uses a texture atlas as well.
 - In PixelKit, the Box2DTouchPicker now dispatches events when a pick starts and ends, allowing the user to cancel certain ones.
+
 CHANGED:
+- Renamed the <PXEventDispatcherProtocol> to <PXEventDispatcher>. This seems to better match the way Apple does things (with the NSObject class the the <NSObject> protocol).
+- Renamed the method [PXEvent initWithType:doesBubble:isCancelable:] to [PXEvent initWithType:bubbles:cancelable:] (better following naming conventions).
 - The touch system has been redesigned to be more user friendly:
 	- Touches can now be 'captured' by display objects, causing the touch's events to only be dispatched on the display object it first touched (this behavior can be turned off).
 	- PXInteractiveObject has a new property 'captureTouches' to allow the user control how touches should be handled by individual display objects.
@@ -36,6 +39,7 @@ CHANGED:
 - Re-organized the docs folder to be more user friendly (all 'dirty' scripts are now in a hidden folder).
 - All public methods now use only NSArray objects for lists (as opposed to PXLinkedList).
 - Removed all (of 1) deprecated methods.
+
 FIXED:
 - General clean up including fixing several memory leaks, reorganizing code, and doing performance enhancements.
 - Now the '-all_load' linked flag (which is required by some frameworks) won't prevent Pixelwave from compiling.
