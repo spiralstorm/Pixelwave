@@ -1412,6 +1412,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	const GLushort *curIndex;
 	GLsizei counter;
 
+	// Create an arbitrary amount of buckets. We will expand this if needed.
 	GLushort maxIndex = (count * 0.34f) + 1;//*indices;
 	/*for (counter = 1, curIndex = indices + counter; counter < count; ++counter, ++curIndex)
 	{
@@ -1434,6 +1435,11 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		if (eVal > maxIndex)
 		{
 			maxIndex = eVal;
+			// Grabbing the new array of buckets.
+			// Note:	This will not mess up the previous array as it will be
+			//			copied by realloc. We are also always getting the bucket
+			//			from the starting array (aka this) so it will never be
+			//			incorrect.
 			buckets = PXGLGetElementBuckets(maxIndex + 1);
 		}
 
