@@ -85,11 +85,53 @@
 	return self;
 }
 
+/**
+ *	Creates a sound using the data given. The data is parsed into a usable
+ *	format.
+ *
+ *	@param data
+ *		The raw data.
+ *
+ *	@return
+ *		The parsed sound.
+ *
+ *	@b Example:
+ *	@code
+ *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
+ *	PXSound *sound = [[PXSound alloc] initWithData:data];
+ *	PXSoundChannel *channel = [sound play];
+ *	// The sound will begin playing, and channel will be your reference.
+ *	@endcode
+ */
 - (id) initWithData:(NSData *)data
 {
 	return [self initWithData:data modifier:nil];
 }
 
+/**
+ *	Creates a sound using the data given. The data is parsed into a usable
+ *	format.
+ *
+ *	@param data
+ *		The raw data.
+ *	@param modifier
+ *		The modifier is used to modify the loaded bytes; once set, it can not be
+ *		un-done. The modifier will be ignored if the data is not modifiable.
+ *
+ *	@return
+ *		The parsed sound.
+ *
+ *	@b Example:
+ *	@code
+ *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
+ *	PXSound *sound = [[PXSound alloc] initWithData:data modifier:[PXSoundModifiers soundModifierToMono]];
+ *	PXSoundChannel *channel = [sound play];
+ *	// The sound will be converted to mono, then begin playing, and channel will
+ *	// be your reference.
+ *	@endcode
+ *
+ *	@see PXSoundParser
+ */
 - (id) initWithData:(NSData *)data modifier:(id<PXSoundModifier>)modifier
 {
 	self = [super init];
@@ -97,7 +139,7 @@
 	if (self)
 	{
 		PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data
-																  modifier:modifier];
+																modifier:modifier];
 		PXSound *newSound = [soundParser newSound];
 
 		[soundParser release];
@@ -106,9 +148,8 @@
 
 		self = newSound;
 
-	//	if (self)
-	//	{
-	//	}
+		// If initialization code is needed, do a check if self exists prior to
+		// doing any code.
 	}
 
 	return self;
@@ -213,8 +254,8 @@
  *		The path of the file.
  *
  *	@return
- *		The loaded sound, if the sound fails loading then <code>nil</code> is
- *		returned instead.
+ *		The loaded and parsed sound, if the sound fails loading then
+ *		<code>nil</code> is returned instead.
  *
  *	@b Example:
  *	@code
@@ -227,6 +268,25 @@
 	return [PXSound soundWithContentsOfFile:path modifier:nil];
 }
 
+/**
+ *	Creates a sound by loading the file at the given path.
+ *
+ *	@param filePath
+ *		The path of the file.
+ *	@param modifier
+ *		The modifier is used to modify the loaded bytes; once set, it can not be
+ *		un-done. The modifier will be ignored if the data is not modifiable.
+ *
+ *	@return
+ *		The loaded and parsed sound, if the sound fails loading then
+ *		<code>nil</code> is returned instead.
+ *
+ *	@b Example:
+ *	@code
+ *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
+ *	// Sound is loaded, converted to mono, and ready to go.
+ *	@endcode
+ */
 + (PXSound *)soundWithContentsOfFile:(NSString *)path modifier:(id<PXSoundModifier>)modifier
 {
 	PXSoundLoader *soundLoader = [[PXSoundLoader alloc] initWithContentsOfFile:path modifier:modifier];
@@ -236,11 +296,46 @@
 	return [sound autorelease];
 }
 
+/**
+ *	Creates a sound by loading the file at the given url.
+ *
+ *	@param url
+ *		The url of the file.
+ *
+ *	@return
+ *		The loaded and parsed sound, if the sound fails loading then
+ *		<code>nil</code> is returned instead.
+ *
+ *	@b Example:
+ *	@code
+ *	PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav"];
+ *	// Sound is loaded and ready to go.
+ *	@endcode
+ */
 + (PXSound *)soundWithContentsOfURL:(NSURL *)url
 {
 	return [PXSound soundWithContentsOfURL:url modifier:nil];
 }
 
+/**
+ *	Creates a sound by loading the file at the given url.
+ *
+ *	@param url
+ *		The url of the file.
+ *	@param modifier
+ *		The modifier is used to modify the loaded bytes; once set, it can not be
+ *		un-done. The modifier will be ignored if the data is not modifiable.
+ *
+ *	@return
+ *		The loaded and parsed sound, if the sound fails loading then
+ *		<code>nil</code> is returned instead.
+ *
+ *	@b Example:
+ *	@code
+ *	PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
+ *	// Sound is loaded, converted to mono, and ready to go.
+ *	@endcode
+ */
 + (PXSound *)soundWithContentsOfURL:(NSURL *)url modifier:(id<PXSoundModifier>)modifier
 {
 	PXSoundLoader *soundLoader = [[PXSoundLoader alloc] initWithContentsOfURL:url modifier:modifier];
@@ -250,10 +345,47 @@
 	return [sound autorelease];
 }
 
+/**
+ *	Creates a sound by parsing the data.
+ *
+ *	@param data
+ *		The raw data.
+ *
+ *	@return
+ *		The loaded and parsed sound, if the sound fails loading then
+ *		<code>nil</code> is returned instead.
+ *
+ *	@b Example:
+ *	@code
+ *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
+ *	PXSound *sound = [PXSound soundWithData:data];
+ *	// Sound is parsed, converted to mono, and ready to go.
+ *	@endcode
+ */
 + (PXSound *)soundWithData:(NSData *)data
 {
 	return [[[PXSound alloc] initWithData:data] autorelease];
 }
+/**
+ *	Creates a sound by parsing the data.
+ *
+ *	@param data
+ *		The raw data.
+ *	@param modifier
+ *		The modifier is used to modify the loaded bytes; once set, it can not be
+ *		un-done. The modifier will be ignored if the data is not modifiable.
+ *
+ *	@return
+ *		The loaded and parsed sound, if the sound fails loading then
+ *		<code>nil</code> is returned instead.
+ *
+ *	@b Example:
+ *	@code
+ *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
+ *	PXSound *sound = [PXSound soundWithData:data modifier:[PXSoundModifiers soundModifierToMono]];
+ *	// Sound is parsed, converted to mono, and ready to go.
+ *	@endcode
+ */
 + (PXSound *)soundWithData:(NSData *)data modifier:(id<PXSoundModifier>)modifier
 {
 	return [[[PXSound alloc] initWithData:data modifier:modifier] autorelease];

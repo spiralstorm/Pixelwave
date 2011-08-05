@@ -65,6 +65,24 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 @synthesize nativeTouch = _nativeTouch;
 @synthesize tapCount = _tapCount;
 
+/**
+ *	Creates a touch event.
+ *
+ *	@param type
+ *		A string representing the type of the event.
+ *	@param nativeTouch
+ *		The touch object used for keeping track of what finger started the
+ *		touch.
+ *	@param stageX
+ *		The horizontal location in global (stage) coordinates where the touch
+ *		occured.
+ *	@param stageY
+ *		The vertical location in global (stage) coordinates where the touch
+ *		occured.
+ *	@param tapCount
+ *		The number of touches that have been repeated in the same place without
+ *		moving.
+ */
 - (id) initWithType:(NSString *)type
 		nativeTouch:(UITouch *)touch
 			 stageX:(float)stageX

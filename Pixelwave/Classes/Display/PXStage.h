@@ -46,9 +46,17 @@
  */
 typedef enum
 {
+	/// Portrait mode is when the device is upright with the home button closest
+	/// to the ground
 	PXStageOrientation_Portrait = 0,
+	/// PortraitUpsideDown mode is when the device is upside down, as in, the
+	/// home button is closest to the sky.
 	PXStageOrientation_PortraitUpsideDown,
+	/// LandscapeLeft is when the device is sideways with the home button on the
+	/// left hand side.
 	PXStageOrientation_LandscapeLeft,
+	/// LandscapeRight is when the device is sideways with the home button on
+	///	the right hand side.
 	PXStageOrientation_LandscapeRight
 } PXStageOrientation;
 
@@ -91,10 +99,10 @@ typedef enum
 /**
  *	If <code>YES</code> then the stage automatically rotates to the orientations
  *	acceptable It will send out a <code>PXStageOrientation</code> with the type
- *	<code>PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGING</code>. If that event is canceled
+ *	<code>PXStageOrientationEvent_OrientationChanging</code>. If that event is canceled
  *	(using <code>preventDefault</code>) then the orientation will not take
  *	affect. If the orientation is accepted then a
- *	<code>PX_STAGE_ORIENTATION_EVENT_ORIENTATION_CHANGE</code> will be sent.
+ *	<code>PXStageOrientationEvent_OrientationChange</code> will be sent.
  *
  *	@b Default: NO
  */

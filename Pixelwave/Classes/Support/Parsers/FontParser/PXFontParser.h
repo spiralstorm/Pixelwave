@@ -50,6 +50,8 @@
 @protected
 	PXFontOptions *options;
 	PXFontFuser *fontFuser;
+
+	float contentScaleFactor;
 }
 
 /**
@@ -59,11 +61,20 @@
  */
 @property (nonatomic, readonly) PXFontOptions *options;
 
+/**
+ *	Returns the content scale factor of the parsed font.
+ */
+@property (nonatomic, readonly) float contentScaleFactor;
+
+//-- ScriptIgnore
+- (id) initWithData:(NSData *)data options:(PXFontOptions *)options origin:(NSString *)origin;
 //-- ScriptName: FontParser
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: nil
-- (id) initWithData:(NSData *)data options:(PXFontOptions *)options origin:(NSString *)origin;
+//-- ScriptArg[3]: 1.0f
+- (id) initWithData:(NSData *)data options:(PXFontOptions *)options origin:(NSString *)origin contentScaleFactor:(float)contentScaleFactor;
+
 //-- ScriptName: FontParserWithSystemFont
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: required
@@ -78,7 +89,8 @@
 @interface PXFontParser (Override)
 - (id) _initWithData:(NSData *)data
 			 options:(PXFontOptions *)options
-			  origin:(NSString *)origin;
+			  origin:(NSString *)origin
+  contentScaleFactor:(float)contentScaleFactor;
 - (Class) defaultFuser;
 @end
 

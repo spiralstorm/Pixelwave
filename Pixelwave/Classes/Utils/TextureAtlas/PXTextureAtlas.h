@@ -35,14 +35,6 @@
  * 3  This notice may not be removed or altered from any source distribution 
  */
 
-//
-//  PXTextureAtlas h
-//  TextureAtlas
-//
-//  Created by Oz Michaeli on 9/21/10 
-//  Copyright 2010 Spiralstorm Games  All rights reserved 
-//
-
 @class PXAtlasFrame;
 @class PXTexture;
 @class PXClipRect;

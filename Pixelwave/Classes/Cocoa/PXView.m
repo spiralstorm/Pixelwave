@@ -54,6 +54,8 @@
 #import "PXCGUtils.h"
 #import "PXStageOrientationEvent.h"
 
+#include "PXDebug.h"
+
 /// @cond DX_IGNORE
 @interface PXView(Private)
 - (void) updateOrientation;
@@ -486,17 +488,21 @@
 	
 	PXColor4f clearColor = PXEngineGetClearColor();
 	
-	if(self.opaque){
+	if (self.opaque)
+	{
 		clearColor.a = 1.0f;
-	}else{
+	}
+	else
+	{
 		// This is needed in order for a non-opaque view to work correctly
 		clearColor.r = 0.0f;
 		clearColor.g = 0.0f;
 		clearColor.b = 0.0f;
 		clearColor.a = 0.0f;
 		
-		if(colorQuality != PXViewColorQuality_High){
-			NSLog(@"Pixelwave Warning: Setting PXView.opaque = NO when the colorQuality of the view isn't 'high' will have no effect.");
+		if (colorQuality != PXViewColorQuality_High)
+		{
+			PXDebugLog (@"Pixelwave Warning: Setting PXView.opaque = NO when the colorQuality of the view isn't 'high' will have no effect.");
 		}
 	}
 	

@@ -48,17 +48,29 @@
 typedef enum
 {
 	//PXTextureDataPixelFormat_Automatic = 0,
+	/// 8 bits for each color and alpha
 	PXTextureDataPixelFormat_RGBA8888 = 1,
+	/// 4 bits for each color and alpha
 	PXTextureDataPixelFormat_RGBA4444,
+	/// 5 bits for each color, and 1 bit for alpha
 	PXTextureDataPixelFormat_RGBA5551,
+	/// 5 bits for red, 6 for green, 5 for blue and 0 for alpha
 	PXTextureDataPixelFormat_RGB565,
+	/// 8 bits for each color and 0 for alpha
 	PXTextureDataPixelFormat_RGB888,
+	/// 8 bits for luminance
 	PXTextureDataPixelFormat_L8,
+	/// 0 bits for color, 8 bits for alpha
 	PXTextureDataPixelFormat_A8,
+	/// 8 bits for luminance and 8 bits for alpha
 	PXTextureDataPixelFormat_LA88,
+	/// PVR is a special encoding
 	PXTextureDataPixelFormat_RGB_PVRTC2,
+	/// PVR is a special encoding
 	PXTextureDataPixelFormat_RGB_PVRTC4,
+	/// PVR is a special encoding
 	PXTextureDataPixelFormat_RGBA_PVRTC2,
+	/// PVR is a special encoding
 	PXTextureDataPixelFormat_RGBA_PVRTC4
 } PXTextureDataPixelFormat;
 

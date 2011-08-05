@@ -196,10 +196,8 @@ BOOL pxTextureDataExpandEdges = YES;
 
 		self = newTextureData;
 
-		if (self)
-		{
-			// Add init code here if needed
-		}
+		// If initialization code is needed, do a check if self exists prior to
+		// doing any code.
 	}
 
 	return self;
@@ -703,13 +701,13 @@ BOOL pxTextureDataExpandEdges = YES;
 + (PXTextureData *)textureDataWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:path modifier:modifier];
-	
+
 	if (!textureLoader)
 	{
-		NSLog(@"PXTextureData: Couldn't resolve file at path %@", path);
+		PXDebugLog (@"PXTextureData: Couldn't resolve file at path %@", path);
 		return nil;
 	}
-	
+
 	PXTextureData *textureData = [textureLoader newTextureData];
 	[textureLoader release];
 

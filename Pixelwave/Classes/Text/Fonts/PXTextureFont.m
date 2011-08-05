@@ -40,7 +40,6 @@
 #import "PXTextureFont.h"
 
 #import "PXPoint.h"
-#import "PXLinkedList.h"
 
 #import "PXTextureFontRenderer.h"
 #import "PXTextureGlyph.h"
@@ -104,14 +103,14 @@
 	[super dealloc];
 }
 
-- (PXLinkedList *)textureDatas
+- (NSArray *)textureDatas
 {
 	if ([characterToGlyph count] == 0)
 	{
 		return nil;
 	}
 
-	PXLinkedList *list = [[PXLinkedList alloc] init];
+	NSMutableArray *list = [[NSMutableArray alloc] init];
 
 	PXTextureGlyph *glyph;
 	PXTextureData *textureData;
@@ -119,7 +118,7 @@
 	NSEnumerator *enumerator = [characterToGlyph objectEnumerator];
     id obj;
 
-    while (obj = [enumerator nextObject])
+    while ((obj = [enumerator nextObject]))
 	{
 		glyph = (PXTextureGlyph *)obj;
 		textureData = glyph.textureData;

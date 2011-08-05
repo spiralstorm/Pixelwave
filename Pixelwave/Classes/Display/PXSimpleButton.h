@@ -72,12 +72,13 @@ typedef enum
  */
 @property (nonatomic, retain) PXDisplayObject *upState;
 /**
- *	A PXDisplayObject that specifies the hit area for the button.  If
+ *	A PXDisplayObject that specifies the hit area for the button. If
  *	<code>nil</code> is specified then no interaction can exist on this button.
  */
 @property (nonatomic, retain) PXDisplayObject *hitTestState;
 /**
- *	Whether the button is enabled (pressable), default is <code>YES</code>.
+ *	Whether the button is enabled (pressable).
+ *	@b Default: <code>YES</code>.
  */
 @property (nonatomic, assign) BOOL enabled;
 

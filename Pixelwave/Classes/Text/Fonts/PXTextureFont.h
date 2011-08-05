@@ -41,7 +41,6 @@
 
 @class PXTextureGlyph;
 @class PXPoint;
-@class PXLinkedList;
 
 @interface PXTextureFont : PXFont
 {
@@ -60,7 +59,7 @@
  *	A list holding references to every PXTextureData used to make up the
  *	PXTextureFont object
  */
-@property (nonatomic, readonly) PXLinkedList *textureDatas;
+@property (nonatomic, readonly) NSArray *textureDatas;
 
 @end
 

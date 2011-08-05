@@ -102,6 +102,7 @@
  * {
  * 	[eventDispatcher release];
  * 	eventDispatcher = nil;
+ *
  *	[super dealloc];
  * }
  *

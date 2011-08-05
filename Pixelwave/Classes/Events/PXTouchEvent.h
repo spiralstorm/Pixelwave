@@ -44,14 +44,6 @@
 
 @class PXPoint;
 
-/*#define PX_TOUCH_EVENT_TAP @ "tap"
-#define PX_TOUCH_EVENT_DOUBLE_TAP @ "doubleTap"
-#define PX_TOUCH_EVENT_TOUCH_DOWN @ "touchDown"
-#define PX_TOUCH_EVENT_TOUCH_MOVE @ "touchMove"
-#define PX_TOUCH_EVENT_TOUCH_UP @ "touchUp"
-#define PX_TOUCH_EVENT_TOUCH_OUT @ "touchOut"
-#define PX_TOUCH_EVENT_TOUCH_CANCEL @ "touchCancel"*/
-
 PXExtern NSString * const PXTouchEvent_Tap;
 PXExtern NSString * const PXTouchEvent_DoubleTap;
 PXExtern NSString * const PXTouchEvent_TouchDown;

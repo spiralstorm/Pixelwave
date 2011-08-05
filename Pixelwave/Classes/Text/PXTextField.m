@@ -138,7 +138,7 @@
  *
  *	@param fontName
  *		The name of the registered font.  If the font does not exist or was not
- *		registered then the default (<code>PX_TEXT_FIELD_DEFAULT_FONT</code>) is
+ *		registered then the default (<code>PXTextFieldDefaultFont</code>) is
  *		used instead.
  *
  *	@b Example:
@@ -566,7 +566,7 @@
 
 	if (!renderer)
 	{
-		self.font = PX_TEXT_FIELD_DEFAULT_FONT;
+		self.font = PXTextFieldDefaultFont;
 	}
 
 	isValid = YES;
@@ -618,14 +618,45 @@
 	[renderer _renderGL];
 }
 
+/**
+ *	Creates a PXTextField using the default font
+ *	(<code>PXTextFieldDefaultFont</code>). No text will be displayed until you
+ *	set the text property of the PXTextField just created. If no texts exists,
+ *	then the this object will appear to have 0 size.
+ *
+ *	@b Example:
+ *	@code
+ *	PXTextField *textField = [PXTextField textField];
+ *	@endcode
+ *
+ *	@see PXTextureFont, PXFont
+ */
 + (PXTextField *)textField
 {
 	return [[PXTextField new] autorelease];
 }
 
-+ (PXTextField *)textFieldWithFont:(NSString *)fontName
+/**
+ *	Creates a PXTextField using the registered font if it exists, or the default
+ *	font (<code>PXTextFieldDefaultFont</code>). No text will be displayed until
+ *	you set the text property of the PXTextField just created. If no texts
+ *	exists, then the this object will appear to have 0 size.
+ *
+ *	@param fontName
+ *		The name of the registered font.  If the font does not exist or was not
+ *		registered then the default (<code>PXTextFieldDefaultFont</code>) is
+ *		used instead.
+ *
+ *	@b Example:
+ *	@code
+ *	PXTextField *textField = [PXTextField textField];
+ *	@endcode
+ *
+ *	@see PXTextureFont, PXFont
+ */
++ (PXTextField *)textFieldWithFont:(NSString *)_fontName
 {
-	return [[[PXTextField alloc] initWithFont:fontName] autorelease];
+	return [[[PXTextField alloc] initWithFont:_fontName] autorelease];
 }
 
 /**
@@ -633,7 +664,7 @@
  *
  *	@param fontName
  *		The name of the registered font.  If the font does not exist or was not
- *		registered then the default (<code>PX_TEXT_FIELD_DEFAULT_FONT</code>) is
+ *		registered then the default (<code>PXTextFieldDefaultFont</code>) is
  *		used instead.
  *	@param text
  *		The text for the text field.

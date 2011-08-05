@@ -813,7 +813,7 @@ PXDisplayObject *PXEngineFindTouchTarget(float x, float y)
 	}
 
 	if (possibleParentTarget != nil)
-		NSLog (@"PXEngineFindTouchTarget WARNING: possibleParentTarget != nil as expected\n");
+		PXDebugLog (@"PXEngineFindTouchTarget WARNING: possibleParentTarget != nil as expected\n");
 
 	// TODO: John, check to see if this line can just return nil.
 	// Look through the code and try to proove it won't fail

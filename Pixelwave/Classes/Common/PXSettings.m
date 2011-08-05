@@ -39,4 +39,6 @@
 
 #include "PXSettings.h"
 
+NSString * const PXTextFieldDefaultFont = @"Helvetica";
+
 PXVersion pxVersion = {0, 10, 1};

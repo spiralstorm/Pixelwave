@@ -611,8 +611,6 @@
 
 }
 
-//- (NSArray *)getObjectsUnderPoint:
-
 /**
  *	Retrieves the index of the specified child.  If the specified child is not
  *	part of this container, then <code>-1</code> is returned instead and a
@@ -1072,7 +1070,7 @@
  *	[container addChild:square2];
  *
  *	PXPoint *pt;
- *	PXLinkedList *objects;
+ *	NSArray *objects;
  *
  *	pt = [PXPoint pointWithX:10 y:20];
  *	objects = [container objectsUnderPoint:pt];
@@ -1088,15 +1086,15 @@
  *	[container release];
  *	@endcode
  */
-- (PXLinkedList *)objectsUnderPoint:(PXPoint *)point
+- (NSArray *)objectsUnderPoint:(PXPoint *)point
 {
 	if (!point)
 	{
 		return nil;
 	}
 
-	PXLinkedList *list = [[PXLinkedList alloc] init];
-	PXLinkedList *addList;
+	NSMutableArray *list = [[NSMutableArray alloc] init];
+	NSArray *addList = nil;
 	PXDisplayObjectContainer *container;
 
 	PXDisplayObject *loopChild;
@@ -1120,7 +1118,7 @@
 			container = (PXDisplayObjectContainer *)(loopChild);
 			addList = [container objectsUnderPoint:point];
 			
-			[list addObjectsFromList:addList];
+			[list addObjectsFromArray:addList];
 		}
 	}
 

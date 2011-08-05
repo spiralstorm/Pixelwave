@@ -39,8 +39,8 @@
 
 @class PXFontRenderer;
 @class PXFontOptions;
-@class PXLinkedList;
 
+/// @cond DX_IGNORE
 // Using 72 pixels per inch to match system fonts, even though the original
 // iPhone was 163 ppi, and the iPhone4 is 326 ppi.  This is OK because it's how
 // system fonts are handled too.
@@ -94,7 +94,7 @@
 //-- ScriptName: containsFont
 + (BOOL) containsFontWithName:(NSString *)name;
 
-+ (PXLinkedList *)availableSystemFonts;
++ (NSArray *)availableSystemFonts;
 + (BOOL) isSystemFontAvailable:(NSString *)name;
 
 /////////////////////////////////// Creating \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

@@ -471,6 +471,15 @@
 	return [[[PXMatrix alloc] initWithA:a b:b c:c d:d tx:tx ty:ty] autorelease];
 }
 
+/**
+ *	Creates a matrix with values of (a=1.0, b=0.0, c=0.0, d=1.0, tx=0.0, ty=0.0)
+ *
+ *	@b Example:
+ *	@code
+ *	PXMatrix *matrix = [PXMatrix identityMatrix];
+ *	// matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
+ *	@endcode
+ */
 + (PXMatrix *)identityMatrix
 {
 	return [[[PXMatrix alloc] init] autorelease];

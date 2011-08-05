@@ -97,7 +97,7 @@ typedef enum
 /**
  *	The registered name of the font.
  *
- *	@b Default: <code>PX_TEXT_FIELD_DEFAULT_FONT</code>
+ *	@b Default: <code>PXTextFieldDefaultFont</code>
  */
 @property (nonatomic, copy) NSString *font;
 /**

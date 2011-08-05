@@ -119,7 +119,7 @@
 - (void) removeAllChildren;
 // O(n)
 //-- ScriptName: getObjectsUnderPoint
-- (PXLinkedList *)objectsUnderPoint:(PXPoint *)point;
+- (NSArray *)objectsUnderPoint:(PXPoint *)point;
 @end
 
 /// @cond DX_IGNORE

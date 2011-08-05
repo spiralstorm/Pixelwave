@@ -37,7 +37,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#import "PXSoundChannel.h";
+#import "PXSoundChannel.h"
 
 #import "PXSoundEngine.h"
 #import "PXAL.h"

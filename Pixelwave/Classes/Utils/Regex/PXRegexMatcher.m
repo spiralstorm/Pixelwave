@@ -43,7 +43,6 @@
 #import "PXDebug.h"
 
 #import "PXRegexPattern.h"
-#import "PXLinkedList.h"
 
 #import "PXRegexUtils.h"
 #include "regex.h"
@@ -219,19 +218,18 @@
 	[self restart];
 }
 
-- (PXLinkedList *)groups
+- (NSArray *)groups
 {
 	// Make a new list to store the 
-	PXLinkedList *groups = [[PXLinkedList alloc] init];
-
+	NSMutableArray *groups = [[NSMutableArray alloc] init];
+	
 	// Add each match.
 	int index;
 	for (index = 0; index < pMatchesCount; ++index)
 	{
 		[groups addObject:[self groupAtIndex:index]];
 	}
-
-	// Send back an autoreleased version.
+	
 	return [groups autorelease];
 }
 
