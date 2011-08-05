@@ -1187,6 +1187,7 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 
 	// What was the vertex index before we added points.
 	unsigned oldVertexIndex = PXGLGetCurrentVertexIndex( );
+	unsigned oldPointSizeIndex = PXGLGetCurrentPointSizeIndex( );
 	// Byte count = 32
 
 	char isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
@@ -1362,6 +1363,10 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	if (!_PXGLRectContainsAABB(&pxGLRectClip, &aabb))
 	{
 		PXGLSetCurrentVertexIndex(oldVertexIndex);
+		if (isPointSizeArray)
+		{
+			PXGLSetCurrentPointSizeIndex(oldPointSizeIndex);
+		}
 	}
 
 	// We are adding a 1 pixel buffer to the bounding box
@@ -1456,6 +1461,8 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 
 	unsigned oldIndex = PXGLGetCurrentIndex( );
 	unsigned oldVertexIndex = PXGLGetCurrentVertexIndex( );
+	unsigned oldPointSizeIndex = PXGLGetCurrentPointSizeIndex( );
+
 	// Byte count = 124
 	vertexIndex = oldVertexIndex;
 
@@ -1592,6 +1599,11 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	{
 		PXGLSetCurrentIndex(oldIndex);
 		PXGLSetCurrentVertexIndex(oldVertexIndex);
+
+		if (isPointSizeArray)
+		{
+			PXGLSetCurrentPointSizeIndex(oldPointSizeIndex);
+		}
 	}
 
 	// We are adding a 1 pixel buffer to the bounding box
