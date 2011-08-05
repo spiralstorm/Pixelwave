@@ -3,7 +3,7 @@
 # Store the current path
 pwdPath=$PWD
 
-# Project Templates
+# Project Templates path
 xcodeSharedPath="${HOME}/Library/Application Support/Developer/Shared/Xcode/"
 
 # Pixelwave
