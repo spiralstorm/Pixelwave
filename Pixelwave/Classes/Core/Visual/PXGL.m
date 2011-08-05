@@ -1047,33 +1047,26 @@ PXInline void PXGLDefineVertex(PXGLColoredTextureVertex *point,
 							   const GLfloat **pointSizesPtr,
 							   float a, float b, float c, float d, float tx, float ty)
 {
-	float x;
-	float y;
-
-	float oX = **verticesPtr; ++(*verticesPtr);
-	y = **verticesPtr;
+	float x = **verticesPtr; ++(*verticesPtr);
+	float y = **verticesPtr;
 
 	// Do the matrix multiplication on them.
-	x = oX * a + y * c + tx;
-	y = oX * b + y * d + ty;
-	
-	// Store the point
-	point->x = x;
-	point->y = y;
-	
+	point->x = x * a + y * c + tx;
+	point->y = x * b + y * d + ty;
+
 	// If it is textured we need to grab the texture info
 	if (*texCoordsPtr)
 	{
 		point->s = **texCoordsPtr; ++(*texCoordsPtr);
 		point->t = **texCoordsPtr;
 	}
-	
+
 	// If it is colored we need to grab the color info
 	if (*colorsPtr)
 	{
 #if (!PX_ACCURATE_COLOR_TRANSFORMATION_MODE)
-		// If we are going to round the color value, we are going to use
-		// this method.
+		// If we are going to round the color value, we are going to use this
+		// method.
 		point->r = ((**colorsPtr) * pxGLRed)   >> 8; ++(*colorsPtr);
 		point->g = ((**colorsPtr) * pxGLGreen) >> 8; ++(*colorsPtr);
 		point->b = ((**colorsPtr) * pxGLBlue)  >> 8; ++(*colorsPtr);
@@ -1088,16 +1081,16 @@ PXInline void PXGLDefineVertex(PXGLColoredTextureVertex *point,
 	}
 	else
 	{
-		// If we weren't colored, and are using our special color array
-		// method, then we have to set the values for the array.
+		// If we weren't colored, and are using our special color array method,
+		// then we have to set the values for the array.
 		point->r = pxGLRed;
 		point->g = pxGLGreen;
 		point->b = pxGLBlue;
 		point->a = pxGLAlpha;
 	}
 
-	// If we haven't had multiple values for colors yet, then we have to
-	// check if this addition will make it so.
+	// If we haven't had multiple values for colors yet, then we have to check
+	// if this addition will make it so.
 	if (pxGLBufferVertexColorState != PX_GL_VERTEX_COLOR_MULTIPLE)
 		PXGLSetBufferLastVertexColor(point->r, point->g, point->b, point->a);
 
@@ -1111,17 +1104,20 @@ PXInline void PXGLDefineVertex(PXGLColoredTextureVertex *point,
  *	When PXGLDrawArrays is called, it uses count sequential elements from each
  *	enabled array to construct a sequence of geometric primitives, beginning
  *	with element first. mode specifies what kind of primitives are constructed,
- *	and how the array elements construct those primitives. If GL_VERTEX_ARRAY
- *	is not enabled, no geometric primitives are generated.
+ *	and how the array elements construct those primitives. If GL_VERTEX_ARRAY is
+ *	not enabled, no geometric primitives are generated.
  *
  *	PXGLDrawArrays batches similar draw calls together prior to sending the
  *	information to gl.
  *
- *	@param GLenum mode - Specifies what kind of primitives to render. Symbolic
- *	constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES,
- *	GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, and GL_TRIANGLES are accepted.
- *	@param GLint first - Specifies the starting index in the enabled arrays.
- *	@param GLsizei count - Specifies the number of indices to be rendered.
+ *	@param Gmode
+ *		Specifies what kind of primitives to render. Symbolic constants
+ *		GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES, GL_TRIANGLE_STRIP,
+ *		GL_TRIANGLE_FAN, and GL_TRIANGLES are accepted.
+ *	@param first
+ *		Specifies the starting index in the enabled arrays.
+ *	@param count
+ *		Specifies the number of indices to be rendered.
  */
 void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 {
@@ -1147,12 +1143,13 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	GLsizei pointSizeStride = pxGLPointSizePointer.stride;
 
 	// What was the vertex index before we added points.
-	unsigned oldVertexIndex = PXGLGetCurrentVertexIndex();
-	unsigned oldPointSizeIndex = PXGLGetCurrentPointSizeIndex();
+	unsigned int oldVertexIndex = PXGLGetCurrentVertexIndex();
+	unsigned int oldPointSizeIndex = PXGLGetCurrentPointSizeIndex();
 
-	char isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
-	char isColored = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_COLOR_ARRAY);
-	short isPointSizeArray = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
+	bool isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
+	bool isColored = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_COLOR_ARRAY);
+	bool isPointSizeArray = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
+	bool isStrip = (mode == GL_TRIANGLE_STRIP);
 
 	// Lets set the pointer to the starting point of the vertices, texture
 	// coords, colors and point sizes; however we only want to grab the pointer
@@ -1165,8 +1162,6 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	const void *currentColor = colors;
 	const GLfloat *pointSizes = isPointSizeArray ? pxGLPointSizePointer.pointer + first * pointSizeStride : NULL;
 	const void *currentPointSize = pointSizes;
-
-	int isStrip = (mode == GL_TRIANGLE_STRIP);
 
 	float a = pxGLCurrentMatrix->a;
 	float b = pxGLCurrentMatrix->b;
@@ -1185,10 +1180,10 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	// This is set up for the bounding box of the item being drawn.
 	PXGLAABB aabb = PXGLAABBReset;
 
-	int nX;
-	int nY;
+	signed int nX;
+	signed int nY;
 
-	unsigned usedPointCount = isStrip ? count + 2 : count;
+	unsigned int usedPointCount = isStrip ? count + 2 : count;
 	// Grab an array of vertices
 	point = PXGLAskForVertices(usedPointCount);
 
@@ -1333,9 +1328,10 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	GLsizei colorStride = pxGLColorPointer.stride;
 	GLsizei pointSizeStride = pxGLPointSizePointer.stride;
 
-	GLubyte isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
-	GLubyte isColored = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_COLOR_ARRAY);
-	GLushort isPointSizeArray = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
+	bool isTextured = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_TEXTURE_COORD_ARRAY);
+	bool isColored = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_COLOR_ARRAY);
+	bool isPointSizeArray = PX_IS_BIT_ENABLED(pxGLState.clientState, PX_GL_POINT_SIZE_ARRAY) && mode == GL_POINTS;
+	bool isStrip = (mode == GL_TRIANGLE_STRIP);
 
 	const void const *startVertex = pxGLVertexPointer.pointer;
 	const GLfloat *vertices;
@@ -1350,8 +1346,6 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	const GLfloat *pointSizes;
 
 	GLuint eVal = 0; // HAS TO BE 'UNSIGNED SHORT' OR LARGER
-
-	int isStrip = (mode == GL_TRIANGLE_STRIP);
 
 	float a = pxGLCurrentMatrix->a;
 	float b = pxGLCurrentMatrix->b;
@@ -1413,7 +1407,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	GLsizei counter;
 
 	// Create an arbitrary amount of buckets. We will expand this if needed.
-	GLushort maxIndex = (count * 0.34f) + 1;//*indices;
+	GLushort maxIndex = (count * 0.5f) + 1;//*indices;
 	/*for (counter = 1, curIndex = indices + counter; counter < count; ++counter, ++curIndex)
 	{
 		if (maxIndex < *curIndex)

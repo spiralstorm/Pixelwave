@@ -755,7 +755,7 @@ void PXGLFlushBufferToGL( )
 		PXGLTextureVertex *vertex = vertices;
 		PXGLColoredTextureVertex *oldVertex = pxGLVertexBuffer.array;
 		// Lets go through the old array, and copy the values.
-		for (int index = 0; index < pxGLVertexBuffer.size; ++index)
+		for (unsigned index = 0; index < pxGLVertexBuffer.size; ++index)
 		{
 			vertex->x = oldVertex->x;
 			vertex->y = oldVertex->y;
@@ -783,7 +783,7 @@ void PXGLFlushBufferToGL( )
 		PXGLColorVertex *vertex = vertices;
 		PXGLColoredTextureVertex *oldVertex = pxGLVertexBuffer.array;
 		// Iterate through the array copying over the values to the new one.
-		for (int index = 0; index < pxGLVertexBuffer.size; ++index)
+		for (unsigned index = 0; index < pxGLVertexBuffer.size; ++index)
 		{
 			vertex->x = oldVertex->x;
 			vertex->y = oldVertex->y;
@@ -812,7 +812,7 @@ void PXGLFlushBufferToGL( )
 		PXGLVertex *vertex = vertices;
 		PXGLColoredTextureVertex *oldVertex = pxGLVertexBuffer.array;
 
-		for (int index = 0; index < pxGLVertexBuffer.size; ++index)
+		for (unsigned index = 0; index < pxGLVertexBuffer.size; ++index)
 		{
 			vertex->x = oldVertex->x;
 			vertex->y = oldVertex->y;
