@@ -216,13 +216,12 @@
 - (void) addTouchListeners
 {
 	// Add listeners to the left and right arrows.
-	// Note:	It is important to listen to the out and cancel events as they
-	//			will inform you of when you release a button even if your finger
-	//			was no longer over it.  We can use the same function to listen
-	//			to these events as they will have the same effect as the
-	//			'touchUp' functionality in this example.  This will not always
-	//			be the case, it is important you decide what is the best course
-	//			of action for your program.
+	
+	// Note:
+	// It's important to listen to the cancel event as not every touch is
+	// guaranteed to recieve a touch up event. If the system takes over the
+	// focus of the device (to display a text message for example) while a
+	// touch is occuring, a cancel event is dispatched instead of up.
 
 	[leftArrow addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(touchDown:)];
 	[leftArrow addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(touchUp:)];

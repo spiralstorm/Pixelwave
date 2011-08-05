@@ -61,7 +61,11 @@
 	texture.anchorY = 0.5f;
 	texture.x = self.stage.stageWidth * 0.5f;
 	texture.y = self.stage.stageHeight * 0.5f;
+	
+	targetX = texture.x;
+	targetY = texture.y;
 
+	[self.stage addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(moveTexture:)];
 	[self.stage addEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(moveTexture:)];
 
 	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onEnterFrame:)];
@@ -122,6 +126,7 @@
 	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onEnterFrame:)];
 
 	// Remove the event listener.
+	[self.stage removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(moveTexture:)];
 	[self.stage removeEventListenerOfType:PXTouchEvent_TouchMove listener:PXListener(moveTexture:)];
 
 	[super dealloc];
@@ -130,14 +135,18 @@
 - (void) onEnterFrame:(PXEvent *)event
 {
 	texture.alpha = sinf(PXGetTimer() * 0.003f) * 0.35f + 0.65f;
+	
+	// Ease the texture towards the touch
+	texture.x += (targetX - texture.x) * 0.1f;
+	texture.y += (targetY - texture.y) * 0.1f;
 }
 
 - (void) moveTexture:(PXTouchEvent *)event
 {
 	// Move the middle of texture to where the click is.  It is the middle of
 	// the texture that moves because we set the anchor point to [x=0.5f,y=0.5f]
-	texture.x = event.stageX;
-	texture.y = event.stageY;
+	targetX = event.stageX;
+	targetY = event.stageY;
 }
 
 @end

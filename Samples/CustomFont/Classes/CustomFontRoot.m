@@ -53,7 +53,8 @@
  *	color space to easily animate through all the colors of the rainbow on our
  *	"LED" display.
  *
- *	NOTE: This app is designed for the iPad.
+ *	NOTE: This app is designed for the iPad only. As an exercise you could
+ *	try to make it fit into an iPhone app as well. But don't feel bad if you don't.
  */
 @implementation CustomFontRoot
 

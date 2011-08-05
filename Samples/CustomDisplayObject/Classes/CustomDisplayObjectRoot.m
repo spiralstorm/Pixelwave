@@ -61,20 +61,20 @@
 	PXStage *stage = self.stage;
 
 	// Listen to touch events to see if the hexagon gets touched.
-	[stage addEventListenerOfType:PXTouchEvent_TouchUp     listener:PXListener(touchUp:)];
-	[stage addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchDown   listener:PXListener(checkCollision:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchMove   listener:PXListener(checkCollision:)];
+	[stage addEventListenerOfType:PXTouchEvent_TouchUp     listener:PXListener(touchUp:)];
+	[stage addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
 }
 
 - (void) dealloc
 {
 	PXStage *stage = self.stage;
 
-	[stage removeEventListenerOfType:PXTouchEvent_TouchUp     listener:PXListener(touchUp:)];
-	[stage removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchDown   listener:PXListener(checkCollision:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchMove   listener:PXListener(checkCollision:)];
+	[stage removeEventListenerOfType:PXTouchEvent_TouchUp     listener:PXListener(touchUp:)];
+	[stage removeEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(touchUp:)];
 
 	[super dealloc];
 }
