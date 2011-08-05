@@ -48,4 +48,4 @@ const float PXEngineTapDuration = 0.2f;
 
 NSString * const PXTextFieldDefaultFont = @"Helvetica";
 
-PXVersion pxVersion = {0, 10, 1};
+PXVersion pxVersion = {0, 11, 0};
