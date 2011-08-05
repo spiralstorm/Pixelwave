@@ -19,6 +19,12 @@ NEW:
 - Re-skinned the Newton's cradle sample. It now uses a texture atlas as well.
 - In PixelKit, the Box2DTouchPicker now dispatches events when a pick starts and ends, allowing the user to cancel certain ones.
 CHANGED:
+- The touch system has been redesigned to be more user friendly:
+	- Touches can now be 'captured' by display objects, causing the touch's events to only be dispatched on the display object it first touched (this behavior can be turned off).
+	- PXInteractiveObject has a new property 'captureTouches' to allow the user control how touches should be handled by individual display objects.
+	- PXStage has a new property defaultCaptureTouchesValue to allow the user to control touch capturing behavior globally.
+	- The events PXTouchEvent_Out and PXTouchEvent_DoubleTap have been removed. Their functionality still exists via other methods.
+	- PXInteractiveObject's 'doubleTapEnabled' property has been removed.
 - PXTexture's clip rect property is no longer a PXRectangle. It is now a PXClipRect object which allows to specify how the content of the texture should be rotated.
 - Event constants are no longer #defines, so instead of looking like this (PX_EVENT_ENTER_FRAME) they look like this PXEvent_EnterFrame. Much easier on the eyes.
 - Some method names had a lot of 'and' in them (such as initWithX:andY:andWidth:andHeight:). Following Apple's convention we removed all 'and's but the first one in method names.
