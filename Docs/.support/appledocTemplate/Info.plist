@@ -11,7 +11,7 @@
 	<key>DocSetFeedURL</key>
 	<string>http://www.pixelwave.org/download/docset.atom</string>
 	<key>CFBundleVersion</key>
-	<string>0.3</string>
+	<string>0.3.1</string>
 	<key>DocSetPublisherName</key>
 	<string>Spiralstorm</string>
 </dict>
