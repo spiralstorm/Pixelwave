@@ -10,10 +10,10 @@
 },
 "BallFloorShadow.png":
 {
-	"frame": {"x":112,"y":2,"w":49,"h":13},
+	"frame": {"x":112,"y":2,"w":51,"h":13},
 	"rotated": true,
-	"trimmed": true,
-	"spriteSourceSize": {"x":1,"y":0,"w":49,"h":13},
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":51,"h":13},
 	"sourceSize": {"w":51,"h":13}
 },
 "BallShade.png":
@@ -34,10 +34,10 @@
 },
 "Rod.png":
 {
-	"frame": {"x":112,"y":59,"w":2,"h":210},
+	"frame": {"x":112,"y":61,"w":6,"h":210},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":2,"y":0,"w":2,"h":210},
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":6,"h":210},
 	"sourceSize": {"w":6,"h":210}
 },
 "RodWallShadow.png":
@@ -58,7 +58,7 @@
 },
 "TopBarShadow.png":
 {
-	"frame": {"x":122,"y":59,"w":2,"h":47},
+	"frame": {"x":97,"y":220,"w":2,"h":47},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":2,"h":47},
@@ -71,13 +71,13 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":102,"h":102},
 	"sourceSize": {"w":102,"h":102}
-}},
+}
+}, 
 "meta": {
 	"app": "http://www.texturepacker.com",
 	"version": "1.0",
 	"image": "Atlas.png",
 	"format": "RGBA8888",
-	"size": {"w":128,"h":1024},
-	"scale": "0.5"
+	"size": {"w":128,"h":1024}
 }
 }

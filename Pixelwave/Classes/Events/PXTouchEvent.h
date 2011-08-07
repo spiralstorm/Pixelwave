@@ -45,11 +45,9 @@
 @class PXPoint;
 
 PXExtern NSString * const PXTouchEvent_Tap;
-PXExtern NSString * const PXTouchEvent_DoubleTap;
 PXExtern NSString * const PXTouchEvent_TouchDown;
 PXExtern NSString * const PXTouchEvent_TouchMove;
 PXExtern NSString * const PXTouchEvent_TouchUp;
-PXExtern NSString * const PXTouchEvent_TouchOut;
 PXExtern NSString * const PXTouchEvent_TouchCancel;
 
 @interface PXTouchEvent : PXEvent <NSCopying, PXPooledObject>
@@ -69,6 +67,22 @@ PXExtern NSString * const PXTouchEvent_TouchCancel;
  *	The touch object used for keeping track of what finger started the touch.
  */
 @property (nonatomic, readonly) UITouch *nativeTouch;
+
+/**
+ *	Indicates if the touch which triggered this event has been captured by the
+ *	target. The object which captured the event will usually be a
+ *	PXInteractiveObject for which the PXInteractiveObject::captureTouches
+ *	property has been set to <code>YES</code>. If <code>captured</code> equals
+ *	<code>YES</code>, the PXTouchEvent::target property will represent the
+ *	object which captured this touch.
+ */
+@property (nonatomic, readonly) BOOL captured;
+
+/**
+ *	Returns <code>YES</code> if the touch is contained within the bounds of the
+ *	target.
+ */
+@property (nonatomic, readonly) BOOL insideTarget;
 
 /**
  *	The horizontal location in global (stage) coordinates where the touch
@@ -110,4 +124,3 @@ PXExtern NSString * const PXTouchEvent_TouchCancel;
 			 stageY:(float)stageY
 		   tapCount:(unsigned)tapCount;
 @end
-

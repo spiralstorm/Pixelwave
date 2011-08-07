@@ -55,12 +55,12 @@ PXExtern NSString * const PXEvent_SoundComplete;
 /// Event Phases
 typedef enum
 {
-	/// The capture phase happens when the event travers downwards toward's the
+	/// The capture phase happens when the event travels downwards toward's the
 	/// target.
 	PXEventPhase_Capture = 1,
 	/// The target phase is when the event is on the target.
 	PXEventPhase_Target,
-	/// The bubbling phase is when the event is 'bubbling' back up the hierachy.
+	/// The bubbling phase is when the event is 'bubbling' back up the hierarchy.
 	PXEventPhase_Bubbling
 } PXEventPhase;
 
@@ -136,15 +136,13 @@ typedef enum
  */
 @property (nonatomic, readonly) PXEventPhase eventPhase;
 
-// TODO: Change isCancelable to 'cancelable' in method label
-
 //-- ScriptIgnore
 - (id) initWithType:(NSString *)type;
 //-- ScriptName: Event
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: NO
 //-- ScriptArg[2]: NO
-- (id) initWithType:(NSString *)type doesBubble:(BOOL)bubbles isCancelable:(BOOL)cancelable;
+- (id) initWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable;
 
 //-- ScriptName: preventDefault
 - (void) preventDefault;
@@ -161,6 +159,6 @@ typedef enum
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: NO
 //-- ScriptArg[2]: NO
-- (PXEvent *)eventWithType:(NSString *)type doesBubble:(BOOL)bubbles isCancelable:(BOOL)cancelable;
+- (PXEvent *)eventWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable;
 
 @end

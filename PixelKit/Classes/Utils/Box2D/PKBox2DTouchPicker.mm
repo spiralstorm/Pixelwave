@@ -271,7 +271,7 @@ public:
 	[stage addEventListenerOfType:PXTouchEvent_TouchDown		listener:PXListener(onTouchDown:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchMove		listener:PXListener(onTouchMove:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchUp		listener:PXListener(onTouchUp:)];
-	[stage addEventListenerOfType:PXTouchEvent_TouchOut		listener:PXListener(onTouchUp:)];
+//	[stage addEventListenerOfType:PXTouchEvent_TouchOut		listener:PXListener(onTouchUp:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchCancel	listener:PXListener(onTouchUp:)];
 }
 - (void)onRemovedFromStage
@@ -283,7 +283,7 @@ public:
 	[stage removeEventListenerOfType:PXTouchEvent_TouchDown	listener:PXListener(onTouchDown:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchMove	listener:PXListener(onTouchMove:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchUp		listener:PXListener(onTouchUp:)];
-	[stage removeEventListenerOfType:PXTouchEvent_TouchOut	listener:PXListener(onTouchUp:)];
+//	[stage removeEventListenerOfType:PXTouchEvent_TouchOut	listener:PXListener(onTouchUp:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchCancel	listener:PXListener(onTouchUp:)];
 }
 
@@ -334,7 +334,7 @@ public:
 	// Let's tell the user about this, and give them a chance to cancel
 	// this pick.
 	PKBox2DTouchPickerEvent *pickerEvent = [[PKBox2DTouchPickerEvent alloc] initWithType:PKBox2DTouchPickerEvent_PickStart
-																			isCancelable:YES
+																			cancelable:YES
 																				 fixture:fixture
 																			 nativeTouch:event.nativeTouch];
 	
@@ -399,7 +399,7 @@ public:
 	// Touch end can't be cancelled, we just let the user know in this case.
 	PKBox2DTouchPickerEvent *pickerEvent = nil;
 	
-	pickerEvent = [[PKBox2DTouchPickerEvent alloc] initWithType:PKBox2DTouchPickerEvent_PickEnd isCancelable:NO fixture:touch.fixture nativeTouch:touch.nativeTouch];
+	pickerEvent = [[PKBox2DTouchPickerEvent alloc] initWithType:PKBox2DTouchPickerEvent_PickEnd cancelable:NO fixture:touch.fixture nativeTouch:touch.nativeTouch];
 	
 	[self dispatchEvent:pickerEvent];
 	[pickerEvent release];

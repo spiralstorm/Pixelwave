@@ -48,6 +48,9 @@
 
 #import "PXExceptionUtils.h"
 
+// DELETE
+#import "PXTouchEvent.h"
+
 /* More info about the Event Flow:
  http://livedocs.adobe.com/flex/3/html/help.html?content=events_08.html#203937
  */
@@ -90,12 +93,12 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  *	the PXEventDispatcher class maybe subclassed by any user class in order to
  *	provide event dispatching behavior for that class. If a user class is
  *	unable to subclass PXEventDispatcher because it is already subclassing a
- *	different class, it may implement the PXEventDispatcherProtocol protocol. In
+ *	different class, it may implement the PXEventDispatcher protocol. In
  *	order to implement the methods of the protocol, a private PXEventDispatcher
  *	ivar should be created, to which all of the protocol method calls should be
  *	forwarded.
  *
- *	@see PXEventDispatcherProtocol
+ *	@see PXEventDispatcher
  */
 @implementation PXEventDispatcher
 
@@ -112,7 +115,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  *	@param target
  *		The target.
  */
-- (id) initWithTarget:(id<PXEventDispatcherProtocol>)_target
+- (id) initWithTarget:(id<PXEventDispatcher>)_target
 {
 	self = [super init];
 
@@ -363,6 +366,9 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	return YES;
 }
 
+// TODO: Change this up so that individual removeEventListener methods are called.
+// This way subclasses won't have to override this method to know when private event
+// listeners are removed when this method is called.
 /**
  *	Removes all of the event listeners.
  */

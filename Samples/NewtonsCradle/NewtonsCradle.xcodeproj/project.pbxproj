@@ -27,10 +27,10 @@
 		2DD624EE12BAD4BF00F200F1 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DD624E912BAD4BF00F200F1 /* Icon-72.png */; };
 		2DD624EF12BAD4BF00F200F1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DD624EA12BAD4BF00F200F1 /* Icon.png */; };
 		2DD624F012BAD4BF00F200F1 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DD624EB12BAD4BF00F200F1 /* Icon@2x.png */; };
+		2DE6D0B213E7381000B85014 /* Atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DE6D0B013E7381000B85014 /* Atlas.png */; };
+		2DE6D0B313E7381000B85014 /* Atlas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DE6D0B113E7381000B85014 /* Atlas@2x.png */; };
 		2DF9AF1C13E5BDDC006BF50F /* Atlas.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1513E5BDDC006BF50F /* Atlas.json */; };
-		2DF9AF1D13E5BDDC006BF50F /* Atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1613E5BDDC006BF50F /* Atlas.png */; };
 		2DF9AF1E13E5BDDC006BF50F /* Atlas@2x.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1713E5BDDC006BF50F /* Atlas@2x.json */; };
-		2DF9AF1F13E5BDDC006BF50F /* Atlas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1813E5BDDC006BF50F /* Atlas@2x.png */; };
 		2DF9AF2013E5BDDC006BF50F /* BGiPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1913E5BDDC006BF50F /* BGiPad.png */; };
 		2DF9AF2113E5BDDC006BF50F /* BGiPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1A13E5BDDC006BF50F /* BGiPhone.png */; };
 		2DF9AF2213E5BDDC006BF50F /* BGiPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1B13E5BDDC006BF50F /* BGiPhone@2x.png */; };
@@ -106,10 +106,10 @@
 		2DD624E912BAD4BF00F200F1 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		2DD624EA12BAD4BF00F200F1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		2DD624EB12BAD4BF00F200F1 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		2DF9AF1513E5BDDC006BF50F /* Atlas.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Atlas.json; sourceTree = "<group>"; };
-		2DF9AF1613E5BDDC006BF50F /* Atlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Atlas.png; sourceTree = "<group>"; };
-		2DF9AF1713E5BDDC006BF50F /* Atlas@2x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Atlas@2x.json"; sourceTree = "<group>"; };
-		2DF9AF1813E5BDDC006BF50F /* Atlas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Atlas@2x.png"; sourceTree = "<group>"; };
+		2DE6D0B013E7381000B85014 /* Atlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Atlas.png; sourceTree = "<group>"; };
+		2DE6D0B113E7381000B85014 /* Atlas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Atlas@2x.png"; sourceTree = "<group>"; };
+		2DF9AF1513E5BDDC006BF50F /* Atlas.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Atlas.json; sourceTree = "<group>"; };
+		2DF9AF1713E5BDDC006BF50F /* Atlas@2x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Atlas@2x.json"; sourceTree = "<group>"; };
 		2DF9AF1913E5BDDC006BF50F /* BGiPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BGiPad.png; sourceTree = "<group>"; };
 		2DF9AF1A13E5BDDC006BF50F /* BGiPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BGiPhone.png; sourceTree = "<group>"; };
 		2DF9AF1B13E5BDDC006BF50F /* BGiPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BGiPhone@2x.png"; sourceTree = "<group>"; };
@@ -328,9 +328,9 @@
 			isa = PBXGroup;
 			children = (
 				2DF9AF1513E5BDDC006BF50F /* Atlas.json */,
-				2DF9AF1613E5BDDC006BF50F /* Atlas.png */,
 				2DF9AF1713E5BDDC006BF50F /* Atlas@2x.json */,
-				2DF9AF1813E5BDDC006BF50F /* Atlas@2x.png */,
+				2DE6D0B013E7381000B85014 /* Atlas.png */,
+				2DE6D0B113E7381000B85014 /* Atlas@2x.png */,
 				2DF9AF1913E5BDDC006BF50F /* BGiPad.png */,
 				2DF9AF1A13E5BDDC006BF50F /* BGiPhone.png */,
 				2DF9AF1B13E5BDDC006BF50F /* BGiPhone@2x.png */,
@@ -430,12 +430,12 @@
 				2D37543212BBD20A00FA7A59 /* Default~iPad.png in Resources */,
 				5296B6F712D535DF00A8D494 /* wood.wav in Resources */,
 				2DF9AF1C13E5BDDC006BF50F /* Atlas.json in Resources */,
-				2DF9AF1D13E5BDDC006BF50F /* Atlas.png in Resources */,
 				2DF9AF1E13E5BDDC006BF50F /* Atlas@2x.json in Resources */,
-				2DF9AF1F13E5BDDC006BF50F /* Atlas@2x.png in Resources */,
 				2DF9AF2013E5BDDC006BF50F /* BGiPad.png in Resources */,
 				2DF9AF2113E5BDDC006BF50F /* BGiPhone.png in Resources */,
 				2DF9AF2213E5BDDC006BF50F /* BGiPhone@2x.png in Resources */,
+				2DE6D0B213E7381000B85014 /* Atlas.png in Resources */,
+				2DE6D0B313E7381000B85014 /* Atlas@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

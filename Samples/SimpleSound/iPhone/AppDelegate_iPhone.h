@@ -40,7 +40,8 @@
 #import <UIKit/UIKit.h>
 #import "Pixelwave.h"
 
-@interface AppDelegate_iPhone : NSObject <UIApplicationDelegate> {
+@interface AppDelegate_iPhone : NSObject <UIApplicationDelegate>
+{
     UIWindow *window;
 	PXView *pixelView;
 }
@@ -48,4 +49,3 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 
 @end
-

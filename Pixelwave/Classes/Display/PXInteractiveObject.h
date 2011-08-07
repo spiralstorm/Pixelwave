@@ -43,18 +43,30 @@
 {
 /// @cond DX_IGNORE
 @public
-	BOOL _doubleTapEnabled;
 	BOOL _touchEnabled;
+	BOOL _captureTouches;
+
+	// For listening to tap events.
+@private
+	BOOL listenToTap;
+	BOOL addedListeners;
+
+	PXEventListener *pxIOOnTouchDown;
+	PXEventListener *pxIOOnTouchUp;
+	PXEventListener *pxIOOnTouchCancel;
+
+	PXLinkedList *touchList;
+	PXLinkedList *touchUpHistoryList;
 /// @endcond
 }
 
 /**
- *	Specifies whether the object can recieve double-tap events.
- */
-@property (nonatomic) BOOL doubleTapEnabled;
-/**
  *	Specifies whether the object can recieve touch events.
  */
 @property (nonatomic) BOOL touchEnabled;
+/**
+ *	Specifies whether the object captures touch events.
+ */
+@property (nonatomic) BOOL captureTouches;
 
 @end

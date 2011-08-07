@@ -59,12 +59,9 @@
 	// Grid
 	// The short way to load a texture
 	grid = [PXTexture textureWithContentsOfFile:@"GridBox.png"];
-	[grid setClipRectWithX:0.0f
-						 y:0.0f
-					 width:self.stage.stageHeight * 3.0f
-					height:self.stage.stageHeight * 3.0f
-			  usingAnchorX:0.5f
-				   anchorY:0.5f];
+
+	grid.clipRect = [PXClipRect clipRectWithX:0.0f y:0.0f width:self.stage.stageHeight * 3.0f height:self.stage.stageHeight * 3.0f];
+	[grid setAnchorWithX:0.5f y:0.5f];
 
 	grid.alpha = 0.3f;
 	grid.smoothing = YES;
@@ -104,22 +101,22 @@
 	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame:)];
 }
 
-- (void)onFrame:(PXEvent *)event
-{
-	planet.rotation += 0.5f;
-	grid.rotation -= 0.1f;
-
-	if(background.scale < 1.5f)
-	{
-		background.scale += 0.0004f;
-	}
-}
-
 - (void) dealloc
 {
 	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame:)];
 
 	[super dealloc];
+}
+
+- (void) onFrame:(PXEvent *)event
+{
+	planet.rotation += 0.5f;
+	grid.rotation -= 0.1f;
+
+	if (background.scale < 1.5f)
+	{
+		background.scale += 0.0004f;
+	}
 }
 
 @end

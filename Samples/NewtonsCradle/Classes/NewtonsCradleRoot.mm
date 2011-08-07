@@ -63,23 +63,45 @@
 - (void) onPickStart:(PKBox2DTouchPickerEvent *)event;
 - (void) onPickEnd:(PKBox2DTouchPickerEvent *)event;
 
+- (void) onOrientationChanging:(PXStageOrientationEvent *)event;
+
 @end
+
+// Newton's Cradle
+// ===============
+//
+// This application demostrates:
+//
+//	-	How to use Box2D to create a newton's cradle. Notice that the physics
+//		are a bit wonky. That's because Box2D isn't designed to handle this kind of
+//		precise simualtion (hence the label on the plaque). Still, it works pretty well.
+//
+//	-	How to connect the Box2D world with real graphics. Drawing the output of Box2D using
+//		the PKBox2DDebugLayer class is pretty simple. Here we take it a step further and
+//		connect real display objects to the physical ones. This functionallity is achieved
+//		with the BodyAttacher class (included in this project).
+//
+//	-	How to include sounds in a physical simulation. Here we simply listen to the collision
+//		events dispatched by Box2D (using the code in Box2DListener.mm, included in this project)
+//		and respond by playing a wooden click sound every time two objects collide. We adjust the
+//		volume of the sound to reflect the impact of the collision, and randomely adjust its
+//		pitch to make it sound more realistic.
 
 @implementation NewtonsCradleRoot
 
 - (void) initializeAsRoot
 {
 	initGlobals();
-	
+
 	// Warm up the sound engine so that our first sound plays on time
 	[PXSoundMixer warmUp];
-	
+
 	// Allocate a list to store our bodies and display objects
 	bodyAttachers = [[PXLinkedList alloc] init];
 
 	// Load a sound to play for collisons
 	collisionSound = [[PXSound soundWithContentsOfFile:@"wood.wav"] retain];
-	
+
 	// Setup the physics engine
 	// Define some simulation parameters
 	timeStep = 1.0f / self.stage.frameRate;
@@ -95,40 +117,44 @@
 
 	physicsWorld = new b2World(gravity, doSleep);
 	physicsWorld->SetContinuousPhysics(true);
-	
+
 	// Add the contact listener so that when the balls collide we play a sound.
 	contactListener = new ContactListener();
 	physicsWorld->SetContactListener(contactListener);
 	contactListener->delegate = self;
-	
+
 	// Add a touch picker to allow the user to grab the objects.
 	touchPicker = [[PKBox2DTouchPicker alloc] initWithWorld:physicsWorld];
 	touchPicker.scale = POINTS_PER_METER;
-	
+
 	[touchPicker addEventListenerOfType:PKBox2DTouchPickerEvent_PickStart listener:PXListener(onPickStart:)];
 	[touchPicker addEventListenerOfType:PKBox2DTouchPickerEvent_PickEnd listener:PXListener(onPickEnd:)];
-	
+
 	[self addChild:touchPicker];
 	[touchPicker release];
-	
+
 	// Populate the world
 	[self createScene];
 	[self updateAttachers];
-	
-	// Listen to tap events so the user can reset the scene
-	// by double tapping
+
+	// Listen to tap events so the user can reset the scene by double tapping.
+	// Double tapping is checked by adding a tap listener and comparing the tap
+	// count.
 	[self.stage addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap:)];
-	
+
 	// Set up the main loop
 	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
+
+	self.stage.autoOrients = YES;
+	[self.stage addEventListenerOfType:PXStageOrientationEvent_OrientationChanging listener:PXListener(onOrientationChanging:)];
 }
 
 - (void) dealloc
 {
 	// Cleaning up: Release retained objects, remove event listeners, etc.
-	
+
 	[bodyAttachers release];
-	
+
 	if (contactListener)
 	{
 		physicsWorld->SetContactListener(NULL);
@@ -139,7 +165,7 @@
 
 	delete physicsWorld;
 	physicsWorld = NULL;
-	
+
 	delete[] ballBodies;
 	ballBodies = NULL;
 
@@ -147,6 +173,17 @@
 	[collisionSound release];
 
 	[super dealloc];
+}
+
+- (void) onOrientationChanging:(PXStageOrientationEvent *)event
+{
+	PXStageOrientation orientation = event.afterOrientation;
+
+	if(orientation != PXStageOrientation_LandscapeLeft &&
+	   orientation != PXStageOrientation_LandscapeRight)
+	{
+		[event preventDefault];
+	}
 }
 
 //////////////////////////
@@ -157,37 +194,38 @@
 {
 	// Grab the size of the screen.
 	float stageWidth  = self.stage.stageWidth;
-	
+
 	//////////////
 	// Graphics //
 	//////////////
-	
+
 	// Load the atlas
 	PXTextureAtlas *atlas = [PXTextureAtlas textureAtlasWithContentsOfFile: isIPad ? @"Atlas@2x.json" : @"Atlas.json" modifier:nil];
-	
+
 	// Background
 	NSString *bgImageName = isIPad ? @"BGiPad.png" : @"BGiPhone.png";
-	
+
 	PXTexture *backgroundTex = [PXTexture textureWithContentsOfFile:bgImageName];
 	[self addChild:backgroundTex];
-		
+
+	// This empty sprite will hold the graphics of the ball objects.
 	worldSprite = [[PXSimpleSprite alloc] init];
 	[self addChild:worldSprite];
 	[worldSprite release];
-	
-	// Top Strip
+
+	// Top bar with the plaque
 	PXTexture *topPiece = [atlas textureForFrame:@"TopBar.png"];
 	[topPiece setAnchorWithX:0.5f y:0.0f];
 	topPiece.x = stageWidth * 0.5f;
 	[self addChild:topPiece];
-	
-	// The top strip shadow
+
+	// The top bar's shadow
 	PXTexture *topPieceShadow = [atlas textureForFrame:@"TopBarShadow.png"];
 	topPieceShadow.width = stageWidth;
 	topPieceShadow.y = topPiece.y + topPiece.height;
 	[self addChild:topPieceShadow];
-	
-	// Uncomment these lines to render the raw Box2D output:
+
+	// Uncomment the next block to render the raw Box2D output:
 	//
 	// PKBox2DDebugLayer *debugLayer = [[PKBox2DDebugLayer alloc] initWithPhysicsWorld:physicsWorld];
 	// debugLayer.scale = POINTS_PER_METER;
@@ -198,106 +236,110 @@
 	/////////////
 	// Physics //
 	/////////////
-	
+
 	// Set up some values
 	ballCount = 5;
 	float radius = 25.0f * myContentScale;
 	float stringLength = 250.0f * myContentScale;
-	
+
 	// Create a static body to have joints connected to
 	b2BodyDef bodyDef;
 	b2Body *staticBody = physicsWorld->CreateBody(&bodyDef);
-	
+
 	// Define the shape to be used for the ball objects
 	b2CircleShape circle;
 	circle.m_radius = PointsToMeters(radius);
 	circle.m_p.y = PointsToMeters(stringLength);
-	
+
 	bodyDef.type = b2_dynamicBody;
-	
+
 	// Using friction of 0.0f and high restitution
-	// to simulate a real newton's cradle
+	// to simulate the conditions in a real Newton's cradle
 	b2FixtureDef fixtureDef;
 	fixtureDef.friction = 0.0f;
 	fixtureDef.restitution = 0.995f;
-	
+
 	// All dynamic objects need a density
 	fixtureDef.density = 1.0f;
-	
+
 	b2Body *body;
 	b2RevoluteJointDef jointDef;
-	
+
 	// Hold a reference to all the bodies in the world. We'll use this
 	// list when resetting the scene.
 	ballBodies = new b2Body*[ballCount];
-	
+
+	// We pre-calculate what we can regarding the placement
+	// of the objects.
 	float spaceBetween = (radius * 2.0f) + 2.0f;
 	float xPos = (stageWidth * 0.5f) - (ballCount * radius) + radius;
 	float yPos = 0.0f;
-	
+
 	// Graphics
-	BodyAttacher *attacher;
-	CradleItemShadowSprite *shadowSprite;
-	CradleItemSprite *itemSprite;
-	
+	BodyAttacher *attacher = nil;
+	CradleItemShadowSprite *shadowSprite = nil;
+	CradleItemSprite *itemSprite = nil;
+
 	// Time to create the cradle ball objects.
-	
-	int i;
-	for(i = 0; i < ballCount; ++i){
+
+	for (unsigned int index = 0; index < ballCount; ++index)
+	{
 		// Set the position of the body
 		bodyDef.position = b2Vec2_px2m(xPos, yPos);
-		
+
 		body = [Box2DUtils bodyInWorld:physicsWorld
 						   withBodyDef:&bodyDef
 							fixtureDef:&fixtureDef
 								shapes:&circle, nil];
-		
-		ballBodies[i] = body;
-		
+
+		// Keep a reference to this body. This is used later when the
+		// user double-taps the screen to reset the scene.
+		ballBodies[index] = body;
+
 		// Make a revolute joint. This will let the objects of the cradle
 		// rotate around a hinge at the top of the screen.
 		jointDef.Initialize(staticBody, body, bodyDef.position);
-		
+
 		// Set the limits so that it doesn't go further then the ceiling
 		jointDef.enableLimit = YES;
 		jointDef.lowerAngle = PXMathToRad(-74.5f);
 		jointDef.upperAngle = PXMathToRad( 74.5f);
-		
+
 		// Add the joint to the world
 		physicsWorld->CreateJoint(&jointDef);
-		
-		/// Graphics ////
-		
-		// Wall shadow
+
+		//// GRAPHICS ////
+
+		// Wall shadow graphic
 		shadowSprite = [[CradleItemShadowSprite alloc] initWithAtlas:atlas ropeLength:stringLength];
 		[worldSprite addChild:shadowSprite];
 		[shadowSprite release];
-		
+
 		attacher = [[BodyAttacher alloc] init];
 		attacher.body = body;
 		attacher.displayObject = shadowSprite;
 		attacher.xOffset = 10.0f * myContentScale;
-		
+
 		[bodyAttachers addObject:attacher];
 		[attacher release];
-		
-		// Main
+
+		// Main graphic
 		itemSprite = [[CradleItemSprite alloc] initWithAtlas:atlas ropeLength:stringLength];
 		[worldSprite addChild:itemSprite];
 		[itemSprite release];
-		
+
 		attacher = [[BodyAttacher alloc] init];
 		attacher.body = body;
 		attacher.displayObject = itemSprite;
-		
+
 		[bodyAttachers addObject:attacher];
 		[attacher release];
-		
+
 		// The body should keep a reference its display object so that
 		// when the body it gets picked up by the user we can grab a reference
 		// to the display and turn the glow on/off.
 		body->SetUserData(itemSprite);
-		
+
 		// Increment to the position of the next ball
 		xPos += spaceBetween;
 	}	
@@ -311,14 +353,18 @@
 
 - (void) onPickStart:(PKBox2DTouchPickerEvent *)event
 {
-	// Grab the touched display object
+	// Get a reference to the touched display object
 	CradleItemSprite *itemSprite = (CradleItemSprite *)event.fixture->GetBody()->GetUserData();
+
+	// Turn on the glow
 	[itemSprite setSelected:YES];
 }
 - (void) onPickEnd:(PKBox2DTouchPickerEvent *)event
 {
-	// Grab the touched display object
+	// Get a reference to the touched display object
 	CradleItemSprite *itemSprite = (CradleItemSprite *)event.fixture->GetBody()->GetUserData();
+
+	// Turn off the glow
 	[itemSprite setSelected:NO];
 }
 
@@ -326,7 +372,8 @@
 
 - (void) onTap:(PXTouchEvent *)e
 {
-	if(e.tapCount == 2){
+	if (e.tapCount == 2)
+	{
 		[self resetScene];
 	}
 }
@@ -335,13 +382,15 @@
 // Scene management //
 //////////////////////
 
+// Places all the objects back to their original state.
 - (void) resetScene
 {
 	[touchPicker resetTouches];
-	
+
 	b2Body *ballBody;
-	for(int i = 0; i < ballCount; ++i){
-		ballBody = ballBodies[i];
+	for (unsigned index = 0; index < ballCount; ++index)
+	{
+		ballBody = ballBodies[index];
 		
 		b2Vec2 ballPos = ballBody->GetPosition();
 		ballBody->SetTransform(ballPos, 0.0f);
@@ -350,20 +399,33 @@
 	}
 }
 
+// This method is invoked by Box2D when two objects collide.
+// We use the normal force of the collision to calculate how
+// foreful the collision was and adjust the volume of the
+// impact noise accordingly.
+//
+// Side note: If you're interested in playing a sound when two
+// objects slide on one another you would need to know the
+// tangential force of the contact (this is the force in
+// the direction perpendicular to the collision normal).
+// This method only provides the normal force, but you can
+// implement a different one to grab the tangential force.
+// See Box2DListenerDelegate for more.
+
 - (void) contactListener:(ContactListener *)listener
 	  collisionWithBodyA:(b2Body *)bodyA
 				   bodyB:(b2Body *)bodyB
 			 normalForce:(float)normalForce
 {
 	// Cushion the volume
-	float volume = (normalForce / GRAVITY) * 4.0f;
+	float volume = (normalForce / GRAVITY) * 8.0f;
 
 	// Efficency addition, if the volume is less then 1 percent, ignore it.
-	if (volume < 0.01f)
+	if (volume < 0.08f)
 		return;
 
 	// A small randomization of the pitch makes it sound cooler and slightly
-	// 'unique' each time a ball collides.
+	// 'unique' each a pair of objects collide.
 	PXSoundTransform *soundTransform = [PXSoundTransform soundTransformWithVolume:volume
 																			pitch:[PXMath randomFloatInRangeFrom:0.9f to:1.1f]];
 
@@ -382,6 +444,8 @@
 	[self updateAttachers];
 }
 
+// Updates all the Pixelwave display objects which were attached to
+// physics bodies so that they match their transformations.
 - (void) updateAttachers
 {
 	BodyAttacher *bodyAttacher;

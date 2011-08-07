@@ -214,28 +214,6 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 	[clipRect release];
 }
 
-- (void) setClipRectWithX:(float)x
-						y:(float)y
-					width:(float)width
-				   height:(float)height
-			 usingAnchorX:(float)_anchorX
-				  anchorY:(float)_anchorY
-{
-	if (!textureData)
-		return;
-
-	PXClipRect *clipRect = [[PXClipRect alloc] initWithX:x
-													   y:y
-												   width:width
-												  height:height
-												rotation:0.0f];
-
-	self.clipRect = clipRect;
-	[clipRect release];
-	
-	[self setAnchorWithX:_anchorX y:_anchorY];
-}
-
 - (void) setClipRect:(PXClipRect *)clipRect
 {
 	// Can't set a clip rect if there's no texture data

@@ -63,7 +63,7 @@
 	// everything else a font needs to know to be loaded into a font sheet.
 	PXFontOptions *fontOptions = [PXTextureFontOptions textureFontOptionsWithSize:25.0f
 																	characterSets:PXFontCharacterSet_AllLetters
-																specialCharacters:@"!,."];
+																specialCharacters:@"!,.-"];
 
 	// Create a texture font by specifying the name:
 	PXFont *systemTextureFont = [PXFont fontWithSystemFont:@"American Typewriter" options:fontOptions];
@@ -73,7 +73,7 @@
 
 	// Now the font can be used by referencing its registered name
 	txt1 = [[PXTextField alloc] initWithFont:@"systemFont"];
-	txt1.text = @"This text uses a font-sheet";
+	txt1.text = @"This uses a system made font-sheet";
 
 	///////////////////
 	// External font //
@@ -92,7 +92,7 @@
 	///////////
 
 	// Make all the text white
-	uint textColor = 0xFFFFFF;
+	unsigned int textColor = 0xFFFFFF;
 
 	txt0.textColor = txt1.textColor = txt2.textColor = textColor;
 

@@ -84,7 +84,9 @@
 //-- ScriptName: clear
 - (void) clear;
 
-//Utility functions
+#pragma mark -
+#pragma mark Utility
+#pragma mark -
 
 //-- ScriptName: drawRect
 - (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height;

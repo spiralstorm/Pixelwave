@@ -54,7 +54,7 @@
 
 	// Create a new Pixelwave View
 	pixelView = [[PXView alloc] initWithFrame:window.frame];
-	
+
 	// Create an instance of SimpleButtonsRoot and set it as the new Root.
 	SimpleButtonsAtlasRoot *root = [[SimpleButtonsAtlasRoot alloc] init];
 	[pixelView setRoot:root];
@@ -72,6 +72,7 @@
 {
 	[pixelView release];
     [window release];
+
     [super dealloc];
 }
 

@@ -51,6 +51,7 @@
 
 #import "PXObjectPool.h"
 #include "PXEngine.h"
+#include "PXTouchEngine.h"
 #include "PXMathUtils.h"
 #import "PXEvent.h"
 
@@ -488,7 +489,7 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 - (PXPoint *)touchPosition
 {
-	return [self positionOfTouch:PXEngineGetFirstTouch()];
+	return [self positionOfTouch:PXTouchEngineGetFirstTouch()];
 }
 /*
 - (float) localX:(UITouch *)touch
@@ -511,7 +512,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	NSMutableArray *list = [[NSMutableArray alloc] init];
 
 	PXPoint *addPoint;
-	PXLinkedList *touchList = PXEngineGetAllTouches();
+	PXLinkedList *touchList = PXTouchEngineGetAllTouches();
 	for (UITouch *touch in touchList)
 	{
 		addPoint = [self positionOfTouch:touch];
@@ -607,7 +608,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	if (!nativeTouch)
 		return nil;
 
-	CGPoint touchPoint = PXEngineTouchToScreenCoordinates(nativeTouch);
+	CGPoint touchPoint = PXTouchEngineTouchToScreenCoordinates(nativeTouch);
 
 	PXObjectPool *pool = PXEngineGetSharedObjectPool();
 	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:[PXPoint class]];
@@ -992,19 +993,6 @@ static unsigned _pxDisplayObjectCount = 0;
 	CGPoint globalPoint = CGPointMake(x, y);
 	globalPoint = PXUtilsGlobalToLocal(self, globalPoint);
 	return [self _containsPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];
-
-	/*PXObjectPool *pool = PXEngineGetSharedObjectPool();
-	PXPoint *point = (PXPoint *)[pool newObjectUsingClass:[PXPoint class]];
-	point.x = x;
-	point.y = y;
-	PXPoint *globalPoint = [self globalToLocal:point];
-	[pool releaseObject:point];
-
-	//PXPoint *pt = [[PXPoint alloc] initWithX:x y:y];
-	//PXPoint *pt2 = [self globalToLocal:pt];
-	//[pt release];
-	
-	return [self _containsPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];*/
 }
 
 #pragma mark GL Rendering
@@ -1017,7 +1005,7 @@ static unsigned _pxDisplayObjectCount = 0;
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
 	BOOL shouldAddEngineListener = NO;
-	
+
 	// If this is an ENTER_FRAME event, and I'm not already listening on the engine
 	// then add me
 	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
@@ -1027,30 +1015,37 @@ static unsigned _pxDisplayObjectCount = 0;
 			shouldAddEngineListener = YES;
 		}
 	}
-	
+
 	BOOL added = [super addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
-	
-	if(!added) return NO;
-	
-	if(shouldAddEngineListener){
-		if (!PXEngineIsInitialized( ))
+
+	if (!added)
+	{
+		return NO;
+	}
+
+	if (shouldAddEngineListener)
+	{
+		if (!PXEngineIsInitialized())
 		{
 			PXThrow(PXException, @"Can't add enterFrame event before a PXView is created.");
 			return NO;
 		}
-		
+
 		PXEngineAddFrameListener(self);
 	}
-	
+
 	return YES;
 }
 
 - (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
 {
 	BOOL removed = [super removeEventListenerOfType:type listener:listener useCapture:useCapture];
-	
-	if(!removed) return NO;
-	
+
+	if (!removed)
+	{
+		return NO;
+	}
+
 	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
 	{
 		// If nothing else needs to recieve enter frame events from the engine
@@ -1060,7 +1055,7 @@ static unsigned _pxDisplayObjectCount = 0;
 			PXEngineRemoveFrameListener(self);
 		}
 	}
-	
+
 	return YES;
 }
 

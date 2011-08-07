@@ -1,10 +1,41 @@
-//
-//  PXAtlasFrame.m
-//  TextureAtlasB
-//
-//  Created by Oz Michaeli on 4/10/11.
-//  Copyright 2011 NA. All rights reserved.
-//
+/*
+ *  _____                       ___                                            
+ * /\  _ `\  __                /\_ \                                           
+ * \ \ \L\ \/\_\   __  _    ___\//\ \    __  __  __    ___     __  __    ___   
+ *  \ \  __/\/\ \ /\ \/ \  / __`\\ \ \  /\ \/\ \/\ \  / __`\  /\ \/\ \  / __`\ 
+ *   \ \ \/  \ \ \\/>  </ /\  __/ \_\ \_\ \ \_/ \_/ \/\ \L\ \_\ \ \_/ |/\  __/ 
+ *    \ \_\   \ \_\/\_/\_\\ \____\/\____\\ \___^___ /\ \__/|\_\\ \___/ \ \____\
+ *     \/_/    \/_/\//\/_/ \/____/\/____/ \/__//__ /  \/__/\/_/ \/__/   \/____/
+ *       
+ *           www.pixelwave.org + www.spiralstormgames.com
+ *                            ~;   
+ *                           ,/|\.           
+ *                         ,/  |\ \.                 Core Team: Oz Michaeli
+ *                       ,/    | |  \                           John Lattin
+ *                     ,/      | |   |
+ *                   ,/        |/    |
+ *                 ./__________|----'  .
+ *            ,(   ___.....-,~-''-----/   ,(            ,~            ,(        
+ * _.-~-.,.-'`  `_.\,.',.-'`  )_.-~-./.-'`  `_._,.',.-'`  )_.-~-.,.-'`  `_._._,.
+ * 
+ * Copyright (c) 2011 Spiralstorm Games http://www.spiralstormgames.com
+ * 
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ * 
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ */
 
 #import "PXAtlasFrame.h"
 
@@ -119,10 +150,11 @@
 
 	self.anchor = nil;
 	self.padding = nil;
-	
+
 	[super dealloc];
 }
 
+#pragma mark -
 #pragma mark Properties
 #pragma mark -
 
@@ -133,10 +165,10 @@
 		PXThrowNilParam(textureData);
 		return;
 	}
-	
+
 	[val retain];
 	[textureData release];
-	
+
 	textureData = val;
 }
 
@@ -147,10 +179,10 @@
 		PXThrowNilParam(clipRect);
 		return;
 	}
-	
+
 	val = [val copy];
 	[clipRect release];
-	
+
 	clipRect = val;
 }
 - (PXClipRect *)clipRect
@@ -158,13 +190,13 @@
 	return [[clipRect copy] autorelease];
 }
 
+#pragma mark -
 #pragma mark Methods
 #pragma mark -
 
 /**
- *	A utility method for quickly updating the
- *	given PXTexture object to represent
- *	this frame's sub-image.
+ *	A utility method for quickly updating the given PXTexture object to
+ *	represent this frame's sub-image.
  */
 - (void) setToTexture:(PXTexture *)texture
 {
@@ -185,8 +217,8 @@
 #pragma mark Utility Methods
 
 /**
- *	A utility method for quicly creating a PXAtlasFrame
- *	object with the given parameters.
+ *	A utility method for quicly creating a PXAtlasFrame object with the given
+ *	parameters.
  *
  *	@param clipRect
  *		The position and area (in points) of the sub-image within the master
@@ -194,11 +226,12 @@
  *	@param textureData
  *		The PXTextureData within which this sub-image is contained.
  *	@param anchor
- *		The anchor point to be assigned to this sub-image when extracted from the texture atlas.
- *		pass <code>nil</code> for the default value (<code>{0, 0}</code>).
+ *		The anchor point to be assigned to this sub-image when extracted from
+ *		the texture atlas. Pass <code>nil</code> for the default value
+ *		(<code>{0, 0}</code>).
  *	@param padding
- *		The amount of padding (white space) that should exists around the sub-image
- *		when extracted from the texture atlas.
+ *		The amount of padding (white space) that should exists around the
+ *		sub-image when extracted from the texture atlas.
  *
  *	@return
  *		An auto-released PXAtlasFrame object with the given parameters.
@@ -220,11 +253,11 @@
  *	@param textureData
  *		The PXTextureData within which this sub-image is contained.
  *	@param anchorX
- *		The anchorX amount (in percent) to be assigned to this sub-image
- *		when extracted from the texture atlas.
+ *		The anchorX amount (in percent) to be assigned to this sub-image when
+ *		extracted from the texture atlas.
  *	@param anchorY
- *		The anchorY amount (in percent) to be assigned to this sub-image
- *		when extracted from the texture atlas.
+ *		The anchorY amount (in percent) to be assigned to this sub-image when
+ *		extracted from the texture atlas.
  *
  *	@return
  *		An auto-released PXAtlasFrame object with the given parameters.
@@ -237,8 +270,7 @@
 {
 	return [[[PXAtlasFrame alloc] initWithClipRect:clipRect
 									   textureData:textureData
-											anchor:[PXPoint pointWithX:anchorX
-																  y:anchorY]] autorelease];
+											anchor:[PXPoint pointWithX:anchorX y:anchorY]] autorelease];
 }
 
 @end

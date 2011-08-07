@@ -2,10 +2,10 @@
 
 "BallBase.png":
 {
-	"frame": {"x":110,"y":422,"w":98,"h":98},
+	"frame": {"x":2,"y":530,"w":100,"h":100},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":0,"y":0,"w":98,"h":98},
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":100,"h":100},
 	"sourceSize": {"w":100,"h":100}
 },
 "BallFloorShadow.png":
@@ -34,15 +34,15 @@
 },
 "Rod.png":
 {
-	"frame": {"x":248,"y":2,"w":4,"h":419},
+	"frame": {"x":214,"y":112,"w":12,"h":419},
 	"rotated": false,
-	"trimmed": true,
-	"spriteSourceSize": {"x":4,"y":0,"w":4,"h":419},
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":12,"h":419},
 	"sourceSize": {"w":12,"h":419}
 },
 "RodWallShadow.png":
 {
-	"frame": {"x":2,"y":1560,"w":58,"h":460},
+	"frame": {"x":2,"y":638,"w":58,"h":460},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":58,"h":460},
@@ -50,7 +50,7 @@
 },
 "TopBar.png":
 {
-	"frame": {"x":110,"y":528,"w":1024,"h":95},
+	"frame": {"x":110,"y":422,"w":1024,"h":95},
 	"rotated": true,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":1024,"h":95},
@@ -58,7 +58,7 @@
 },
 "TopBarShadow.png":
 {
-	"frame": {"x":214,"y":112,"w":4,"h":93},
+	"frame": {"x":248,"y":2,"w":4,"h":93},
 	"rotated": false,
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":4,"h":93},
@@ -71,13 +71,13 @@
 	"trimmed": false,
 	"spriteSourceSize": {"x":0,"y":0,"w":204,"h":204},
 	"sourceSize": {"w":204,"h":204}
-}},
+}
+}, 
 "meta": {
 	"app": "http://www.texturepacker.com",
 	"version": "1.0",
 	"image": "Atlas@2x.png",
 	"format": "RGBA8888",
-	"size": {"w":256,"h":2048},
-	"scale": "1"
+	"size": {"w":256,"h":2048}
 }
 }

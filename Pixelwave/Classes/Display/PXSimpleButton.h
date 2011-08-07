@@ -60,6 +60,11 @@ typedef enum
 	PXLinkedList *listOfTouches;
 
 	BOOL enabled;
+@private
+	PXEventListener *pxSBOnTouchDown;
+	PXEventListener *pxSBOnTouchUp;
+	PXEventListener *pxSBOnTouchMove;
+	PXEventListener *pxSBOnTouchCancel;
 /// @endcond
 }
 

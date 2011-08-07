@@ -161,6 +161,7 @@ void ContactListener::PostSolve(b2Contact* contact, const b2ContactImpulse* impu
 			[delegate contactListener:this collisionWithBodyA:bodyA bodyB:bodyB normalForce:normalImpulse];
 		}
 	}
+
 	if (!PXMathIsZero(tangentImpulse))
 	{
 		// If there is a tangent impulse and the delegate listens for those

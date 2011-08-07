@@ -173,20 +173,6 @@
 					width:(float)width
 				   height:(float)height;
 
-//-- ScriptName: setClipRect
-//-- ScriptArg[0]: required
-//-- ScriptArg[1]: required
-//-- ScriptArg[2]: required
-//-- ScriptArg[3]: required
-//-- ScriptArg[4]: 0.0f
-//-- ScriptArg[5]: 0.0f
-- (void) setClipRectWithX:(float)x
-						y:(float)y
-					width:(float)width
-				   height:(float)height
-			 usingAnchorX:(float)anchorX
-				  anchorY:(float)anchorY __attribute__((deprecated));
-
 ////
 
 + (PXTexture *)texture;

@@ -40,16 +40,23 @@
 #import "PXTouchEvent.h"
 #import "PXDisplayObject.h"
 #import "PXPoint.h"
+#import "PXEngine.h"
+#import "PXTouchEngine.h"
+#import "PXTouchEngine.h"
 
 #include "PXPrivateUtils.h"
 
 NSString * const PXTouchEvent_Tap = @"tap";
-NSString * const PXTouchEvent_DoubleTap = @"doubleTap";
 NSString * const PXTouchEvent_TouchDown = @"touchDown";
 NSString * const PXTouchEvent_TouchMove = @"touchMove";
 NSString * const PXTouchEvent_TouchUp = @"touchUp";
-NSString * const PXTouchEvent_TouchOut = @"touchOut";
 NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
+
+/// @cond DX_IGNORE
+@interface PXTouchEvent(Private)
+- (void) setNativeTouch:(UITouch *)touch;
+@end
+/// @endcond
 
 /**
  *	@ingroup Events
@@ -89,11 +96,12 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 			 stageY:(float)stageY
 		   tapCount:(unsigned)tapCount
 {
-	self = [super initWithType:type doesBubble:YES isCancelable:NO];
+	self = [super initWithType:type bubbles:YES cancelable:NO];
 
 	if (self)
 	{
-		_nativeTouch = [touch retain];
+		[self setNativeTouch:touch];
+
 		_stageX = stageX;
 		_stageY = stageY;
 		_tapCount = tapCount;
@@ -104,8 +112,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 - (void) dealloc
 {
-	[_nativeTouch release];
-	_nativeTouch = nil;
+	[self setNativeTouch:nil];
 
 	[super dealloc];
 }
@@ -114,13 +121,16 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	// TODO: Is this valid? does it return a TouchEvent???
-	PXTouchEvent *event = [super copyWithZone:zone];
+	PXEvent *event = [[[self class] allocWithZone:zone] initWithType:_type nativeTouch:_nativeTouch stageX:_stageX stageY:_stageY tapCount:_tapCount];
+	event->_currentTarget = _currentTarget;
+	event->_target = _target;
+	event->_eventPhase = _eventPhase;
 
-	event->_nativeTouch = _nativeTouch;
-	event->_tapCount = _tapCount;
-	event->_stageX = _stageX;
-	event->_stageY = _stageY;
+	event->_defaultPrevented = _defaultPrevented;
+	event->_stopPropegationLevel = _stopPropegationLevel;
+
+	event->_bubbles = _bubbles;
+	event->_cancelable = _cancelable;
 
 	return event;
 }
@@ -141,19 +151,42 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 {
 	[super reset];
 
-	[_nativeTouch release];
-	_nativeTouch = nil;
+	[self setNativeTouch:nil];
 
 	_bubbles = YES;
+	_cancelable = NO;
 
 	_tapCount = 0;
 	_stageX = 0.0f;
 	_stageY = 0.0f;
 }
 
+- (void) setNativeTouch:(UITouch *)touch
+{
+	touch = [touch retain];
+	[_nativeTouch release];
+	_nativeTouch = touch;
+}
+
+- (BOOL) captured
+{
+	id<PXEventDispatcher> capturingObject = PXTouchEngineGetTouchCapturingObject(_nativeTouch);
+	return (capturingObject == _target);
+}
+
+- (BOOL) insideTarget
+{
+	if (_target && [_target isKindOfClass:[PXDisplayObject class]])
+	{
+		return [((PXDisplayObject *)_target) _hitTestPointWithoutRecursionWithGlobalX:_stageX globalY:_stageY shapeFlag:YES];
+	}
+
+	return NO;
+}
+
 - (PXPoint *)localPosition
 {
-	if (_target && [_target isKindOfClass:[PXDisplayObject class]] && _target)
+	if (_target && [_target isKindOfClass:[PXDisplayObject class]])
 	{
 		return [((PXDisplayObject *)_target) positionOfTouch:_nativeTouch];
 	}

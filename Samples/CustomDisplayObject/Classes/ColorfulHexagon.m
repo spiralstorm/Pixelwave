@@ -43,7 +43,9 @@
 
 - (id) initWithRadius:(float)_radius
 {
-	if (self = [super init])
+	self = [super init];
+
+	if (self)
 	{
 		// Storing the radius.
 		radius = _radius;
@@ -97,7 +99,10 @@
 {
 	// Free your memory.
 	if (vertices)
+	{
 		free(vertices);
+		vertices = NULL;
+	}
 
 	[super dealloc];
 }
@@ -118,7 +123,7 @@
 	// Return YES if the point lyes within your local area.  If shape flag is
 	// 'NO', then a simple bounding box check is sufficient.
 
-	if (!shapeFlag)
+	if (shapeFlag == NO)
 	{
 		CGRect localBounds;
 		[self _measureLocalBounds:&localBounds];

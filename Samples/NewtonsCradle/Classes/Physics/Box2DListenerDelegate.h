@@ -46,6 +46,7 @@ class ContactListener;
 	  collisionWithBodyA:(b2Body *)bodyA
 				   bodyB:(b2Body *)bodyB
 			 normalForce:(float)normalForce;
+
 - (void) contactListener:(ContactListener *)listener
 	  collisionWithBodyA:(b2Body *)bodyA
 				   bodyB:(b2Body *)bodyB

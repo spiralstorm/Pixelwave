@@ -123,11 +123,11 @@
 /* Begin PBXFileReference section */
 		17C52DAC10DC000C00A7001D /* Pixelwave.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pixelwave.xcodeproj; sourceTree = PIXELWAVE_SRC; };
 		2D0D876912CD41BC00A887AF /* PKBox2DTouchPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBox2DTouchPicker.h; sourceTree = "<group>"; };
-		2D0D876A12CD41BC00A887AF /* PKBox2DTouchPicker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PKBox2DTouchPicker.mm; sourceTree = "<group>"; };
+		2D0D876A12CD41BC00A887AF /* PKBox2DTouchPicker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = PKBox2DTouchPicker.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2DC35AB612CBC4BF00B2F195 /* PKBox2DDebugLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBox2DDebugLayer.h; sourceTree = "<group>"; };
 		2DC35AB712CBC4BF00B2F195 /* PKBox2DDebugLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PKBox2DDebugLayer.mm; sourceTree = "<group>"; };
-		2DF9AF5713E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBox2DTouchPickerEvent.h; sourceTree = "<group>"; };
-		2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PKBox2DTouchPickerEvent.mm; sourceTree = "<group>"; };
+		2DF9AF5713E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PKBox2DTouchPickerEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = PKBox2DTouchPickerEvent.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2DFFF76912CD2820009AA3C3 /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
 		2DFFF76B12CD2820009AA3C3 /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
 		2DFFF76C12CD2820009AA3C3 /* b2BroadPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2BroadPhase.h; sourceTree = "<group>"; };

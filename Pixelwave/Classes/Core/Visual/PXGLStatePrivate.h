@@ -43,29 +43,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-	
-// TODO: John, what is the purpose of these?
-
-// BLEND - destination
-#define PX_GL_ZERO							GL_ZERO
-#define PX_GL_ONE							GL_ONE
-#define PX_GL_SRC_COLOR						GL_SRC_COLOR
-#define PX_GL_ONE_MINUS_SRC_COLOR			GL_ONE_MINUS_SRC_COLOR
-#define PX_GL_SRC_ALPHA						GL_SRC_ALPHA
-#define PX_GL_ONE_MINUS_SRC_ALPHA			GL_ONE_MINUS_SRC_ALPHA
-#define PX_GL_DST_ALPHA						GL_DST_ALPHA
-#define PX_GL_ONE_MINUS_DST_ALPHA			GL_ONE_MINUS_DST_ALPHA
-
-// BLEND - source
-//      PX_GL_ZERO
-//      PX_GL_ONE
-#define PX_GL_DST_COLOR                      GL_DST_COLOR
-#define PX_GL_ONE_MINUS_DST_COLOR            GL_ONE_MINUS_DST_COLOR
-#define PX_GL_SRC_ALPHA_SATURATE             GL_SRC_ALPHA_SATURATE
-//      PX_GL_SRC_ALPHA
-//      PX_GL_ONE_MINUS_SRC_ALPHA
-//      PX_GL_DST_ALPHA
-//      PX_GL_ONE_MINUS_DST_ALPHA
 
 /*	              STATE					*
  *	EF0000000000SLPT - 16 bits, 6 used	*

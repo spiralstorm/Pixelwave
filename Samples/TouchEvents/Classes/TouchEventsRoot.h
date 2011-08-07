@@ -43,6 +43,7 @@
 {
 @private
 	PXTexture *texture;
+	float targetX, targetY;
 }
 
 - (void) initializeAsRoot;
