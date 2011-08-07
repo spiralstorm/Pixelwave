@@ -1,4 +1,4 @@
-Version 0.11.0 (Current)
+Version 0.11.0 (Aug. 7, 2011)
 ==============
 NEW:
 - PXTexture display object now supports specifying extra inner padding and a content rotation offset.
