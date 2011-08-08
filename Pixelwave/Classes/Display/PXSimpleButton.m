@@ -41,10 +41,12 @@
 
 #import "PXLinkedList.h"
 #import "PXTouchEvent.h"
+#import "PXRectangle.h"
 
 #include "PXGLPrivate.h"
 #include "PXEngine.h"
 #include "PXPrivateUtils.h"
+#include "PXDebug.h"
 
 /// @cond DX_IGNORE
 @interface PXSimpleButton(Private)
@@ -59,8 +61,17 @@
  *	@ingroup Display
  *
  *	A PXSimpleButton object represents a button with an up, down and hit test
- *	state.  If no hit test state is specified, then the current visible state
- *	serves as the hit area for the button.
+ *	state. If no hit test state is specified then no touch interactions can
+ *	occur. A PXRectangle will be automatically specified for you if you use the
+ *	default method initWithUpState:downState:; however, if you use the more
+ *	complex method and specify no hit area then none will be used and this
+ *	button will recieve no interactions.
+ *
+ *	Note:	It is advised that you listen to PXTouchEvent_Tap to provide the
+ *			most accurate information on when the touch is pressed and released
+ *			within the correct bounds. This is because tap will not get fired if
+ *			you press down inside the button and release outside; where as up
+ *			would.
  *
  *	The following code creates a button with an up and down texture for its
  *	states:
@@ -68,11 +79,10 @@
  *	PXTexture *upTex = [PXTexture textureWithTextureData:[PXTextureData textureDataWithContentsOfFile:@"upPic.png"]];
  *	PXTexture *downTex = [PXTexture textureWithTextureData:[PXTextureData textureDataWithContentsOfFile:@"downPic.png"]];
  *
- *	PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upTex downState:downTex hitTestState:nil];
+ *	PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upTex downState:downTex hitTestState:upState];
  *	@endcode
  *
- *	@see PXTexture
- *	@see PXTextureData
+ *	@see PXRectangle
  */
 @implementation PXSimpleButton
 
@@ -80,6 +90,7 @@
 @synthesize upState;
 @synthesize hitTestState;
 @synthesize enabled;
+@synthesize autoExpandSize;
 
 - (id) init
 {
@@ -87,18 +98,17 @@
 }
 
 /**
- *	Creates a button with specified up, down and hit test states. The states
+ *	Creates a button with specified up and down state. A hit test state is
+ *	automatically created as a PXRectangle the size of the up state if one is
+ *	stated, or the size of the down state if no up state is provided. The states
  *	retain count also gets increased by 1, so that the button has a strong
- *	reference to it.
+ *	reference to it. Because the hit test state will be a rectangle, it will be
+ *	automatically expanded by autoExpandSize as a padding.
  *
  *	@param upState
  *		A PXDisplayObject that specifies the visual up state for the button.
  *	@param downState
  *		A PXDisplayObject that specifies the visual down state for the button.
- *	@param hitTestState
- *		A PXDisplayObject that specifies the hit area for the button.  If
- *		<code>nil</code> is specified then no interaction can exist on this
- *		button.
  *
  *	@b Example:
  *	@code
@@ -115,13 +125,81 @@
  *	[downState.graphics endFill];
  *	// draws a blue rectangle at (105, 105) with a size of (15, 10)
  *
- *	PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upState downState:downState hitTestState:nil];
+ *	PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upState downState:downState];
  *	// Creates a button that is red with a hit-area at (100, 100) with size
  *	// (20, 15) when not pressed (up state), when it is pressed (down state) it
  *	// is blue with a hit area at (105, 105) with size (15, 10).
  *
- *	[button addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(methodForListeningToDownState:)];
- *	[button addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(methodForListeningToUpState:)];
+ *	[button addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap:)];
+ *	// Adding events to the button will allow you to listen in on interaction.
+ *	@endcode
+ *
+ *	@see PXRectangle;
+ *	@see PXShape
+ *	@see PXGraphics
+ *	@see PXTouchEvent
+ */
+- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState
+{
+	// Create a rectangle of the size of the 'upState' or the 'downState' if the
+	// 'upState' is not provided.
+	PXRectangle *_hitTestState = nil;
+
+	PXDisplayObject *checkState = (_upState == nil) ? _downState : _upState;
+
+	if (checkState)
+	{
+		CGRect rect = CGRectZero;
+		[checkState _measureGlobalBounds:&rect];
+
+		if (CGRectIsEmpty(rect) == false)
+		{
+			_hitTestState = [[PXRectangle alloc] initWithX:rect.origin.x y:rect.origin.y width:rect.size.width height:rect.size.height];
+		}
+	}
+
+	id retVal = [self initWithUpState:_upState downState:_downState hitTestState:_hitTestState];
+	[_hitTestState release];
+	return retVal;
+}
+
+/**
+ *	Creates a button with specified up, down and hit test states. The states
+ *	retain count also gets increased by 1, so that the button has a strong
+ *	reference to it.
+ *
+ *	@param upState
+ *		A PXDisplayObject that specifies the visual up state for the button.
+ *	@param downState
+ *		A PXDisplayObject that specifies the visual down state for the button.
+ *	@param hitTestState
+ *		A PXDisplayObject or PXRectangle that specifies the hit area for the
+ *		button. If <code>nil</code> is specified then no interaction can exist
+ *		on this button. If neither a PXDisplayObject nor PXRectangle are
+ *		specified, a debug message will be printed and it will be treated as
+ *		though <code>nil</code> were passed instead.
+ *
+ *	@b Example:
+ *	@code
+ *	PXShape *upState = [PXShape new];
+ *	PXShape *downState = [PXShape new];
+ *
+ *	[upState.graphics beginFill:0xFF0000 alpha:1.0f];
+ *	[upState.graphics drawRectWithX:100 y:100 width:20 height:15];
+ *	[upState.graphics endFill];
+ *	// draws a red rectangle at (100, 100) with a size of (20, 15)
+ *
+ *	[downState.graphics beginFill:0x0000FF alpha:1.0f];
+ *	[downState.graphics drawRectWithX:105 y:105 width:15 height:10];
+ *	[downState.graphics endFill];
+ *	// draws a blue rectangle at (105, 105) with a size of (15, 10)
+ *
+ *	PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upState downState:downState hitTestState:upState];
+ *	// Creates a button that is red with a hit-area at (100, 100) with size
+ *	// (20, 15) when not pressed (up state), when it is pressed (down state) it
+ *	// is blue with a hit area at (105, 105) with size (15, 10).
+ *
+ *	[button addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap:)];
  *	// Adding events to the button will allow you to listen in on interaction.
  *	@endcode
  *
@@ -129,13 +207,15 @@
  *	@see PXGraphics
  *	@see PXTouchEvent
  */
-- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState hitTestState:(PXDisplayObject *)_hitTestState
+- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState hitTestState:(id<NSObject>)_hitTestState
 {
 	self = [super init];
 
 	if (self)
 	{
 		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
+
+		autoExpandSize = 9.0f;
 
 		downState = nil;
 		upState = nil;
@@ -177,9 +257,9 @@
 	[super dealloc];
 }
 
-- (void) setHitTestState:(PXDisplayObject *)newState
+- (void) setHitTestState:(id<NSObject>)newState
 {
-	if (hitTestState)
+	if (hitTestState != nil)
 	{
 		[self removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSBOnTouchDown];
 		[self removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSBOnTouchUp];
@@ -187,11 +267,18 @@
 		[self removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxSBOnTouchCancel];
 	}
 
+	if ([newState isKindOfClass:[PXRectangle class]] == NO &&
+		[newState isKindOfClass:[PXDisplayObject class]] == NO)
+	{
+		PXDebugLog(@"PXSimpleButton ERROR: hitTestState MUST be either a PXRectangle or PXDisplayObject\n");
+		newState = nil;
+	}
+
 	[newState retain];
 	[hitTestState release];
 	hitTestState = newState;
 
-	if (hitTestState)
+	if (hitTestState != nil)
 	{
 		[self addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSBOnTouchDown];
 		[self addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSBOnTouchUp];
@@ -205,6 +292,18 @@
 	if (event.eventPhase != PXEventPhase_Target)
 		return;
 
+	if ([hitTestState isKindOfClass:[PXRectangle class]] == YES)
+	{
+		PXRectangle *rect = (PXRectangle *)hitTestState;
+
+		float doubleExpandSize = autoExpandSize * 2.0f;
+
+		autoExpandRect = CGRectMake(rect.x - autoExpandSize,
+									rect.y - autoExpandSize,
+									rect.width  + doubleExpandSize,
+									rect.height + doubleExpandSize);
+	}
+
 	[listOfTouches addObject:event.nativeTouch];
 
 	visibleState = _PXSimpleButtonVisibleState_Down;
@@ -215,6 +314,7 @@
 }
 - (void) pxSimpleBuuttonOnTouchMove:(PXTouchEvent *)event
 {
+	// Checking the auto expand rect is automatically done
 	if (event.insideTarget == YES)
 	{
 		visibleState = _PXSimpleButtonVisibleState_Down;
@@ -231,6 +331,8 @@
 	if ([listOfTouches count] == 0)
 	{
 		visibleState = _PXSimpleButtonVisibleState_Up;
+
+		autoExpandRect = CGRectZero;
 	}
 }
 
@@ -241,9 +343,25 @@
 	// If a hit test exists. . .
 	if (hitTestState)
 	{
-		// Ask the hit test for the GLOBAL bounds, because it needs to take any
-		// children it may have into affect.
-		[hitTestState _measureGlobalBounds:retBounds];
+		if ([hitTestState isKindOfClass:[PXDisplayObject class]] == YES)
+		{
+			// Ask the hit test for the GLOBAL bounds, because it needs to take
+			// any children it may have into affect.
+			[((PXDisplayObject *)hitTestState) _measureGlobalBounds:retBounds];
+		}
+		else
+		{
+			// If you haven't pressed down, the autoExpandRect will be empty.
+			if (CGRectIsEmpty(autoExpandRect))
+			{
+				PXRectangle *rect = (PXRectangle *)hitTestState;
+				*retBounds = CGRectMake(rect.x, rect.y, rect.width, rect.height);
+			}
+			else
+			{
+				*retBounds = autoExpandRect;
+			}
+		}
 	}
 }
 
@@ -251,7 +369,21 @@
 {
 	if (hitTestState)
 	{
-		return [hitTestState _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag];
+		if ([hitTestState isKindOfClass:[PXDisplayObject class]])
+		{
+			return [((PXDisplayObject *)hitTestState) _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag];
+		}
+		else
+		{
+			if (CGRectIsEmpty(autoExpandRect))
+			{
+				return [((PXRectangle *)hitTestState) containsX:x y:y];
+			}
+			else
+			{
+				return CGRectContainsPoint(autoExpandRect, CGPointMake(x, y));
+			}
+		}
 	}
 
 	return NO;
@@ -260,6 +392,7 @@
 - (void) _renderGL
 {
 	PXDisplayObject *visibleStateDisp = nil;
+
 	switch (visibleState)
 	{
 		case _PXSimpleButtonVisibleState_Up:
@@ -276,23 +409,21 @@
 	if (visibleStateDisp)
 	{
 		PXEngineRenderDisplayObject(visibleStateDisp, YES, NO);
-		//PXGLFlush();
 	}
 }
 
 /**
- *	Creates a button with specified up, down and hit test states. The button
- *	holds a strong refernece to the states, so you can release them after
- *	setting them.
+ *	Creates a button with specified up and down state. A hit test state is
+ *	automatically created as a PXRectangle the size of the up state if one is
+ *	stated, or the size of the down state if no up state is provided. The states
+ *	retain count also gets increased by 1, so that the button has a strong
+ *	reference to it. Because the hit test state will be a rectangle, it will be
+ *	automatically expanded by autoExpandSize as a padding.
  *
  *	@param upState
  *		A PXDisplayObject that specifies the visual up state for the button.
  *	@param downState
  *		A PXDisplayObject that specifies the visual down state for the button.
- *	@param hitTestState
- *		A PXDisplayObject that specifies the hit area for the button.  If
- *		<code>nil</code> is specified then no interaction can exist on this
- *		button.
  *
  *	@b Example:
  *	@code
@@ -309,19 +440,70 @@
  *	[downState.graphics endFill];
  *	// draws a blue rectangle at (105, 105) with a size of (15, 10)
  *
- *	PXSimpleButton *button = [PXSimpleButton simpleButtonWithUpState:upState downState:downState hitTestState:nil];
+ *	PXSimpleButton *button = [PXSimpleButton simpleButtonWithUpState:upState downState:downState];
  *	// Creates a button that is red with a hit-area at (100, 100) with size
  *	// (20, 15) when not pressed (up state), when it is pressed (down state) it
  *	// is blue with a hit area at (105, 105) with size (15, 10).
  *
- *	[button addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(methodForListeningToDownState:)];
- *	[button addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(methodForListeningToUpState:)];
+ *	[button addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap:)];
+ *	// Adding events to the button will allow you to listen in on interaction.
+ *	@endcode
+ *
+ *	@see PXRectangle;
+ *	@see PXShape
+ *	@see PXGraphics
+ *	@see PXTouchEvent
+ */
++ (PXSimpleButton *)simpleButtonWithUpState:(PXDisplayObject *)upState
+								  downState:(PXDisplayObject *)downState
+{
+	return [[[PXSimpleButton alloc] initWithUpState:upState
+										  downState:downState] autorelease];
+}
+
+/**
+ *	Creates a button with specified up, down and hit test states. The button
+ *	holds a strong refernece to the states, so you can release them after
+ *	setting them.
+ *
+ *	@param upState
+ *		A PXDisplayObject that specifies the visual up state for the button.
+ *	@param downState
+ *		A PXDisplayObject that specifies the visual down state for the button.
+ *	@param hitTestState
+ *		A PXDisplayObject or PXRectangle that specifies the hit area for the
+ *		button. If <code>nil</code> is specified then no interaction can exist
+ *		on this button. If neither a PXDisplayObject nor PXRectangle are
+ *		specified, a debug message will be printed and it will be treated as
+ *		though <code>nil</code> were passed instead.
+ *
+ *	@b Example:
+ *	@code
+ *	PXShape *upState = [PXShape new];
+ *	PXShape *downState = [PXShape new];
+ *
+ *	[upState.graphics beginFill:0xFF0000 alpha:1.0f];
+ *	[upState.graphics drawRectWithX:100 y:100 width:20 height:15];
+ *	[upState.graphics endFill];
+ *	// draws a red rectangle at (100, 100) with a size of (20, 15)
+ *
+ *	[downState.graphics beginFill:0x0000FF alpha:1.0f];
+ *	[downState.graphics drawRectWithX:105 y:105 width:15 height:10];
+ *	[downState.graphics endFill];
+ *	// draws a blue rectangle at (105, 105) with a size of (15, 10)
+ *
+ *	PXSimpleButton *button = [PXSimpleButton simpleButtonWithUpState:upState downState:downState hitTestState:upState];
+ *	// Creates a button that is red with a hit-area at (100, 100) with size
+ *	// (20, 15) when not pressed (up state), when it is pressed (down state) it
+ *	// is blue with a hit area at (105, 105) with size (15, 10).
+ *
+ *	[button addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap:)];
  *	// Adding events to the button will allow you to listen in on interaction.
  *	@endcode
  */
 + (PXSimpleButton *)simpleButtonWithUpState:(PXDisplayObject *)upState
 								  downState:(PXDisplayObject *)downState
-							   hitTestState:(PXDisplayObject *)hitTestState
+							   hitTestState:(id<NSObject>)hitTestState
 {
 	return [[[PXSimpleButton alloc] initWithUpState:upState
 										  downState:downState

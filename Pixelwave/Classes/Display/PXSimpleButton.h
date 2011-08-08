@@ -53,11 +53,14 @@ typedef enum
 @protected
 	PXDisplayObject *downState;
 	PXDisplayObject *upState;
-	PXDisplayObject *hitTestState;
+	id<NSObject> hitTestState;
 
 	_PXSimpleButtonVisibleState visibleState;
 
 	PXLinkedList *listOfTouches;
+
+	CGRect autoExpandRect;
+	float autoExpandSize;
 
 	BOOL enabled;
 @private
@@ -77,15 +80,41 @@ typedef enum
  */
 @property (nonatomic, retain) PXDisplayObject *upState;
 /**
- *	A PXDisplayObject that specifies the hit area for the button. If
- *	<code>nil</code> is specified then no interaction can exist on this button.
+ *	A PXDisplayObject or PXRectangle that specifies the hit area for the button.
+ *	If <code>nil</code> is specified then no interaction can exist on this
+ *	button. If neither a PXDisplayObject nor PXRectangle are specified, a debug
+ *	message will be printed and it will be treated as though <code>nil</code>
+ *	were passed instead.
+ *
+ *	Note:	The hit test state will never be visible. It is only used to check
+ *			bounds.
+ *
+ *	Note:	If this variable is changed when the button is already pressed down,
+ *			the rest of the touch interaction already associated with this
+ *			button will remain with the same size as the previous hitTestState.
+ *			The effect of changing the variable will not take place until no
+ *			further touches are interacting with it.
  */
-@property (nonatomic, retain) PXDisplayObject *hitTestState;
+@property (nonatomic, retain) id<NSObject> hitTestState;
 /**
  *	Whether the button is enabled (pressable).
+ *
  *	@b Default: <code>YES</code>.
  */
 @property (nonatomic, assign) BOOL enabled;
+
+/**
+ *	A padding around the button that is automatically added to the size if and
+ *	only if the hit test state is a <code>PXRectangle</code>. A negative number
+ *	will decrease the size of the rectangle.
+ *
+ *	@b Default: 9.0f.
+ */
+@property (nonatomic, assign) float autoExpandSize;
+
+//-- ScriptIgnore
+- (id) initWithUpState:(PXDisplayObject *)upState
+			 downState:(PXDisplayObject *)downState;
 
 //-- ScriptName: SimpleButton
 //-- ScriptArg[0]: nil
@@ -93,14 +122,17 @@ typedef enum
 //-- ScriptArg[2]: nil
 - (id) initWithUpState:(PXDisplayObject *)upState
 			 downState:(PXDisplayObject *)downState
-		  hitTestState:(PXDisplayObject *)hitTestState;
+		  hitTestState:(id<NSObject>)hitTestState;
 
+//-- ScriptIgnore
++ (PXSimpleButton *)simpleButtonWithUpState:(PXDisplayObject *)upState
+								  downState:(PXDisplayObject *)downState;
 //-- ScriptName: make
 //-- ScriptArg[0]: nil
 //-- ScriptArg[1]: nil
 //-- ScriptArg[2]: nil
 + (PXSimpleButton *)simpleButtonWithUpState:(PXDisplayObject *)upState
 								  downState:(PXDisplayObject *)downState
-							   hitTestState:(PXDisplayObject *)hitTestState;
+							   hitTestState:(id<NSObject>)hitTestState;
 
 @end
