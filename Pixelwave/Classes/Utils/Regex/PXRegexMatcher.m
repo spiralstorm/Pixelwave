@@ -273,7 +273,7 @@
  * Finds the next match.
  *
  * @return
- * 	<code>YES</code> if a match was found; otherwise <code>NO<code>.
+ * 	<code>YES</code> if a match was found; otherwise <code>NO<\code>.
  *
  * @b Example:
  * @code
@@ -349,7 +349,7 @@
  * 	given, we use the current position instead.
  *
  * @return
- * 	<code>YES</code> if a match was found; otherwise <code>NO<code>.
+ * 	<code>YES</code> if a match was found; otherwise <code>NO<\code>.
  *
  * @b Example:
  * @code
