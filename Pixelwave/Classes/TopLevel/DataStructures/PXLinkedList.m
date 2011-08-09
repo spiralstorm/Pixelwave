@@ -77,7 +77,7 @@ _PXLLNode pxLinkedListBadNode;
  * structure.
  * <br>
  * The PXLinkedList class is designed to be fast and efficient. It has been
- * tested and found to be considerably faster than <code>NSArray<\code> when
+ * tested and found to be considerably faster than <code>NSArray</code> when
  * performing the following tasks:
  * - Adding and removing objects to and from the ends of the list
  * - Adding and removing objects to and from the middle of the list

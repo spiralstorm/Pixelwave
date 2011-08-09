@@ -270,7 +270,7 @@
 /**
  * Finds the next match.
  *
- * @return <code>YES</code> if a match was found; otherwise <code>NO<\code>.
+ * @return <code>YES</code> if a match was found; otherwise <code>NO</code>.
  *
  * @b Example:
  * @code
@@ -344,7 +344,7 @@
  * @param start The character position to start the search. If any value less then 0 is
  * given, we use the current position instead.
  *
- * @return <code>YES</code> if a match was found; otherwise <code>NO<\code>.
+ * @return <code>YES</code> if a match was found; otherwise <code>NO</code>.
  *
  * @b Example:
  * @code
