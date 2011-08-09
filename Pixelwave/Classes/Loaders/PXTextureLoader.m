@@ -57,8 +57,6 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 @end
 
 /**
- * @ingroup Loaders
- *
  * A PXTextureLoader loads images synchronously and creates PXTextureData
  * objects.
  *

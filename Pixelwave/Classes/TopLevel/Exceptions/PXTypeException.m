@@ -40,8 +40,6 @@
 #import "PXTypeException.h"
 
 /**
- * @ingroup TopLevel
- *
  * Represents an exception involving incompatible types used as method
  * parameters.
  */

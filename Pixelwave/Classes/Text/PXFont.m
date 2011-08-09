@@ -53,8 +53,6 @@
 NSMutableDictionary *pxFonts = nil;
 
 /**
- * @ingroup Text
- *
  * A PXFont keeps a global reference to all registered fonts.  This is useful
  * for re-using an already created font.
  *

@@ -76,8 +76,6 @@
  */
 
 /**
- * @ingroup Cocoa
- * 
  * A UIView subclass that provides a mechanism to create a Pixelwave rendering
  * surface which acts as the root of the entire engine.
  *

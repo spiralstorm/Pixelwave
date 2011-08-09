@@ -56,8 +56,6 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 @end
 
 /**
- * @ingroup Events
- *
  * The base class for all events dispatched through the PXEventDispatcher
  * class.
  * A PXEvent holds all of the information related to the given event, and is

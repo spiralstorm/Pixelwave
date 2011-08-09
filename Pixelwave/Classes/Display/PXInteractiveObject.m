@@ -61,8 +61,6 @@
 @end
 
 /**
- * @ingroup Display
- *
  * A PXInteractiveObject is the abstract base class for all PXDisplayObjects
  * that can recieve user interaction events.
  */

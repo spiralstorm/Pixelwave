@@ -48,8 +48,6 @@
 #import "PXFontFuser.h"
 
 /**
- * @ingroup Parser
- *
  * A PXFontParser takes data, from either the system or given, and parses it
  * into information needed to render the font.
  *

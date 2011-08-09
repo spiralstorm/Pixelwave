@@ -54,8 +54,6 @@
 @end
 
 /**
- * @ingroup Display
- *
  * A PXSimpleButton object represents a button with an up, down and hit test
  * state.  If no hit test state is specified, then the current visible state
  * serves as the hit area for the button.

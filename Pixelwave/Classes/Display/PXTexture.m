@@ -64,8 +64,6 @@
 PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXTexturePadding padding, BOOL paddingEnabled);
 
 /**
- * @ingroup Display
- *
  * Used for drawing PXTextureData objects to the screen.
  * A PXTexture is a subclass of the PXDisplayObject which can be specified to
  * render an entire texture or just a specific area.

@@ -40,8 +40,6 @@
 #import "PXTextureFontOptions.h"
 
 /**
- * @ingroup Text
- *
  * A PXTextureFontOptions creates options for when making a new font.  These
  * options will decide how the texture atlas will be created and what will be
  * stored.

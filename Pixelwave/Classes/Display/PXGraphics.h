@@ -43,8 +43,6 @@
 // TODO Later: Redo graphics class to use triangulation.
 
 /**
- * @ingroup Display
- *
  * A PXGraphics object represents a way of defining and drawing vector shapes.
  * Both PXSprite and PXShape have <code>graphics</code> objects that can be
  * used for drawing.

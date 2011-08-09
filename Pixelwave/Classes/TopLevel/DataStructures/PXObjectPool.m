@@ -44,8 +44,6 @@
 static PXObjectPool *pxSharedObjectPool = nil;
 
 /**
- * @ingroup TopLevel
- *
  * An abstract object pool, capable of pooling multiple types of objects.
  * You should use an object pool in situations where the same type of class
  * must be allocated and deallocated many times over a period of time. The

@@ -42,8 +42,6 @@
 @class PXObjectPool;
 
 /**
- * @ingroup TopLevel
- *
  * An optional protocol, used to customize the behaviour of a PXObjectPool.
  */
 @protocol PXObjectPoolDelegate<NSObject>

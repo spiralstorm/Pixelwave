@@ -53,8 +53,6 @@
 @end
 
 /**
- * @ingroup Display
- *
  * The PXStage Represents the entire drawing surface of the Pixelwave engine
  * and contains several global properties such as the screen size and
  * orientation.

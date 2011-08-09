@@ -48,8 +48,6 @@
  *
  * It is recommended to use the native C methods and Macros for common math
  * operations such as <code>sqrtf(), sinf(), atan2f(), etc.</code>.
- * 
- * @ingroup TopLevel
  */
 
 @implementation PXMath

@@ -42,8 +42,6 @@
 #import "PXTypeException.h"
 
 /**
- * @ingroup TopLevel
- *
  * The base class of all exceptions in the Pixelwave framework. To catch
  * exceptions associated only with the Pixelwave engine, one would do the
  * following:

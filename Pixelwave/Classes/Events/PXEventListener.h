@@ -44,8 +44,6 @@
 typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
 
 /**
- * @ingroup Utils
- *
  * Quickly generates a PXEventListener object for a given method
  * signature.
  * assumes that the method exists within the current class (<code>self</code>)

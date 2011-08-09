@@ -41,8 +41,6 @@
 #import "PXSoundEngine.h"
 
 /**
- * @ingroup Media
- *
  * A PXSoundTransform3D object represents the volume, pitch, position, velocity
  * and distance formula for a 3D-ready <code>PXSoundChannel</code>.
  *

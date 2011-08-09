@@ -64,8 +64,6 @@
 @end
 
 /**
- * @ingroup Display
- *
  * A PXDisplayObjectContainer is the abstract base class for setting up the
  * display list.  A PXDisplayObjectContainer is a display object that can hold
  * children.  A PXDisplayObjectContainer should never be made directly, if you

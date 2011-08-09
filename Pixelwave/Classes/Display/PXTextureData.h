@@ -49,15 +49,10 @@
 @protocol PXTextureModifier;
 
 /**
- * @ingroup Display
- *
  * An enum representing the possible pixel color formats of a PXTextureData
  * object.
  */
 
-/**
- * @ingroup Display
- */
 @interface PXTextureData : NSObject
 {
 @public

@@ -49,8 +49,6 @@
 ///////////////////////////////
 
 /**
- * @ingroup Events
- *
  * The protocol from which the PXEventDispatcher is derived. Implement this
  * protocol when your class cannot extend the PXEventDispatcher class. The
  * implementing class should simply create a private PXEventDispatcher object

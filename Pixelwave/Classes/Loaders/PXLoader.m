@@ -44,8 +44,6 @@
 #import "PXDebug.h"
 
 /**
- * @ingroup Loaders
- *
  * A PXLoader is a base loader class that lays out the foundation for each
  * different type of loader.
  *

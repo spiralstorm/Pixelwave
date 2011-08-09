@@ -42,8 +42,6 @@
 #import "PXMathUtils.h"
 
 /**
- * @ingroup Geom
- *
  * A PXVector3D object is a vector in a three-dimensional coordinate system,
  * where x represents the horizontal axis and y represents the vertical axis
  * and z represents the depth axis.

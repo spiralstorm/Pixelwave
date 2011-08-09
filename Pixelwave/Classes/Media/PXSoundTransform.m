@@ -40,8 +40,6 @@
 #import "PXSoundTransform.h"
 
 /**
- * @ingroup Media
- *
  * A PXSoundTransform object represents the volume and pitch of a
  * <code>PXSoundChannel</code>.
  *

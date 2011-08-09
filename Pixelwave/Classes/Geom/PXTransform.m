@@ -48,8 +48,6 @@
 #import "PXExceptionUtils.h"
 
 /**
- * @ingroup Geom
- *
  * A PXTransform describes the local transformation of a PXDisplayObject in
  * two-dimensional space and color space.
  * <br>

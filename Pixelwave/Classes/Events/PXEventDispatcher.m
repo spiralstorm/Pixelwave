@@ -78,8 +78,6 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  */
 
 /**
- * @ingroup Events
- *
  * The base class for all classes that dispatch events.
  * The event dispatcher allows individual methods to be associated with any
  * event.

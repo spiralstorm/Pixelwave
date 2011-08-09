@@ -52,8 +52,6 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
 @end
 
 /**
- * @ingroup Loaders
- *
  * A PXSoundLoader Loads sounds synchronously and creates PXSound objects.
  *
  * Once instantiated with a valid file path, objects of the PXSound class will

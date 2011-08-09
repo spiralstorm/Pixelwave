@@ -41,8 +41,6 @@
 #include "PXMathUtils.h"
 
 /**
- * @ingroup Geom
- *
  * A PXPoint object represents a location in a two-dimensional coordinate
  * system, where x represents the horizontal axis and y represents the vertical
  * axis.

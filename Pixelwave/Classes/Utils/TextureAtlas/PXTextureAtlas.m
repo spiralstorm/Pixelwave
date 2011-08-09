@@ -56,8 +56,6 @@
 @end
 
 /**
- * @ingroup Utils
- *
  * Abstracts the concept of a texture atlas
  * (several images arranged into one larger image) into
  * a simple object containing a 'frame' for each sub-image.

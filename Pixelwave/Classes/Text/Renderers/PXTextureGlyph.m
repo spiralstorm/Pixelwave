@@ -42,8 +42,6 @@
 #import "PXTextureData.h"
 
 /**
- * @ingroup Text
- *
  * A PXTextureGlyph object represents all information needed to correctly
  * render a character to the screen from a certain font.
  *

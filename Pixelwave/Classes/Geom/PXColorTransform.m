@@ -43,8 +43,6 @@
 #import "PXPrivateUtils.h"
 
 /**
- * @ingroup Geom
- *
  * A PXColorTransform object lets you adjust the values of each color channel
  * of a display object.
  *

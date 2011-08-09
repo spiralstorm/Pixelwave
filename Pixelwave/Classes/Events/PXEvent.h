@@ -51,7 +51,6 @@ PXExtern NSString * const PXEvent_RemovedFromStage;
 PXExtern NSString * const PXEvent_Render;
 PXExtern NSString * const PXEvent_SoundComplete;
 
-/// @ingroup Events
 /// Event Phases
 typedef enum
 {

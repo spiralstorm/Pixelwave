@@ -40,8 +40,6 @@
 @class PXLinkedList;
 
 /**
- * @ingroup Parsers
- *
  * The protocol required to make a new parser.
  */
 @protocol PXParser<NSObject>

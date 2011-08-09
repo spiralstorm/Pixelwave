@@ -57,8 +57,6 @@
 @end
 
 /**
- * @ingroup Utils
- *
  * A PXRegexPattern creates a compiled regex string from the given info. This
  * is used to find matches later. A PXRegexPattern object is immutable.
  *

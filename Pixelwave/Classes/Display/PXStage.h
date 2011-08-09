@@ -42,7 +42,7 @@
 @class PXView;
 
 /**
- * @ingroup Display
+ * Defines constants describing the orientation of the stage.
  */
 typedef enum
 {

@@ -47,7 +47,6 @@
 @class EAGLContext;
 
 /**
- * @ingroup Cocoa
  * Indicates the quality of the colors used when rendering to the screen.
  * This enum is used when initializing a PXView object. Internally the
  * colorQuality is used to set up the OpenGL rendering surface's pixel format

@@ -52,8 +52,6 @@
 #import "PXSoundParser.h"
 
 /**
- * @ingroup Media
- *
  * A PXSound object represents a loaded sound.  Sounds should never be
  * initialized manually, however through a <code>PXSoundLoader</code> using the
  * <code>newSound</code> method.

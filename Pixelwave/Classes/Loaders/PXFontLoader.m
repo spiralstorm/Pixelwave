@@ -56,8 +56,6 @@
 @end
 
 /**
- * @ingroup Loaders
- *
  * A PXFontLoader loads font information and creats PXFont objects from the
  * loaded information.
  *

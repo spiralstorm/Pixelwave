@@ -59,8 +59,6 @@
 @end
 
 /**
- * @ingroup Text
- *
  * A PXTextField object represents a box of text on the screen.
  *
  * The following code creates a text field with the Helvetica font, that can

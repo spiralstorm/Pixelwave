@@ -46,8 +46,6 @@
 #import "PXSoundModifier.h"
 
 /**
- * @ingroup Parser
- *
  * A PXSoundParser takes the given data, and parses it into information needed
  * to play the sound.
  *

@@ -42,8 +42,6 @@
 #import "PXMathUtils.h"
 
 /**
- * @ingroup Geom
- *
  * A PXMatrix object that represents a two-dimensional transformation matrix.
  *
  * The following code creates an identity matrix:

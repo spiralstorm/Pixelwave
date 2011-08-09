@@ -42,8 +42,6 @@
 #import "PXGraphics.h"
 
 /**
- * @ingroup Display
- *
  * A PXSprite is a concrete display object that can contain children and has a
  * graphics object.
  *

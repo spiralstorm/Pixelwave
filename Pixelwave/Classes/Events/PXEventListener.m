@@ -43,8 +43,6 @@
 #import "PXExceptionUtils.h"
 
 /**
- * @ingroup Events
- *
  * The PXEventListener class acts as a wrapper for an Objective-C method. Used
  * when adding and removing event listeners from the PXEventDispatcher class.
  * 

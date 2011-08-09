@@ -46,8 +46,6 @@
 #import "PXTextureData.h"
 
 /**
- * @ingroup Text
- *
  * A PXTextureFont object represents a texture containing a parsed font.  The
  * texture is packed to try and use the least space possible.
  *

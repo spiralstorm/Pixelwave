@@ -50,8 +50,6 @@
 #include "PXPrivateUtils.h"
 
 /**
- * @ingroup Parser
- *
  * A PXTextureParser takes the given data, and parses it into information
  * needed to render the image.
  *

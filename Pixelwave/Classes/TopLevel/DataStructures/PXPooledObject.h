@@ -40,8 +40,6 @@
 #pragma mark Header
 
 /**
- * @ingroup TopLevel
- *
  * This protocol should be implemented by all classes which will be pooled in
  * a PXObjectPool. It requires that the class implement the <code>reset</code>
  * method, which should reset the internal state of the object to its original

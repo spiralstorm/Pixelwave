@@ -68,8 +68,6 @@
 static unsigned _pxDisplayObjectCount = 0;
 
 /**
- * @ingroup Display
- *
  * The base class for all elements drawn to the stage.
  * PXDisplayObject is an abstract class that represent a single element in the
  * display list.

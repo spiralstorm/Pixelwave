@@ -53,8 +53,6 @@
 #import "PXTextureModifierLA88.h"
 
 /**
- * @ingroup Modifiers
- *
  * PXTextureModifiers creates a texture modifier from a premade list of
  * modifiers.
  */

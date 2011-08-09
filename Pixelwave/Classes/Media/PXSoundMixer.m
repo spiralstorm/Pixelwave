@@ -45,8 +45,6 @@
 #include "PXSoundEngine.h"
 
 /**
- * @ingroup Media
- *
  * The PXSoundMixer contains a series of static methods to manipulate how
  * sounds are played and listened to.
  *

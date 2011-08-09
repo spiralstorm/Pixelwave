@@ -42,8 +42,6 @@
 #import "PXSoundModifierToMono.h"
 
 /**
- * @ingroup Modifiers
- *
  * PXSoundModifiers creates a sound modifier from a premade list of modifiers.
  */
 @implementation PXSoundModifiers

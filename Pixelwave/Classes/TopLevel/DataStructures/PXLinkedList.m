@@ -66,8 +66,6 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 _PXLLNode pxLinkedListBadNode;
 
 /**
- * @ingroup TopLevel
- *
  * A PXLinkedList represents a data structure which can hold any number of
  * Objective-C objects. Like all collection classes, the PXLinkedList class
  * increases an object's retain count when it is added, and decreases the

@@ -52,8 +52,6 @@
 @end
 
 /**
- * @ingroup Utils
- *
  * A PXRegexMatcher uses a regex pattern to find matches in a given string.
  *
  * @b Example:

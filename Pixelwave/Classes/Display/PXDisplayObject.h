@@ -48,9 +48,6 @@
 @class PXRectangle;
 @class PXPoint;
 
-/**
- * @ingroup Display
- */
 typedef enum
 {
 	/// The initial state of _renderMode for PXDisplayObject. You must use PXGL

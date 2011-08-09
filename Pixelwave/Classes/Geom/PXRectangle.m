@@ -46,8 +46,6 @@
 #include "PXMathUtils.h"
 
 /**
- * @ingroup Geom
- *
  * A PXRectangle object is an area defined by its position, as indicated by its
  * <code>top-left</code> corner (<code>x</code>, <code>y</code>) and by its
  * <code>width</code> and its <code>height</code>.
