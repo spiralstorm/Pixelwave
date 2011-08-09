@@ -43,9 +43,6 @@
 
 #include "PXTouchEngine.h"
 
-/**
- * @internal
- */
 @interface PXEngine : NSObject
 {
 @private
