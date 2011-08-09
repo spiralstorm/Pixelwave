@@ -928,7 +928,7 @@ void PXGLPointSize(GLfloat size)
  * component, and stride specifies the byte stride from one color to the next
  * allowing vertices and attributes to be packed into a single array or stored
  * in separate arrays. (Single-array storage may be more efficient on some
- * implementations.)
+ * implementations).
  *
  * @param GLint size - Specifies the number of coordinates per array element.
  * Must be 4.
@@ -961,7 +961,7 @@ void PXGLColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *poi
  * coordinates. stride specifies the byte stride from one point size to the
  * next, allowing vertices and attributes to be packed into a single array or
  * stored in separate arrays. (Single-array storage may be more efficient on
- * some implementations.)
+ * some implementations).
  *
  * @param GLint size - Specifies the number of coordinates per array element.
  * Must be 2.
@@ -994,7 +994,7 @@ void PXGLPointSizePointer(GLenum type, GLsizei stride, const GLvoid *pointer)
  * coordinate and stride specifies the byte stride from one array element to
  * the next allowing vertices and attributes to be packed into a single array
  * or stored in separate arrays. (Single-array storage may be more efficient on
- * some implementations.)
+ * some implementations).
  *
  * @param GLint size - Specifies the number of coordinates per array element.
  * Must be 2.
@@ -1029,7 +1029,7 @@ void PXGLTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *
  * per vertex and type the data type of the coordinates. stride specifies the
  * byte stride from one vertex to the next allowing vertices and attributes to
  * be packed into a single array or stored in separate arrays. (Single-array
- * storage may be more efficient on some implementations.)
+ * storage may be more efficient on some implementations).
  *
  * @param GLint size - Specifies the number of coordinates per array element.
  * Must be 2.
