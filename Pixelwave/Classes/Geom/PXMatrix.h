@@ -45,10 +45,8 @@
 
 @interface PXMatrix : NSObject <NSCopying, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @private
 	float a, b, c, d, tx, ty;
-/// @endcond
 }
 
 /**

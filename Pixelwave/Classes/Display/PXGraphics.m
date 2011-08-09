@@ -50,7 +50,6 @@
 
 #define PX_GRAPHICS_DEFAULT_PRECISION 0.25f
 
-/// @cond DX_IGNORE
 //LineGroup class used to store vertices
 #define PX_GRAPHICS_GROUP_MAX_POINTS 100
 typedef enum
@@ -177,7 +176,6 @@ typedef enum
 }
 
 @end
-/// @endcond
 
 //Main Graphics Class
 

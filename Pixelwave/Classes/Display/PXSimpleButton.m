@@ -46,14 +46,12 @@
 #include "PXEngine.h"
 #include "PXPrivateUtils.h"
 
-/// @cond DX_IGNORE
 @interface PXSimpleButton(Private)
 - (void) pxSimpleButtonOnTouchDown:(PXTouchEvent *)event;
 - (void) pxSimpleButtonOnTouchUp:(PXTouchEvent *)event;
 - (void) pxSimpleBuuttonOnTouchMove:(PXTouchEvent *)event;
 - (void) pxSimpleButtonOnTouchCancel:(PXTouchEvent *)event;
 @end
-/// @endcond
 
 /**
  * @ingroup Display

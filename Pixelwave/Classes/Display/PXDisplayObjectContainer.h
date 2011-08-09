@@ -43,7 +43,6 @@
 
 @interface PXDisplayObjectContainer : PXInteractiveObject<NSFastEnumeration>
 {
-/// @cond DX_IGNORE
 @public
 	BOOL _touchChildren;
 	unsigned short _numChildren;
@@ -58,7 +57,6 @@
 	// Optimization, adding/removing a child
 	void (*_impAddChildBefore)(id, SEL, PXDisplayObject *, PXDisplayObject *, BOOL);
 	void (*_impRemoveChild)(id, SEL, PXDisplayObject *, BOOL);
-/// @endcond
 }
 
 /**
@@ -122,7 +120,6 @@
 - (NSArray *)objectsUnderPoint:(PXPoint *)point;
 @end
 
-/// @cond DX_IGNORE
 @interface PXDisplayObjectContainer (Override)
 - (void) _preChildRenderGL;
 - (void) _postChildRenderGL;

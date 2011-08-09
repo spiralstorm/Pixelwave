@@ -48,14 +48,12 @@
 #include "PXMathUtils.h"
 #include "PXEngine.h"
 
-/// @cond DX_IGNORE
 @interface PXFontLoader(Private)
 - (id) initWithContentsOfFile:(NSString *)path
 						orURL:(NSURL *)url
 					  options:(PXFontOptions *)options;
 - (NSString *)updatePath:(NSString *)path;
 @end
-/// @endcond
 
 /**
  * @ingroup Loaders

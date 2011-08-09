@@ -46,7 +46,6 @@
 
 #import "PXPrivateUtils.h"
 
-/// @cond DX_IGNORE
 // Pooled nodes
 static _PXLLNode **pxLLPooledNodesStack = 0; // C-array
 static unsigned pxLLPooledNodesCount = 0; // Items in stack
@@ -63,7 +62,6 @@ void PXLinkedListShrinkPoolNodes(int newSize);
 - (_PXLLNode *)getNodeByObject:(PXGenericObject)object;
 - (void) swapNode:(_PXLLNode *)node1 withNode:(_PXLLNode *)node2;
 @end
-/// @endcond
 
 _PXLLNode pxLinkedListBadNode;
 

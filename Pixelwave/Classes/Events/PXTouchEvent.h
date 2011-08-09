@@ -52,7 +52,6 @@ PXExtern NSString * const PXTouchEvent_TouchCancel;
 
 @interface PXTouchEvent : PXEvent <NSCopying, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @public
 	UITouch *_nativeTouch;
 
@@ -60,7 +59,6 @@ PXExtern NSString * const PXTouchEvent_TouchCancel;
 
 	float _stageX;
 	float _stageY;
-/// @endcond
 }
 
 /**

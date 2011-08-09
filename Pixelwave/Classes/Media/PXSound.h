@@ -110,8 +110,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXSound (PrivateButPublic)
 - (id) _initWithLength:(unsigned)length;
 @end
-/// @endcond

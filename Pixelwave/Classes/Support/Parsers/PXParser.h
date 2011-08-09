@@ -85,7 +85,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXParser(PrivateButPublic)
 - (id) _initWithData:(NSData *)data origin:(NSString *)origin;
 
@@ -96,4 +95,3 @@
 - (BOOL) _initialize;
 - (BOOL) _parse;
 @end
-/// @endcond

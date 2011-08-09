@@ -48,7 +48,6 @@
 
 @interface PXTexture : PXDisplayObject
 {
-/// @cond DX_IGNORE
 @private
 	PXTextureData *textureData;
 
@@ -76,7 +75,6 @@
 	unsigned short smoothingType;
 	// Either GL_REPEAT or GL_CLAMP_TO_EDGE
 	unsigned short wrapType;
-/// @endcond
 }
 
 /**

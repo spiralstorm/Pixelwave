@@ -72,7 +72,6 @@ typedef enum
 
 @interface PXView : UIView <NSCoding>
 {
-/// @cond DX_IGNORE
 	// TODO: Move the framebuffer and renderbuffer creation to PXGL ?
 @public
 	GLuint _pxViewFramebuffer; // the main frame buffer
@@ -87,7 +86,6 @@ typedef enum
 	BOOL hasBeenCurrent;
 	BOOL contentScaleFactorSupported;
 	BOOL firstOrientationChange;
-/// @endcond
 }
 
 /**
@@ -127,11 +125,9 @@ typedef enum
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXView(PrivateButPublic)
 - (void) _setCurrentContext;
 - (BOOL) _isCurrentContext;
 - (void) _clearCurrentContext;
 - (void) _swapBuffers;
 @end
-/// @endcond

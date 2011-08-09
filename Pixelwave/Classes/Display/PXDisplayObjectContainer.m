@@ -58,12 +58,10 @@
 
 #define PXThrowDispNotChild PXThrow(PXArgumentException, @"The supplied DisplayObject must be a child of the caller.");
 
-/// @cond DX_IGNORE
 @interface PXDisplayObjectContainer (Private)
 - (void) addChild:(PXDisplayObject *)child beforeChild:(PXDisplayObject *)childToAddBefore dispatchEvents:(BOOL)dispatchEvents;
 - (void) removeChild:(PXDisplayObject *)child dispatchEvents:(BOOL)dispatchEvents;
 @end
-/// @endcond
 
 /**
  * @ingroup Display

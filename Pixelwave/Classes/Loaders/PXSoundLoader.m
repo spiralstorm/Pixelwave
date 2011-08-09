@@ -45,13 +45,11 @@
 
 id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
 
-/// @cond DX_IGNORE
 @interface PXSoundLoader(Private)
 - (id) initWithContentsOfFile:(NSString *)path
 						orURL:(NSURL *)url
 					modifier:(id<PXSoundModifier>)_modifier;
 @end
-/// @endcond
 
 /**
  * @ingroup Loaders

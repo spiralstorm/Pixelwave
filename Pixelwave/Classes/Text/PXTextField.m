@@ -52,13 +52,11 @@
 
 #import "PXSettings.h"
 
-/// @cond DX_IGNORE
 @interface PXTextField(Private)
 - (void) validate;
 - (void) updateBackgroundCoordinates;
 - (void) updateBorderCoordinates;
 @end
-/// @endcond
 
 /**
  * @ingroup Text

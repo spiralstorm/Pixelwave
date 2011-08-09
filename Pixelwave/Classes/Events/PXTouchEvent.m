@@ -52,11 +52,9 @@ NSString * const PXTouchEvent_TouchMove = @"touchMove";
 NSString * const PXTouchEvent_TouchUp = @"touchUp";
 NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
-/// @cond DX_IGNORE
 @interface PXTouchEvent(Private)
 - (void) setNativeTouch:(UITouch *)touch;
 @end
-/// @endcond
 
 /**
  * @ingroup Events

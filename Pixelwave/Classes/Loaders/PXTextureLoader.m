@@ -49,14 +49,12 @@
 
 id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 
-/// @cond DX_IGNORE
 @interface PXTextureLoader(Private)
 - (id) initWithContentsOfFile:(NSString *)path
 						orURL:(NSURL *)url
 					modifier:(id<PXTextureModifier>)_modifier;
 - (NSString *)updatePath:(NSString *)path;
 @end
-/// @endcond
 
 /**
  * @ingroup Loaders

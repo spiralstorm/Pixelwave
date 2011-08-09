@@ -42,7 +42,6 @@
 
 #import "PXPrivateUtils.h"
 
-/// @cond DX_IGNORE
 typedef struct
 {
 	CGRect *rect;
@@ -61,7 +60,6 @@ PXInline int PXRectanglePackerComparer(const void *element1, const void *element
 				padding:(unsigned)padding
 		   minRectWidth:(unsigned)minRectWidth;
 @end
-/// @endcond
 
 @implementation PXRectanglePacker
 

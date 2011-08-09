@@ -41,13 +41,11 @@
 
 @interface PXColorTransform : NSObject <NSCopying, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @private
 	float redMultiplier;
 	float greenMultiplier;
 	float blueMultiplier;
 	float alphaMultiplier;
-/// @endcond
 }
 
 /**

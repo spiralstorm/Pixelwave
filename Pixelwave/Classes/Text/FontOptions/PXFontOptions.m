@@ -42,7 +42,6 @@
 #include "PXHeaderUtils.h"
 #include "PXPrivateUtils.h"
 
-/// @cond DX_IGNORE
 #define PX_FONT_CHAR_SET_LOWER_CASE		@"abcdefghijklmnopqrstuvwxyz"
 #define PX_FONT_CHAR_SET_UPPER_CASE		@"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 #define PX_FONT_CHAR_SET_NUMERALS		@"0123456789"
@@ -53,7 +52,6 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 @interface PXFontOptions (Private)
 - (NSString *)newStringByRemovingDuplicatesFromString:(NSString *)copyString;
 @end
-/// @endcond
 
 /**
  * @ingroup Text

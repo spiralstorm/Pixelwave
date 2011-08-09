@@ -48,11 +48,9 @@
 #import "PXSoundTransform3D.h"
 #import "PXAVSoundParser.h"
 
-/// @cond DX_IGNORE
 @interface PXAVSoundChannel (Private)
 - (void) _setDone:(BOOL)done;
 @end
-/// @endcond
 
 @implementation PXAVSoundChannel
 

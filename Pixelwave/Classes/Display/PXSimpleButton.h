@@ -39,17 +39,14 @@
 
 #import "PXInteractiveObject.h"
 
-/// @cond DX_IGNORE
 typedef enum
 {
 	_PXSimpleButtonVisibleState_Up = 0,
 	_PXSimpleButtonVisibleState_Down
 } _PXSimpleButtonVisibleState;
-/// @endcond
 
 @interface PXSimpleButton : PXInteractiveObject
 {
-/// @cond DX_IGNORE
 @protected
 	PXDisplayObject *downState;
 	PXDisplayObject *upState;
@@ -65,7 +62,6 @@ typedef enum
 	PXEventListener *pxSBOnTouchUp;
 	PXEventListener *pxSBOnTouchMove;
 	PXEventListener *pxSBOnTouchCancel;
-/// @endcond
 }
 
 /**

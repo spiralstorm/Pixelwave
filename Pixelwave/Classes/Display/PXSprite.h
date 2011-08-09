@@ -44,9 +44,7 @@
 @interface PXSprite : PXDisplayObjectContainer
 {
 @public
-/// @cond DX_IGNORE
 	PXGraphics *_graphics;
-/// @endcond
 }
 
 /**

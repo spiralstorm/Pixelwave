@@ -48,14 +48,12 @@
 
 #define pxKMaxTextureSize         1024
 
-/// @cond DX_IGNORE
 @interface PXCGTextureParser(Private)
 - (BOOL) processCGImage:(CGImageRef)image
 			orientation:(UIImageOrientation)orientation
 			  sizeToFit:(BOOL)sizeToFit
 			pixelFormat:(PXTextureDataPixelFormat)_pixelFormat;
 @end
-/// @endcond
 
 @implementation PXCGTextureParser
 

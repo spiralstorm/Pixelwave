@@ -44,10 +44,8 @@
 
 @interface PXTransform : NSObject
 {
-/// @cond DX_IGNORE
 @public
 	PXDisplayObject *_displayObject;
-/// @endcond
 }
 /**
  * A matrix containing the local transformation of the PXDisplayObject
@@ -120,8 +118,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXTransform (PrivateButPublic)
 - (id) _initWithDisplayObject:(PXDisplayObject *)dispObject;
 @end
-/// @endcond

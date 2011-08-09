@@ -44,10 +44,8 @@
 
 @interface PXPoint : NSObject <NSCopying, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @private
 	float x, y;
-/// @endcond
 }
 
 /**

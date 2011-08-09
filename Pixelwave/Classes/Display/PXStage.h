@@ -62,7 +62,6 @@ typedef enum
 
 @interface PXStage : PXDisplayObjectContainer
 {
-/// @cond DX_IGNORE
 @private
 	int stageWidth;
 	int stageHeight;
@@ -73,7 +72,6 @@ typedef enum
 	BOOL dispatchesDisplayListEvents;
 	BOOL autoOrients;
 	BOOL defaultCaptureTouchesValue;
-/// @endcond
 }
 
 /**

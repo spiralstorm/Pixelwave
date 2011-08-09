@@ -43,10 +43,8 @@
 
 @interface PXShape : PXDisplayObject
 {
-/// @cond DX_IGNORE
 @public
 	PXGraphics *_graphics;
-/// @endcond
 }
 
 /**

@@ -57,7 +57,6 @@
 
 #include "PXDebug.h"
 
-/// @cond DX_IGNORE
 @interface PXView(Private)
 - (void) updateOrientation;
 - (BOOL) setupWithScaleFactor:(float)contentScaleFactor
@@ -67,7 +66,6 @@
 
 - (void) touchHandeler:(NSSet *)touches function:(void(*)(UITouch *touch, CGPoint *pos))function;
 @end
-/// @endcond
 
 /*
  * This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView

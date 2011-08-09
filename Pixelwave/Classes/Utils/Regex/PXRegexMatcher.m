@@ -47,11 +47,9 @@
 #import "PXRegexUtils.h"
 #include "regex.h"
 
-/// @cond DX_IGNORE
 @interface PXRegexMatcher(Private)
 - (void) disposePattern;
 @end
-/// @endcond
 
 /**
  * @ingroup Utils

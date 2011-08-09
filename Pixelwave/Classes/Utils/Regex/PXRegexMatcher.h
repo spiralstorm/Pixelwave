@@ -41,7 +41,6 @@
 
 @interface PXRegexMatcher : NSObject
 {
-/// @cond DX_IGNORE
 @protected
 	PXRegexPattern *pattern;
 
@@ -60,7 +59,6 @@
 	unsigned origStringLength;
 
 	BOOL useBeginingOfLineFlag;
-/// @endcond
 }
 
 /**

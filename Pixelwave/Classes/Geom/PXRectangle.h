@@ -46,10 +46,8 @@
 
 @interface PXRectangle : NSObject <NSCopying, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @private
 	float x, y, width, height;
-/// @endcond
 }
 
 /**

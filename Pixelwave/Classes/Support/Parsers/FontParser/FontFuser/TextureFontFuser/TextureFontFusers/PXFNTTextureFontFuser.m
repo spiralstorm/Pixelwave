@@ -57,7 +57,6 @@
 
 #import "PXPrivateUtils.h"
 
-/// @cond DX_IGNORE
 typedef struct
 {
 	float baseLine;
@@ -112,7 +111,6 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 @interface PXFNTTextureFontFuser(Private)
 - (BOOL) parseFontWithParser:(PXFNTFontParser *)parser;
 @end
-/// @endcond
 
 #pragma mark -
 #pragma mark Fuser Implementation

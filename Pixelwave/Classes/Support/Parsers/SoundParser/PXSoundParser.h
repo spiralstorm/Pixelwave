@@ -78,10 +78,8 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXSoundParser (PrivateButPublic)
 - (id) _initWithData:(NSData *)data
 		   modifier:(id<PXSoundModifier>)modifier
 			  origin:(NSString *)origin;
 @end
-/// @endcond

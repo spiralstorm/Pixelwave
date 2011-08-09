@@ -85,7 +85,6 @@ typedef enum
 
 @interface PXDisplayObject : PXEventDispatcher
 {
-/// @cond DX_IGNORE
 @public
 	// Linked List
 	PXDisplayObject *_next;
@@ -116,7 +115,6 @@ typedef enum
 	_PXDisplayObjectFlags _flags;
 @protected
 	void *userData;
-/// @endcond
 }
 
 /**
@@ -325,7 +323,6 @@ typedef enum
 - (BOOL) hitTestPointWithX:(float)x y:(float)y shapeFlag:(BOOL)shapeFlag;
 @end
 
-/// @cond DX_IGNORE
 @interface PXDisplayObject (PrivateButPublic)
 - (BOOL) _dispatchEventNoFlow:(PXEvent *)event;
 - (void) _measureGlobalBounds:(CGRect *)retBounds;
@@ -347,5 +344,4 @@ typedef enum
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag;
 - (void) _measureLocalBounds:(CGRect *)retBounds;
 @end
-/// @endcond
 	

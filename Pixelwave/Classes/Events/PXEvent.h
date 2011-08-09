@@ -78,7 +78,6 @@ typedef enum
 
 @interface PXEvent : NSObject <NSCopying, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @public
 	// The object on which dispatchEvent() was called.
 	PXGenericObject _target;
@@ -104,7 +103,6 @@ typedef enum
 	// These 3 remain constant for the lifetime of the event
 	BOOL _bubbles;
 	BOOL _cancelable;
-/// @endcond
 }
 
 /**

@@ -42,7 +42,6 @@
 @class PXSound;
 @class PXSoundTransform;
 
-/// @cond DX_IGNORE
 typedef enum
 {
 	_PXSoundChannelState_Stopped = 0,
@@ -50,11 +49,9 @@ typedef enum
 	_PXSoundChannelState_Playing,
 	_PXSoundChannelState_Rewinded
 } _PXSoundChannelState;
-/// @endcond
 
 @interface PXSoundChannel : PXEventDispatcher
 {
-/// @cond DX_IGNORE
 @protected
 	PXSoundTransform *soundTransform;
 
@@ -62,7 +59,6 @@ typedef enum
 	unsigned startTime;
 
 	_PXSoundChannelState soundState;
-/// @endcond
 }
 
 /**
@@ -88,7 +84,6 @@ typedef enum
 - (void) rewind;
 @end
 
-/// @cond DX_IGNORE
 @interface PXSoundChannel(PrivateButPublic)
 - (id) _initWithStartTime:(unsigned)startTime
 				loopCount:(int)loops
@@ -103,4 +98,3 @@ typedef enum
 - (void) _stop;
 - (void) _rewind;
 @end
-/// @endcond

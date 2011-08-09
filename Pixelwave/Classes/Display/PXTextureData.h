@@ -60,7 +60,6 @@
  */
 @interface PXTextureData : NSObject
 {
-/// @cond DX_IGNORE
 @public
 	// gl handle
 	GLuint _glName;
@@ -87,7 +86,6 @@
 	// Actual texture size (Must be a power of 2)
 	unsigned textureWidth;
 	unsigned textureHeight;
-/// @endcond
 }
 
 /**
@@ -258,7 +256,6 @@
 								 modifier:(id<PXTextureModifier>)modifier;
 @end
 
-/// @cond DX_IGNORE
 @interface PXTextureData(PrivateButPublic)
 - (id) _init;
 - (id) _initWithoutGLName;
@@ -270,7 +267,6 @@
 					  contentScaleFactor:(float)contentScaleFactor
 								  format:(PXTextureDataPixelFormat)pixelFormat;
 @end
-/// @endcond
 
 /**
  * Populates a C array with the pixels of a PXTextureData within the specified

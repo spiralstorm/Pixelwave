@@ -48,7 +48,6 @@
 
 @interface PXTextureParser : PXParser
 {
-/// @cond DX_IGNORE
 @protected
 	id<PXTextureModifier> modifier;
 
@@ -58,7 +57,6 @@
 	CGSize contentSize;
 
 	float contentScaleFactor;
-/// @endcond
 }
 
 /**
@@ -91,7 +89,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXTextureParser (PrivateButPublic)
 - (id) _initWithData:(NSData *)data
 		   modifier:(id<PXTextureModifier>)modifier
@@ -100,4 +97,3 @@
 - (BOOL) _initializeTexture:(GLuint)texName;
 - (void) _expandEdges:(PXParsedTextureData *)data;
 @end
-/// @endcond

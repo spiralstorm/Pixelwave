@@ -58,7 +58,6 @@
 #import "PXTextureData.h"
 #import <UIKit/UIKit.h>
 
-/// @cond DX_IGNORE
 typedef struct
 {
 	void *bitmap;
@@ -74,7 +73,6 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 @interface PXSystemTextureFontFuser(Private)
 - (BOOL) parseFontWithSystemFontName:(NSString *)systemFontName options:(PXTextureFontOptions *)options;
 @end
-/// @endcond
 
 @implementation PXSystemTextureFontFuser
 

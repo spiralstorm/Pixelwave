@@ -50,7 +50,6 @@ typedef enum
 	PVRTCType_4
 } PVRTCType;
 
-/// @cond DX_IGNORE
 typedef struct _PVRTexHeader
 {
 	uint32_t headerLength;
@@ -67,7 +66,6 @@ typedef struct _PVRTexHeader
 	uint32_t pvrTag;
 	uint32_t numSurfs;
 } PVRTexHeader;
-/// @endcond
 
 #define PVR_TEXTURE_FLAG_TYPE_MASK      0xFF
 

@@ -85,7 +85,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXFontParser (Override)
 - (id) _initWithData:(NSData *)data
 			 options:(PXFontOptions *)options
@@ -101,4 +100,3 @@ typedef struct
 	CGRect bounds;
 	void *bitmapGlyph;
 } _PXGlyphDef;
-/// @endcond

@@ -79,7 +79,6 @@ typedef enum
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXLoader(Protected)
 - (id) _initWithContentsOfFile:(NSString *)path orURL:(NSURL *)url;
 
@@ -87,4 +86,3 @@ typedef enum
 - (void) _setOrigin:(NSString *)origin;
 - (void) _log:(NSString *)message;
 @end
-/// @endcond

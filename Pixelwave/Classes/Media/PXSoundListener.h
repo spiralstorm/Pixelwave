@@ -48,10 +48,8 @@ typedef enum
 
 @interface PXSoundListener : NSObject
 {
-/// @cond DX_IGNORE
 @private
 	PXSoundTransform3D *transform;
-/// @endcond
 }
 
 /**
@@ -140,8 +138,6 @@ typedef enum
 - (void) setVelocityWithX:(float)x y:(float)y z:(float)z;
 @end
 
-/// @cond DX_IGNORE
 @interface PXSoundListener(PrivateButPublic)
 - (void) _setVolume:(float)volume;
 @end
-/// @endcond

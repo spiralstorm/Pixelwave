@@ -48,14 +48,12 @@
 
 #import "PXTextureAtlasParser.h"
 
-/// @cond DX_IGNORE
 @interface PXTextureAtlas(Private)
 - (id) initWithData:(NSData *)data
 	   scaleFactor:(float)scaleFactor
 		  modifier:(id<PXTextureModifier>)modifier
 			origin:(NSString *)origin;
 @end
-/// @endcond
 
 /**
  * @ingroup Utils

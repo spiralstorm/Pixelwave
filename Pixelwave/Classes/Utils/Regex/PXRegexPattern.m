@@ -50,13 +50,11 @@
 
 #import "PXDebug.h"
 
-/// @cond DX_IGNORE
 @interface PXRegexPattern (Private)
 - (void) updateRegexPtr;
 - (void) freeRegexPtr;
 - (void) _setFlags:(unsigned)val;
 @end
-/// @endcond
 
 /**
  * @ingroup Utils

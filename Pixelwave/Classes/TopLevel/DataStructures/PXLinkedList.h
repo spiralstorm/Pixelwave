@@ -107,7 +107,6 @@
 				PX_UNIQUE_VAR(_i_) >= 0; \
 				--PX_UNIQUE_VAR(_i_), PX_UNIQUE_VAR(_node_) = PX_UNIQUE_VAR(_node_)->prev, _obj_ = (PX_UNIQUE_VAR(_node_) ? PX_UNIQUE_VAR(_node_)->data : 0))
 
-/// @cond DX_IGNORE
 // structure PXLinkedList Node, made public (but private) so the
 // PXLinkedListForEach and reverse methods work for other people.
 typedef struct _sPXLLNode
@@ -117,11 +116,9 @@ typedef struct _sPXLLNode
 
 	PXGenericObject data;
 } _PXLLNode;
-/// @endcond
 
 @interface PXLinkedList : NSObject<NSFastEnumeration, NSCopying, NSCoding, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @public
 	_PXLLNode *_head;
 	_PXLLNode *_tail;
@@ -130,7 +127,6 @@ typedef struct _sPXLLNode
 
 	BOOL _pooledNodes;
 	BOOL _keepStrongReference;
-/// @endcond
 }
 
 /**

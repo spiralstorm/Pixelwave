@@ -48,11 +48,9 @@
 
 #import "PXExceptionUtils.h"
 
-/// @cond DX_IGNORE
 @interface PXStage (Private)
 - (void) onUnsettablePropertyAccess;
 @end
-/// @endcond
 
 /**
  * @ingroup Display

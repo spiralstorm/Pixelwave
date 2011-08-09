@@ -57,7 +57,6 @@ typedef enum
 
 @interface PXTextField : PXInteractiveObject
 {
-/// @cond DX_IGNORE
 @public
 	NSString *_text;
 
@@ -85,7 +84,6 @@ typedef enum
 	BOOL useBorder;
 	BOOL useBackground;
 	BOOL smoothing;
-/// @endcond
 }
 
 /**

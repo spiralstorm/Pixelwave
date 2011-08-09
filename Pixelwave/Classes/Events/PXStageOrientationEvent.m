@@ -44,11 +44,9 @@
 NSString * const PXStageOrientationEvent_OrientationChanging = @"orientationChanging";
 NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange";
 
-/// @cond DX_IGNORE
 @interface PXStageOrientationEvent (Private)
 + (NSString *)orientationName:(PXStageOrientation)orientation;
 @end
-/// @endcond
 
 /**
  * @ingroup Events

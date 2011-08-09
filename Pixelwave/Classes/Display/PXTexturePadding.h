@@ -58,7 +58,6 @@ extern "C" {
 }
 #endif
 #endif
-/// @endcond
 
 
 @interface PXTexturePadding : NSObject <NSCopying>

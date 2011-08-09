@@ -179,14 +179,12 @@
 
 @interface PXEventDispatcher : NSObject <PXEventDispatcher>
 {
-/// @cond DX_IGNORE
 @private
 	id<PXEventDispatcher> target;
 
 	NSMutableDictionary *eventListeners;
 	
 	BOOL dispatchEvents;
-/// @endcond
 }
 
 /**
@@ -235,7 +233,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXEventDispatcher(Protected)
 - (void) _prepEvent:(PXEvent *)event;
 
@@ -244,4 +241,3 @@
 	withCurrentTarget:(PXGenericObject)currentTarget
 		   eventPhase:(char)phase;
 @end
-/// @endcond

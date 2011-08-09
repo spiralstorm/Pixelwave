@@ -41,7 +41,6 @@
 
 @interface PXInteractiveObject : PXDisplayObject
 {
-/// @cond DX_IGNORE
 @public
 	BOOL _touchEnabled;
 	BOOL _captureTouches;
@@ -57,7 +56,6 @@
 
 	PXLinkedList *touchList;
 	PXLinkedList *touchUpHistoryList;
-/// @endcond
 }
 
 /**

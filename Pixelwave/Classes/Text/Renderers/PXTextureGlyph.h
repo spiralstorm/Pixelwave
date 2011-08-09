@@ -43,12 +43,10 @@
 
 @interface PXTextureGlyph : NSObject
 {
-/// @cond DX_IGNORE
 @public
 	CGPoint _advance;
 	CGRect _bounds;
 	CGRect _textureBounds;
-/// @endcond
 @private
 	PXTextureData *textureData;
 }

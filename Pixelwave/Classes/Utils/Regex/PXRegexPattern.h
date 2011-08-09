@@ -50,14 +50,12 @@ typedef enum
 
 @interface PXRegexPattern : NSObject <NSCopying>
 {
-/// @cond DX_IGNORE
 @public
 	void *_regexPtr;
 
 @protected
 	NSString *regex;
 	unsigned flags;
-/// @endcond
 }
 
 /**
