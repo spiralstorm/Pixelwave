@@ -128,10 +128,10 @@ GLubyte pxGLBlue  = 0xFF;
 GLubyte pxGLAlpha = 0xFF;
 
 /*
- *	This method initializes GL with the width and height given
+ * This method initializes GL with the width and height given
  *
- *	@param width The width of the screen.
- *	@param height The height of the screen.
+ * @param width The width of the screen.
+ * @param height The height of the screen.
  */
 void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 {
@@ -204,8 +204,8 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 }
 
 /*
- *	This method flushes the buffer, it is a method in pxgl so that the engine
- *	can use it also rather then just pxgl.
+ * This method flushes the buffer, it is a method in pxgl so that the engine
+ * can use it also rather then just pxgl.
  */
 void PXGLFlush( )
 {
@@ -213,9 +213,9 @@ void PXGLFlush( )
 }
 
 /*
- *	This method returns the texture id for the render to texture buffer.
+ * This method returns the texture id for the render to texture buffer.
  *
- *	@return - The texture id for the render to texture buffer.
+ * @return - The texture id for the render to texture buffer.
  */
 /*
 GLuint PXGLGetTextureBuffer( )
@@ -337,10 +337,10 @@ void PXGLSyncPXToGL( )
 }
 
 /*
- *	This method syncs up a server side state; this will set the gl state to
- *	whatever state we are currently using.
+ * This method syncs up a server side state; this will set the gl state to
+ * whatever state we are currently using.
  *
- *	@param GLenum cap - The gl server state you wish to sync with.
+ * @param GLenum cap - The gl server state you wish to sync with.
  */
 void PXGLSyncState(GLenum cap)
 {
@@ -353,10 +353,10 @@ void PXGLSyncState(GLenum cap)
 }
 
 /*
- *	This method syncs up a client side state; this will set the gl state to
- *	whatever state we are currently using.
+ * This method syncs up a client side state; this will set the gl state to
+ * whatever state we are currently using.
  *
- *	@param GLenum cap - The gl client state you wish to sync with.
+ * @param GLenum cap - The gl client state you wish to sync with.
  */
 void PXGLSyncClientState(GLenum array)
 {
@@ -369,9 +369,9 @@ void PXGLSyncClientState(GLenum array)
 }
 
 /*
- *	This method synchronizes each of the gl states with our states; meaning if
- *	we are using GL_TEXTURE_2D, then we will turn that on in GL.  This does both
- *	client and server states.
+ * This method synchronizes each of the gl states with our states; meaning if
+ * we are using GL_TEXTURE_2D, then we will turn that on in GL.  This does both
+ * client and server states.
  */
 void PXGLSyncGLToPX( )
 {
@@ -426,8 +426,8 @@ void PXGLUnSyncTransforms()
 }
 
 /*
- *	This method frees any of the memory we were using, and releases the render
- *	to texture.. texture.
+ * This method frees any of the memory we were using, and releases the render
+ * to texture.. texture.
  */
 void PXGLDealloc( )
 {
@@ -435,7 +435,7 @@ void PXGLDealloc( )
 }
 
 /*
- *	This method prepairs both PXGL and GL for rendering.
+ * This method prepairs both PXGL and GL for rendering.
  */
 void PXGLPreRender( )
 {
@@ -451,8 +451,8 @@ void PXGLPreRender( )
 }
 
 /*
- *	This method finishes both PXGL and GL rendering cycle (flushing the buffer,
- *	etc.).
+ * This method finishes both PXGL and GL rendering cycle (flushing the buffer,
+ * etc.).
  */
 void PXGLPostRender( )
 {
@@ -468,9 +468,9 @@ void PXGLPostRender( )
 }
 
 /*
- *	This method consolidates the buffers; meaning it reduces the buffers down to
- *	reasonable sizes if they are overly large and the data they are containing
- *	is small.
+ * This method consolidates the buffers; meaning it reduces the buffers down to
+ * reasonable sizes if they are overly large and the data they are containing
+ * is small.
  */
 void PXGLConsolidateBuffers( )
 {
@@ -498,19 +498,19 @@ GLuint PXGLDBGGetRenderCallCount( )
 }
 
 /*
- *	PXGLBindFramebuffer lets you create or use a named framebuffer object.
- *	Calling PXGLBindFramebuffer with target set to GL_FRAMEBUFFER and
- *	framebuffer set to the name of the new framebuffer object binds the
- *	framebuffer object name.  When a framebuffer object is bound, the previous
- *	binding is automatically broken.
+ * PXGLBindFramebuffer lets you create or use a named framebuffer object.
+ * Calling PXGLBindFramebuffer with target set to GL_FRAMEBUFFER and
+ * framebuffer set to the name of the new framebuffer object binds the
+ * framebuffer object name.  When a framebuffer object is bound, the previous
+ * binding is automatically broken.
  *
- *	PXGLBindFramebuffer does a check to see if the buffer you are binding has
- *	the same name as the one that is currently bound, if it is then it does not
- *	change the buffer; this is done to help stop redundant gl state changes.
+ * PXGLBindFramebuffer does a check to see if the buffer you are binding has
+ * the same name as the one that is currently bound, if it is then it does not
+ * change the buffer; this is done to help stop redundant gl state changes.
  *
- *	@param GLenum target - Specifies the target to which the framebuffer object
- *	is bound.  The symbolic constraint must be GL_FRAMEBUFFER.
- *	@param GLuint framebuffer - Specifies the name of a framebuffer object.
+ * @param GLenum target - Specifies the target to which the framebuffer object
+ * is bound.  The symbolic constraint must be GL_FRAMEBUFFER.
+ * @param GLuint framebuffer - Specifies the name of a framebuffer object.
  */
 void PXGLBindFramebuffer(GLenum target, GLuint framebuffer)
 {
@@ -524,16 +524,16 @@ void PXGLBindFramebuffer(GLenum target, GLuint framebuffer)
 }
 
 /*
- *	PXGLClipRect sets a bounding area where objects can be drawn.  If an object
- *	has any point within this area, it will be drawn, however if all of it's
- *	points are outside, then it will not be.  This does not mean that the object
- *	itself will be clipped, therefore if an object has only 1 point inside, all
- *	of the other points (even outside of the clipped area) will still be drawn.
+ * PXGLClipRect sets a bounding area where objects can be drawn.  If an object
+ * has any point within this area, it will be drawn, however if all of it's
+ * points are outside, then it will not be.  This does not mean that the object
+ * itself will be clipped, therefore if an object has only 1 point inside, all
+ * of the other points (even outside of the clipped area) will still be drawn.
  *
- *	@param GLint x - The x starting position of the clipping area.
- *	@param GLint y - The y starting position of the clipping area.
- *	@param GLint width - The width of the clipping area.
- *	@param GLint height - The height of the clipping area.
+ * @param GLint x - The x starting position of the clipping area.
+ * @param GLint y - The y starting position of the clipping area.
+ * @param GLint width - The width of the clipping area.
+ * @param GLint height - The height of the clipping area.
  */
 void PXGLClipRect(GLint x, GLint y, GLint width, GLint height)
 {
@@ -544,11 +544,11 @@ void PXGLClipRect(GLint x, GLint y, GLint width, GLint height)
 }
 
 /*
- *	PXGLGetCurrentAABB returns a pointer to a axis-aligned bounding box that
- *	defines an object the object that was most recently drawn.
+ * PXGLGetCurrentAABB returns a pointer to a axis-aligned bounding box that
+ * defines an object the object that was most recently drawn.
  *
- *	@return PXGLAABB * - A pointer to the axis-aligned bounding box that
- *	represents the object that was most recently drawn.
+ * @return PXGLAABB * - A pointer to the axis-aligned bounding box that
+ * represents the object that was most recently drawn.
  */
 PXGLAABB *PXGLGetCurrentAABB( )
 {
@@ -556,8 +556,8 @@ PXGLAABB *PXGLGetCurrentAABB( )
 }
 
 /*
- *	PXGLResetAABB resets the current axis-aligned bounding box to the max and
- *	min values, thus ready to be modified.
+ * PXGLResetAABB resets the current axis-aligned bounding box to the max and
+ * min values, thus ready to be modified.
  */
 void PXGLResetAABB(bool setToClipRect)
 {
@@ -578,13 +578,13 @@ void PXGLResetAABB(bool setToClipRect)
 }
 
 /*
- *	PXGLIsAABBVisible returns true when the axis-aligned bounding box given is
- *	within the clip rect defined by PXGLClipRect.
+ * PXGLIsAABBVisible returns true when the axis-aligned bounding box given is
+ * within the clip rect defined by PXGLClipRect.
  *
- *	@param PXGLAABB * aabb - The axis-aligned bounding box to be checked.
+ * @param PXGLAABB * aabb - The axis-aligned bounding box to be checked.
  *
- *	@return bool - true if any portion of the axis-aligned bounding box is
- *	within the clipping rectangle.
+ * @return bool - true if any portion of the axis-aligned bounding box is
+ * within the clipping rectangle.
  */
 bool PXGLIsAABBVisible(PXGLAABB *aabb)
 {
@@ -604,9 +604,9 @@ bool PXGLIsAABBVisible(PXGLAABB *aabb)
 }
 
 /*
- *	PXGLBoundTexture returns the currently bound texture to gl.
+ * PXGLBoundTexture returns the currently bound texture to gl.
  *
- *	@return GLuint - The currently bound texture to gl.
+ * @return GLuint - The currently bound texture to gl.
  */
 GLuint PXGLBoundTexture( )
 {
@@ -614,18 +614,18 @@ GLuint PXGLBoundTexture( )
 }
 
 /*
- *	PXGLBindTexture lets you create or use a named texture. Calling
- *	PXGLBindTexture with target set to GL_TEXTURE_2D, and texture set to the
- *	name of the new texture binds the texture name to the target. When a texture
- *	is bound to a target, the previous binding for that target is automatically
- *	broken.
+ * PXGLBindTexture lets you create or use a named texture. Calling
+ * PXGLBindTexture with target set to GL_TEXTURE_2D, and texture set to the
+ * name of the new texture binds the texture name to the target. When a texture
+ * is bound to a target, the previous binding for that target is automatically
+ * broken.
  *
- *	If the texture you are binding is already bound or the target is not
- *	GL_TEXTURE_2D, then this method just returns.
+ * If the texture you are binding is already bound or the target is not
+ * GL_TEXTURE_2D, then this method just returns.
  *
- *	@param GLenum target - Specifies the target to which the texture is bound.
- *	Must be GL_TEXTURE_2D.
- *	@param GLuint texture - Specifies the name of a texture.
+ * @param GLenum target - Specifies the target to which the texture is bound.
+ * Must be GL_TEXTURE_2D.
+ * @param GLuint texture - Specifies the name of a texture.
  */
 void PXGLBindTexture(GLenum target, GLuint texture)
 {
@@ -638,17 +638,17 @@ void PXGLBindTexture(GLenum target, GLuint texture)
 }
 
 /*
- *	PXGLColor4f sets a new four-valued current RGBA color.  Current color values
- *	are stored in bytes, thus it is more efficent to call PXGLColor4ub.
+ * PXGLColor4f sets a new four-valued current RGBA color.  Current color values
+ * are stored in bytes, thus it is more efficent to call PXGLColor4ub.
  *
- *	PXGLColor4f does a check to see if the color you are setting has is the same
- *	as the one that is currently set, if it is then it does not set the color;
- *	this is done to help stop redundant gl state changes.
+ * PXGLColor4f does a check to see if the color you are setting has is the same
+ * as the one that is currently set, if it is then it does not set the color;
+ * this is done to help stop redundant gl state changes.
  *
- *	@param GLfloat red   - The red value for the current color.
- *	@param GLfloat green - The green value for the current color.
- *	@param GLfloat blue  - The blue value for the current color.
- *	@param GLfloat alpha - The alpha value for the current color.
+ * @param GLfloat red   - The red value for the current color.
+ * @param GLfloat green - The green value for the current color.
+ * @param GLfloat blue  - The blue value for the current color.
+ * @param GLfloat alpha - The alpha value for the current color.
  */
 void PXGLColor4f(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha)
 {
@@ -659,17 +659,17 @@ void PXGLColor4f(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha)
 }
 
 /*
- *	PXGLColor4ub sets a new four-valued current RGBA color.  Current color values
- *	are stored in bytes.
+ * PXGLColor4ub sets a new four-valued current RGBA color.  Current color values
+ * are stored in bytes.
  *
- *	PXGLColor4ub does a check to see if the color you are setting has is the
- *	same as the one that is currently set, if it is then it does not set the
- *	color; this is done to help stop redundant gl state changes.
+ * PXGLColor4ub does a check to see if the color you are setting has is the
+ * same as the one that is currently set, if it is then it does not set the
+ * color; this is done to help stop redundant gl state changes.
  *
- *	@param GLfloat red   - The red value for the current color.
- *	@param GLfloat green - The green value for the current color.
- *	@param GLfloat blue  - The blue value for the current color.
- *	@param GLfloat alpha - The alpha value for the current color.
+ * @param GLfloat red   - The red value for the current color.
+ * @param GLfloat green - The green value for the current color.
+ * @param GLfloat blue  - The blue value for the current color.
+ * @param GLfloat alpha - The alpha value for the current color.
  */
 void PXGLColor4ub(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha)
 {
@@ -694,15 +694,15 @@ void PXGLColor4ub(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha)
 }
 
 /*
- *	This method sets the gl state, if that state is not already on.  This is a
- *	pre check before sending the data to the hardware so that unnecessary
- *	synchronization doesn't occur as we handle all of the states locally.
+ * This method sets the gl state, if that state is not already on.  This is a
+ * pre check before sending the data to the hardware so that unnecessary
+ * synchronization doesn't occur as we handle all of the states locally.
  *
- *	PXGLEnable does a check to see if the GL capability you are enabeling is
- *	currently enabled, if it is then it does not enable the state again; this is
- *	done to help stop redundant gl state changes.
+ * PXGLEnable does a check to see if the GL capability you are enabeling is
+ * currently enabled, if it is then it does not enable the state again; this is
+ * done to help stop redundant gl state changes.
  *
- *	@param GLenum cap - Specifies a symbolic constant indicating a GL capability
+ * @param GLenum cap - Specifies a symbolic constant indicating a GL capability
  */
 void PXGLEnable(GLenum cap)
 {
@@ -719,17 +719,17 @@ void PXGLEnable(GLenum cap)
 }
 
 /*
- *	This method sets the gl client state, if that state is not already on.  This
- *	is a pre check before sending the data to the hardware so that unnecessary
- *	synchronization doesn't occur as we handle all of the states locally.
+ * This method sets the gl client state, if that state is not already on.  This
+ * is a pre check before sending the data to the hardware so that unnecessary
+ * synchronization doesn't occur as we handle all of the states locally.
  *
- *	PXGLEnableClientState does a check to see if the GL capability you are
- *	enabeling is currently enabled, if it is then it does not enable the state
- *	again; this is done to help stop redundant gl state changes.
+ * PXGLEnableClientState does a check to see if the GL capability you are
+ * enabeling is currently enabled, if it is then it does not enable the state
+ * again; this is done to help stop redundant gl state changes.
  *
- *	@param GLenum array - Specifies the capability to enable or disable.
- *	Symbolic constants GL_COLOR_ARRAY, GL_POINT_SIZE_ARRAY_OES,
- *	GL_TEXTURE_COORD_ARRAY are accepted.
+ * @param GLenum array - Specifies the capability to enable or disable.
+ * Symbolic constants GL_COLOR_ARRAY, GL_POINT_SIZE_ARRAY_OES,
+ * GL_TEXTURE_COORD_ARRAY are accepted.
  */
 void PXGLEnableClientState(GLenum array)
 {
@@ -761,16 +761,16 @@ void PXGLEnableClientState(GLenum array)
 }
 
 /*
- *	This method disables the gl state, if that state is not already disabled.
- *	This is a pre check before sending the data to the hardware so that
- *	unnecessary synchronization doesn't occur as we handle all of the states
- *	locally.
+ * This method disables the gl state, if that state is not already disabled.
+ * This is a pre check before sending the data to the hardware so that
+ * unnecessary synchronization doesn't occur as we handle all of the states
+ * locally.
  *
- *	PXGLDisable does a check to see if the GL capability you are dosabling is
- *	currently disabled, if it is then it does not disable the state again;
- *	this is done to help stop redundant gl state changes.
+ * PXGLDisable does a check to see if the GL capability you are dosabling is
+ * currently disabled, if it is then it does not disable the state again;
+ * this is done to help stop redundant gl state changes.
  *
- *	@param GLenum cap - Specifies a symbolic constant indicating a GL capability
+ * @param GLenum cap - Specifies a symbolic constant indicating a GL capability
  */
 void PXGLDisable(GLenum cap)
 {
@@ -793,16 +793,16 @@ void PXGLDisable(GLenum cap)
 }
 
 /*
- *	This method disables the gl client state, if that state is not already
- *	disabled.  This is a pre check before sending the data to the hardware so
- *	that unnecessary synchronization doesn't occur as we handle all of the
- *	states locally.
+ * This method disables the gl client state, if that state is not already
+ * disabled.  This is a pre check before sending the data to the hardware so
+ * that unnecessary synchronization doesn't occur as we handle all of the
+ * states locally.
  *
- *	PXGLDisableClientState does a check to see if the GL capability you are
- *	disabling is currently disabled, if it is then it does not disable the state
- *	again; this is done to help stop redundant gl state changes.
+ * PXGLDisableClientState does a check to see if the GL capability you are
+ * disabling is currently disabled, if it is then it does not disable the state
+ * again; this is done to help stop redundant gl state changes.
  *
- *	@param GLenum cap - Specifies a symbolic constant indicating a GL capability
+ * @param GLenum cap - Specifies a symbolic constant indicating a GL capability
  */
 void PXGLDisableClientState(GLenum array)
 {
@@ -834,24 +834,24 @@ void PXGLDisableClientState(GLenum array)
 }
 
 /*
- *	Texture mapping is a technique that applies an image onto an object's
- *	surface as if the image were a decal or cellophane shrink-wrap.  The image
- *	is created in texture space, with an (s, t) coordinate system. A texture is
- *	a one- or two-dimensional image and a set of parameters that determine how
- *	samples are derived from the image.
+ * Texture mapping is a technique that applies an image onto an object's
+ * surface as if the image were a decal or cellophane shrink-wrap.  The image
+ * is created in texture space, with an (s, t) coordinate system. A texture is
+ * a one- or two-dimensional image and a set of parameters that determine how
+ * samples are derived from the image.
  *
- *	PXGLTexParameter assigns the value in param or params to the texture
- *	parameter specified as pname.  target defines the target texture, which must
- *	be GL_TEXTURE_2D.
+ * PXGLTexParameter assigns the value in param or params to the texture
+ * parameter specified as pname.  target defines the target texture, which must
+ * be GL_TEXTURE_2D.
  *
- *	@param GLenum target
- *		Specifies the target texture, which must be GL_TEXTURE_2D.
- *	@param GLenum pname
- *		Specifies the symbolic name of a single-valued texture parameter. Which
- *		can be one of the following: GL_TEXTURE_MIN_FILTER,
- *		GL_TEXTURE_MAG_FILTER, GL_TEXTURE_WRAP_S, or GL_TEXTURE_WRAP_T.
- *	@param GLint param
- *		Specifies the value of pname.
+ * @param GLenum target
+ * 	Specifies the target texture, which must be GL_TEXTURE_2D.
+ * @param GLenum pname
+ * 	Specifies the symbolic name of a single-valued texture parameter. Which
+ * 	can be one of the following: GL_TEXTURE_MIN_FILTER,
+ * 	GL_TEXTURE_MAG_FILTER, GL_TEXTURE_WRAP_S, or GL_TEXTURE_WRAP_T.
+ * @param GLint param
+ * 	Specifies the value of pname.
  */
 void PXGLTexParameteri(GLenum target, GLenum pname, GLint param)
 {
@@ -863,18 +863,18 @@ void PXGLTexParameteri(GLenum target, GLenum pname, GLint param)
 }
 
 /*
- *	PXGLLineWidth specifies the rasterized width of both aliased and antialiased
- *	lines. Using a line width other than 1 has different effects, depending on
- *	whether line antialiasing is enabled. To enable and disable line
- *	antialiasing, call PXGLEnable and PXGLDisable with argument GL_LINE_SMOOTH.
- *	Line antialiasing is initially disabled.
+ * PXGLLineWidth specifies the rasterized width of both aliased and antialiased
+ * lines. Using a line width other than 1 has different effects, depending on
+ * whether line antialiasing is enabled. To enable and disable line
+ * antialiasing, call PXGLEnable and PXGLDisable with argument GL_LINE_SMOOTH.
+ * Line antialiasing is initially disabled.
  *
- *	PXGLLineWidth does a check to see if the width you are setting is currently
- *	set, if it is then it does not set the width again; this is done to help
- *	stop redundant gl calls.
+ * PXGLLineWidth does a check to see if the width you are setting is currently
+ * set, if it is then it does not set the width again; this is done to help
+ * stop redundant gl calls.
  *
- *	@param GLfloat width - Specifies the width of rasterized lines. The initial
- *	value is 1.
+ * @param GLfloat width - Specifies the width of rasterized lines. The initial
+ * value is 1.
  */
 void PXGLLineWidth(GLfloat width)
 {
@@ -895,18 +895,18 @@ void PXGLLineWidth(GLfloat width)
 }
 
 /*
- *	PXGLPointSize specifies the rasterized diameter of both aliased and
- *	antialiased points. Using a point size other than 1 has different effects,
- *	depending on whether point antialiasing is enabled. To enable and disable
- *	point antialiasing, call PXGLEnable and PXGLDisable with argument
- *	GL_POINT_SMOOTH. Point antialiasing is initially disabled.
+ * PXGLPointSize specifies the rasterized diameter of both aliased and
+ * antialiased points. Using a point size other than 1 has different effects,
+ * depending on whether point antialiasing is enabled. To enable and disable
+ * point antialiasing, call PXGLEnable and PXGLDisable with argument
+ * GL_POINT_SMOOTH. Point antialiasing is initially disabled.
  *
- *	PXGLPointSize does a check to see if the size you are setting is currently
- *	set, if it is then it does not set the size again; this is done to help stop
- *	redundant gl calls.
+ * PXGLPointSize does a check to see if the size you are setting is currently
+ * set, if it is then it does not set the size again; this is done to help stop
+ * redundant gl calls.
  *
- *	@param GLfloat size - Specifies the diameter of rasterized points. The
- *	initial value is 1.
+ * @param GLfloat size - Specifies the diameter of rasterized points. The
+ * initial value is 1.
  */
 void PXGLPointSize(GLfloat size)
 {
@@ -925,23 +925,23 @@ void PXGLPointSize(GLfloat size)
 }
 
 /*
- *	PXGLColorPointer specifies the location and data of an array of color
- *	components to use when rendering.  size specifies the number of components
- *	per color, and must be 4.  type specifies the data type of each color
- *	component, and stride specifies the byte stride from one color to the next
- *	allowing vertices and attributes to be packed into a single array or stored
- *	in separate arrays. (Single-array storage may be more efficient on some
- *	implementations.)
+ * PXGLColorPointer specifies the location and data of an array of color
+ * components to use when rendering.  size specifies the number of components
+ * per color, and must be 4.  type specifies the data type of each color
+ * component, and stride specifies the byte stride from one color to the next
+ * allowing vertices and attributes to be packed into a single array or stored
+ * in separate arrays. (Single-array storage may be more efficient on some
+ * implementations.)
  *
- *	@param GLint size - Specifies the number of coordinates per array element.
- *	Must be 4.
- *	@param GLenum type - Specifies the data type of each texture coordinate.
- *	Must be GL_UNSIGNED_BYTE.
- *	@param GLsizei stride - Specifies the byte offset between consecutive array
- *	elements. If stride is 0, the array elements are understood to be tightly
- *	packed. The initial value is 0.
- *	@param GLvoid * pointer - Specifies a pointer to the first coordinate of the
- *	first element in the array. The initial value is 0.
+ * @param GLint size - Specifies the number of coordinates per array element.
+ * Must be 4.
+ * @param GLenum type - Specifies the data type of each texture coordinate.
+ * Must be GL_UNSIGNED_BYTE.
+ * @param GLsizei stride - Specifies the byte offset between consecutive array
+ * elements. If stride is 0, the array elements are understood to be tightly
+ * packed. The initial value is 0.
+ * @param GLvoid * pointer - Specifies a pointer to the first coordinate of the
+ * first element in the array. The initial value is 0.
  */
 void PXGLColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
 {
@@ -959,22 +959,22 @@ void PXGLColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *poi
 }
 
 /*
- *	PXGLPointSizePointer specifies the location and data of an array of point
- *	sizes to use when rendering points. type specifies the data type of the
- *	coordinates. stride specifies the byte stride from one point size to the
- *	next, allowing vertices and attributes to be packed into a single array or
- *	stored in separate arrays. (Single-array storage may be more efficient on
- *	some implementations.)
+ * PXGLPointSizePointer specifies the location and data of an array of point
+ * sizes to use when rendering points. type specifies the data type of the
+ * coordinates. stride specifies the byte stride from one point size to the
+ * next, allowing vertices and attributes to be packed into a single array or
+ * stored in separate arrays. (Single-array storage may be more efficient on
+ * some implementations.)
  *
- *	@param GLint size - Specifies the number of coordinates per array element.
- *	Must be 2.
- *	@param GLenum type - Specifies the data type of each texture coordinate.
- *	Must be GL_FLOAT.
- *	@param GLsizei stride - Specifies the byte offset between consecutive array
- *	elements. If stride is 0, the array elements are understood to be tightly
- *	packed. The initial value is 0.
- *	@param GLvoid * pointer - Specifies a pointer to the first coordinate of the
- *	first element in the array. The initial value is 0.
+ * @param GLint size - Specifies the number of coordinates per array element.
+ * Must be 2.
+ * @param GLenum type - Specifies the data type of each texture coordinate.
+ * Must be GL_FLOAT.
+ * @param GLsizei stride - Specifies the byte offset between consecutive array
+ * elements. If stride is 0, the array elements are understood to be tightly
+ * packed. The initial value is 0.
+ * @param GLvoid * pointer - Specifies a pointer to the first coordinate of the
+ * first element in the array. The initial value is 0.
  */
 void PXGLPointSizePointer(GLenum type, GLsizei stride, const GLvoid *pointer)
 {
@@ -991,23 +991,23 @@ void PXGLPointSizePointer(GLenum type, GLsizei stride, const GLvoid *pointer)
 }
 
 /*
- *	PXGLTexCoordPointer specifies the location and data of an array of texture
- *	coordinates to use when rendering.  size specifies the number of coordinates
- *	per element, and must be 2.  type specifies the data type of each texture
- *	coordinate and stride specifies the byte stride from one array element to
- *	the next allowing vertices and attributes to be packed into a single array
- *	or stored in separate arrays. (Single-array storage may be more efficient on
- *	some implementations.)
+ * PXGLTexCoordPointer specifies the location and data of an array of texture
+ * coordinates to use when rendering.  size specifies the number of coordinates
+ * per element, and must be 2.  type specifies the data type of each texture
+ * coordinate and stride specifies the byte stride from one array element to
+ * the next allowing vertices and attributes to be packed into a single array
+ * or stored in separate arrays. (Single-array storage may be more efficient on
+ * some implementations.)
  *
- *	@param GLint size - Specifies the number of coordinates per array element.
- *	Must be 2.
- *	@param GLenum type - Specifies the data type of each texture coordinate.
- *	Must be GL_FLOAT.
- *	@param GLsizei stride - Specifies the byte offset between consecutive array
- *	elements. If stride is 0, the array elements are understood to be tightly
- *	packed. The initial value is 0.
- *	@param GLvoid * pointer - Specifies a pointer to the first coordinate of the
- *	first element in the array. The initial value is 0.
+ * @param GLint size - Specifies the number of coordinates per array element.
+ * Must be 2.
+ * @param GLenum type - Specifies the data type of each texture coordinate.
+ * Must be GL_FLOAT.
+ * @param GLsizei stride - Specifies the byte offset between consecutive array
+ * elements. If stride is 0, the array elements are understood to be tightly
+ * packed. The initial value is 0.
+ * @param GLvoid * pointer - Specifies a pointer to the first coordinate of the
+ * first element in the array. The initial value is 0.
  */
 void PXGLTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
 {
@@ -1027,22 +1027,22 @@ void PXGLTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *
 }
 
 /*
- *	PXGLVertexPointer specifies the location and data of an array of vertex
- *	coordinates to use when rendering. size specifies the number of coordinates
- *	per vertex and type the data type of the coordinates. stride specifies the
- *	byte stride from one vertex to the next allowing vertices and attributes to
- *	be packed into a single array or stored in separate arrays. (Single-array
- *	storage may be more efficient on some implementations.)
+ * PXGLVertexPointer specifies the location and data of an array of vertex
+ * coordinates to use when rendering. size specifies the number of coordinates
+ * per vertex and type the data type of the coordinates. stride specifies the
+ * byte stride from one vertex to the next allowing vertices and attributes to
+ * be packed into a single array or stored in separate arrays. (Single-array
+ * storage may be more efficient on some implementations.)
  *
- *	@param GLint size - Specifies the number of coordinates per array element.
- *	Must be 2.
- *	@param GLenum type - Specifies the data type of each texture coordinate.
- *	Must be GL_FLOAT.
- *	@param GLsizei stride - Specifies the byte offset between consecutive array
- *	elements. If stride is 0, the array elements are understood to be tightly
- *	packed. The initial value is 0.
- *	@param GLvoid * pointer - Specifies a pointer to the first coordinate of the
- *	first element in the array. The initial value is 0.
+ * @param GLint size - Specifies the number of coordinates per array element.
+ * Must be 2.
+ * @param GLenum type - Specifies the data type of each texture coordinate.
+ * Must be GL_FLOAT.
+ * @param GLsizei stride - Specifies the byte offset between consecutive array
+ * elements. If stride is 0, the array elements are understood to be tightly
+ * packed. The initial value is 0.
+ * @param GLvoid * pointer - Specifies a pointer to the first coordinate of the
+ * first element in the array. The initial value is 0.
  */
 void PXGLVertexPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
 {
@@ -1132,20 +1132,20 @@ void PXGLTexEnvxv(GLenum target, GLenum pname, const GLfixed *params)
 }
 
 /*
- *	When PXGLDrawArrays is called, it uses count sequential elements from each
- *	enabled array to construct a sequence of geometric primitives, beginning
- *	with element first. mode specifies what kind of primitives are constructed,
- *	and how the array elements construct those primitives. If GL_VERTEX_ARRAY
- *	is not enabled, no geometric primitives are generated.
+ * When PXGLDrawArrays is called, it uses count sequential elements from each
+ * enabled array to construct a sequence of geometric primitives, beginning
+ * with element first. mode specifies what kind of primitives are constructed,
+ * and how the array elements construct those primitives. If GL_VERTEX_ARRAY
+ * is not enabled, no geometric primitives are generated.
  *
- *	PXGLDrawArrays batches similar draw calls together prior to sending the
- *	information to gl.
+ * PXGLDrawArrays batches similar draw calls together prior to sending the
+ * information to gl.
  *
- *	@param GLenum mode - Specifies what kind of primitives to render. Symbolic
- *	constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES,
- *	GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, and GL_TRIANGLES are accepted.
- *	@param GLint first - Specifies the starting index in the enabled arrays.
- *	@param GLsizei count - Specifies the number of indices to be rendered.
+ * @param GLenum mode - Specifies what kind of primitives to render. Symbolic
+ * constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES,
+ * GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, and GL_TRIANGLES are accepted.
+ * @param GLint first - Specifies the starting index in the enabled arrays.
+ * @param GLsizei count - Specifies the number of indices to be rendered.
  */
 void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 {
@@ -1378,23 +1378,23 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 }
 
 /*
- *	When PXGLDrawElements is called, it uses count sequential elements from each
- *	enabled array to construct a sequence of geometric primitives, beginning
- *	with element first. mode specifies what kind of primitives are constructed,
- *	and how the array elements construct those primitives. If GL_VERTEX_ARRAY
- *	is not enabled, no geometric primitives are generated.
+ * When PXGLDrawElements is called, it uses count sequential elements from each
+ * enabled array to construct a sequence of geometric primitives, beginning
+ * with element first. mode specifies what kind of primitives are constructed,
+ * and how the array elements construct those primitives. If GL_VERTEX_ARRAY
+ * is not enabled, no geometric primitives are generated.
  *
- *	PXGLDrawElements batches similar draw calls together prior to sending the
- *	information to gl.
+ * PXGLDrawElements batches similar draw calls together prior to sending the
+ * information to gl.
  *
- *	@param GLenum mode - Specifies what kind of primitives to render. Symbolic
- *	constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES,
- *	GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, and GL_TRIANGLES are accepted.
- *	@param GLsizei count - Specifies the number of elements to be rendered.
- *	@param GLenum type - Specifies the type of the values in indices. Must be
- *	GL_UNSIGNED_SHORT.
- *	@param const GLvoid * ids - Specifies a pointer to the location where the
- *	indices are stored.
+ * @param GLenum mode - Specifies what kind of primitives to render. Symbolic
+ * constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES,
+ * GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, and GL_TRIANGLES are accepted.
+ * @param GLsizei count - Specifies the number of elements to be rendered.
+ * @param GLenum type - Specifies the type of the values in indices. Must be
+ * GL_UNSIGNED_SHORT.
+ * @param const GLvoid * ids - Specifies a pointer to the location where the
+ * indices are stored.
  */
 void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids)
 {
@@ -1621,8 +1621,8 @@ void PXGLBlendFunc(GLenum sfactor, GLenum dfactor)
 }
 
 /*
- *	PXGLPopMatrix pops the current matrix stack, replacing the current matrix
- *	with the one below it on the stack.
+ * PXGLPopMatrix pops the current matrix stack, replacing the current matrix
+ * with the one below it on the stack.
  */
 void PXGLPopMatrix( )
 {
@@ -1633,9 +1633,9 @@ void PXGLPopMatrix( )
 }
 
 /*
- *	PXGLPushMatrix pushes the current matrix stack down by one, duplicating the
- *	current matrix. That is, after a PXGLPushMatrix call, the matrix on top of
- *	the stack is identical to the one below it.
+ * PXGLPushMatrix pushes the current matrix stack down by one, duplicating the
+ * current matrix. That is, after a PXGLPushMatrix call, the matrix on top of
+ * the stack is identical to the one below it.
  */
 void PXGLPushMatrix( )
 {
@@ -1653,7 +1653,7 @@ void PXGLPushMatrix( )
 }
 
 /*
- *	PXGLLoadIdentity replaces the current matrix with the identity matrix.
+ * PXGLLoadIdentity replaces the current matrix with the identity matrix.
  */
 void PXGLLoadIdentity( )
 {
@@ -1661,10 +1661,10 @@ void PXGLLoadIdentity( )
 }
 
 /*
- *	PXGLTranslate translates the current matrix by the given values.
+ * PXGLTranslate translates the current matrix by the given values.
  *
- *	@param GLfloat x - The x coordinate of the translation vector.
- *	@param GLfloat y - The y coordinate of the translation vector.
+ * @param GLfloat x - The x coordinate of the translation vector.
+ * @param GLfloat y - The y coordinate of the translation vector.
  */
 void PXGLTranslate(GLfloat x, GLfloat y)
 {
@@ -1673,10 +1673,10 @@ void PXGLTranslate(GLfloat x, GLfloat y)
 }
 
 /*
- *	PXGLScale produces a nonuniform scaling along the x and y axes.
+ * PXGLScale produces a nonuniform scaling along the x and y axes.
  *
- *	@param GLfloat x - Scaling factor along the x axis.
- *	@param GLfloat y - Scaling factor along the y axis.
+ * @param GLfloat x - Scaling factor along the x axis.
+ * @param GLfloat y - Scaling factor along the y axis.
  */
 void PXGLScale(GLfloat x, GLfloat y)
 {
@@ -1688,11 +1688,11 @@ void PXGLScale(GLfloat x, GLfloat y)
 }
 
 /*
- *	PXGLRotate produces a rotation matrix of angle degrees.  The current matrix
- *	is multiplied by the rotation matrix with the product replacing the current
- *	matrix.
+ * PXGLRotate produces a rotation matrix of angle degrees.  The current matrix
+ * is multiplied by the rotation matrix with the product replacing the current
+ * matrix.
  *
- *	@param GLfloat angle - Specifies the angle of rotation, in degrees.
+ * @param GLfloat angle - Specifies the angle of rotation, in degrees.
  */
 void PXGLRotate(GLfloat angle)
 {
@@ -1715,9 +1715,9 @@ void PXGLRotate(GLfloat angle)
 }
 
 /*
- *	PXGLMultMatrix multplies the current matrix by the matrix given.
+ * PXGLMultMatrix multplies the current matrix by the matrix given.
  *
- *	@param PXGLMatrix * mat - The matrix to be multiplied with.
+ * @param PXGLMatrix * mat - The matrix to be multiplied with.
  */
 void PXGLMultMatrix(PXGLMatrix *mat)
 {
@@ -1725,9 +1725,9 @@ void PXGLMultMatrix(PXGLMatrix *mat)
 }
 
 /*
- *	PXGLMultMatrix multplies the current matrix by the matrix given.
+ * PXGLMultMatrix multplies the current matrix by the matrix given.
  *
- *	@param PXGLMatrix * mat - The matrix to be multiplied with.
+ * @param PXGLMatrix * mat - The matrix to be multiplied with.
  */
 void PXGLAABBMult(PXGLAABB *aabb)
 {
@@ -1756,8 +1756,8 @@ void PXGLAABBMult(PXGLAABB *aabb)
 }
 
 /*
- *	PXGLResetMatrixStack resets the matrix stack back to the first matrix, and
- *	sets it to the identity.
+ * PXGLResetMatrixStack resets the matrix stack back to the first matrix, and
+ * sets it to the identity.
  */
 void PXGLResetMatrixStack( )
 {
@@ -1767,7 +1767,7 @@ void PXGLResetMatrixStack( )
 }
 
 /*
- *	This method loads our matrix into gl.
+ * This method loads our matrix into gl.
  */
 void PXGLLoadMatrixToGL( )
 {
@@ -1782,8 +1782,8 @@ void PXGLLoadMatrixToGL( )
 }
 
 /*
- *	PXGLPopColorTransform pops the color transform stack, replacing the current
- *	color transform with the one below it on the stack.
+ * PXGLPopColorTransform pops the color transform stack, replacing the current
+ * color transform with the one below it on the stack.
  */
 void PXGLPopColorTransform( )
 {
@@ -1809,9 +1809,9 @@ void PXGLPopColorTransform( )
 }
 
 /*
- *	PXGLPushColorTransform pushes the current transform stack down by one,
- *	duplicating the current transform. That is, after a PXGLPushMatrix call, the
- *	transform on top of the stack is identical to the one below it.
+ * PXGLPushColorTransform pushes the current transform stack down by one,
+ * duplicating the current transform. That is, after a PXGLPushMatrix call, the
+ * transform on top of the stack is identical to the one below it.
  */
 void PXGLPushColorTransform( )
 {
@@ -1833,10 +1833,10 @@ void PXGLPushColorTransform( )
 }
 
 /*
- *	PXGLSetColorTransform sets the current transform to the one provided
- *	multiplied by the parent color transform (if one exists).
+ * PXGLSetColorTransform sets the current transform to the one provided
+ * multiplied by the parent color transform (if one exists).
  *
- *	@param PXGLColorTransform * transform - The transform you wish to set.
+ * @param PXGLColorTransform * transform - The transform you wish to set.
  */
 void PXGLSetColorTransform(PXGLColorTransform *transform)
 {
@@ -1880,8 +1880,8 @@ void PXGLSetAbsoluteColorTransform(PXGLColorTransform *transform)
 }*/
 
 /*
- *	PXGLLoadColorTransformIdentity sets the current color's transform to the
- *	identity (multiplied by the parent if one exists).
+ * PXGLLoadColorTransformIdentity sets the current color's transform to the
+ * identity (multiplied by the parent if one exists).
  */
 void PXGLLoadColorTransformIdentity( )
 {
@@ -1904,8 +1904,8 @@ void PXGLLoadColorTransformIdentity( )
 }
 
 /*
- *	PXGLResetColorTransformStack resets the transform stack back to the first
- *	transform, and sets it to the identity.
+ * PXGLResetColorTransformStack resets the transform stack back to the first
+ * transform, and sets it to the identity.
  */
 void PXGLResetColorTransformStack( )
 {
@@ -1940,9 +1940,9 @@ void PXGLMatrixMult(PXGLMatrix *store, PXGLMatrix *mat1, PXGLMatrix *mat2)
 }
 
 /*
- *	PXGLMatrixIdentity sets the matrix given to the identity.
+ * PXGLMatrixIdentity sets the matrix given to the identity.
  *
- *	@param PXGLMatrix * mat - Matrix to be transformed into the identity.
+ * @param PXGLMatrix * mat - Matrix to be transformed into the identity.
  */
 void PXGLMatrixIdentity(PXGLMatrix *mat)
 {
@@ -1971,9 +1971,9 @@ void PXGLMatrixInvert(PXGLMatrix *mat)
 }
 
 /*
- *	PXGLColorTransformIdentity sets the transform given to the identity.
+ * PXGLColorTransformIdentity sets the transform given to the identity.
  *
- *	@param PXGLColorTransform * transform - Transform to be set to the identity.
+ * @param PXGLColorTransform * transform - Transform to be set to the identity.
  */
 void PXGLColorTransformIdentity(PXGLColorTransform *transform)
 {

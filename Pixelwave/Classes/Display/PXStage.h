@@ -42,7 +42,7 @@
 @class PXView;
 
 /**
- *	@ingroup Display
+ * @ingroup Display
  */
 typedef enum
 {
@@ -77,128 +77,128 @@ typedef enum
 }
 
 /**
- *	The width, in pixels, of the stage.
+ * The width, in pixels, of the stage.
  */
 @property (nonatomic, readonly) int stageWidth;
 /**
- *	The height, in pixels, of the stage.
+ * The height, in pixels, of the stage.
  */
 @property (nonatomic, readonly) int stageHeight;
 
 /**
- *	The orientation of the stage.
- *	This value may be changed at any time.
+ * The orientation of the stage.
+ * This value may be changed at any time.
  *
- *	Must be one of the following:
- *	<code>PXStageOrientation_Portrait</code>@n
- *	<code>PXStageOrientation_PortraitUpsideDown</code>@n
- *	<code>PXStageOrientation_LandscapeLeft</code>@n
- *	<code>PXStageOrientation_LandscapeRight</code>
+ * Must be one of the following:
+ * <code>PXStageOrientation_Portrait</code>@n
+ * <code>PXStageOrientation_PortraitUpsideDown</code>@n
+ * <code>PXStageOrientation_LandscapeLeft</code>@n
+ * <code>PXStageOrientation_LandscapeRight</code>
  */
 @property (nonatomic, assign) PXStageOrientation orientation;
 
 /**
- *	If <code>YES</code> then the stage automatically rotates to the orientations
- *	acceptable It will send out a <code>PXStageOrientation</code> with the type
- *	<code>PXStageOrientationEvent_OrientationChanging</code>. If that event is
- *	canceled (using <code>preventDefault</code>) then the orientation will not
- *	take affect. If the orientation is accepted then a
- *	<code>PXStageOrientationEvent_OrientationChange</code> will be sent.
+ * If <code>YES</code> then the stage automatically rotates to the orientations
+ * acceptable It will send out a <code>PXStageOrientation</code> with the type
+ * <code>PXStageOrientationEvent_OrientationChanging</code>. If that event is
+ * canceled (using <code>preventDefault</code>) then the orientation will not
+ * take affect. If the orientation is accepted then a
+ * <code>PXStageOrientationEvent_OrientationChange</code> will be sent.
  *
- *	@b Default: NO
+ * @b Default: NO
  */
 @property (nonatomic, assign) BOOL autoOrients;
 
 /**
- *	The value the <code>captureTouches</code> property of a PXInteractiveObject
- *	instance should be set to when initialized.
+ * The value the <code>captureTouches</code> property of a PXInteractiveObject
+ * instance should be set to when initialized.
  *
- *	@b Default: YES
+ * @b Default: YES
  */
 @property (nonatomic, assign) BOOL defaultCaptureTouchesValue;
 
 /**
- *	The color with which to clear the stage every frame. This values is used if
- *	#clearsScreen is set to <code>YES</code>.
- *	
- *	Represented as a hexadecimal number with the format: RRGGBB
+ * The color with which to clear the stage every frame. This values is used if
+ * #clearsScreen is set to <code>YES</code>.
+ * 
+ * Represented as a hexadecimal number with the format: RRGGBB
  *
- *	<b>Example:</b>
- *	The following examples set the stage's background color to red.
- *	@code
- *	stage.backgroundColor = 0xFF0000;
- *	@endcode
+ * <b>Example:</b>
+ * The following examples set the stage's background color to red.
+ * @code
+ * stage.backgroundColor = 0xFF0000;
+ * @endcode
  */
 @property (nonatomic, assign) unsigned backgroundColor;
 
 /**
- *	Whether the screen will be cleared before each draw.
- *	This option is set to <code>YES</code> by default, but may be set to
- *	<code>NO</code> as an optimization.
+ * Whether the screen will be cleared before each draw.
+ * This option is set to <code>YES</code> by default, but may be set to
+ * <code>NO</code> as an optimization.
  *
- *	@b Default: YES
+ * @b Default: YES
  */
 @property (nonatomic) BOOL clearScreen;
 
 /**
- *	Describes whether display list modification events should be dispatched
- *	when a PXDisplayObject is added or removed from a display list.
+ * Describes whether display list modification events should be dispatched
+ * when a PXDisplayObject is added or removed from a display list.
  *
- *	If set to <code>YES</code>, the following display list modification events
- *	may be dispatched:
- *	- <i>added</i> - When a display object is added to a display list.
- *	- <i>addedToStage</i> - When a display object or any of its ancestors are
- *							added to the main display list.
- *	- <i>removed</i> - When a display object is removed from the display list.
- *	- <i>removedFromStage</i> - When a display object or any of its ancestors
- *								are removed from the main display list.
+ * If set to <code>YES</code>, the following display list modification events
+ * may be dispatched:
+ * - <i>added</i> - When a display object is added to a display list.
+ * - <i>addedToStage</i> - When a display object or any of its ancestors are
+ * 						added to the main display list.
+ * - <i>removed</i> - When a display object is removed from the display list.
+ * - <i>removedFromStage</i> - When a display object or any of its ancestors
+ * 							are removed from the main display list.
  *
- *	The value of this property may be changed at any time and has an immediate
- *	effect.
+ * The value of this property may be changed at any time and has an immediate
+ * effect.
  *
- *	This option is set to <code>YES</code> by default, but may be set to
- *	<code>NO</code> to avoid the overhead involved with dispatching display list
- *	modification events.
+ * This option is set to <code>YES</code> by default, but may be set to
+ * <code>NO</code> to avoid the overhead involved with dispatching display list
+ * modification events.
  */
 @property (nonatomic) BOOL dispatchesDisplayListEvents;
 
 /**
- *	The frame rate at which enterFrame events will be dispatched.
- *	0 < <code>renderFrameRate</code> <= <code>frameRate</code> <= 60.  This is
- *	due to the iPhone's screen refresh rate being 60hz.
+ * The frame rate at which enterFrame events will be dispatched.
+ * 0 < <code>renderFrameRate</code> <= <code>frameRate</code> <= 60.  This is
+ * due to the iPhone's screen refresh rate being 60hz.
  */
 @property (nonatomic) float frameRate;
 /**
- *	The frame rate at which the contents of the stage will be rendered to the
- *	screen.
- *	0 < <code>renderFrameRate</code> <= <code>frameRate</code> <= 60.  This is
- *	due to the iPhone's screen refresh rate being 60hz.
+ * The frame rate at which the contents of the stage will be rendered to the
+ * screen.
+ * 0 < <code>renderFrameRate</code> <= <code>frameRate</code> <= 60.  This is
+ * due to the iPhone's screen refresh rate being 60hz.
  */
 @property (nonatomic) float renderFrameRate;
 
 /**
- *	Defines whether or not the engine is currently running. To pause the engine
- *	set this property to >code>false</code>. Set it to <code>true</code> to
- *	resume normal operations.
+ * Defines whether or not the engine is currently running. To pause the engine
+ * set this property to >code>false</code>. Set it to <code>true</code> to
+ * resume normal operations.
  *
- *	Important note: The engine will not dispatch any events when not playing.
- *	These include the ENTER_FRAME event and touch related events.
+ * Important note: The engine will not dispatch any events when not playing.
+ * These include the ENTER_FRAME event and touch related events.
  */
 @property (nonatomic) BOOL playing;
 
 /**
- *	The pixel scale factor. 
+ * The pixel scale factor. 
  */
 @property (nonatomic, readonly) float contentScaleFactor;
 
 /**
- *	The PXView instance with which the stage is associated
+ * The PXView instance with which the stage is associated
  */
 @property (nonatomic, readonly) PXView *nativeView;
 
 /**
- *	Statically returns a reference to the main stage associated with the
- *	Pixelwave engine.
+ * Statically returns a reference to the main stage associated with the
+ * Pixelwave engine.
  */
 + (PXStage *)mainStage;
 

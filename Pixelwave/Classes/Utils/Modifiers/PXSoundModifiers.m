@@ -42,17 +42,17 @@
 #import "PXSoundModifierToMono.h"
 
 /**
- *	@ingroup Modifiers
+ * @ingroup Modifiers
  *
- *	PXSoundModifiers creates a sound modifier from a premade list of modifiers.
+ * PXSoundModifiers creates a sound modifier from a premade list of modifiers.
  */
 @implementation PXSoundModifiers
 
 /**
- *	Makes a sound modifier that will convert your sound to mono!
+ * Makes a sound modifier that will convert your sound to mono!
  *
- *	@return
- *		A sound modifier that will convert your sound to mono.
+ * @return
+ * 	A sound modifier that will convert your sound to mono.
  */
 + (id<PXSoundModifier>) soundModifierToMono
 {

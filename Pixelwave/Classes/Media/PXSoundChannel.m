@@ -47,13 +47,13 @@
 #import "PXDebug.h"
 
 /**
- *	@ingroup Media
+ * @ingroup Media
  *
- *	A PXSoundChannel object represents a loaded and playing sound.  Sound
- *	channels should never be initialized manually, however through a
- *	<code>PXSound</code> using the <code>play</code> method.
+ * A PXSoundChannel object represents a loaded and playing sound.  Sound
+ * channels should never be initialized manually, however through a
+ * <code>PXSound</code> using the <code>play</code> method.
  *
- *	@see PXSound::play
+ * @see PXSound::play
  */
 @implementation PXSoundChannel
 
@@ -134,19 +134,19 @@
 #pragma mark Methods
 
 /**
- *	If the sound is not already playing, it plays the sound from it's current
- *	position.
+ * If the sound is not already playing, it plays the sound from it's current
+ * position.
  *
- *	@b Example:
- *	@code
- *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- *	PXSoundChannel *channel = [sound play];
- *	// The sound is playing
- *	[channel pause];
- *	// The sound is paused
- *	[channel play];
- *	// The sound is playing
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ * PXSoundChannel *channel = [sound play];
+ * // The sound is playing
+ * [channel pause];
+ * // The sound is paused
+ * [channel play];
+ * // The sound is playing
+ * @endcode
  */
 - (BOOL) play
 {
@@ -158,17 +158,17 @@
 }
 
 /**
- *	If the sound is not already paused, it pauses the sound at it's current
- *	position.
+ * If the sound is not already paused, it pauses the sound at it's current
+ * position.
  *
- *	@b Example:
- *	@code
- *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- *	PXSoundChannel *channel = [sound play];
- *	// The sound is playing
- *	[channel pause];
- *	// The sound is paused
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ * PXSoundChannel *channel = [sound play];
+ * // The sound is playing
+ * [channel pause];
+ * // The sound is paused
+ * @endcode
  */
 - (void) pause
 {
@@ -180,17 +180,17 @@
 }
 
 /**
- *	If the sound is not already stopped, it stops the sound and removes it
- *	permanently from the play list.
+ * If the sound is not already stopped, it stops the sound and removes it
+ * permanently from the play list.
  *
- *	@b Example:
- *	@code
- *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- *	PXSoundChannel *channel = [sound play];
- *	// The sound is playing
- *	[channel stop];
- *	// The sound is stopped and wont play again
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ * PXSoundChannel *channel = [sound play];
+ * // The sound is playing
+ * [channel stop];
+ * // The sound is stopped and wont play again
+ * @endcode
  */
 - (void) stop
 {
@@ -204,23 +204,23 @@
 }
 
 /**
- *	If the sound is not already rewound, it rewinds the sound moving it's
- *	position back to 0 and continues playing if it were previously playing, or
- *	pause if it was previously paused.  This does not reset the loops already
- *	done.
+ * If the sound is not already rewound, it rewinds the sound moving it's
+ * position back to 0 and continues playing if it were previously playing, or
+ * pause if it was previously paused.  This does not reset the loops already
+ * done.
  *
- *	@b Example:
- *	@code
- *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- *	PXSoundChannel *channel = [sound play];
- *	// The sound is playing
- *	[channel rewind];
- *	// The sound is rewinded and continues playing
- *	[channel pause];
- *	// The sound is paused
- *	[channel rewind];
- *	// The sound is rewinded and continues staying paused
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ * PXSoundChannel *channel = [sound play];
+ * // The sound is playing
+ * [channel rewind];
+ * // The sound is rewinded and continues playing
+ * [channel pause];
+ * // The sound is paused
+ * [channel rewind];
+ * // The sound is rewinded and continues staying paused
+ * @endcode
  */
 - (void) rewind
 {

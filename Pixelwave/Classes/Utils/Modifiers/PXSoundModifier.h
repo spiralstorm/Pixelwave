@@ -40,9 +40,9 @@
 #include "PXParsedSoundData.h"
 
 /**
- *	@ingroup Modifiers
+ * @ingroup Modifiers
  *
- *	The protocol required to make a new sound modifier.
+ * The protocol required to make a new sound modifier.
  */
 @protocol PXSoundModifier<NSObject>
 @required

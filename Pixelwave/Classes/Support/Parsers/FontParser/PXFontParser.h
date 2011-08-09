@@ -55,14 +55,14 @@
 }
 
 /**
- *	The options that describe what type of font you want back. If
- *	<code>nil</code> is supplied, then the default type of font for the font
- *	type is used. If no default type is found, then no new font can be made.
+ * The options that describe what type of font you want back. If
+ * <code>nil</code> is supplied, then the default type of font for the font
+ * type is used. If no default type is found, then no new font can be made.
  */
 @property (nonatomic, readonly) PXFontOptions *options;
 
 /**
- *	Returns the content scale factor of the parsed font.
+ * Returns the content scale factor of the parsed font.
  */
 @property (nonatomic, readonly) float contentScaleFactor;
 

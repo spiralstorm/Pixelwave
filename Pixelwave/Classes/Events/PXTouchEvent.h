@@ -64,57 +64,57 @@ PXExtern NSString * const PXTouchEvent_TouchCancel;
 }
 
 /**
- *	The touch object used for keeping track of what finger started the touch.
+ * The touch object used for keeping track of what finger started the touch.
  */
 @property (nonatomic, readonly) UITouch *nativeTouch;
 
 /**
- *	Indicates if the touch which triggered this event has been captured by the
- *	target. The object which captured the event will usually be a
- *	PXInteractiveObject for which the PXInteractiveObject::captureTouches
- *	property has been set to <code>YES</code>. If <code>captured</code> equals
- *	<code>YES</code>, the PXTouchEvent::target property will represent the
- *	object which captured this touch.
+ * Indicates if the touch which triggered this event has been captured by the
+ * target. The object which captured the event will usually be a
+ * PXInteractiveObject for which the PXInteractiveObject::captureTouches
+ * property has been set to <code>YES</code>. If <code>captured</code> equals
+ * <code>YES</code>, the PXTouchEvent::target property will represent the
+ * object which captured this touch.
  */
 @property (nonatomic, readonly) BOOL captured;
 
 /**
- *	Returns <code>YES</code> if the touch is contained within the bounds of the
- *	target.
+ * Returns <code>YES</code> if the touch is contained within the bounds of the
+ * target.
  */
 @property (nonatomic, readonly) BOOL insideTarget;
 
 /**
- *	The horizontal location in global (stage) coordinates where the touch
- *	occured.
+ * The horizontal location in global (stage) coordinates where the touch
+ * occured.
  */
 @property (nonatomic, readonly) float stageX;
 /**
- *	The vertical location in global (stage) coordinates where the touch occured.
+ * The vertical location in global (stage) coordinates where the touch occured.
  */
 @property (nonatomic, readonly) float stageY;
 /**
- *	The horizontal location in local (target) coordinates where the touch
- *	occured.
+ * The horizontal location in local (target) coordinates where the touch
+ * occured.
  */
 @property (nonatomic, readonly) float localX;
 /**
- *	The vertical location in local (target) coordinates where the touch occured.
+ * The vertical location in local (target) coordinates where the touch occured.
  */
 @property (nonatomic, readonly) float localY;
 
 /**
- *	The location in global (stage) coordinates where the touch occured.
+ * The location in global (stage) coordinates where the touch occured.
  */
 @property (nonatomic, readonly) PXPoint *stagePosition;
 /**
- *	The location in local (target) coordinates where the touch occured.
+ * The location in local (target) coordinates where the touch occured.
  */
 @property (nonatomic, readonly) PXPoint *localPosition;
 
 /**
- *	The number of touches that have been repeated in the same place without
- *	moving.
+ * The number of touches that have been repeated in the same place without
+ * moving.
  */
 @property (nonatomic, readonly) unsigned tapCount;
 

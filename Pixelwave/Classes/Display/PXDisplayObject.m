@@ -68,41 +68,41 @@
 static unsigned _pxDisplayObjectCount = 0;
 
 /**
- *	@ingroup Display
+ * @ingroup Display
  *
- *	The base class for all elements drawn to the stage.
- *	PXDisplayObject is an abstract class that represent a single element in the
- *	display list.
+ * The base class for all elements drawn to the stage.
+ * PXDisplayObject is an abstract class that represent a single element in the
+ * display list.
  *
- *	Every display object has the following main components:
- *	- A transformation matrix representing the translation, rotation, scaling,
- *	and skewing of the display object in relation to its parent's (ie. local
- *	coordinates).
- *	- A color transform representing the display object's color offset in
- *	relation to its parents' (ie. local color space).
- *	- A reference to the display object's parent, as well as the global stage
- *	and root objects.
- *	- An optional non-unique name. (for easy dereferencing)
- *	- A visibility toggle.
+ * Every display object has the following main components:
+ * - A transformation matrix representing the translation, rotation, scaling,
+ * and skewing of the display object in relation to its parent's (ie. local
+ * coordinates).
+ * - A color transform representing the display object's color offset in
+ * relation to its parents' (ie. local color space).
+ * - A reference to the display object's parent, as well as the global stage
+ * and root objects.
+ * - An optional non-unique name. (for easy dereferencing)
+ * - A visibility toggle.
  *
- *	To abstract away the details of setting transformation matrices and color
- *	transforms, the following properties are available:
- *	- x, y
- *	- scaleX, scaleY
- *	- width, height
- *	- rotation
- *	- alpha
+ * To abstract away the details of setting transformation matrices and color
+ * transforms, the following properties are available:
+ * - x, y
+ * - scaleX, scaleY
+ * - width, height
+ * - rotation
+ * - alpha
  *
- *	Helper methods are available for getting the bounding-box of a display
- *	object and performing hit-tests at a given two-dimentional coordinate.
+ * Helper methods are available for getting the bounding-box of a display
+ * object and performing hit-tests at a given two-dimentional coordinate.
  *
- *	The PXDisplayObject class should never be instantiated directly. Instead
- *	use one of its concrete subclasses or create your own.
+ * The PXDisplayObject class should never be instantiated directly. Instead
+ * use one of its concrete subclasses or create your own.
  *
- *	@see PXSprite
- *	@see PXSimpleSprite
- *	@see PXTexture
- *	@see PXShape
+ * @see PXSprite
+ * @see PXSimpleSprite
+ * @see PXTexture
+ * @see PXShape
  */
 @implementation PXDisplayObject
 
@@ -587,21 +587,21 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 /**
- *	Finds the position of the touch in this display object's coordinate system.
+ * Finds the position of the touch in this display object's coordinate system.
  *
- *	@param nativeTouch
- *		The touch to find the position of.
+ * @param nativeTouch
+ * 	The touch to find the position of.
  *
- *	@return
- *		The position of the touch in this display object's coordinate system.
+ * @return
+ * 	The position of the touch in this display object's coordinate system.
  *
- *	@b Example:
- *	@code
- *	- (void) onTouchDown:(PXTouchEvent *)event
- *	{
- *		PXPoint *touchPosition = [self positionOfTouch:event.nativeTouch];
- *	}
- *	@endcode
+ * @b Example:
+ * @code
+ * - (void) onTouchDown:(PXTouchEvent *)event
+ * {
+ * 	PXPoint *touchPosition = [self positionOfTouch:event.nativeTouch];
+ * }
+ * @endcode
  */
 - (PXPoint *)positionOfTouch:(UITouch *)nativeTouch
 {
@@ -636,58 +636,58 @@ static unsigned _pxDisplayObjectCount = 0;
 
 #pragma mark Flash Methods
 /**
- *	Finds the bounding box of this display object in the target coordinate
- *	space.
+ * Finds the bounding box of this display object in the target coordinate
+ * space.
  *
- *	@param targetCoordinateSpace
- *		The coordinate space for the bounds
+ * @param targetCoordinateSpace
+ * 	The coordinate space for the bounds
  *
- *	@return
- *		The bounding box in the target coordinate system.
+ * @return
+ * 	The bounding box in the target coordinate system.
  *
- *	@b Example:
- *	@code
- *	PXShape *shape1 = [[PXShape alloc] init];
- *	PXShape *shape2 = [[PXShape alloc] init];
+ * @b Example:
+ * @code
+ * PXShape *shape1 = [[PXShape alloc] init];
+ * PXShape *shape2 = [[PXShape alloc] init];
  *
- *	[self addChild:shape1];
- *	[self addChild:shape2];
+ * [self addChild:shape1];
+ * [self addChild:shape2];
  *
- *	[shape1 release];
- *	[shape2 release];
+ * [shape1 release];
+ * [shape2 release];
  *
- *	shape1.x = 50.0f;
- *	shape1.y = 25.0f;
- *	shape2.x = 100.0f;
- *	shape2.y = 75.0f;
+ * shape1.x = 50.0f;
+ * shape1.y = 25.0f;
+ * shape2.x = 100.0f;
+ * shape2.y = 75.0f;
  *
- *	[shape1.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[shape1.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
- *	[shape1.graphics endFill];
+ * [shape1.graphics beginFill:0xFF0000 alpha:1.0f];
+ * [shape1.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
+ * [shape1.graphics endFill];
  *
- *	[shape2.graphics beginFill:0x0000FF alpha:1.0f];
- *	[shape2.graphics drawRectWithX:0.0f y:0.0f width:200.0f height:100.0f];
- *	[shape2.graphics endFill];
+ * [shape2.graphics beginFill:0x0000FF alpha:1.0f];
+ * [shape2.graphics drawRectWithX:0.0f y:0.0f width:200.0f height:100.0f];
+ * [shape2.graphics endFill];
  *
- *	PXRectangle *bounds;
+ * PXRectangle *bounds;
  *
- *	bounds = [shape1 boundsWithCoordinateSpace:shape2];
- *	NSLog (@"shape1 in shape2 = %@\n", [bounds description]);
- *	// bounds = (x=-50.0f, y=-50.0f, w=100.0f, h=200.0f)
+ * bounds = [shape1 boundsWithCoordinateSpace:shape2];
+ * NSLog (@"shape1 in shape2 = %@\n", [bounds description]);
+ * // bounds = (x=-50.0f, y=-50.0f, w=100.0f, h=200.0f)
  *
- *	shape2.scale = 0.5f;
- *	bounds = [shape1 boundsWithCoordinateSpace:shape2];
- *	NSLog (@"shape1 in shape2 = %@\n", [bounds description]);
- *	// bounds = (x=-100.0f, y=-100.0f, w=200.0f, h=400.0f)
+ * shape2.scale = 0.5f;
+ * bounds = [shape1 boundsWithCoordinateSpace:shape2];
+ * NSLog (@"shape1 in shape2 = %@\n", [bounds description]);
+ * // bounds = (x=-100.0f, y=-100.0f, w=200.0f, h=400.0f)
  *
- *	bounds = [shape1 boundsWithCoordinateSpace:shape1];
- *	NSLog (@"shape1 in shape1 = %@\n", [bounds description]);
- *	// bounds = (x=0.0f, y=0.0f, w=100.0f, h=200.0f)
+ * bounds = [shape1 boundsWithCoordinateSpace:shape1];
+ * NSLog (@"shape1 in shape1 = %@\n", [bounds description]);
+ * // bounds = (x=0.0f, y=0.0f, w=100.0f, h=200.0f)
  *
- *	bounds = [shape1 boundsWithCoordinateSpace:self];
- *	NSLog (@"shape1 in root = %@\n", [bounds description]);
- *	// bounds = (x=50.0f, y=-25.0f, w=100.0f, h=200.0f)
- *	@endcode
+ * bounds = [shape1 boundsWithCoordinateSpace:self];
+ * NSLog (@"shape1 in root = %@\n", [bounds description]);
+ * // bounds = (x=50.0f, y=-25.0f, w=100.0f, h=200.0f)
+ * @endcode
  */
 - (PXRectangle *)boundsWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace
 {
@@ -717,10 +717,10 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 /**
- *	For the time being, both rectWithCoordinateSpace and
- *	boundsWithCoordinateSpace do the same thing.
+ * For the time being, both rectWithCoordinateSpace and
+ * boundsWithCoordinateSpace do the same thing.
  *
- *	@see PXDisplayObject::boundsWithCoordinateSpace
+ * @see PXDisplayObject::boundsWithCoordinateSpace
  */
 - (PXRectangle *)rectWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace
 {
@@ -728,31 +728,31 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 /**
- *	Converts a stage coordinate point to the display object's coordinate system.
+ * Converts a stage coordinate point to the display object's coordinate system.
  *
- *	@param point
- *		A point in the stage coordinate system.
+ * @param point
+ * 	A point in the stage coordinate system.
  *
- *	@return
- *		The converted point to this display object's coordinate system.
+ * @return
+ * 	The converted point to this display object's coordinate system.
  *
- *	@b Example:
- *	@code
- *	PXShape *shape = [[PXShape alloc] init];
- *	[self addChild:shape];
- *	[shape release];
+ * @b Example:
+ * @code
+ * PXShape *shape = [[PXShape alloc] init];
+ * [self addChild:shape];
+ * [shape release];
  *
- *	shape.x = 50.0f;
- *	shape.y = 25.0f;
+ * shape.x = 50.0f;
+ * shape.y = 25.0f;
  *
- *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[shape.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
- *	[shape.graphics endFill];
+ * [shape.graphics beginFill:0xFF0000 alpha:1.0f];
+ * [shape.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
+ * [shape.graphics endFill];
  *
- *	PXPoint *point = [PXPoint pointWithX:10.0f y:20.0f];
- *	PXPoint *localPoint = [shape globalToLocal:point];
- *	// Point will be at (x=10.0f, y=20.0f), localPoint = (x=-40.0f, y=-5.0f).
- *	@endcode
+ * PXPoint *point = [PXPoint pointWithX:10.0f y:20.0f];
+ * PXPoint *localPoint = [shape globalToLocal:point];
+ * // Point will be at (x=10.0f, y=20.0f), localPoint = (x=-40.0f, y=-5.0f).
+ * @endcode
  */
 - (PXPoint *)globalToLocal:(PXPoint *)point
 {
@@ -768,32 +768,32 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 /**
- *	Converts a display object's coordinate system point to the stage's
- *	coordinate system.
+ * Converts a display object's coordinate system point to the stage's
+ * coordinate system.
  *
- *	@param point
- *		A point in this display object's coordinate system.
+ * @param point
+ * 	A point in this display object's coordinate system.
  *
- *	@return
- *		The converted point to the stage's coordinate system.
+ * @return
+ * 	The converted point to the stage's coordinate system.
  *
- *	@b Example:
- *	@code
- *	PXShape *shape = [[PXShape alloc] init];
- *	[self addChild:shape];
- *	[shape release];
+ * @b Example:
+ * @code
+ * PXShape *shape = [[PXShape alloc] init];
+ * [self addChild:shape];
+ * [shape release];
  *
- *	shape.x = 50.0f;
- *	shape.y = 25.0f;
+ * shape.x = 50.0f;
+ * shape.y = 25.0f;
  *
- *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[shape.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
- *	[shape.graphics endFill];
+ * [shape.graphics beginFill:0xFF0000 alpha:1.0f];
+ * [shape.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
+ * [shape.graphics endFill];
  *
- *	PXPoint *point = [PXPoint pointWithX:10.0f y:20.0f];
- *	PXPoint *globalPoint = [shape localToGlobal:point];
- *	// Point will be at (x=10.0f, y=20.0f), localPoint = (x=-60.0f, y=45.0f).
- *	@endcode
+ * PXPoint *point = [PXPoint pointWithX:10.0f y:20.0f];
+ * PXPoint *globalPoint = [shape localToGlobal:point];
+ * // Point will be at (x=10.0f, y=20.0f), localPoint = (x=-60.0f, y=45.0f).
+ * @endcode
  */
 - (PXPoint *)localToGlobal:(PXPoint *)point
 {
@@ -809,36 +809,36 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 /**
- *	Tests if the bounding box of the given object is within the bounding box of
- *	this object.
+ * Tests if the bounding box of the given object is within the bounding box of
+ * this object.
  *
- *	@param obj
- *		The object for testing.
+ * @param obj
+ * 	The object for testing.
  *
- *	@return
- *		<code>YES</code> if the bounding box of the given object is within the
- *		bounding box of this object.
+ * @return
+ * 	<code>YES</code> if the bounding box of the given object is within the
+ * 	bounding box of this object.
  *
- *	@b Example:
- *	@code
- *	PXTexture *tex1 = [PXTexture textureWithContentsOfFile:@"image.png"];
- *	PXTexture *tex2 = [PXTexture textureWithContentsOfFile:@"image.png"];
+ * @b Example:
+ * @code
+ * PXTexture *tex1 = [PXTexture textureWithContentsOfFile:@"image.png"];
+ * PXTexture *tex2 = [PXTexture textureWithContentsOfFile:@"image.png"];
  *
- *	[self addChild:tex1];
- *	[self addChild:tex2];
+ * [self addChild:tex1];
+ * [self addChild:tex2];
  *
- *	BOOL collides;
+ * BOOL collides;
  *
- *	tex2.x = 0.0f;
- *	collides = [tex1 hitTestObject:tex2];
- *	NSLog (@"collides = %@\n", (collides ? @"YES" : @"NO"));
- *	// collides = YES
+ * tex2.x = 0.0f;
+ * collides = [tex1 hitTestObject:tex2];
+ * NSLog (@"collides = %@\n", (collides ? @"YES" : @"NO"));
+ * // collides = YES
  *
- *	tex2.x = (tex1.x + tex1.width) * 1.2f;
- *	collides = [tex1 hitTestObject:tex2];
- *	NSLog (@"collides = %@\n", (collides ? @"YES" : @"NO"));
- *	// collides = NO
- *	@endcode
+ * tex2.x = (tex1.x + tex1.width) * 1.2f;
+ * collides = [tex1 hitTestObject:tex2];
+ * NSLog (@"collides = %@\n", (collides ? @"YES" : @"NO"));
+ * // collides = NO
+ * @endcode
  */
 - (BOOL) hitTestObject:(PXDisplayObject *)obj
 {
@@ -859,38 +859,38 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 /**
- *	Tests if the given horizontal and vertical coordinate are within the
- *	bounding box of this display object.
+ * Tests if the given horizontal and vertical coordinate are within the
+ * bounding box of this display object.
  *
- *	@param x
- *		The horizontal coordinate (in stage coordinates) for testing.
- *	@param y
- *		The vertical coordinate (in stage coordinates) for testing.
+ * @param x
+ * 	The horizontal coordinate (in stage coordinates) for testing.
+ * @param y
+ * 	The vertical coordinate (in stage coordinates) for testing.
  *
- *	@return
- *		<code>YES</code> if point is contained within the bounding box of this
- *		display object.
+ * @return
+ * 	<code>YES</code> if point is contained within the bounding box of this
+ * 	display object.
  *
- *	@b Example:
- *	@code
- *	PXTexture *tex = [PXTexture textureWithContentsOfFile:@"image.png"];
- *	[self addChild:tex];
+ * @b Example:
+ * @code
+ * PXTexture *tex = [PXTexture textureWithContentsOfFile:@"image.png"];
+ * [self addChild:tex];
  *
- *	tex.width  = 100.0f;
- *	tex.height = 100.0f;
+ * tex.width  = 100.0f;
+ * tex.height = 100.0f;
  *
- *	BOOL collides;
+ * BOOL collides;
  *
- *	tex.x = 0.0f;
- *	tex.y = 0.0f;
- *	collides = [tex hitTestPointWithX:50.0f y:25.0f];
- *	// collides = YES
+ * tex.x = 0.0f;
+ * tex.y = 0.0f;
+ * collides = [tex hitTestPointWithX:50.0f y:25.0f];
+ * // collides = YES
  *
- *	tex.x = 75.0f;
- *	tex.y = 75.0f;
- *	collides = [tex hitTestPointWithX:50.0f y:25.0f];
- *	// collides = NO
- *	@endcode
+ * tex.x = 75.0f;
+ * tex.y = 75.0f;
+ * collides = [tex hitTestPointWithX:50.0f y:25.0f];
+ * // collides = NO
+ * @endcode
  */
 - (BOOL) hitTestPointWithX:(float)x y:(float)y
 {
@@ -898,39 +898,39 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 /**
- *	Tests if the given horizontal and vertical coordinate are within the display
- *	object.
+ * Tests if the given horizontal and vertical coordinate are within the display
+ * object.
  *
- *	@param x
- *		The horizontal coordinate (in stage coordinates) for testing.
- *	@param y
- *		The vertical coordinate (in stage coordinates) for testing.
- *	@param shapeFlag
- *		If <code>YES</code> a detailed collision detection is done of the actual
- *		object.  If <code>NO</code> just the bounding box is tested.
+ * @param x
+ * 	The horizontal coordinate (in stage coordinates) for testing.
+ * @param y
+ * 	The vertical coordinate (in stage coordinates) for testing.
+ * @param shapeFlag
+ * 	If <code>YES</code> a detailed collision detection is done of the actual
+ * 	object.  If <code>NO</code> just the bounding box is tested.
  *
- *	@return
- *		<code>YES</code> if point is contained within the bounding box of this
- *		display object.
+ * @return
+ * 	<code>YES</code> if point is contained within the bounding box of this
+ * 	display object.
  *
- *	@b Example:
- *	@code
- *	PXShape *shape = [[PXShape alloc] init];
- *	[self addChild:shape];
- *	[shape release];
+ * @b Example:
+ * @code
+ * PXShape *shape = [[PXShape alloc] init];
+ * [self addChild:shape];
+ * [shape release];
  *
- *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[shape.graphics drawCircleWithX:50.0f y:50.0f radius:50.0f];
- *	[shape.graphics endFill];
+ * [shape.graphics beginFill:0xFF0000 alpha:1.0f];
+ * [shape.graphics drawCircleWithX:50.0f y:50.0f radius:50.0f];
+ * [shape.graphics endFill];
  *
- *	BOOL collides;
+ * BOOL collides;
  *
- *	collides = [tex hitTestPointWithX:1.0f y:1.0f shapeFlag:NO];
- *	// collides = YES
+ * collides = [tex hitTestPointWithX:1.0f y:1.0f shapeFlag:NO];
+ * // collides = YES
  *
- *	collides = [tex hitTestPointWithX:1.0f y:1.0f shapeFlag:YES];
- *	// collides = NO
- *	@endcode
+ * collides = [tex hitTestPointWithX:1.0f y:1.0f shapeFlag:YES];
+ * // collides = NO
+ * @endcode
  */
 - (BOOL) hitTestPointWithX:(float)x y:(float)y shapeFlag:(BOOL)shapeFlag
 {
@@ -1062,9 +1062,9 @@ static unsigned _pxDisplayObjectCount = 0;
 #pragma mark the Event Flow
 
 /*
- *	Since I'm overriding the dispatchEvent method, this one can be used to
- *	dispatch events with no event flow. Used on the ENTER_FRAME event which has
- *	no capture of bubble phase
+ * Since I'm overriding the dispatchEvent method, this one can be used to
+ * dispatch events with no event flow. Used on the ENTER_FRAME event which has
+ * no capture of bubble phase
  */
 - (BOOL) _dispatchEventNoFlow:(PXEvent *)event
 {
@@ -1072,11 +1072,11 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 /*
- *	This is where the actual event flow happens, with capture/bubble phases and all that
+ * This is where the actual event flow happens, with capture/bubble phases and all that
  *
- *	Event flow notes: (From testing the Flash Player)
- *	- Changing the order of the display list while an event is dispatched shouldn't affect its bubble/capture propegation.
- *	The event flow uses the display list structure as it existed when the function was called.
+ * Event flow notes: (From testing the Flash Player)
+ * - Changing the order of the display list while an event is dispatched shouldn't affect its bubble/capture propegation.
+ * The event flow uses the display list structure as it existed when the function was called.
 */
 
 - (BOOL) dispatchEvent:(PXEvent *)event

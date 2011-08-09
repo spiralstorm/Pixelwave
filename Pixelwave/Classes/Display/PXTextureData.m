@@ -62,23 +62,23 @@
 BOOL pxTextureDataExpandEdges = YES;
 
 /**
- *	Represents a texture in GPU memory. To draw the image represented by a
- *	PXTextureData object to the screen, a PXTexture display object must be
- *	linked to it and added to the main display list. One PXTextureData object
- *	can be linked by many PXTexture objects, allowing for the same image to
- *	be rendered multiple times per frame without taking up extra memory.
+ * Represents a texture in GPU memory. To draw the image represented by a
+ * PXTextureData object to the screen, a PXTexture display object must be
+ * linked to it and added to the main display list. One PXTextureData object
+ * can be linked by many PXTexture objects, allowing for the same image to
+ * be rendered multiple times per frame without taking up extra memory.
  *
- *	A PXTextureData object can be created with the contents of an external image
- *	file via the PXTextureLoader class. Additionaly, a PXTextureData can be
- *	initialized to contain a rasterized string of text with the
- *	#initWithString:font: method.
- *	Additionally, a blank PXTextureData object can be created and populated by
- *	the user at run-time.
+ * A PXTextureData object can be created with the contents of an external image
+ * file via the PXTextureLoader class. Additionaly, a PXTextureData can be
+ * initialized to contain a rasterized string of text with the
+ * #initWithString:font: method.
+ * Additionally, a blank PXTextureData object can be created and populated by
+ * the user at run-time.
  *
- *	@see #initWithString:font:
- *	@see #drawDisplayObject:
- *	@see PXTextureLoader#initWithContentsOfFile:
- *	@see #textureDataWithContentsOfFile:
+ * @see #initWithString:font:
+ * @see #drawDisplayObject:
+ * @see PXTextureLoader#initWithContentsOfFile:
+ * @see #textureDataWithContentsOfFile:
  */
 @implementation PXTextureData
 
@@ -204,18 +204,18 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- *	Initializes a TextureData object with the given width and height values in
- *	pixels. The returned texture data object is initially filled with white,
- *	non-transparent pixels. To modify the contents of the image you can use the
- *	#drawDisplayObject: method.
- *	
- *	@param width
- *		The width of the new TextureData in pixels.
- *	@param height
- *		The height of the new TextureData in pixels.
+ * Initializes a TextureData object with the given width and height values in
+ * pixels. The returned texture data object is initially filled with white,
+ * non-transparent pixels. To modify the contents of the image you can use the
+ * #drawDisplayObject: method.
+ * 
+ * @param width
+ * 	The width of the new TextureData in pixels.
+ * @param height
+ * 	The height of the new TextureData in pixels.
  *
- *	@see #drawDisplayObject:
- *	@see #drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
+ * @see #drawDisplayObject:
+ * @see #drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
  */
 - (id) initWithWidth:(unsigned)width height:(unsigned)height
 {
@@ -236,35 +236,35 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- *	Initializes a PXTextureData object with the given width and height values in
- *	pixels. To modify the contents of the image you can use the
- *	#drawDisplayObject: method.
+ * Initializes a PXTextureData object with the given width and height values in
+ * pixels. To modify the contents of the image you can use the
+ * #drawDisplayObject: method.
  *
- *	@b Example:
- *	@code
- *	// Create two texture data objects 512 x 512 pixels in size and a blue fill.
- *	
- *	// The first one has an alpha channel
- *	PXTextureData *textureDataWithAlpha = [[PXTextureData alloc] initWithWidth:512 height:512 transparency:YES fillColor:0xFF0000FF];
- *	
- *	// The second one doesn't
- *	PXTextureData *textureDataWithoutAlpha = [[PXTextureData alloc] initWithWidth:512 height:512 transparency:NO fillColor:0x0000FF];
- *	@endcode
- *	
- *	@param width
- *		The width of the new TextureData in pixels.
- *	@param height
- *		The height of the new TextureData in pixels.
- *	@param transparency
- *		A boolean value indicating if the PXTextureData object should have an
- *		alpha channel.
- *	@param fillColor
- *		A hex value indicating the default color of the texture data's pixels.
- *		For texture datas with an alpha channel, use the format 0xRRGGBB. For
- *		texture datas without an alpha channel use the format 0xAARRGGBB.
+ * @b Example:
+ * @code
+ * // Create two texture data objects 512 x 512 pixels in size and a blue fill.
+ * 
+ * // The first one has an alpha channel
+ * PXTextureData *textureDataWithAlpha = [[PXTextureData alloc] initWithWidth:512 height:512 transparency:YES fillColor:0xFF0000FF];
+ * 
+ * // The second one doesn't
+ * PXTextureData *textureDataWithoutAlpha = [[PXTextureData alloc] initWithWidth:512 height:512 transparency:NO fillColor:0x0000FF];
+ * @endcode
+ * 
+ * @param width
+ * 	The width of the new TextureData in pixels.
+ * @param height
+ * 	The height of the new TextureData in pixels.
+ * @param transparency
+ * 	A boolean value indicating if the PXTextureData object should have an
+ * 	alpha channel.
+ * @param fillColor
+ * 	A hex value indicating the default color of the texture data's pixels.
+ * 	For texture datas with an alpha channel, use the format 0xRRGGBB. For
+ * 	texture datas without an alpha channel use the format 0xAARRGGBB.
  *
- *	@see #drawDisplayObject:
- *	@see #drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
+ * @see #drawDisplayObject:
+ * @see #drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
  */
 
 - (id) initWithWidth:(unsigned)width
@@ -368,12 +368,12 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- *	Initializes the texture data by rasterising the given line of text onto it.
+ * Initializes the texture data by rasterising the given line of text onto it.
  *
- *	@param string
- *		The text to render onto the texture data.
- *	@param font
- *		A UIFont object representing the font to use.
+ * @param string
+ * 	The text to render onto the texture data.
+ * @param font
+ * 	A UIFont object representing the font to use.
  
  */
 - (id) initWithString:(NSString *)string font:(UIFont *)font
@@ -387,22 +387,22 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- *	Initializes the texture data by rasterising the given line of text onto it.
+ * Initializes the texture data by rasterising the given line of text onto it.
  *
- *	@param string
- *		The text to render onto the texture data.
- *	@param font
- *		A UIFont object representing the font to use.
- *	@param width
- *		The maximum width, in pixels, into which the text will be fitted.
- *	@param height
- *		The maximum height, in pixels, into which the text will be fitted.
- *	@param alignment
- *		A value of type UITextAlignment describing the direction in which the
- *		text should be aligned.
- *	@param lineBreakMode
- *		A value of type UILineBreakMode describing how text should be handled
- *		when it overflows the given bounds (width and height).
+ * @param string
+ * 	The text to render onto the texture data.
+ * @param font
+ * 	A UIFont object representing the font to use.
+ * @param width
+ * 	The maximum width, in pixels, into which the text will be fitted.
+ * @param height
+ * 	The maximum height, in pixels, into which the text will be fitted.
+ * @param alignment
+ * 	A value of type UITextAlignment describing the direction in which the
+ * 	text should be aligned.
+ * @param lineBreakMode
+ * 	A value of type UILineBreakMode describing how text should be handled
+ * 	when it overflows the given bounds (width and height).
  */
 - (id) initWithString:(NSString *)string
 				 font:(UIFont *)font
@@ -515,32 +515,32 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- *	Renders the source TextureData onto this TextureData. To modify
- *	the transformation with which the source is drawn onto the texture you can
- *	pass custom <code>matrix</code> and <code>colorTransform</code> objects, or
- *	<code>nil</code> for the default transformations.
+ * Renders the source TextureData onto this TextureData. To modify
+ * the transformation with which the source is drawn onto the texture you can
+ * pass custom <code>matrix</code> and <code>colorTransform</code> objects, or
+ * <code>nil</code> for the default transformations.
  *
- *	@param source
- *		A PXTextureData to draw onto this PXTextureData.
- *	@param matrix
- *		A PXMatrix object representing the transformation with which
- *		<code>source</code> will be rendered. Pass <code>nil</code> to use the
- *		default (identity) matrix.
- *	@param colorTransform
- *		A PXColorTransform object representing the color transformation with
- *		which <code>source</code> will be rendered. Pass <code>nil</code> to use
- *		the default transformation.
- *	@param clipRect
- *		A PXRectangle object defining the area of the <code>source</code> object
- *		to draw. Pass <code>nil</code> to use the entire area of
- *		<code>source</code>.
- *	@param smoothing
- *		A boolean value indicating if a TextureData object should be smoothed
- *		when rotated or scaled. Only applies when drawing a TextureData object.
- *	@param clearTexture
- *		A boolean value indicating if the TextureData should be cleared before
- *		being drawn onto. Pass <code>NO</code> for this value as an optimization
- *		if the entire surface of the PXTextureData will be drawn into.
+ * @param source
+ * 	A PXTextureData to draw onto this PXTextureData.
+ * @param matrix
+ * 	A PXMatrix object representing the transformation with which
+ * 	<code>source</code> will be rendered. Pass <code>nil</code> to use the
+ * 	default (identity) matrix.
+ * @param colorTransform
+ * 	A PXColorTransform object representing the color transformation with
+ * 	which <code>source</code> will be rendered. Pass <code>nil</code> to use
+ * 	the default transformation.
+ * @param clipRect
+ * 	A PXRectangle object defining the area of the <code>source</code> object
+ * 	to draw. Pass <code>nil</code> to use the entire area of
+ * 	<code>source</code>.
+ * @param smoothing
+ * 	A boolean value indicating if a TextureData object should be smoothed
+ * 	when rotated or scaled. Only applies when drawing a TextureData object.
+ * @param clearTexture
+ * 	A boolean value indicating if the TextureData should be cleared before
+ * 	being drawn onto. Pass <code>NO</code> for this value as an optimization
+ * 	if the entire surface of the PXTextureData will be drawn into.
  */
 - (void) drawTextureData:(PXTextureData *)source
 				  matrix:(PXMatrix *)matrix
@@ -562,11 +562,11 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- *	Renders the given display object onto the texture data with the default
- *	transformation, without clearing out the texture data's previous contents.
+ * Renders the given display object onto the texture data with the default
+ * transformation, without clearing out the texture data's previous contents.
  *
- *	@param source
- *		A PXDisplayObject to draw onto this PXTextureData.
+ * @param source
+ * 	A PXDisplayObject to draw onto this PXTextureData.
  */
 - (void) drawDisplayObject:(PXDisplayObject *)source
 {
@@ -574,33 +574,33 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- *	Renders the given display object onto the TextureData. The transformation of
- *	the source display object is ignored during the render process. To modify
- *	the transformation with which the source is drawn onto the texture you can
- *	pass custom <code>matrix</code> and <code>colorTransform</code> objects, or
- *	<code>nil</code> for the default transformations.
+ * Renders the given display object onto the TextureData. The transformation of
+ * the source display object is ignored during the render process. To modify
+ * the transformation with which the source is drawn onto the texture you can
+ * pass custom <code>matrix</code> and <code>colorTransform</code> objects, or
+ * <code>nil</code> for the default transformations.
  *
- *	@param source
- *		A PXDisplayObject to draw onto this PXTextureData.
- *	@param matrix
- *		A PXMatrix object representing the transformation with which
- *		<code>source</code> will be rendered. Pass <code>nil</code> to use the
- *		default transformation.
- *	@param colorTransform
- *		A PXColorTransform object representing the color transformation with
- *		which <code>source</code> will be rendered. Pass <code>nil</code> to use
- *		the default transformation.
- *	@param clipRect
- *		A PXRectangle object defining the area of the <code>source</code> object
- *		to draw. Pass <code>nil</code> to use the entire area of
- *		<code>source</code>.
- *	@param smoothing
- *		A boolean value indicating if a TextureData object should be smoothed
- *		when rotated or scaled. Only applies when drawing a TextureData object.
- *	@param clearTexture
- *		A boolean value indicating if the TextureData should be cleared before
- *		being drawn onto. Pass <code>NO</code> for this value as an optimization
- *		if the entire surface of the PXTextureData will be drawn into.
+ * @param source
+ * 	A PXDisplayObject to draw onto this PXTextureData.
+ * @param matrix
+ * 	A PXMatrix object representing the transformation with which
+ * 	<code>source</code> will be rendered. Pass <code>nil</code> to use the
+ * 	default transformation.
+ * @param colorTransform
+ * 	A PXColorTransform object representing the color transformation with
+ * 	which <code>source</code> will be rendered. Pass <code>nil</code> to use
+ * 	the default transformation.
+ * @param clipRect
+ * 	A PXRectangle object defining the area of the <code>source</code> object
+ * 	to draw. Pass <code>nil</code> to use the entire area of
+ * 	<code>source</code>.
+ * @param smoothing
+ * 	A boolean value indicating if a TextureData object should be smoothed
+ * 	when rotated or scaled. Only applies when drawing a TextureData object.
+ * @param clearTexture
+ * 	A boolean value indicating if the TextureData should be cleared before
+ * 	being drawn onto. Pass <code>NO</code> for this value as an optimization
+ * 	if the entire surface of the PXTextureData will be drawn into.
  */
 - (void) drawDisplayObject:(PXDisplayObject *)source
 					matrix:(PXMatrix *)matrix
@@ -683,15 +683,15 @@ BOOL pxTextureDataExpandEdges = YES;
 //////
 
 /**
- *	A utility method for quickly loading an image from file and placing it into
- *	a PXTextureData object.
+ * A utility method for quickly loading an image from file and placing it into
+ * a PXTextureData object.
  *
- *	@param filePath
- *		The path of the image to load. The path can point to a file in the
- *		application bundle or the application's sandox on the hard-drive.
+ * @param filePath
+ * 	The path of the image to load. The path can point to a file in the
+ * 	application bundle or the application's sandox on the hard-drive.
  *
- *	@return
- *		The resulting, <code>autoreleased</code>, PXTextureData object.
+ * @return
+ * 	The resulting, <code>autoreleased</code>, PXTextureData object.
  */
 + (PXTextureData *)textureDataWithContentsOfFile:(NSString *)path
 {

@@ -43,17 +43,17 @@
 // TODO Later: Redo graphics class to use triangulation.
 
 /**
- *	@ingroup Display
+ * @ingroup Display
  *
- *	A PXGraphics object represents a way of defining and drawing vector shapes.
- *	Both PXSprite and PXShape have <code>graphics</code> objects that can be
- *	used for drawing.
+ * A PXGraphics object represents a way of defining and drawing vector shapes.
+ * Both PXSprite and PXShape have <code>graphics</code> objects that can be
+ * used for drawing.
  *
- *	<b>IMPORTANT NOTE</b>: This is not the final version of the Graphics class,
- *	much more functionality will be added in a later version.
+ * <b>IMPORTANT NOTE</b>: This is not the final version of the Graphics class,
+ * much more functionality will be added in a later version.
  *
- *	@see PXSprite
- *	@see PXShape
+ * @see PXSprite
+ * @see PXShape
  */
 @interface PXGraphics : NSObject
 {

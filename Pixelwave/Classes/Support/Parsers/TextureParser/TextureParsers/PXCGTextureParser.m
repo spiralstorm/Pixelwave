@@ -479,8 +479,8 @@
 }
 
 /*
- *	This is a special initializer that gets called directly
- *	(by [PXTextureData initWithCGImage:] and doesn't get passed in by the super.
+ * This is a special initializer that gets called directly
+ * (by [PXTextureData initWithCGImage:] and doesn't get passed in by the super.
  */
 - (id) initWithCGImage:(CGImageRef)image
 		   scaleFactor:(float)scaleFactor

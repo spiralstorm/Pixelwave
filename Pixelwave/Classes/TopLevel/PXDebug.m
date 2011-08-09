@@ -62,8 +62,8 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 }
 
 /**
- *	Provides tweaks and toggles for displaying debugging information about
- *	the engine. This class exposes only static methods.
+ * Provides tweaks and toggles for displaying debugging information about
+ * the engine. This class exposes only static methods.
  */
 @implementation PXDebug
 

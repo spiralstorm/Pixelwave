@@ -66,15 +66,15 @@ typedef enum
 }
 
 /**
- *	The transform of the sound.
+ * The transform of the sound.
  */
 @property (nonatomic, copy) PXSoundTransform *soundTransform;
 /**
- *	The current point in milliseconds of the playing sound.
+ * The current point in milliseconds of the playing sound.
  */
 @property (nonatomic, readonly) unsigned position;
 /**
- *	<code>YES</code> if the sound is playing, otherwise <code>NO</code>.
+ * <code>YES</code> if the sound is playing, otherwise <code>NO</code>.
  */
 @property (nonatomic, readonly) BOOL isPlaying;
 

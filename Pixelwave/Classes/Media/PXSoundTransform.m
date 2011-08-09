@@ -40,17 +40,17 @@
 #import "PXSoundTransform.h"
 
 /**
- *	@ingroup Media
+ * @ingroup Media
  *
- *	A PXSoundTransform object represents the volume and pitch of a
- *	<code>PXSoundChannel</code>.
+ * A PXSoundTransform object represents the volume and pitch of a
+ * <code>PXSoundChannel</code>.
  *
- *	The following code creates a sound transform with 120% volume and 80%
- *	pitch:
- *	@code
- *	PXSoundTransform *transform = [[PXSoundTransform alloc] initWithVolume:1.2f pitch:0.8f];
- *	// Volume will be 120% and pitch will be 80%
- *	@endcode
+ * The following code creates a sound transform with 120% volume and 80%
+ * pitch:
+ * @code
+ * PXSoundTransform *transform = [[PXSoundTransform alloc] initWithVolume:1.2f pitch:0.8f];
+ * // Volume will be 120% and pitch will be 80%
+ * @endcode
  */
 @implementation PXSoundTransform
 
@@ -63,19 +63,19 @@
 }
 
 /**
- *	Creates a new sound transform with the given <code>volume</code> and
- *	<code>pitch</code>.
+ * Creates a new sound transform with the given <code>volume</code> and
+ * <code>pitch</code>.
  *
- *	@param volume
- *		The amplitude of the sound.
- *	@param pitch
- *		The frequency of the sound.
+ * @param volume
+ * 	The amplitude of the sound.
+ * @param pitch
+ * 	The frequency of the sound.
  *
- *	@b Example:
- *	@code
- *	PXSoundTransform *transform = [[PXSoundTransform alloc] initWithVolume:1.2f pitch:0.8f];
- *	// Volume will be 120% and pitch will be 80%
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSoundTransform *transform = [[PXSoundTransform alloc] initWithVolume:1.2f pitch:0.8f];
+ * // Volume will be 120% and pitch will be 80%
+ * @endcode
  */
 - (id) initWithVolume:(float)_volume pitch:(float)_pitch
 {
@@ -116,22 +116,22 @@
 #pragma mark Static Methods
 
 /**
- *	Creates a sound transform with the given <code>volume</code> and
- *	<code>pitch</code>.
+ * Creates a sound transform with the given <code>volume</code> and
+ * <code>pitch</code>.
  *
- *	@param volume
- *		The amplitude of the sound.
- *	@param pitch
- *		The frequency of the sound.
+ * @param volume
+ * 	The amplitude of the sound.
+ * @param pitch
+ * 	The frequency of the sound.
  *
- *	@return
- *		The created sound transform.
+ * @return
+ * 	The created sound transform.
  *
- *	@b Example:
- *	@code
- *	PXSoundTransform *transform = [PXSoundTransform soundTransformWithVolume:1.2f pitch:0.8f];
- *	// Volume will be 120% and pitch will be 80%
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSoundTransform *transform = [PXSoundTransform soundTransformWithVolume:1.2f pitch:0.8f];
+ * // Volume will be 120% and pitch will be 80%
+ * @endcode
  */
 + (PXSoundTransform *)soundTransformWithVolume:(float)volume pitch:(float)pitch
 {

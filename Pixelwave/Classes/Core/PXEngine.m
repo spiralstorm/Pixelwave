@@ -44,7 +44,7 @@
 #include "PXTouchEngine.h"
 
 /**
- *	@internal
+ * @internal
  */
 @interface PXEngine : NSObject
 {
@@ -509,7 +509,7 @@ float PXEngineGetRenderFrameRate()
 }
 
 /**
- *	Plays and pauses the engine
+ * Plays and pauses the engine
  */
 void PXEngineSetRunning(bool val)
 {
@@ -570,8 +570,8 @@ void PXEngineDispatchFrameEvents()
 }
 
 /**
- *	The main rendering function. This renders the entire display list, starting
- *	at the stage, to the screen.
+ * The main rendering function. This renders the entire display list, starting
+ * at the stage, to the screen.
  */
 void PXEngineRender()
 {
@@ -1321,7 +1321,7 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 }
 
 /**
- *	The size of the view in PIXELS
+ * The size of the view in PIXELS
  */
 CGSize PXEngineGetScreenBufferSize()
 {
@@ -1335,9 +1335,9 @@ CGSize PXEngineGetScreenBufferSize()
 }
 
 /**
- *	@param w The width of the area to grab, in pixels
- *	@param h The height of the area to grab, in pixels
- *	@param pixels An array of size w * h * 4.
+ * @param w The width of the area to grab, in pixels
+ * @param h The height of the area to grab, in pixels
+ * @param pixels An array of size w * h * 4.
  */
 void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pixels)
 {

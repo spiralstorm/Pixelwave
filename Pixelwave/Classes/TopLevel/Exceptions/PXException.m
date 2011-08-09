@@ -42,34 +42,34 @@
 #import "PXTypeException.h"
 
 /**
- *	@ingroup TopLevel
+ * @ingroup TopLevel
  *
- *	The base class of all exceptions in the Pixelwave framework. To catch
- *	exceptions associated only with the Pixelwave engine, one would do the
- *	following:
+ * The base class of all exceptions in the Pixelwave framework. To catch
+ * exceptions associated only with the Pixelwave engine, one would do the
+ * following:
  *
- *	<code>
- *	@try
- *	{
- *		... Execute Pixelwave code
- *	}
- *	@catch (PXException *e)
- *	{
- *		... Handle Pixelwave exception
- *	}
- *	@finally
- *	{
- *		...
- *	}
- *	</code>
+ * <code>
+ * @try
+ * {
+ * 	... Execute Pixelwave code
+ * }
+ * @catch (PXException *e)
+ * {
+ * 	... Handle Pixelwave exception
+ * }
+ * @finally
+ * {
+ * 	...
+ * }
+ * </code>
  */
 @implementation PXException
 
 /**
- *	Creates a Pixelwave based exception.
+ * Creates a Pixelwave based exception.
  *
- *	@param reason
- *		A human-readable message string summarizing the reason for the exception
+ * @param reason
+ * 	A human-readable message string summarizing the reason for the exception
  */
 - (id) initWithReason:(NSString *)_reason
 {
@@ -77,13 +77,13 @@
 }
 
 /**
- *	Creates a Pixelwave based exception.
+ * Creates a Pixelwave based exception.
  *
- *	@param reason
- *		A human-readable message string summarizing the reason for the exception
- *	@param userInfo
- *		A dictionary containing user-defined information relating to the
- *		exception
+ * @param reason
+ * 	A human-readable message string summarizing the reason for the exception
+ * @param userInfo
+ * 	A dictionary containing user-defined information relating to the
+ * 	exception
  */
 - (id) initWithReason:(NSString *)_reason userInfo:(NSDictionary *)_userInfo
 {

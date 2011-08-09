@@ -47,14 +47,14 @@
 @class EAGLContext;
 
 /**
- *	@ingroup Cocoa
- *	Indicates the quality of the colors used when rendering to the screen.
- *	This enum is used when initializing a PXView object. Internally the
- *	colorQuality is used to set up the OpenGL rendering surface's pixel format
- *	and whether or not dithering is used.
- *	
- *	@see PXView#initWithFrame:colorQuality:
- *	@see PXView#colorQuality
+ * @ingroup Cocoa
+ * Indicates the quality of the colors used when rendering to the screen.
+ * This enum is used when initializing a PXView object. Internally the
+ * colorQuality is used to set up the OpenGL rendering surface's pixel format
+ * and whether or not dithering is used.
+ * 
+ * @see PXView#initWithFrame:colorQuality:
+ * @see PXView#colorQuality
  */
 typedef enum
 {
@@ -91,23 +91,23 @@ typedef enum
 }
 
 /**
- *	The root display object of the Pixelwave engine.
+ * The root display object of the Pixelwave engine.
  */
 @property (nonatomic, retain) PXDisplayObject *root;
 /**
- *	The global stage of the Pixelwave engine.
+ * The global stage of the Pixelwave engine.
  */
 @property (nonatomic, readonly) PXStage *stage;
 /**
- *	See iOS API docs for UIView.contentScaleFactor
+ * See iOS API docs for UIView.contentScaleFactor
  */
 @property (nonatomic) float contentScaleFactor;
 /**
- *	The color quality the view was created with.
- *	This is a read-only property and may only be set at initialization.
- *	
- *	@see #initWithFrame:contentScaleFactor:colorQuality:
- *	@see PXViewColorQuality
+ * The color quality the view was created with.
+ * This is a read-only property and may only be set at initialization.
+ * 
+ * @see #initWithFrame:contentScaleFactor:colorQuality:
+ * @see PXViewColorQuality
  */
 @property (nonatomic, readonly) PXViewColorQuality colorQuality;
 

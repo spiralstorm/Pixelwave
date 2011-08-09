@@ -46,29 +46,29 @@
 #import "PXTextureData.h"
 
 /**
- *	@ingroup Text
+ * @ingroup Text
  *
- *	A PXTextureFont object represents a texture containing a parsed font.  The
- *	texture is packed to try and use the least space possible.
+ * A PXTextureFont object represents a texture containing a parsed font.  The
+ * texture is packed to try and use the least space possible.
  *
- *	The following code creates a texture filled with every letter, ',' and '!'
- *	from the Helvetica font with size of 30.0f.  Then the texture that is
- *	created gets displayed.
+ * The following code creates a texture filled with every letter, ',' and '!'
+ * from the Helvetica font with size of 30.0f.  Then the texture that is
+ * created gets displayed.
  *
- *	@code
- *	PXFontOptions *fontOptions = [PXFontOptions fontOptionsWithSize:30.0f
- *	                                                  characterSets:PXFontCharacterSet_AllLetters
- *	                                              specialCharacters:@",!"];
- *	PXTextureFont *textureFont = [PXTextureFont registerSystemFontWithFont:@"Helvetica"
- *	                                                                  name:@"fontName"
- *	                                                           fontOptions:fontOptions];
+ * @code
+ * PXFontOptions *fontOptions = [PXFontOptions fontOptionsWithSize:30.0f
+ *                                                   characterSets:PXFontCharacterSet_AllLetters
+ *                                               specialCharacters:@",!"];
+ * PXTextureFont *textureFont = [PXTextureFont registerSystemFontWithFont:@"Helvetica"
+ *                                                                   name:@"fontName"
+ *                                                            fontOptions:fontOptions];
  *
- *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureFont.textureData];
- *	[self addChild:texture];
- *	[texture release];
- *	@endcode
+ * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureFont.textureData];
+ * [self addChild:texture];
+ * [texture release];
+ * @endcode
  *
- *	@see PXFont
+ * @see PXFont
  */
 @implementation PXTextureFont
 

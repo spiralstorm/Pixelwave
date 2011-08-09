@@ -64,23 +64,23 @@
 }
 
 /**
- *	The regex pattern for the matcher to match. Value must be non-nil
+ * The regex pattern for the matcher to match. Value must be non-nil
  */
 @property (nonatomic, retain) PXRegexPattern *pattern;
 /**
- *	The string to match the regex to.
+ * The string to match the regex to.
  */
 @property (nonatomic, copy) NSString *input;
 /**
- *	Returns the number of capturing groups in this matcher's pattern.
+ * Returns the number of capturing groups in this matcher's pattern.
  *
- *	Group zero denotes the entire pattern by convention. It is not included in
- *	this count.
+ * Group zero denotes the entire pattern by convention. It is not included in
+ * this count.
  */
 @property (nonatomic, readonly) unsigned groupCount;
 
 /**
- *	A list of every group found.
+ * A list of every group found.
  */
 @property (nonatomic, readonly) NSArray *groups;
 

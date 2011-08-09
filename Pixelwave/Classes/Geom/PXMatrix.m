@@ -42,28 +42,28 @@
 #import "PXMathUtils.h"
 
 /**
- *	@ingroup Geom
+ * @ingroup Geom
  *
- *	A PXMatrix object that represents a two-dimensional transformation matrix.
+ * A PXMatrix object that represents a two-dimensional transformation matrix.
  *
- *	The following code creates an identity matrix:
- *	@code
- *	PXMatrix *matrix = [PXMatrix new];
- *	@endcode
+ * The following code creates an identity matrix:
+ * @code
+ * PXMatrix *matrix = [PXMatrix new];
+ * @endcode
  *
- *	The following code creates a matrix that has been rotated 30 degrees
- *	(PI/6.0f radians) and translated (-4.0f, 2.5f):
- *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- *	@endcode
+ * The following code creates a matrix that has been rotated 30 degrees
+ * (PI/6.0f radians) and translated (-4.0f, 2.5f):
+ * @code
+ * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ * @endcode
  *
- *	Likewise the following code creates a matrix that has been rotated 30
- *	degrees (PI/6.0f radians) and translated (-4.0f, 2.5f):
- *	@code
- *	PXMatrix *matrix = [PXMatrix new];
- *	[matrix rotate:M_PI/6.0f];
- *	[matrix translateX:-4.0f y:2.5f];
- *	@endcode
+ * Likewise the following code creates a matrix that has been rotated 30
+ * degrees (PI/6.0f radians) and translated (-4.0f, 2.5f):
+ * @code
+ * PXMatrix *matrix = [PXMatrix new];
+ * [matrix rotate:M_PI/6.0f];
+ * [matrix translateX:-4.0f y:2.5f];
+ * @endcode
  */
 @implementation PXMatrix
 
@@ -75,32 +75,32 @@
 }
 
 /**
- *	Creates a new matrix with values of (a, b, c, d, tx, ty).
+ * Creates a new matrix with values of (a, b, c, d, tx, ty).
  *
- *	@param a
- *		The value that affects the positioning of pixels along the x-axis when
- *		scaling or rotating.
- *	@param b
- *		The value that affects the positioning of pixels along the y-axis when
- *		skewing or rotating.
- *	@param c
- *		The value that affects the positioning of pixels along the x-axis when
- *		skewing or rotating.
- *	@param d
- *		The value that affects the positioning of pixels along the y-axis when
- *		scaling or rotating.
- *	@param tx
- *		The value that affects the positioning of pixels along the x-axis when
- *		translating.
- *	@param ty
- *		The value that affects the positioning of pixels along the y-axis when
- *		translating.
+ * @param a
+ * 	The value that affects the positioning of pixels along the x-axis when
+ * 	scaling or rotating.
+ * @param b
+ * 	The value that affects the positioning of pixels along the y-axis when
+ * 	skewing or rotating.
+ * @param c
+ * 	The value that affects the positioning of pixels along the x-axis when
+ * 	skewing or rotating.
+ * @param d
+ * 	The value that affects the positioning of pixels along the y-axis when
+ * 	scaling or rotating.
+ * @param tx
+ * 	The value that affects the positioning of pixels along the x-axis when
+ * 	translating.
+ * @param ty
+ * 	The value that affects the positioning of pixels along the y-axis when
+ * 	translating.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ * @endcode
  */
 - (id) initWithA:(float)_a b:(float)_b c:(float)_c d:(float)_d tx:(float)_tx ty:(float)_ty
 {
@@ -139,33 +139,33 @@
 }
 
 /**
- *	Sets the matrix values to (a, b, c, d, tx, ty).
+ * Sets the matrix values to (a, b, c, d, tx, ty).
  *
- *	@param a
- *		The value that affects the positioning of pixels along the x-axis when
- *		scaling or rotating.
- *	@param b
- *		The value that affects the positioning of pixels along the y-axis when
- *		skewing or rotating.
- *	@param c
- *		The value that affects the positioning of pixels along the x-axis when
- *		skewing or rotating.
- *	@param d
- *		The value that affects the positioning of pixels along the y-axis when
- *		scaling or rotating.
- *	@param tx
- *		The value that affects the positioning of pixels along the x-axis when
- *		translating.
- *	@param ty
- *		The value that affects the positioning of pixels along the y-axis when
- *		translating.
+ * @param a
+ * 	The value that affects the positioning of pixels along the x-axis when
+ * 	scaling or rotating.
+ * @param b
+ * 	The value that affects the positioning of pixels along the y-axis when
+ * 	skewing or rotating.
+ * @param c
+ * 	The value that affects the positioning of pixels along the x-axis when
+ * 	skewing or rotating.
+ * @param d
+ * 	The value that affects the positioning of pixels along the y-axis when
+ * 	scaling or rotating.
+ * @param tx
+ * 	The value that affects the positioning of pixels along the x-axis when
+ * 	translating.
+ * @param ty
+ * 	The value that affects the positioning of pixels along the y-axis when
+ * 	translating.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] init];
- *	[matrix setA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [[PXMatrix alloc] init];
+ * [matrix setA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ * @endcode
  */
 - (void) setA:(float)_a b:(float)_b c:(float)_c d:(float)_d tx:(float)_tx ty:(float)_ty
 {
@@ -179,21 +179,21 @@
 
 // A*B = B.concat(A)
 /**
- *	Concatenates the specified matrix with this matrix, this is the same as
- *	multiplying the specified matrix with this matrix.
+ * Concatenates the specified matrix with this matrix, this is the same as
+ * multiplying the specified matrix with this matrix.
  *
- *	@param m
- *		The matrix to be concatenated.
+ * @param m
+ * 	The matrix to be concatenated.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix1 = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- *	// matrix1 will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	PXMatrix *matrix2 = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:1.0f d:0.0f tx:-1.0f ty:1.0f];
- *	// matrix2 will be (a=0.0f, b=1.0f, c=1.0f, d=0.0f, tx=1.0f, ty=3.0f)
- *	[matrix1 concat:matrix2];
- *	// matrix1 will be (a=0.5f, b=0.866025f, c=0.866025f, d=0.5f, tx=-4.366030f, ty=2.866030f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix1 = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ * // matrix1 will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ * PXMatrix *matrix2 = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:1.0f d:0.0f tx:-1.0f ty:1.0f];
+ * // matrix2 will be (a=0.0f, b=1.0f, c=1.0f, d=0.0f, tx=1.0f, ty=3.0f)
+ * [matrix1 concat:matrix2];
+ * // matrix1 will be (a=0.5f, b=0.866025f, c=0.866025f, d=0.5f, tx=-4.366030f, ty=2.866030f)
+ * @endcode
  */
 - (void) concat:(PXMatrix *)m
 {
@@ -218,15 +218,15 @@
 }
 
 /**
- *	Sets the values of the matrix to (a=1, b=0, c=0, d=1, tx=0, ty=0).
+ * Sets the values of the matrix to (a=1, b=0, c=0, d=1, tx=0, ty=0).
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	[matrix identity];
- *	// matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ * [matrix identity];
+ * // matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
+ * @endcode
  */
 - (void) identity
 {
@@ -235,16 +235,16 @@
 }
 
 /**
- *	Inverts the matrix.  If the matrix is not invertible then the matrix is set
- *	back to identity.
+ * Inverts the matrix.  If the matrix is not invertible then the matrix is set
+ * back to identity.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:1.0f b:1.0f c:0.5f d:1.0f tx:0.0f ty:0.0f];
- *	// matrix will be (a=1.0f, b=1.0f, c=0.5f, d=1.0f, tx=0.0f, ty=0.0f)
- *	[matrix invert];
- *	// matrix will be (a=2.0f, b=-2.0f, c=-1.0f, d=2.0f, tx=0.0f, ty=0.0f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [[PXMatrix alloc] initWithA:1.0f b:1.0f c:0.5f d:1.0f tx:0.0f ty:0.0f];
+ * // matrix will be (a=1.0f, b=1.0f, c=0.5f, d=1.0f, tx=0.0f, ty=0.0f)
+ * [matrix invert];
+ * // matrix will be (a=2.0f, b=-2.0f, c=-1.0f, d=2.0f, tx=0.0f, ty=0.0f)
+ * @endcode
  */
 - (void) invert
 {
@@ -272,18 +272,18 @@
 }
 
 /**
- *	Rotates the matrix.
+ * Rotates the matrix.
  *
- *	@param angle
- *		Angle of rotation in radians.
+ * @param angle
+ * 	Angle of rotation in radians.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [PXMatrix new];
- *	// matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
- *	[matrix rotate:M_PI/6.0f]; //30 degrees
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=0.0f, ty=0.0f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [PXMatrix new];
+ * // matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
+ * [matrix rotate:M_PI/6.0f]; //30 degrees
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=0.0f, ty=0.0f)
+ * @endcode
  */
 - (void) rotate:(float)angle
 {
@@ -306,20 +306,20 @@
 }
 
 /**
- *	Scales the matrix.
+ * Scales the matrix.
  *
- *	@param sx
- *		The horizontal scaling factor.
- *	@param sy
- *		The vertical scaling factor.
+ * @param sx
+ * 	The horizontal scaling factor.
+ * @param sy
+ * 	The vertical scaling factor.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	[matrix scaleX:0.5f y:0.5f];
- *	// matrix will be (a=0.433012f, b=0.5f, c=0.5f, d=0.433012f, tx=-2.0f, ty=1.0f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ * [matrix scaleX:0.5f y:0.5f];
+ * // matrix will be (a=0.433012f, b=0.5f, c=0.5f, d=0.433012f, tx=-2.0f, ty=1.0f)
+ * @endcode
  */
 - (void) scaleX:(float)sx y:(float)sy
 {
@@ -330,20 +330,20 @@
 }
 
 /**
- *	Translates the matrix.
+ * Translates the matrix.
  *
- *	@param dx
- *		The horizontal translation.
- *	@param dy
- *		The vertical translation.
+ * @param dx
+ * 	The horizontal translation.
+ * @param dy
+ * 	The vertical translation.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	[matrix translateX:1.0f y:-0.5f];
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-3.0f, ty=2.0f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ * [matrix translateX:1.0f y:-0.5f];
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-3.0f, ty=2.0f)
+ * @endcode
  */
 - (void) translateX:(float)dx y:(float)dy
 {
@@ -352,27 +352,27 @@
 }
 
 /**
- *	Using the create box method is the same as if you were to call identity,
- *	rotate, scale and translate in succession.
+ * Using the create box method is the same as if you were to call identity,
+ * rotate, scale and translate in succession.
  *
- *	@param scaleX
- *		The horizontal scale factor.
- *	@param scaleY
- *		The vertical scale factor.
- *	@param rotation
- *		The angle of rotation in radians.
- *	@param tx
- *		The horizontal translation. 
- *	@param ty
- *		The vertical translation.
+ * @param scaleX
+ * 	The horizontal scale factor.
+ * @param scaleY
+ * 	The vertical scale factor.
+ * @param rotation
+ * 	The angle of rotation in radians.
+ * @param tx
+ * 	The horizontal translation. 
+ * @param ty
+ * 	The vertical translation.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	[matrix createBoxWithScaleX:0.5f scaleY:0.5f rotation:M_PI/6.0f tx:-3.0f ty:2.0f];
- *	// matrix will be (a=0.433013f, b=0.5f, c=0.5f, d=0.433013f, tx=-3.0f, ty=2.0f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ * [matrix createBoxWithScaleX:0.5f scaleY:0.5f rotation:M_PI/6.0f tx:-3.0f ty:2.0f];
+ * // matrix will be (a=0.433013f, b=0.5f, c=0.5f, d=0.433013f, tx=-3.0f, ty=2.0f)
+ * @endcode
  */
 - (void) createBoxWithScaleX:(float)_scaleX scaleY:(float)_scaleY rotation:(float)_rotation tx:(float)_tx ty:(float)_ty
 {
@@ -383,22 +383,22 @@
 }
 
 /**
- *	Returns a point transformed by this matrix.
+ * Returns a point transformed by this matrix.
  *
- *	@param point
- *		The point for transformation.
+ * @param point
+ * 	The point for transformation.
  *
- *	@return
- *		The point after transformation.
+ * @return
+ * 	The point after transformation.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:0.0f d:1.0f tx:-4.0f ty:2.5f];
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	PXPoint *point = [[PXPoint alloc] initWithX:1.0f y:1.0f];
- *	PXPoint *transformedPoint = [matrix transformPoint:point];
- *	// transformedPoint will be (-4.0f, 4.5f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:0.0f d:1.0f tx:-4.0f ty:2.5f];
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ * PXPoint *point = [[PXPoint alloc] initWithX:1.0f y:1.0f];
+ * PXPoint *transformedPoint = [matrix transformPoint:point];
+ * // transformedPoint will be (-4.0f, 4.5f)
+ * @endcode
  */
 - (PXPoint *)transformPoint:(PXPoint *)point
 {
@@ -409,23 +409,23 @@
 }
 
 /**
- *	Returns a point transformed by this matrix, ignoring the tx and ty
- *	parameters.
+ * Returns a point transformed by this matrix, ignoring the tx and ty
+ * parameters.
  *
- *	@param point
- *		The point for transformation.
+ * @param point
+ * 	The point for transformation.
  *
- *	@return
- *		The point after transformation.
+ * @return
+ * 	The point after transformation.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:0.0f d:1.0f tx:-4.0f ty:2.5f];
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	PXPoint *point = [[PXPoint alloc] initWithX:1.0f y:1.0f];
- *	PXPoint *transformedPoint = [matrix deltaTransformPoint:point];
- *	// transformedPoint will be (0.0f, 2.0f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:0.0f d:1.0f tx:-4.0f ty:2.5f];
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ * PXPoint *point = [[PXPoint alloc] initWithX:1.0f y:1.0f];
+ * PXPoint *transformedPoint = [matrix deltaTransformPoint:point];
+ * // transformedPoint will be (0.0f, 2.0f)
+ * @endcode
  */
 - (PXPoint *)deltaTransformPoint:(PXPoint *)point
 {
@@ -436,35 +436,35 @@
 }
 
 /**
- *	Creates a matrix with values of (a, b, c, d, tx, ty).
+ * Creates a matrix with values of (a, b, c, d, tx, ty).
  *
- *	@param a
- *		The value that affects the positioning of pixels along the x-axis when
- *		scaling or rotating.
- *	@param b
- *		The value that affects the positioning of pixels along the y-axis when
- *		skewing or rotating.
- *	@param c
- *		The value that affects the positioning of pixels along the x-axis when
- *		skewing or rotating.
- *	@param d
- *		The value that affects the positioning of pixels along the y-axis when
- *		scaling or rotating.
- *	@param tx
- *		The value that affects the positioning of pixels along the x-axis when
- *		translating.
- *	@param ty
- *		The value that affects the positioning of pixels along the y-axis when
- *		translating.
+ * @param a
+ * 	The value that affects the positioning of pixels along the x-axis when
+ * 	scaling or rotating.
+ * @param b
+ * 	The value that affects the positioning of pixels along the y-axis when
+ * 	skewing or rotating.
+ * @param c
+ * 	The value that affects the positioning of pixels along the x-axis when
+ * 	skewing or rotating.
+ * @param d
+ * 	The value that affects the positioning of pixels along the y-axis when
+ * 	scaling or rotating.
+ * @param tx
+ * 	The value that affects the positioning of pixels along the x-axis when
+ * 	translating.
+ * @param ty
+ * 	The value that affects the positioning of pixels along the y-axis when
+ * 	translating.
  *
- *	@return
- *		The created matrix.
+ * @return
+ * 	The created matrix.
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [PXMatrix matrixWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [PXMatrix matrixWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ * @endcode
  */
 + (PXMatrix *)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
 {
@@ -472,13 +472,13 @@
 }
 
 /**
- *	Creates a matrix with values of (a=1.0, b=0.0, c=0.0, d=1.0, tx=0.0, ty=0.0)
+ * Creates a matrix with values of (a=1.0, b=0.0, c=0.0, d=1.0, tx=0.0, ty=0.0)
  *
- *	@b Example:
- *	@code
- *	PXMatrix *matrix = [PXMatrix identityMatrix];
- *	// matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
- *	@endcode
+ * @b Example:
+ * @code
+ * PXMatrix *matrix = [PXMatrix identityMatrix];
+ * // matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
+ * @endcode
  */
 + (PXMatrix *)identityMatrix
 {

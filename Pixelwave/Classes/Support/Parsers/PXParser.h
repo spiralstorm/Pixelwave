@@ -40,9 +40,9 @@
 @class PXLinkedList;
 
 /**
- *	@ingroup Parsers
+ * @ingroup Parsers
  *
- *	The protocol required to make a new parser.
+ * The protocol required to make a new parser.
  */
 @protocol PXParser<NSObject>
 @required
@@ -58,12 +58,12 @@
 }
 
 /**
- *	The loaded data.
+ * The loaded data.
  */
 @property (nonatomic, readonly) NSData *data;
 /**
- *	The origin of the loaded data. This is only available when one is provided
- *	from the start.
+ * The origin of the loaded data. This is only available when one is provided
+ * from the start.
  */
 @property (nonatomic, readonly) NSString *origin;
 

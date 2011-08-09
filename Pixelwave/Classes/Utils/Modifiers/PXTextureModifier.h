@@ -40,9 +40,9 @@
 #include "PXParsedTextureData.h"
 
 /**
- *	@ingroup Modifiers
+ * @ingroup Modifiers
  *
- *	The protocol required to make a new texture modifier.
+ * The protocol required to make a new texture modifier.
  */
 @protocol PXTextureModifier<NSObject>
 @required

@@ -40,8 +40,8 @@
 #import "PXGL.h"
 
 /**
- *	Describes the clip area within a TextureData object. The coordinates are
- *	in points as opposed to pixels.
+ * Describes the clip area within a TextureData object. The coordinates are
+ * in points as opposed to pixels.
  */
 @interface PXClipRect : NSObject <NSCopying>
 {
@@ -69,10 +69,10 @@
 // General clip shape
 
 /**
- *	Avoid using values that aren't multiples of 90.0
- *	(it makes the hit-test act unintuitively). For regular rotation changes
- *	just use
- *	the rotation property
+ * Avoid using values that aren't multiples of 90.0
+ * (it makes the hit-test act unintuitively). For regular rotation changes
+ * just use
+ * the rotation property
  */
 @property (nonatomic) float rotation;
 

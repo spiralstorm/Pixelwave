@@ -52,33 +52,33 @@
 }
 
 /**
- *	The value that affects the positioning of pixels along the x-axis when
- *	scaling or rotating the matrix.
+ * The value that affects the positioning of pixels along the x-axis when
+ * scaling or rotating the matrix.
  */
 @property (nonatomic) float a;
 /**
- *	The value that affects the positioning of pixels along the y-axis when
- *	skewing or rotating the matrix.
+ * The value that affects the positioning of pixels along the y-axis when
+ * skewing or rotating the matrix.
  */
 @property (nonatomic) float b;
 /**
- *	The value that affects the positioning of pixels along the x-axis when
- *	skewing or rotating the matrix.
+ * The value that affects the positioning of pixels along the x-axis when
+ * skewing or rotating the matrix.
  */
 @property (nonatomic) float c;
 /**
- *	The value that affects the positioning of pixels along the y-axis when
- *	scaling or rotating the matrix.
+ * The value that affects the positioning of pixels along the y-axis when
+ * scaling or rotating the matrix.
  */
 @property (nonatomic) float d;
 /**
- *	The value that affects the positioning of pixels along the x-axis when
- *	translating the matrix.
+ * The value that affects the positioning of pixels along the x-axis when
+ * translating the matrix.
  */
 @property (nonatomic) float tx;
 /**
- *	The value that affects the positioning of pixels along the y-axis when
- *	translating the matrix.
+ * The value that affects the positioning of pixels along the y-axis when
+ * translating the matrix.
  */
 @property (nonatomic) float ty;
 

@@ -56,8 +56,8 @@
 }
 
 /**
- *	A list holding references to every PXTextureData used to make up the
- *	PXTextureFont object
+ * A list holding references to every PXTextureData used to make up the
+ * PXTextureFont object
  */
 @property (nonatomic, readonly) NSArray *textureDatas;
 

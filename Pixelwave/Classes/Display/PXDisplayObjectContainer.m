@@ -51,9 +51,9 @@
 #import "PXPoint.h"
 
 /*
- *	DEFINEs for looping the linked list.
- *	If needed, make sure to use PX_CONTINUE_CHILD_LOOP and not just 'continue'.
- *	Variables 'i' and 'child' are available within the START and END tags
+ * DEFINEs for looping the linked list.
+ * If needed, make sure to use PX_CONTINUE_CHILD_LOOP and not just 'continue'.
+ * Variables 'i' and 'child' are available within the START and END tags
  */
 
 #define PXThrowDispNotChild PXThrow(PXArgumentException, @"The supplied DisplayObject must be a child of the caller.");
@@ -66,22 +66,22 @@
 /// @endcond
 
 /**
- *	@ingroup Display
+ * @ingroup Display
  *
- *	A PXDisplayObjectContainer is the abstract base class for setting up the
- *	display list.  A PXDisplayObjectContainer is a display object that can hold
- *	children.  A PXDisplayObjectContainer should never be made directly, if you
- *	wish to have a display object that holds children, then use a PXSprite or
- *	PXSimpleSprite instead.
+ * A PXDisplayObjectContainer is the abstract base class for setting up the
+ * display list.  A PXDisplayObjectContainer is a display object that can hold
+ * children.  A PXDisplayObjectContainer should never be made directly, if you
+ * wish to have a display object that holds children, then use a PXSprite or
+ * PXSimpleSprite instead.
  *
- *	When a PXDisplayObjectContainer is deallocated it removes all of its
- *	children, which invokes the <code>remove</code> event on each one. This
- *	behavior differs from that of Flash because all containers in Objective-C
- *	must remove their contents once deallocated (to avoid
- *	<code>child.parent</code> pointing to a zombie).
+ * When a PXDisplayObjectContainer is deallocated it removes all of its
+ * children, which invokes the <code>remove</code> event on each one. This
+ * behavior differs from that of Flash because all containers in Objective-C
+ * must remove their contents once deallocated (to avoid
+ * <code>child.parent</code> pointing to a zombie).
  *
- *	@see PXDisplayObject
- *	@see PXSimpleSprite
+ * @see PXDisplayObject
+ * @see PXSimpleSprite
  */
 @implementation PXDisplayObjectContainer
 
@@ -262,22 +262,22 @@
 }
 
 /**
- *	Adds a child to the display list, increasing its retain count by 1.
+ * Adds a child to the display list, increasing its retain count by 1.
  *
- *	@param child
- *		The object to be added.
+ * @param child
+ * 	The object to be added.
  *
- *	@return
- *		The display object passed by the child parameter.
+ * @return
+ * 	The display object passed by the child parameter.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	// add1 has a retain count of 1
- *	[simpleSprite addChild:add1];
- *	// add1 has a retain count of 2
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * // add1 has a retain count of 1
+ * [simpleSprite addChild:add1];
+ * // add1 has a retain count of 2
+ * @endcode
  */
 - (PXDisplayObject *)addChild:(PXDisplayObject *)child
 {
@@ -299,25 +299,25 @@
 }
 
 /**
- *	Adds a child to the display list at the specified index, increasing its
- *	retain count by 1.
+ * Adds a child to the display list at the specified index, increasing its
+ * retain count by 1.
  *
- *	@param child
- *		The object to be added.
- *	@param index
- *		The index.
+ * @param child
+ * 	The object to be added.
+ * @param index
+ * 	The index.
  *
- *	@return
- *		The display object passed by the child parameter.
+ * @return
+ * 	The display object passed by the child parameter.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	// add1 has a retain count of 1
- *	[simpleSprite addChild:add1 atIndex:0];
- *	// add1 has a retain count of 2
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * // add1 has a retain count of 1
+ * [simpleSprite addChild:add1 atIndex:0];
+ * // add1 has a retain count of 2
+ * @endcode
  */
 - (PXDisplayObject *)addChild:(PXDisplayObject *)child atIndex:(int)index
 {
@@ -488,29 +488,29 @@
 }
 
 /**
- *	Removes the child from the container, and decreases its retain count by 1.
- *	If the specified object is not a child of this container, then a
- *	<code>PXArgumentException</code> is thrown.  All of the other children move
- *	down a position to fill the gap left by the removed child.
+ * Removes the child from the container, and decreases its retain count by 1.
+ * If the specified object is not a child of this container, then a
+ * <code>PXArgumentException</code> is thrown.  All of the other children move
+ * down a position to fill the gap left by the removed child.
  *
- *	@param PXDisplayObject
- *		The child to be removed.
+ * @param PXDisplayObject
+ * 	The child to be removed.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	PXSimpleSprite *add2 = [PXSimpleSprite new];
- *	// add1 has a retain count of 1, and no index
- *	// add2 has a retain count of 1, and no index
- *	[simpleSprite addChild:add1];
- *	[simpleSprite addChild:add2];
- *	// add1 has a retain count of 2, and an index of 0
- *	// add2 has a retain count of 2, and an index of 1
- *	[simpleSprite removeChild:add1];
- *	// add1 has a retain count of 1, and no index
- *	// add2 has a retain count of 2, and an index of 0
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * PXSimpleSprite *add2 = [PXSimpleSprite new];
+ * // add1 has a retain count of 1, and no index
+ * // add2 has a retain count of 1, and no index
+ * [simpleSprite addChild:add1];
+ * [simpleSprite addChild:add2];
+ * // add1 has a retain count of 2, and an index of 0
+ * // add2 has a retain count of 2, and an index of 1
+ * [simpleSprite removeChild:add1];
+ * // add1 has a retain count of 1, and no index
+ * // add2 has a retain count of 2, and an index of 0
+ * @endcode
  */
 - (void) removeChild:(PXDisplayObject *)child
 {
@@ -530,29 +530,29 @@
 }
 
 /**
- *	Removes the child from the container, and decreases its retain count by 1.
- *	If the object is not a child of this container, then a
- *	<code>PXRangeException</code> is thrown.  All of the other children move
- *	down a position to fill the gap left by the removed child.
+ * Removes the child from the container, and decreases its retain count by 1.
+ * If the object is not a child of this container, then a
+ * <code>PXRangeException</code> is thrown.  All of the other children move
+ * down a position to fill the gap left by the removed child.
  *
- *	@param index
- *		The index of the child to be removed.
+ * @param index
+ * 	The index of the child to be removed.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	PXSimpleSprite *add2 = [PXSimpleSprite new];
- *	// add1 has a retain count of 1, and no index
- *	// add2 has a retain count of 1, and no index
- *	[simpleSprite addChild:add1];
- *	[simpleSprite addChild:add2];
- *	// add1 has a retain count of 2, and an index of 0
- *	// add2 has a retain count of 2, and an index of 1
- *	[simpleSprite removeChildAtIndex:0];
- *	// add1 has a retain count of 1, and no index
- *	// add2 has a retain count of 2, and an index of 0
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * PXSimpleSprite *add2 = [PXSimpleSprite new];
+ * // add1 has a retain count of 1, and no index
+ * // add2 has a retain count of 1, and no index
+ * [simpleSprite addChild:add1];
+ * [simpleSprite addChild:add2];
+ * // add1 has a retain count of 2, and an index of 0
+ * // add2 has a retain count of 2, and an index of 1
+ * [simpleSprite removeChildAtIndex:0];
+ * // add1 has a retain count of 1, and no index
+ * // add2 has a retain count of 2, and an index of 0
+ * @endcode
  */
 - (void) removeChildAtIndex:(int)index
 {
@@ -569,26 +569,26 @@
 #pragma mark Querying
 
 /**
- *	Determines whether the specified object is a child of this container or any
- *	of its children.
+ * Determines whether the specified object is a child of this container or any
+ * of its children.
  *
- *	@param child
- *		The child to be checked.
+ * @param child
+ * 	The child to be checked.
  *
- *	@return
- *		YES if the specified child is a decendant of this container.
+ * @return
+ * 	YES if the specified child is a decendant of this container.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	[simpleSprite addChild:add1];
- *	BOOL containsChild = [simpleSprite containsChild:add1];
- *	// containsChild is YES
- *	[simpleSprite removeChild:add1];
- *	containsChild = [simpleSprite containsChild:add1];
- *	// containsChild is NO
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * [simpleSprite addChild:add1];
+ * BOOL containsChild = [simpleSprite containsChild:add1];
+ * // containsChild is YES
+ * [simpleSprite removeChild:add1];
+ * containsChild = [simpleSprite containsChild:add1];
+ * // containsChild is NO
+ * @endcode
  */
 - (BOOL) containsChild:(PXDisplayObject *)childToCheck
 {
@@ -616,32 +616,32 @@
 }
 
 /**
- *	Retrieves the index of the specified child.  If the specified child is not
- *	part of this container, then <code>-1</code> is returned instead and a
- *	<code>PXArgumentException</code> is thrown.
+ * Retrieves the index of the specified child.  If the specified child is not
+ * part of this container, then <code>-1</code> is returned instead and a
+ * <code>PXArgumentException</code> is thrown.
  *
- *	@param child
- *		The child in question.
+ * @param child
+ * 	The child in question.
  *
- *	@return index
- *		The index of the child.
+ * @return index
+ * 	The index of the child.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	PXSimpleSprite *add2 = [PXSimpleSprite new];
- *	[simpleSprite addChild:add1];
- *	[simpleSprite addChild:add2];
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * PXSimpleSprite *add2 = [PXSimpleSprite new];
+ * [simpleSprite addChild:add1];
+ * [simpleSprite addChild:add2];
  *
- *	int index = [simpleSprite getIndexOfChild:add1];
- *	// index == 0
- *	index = [simpleSprite getIndexOfChild:add2];
- *	// index == 1
- *	[simpleSprite removeChild:add1];
- *	index = [simpleSprite getIndexOfChild:add1];
- *	//index == -1
- *	@endcode
+ * int index = [simpleSprite getIndexOfChild:add1];
+ * // index == 0
+ * index = [simpleSprite getIndexOfChild:add2];
+ * // index == 1
+ * [simpleSprite removeChild:add1];
+ * index = [simpleSprite getIndexOfChild:add1];
+ * //index == -1
+ * @endcode
  */
 - (int) indexOfChild:(PXDisplayObject *)childToCheck
 {
@@ -676,24 +676,24 @@
 #pragma mark Retrieving Children
 
 /**
- *	Retrieves the child at the specified index.  If no child was found at the
- *	index, then <code>nil</code> is returned instead.  If the index is out of
- *	bounds then a <code>PXRangeException</code> is thrown.
+ * Retrieves the child at the specified index.  If no child was found at the
+ * index, then <code>nil</code> is returned instead.  If the index is out of
+ * bounds then a <code>PXRangeException</code> is thrown.
  *
- *	@param index
- *		The index.
+ * @param index
+ * 	The index.
  *
- *	@return
- *		The child at the specified index.
+ * @return
+ * 	The child at the specified index.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	[simpleSprite addChild:add1];
- *	PXSimpleSprite *retrievedChild = (PXSimpleSprite *)[simpleSprite getChildAtIndex:0];
- *	// retrievedChild == add1
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * [simpleSprite addChild:add1];
+ * PXSimpleSprite *retrievedChild = (PXSimpleSprite *)[simpleSprite getChildAtIndex:0];
+ * // retrievedChild == add1
+ * @endcode
  */
 - (PXDisplayObject *)childAtIndex:(int)index
 {
@@ -725,24 +725,24 @@
 }
 
 /**
- *	Retrieves the child with the specified name.  If no child was found with the
- *	specified name, then <code>nil</code> is returned instead.
+ * Retrieves the child with the specified name.  If no child was found with the
+ * specified name, then <code>nil</code> is returned instead.
  *
- *	@param name
- *		The case sensitive name of the child.
+ * @param name
+ * 	The case sensitive name of the child.
  *
- *	@return
- *		The child with the specified name.
+ * @return
+ * 	The child with the specified name.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	add1.name = @"Orange";
- *	[simpleSprite addChild:add1];
- *	PXSimpleSprite *retrievedChild = (PXSimpleSprite *)[simpleSprite getChildByName:@"Orange"];
- *	// retrievedChild == add1
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * add1.name = @"Orange";
+ * [simpleSprite addChild:add1];
+ * PXSimpleSprite *retrievedChild = (PXSimpleSprite *)[simpleSprite getChildByName:@"Orange"];
+ * // retrievedChild == add1
+ * @endcode
  */
 - (PXDisplayObject *)childByName:(NSString *)name
 {
@@ -768,34 +768,34 @@
 #pragma mark Moving Children
 
 /**
- *	Changes the position of the child to the specified index.  This will
- *	decrease the position all of the children that are between the original
- *	index and the new index.
+ * Changes the position of the child to the specified index.  This will
+ * decrease the position all of the children that are between the original
+ * index and the new index.
  *
- *	If the index provided is less than 0, then the object is moved to index 0.
- *	If the index is higher than the number of children, then the object is moved
- *	to the last index.
+ * If the index provided is less than 0, then the object is moved to index 0.
+ * If the index is higher than the number of children, then the object is moved
+ * to the last index.
  *
- *	@param index
- *		New index of the child.
- *	@param child
- *		Child to be repositioned.
+ * @param index
+ * 	New index of the child.
+ * @param child
+ * 	Child to be repositioned.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	PXSimpleSprite *add2 = [PXSimpleSprite new];
- *	PXSimpleSprite *add3 = [PXSimpleSprite new];
- *	[simpleSprite addChild:add1];
- *	[simpleSprite addChild:add2];
- *	[simpleSprite addChild:add3];
- *	// add1 has an index of 0, add2 has an index of 1, add3 has an index of 2.
- *	[simpleSprite setIndex:2 ofChild:add1];
- *	// add1 has an index of 2, add2 has an index of 0, add3 has an index of 1.
- *	[simpleSprite setIndex:2 ofChild:add3];
- *	// add1 has an index of 1, add2 has an index of 0, add3 has an index of 2.
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * PXSimpleSprite *add2 = [PXSimpleSprite new];
+ * PXSimpleSprite *add3 = [PXSimpleSprite new];
+ * [simpleSprite addChild:add1];
+ * [simpleSprite addChild:add2];
+ * [simpleSprite addChild:add3];
+ * // add1 has an index of 0, add2 has an index of 1, add3 has an index of 2.
+ * [simpleSprite setIndex:2 ofChild:add1];
+ * // add1 has an index of 2, add2 has an index of 0, add3 has an index of 1.
+ * [simpleSprite setIndex:2 ofChild:add3];
+ * // add1 has an index of 1, add2 has an index of 0, add3 has an index of 2.
+ * @endcode
  */
 - (void) setIndex:(int)index ofChild:(PXDisplayObject *)child
 {
@@ -851,25 +851,25 @@
 }
 
 /**
- *	Swaps the two children's position, all other children remain in the position
- *	they were at prior to the swap taking place.
+ * Swaps the two children's position, all other children remain in the position
+ * they were at prior to the swap taking place.
  *
- *	@param child1
- *		The first child.
- *	@param child2
- *		The second child.
+ * @param child1
+ * 	The first child.
+ * @param child2
+ * 	The second child.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	PXSimpleSprite *add2 = [PXSimpleSprite new];
- *	[simpleSprite addChild:add1];
- *	[simpleSprite addChild:add2];
- *	// add1 has an index of 0, add2 has an index of 1
- *	[simpleSprite swapChild:add1 withChild:add2];
- *	// add1 has an index of 1, add2 has an index of 0
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * PXSimpleSprite *add2 = [PXSimpleSprite new];
+ * [simpleSprite addChild:add1];
+ * [simpleSprite addChild:add2];
+ * // add1 has an index of 0, add2 has an index of 1
+ * [simpleSprite swapChild:add1 withChild:add2];
+ * // add1 has an index of 1, add2 has an index of 0
+ * @endcode
  */
 - (void) swapChild:(PXDisplayObject *)child1 withChild:(PXDisplayObject *)child2
 {
@@ -969,34 +969,34 @@
 }
 
 /**
- *	Swaps the two children's position, all other children remain in the position
- *	they were at prior to the swap taking place.
+ * Swaps the two children's position, all other children remain in the position
+ * they were at prior to the swap taking place.
  *
- *	It is more efficent not to reference a child by index.  If at all possible
- *	you should avoid using this method, and use:@n
- *	swapChild:(PXDisplayObject *)child1 withChild:(PXDisplayObject *)child2 @n
- *	instead.
+ * It is more efficent not to reference a child by index.  If at all possible
+ * you should avoid using this method, and use:@n
+ * swapChild:(PXDisplayObject *)child1 withChild:(PXDisplayObject *)child2 @n
+ * instead.
  *
- *	@param
- *		index1 Index of the first child.
- *	@param
- *		index2 Index of the second child.
+ * @param
+ * 	index1 Index of the first child.
+ * @param
+ * 	index2 Index of the second child.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	PXSimpleSprite *add2 = [PXSimpleSprite new];
- *	[simpleSprite addChild:add1];
- *	[simpleSprite addChild:add2];
- *	// add1 has an index of 0, add2 has an index of 1
- *	[simpleSprite swapChildAtIndex:0 withChildAtIndex:1];
- *	// add1 has an index of 1, add2 has an index of 0
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * PXSimpleSprite *add2 = [PXSimpleSprite new];
+ * [simpleSprite addChild:add1];
+ * [simpleSprite addChild:add2];
+ * // add1 has an index of 0, add2 has an index of 1
+ * [simpleSprite swapChildAtIndex:0 withChildAtIndex:1];
+ * // add1 has an index of 1, add2 has an index of 0
+ * @endcode
  *
- *	@exception
- *		PXArgumentException Throws if either child parameter is not a child of
- *		this object.
+ * @exception
+ * 	PXArgumentException Throws if either child parameter is not a child of
+ * 	this object.
  */
 - (void) swapChildAtIndex:(int)index1 withChildAtIndex:(int)index2
 {
@@ -1016,26 +1016,26 @@
 }
 
 /**
- *	Removes all of the children from the container, reducing each of the
- *	object's retain counts by 1.
+ * Removes all of the children from the container, reducing each of the
+ * object's retain counts by 1.
  *
- *	@b Example:
- *	@code
- *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
- *	PXSimpleSprite *add1 = [PXSimpleSprite new];
- *	PXSimpleSprite *add2 = [PXSimpleSprite new];
- *	// add1 and add2 have a retain count of 1
- *	[simpleSprite addChild:add1];
- *	[simpleSprite addChild:add2];
- *	// simpleSprite contains two children now
- *	// add1 and add2 have a retain count of 2
- *	[add1 release];
- *	[add2 release];
- *	// add1 and add2 have a retain count of 1
- *	[simpleSprite removeAllChildren];
- *	// simpleSprite has no children now
- *	// add1 and add2 have a retain count of 0
- *	@endcode
+ * @b Example:
+ * @code
+ * PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
+ * PXSimpleSprite *add1 = [PXSimpleSprite new];
+ * PXSimpleSprite *add2 = [PXSimpleSprite new];
+ * // add1 and add2 have a retain count of 1
+ * [simpleSprite addChild:add1];
+ * [simpleSprite addChild:add2];
+ * // simpleSprite contains two children now
+ * // add1 and add2 have a retain count of 2
+ * [add1 release];
+ * [add2 release];
+ * // add1 and add2 have a retain count of 1
+ * [simpleSprite removeAllChildren];
+ * // simpleSprite has no children now
+ * // add1 and add2 have a retain count of 0
+ * @endcode
  */
 - (void) removeAllChildren
 {
@@ -1051,44 +1051,44 @@
 }
 
 /**
- *	Makes a list of objects that are under the given point.  These objects can
- *	be any child, grandchild, etc. of this container, as long as they are under
- *	the point.
+ * Makes a list of objects that are under the given point.  These objects can
+ * be any child, grandchild, etc. of this container, as long as they are under
+ * the point.
  *
- *	@param
- *		The point to check for objects under in global coordinates.
+ * @param
+ * 	The point to check for objects under in global coordinates.
  *
- *	@b Example:
- *	@code
- *	PXSprite *container = [[PXSprite alloc] init];
+ * @b Example:
+ * @code
+ * PXSprite *container = [[PXSprite alloc] init];
  *
- *	PXSprite *square1 = [[PXSprite alloc] init];
- *	[square1.graphics beginFill:0xFFCC00 alpha:1.0f];
- *	[square1.graphics drawRectWithX:0 y:0 width:40 height:40];
+ * PXSprite *square1 = [[PXSprite alloc] init];
+ * [square1.graphics beginFill:0xFFCC00 alpha:1.0f];
+ * [square1.graphics drawRectWithX:0 y:0 width:40 height:40];
  *
- *	PXSprite *square2 = [[PXSprite alloc] init];
- *	[square2.graphics beginFill:0x00CCFF alpha:1.0f];
- *	[square2.graphics drawRectWithX:20 y:0 width:30 height:40];
+ * PXSprite *square2 = [[PXSprite alloc] init];
+ * [square2.graphics beginFill:0x00CCFF alpha:1.0f];
+ * [square2.graphics drawRectWithX:20 y:0 width:30 height:40];
  *
- *	[container addChild:square1];
- *	[container addChild:square2];
+ * [container addChild:square1];
+ * [container addChild:square2];
  *
- *	PXPoint *pt;
- *	NSArray *objects;
+ * PXPoint *pt;
+ * NSArray *objects;
  *
- *	pt = [PXPoint pointWithX:10 y:20];
- *	objects = [container objectsUnderPoint:pt];
- *	NSLog (@"list count = %d\n", [objects count]); // 1
+ * pt = [PXPoint pointWithX:10 y:20];
+ * objects = [container objectsUnderPoint:pt];
+ * NSLog (@"list count = %d\n", [objects count]); // 1
  *
- *	pt = [PXPoint pointWithX:35 y:20];
- *	objects = [container objectsUnderPoint:pt];
- *	NSLog (@"list count = %d\n", [objects count]); // 2
+ * pt = [PXPoint pointWithX:35 y:20];
+ * objects = [container objectsUnderPoint:pt];
+ * NSLog (@"list count = %d\n", [objects count]); // 2
  *
- *	[square1 release];
- *	[square2 release];
+ * [square1 release];
+ * [square2 release];
  *
- *	[container release];
- *	@endcode
+ * [container release];
+ * @endcode
  */
 - (NSArray *)objectsUnderPoint:(PXPoint *)point
 {

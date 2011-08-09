@@ -62,12 +62,12 @@
 }
 
 /**
- *	Determines whether or not the children of this object can be sent touch
- *	events.
+ * Determines whether or not the children of this object can be sent touch
+ * events.
  */
 @property (nonatomic, assign) BOOL touchChildren;
 /**
- *	The number of children for this display object container.
+ * The number of children for this display object container.
  */
 @property (readonly) unsigned short numChildren;
 

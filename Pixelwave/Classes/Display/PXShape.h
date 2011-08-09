@@ -50,7 +50,7 @@
 }
 
 /**
- *	The graphics object that belongs to the shape where vector drawing is done.
+ * The graphics object that belongs to the shape where vector drawing is done.
  */
 @property (nonatomic, readonly) PXGraphics *graphics;
 

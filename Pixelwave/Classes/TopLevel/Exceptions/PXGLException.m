@@ -40,10 +40,10 @@
 #import "PXGLException.h"
 
 /**
- *	@ingroup TopLevel
+ * @ingroup TopLevel
  *
- *	Represents an exception involving OpenGL. Examples include GPU out of memory
- *	and incomplete buffer exceptions.
+ * Represents an exception involving OpenGL. Examples include GPU out of memory
+ * and incomplete buffer exceptions.
  */
 @implementation PXGLException
 

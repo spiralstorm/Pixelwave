@@ -45,11 +45,11 @@
 // TODO: Oz, why are indicies passed in as signed integers?
 
 /**
- *	@ingroup TopLevel
+ * @ingroup TopLevel
  *
- *	Used to efficiently traverse the items in a linked list.
+ * Used to efficiently traverse the items in a linked list.
  *
- *	@code
+ * @code
  * PXLinkedList *list = ...
  * 
  * // It's essential that this variable be declared before the loop
@@ -57,9 +57,9 @@
  *
  * PXLinkedListForEach(list, item)
  * {
- *	NSLog("Item = %@", item);
+ * NSLog("Item = %@", item);
  * }
- *	@endcode
+ * @endcode
  */
 #define PXLinkedListForEach(_list_,_obj_) \
 		int PX_UNIQUE_VAR(_len_) = 0; \
@@ -76,12 +76,12 @@
 				++PX_UNIQUE_VAR(_i_), PX_UNIQUE_VAR(_node_) = PX_UNIQUE_VAR(_node_)->next, _obj_ = (PX_UNIQUE_VAR(_node_) ? PX_UNIQUE_VAR(_node_)->data : 0))
 
 /**
- *	@ingroup TopLevel
+ * @ingroup TopLevel
  *
- *	Used to efficiently traverse the items in a linked list from the end to the
- *	start.
+ * Used to efficiently traverse the items in a linked list from the end to the
+ * start.
  *
- *	@code
+ * @code
  * PXLinkedList *list = ...
  * 
  * // It's essential that this variable be declared before the loop
@@ -89,9 +89,9 @@
  *
  * PXLinkedListForEachReverse(list, item)
  * {
- *	NSLog("Item = %@", item);
+ * NSLog("Item = %@", item);
  * }
- *	@endcode
+ * @endcode
  */
 #define PXLinkedListForEachReverse(_list_,_obj_) \
 		int PX_UNIQUE_VAR(_len_) = 0; \
@@ -134,27 +134,27 @@ typedef struct _sPXLLNode
 }
 
 /**
- *	The number of items in the list.
+ * The number of items in the list.
  */
 @property (nonatomic, readonly) unsigned count;
 /**
- *	The first object in the list.
+ * The first object in the list.
  *
- *	<i><b>Complexity:</b> O(1)</i>
+ * <i><b>Complexity:</b> O(1)</i>
  */
 @property (nonatomic, readonly) PXGenericObject firstObject;
 /**
- *	The last object in the list.
+ * The last object in the list.
  *
- *	<i><b>Complexity:</b> O(1)</i>
+ * <i><b>Complexity:</b> O(1)</i>
  */
 @property (nonatomic, readonly) PXGenericObject lastObject;
 /**
- *	<code>YES</code> if the list does not retain its elements; otherwise
- *	<code>NO</code>.  Default value is <code>NO</code>, as it is advised to keep
- *	a retain on the added elements.
- *	
- *	@see PXLinkedList::initWithWeakReferences:
+ * <code>YES</code> if the list does not retain its elements; otherwise
+ * <code>NO</code>.  Default value is <code>NO</code>, as it is advised to keep
+ * a retain on the added elements.
+ * 
+ * @see PXLinkedList::initWithWeakReferences:
  */
 @property (nonatomic, readonly) BOOL weakReferences;
 

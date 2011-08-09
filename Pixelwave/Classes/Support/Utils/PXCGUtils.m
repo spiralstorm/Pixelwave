@@ -56,8 +56,8 @@ void _PXCGUtils_releaseDataProvider(void *info,
 
 /**
  * @param pixels	An array of colors, will be taken full control of by this
- *					function. The data within the array must be in RGBA8888
- *					format.
+ * 				function. The data within the array must be in RGBA8888
+ * 				format.
  * @param w
  * @param h
  * @param bytesPerPixel

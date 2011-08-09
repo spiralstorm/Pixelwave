@@ -95,19 +95,19 @@
 }
 
 /**
- *	A list of all the PXTextureData objects associated
- *	with the texture atlas. The list is a collection of all
- *	the unique texture datas references within the frames
- *	of the texture atlas.
+ * A list of all the PXTextureData objects associated
+ * with the texture atlas. The list is a collection of all
+ * the unique texture datas references within the frames
+ * of the texture atlas.
  */
 @property (nonatomic, readonly) NSArray *textureDatas;
 /**
- *	A list of the names (NSString objects) of all the frames within the
- *	texture atlas.
+ * A list of the names (NSString objects) of all the frames within the
+ * texture atlas.
  */
 @property (nonatomic, readonly) NSArray *allNames;
 /**
- *	A list of all the frames (PXTextureAtlas objects) within the texture atlas.
+ * A list of all the frames (PXTextureAtlas objects) within the texture atlas.
  */
 @property (nonatomic, readonly) NSArray *allFrames;
 

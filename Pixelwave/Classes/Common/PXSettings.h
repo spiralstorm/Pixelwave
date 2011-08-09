@@ -43,7 +43,7 @@
 #include "PXHeaderUtils.h"
 
 /*
- *	Global properties that can be tweaked / read by the user.
+ * Global properties that can be tweaked / read by the user.
  */
 
 ////////////////

@@ -44,26 +44,26 @@
 typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
 
 /**
- *	@ingroup Utils
+ * @ingroup Utils
  *
- *	Quickly generates a PXEventListener object for a given method
- *	signature.
- *	assumes that the method exists within the current class (<code>self</code>)
+ * Quickly generates a PXEventListener object for a given method
+ * signature.
+ * assumes that the method exists within the current class (<code>self</code>)
  *
- *	<b>Example:</b><br>
- *		In this example the method <code>onTouch:</code> is assigned as a
- *		listener to the stage's <code>touchDown</code> event
- *	@code
- *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
- *	//...
- *	- (void) onTouchDown:(PXTouchEvent *)event
- *	{
- *		// handle event
- *	}
- *	@endcode
+ * <b>Example:</b><br>
+ * 	In this example the method <code>onTouch:</code> is assigned as a
+ * 	listener to the stage's <code>touchDown</code> event
+ * @code
+ * [self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
+ * //...
+ * - (void) onTouchDown:(PXTouchEvent *)event
+ * {
+ * 	// handle event
+ * }
+ * @endcode
  *
- *	@param methodSignature a valid method signature
- *	@see PXEventDispatcher#addEventListenerOfType:listener:
+ * @param methodSignature a valid method signature
+ * @see PXEventDispatcher#addEventListenerOfType:listener:
  */
 #define PXListener(_selector_) [[[PXEventListener alloc] initWithTarget:self selector:@selector(_selector_)] autorelease]
 

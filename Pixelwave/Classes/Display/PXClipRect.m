@@ -124,7 +124,7 @@
 //
 
 /*
- *	Turn the raw data into actual vertices that a PXTexture can use
+ * Turn the raw data into actual vertices that a PXTexture can use
  */
 - (void) _validate
 {

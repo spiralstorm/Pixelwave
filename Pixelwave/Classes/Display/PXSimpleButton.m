@@ -56,23 +56,23 @@
 /// @endcond
 
 /**
- *	@ingroup Display
+ * @ingroup Display
  *
- *	A PXSimpleButton object represents a button with an up, down and hit test
- *	state.  If no hit test state is specified, then the current visible state
- *	serves as the hit area for the button.
+ * A PXSimpleButton object represents a button with an up, down and hit test
+ * state.  If no hit test state is specified, then the current visible state
+ * serves as the hit area for the button.
  *
- *	The following code creates a button with an up and down texture for its
- *	states:
- *	@code
- *	PXTexture *upTex = [PXTexture textureWithTextureData:[PXTextureData textureDataWithContentsOfFile:@"upPic.png"]];
- *	PXTexture *downTex = [PXTexture textureWithTextureData:[PXTextureData textureDataWithContentsOfFile:@"downPic.png"]];
+ * The following code creates a button with an up and down texture for its
+ * states:
+ * @code
+ * PXTexture *upTex = [PXTexture textureWithTextureData:[PXTextureData textureDataWithContentsOfFile:@"upPic.png"]];
+ * PXTexture *downTex = [PXTexture textureWithTextureData:[PXTextureData textureDataWithContentsOfFile:@"downPic.png"]];
  *
- *	PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upTex downState:downTex hitTestState:nil];
- *	@endcode
+ * PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upTex downState:downTex hitTestState:nil];
+ * @endcode
  *
- *	@see PXTexture
- *	@see PXTextureData
+ * @see PXTexture
+ * @see PXTextureData
  */
 @implementation PXSimpleButton
 
@@ -87,47 +87,47 @@
 }
 
 /**
- *	Creates a button with specified up, down and hit test states. The states
- *	retain count also gets increased by 1, so that the button has a strong
- *	reference to it.
+ * Creates a button with specified up, down and hit test states. The states
+ * retain count also gets increased by 1, so that the button has a strong
+ * reference to it.
  *
- *	@param upState
- *		A PXDisplayObject that specifies the visual up state for the button.
- *	@param downState
- *		A PXDisplayObject that specifies the visual down state for the button.
- *	@param hitTestState
- *		A PXDisplayObject that specifies the hit area for the button.  If
- *		<code>nil</code> is specified then no interaction can exist on this
- *		button.
+ * @param upState
+ * 	A PXDisplayObject that specifies the visual up state for the button.
+ * @param downState
+ * 	A PXDisplayObject that specifies the visual down state for the button.
+ * @param hitTestState
+ * 	A PXDisplayObject that specifies the hit area for the button.  If
+ * 	<code>nil</code> is specified then no interaction can exist on this
+ * 	button.
  *
- *	@b Example:
- *	@code
- *	PXShape *upState = [PXShape new];
- *	PXShape *downState = [PXShape new];
+ * @b Example:
+ * @code
+ * PXShape *upState = [PXShape new];
+ * PXShape *downState = [PXShape new];
  *
- *	[upState.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[upState.graphics drawRectWithX:100 y:100 width:20 height:15];
- *	[upState.graphics endFill];
- *	// draws a red rectangle at (100, 100) with a size of (20, 15)
+ * [upState.graphics beginFill:0xFF0000 alpha:1.0f];
+ * [upState.graphics drawRectWithX:100 y:100 width:20 height:15];
+ * [upState.graphics endFill];
+ * // draws a red rectangle at (100, 100) with a size of (20, 15)
  *
- *	[downState.graphics beginFill:0x0000FF alpha:1.0f];
- *	[downState.graphics drawRectWithX:105 y:105 width:15 height:10];
- *	[downState.graphics endFill];
- *	// draws a blue rectangle at (105, 105) with a size of (15, 10)
+ * [downState.graphics beginFill:0x0000FF alpha:1.0f];
+ * [downState.graphics drawRectWithX:105 y:105 width:15 height:10];
+ * [downState.graphics endFill];
+ * // draws a blue rectangle at (105, 105) with a size of (15, 10)
  *
- *	PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upState downState:downState hitTestState:nil];
- *	// Creates a button that is red with a hit-area at (100, 100) with size
- *	// (20, 15) when not pressed (up state), when it is pressed (down state) it
- *	// is blue with a hit area at (105, 105) with size (15, 10).
+ * PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upState downState:downState hitTestState:nil];
+ * // Creates a button that is red with a hit-area at (100, 100) with size
+ * // (20, 15) when not pressed (up state), when it is pressed (down state) it
+ * // is blue with a hit area at (105, 105) with size (15, 10).
  *
- *	[button addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(methodForListeningToDownState:)];
- *	[button addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(methodForListeningToUpState:)];
- *	// Adding events to the button will allow you to listen in on interaction.
- *	@endcode
+ * [button addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(methodForListeningToDownState:)];
+ * [button addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(methodForListeningToUpState:)];
+ * // Adding events to the button will allow you to listen in on interaction.
+ * @endcode
  *
- *	@see PXShape
- *	@see PXGraphics
- *	@see PXTouchEvent
+ * @see PXShape
+ * @see PXGraphics
+ * @see PXTouchEvent
  */
 - (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState hitTestState:(PXDisplayObject *)_hitTestState
 {
@@ -281,43 +281,43 @@
 }
 
 /**
- *	Creates a button with specified up, down and hit test states. The button
- *	holds a strong refernece to the states, so you can release them after
- *	setting them.
+ * Creates a button with specified up, down and hit test states. The button
+ * holds a strong refernece to the states, so you can release them after
+ * setting them.
  *
- *	@param upState
- *		A PXDisplayObject that specifies the visual up state for the button.
- *	@param downState
- *		A PXDisplayObject that specifies the visual down state for the button.
- *	@param hitTestState
- *		A PXDisplayObject that specifies the hit area for the button.  If
- *		<code>nil</code> is specified then no interaction can exist on this
- *		button.
+ * @param upState
+ * 	A PXDisplayObject that specifies the visual up state for the button.
+ * @param downState
+ * 	A PXDisplayObject that specifies the visual down state for the button.
+ * @param hitTestState
+ * 	A PXDisplayObject that specifies the hit area for the button.  If
+ * 	<code>nil</code> is specified then no interaction can exist on this
+ * 	button.
  *
- *	@b Example:
- *	@code
- *	PXShape *upState = [PXShape new];
- *	PXShape *downState = [PXShape new];
+ * @b Example:
+ * @code
+ * PXShape *upState = [PXShape new];
+ * PXShape *downState = [PXShape new];
  *
- *	[upState.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[upState.graphics drawRectWithX:100 y:100 width:20 height:15];
- *	[upState.graphics endFill];
- *	// draws a red rectangle at (100, 100) with a size of (20, 15)
+ * [upState.graphics beginFill:0xFF0000 alpha:1.0f];
+ * [upState.graphics drawRectWithX:100 y:100 width:20 height:15];
+ * [upState.graphics endFill];
+ * // draws a red rectangle at (100, 100) with a size of (20, 15)
  *
- *	[downState.graphics beginFill:0x0000FF alpha:1.0f];
- *	[downState.graphics drawRectWithX:105 y:105 width:15 height:10];
- *	[downState.graphics endFill];
- *	// draws a blue rectangle at (105, 105) with a size of (15, 10)
+ * [downState.graphics beginFill:0x0000FF alpha:1.0f];
+ * [downState.graphics drawRectWithX:105 y:105 width:15 height:10];
+ * [downState.graphics endFill];
+ * // draws a blue rectangle at (105, 105) with a size of (15, 10)
  *
- *	PXSimpleButton *button = [PXSimpleButton simpleButtonWithUpState:upState downState:downState hitTestState:nil];
- *	// Creates a button that is red with a hit-area at (100, 100) with size
- *	// (20, 15) when not pressed (up state), when it is pressed (down state) it
- *	// is blue with a hit area at (105, 105) with size (15, 10).
+ * PXSimpleButton *button = [PXSimpleButton simpleButtonWithUpState:upState downState:downState hitTestState:nil];
+ * // Creates a button that is red with a hit-area at (100, 100) with size
+ * // (20, 15) when not pressed (up state), when it is pressed (down state) it
+ * // is blue with a hit area at (105, 105) with size (15, 10).
  *
- *	[button addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(methodForListeningToDownState:)];
- *	[button addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(methodForListeningToUpState:)];
- *	// Adding events to the button will allow you to listen in on interaction.
- *	@endcode
+ * [button addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(methodForListeningToDownState:)];
+ * [button addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(methodForListeningToUpState:)];
+ * // Adding events to the button will allow you to listen in on interaction.
+ * @endcode
  */
 + (PXSimpleButton *)simpleButtonWithUpState:(PXDisplayObject *)upState
 								  downState:(PXDisplayObject *)downState

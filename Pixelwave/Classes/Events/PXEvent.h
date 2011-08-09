@@ -108,18 +108,18 @@ typedef enum
 }
 
 /**
- *	Describes whether the event participates in the bubbling phase of the event
- *	flow.
+ * Describes whether the event participates in the bubbling phase of the event
+ * flow.
  */
 @property (nonatomic, readonly) BOOL bubbles;
 /**
- *	Describes whether the behavior represented by the event may be canceled. If
- *	<code>YES</code>, PXEvent#preventDefault: may be used.
- *	@see PXEvent#preventDefault:
+ * Describes whether the behavior represented by the event may be canceled. If
+ * <code>YES</code>, PXEvent#preventDefault: may be used.
+ * @see PXEvent#preventDefault:
  */
 @property (nonatomic, readonly) BOOL cancelable;
 /**
- *	The node in the event flow currently processing the event.
+ * The node in the event flow currently processing the event.
  */
 @property (nonatomic, readonly) PXGenericObject currentTarget;
 /**
@@ -127,12 +127,12 @@ typedef enum
  */
 @property (nonatomic, readonly) PXGenericObject target;
 /**
- *	A string representing the type of the event
+ * A string representing the type of the event
  */
 @property (nonatomic, readonly) NSString *type;
 /**
- *	The event in which the event is currently participating
- *	@see PXEventPhase
+ * The event in which the event is currently participating
+ * @see PXEventPhase
  */
 @property (nonatomic, readonly) PXEventPhase eventPhase;
 

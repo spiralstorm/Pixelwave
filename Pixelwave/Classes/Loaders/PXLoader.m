@@ -44,16 +44,16 @@
 #import "PXDebug.h"
 
 /**
- *	@ingroup Loaders
+ * @ingroup Loaders
  *
- *	A PXLoader is a base loader class that lays out the foundation for each
- *	different type of loader.
+ * A PXLoader is a base loader class that lays out the foundation for each
+ * different type of loader.
  *
  */
 
 /*	Internal Docs:
- *	The loaders have a very simple job. A loader loads raw data and passes it to
- *	the appropriate parser to actually return a usable object.
+ * The loaders have a very simple job. A loader loads raw data and passes it to
+ * the appropriate parser to actually return a usable object.
  */
 @implementation PXLoader
 
@@ -73,13 +73,13 @@
 }
 
 /**
- *	Creates a new loader object containing the loaded information as data.
- *	Returns <code>nil</code> if the file could not be found, or the file type
- *	isn't supported.
+ * Creates a new loader object containing the loaded information as data.
+ * Returns <code>nil</code> if the file could not be found, or the file type
+ * isn't supported.
  *
- *	@param filePath
- *		The path of the file to load. The file path may be absolute or relative
- *		to the application bundle.
+ * @param filePath
+ * 	The path of the file to load. The file path may be absolute or relative
+ * 	to the application bundle.
  */
 - (id) initWithContentsOfFile:(NSString *)path
 {
@@ -87,12 +87,12 @@
 }
 
 /**
- *	Creates a new loader object containing the loaded information as data.
- *	Returns <code>nil</code> if the file could not be found, or the file type
- *	isn't supported.
+ * Creates a new loader object containing the loaded information as data.
+ * Returns <code>nil</code> if the file could not be found, or the file type
+ * isn't supported.
  *
- *	@param url
- *		The url of the file to load.
+ * @param url
+ * 	The url of the file to load.
  */
 - (id) initWithContentsOfURL:(NSURL *)url
 {
@@ -192,14 +192,14 @@
 #pragma mark Static Methods(Public)
 
 /**
- *	Creates the absolute path from the relative path given. If the path is
- *	already absolute, then it is just returned back.
+ * Creates the absolute path from the relative path given. If the path is
+ * already absolute, then it is just returned back.
  *
- *	@param path
- *		The relative path.
+ * @param path
+ * 	The relative path.
  *
- *	@return
- *		The absolute path.
+ * @return
+ * 	The absolute path.
  */
 + (NSString *)absolutePathFromPath:(NSString *)path
 {
@@ -233,7 +233,7 @@
 }
 
 /**
- *	Looks for a sibling of the current file, with the given name.
+ * Looks for a sibling of the current file, with the given name.
  */
 + (NSString *)pathForSiblingOfFile:(NSString *)path withName:(NSString *)fileName
 {
@@ -241,8 +241,8 @@
 }
 
 /**
- *	Looks for a sibling of the current file, with the same name but a different
- *	extension.
+ * Looks for a sibling of the current file, with the same name but a different
+ * extension.
  */
 + (NSString *)pathForSiblingOfFile:(NSString *)path withExtension:(NSString *)extension;
 {
@@ -290,14 +290,14 @@
 }
 
 /**
- *	Tries to find a file at the given path with the given base name and one of
- *	the provided extensions.
- *	
- *	@param basePath The directory in which the file is to be found
- *	@param baseName The name of the file to be found not including its extension
- *	@param extensions Valid extensions to match against the files in basePath
+ * Tries to find a file at the given path with the given base name and one of
+ * the provided extensions.
+ * 
+ * @param basePath The directory in which the file is to be found
+ * @param baseName The name of the file to be found not including its extension
+ * @param extensions Valid extensions to match against the files in basePath
  *
- *	@return The path to the found file or nil if one couldn't be found.
+ * @return The path to the found file or nil if one couldn't be found.
  */
 + (NSString *)findFileAtPath:(NSString *)basePath withBaseName:(NSString *)baseName validExtensions:(NSArray *)extensions
 {

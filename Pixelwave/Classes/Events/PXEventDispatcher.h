@@ -49,49 +49,49 @@
 ///////////////////////////////
 
 /**
- *	@ingroup Events
+ * @ingroup Events
  *
- *	The protocol from which the PXEventDispatcher is derived. Implement this
- *	protocol when your class cannot extend the PXEventDispatcher class. The
- *	implementing class should simply create a private PXEventDispatcher object
- *	and pass along all method invocations to it.
+ * The protocol from which the PXEventDispatcher is derived. Implement this
+ * protocol when your class cannot extend the PXEventDispatcher class. The
+ * implementing class should simply create a private PXEventDispatcher object
+ * and pass along all method invocations to it.
  *
- *	@b Example:
- *	<br/>
- *	We want to create a subclass of <code>SomeOtherClass</code> and we want it
- *	to have event dispatching capabilities. The easy thing to do would be to
- *	have our class extend PXEventDispatcher. But since it already extends from
- *	<code>SomeOtherClass</code> we need a different solution. The solution is
- *	to implement the PXEventDispatcher protocol, since one class can implement
- *	any number of protocols but only inherit from a single class. Here's what
- *	our class would need to do to support the PXEventDispatcher protocol:
+ * @b Example:
+ * <br/>
+ * We want to create a subclass of <code>SomeOtherClass</code> and we want it
+ * to have event dispatching capabilities. The easy thing to do would be to
+ * have our class extend PXEventDispatcher. But since it already extends from
+ * <code>SomeOtherClass</code> we need a different solution. The solution is
+ * to implement the PXEventDispatcher protocol, since one class can implement
+ * any number of protocols but only inherit from a single class. Here's what
+ * our class would need to do to support the PXEventDispatcher protocol:
  
- *	@i Header:
- *	@code
+ * @i Header:
+ * @code
  * #import "SomeOtherClass.h"
  * #import "PXEventDispatcher.h"
- *	
+ * 
  * @interface MyEventDispatchingClass : SomeOtherClass <PXEventDispatcher>
- *	{
+ * {
  * @private
- *	PXEventDispatcher *eventDispatcher;
+ * PXEventDispatcher *eventDispatcher;
  * }
- *	
+ * 
  * @end 
- *	@endcode
+ * @endcode
  
- *	@i Implementation:
- *	@code
+ * @i Implementation:
+ * @code
  * #import "MyEventDispatchingClass.h"
- *	 
+ *  
  * @implementation MyEventDispatchingClass
- *	
+ * 
  * - (id) init
  * {
- *	self = [super init];
+ * self = [super init];
  *
- *	if (self)
- *	{
+ * if (self)
+ * {
  * 		eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];
  * 	}
  *
@@ -103,7 +103,7 @@
  * 	[eventDispatcher release];
  * 	eventDispatcher = nil;
  *
- *	[super dealloc];
+ * [super dealloc];
  * }
  *
  * // Implementation of protocol methods. They just pass the parameters to the
@@ -114,14 +114,14 @@
  *                      useCapture:(BOOL)useCapture
  *                        priority:(int)priority
  * {
- *	return [eventDispatcher addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
+ * return [eventDispatcher addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
  * }
  *
  * - (BOOL) removeEventListenerOfType:(NSString *)type
  *                           listener:(PXEventListener *)listener
  *                         useCapture:(BOOL)useCapture
  * {
- *	return [eventDispatcher removeEventListenerOfType:type listener:listener useCapture:useCapture];
+ * return [eventDispatcher removeEventListenerOfType:type listener:listener useCapture:useCapture];
  * }
  *
  * - (BOOL) dispatchEvent:(PXEvent *)event
@@ -139,9 +139,9 @@
  * }
  *
  * @end 
- *	@endcode
+ * @endcode
  *
- *	@see PXEventDispatcher
+ * @see PXEventDispatcher
  */
 @protocol PXEventDispatcher<NSObject>
 @required
@@ -190,9 +190,9 @@
 }
 
 /**
- *	Assign <code>YES</code> if this event dispatcher should dispatch events.
+ * Assign <code>YES</code> if this event dispatcher should dispatch events.
  *
- *	@b Default: <code>YES</code>
+ * @b Default: <code>YES</code>
  */
 @property (nonatomic, assign) BOOL dispatchEvents;
 

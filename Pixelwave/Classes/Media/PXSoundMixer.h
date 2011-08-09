@@ -41,11 +41,11 @@
 @class PXSoundListener;
 
 /**
- *	@ingroup Media
+ * @ingroup Media
  *
- *	Specifies the distance model used when rendering 3D sounds to the speakers.
- *	
- *	@see PXSoundMixer#setDistanceModel:
+ * Specifies the distance model used when rendering 3D sounds to the speakers.
+ * 
+ * @see PXSoundMixer#setDistanceModel:
  */
 typedef enum
 {

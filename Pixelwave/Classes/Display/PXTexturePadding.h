@@ -68,23 +68,23 @@ extern "C" {
 }
 
 /**
- *	The amount of padding (in points) to be added to
- *	the top side of the texture;
+ * The amount of padding (in points) to be added to
+ * the top side of the texture;
  */
 @property (nonatomic, assign) float top;
 /**
- *	The amount of padding (in points) to be added to
- *	the right side of the texture;
+ * The amount of padding (in points) to be added to
+ * the right side of the texture;
  */
 @property (nonatomic, assign) float right;
 /**
- *	The amount of padding (in points) to be added to
- *	the bottom side of the texture;
+ * The amount of padding (in points) to be added to
+ * the bottom side of the texture;
  */
 @property (nonatomic, assign) float bottom;
 /**
- *	The amount of padding (in points) to be added to
- *	the left side of the texture;
+ * The amount of padding (in points) to be added to
+ * the left side of the texture;
  */
 @property (nonatomic, assign) float left;
 
