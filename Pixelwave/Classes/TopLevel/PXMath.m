@@ -119,7 +119,7 @@
  * Useful in cases where a reproducible set of psuedo-random numbers is
  * required.
  *
- * @param unsigned int value - The new seed value.
+ * @param value - The new seed value.
  */
 + (void) seedRandomWithValue:(unsigned)value
 {

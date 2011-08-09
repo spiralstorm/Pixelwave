@@ -61,18 +61,13 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
 /**
  * Creates a stage orientation event.
  *
- * @param type
- * 	A string representing the type of the event.
- * @param bubbles
- * 	Describes whether the event participates in the bubbling phase of the
- * 	event flow.
- * @param cancelable
- * 	Describes whether the behavior represented by the event may be canceled.
- * 	If <code>YES</code>, [PXEvent preventDefault:] may be used.
- * @param beforeOrientation
- * 	The old orientation of the stage.
- * @param afterOrientation
- * 	The new orientation of the stage.
+ * @param type A string representing the type of the event.
+ * @param bubbles Describes whether the event participates in the bubbling phase of the
+ * event flow.
+ * @param cancelable Describes whether the behavior represented by the event may be canceled.
+ * If <code>YES</code>, [PXEvent preventDefault:] may be used.
+ * @param beforeOrientation The old orientation of the stage.
+ * @param afterOrientation The new orientation of the stage.
  */
 - (id) initWithType:(NSString *)type
 		 bubbles:(BOOL)bubbles
@@ -123,11 +118,9 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
 /**
  * Converts an orientation into it's string representation.
  *
- * @param orientation
- * 	The orientation
+ * @param orientation The orientation
  *
- * @return
- * 	The string representation of the orientation.
+ * @return The string representation of the orientation.
  *
  * @b Example:
  * @code

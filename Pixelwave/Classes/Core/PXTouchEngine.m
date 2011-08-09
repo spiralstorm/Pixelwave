@@ -67,7 +67,7 @@ void PXTouchEngineDealloc()
  * reverse order, looking for the most immediate target of a touch event, and
  * then traverses up the display hierarchy until it finds an interactive object
  * for which touches are enabled.
- * 	- Bekenn, Pixelwave forums
+ * - Bekenn, Pixelwave forums
  *
  * Returns the displayObject that should recieve the event (could be nil)
  */

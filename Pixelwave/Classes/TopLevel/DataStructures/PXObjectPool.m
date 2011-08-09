@@ -109,8 +109,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
  * releaseObject: method instead of calling <code>[NSObject release]</code> on
  * it directly.
  *
- * @param typeClass
- * 	The class from which an instance should be created
+ * @param typeClass The class from which an instance should be created
  * @return A pooled instantiated object of the given class.
  *
  * @see releaseObject:

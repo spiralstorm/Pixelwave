@@ -87,8 +87,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  * Uses default values <code>bubbling = NO</code> and
  * <code>cancelable = NO</code>.
  *
- * @param type
- * 	A string representing the type of the event
+ * @param type A string representing the type of the event
  */
 - (id) initWithType:(NSString *)type
 {
@@ -99,13 +98,10 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  * Makes a new event with the given properties. These properties may not change
  * after the event object is created.
  *
- * @param type
- * 	A string representing the type of the event
- * @param bubbles
- * 	Whether the event should participate in the bubbling phase of the event
- * 	flow.
- * @param cancelable
- * 	Whether the behavior described by the event can be canceled by the user.
+ * @param type A string representing the type of the event
+ * @param bubbles Whether the event should participate in the bubbling phase of the event
+ * flow.
+ * @param cancelable Whether the behavior described by the event can be canceled by the user.
  */
 - (id) initWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable
 {
@@ -255,8 +251,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  * Uses default values <code>bubbling = NO</code> and
  * <code>cancelable = NO</code>.
  *
- * @param type
- * 	A string representing the type of the event
+ * @param type A string representing the type of the event
  */
 - (PXEvent *)eventWithType:(NSString *)type
 {
@@ -267,13 +262,10 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  * Makes a event with the given properties. These properties may not change
  * after the event object is created.
  *
- * @param type
- * 	A string representing the type of the event
- * @param bubbles
- * 	Whether the event should participate in the bubbling phase of the event
- * 	flow.
- * @param cancelable
- * 	Whether the behavior described by the event can be canceled by the user.
+ * @param type A string representing the type of the event
+ * @param bubbles Whether the event should participate in the bubbling phase of the event
+ * flow.
+ * @param cancelable Whether the behavior described by the event can be canceled by the user.
  */
 - (PXEvent *)eventWithType:(NSString *)type bubbles:(BOOL) bubbles cancelable:(BOOL) cancelable
 {

@@ -260,11 +260,9 @@
 /**
  * Adds a child to the display list, increasing its retain count by 1.
  *
- * @param child
- * 	The object to be added.
+ * @param child The object to be added.
  *
- * @return
- * 	The display object passed by the child parameter.
+ * @return The display object passed by the child parameter.
  *
  * @b Example:
  * @code
@@ -298,13 +296,10 @@
  * Adds a child to the display list at the specified index, increasing its
  * retain count by 1.
  *
- * @param child
- * 	The object to be added.
- * @param index
- * 	The index.
+ * @param child The object to be added.
+ * @param index The index.
  *
- * @return
- * 	The display object passed by the child parameter.
+ * @return The display object passed by the child parameter.
  *
  * @b Example:
  * @code
@@ -489,8 +484,7 @@
  * <code>PXArgumentException</code> is thrown.  All of the other children move
  * down a position to fill the gap left by the removed child.
  *
- * @param PXDisplayObject
- * 	The child to be removed.
+ * @param PXDisplayObject The child to be removed.
  *
  * @b Example:
  * @code
@@ -531,8 +525,7 @@
  * <code>PXRangeException</code> is thrown.  All of the other children move
  * down a position to fill the gap left by the removed child.
  *
- * @param index
- * 	The index of the child to be removed.
+ * @param index The index of the child to be removed.
  *
  * @b Example:
  * @code
@@ -568,11 +561,9 @@
  * Determines whether the specified object is a child of this container or any
  * of its children.
  *
- * @param child
- * 	The child to be checked.
+ * @param child The child to be checked.
  *
- * @return
- * 	YES if the specified child is a decendant of this container.
+ * @return YES if the specified child is a decendant of this container.
  *
  * @b Example:
  * @code
@@ -616,11 +607,10 @@
  * part of this container, then <code>-1</code> is returned instead and a
  * <code>PXArgumentException</code> is thrown.
  *
- * @param child
- * 	The child in question.
+ * @param child The child in question.
  *
  * @return index
- * 	The index of the child.
+ * The index of the child.
  *
  * @b Example:
  * @code
@@ -676,11 +666,9 @@
  * index, then <code>nil</code> is returned instead.  If the index is out of
  * bounds then a <code>PXRangeException</code> is thrown.
  *
- * @param index
- * 	The index.
+ * @param index The index.
  *
- * @return
- * 	The child at the specified index.
+ * @return The child at the specified index.
  *
  * @b Example:
  * @code
@@ -724,11 +712,9 @@
  * Retrieves the child with the specified name.  If no child was found with the
  * specified name, then <code>nil</code> is returned instead.
  *
- * @param name
- * 	The case sensitive name of the child.
+ * @param name The case sensitive name of the child.
  *
- * @return
- * 	The child with the specified name.
+ * @return The child with the specified name.
  *
  * @b Example:
  * @code
@@ -772,10 +758,8 @@
  * If the index is higher than the number of children, then the object is moved
  * to the last index.
  *
- * @param index
- * 	New index of the child.
- * @param child
- * 	Child to be repositioned.
+ * @param index New index of the child.
+ * @param child Child to be repositioned.
  *
  * @b Example:
  * @code
@@ -850,10 +834,8 @@
  * Swaps the two children's position, all other children remain in the position
  * they were at prior to the swap taking place.
  *
- * @param child1
- * 	The first child.
- * @param child2
- * 	The second child.
+ * @param child1 The first child.
+ * @param child2 The second child.
  *
  * @b Example:
  * @code
@@ -974,9 +956,9 @@
  * instead.
  *
  * @param
- * 	index1 Index of the first child.
+ * index1 Index of the first child.
  * @param
- * 	index2 Index of the second child.
+ * index2 Index of the second child.
  *
  * @b Example:
  * @code
@@ -991,8 +973,8 @@
  * @endcode
  *
  * @exception
- * 	PXArgumentException Throws if either child parameter is not a child of
- * 	this object.
+ * PXArgumentException Throws if either child parameter is not a child of
+ * this object.
  */
 - (void) swapChildAtIndex:(int)index1 withChildAtIndex:(int)index2
 {
@@ -1052,7 +1034,7 @@
  * the point.
  *
  * @param
- * 	The point to check for objects under in global coordinates.
+ * The point to check for objects under in global coordinates.
  *
  * @b Example:
  * @code

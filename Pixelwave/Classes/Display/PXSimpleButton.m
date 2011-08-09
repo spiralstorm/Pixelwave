@@ -87,14 +87,11 @@
  * retain count also gets increased by 1, so that the button has a strong
  * reference to it.
  *
- * @param upState
- * 	A PXDisplayObject that specifies the visual up state for the button.
- * @param downState
- * 	A PXDisplayObject that specifies the visual down state for the button.
- * @param hitTestState
- * 	A PXDisplayObject that specifies the hit area for the button.  If
- * 	<code>nil</code> is specified then no interaction can exist on this
- * 	button.
+ * @param upState A PXDisplayObject that specifies the visual up state for the button.
+ * @param downState A PXDisplayObject that specifies the visual down state for the button.
+ * @param hitTestState A PXDisplayObject that specifies the hit area for the button.  If
+ * <code>nil</code> is specified then no interaction can exist on this
+ * button.
  *
  * @b Example:
  * @code
@@ -281,14 +278,11 @@
  * holds a strong refernece to the states, so you can release them after
  * setting them.
  *
- * @param upState
- * 	A PXDisplayObject that specifies the visual up state for the button.
- * @param downState
- * 	A PXDisplayObject that specifies the visual down state for the button.
- * @param hitTestState
- * 	A PXDisplayObject that specifies the hit area for the button.  If
- * 	<code>nil</code> is specified then no interaction can exist on this
- * 	button.
+ * @param upState A PXDisplayObject that specifies the visual up state for the button.
+ * @param downState A PXDisplayObject that specifies the visual down state for the button.
+ * @param hitTestState A PXDisplayObject that specifies the hit area for the button.  If
+ * <code>nil</code> is specified then no interaction can exist on this
+ * button.
  *
  * @b Example:
  * @code

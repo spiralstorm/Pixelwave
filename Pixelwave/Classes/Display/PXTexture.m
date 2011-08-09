@@ -85,8 +85,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 /**
  * Creates a texture that represents the specified texture data.
  *
- * @param texture
- * 	The texture data that this texture represents.
+ * @param texture The texture data that this texture represents.
  *
  * @b Example:
  * @code
@@ -174,18 +173,12 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 /**
  * Sets the clip area and anchor point in one call.
  *
- * @param x
- * 	The left position of the clip rectangle in points.
- * @param y
- * 	The top position of the clip rectangle in points.
- * @param width
- * 	The width of the clip rectangle in points.
- * @param height
- * 	The height of the clip rectangle in points.
- * @param anchorX
- * 	The horizontal anchor position, in percent.
- * @param anchorY
- * 	The vertical anchor position, in percent.
+ * @param x The left position of the clip rectangle in points.
+ * @param y The top position of the clip rectangle in points.
+ * @param width The width of the clip rectangle in points.
+ * @param height The height of the clip rectangle in points.
+ * @param anchorX The horizontal anchor position, in percent.
+ * @param anchorY The vertical anchor position, in percent.
  *
  * @b Example:
  * @code
@@ -357,10 +350,8 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  * coordinates the anchor would be at (16, 32) in local point coordinates.  The
  * anchor position is what the texture will rotate and position itself around.
  *
- * @param x
- * 	The horizontal anchor position, in percent where 0.0f <= x <= 1.0f.
- * @param y
- * 	The vertical anchor position, in percent where 0.0f <= y <= 1.0f.
+ * @param x The horizontal anchor position, in percent where 0.0f <= x <= 1.0f.
+ * @param y The vertical anchor position, in percent where 0.0f <= y <= 1.0f.
  *
  * @b Example:
  * @code
@@ -387,10 +378,8 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  * Sets anchor position in points, relative to the current textureData.
  * If #textureData is <code>nil</code>, this method call is ignored.
  *
- * @param x
- * 	The horizontal anchor position in points, within the textureData.
- * @param y
- * 	The vertical anchor position in points, within the textureData.
+ * @param x The horizontal anchor position in points, within the textureData.
+ * @param y The vertical anchor position in points, within the textureData.
  *
  * @b Example:
  * @code

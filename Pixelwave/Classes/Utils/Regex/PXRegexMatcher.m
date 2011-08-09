@@ -65,9 +65,9 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  *
  * [matcher release];
@@ -96,10 +96,8 @@
 /**
  * Creates a new regex matcher that matches the given pattern to the string.
  *
- * @param pattern
- * 	The regex pattern.
- * @param string
- * 	The string to parse.
+ * @param pattern The regex pattern.
+ * @param string The string to parse.
  *
  * @b Example:
  * @code
@@ -112,9 +110,9 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  *
  * [matcher release];
@@ -245,9 +243,9 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  *
  * // Restarts the matcher so we can print the results again!
@@ -256,9 +254,9 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  * @endcode
  */
@@ -272,8 +270,7 @@
 /**
  * Finds the next match.
  *
- * @return
- * 	<code>YES</code> if a match was found; otherwise <code>NO<\code>.
+ * @return <code>YES</code> if a match was found; otherwise <code>NO<\code>.
  *
  * @b Example:
  * @code
@@ -283,9 +280,9 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  * @endcode
  */
@@ -344,12 +341,10 @@
 /**
  * Resets the matcher back to the start value given, then finds the next match.
  *
- * @param start
- * 	The character position to start the search. If any value less then 0 is
- * 	given, we use the current position instead.
+ * @param start The character position to start the search. If any value less then 0 is
+ * given, we use the current position instead.
  *
- * @return
- * 	<code>YES</code> if a match was found; otherwise <code>NO<\code>.
+ * @return <code>YES</code> if a match was found; otherwise <code>NO<\code>.
  *
  * @b Example:
  * @code
@@ -359,17 +354,17 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  *
  * // Send 0 this time, so we can grab our results again.
  * if ([matcher nextFromIndex:0])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  * @endcode
  */
@@ -419,8 +414,7 @@
  * Finds the start of the fist group (match at group 0 is always the whole
  * line).
  *
- * @return
- * 	The starting character position of the match.
+ * @return The starting character position of the match.
  *
  * @b Example:
  * @code
@@ -437,15 +431,15 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	start = [matcher start];
- * 	end = [matcher end];
+ * start = [matcher start];
+ * end = [matcher end];
  *
- * 	curLength = end - start;
- * 	char matchedString[curLength + 1];
- * 	memcpy(matchedString, utf8String, curLength);
- * 	matchedString[curLength + 1] = '\0';
+ * curLength = end - start;
+ * char matchedString[curLength + 1];
+ * memcpy(matchedString, utf8String, curLength);
+ * matchedString[curLength + 1] = '\0';
  *
- * 	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
  * }
  * @endcode
  */
@@ -458,11 +452,9 @@
  * Finds the start of the indexed group (match at group 0 is always the whole
  * line).
  *
- * @param index
- * 	The index of the group you wish to retrieve information about.
+ * @param index The index of the group you wish to retrieve information about.
  *
- * @return
- * 	The starting character position of the match.
+ * @return The starting character position of the match.
  *
  * @b Example:
  * @code
@@ -479,15 +471,15 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	start = [matcher startOfGroupAtIndex:1];
- * 	end = [matcher endOfGroupAtIndex:1];
+ * start = [matcher startOfGroupAtIndex:1];
+ * end = [matcher endOfGroupAtIndex:1];
  *
- * 	curLength = end - start;
- * 	char matchedString[curLength + 1];
- * 	memcpy(matchedString, utf8String, curLength);
- * 	matchedString[curLength + 1] = '\0';
+ * curLength = end - start;
+ * char matchedString[curLength + 1];
+ * memcpy(matchedString, utf8String, curLength);
+ * matchedString[curLength + 1] = '\0';
  *
- * 	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
+ * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
  * }
  * @endcode
  */
@@ -508,8 +500,7 @@
 /**
  * Finds the end of the fist group (match at group 0 is always the whole line).
  *
- * @return
- * 	The ending character position of the match.
+ * @return The ending character position of the match.
  *
  * @b Example:
  * @code
@@ -526,15 +517,15 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	start = [matcher start];
- * 	end = [matcher end];
+ * start = [matcher start];
+ * end = [matcher end];
  *
- * 	curLength = end - start;
- * 	char matchedString[curLength + 1];
- * 	memcpy(matchedString, utf8String + start, curLength);
- * 	matchedString[curLength + 1] = '\0';
+ * curLength = end - start;
+ * char matchedString[curLength + 1];
+ * memcpy(matchedString, utf8String + start, curLength);
+ * matchedString[curLength + 1] = '\0';
  *
- * 	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
  * }
  * @endcode
  */
@@ -547,11 +538,9 @@
  * Finds the end of the indexed group (match at group 0 is always the whole
  * line).
  *
- * @param index
- * 	The index of the group you wish to retrieve information about.
+ * @param index The index of the group you wish to retrieve information about.
  *
- * @return
- * 	The ending character position of the match.
+ * @return The ending character position of the match.
  *
  * @b Example:
  * @code
@@ -568,15 +557,15 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	start = [matcher startOfGroupAtIndex:1];
- * 	end = [matcher endOfGroupAtIndex:1];
+ * start = [matcher startOfGroupAtIndex:1];
+ * end = [matcher endOfGroupAtIndex:1];
  *
- * 	curLength = end - start;
- * 	char matchedString[curLength + 1];
- * 	memcpy(matchedString, utf8String + start, curLength);
- * 	matchedString[curLength + 1] = '\0';
+ * curLength = end - start;
+ * char matchedString[curLength + 1];
+ * memcpy(matchedString, utf8String + start, curLength);
+ * matchedString[curLength + 1] = '\0';
  *
- * 	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
+ * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
  * }
  * @endcode
  */
@@ -598,11 +587,9 @@
  * Finds the range of the fist group (match at group 0 is always the whole
  * line).
  *
- * @param index
- * 	The index of the group you wish to retrieve information about.
+ * @param index The index of the group you wish to retrieve information about.
  *
- * @return
- * 	The range of the characters in the match.
+ * @return The range of the characters in the match.
  *
  * @b Example:
  * @code
@@ -617,13 +604,13 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	range = [matcher range];
+ * range = [matcher range];
  *
- * 	char matchedString[range.length + 1];
- * 	memcpy(matchedString, utf8String + range.location, range.length);
- * 	matchedString[curLength + 1] = '\0';
+ * char matchedString[range.length + 1];
+ * memcpy(matchedString, utf8String + range.location, range.length);
+ * matchedString[curLength + 1] = '\0';
  *
- * 	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
  * }
  * @endcode
  */
@@ -635,8 +622,7 @@
  * Finds the range of the indexed group (match at group 0 is always the whole
  * line).
  *
- * @return
- * 	The range of the characters in the match.
+ * @return The range of the characters in the match.
  *
  * @b Example:
  * @code
@@ -651,13 +637,13 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	range = [matcher rangeOfGroupAtIndex:1];
+ * range = [matcher rangeOfGroupAtIndex:1];
  *
- * 	char matchedString[range.length + 1];
- * 	memcpy(matchedString, utf8String + range.location, range.length);
- * 	matchedString[curLength + 1] = '\0';
+ * char matchedString[range.length + 1];
+ * memcpy(matchedString, utf8String + range.location, range.length);
+ * matchedString[curLength + 1] = '\0';
  *
- * 	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
+ * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
  * }
  * @endcode
  */
@@ -683,8 +669,7 @@
 /**
  * Returns the first group that the matcher has found.
  *
- * @return
- * 	The first group.
+ * @return The first group.
  *
  * @b Example:
  * @code
@@ -694,7 +679,7 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher group]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher group]); // @"person name:Steve age:56"
  * }
  * @endcode
  */
@@ -705,11 +690,9 @@
 /**
  * Returns the group at <code>index</code> that the matcher has found.
  *
- * @param index
- * 	The index of the group you wish to receieve.
- * 	
- * @return
- * 	The group at <code>index</code>.
+ * @param index The index of the group you wish to receieve.
+ * 
+ * @return The group at <code>index</code>.
  *
  * @b Example:
  * @code
@@ -719,9 +702,9 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  * @endcode
  */
@@ -767,13 +750,10 @@
  * then matches it to the string. It uses the default regex flags
  * <code>(PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine)</code>
  *
- * @param regex
- * 	The regex string to be converted into a pattern.
- * @param string
- * 	The string to parse.
+ * @param regex The regex string to be converted into a pattern.
+ * @param string The string to parse.
  *
- * @return
- * 	The resulting, <code>autoreleased</code>, PXRegexMatcher object.
+ * @return The resulting, <code>autoreleased</code>, PXRegexMatcher object.
  *
  * @b Example:
  * @code
@@ -783,9 +763,9 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  *
  * @endcode
@@ -801,15 +781,11 @@
  * Creates a regex matcher, that creates a pattern with the regex string, and
  * then matches it to the string. It uses given flags.
  *
- * @param regex
- * 	The regex string to be converted into a pattern.
- * @param string
- * 	The string to parse.
- * @param flags
- * 	The flags explaining how to compile the regex.
+ * @param regex The regex string to be converted into a pattern.
+ * @param string The string to parse.
+ * @param flags The flags explaining how to compile the regex.
  *
- * @return
- * 	The resulting, <code>autoreleased</code>, PXRegexMatcher object.
+ * @return The resulting, <code>autoreleased</code>, PXRegexMatcher object.
  *
  * @b Example:
  * @code
@@ -820,9 +796,9 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  *
  * @endcode

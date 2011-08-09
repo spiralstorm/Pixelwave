@@ -71,12 +71,9 @@
 /**
  * Creates a new vector at (x, y, z).
  *
- * @param x
- * 	The horizontal coordinate.
- * @param y
- * 	The vertical coordinate.
- * @param z
- * 	The depth coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
+ * @param z The depth coordinate.
  *
  * @b Example:
  * @code
@@ -92,14 +89,10 @@
 /**
  * Creates a new vector at (x, y, z) with rotation w.
  *
- * @param x
- * 	The horizontal coordinate.
- * @param y
- * 	The vertical coordinate.
- * @param z
- * 	The depth coordinate.
- * @param w
- * 	The angle of rotation.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
+ * @param z The depth coordinate.
+ * @param w The angle of rotation.
  *
  * @b Example:
  * @code
@@ -159,12 +152,9 @@
 /**
  * Sets the vector to (x, y, z).
  *
- * @param x
- * 	The horizontal coordinate.
- * @param y
- * 	The vertical coordinate.
- * @param z
- * 	The depth coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
+ * @param z The depth coordinate.
  *
  * @b Example:
  * @code
@@ -181,14 +171,10 @@
 /**
  * Sets the vector to (x, y, z) with rotation w.
  *
- * @param x
- * 	The horizontal coordinate.
- * @param y
- * 	The vertical coordinate.
- * @param z
- * 	The depth coordinate.
- * @param w
- * 	The angle of rotation.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
+ * @param z The depth coordinate.
+ * @param w The angle of rotation.
  *
  * @b Example:
  * @code
@@ -212,11 +198,9 @@
  * Adds the values of the given vector to the corresponding values of this
  * vector to create a new vector.
  *
- * @param vector
- * 	The vector to be added.
+ * @param vector The vector to be added.
  *
- * @return
- * 	The created vector.
+ * @return The created vector.
  *
  * @b Example:
  * @code
@@ -243,11 +227,9 @@
  * Subtracts the values of the given vector to the corresponding values of this
  * vector to create a new vector.
  *
- * @param vector
- * 	The vector to be added.
+ * @param vector The vector to be added.
  *
- * @return
- * 	The created vector.
+ * @return The created vector.
  *
  * @b Example:
  * @code
@@ -274,11 +256,9 @@
  * Creates a vector that is perpendicular to the current vector and the given
  * vector.
  *
- * @param vector
- * 	The other vector.
+ * @param vector The other vector.
  *
- * @return
- * 	The created vector.
+ * @return The created vector.
  *
  * @b Example:
  * @code
@@ -303,8 +283,7 @@
  * Subtracts the values of this vector by the corresponding values of the given
  * vector.
  *
- * @param vector
- * 	The vector to use for subtraction.
+ * @param vector The vector to use for subtraction.
  *
  * @b Example:
  * @code
@@ -325,8 +304,7 @@
  * Subtracts the values of this vector by the corresponding values of the given
  * vector.
  *
- * @param vector
- * 	The vector to use for subtraction.
+ * @param vector The vector to use for subtraction.
  *
  * @b Example:
  * @code
@@ -344,11 +322,9 @@
 /**
  * Check to see if this vector is equal to another.
  *
- * @param vector
- * 	The vector for checking.
- * @param allFour
- * 	If <code>YES</code> then w is also used in the test, otherwise just x, y
- * 	and z are used.
+ * @param vector The vector for checking.
+ * @param allFour If <code>YES</code> then w is also used in the test, otherwise just x, y
+ * and z are used.
  *
  * @b Example:
  * @code
@@ -381,8 +357,7 @@
  * Adds the values of this vector by the corresponding values of the given
  * vector.
  *
- * @param vector
- * 	The vector to use for addition.
+ * @param vector The vector to use for addition.
  *
  * @b Example:
  * @code
@@ -403,13 +378,10 @@
  * Check to see if each of this vector's values are within a tolerance range of
  * another
  *
- * @param vector
- * 	The vector for checking.
- * @param tolerance
- * 	The tolerance for the check.
- * @param allFour
- * 	If <code>YES</code> then w is also used in the test, otherwise just x, y
- * 	and z are used.
+ * @param vector The vector for checking.
+ * @param tolerance The tolerance for the check.
+ * @param allFour If <code>YES</code> then w is also used in the test, otherwise just x, y
+ * and z are used.
  *
  * @b Example:
  * @code
@@ -459,8 +431,7 @@
 /**
  * Normalizes the x, y and z values of the vector.
  *
- * @return
- * 	The length of the vector.
+ * @return The length of the vector.
  *
  * @b Example:
  * @code
@@ -530,13 +501,10 @@
 /**
  * Calculates the angle (in radians) between the two given vectors.
  *
- * @param vectorA
- * 	The first vector.
- * @param vectorB
- * 	The second vector.
+ * @param vectorA The first vector.
+ * @param vectorB The second vector.
  *
- * @return
- * 	The angle in radians between the two vectors.
+ * @return The angle in radians between the two vectors.
  *
  * @b Example:
  * @code
@@ -565,13 +533,10 @@
 /**
  * Calculates the distance between the two given vectors.
  *
- * @param vectorA
- * 	The first vector.
- * @param vectorB
- * 	The second vector.
+ * @param vectorA The first vector.
+ * @param vectorB The second vector.
  *
- * @return
- * 	The distance between the two vectors.
+ * @return The distance between the two vectors.
  *
  * @b Example:
  * @code
@@ -589,13 +554,10 @@
 /**
  * Calculates the squared distance between the two given vectors.
  *
- * @param vectorA
- * 	The first vector.
- * @param vectorB
- * 	The second vector.
+ * @param vectorA The first vector.
+ * @param vectorB The second vector.
  *
- * @return
- * 	The squared distance between the two vectors.
+ * @return The squared distance between the two vectors.
  *
  * @b Example:
  * @code
@@ -617,15 +579,11 @@
 /**
  * Creates a vector at (x, y, z).
  *
- * @param x
- * 	The horizontal coordinate.
- * @param y
- * 	The vertical coordinate.
- * @param z
- * 	The depth coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
+ * @param z The depth coordinate.
  *
- * @return
- * 	The created vector.
+ * @return The created vector.
  *
  * @b Example:
  * @code
@@ -640,17 +598,12 @@
 /**
  * Creates a new vector at (x, y, z) with rotation w.
  *
- * @param x
- * 	The horizontal coordinate.
- * @param y
- * 	The vertical coordinate.
- * @param z
- * 	The depth coordinate.
- * @param w
- * 	The angle of rotation.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
+ * @param z The depth coordinate.
+ * @param w The angle of rotation.
  *
- * @return
- * 	The created vector.
+ * @return The created vector.
  *
  * @b Example:
  * @code

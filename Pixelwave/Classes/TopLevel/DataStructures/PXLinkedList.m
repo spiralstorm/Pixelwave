@@ -82,8 +82,8 @@ _PXLLNode pxLinkedListBadNode;
  * - Adding and removing objects to and from the ends of the list
  * - Adding and removing objects to and from the middle of the list
  * - Looping through the list <i>(And much more so when using
- * 	<code>#PXLinkedListForEach</code> or its counterpart
- * 	<code>#PXLinkedListForEachReverse</code>)</i>
+ * <code>#PXLinkedListForEach</code> or its counterpart
+ * <code>#PXLinkedListForEachReverse</code>)</i>
  *
  * <br/>
  * <b>Iterating through a linked list</b>
@@ -164,9 +164,8 @@ _PXLLNode pxLinkedListBadNode;
  * [linkedList initWithWeakReferences:NO usePooledNodes:pooledNodes]
  * @endcode
  *
- * @param pooledNodes
- * 	Whether or not too use pooled nodes internally. <b>It's	recommended that
- * 	this value always be set to	<code>YES</code></b>.
+ * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's	recommended that
+ * this value always be set to	<code>YES</code></b>.
  *
  * @b Example:
  * @code
@@ -189,11 +188,10 @@ _PXLLNode pxLinkedListBadNode;
  * [linkedList initWithWeakReferences:weakReferences usePooledNodes:YES]
  * @endcode
  *
- * @param weakReferences
- * 	<code>YES</code> if the list should not retain added elements;
- * 	<code>NO</code> if it should. Setting this to <code>YES</code> is only
- * 	useful in very rare circumstances and should be used with caution. The
- * 	default value is <code>NO</code>.
+ * @param weakReferences <code>YES</code> if the list should not retain added elements;
+ * <code>NO</code> if it should. Setting this to <code>YES</code> is only
+ * useful in very rare circumstances and should be used with caution. The
+ * default value is <code>NO</code>.
  *
  * @b Example:
  * @code
@@ -211,14 +209,12 @@ _PXLLNode pxLinkedListBadNode;
  * Creates a new linked list that uses pooled nodes if specified and only
  * retains added objects if <code>weakReferences</code> is set to NO.
  *
- * @param weakReferences
- * 	<code>YES</code> if the list should not retain added elements;
- * 	<code>NO</code> if it should. Setting this to <code>YES</code> is only
- * 	useful in very rare circumstances and should be used with caution. The
- * 	default value is <code>NO</code>.
- * @param pooledNodes
- * 	Whether or not too use pooled nodes internally. <b>It's	recommended that
- * 	this value always be set to	<code>YES</code></b>.
+ * @param weakReferences <code>YES</code> if the list should not retain added elements;
+ * <code>NO</code> if it should. Setting this to <code>YES</code> is only
+ * useful in very rare circumstances and should be used with caution. The
+ * default value is <code>NO</code>.
+ * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's	recommended that
+ * this value always be set to	<code>YES</code></b>.
  *
  * @b Example:
  * @code
@@ -395,12 +391,10 @@ _PXLLNode pxLinkedListBadNode;
  *
  * <i><b>Complexity:</b> O(n)</i>
  *
- * @param index
- * 	The index from which to look up the return object. Must be a value
- * 	between <code>0</code> and <code>count - 1</code>
+ * @param index The index from which to look up the return object. Must be a value
+ * between <code>0</code> and <code>count - 1</code>
  *
- * @return
- * 	The object at the specified index.
+ * @return The object at the specified index.
  *
  * @b Example:
  * @code
@@ -449,12 +443,10 @@ _PXLLNode pxLinkedListBadNode;
  *
  * <i><b>Complexity:</b> O(n)</i>
  *
- * @param object
- * 	The object for which to check existence in the list.
+ * @param object The object for which to check existence in the list.
  *
- * @return
- * 	<code>YES</code> If the object exists in the list; otherwise
- * 	<code>NO</code>.
+ * @return <code>YES</code> If the object exists in the list; otherwise
+ * <code>NO</code>.
  *
  * @b Example:
  * @code
@@ -493,12 +485,10 @@ _PXLLNode pxLinkedListBadNode;
  *
  * <i><b>Complexity:</b> O(n)</i>
  *
- * @param object
- * 	The object for which to check existence in the list.
+ * @param object The object for which to check existence in the list.
  *
- * @return
- * 	If the object is contained in the list, its index; otherwise
- * 	<code>-1</code>.
+ * @return If the object is contained in the list, its index; otherwise
+ * <code>-1</code>.
  *
  * @b Example:
  * @code
@@ -565,8 +555,7 @@ _PXLLNode pxLinkedListBadNode;
  *
  * <i><b>Complexity:</b> O(1)</i>
  * 
- * @param object
- * 	The object to add to the end of the list.
+ * @param object The object to add to the end of the list.
  * @b Example:
  * @code
  * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
@@ -613,9 +602,8 @@ _PXLLNode pxLinkedListBadNode;
  *
  * <i><b>Complexity:</b> O(1)</i>
  *
- * @param object
- * 	The object to add to the front of the list. Must be a descendant of the
- * 	<code>NSObject</code> class.
+ * @param object The object to add to the front of the list. Must be a descendant of the
+ * <code>NSObject</code> class.
  * <br><br>
  *
  * @b Example:
@@ -678,11 +666,9 @@ _PXLLNode pxLinkedListBadNode;
  *
  * <i><b>Complexity:</b> O(n)</i>
  *
- * @param object
- * 	The object to add to the front of the. Must be a descendant of the
- * 	<code>NSObject</code> class.
- * @param index
- * 	The index to add the object to. Must be a value between 0 and count.
+ * @param object The object to add to the front of the. Must be a descendant of the
+ * <code>NSObject</code> class.
+ * @param index The index to add the object to. Must be a value between 0 and count.
  *
  * @b Example:
  * @code
@@ -994,8 +980,7 @@ _PXLLNode pxLinkedListBadNode;
  *
  * <i><b>Complexity:</b> O(n)</i>
  *
- * @param object
- * 	The object to remove from the list.
+ * @param object The object to remove from the list.
  *
  * @b Example:
  * @code
@@ -1070,9 +1055,8 @@ _PXLLNode pxLinkedListBadNode;
  * 
  * <i><b>Complexity:</b> O(n)</i>
  * 
- * @param index
- * 	The index from which to remove the object. <code>index</code> must be
- * 	be a value between 0 and count - 1
+ * @param index The index from which to remove the object. <code>index</code> must be
+ * be a value between 0 and count - 1
  *
  * @b Example:
  * @code
@@ -1416,10 +1400,8 @@ _PXLLNode pxLinkedListBadNode;
  * Swaps the location of two objects in the list.  If either of the parameters
  * aren't contained in the list, a PXArgumentException is thrown.
  * 
- * @param object1
- * 	The object to swap with <code>object2</code>
- * @param object2
- * 	The object to swap with <code>object1</code>
+ * @param object1 The object to swap with <code>object2</code>
+ * @param object2 The object to swap with <code>object1</code>
  *
  * @b Example:
  * @code
@@ -1460,12 +1442,10 @@ _PXLLNode pxLinkedListBadNode;
  * either of the parameters aren't contained in the list, or are out of bounds,
  * a PXArgumentException is thrown.
  * 
- * @param index1
- * 	The index of the object to swap with the object at <code>index2</code>.
- * 	Must be a value between <code>0</code> and <code>count - 1</code>.
- * @param index2
- * 	The index of the object to swap with the object at <code>index1</code>.
- * 	Must be a value between <code>0</code> and <code>count - 1</code>.
+ * @param index1 The index of the object to swap with the object at <code>index2</code>.
+ * Must be a value between <code>0</code> and <code>count - 1</code>.
+ * @param index2 The index of the object to swap with the object at <code>index1</code>.
+ * Must be a value between <code>0</code> and <code>count - 1</code>.
  *
  * @b Example:
  * @code
@@ -1582,9 +1562,8 @@ _PXLLNode pxLinkedListBadNode;
  *
  * <i><b>Complexity:</b> O(n)</i>
  *
- * @return
- * 	A C array containing pointers to all of the objects in the list.
- * 	returns 0 if the list is empty.
+ * @return A C array containing pointers to all of the objects in the list.
+ * returns 0 if the list is empty.
  *
  * Example:
  * @code
@@ -1595,7 +1574,7 @@ _PXLLNode pxLinkedListBadNode;
  *
  * for (int i = 0; i < len; ++i)
  * {
- * 	NSLog(@"%W", cArray[i];
+ * NSLog(@"%W", cArray[i];
  * }
  *
  * free(cArray);
@@ -1658,12 +1637,10 @@ _PXLLNode pxLinkedListBadNode;
 /**
  * Creates a linked list with strong references.
  *
- * @param pooledNodes
- * 	Whether or not too use pooled nodes internally. <b>It's	recommended that
- * 	this value always be set to	<code>YES</code></b>.
+ * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's	recommended that
+ * this value always be set to	<code>YES</code></b>.
  *
- * @return
- * 	The created linked list.
+ * @return The created linked list.
  *
  * @b Example:
  * @code
@@ -1681,14 +1658,12 @@ _PXLLNode pxLinkedListBadNode;
 /**
  * Creates a linked list without using pooled nodes.
  *
- * @param weakReferences
- * 	<code>YES</code> if the list should not retain added elements;
- * 	<code>NO</code> if it should. Setting this to <code>YES</code> is only
- * 	useful in very rare circumstances and should be used with caution. The
- * 	default value is <code>NO</code>.
+ * @param weakReferences <code>YES</code> if the list should not retain added elements;
+ * <code>NO</code> if it should. Setting this to <code>YES</code> is only
+ * useful in very rare circumstances and should be used with caution. The
+ * default value is <code>NO</code>.
  *
- * @return
- * 	The created linked list.
+ * @return The created linked list.
  *
  * @b Example:
  * @code
@@ -1704,17 +1679,14 @@ _PXLLNode pxLinkedListBadNode;
 /**
  * Creates a linked list.
  *
- * @param pooledNodes
- * 	Whether or not too use pooled nodes internally. <b>It's	recommended that
- * 	this value always be set to	<code>YES</code></b>.
- * @param weakReferences
- * 	<code>YES</code> if the list should not retain added elements;
- * 	<code>NO</code> if it should. Setting this to <code>YES</code> is only
- * 	useful in very rare circumstances and should be used with caution. The
- * 	default value is <code>NO</code>.
+ * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's	recommended that
+ * this value always be set to	<code>YES</code></b>.
+ * @param weakReferences <code>YES</code> if the list should not retain added elements;
+ * <code>NO</code> if it should. Setting this to <code>YES</code> is only
+ * useful in very rare circumstances and should be used with caution. The
+ * default value is <code>NO</code>.
  *
- * @return
- * 	The created linked list.
+ * @return The created linked list.
  *
  * @b Example:
  * @code

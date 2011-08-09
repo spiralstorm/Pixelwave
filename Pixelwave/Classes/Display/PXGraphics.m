@@ -213,12 +213,10 @@ typedef enum
  * this call, and before <code>endFill</code> will be filled in with the
  * specified color and alpha.
  *
- * @param color
- * 	The color for the fill in hex form ranging from 0x000000 for black, and
- * 	0xFFFFFF for white.
- * @param alpha
- * 	The alpha channel for the color ranging between 0.0f for invisible to
- * 	1.0f for full visibility.
+ * @param color The color for the fill in hex form ranging from 0x000000 for black, and
+ * 0xFFFFFF for white.
+ * @param alpha The alpha channel for the color ranging between 0.0f for invisible to
+ * 1.0f for full visibility.
  *
  * @b Example:
  * @code

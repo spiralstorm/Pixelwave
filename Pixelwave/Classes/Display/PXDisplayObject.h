@@ -119,8 +119,8 @@ typedef enum
  * who wants to associate a display object with something else.
  *
  * Note:	If you free/delete/release the pointer then to set this variable to
- * 		<code>NULL</code> again, this way the rest of your application knows
- * 		that it no longer exists.
+ * 	<code>NULL</code> again, this way the rest of your application knows
+ * 	that it no longer exists.
  *
  * @b Default: <code>NULL</code>
  */

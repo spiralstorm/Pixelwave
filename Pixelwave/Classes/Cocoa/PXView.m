@@ -97,8 +97,7 @@
 @synthesize colorQuality;
 
 /**
- * @param frame
- * 	The size of the newly created view.
+ * @param frame The size of the newly created view.
  */
 - (id) initWithFrame:(CGRect)frame
 {
@@ -107,12 +106,10 @@
 }
 
 /**
- * @param frame
- * 	The size of the newly created view.
- * @param colorQuality
- * 	The quality to use for the underlying OpenGL rendering surface. This
- * 	value must be one of the possible values defined in PXViewColorQuality.
- * 	The default value is PXViewColorQuality_Medium.
+ * @param frame The size of the newly created view.
+ * @param colorQuality The quality to use for the underlying OpenGL rendering surface. This
+ * value must be one of the possible values defined in PXViewColorQuality.
+ * The default value is PXViewColorQuality_Medium.
  */
 - (id) initWithFrame:(CGRect)frame colorQuality:(PXViewColorQuality)_colorQuality
 {
@@ -122,12 +119,10 @@
 }
 
 /**
- * @param frame
- * 	The size of the newly created view.
- * @param contentScaleFactor
- * 	The multiplier value by which the contents of the view should be scaled.
- * 	This value usually corresponds to the contentScaleFactor of the device.
- * 	Pass 0.0 to use the default	value.
+ * @param frame The size of the newly created view.
+ * @param contentScaleFactor The multiplier value by which the contents of the view should be scaled.
+ * This value usually corresponds to the contentScaleFactor of the device.
+ * Pass 0.0 to use the default	value.
  */
 - (id) initWithFrame:(CGRect)frame contentScaleFactor:(float)_contentScaleFactor
 {
@@ -137,16 +132,13 @@
 }
 
 /**
- * @param frame
- * 	The size of the newly created view.
- * @param contentScaleFactor
- * 	The multiplier value by which the contents of the view should be scaled.
- * 	This value usually corresponds to the contentScaleFactor of the device.
- * 	Pass 0.0 to use the default	value.
- * @param colorQuality
- * 	The quality to use for the underlying OpenGL rendering surface. This
- * 	value must be one of the possible values defined in PXViewColorQuality.
- * 	The default value is PXViewColorQuality_Medium.
+ * @param frame The size of the newly created view.
+ * @param contentScaleFactor The multiplier value by which the contents of the view should be scaled.
+ * This value usually corresponds to the contentScaleFactor of the device.
+ * Pass 0.0 to use the default	value.
+ * @param colorQuality The quality to use for the underlying OpenGL rendering surface. This
+ * value must be one of the possible values defined in PXViewColorQuality.
+ * The default value is PXViewColorQuality_Medium.
  *
  * @see PXViewColorQuality
  */
@@ -519,8 +511,7 @@
 /**
  * Sets the root display object of the Pixelwave engine.
  *
- * @param root
- * 	The new root display object.
+ * @param root The new root display object.
  */
 - (void) setRoot:(PXDisplayObject *)root
 {

@@ -49,14 +49,14 @@ typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
  * assumes that the method exists within the current class (<code>self</code>)
  *
  * <b>Example:</b><br>
- * 	In this example the method <code>onTouch:</code> is assigned as a
- * 	listener to the stage's <code>touchDown</code> event
+ * In this example the method <code>onTouch:</code> is assigned as a
+ * listener to the stage's <code>touchDown</code> event
  * @code
  * [self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
  * //...
  * - (void) onTouchDown:(PXTouchEvent *)event
  * {
- * 	// handle event
+ * // handle event
  * }
  * @endcode
  *

@@ -69,9 +69,9 @@
  * // If there are lots of potential matches, a while loop should be used.
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  *
  * [matcher release];
@@ -96,11 +96,9 @@
 /**
  * Creates a new regex pattern.
  *
- * @param pattern
- * 	The regex to compile. If regex is not <code>nil</code> then it
- * 	immediately compiles the regex.
- * @param flags
- * 	The flags explaining how to compile the regex.
+ * @param pattern The regex to compile. If regex is not <code>nil</code> then it
+ * immediately compiles the regex.
+ * @param flags The flags explaining how to compile the regex.
  *
  * @b Example:
  * @code
@@ -111,9 +109,9 @@
  *
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  *
  * [matcher release];
@@ -312,8 +310,7 @@
  * Creates a new PXRegexMatcher object without specifying the input string to
  * match.
  *
- * @return
- * 	The new PXRegexMatcher object.
+ * @return The new PXRegexMatcher object.
  */
 - (PXRegexMatcher *)matcher
 {
@@ -324,11 +321,9 @@
  * Creates a new PXRegexMatcher object containing all information needed to
  * match your strings with the compiled regex.
  *
- * @param string
- * 	The string to find matches for.
+ * @param string The string to find matches for.
  *
- * @return
- * 	The new PXRegexMatcher object.
+ * @return The new PXRegexMatcher object.
  */
 - (PXRegexMatcher *)matcherWithInput:(NSString *)input
 {
@@ -343,12 +338,10 @@
  * Creates a regex pattern with the default flags
  * <code>(PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine)</code>
  *
- * @param pattern
- * 	The regex to compile. If regex is not <code>nil</code> then it
- * 	immediately compiles the regex.
+ * @param pattern The regex to compile. If regex is not <code>nil</code> then it
+ * immediately compiles the regex.
  *
- * @return
- * 	The resulting, <code>autoreleased</code>, PXRegexPattern object.
+ * @return The resulting, <code>autoreleased</code>, PXRegexPattern object.
  *
  * @b Example:
  * @code
@@ -357,9 +350,9 @@
  *
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  *
  * [matcher release];
@@ -374,14 +367,11 @@
 /**
  * Creates a regex pattern.
  *
- * @param pattern
- * 	The regex to compile. If regex is not <code>nil</code> then it
- * 	immediately compiles the regex.
- * @param flags
- * 	The flags explaining how to compile the regex.
+ * @param pattern The regex to compile. If regex is not <code>nil</code> then it
+ * immediately compiles the regex.
+ * @param flags The flags explaining how to compile the regex.
  *
- * @return
- * 	The resulting, <code>autoreleased</code>, PXRegexPattern object.
+ * @return The resulting, <code>autoreleased</code>, PXRegexPattern object.
  *
  * @b Example:
  * @code
@@ -391,9 +381,9 @@
  *
  * if ([matcher next])
  * {
- * 	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * 	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * 	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  * }
  *
  * [matcher release];

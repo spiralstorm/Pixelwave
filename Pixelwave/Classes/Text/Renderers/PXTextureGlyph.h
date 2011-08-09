@@ -65,9 +65,9 @@
  * of the advance.
  *
  * Note:	These values are in PIXELS and pixelwave uses POINTS for its
- * 		coordinate system. Thus, prior to displaying on the screen, you must
- * 		convert each of these values to POINTS. This can be done by dividing
- * 		each of the values by the contentScaleFactor you are using. 
+ * 	coordinate system. Thus, prior to displaying on the screen, you must
+ * 	convert each of these values to POINTS. This can be done by dividing
+ * 	each of the values by the contentScaleFactor you are using. 
  */
 @property (nonatomic) CGPoint advance;
 
@@ -77,9 +77,9 @@
  * consume the size of (bounds.size.width, bounds.size.height).
  * 
  * Note:	These values are in PIXELS and pixelwave uses POINTS for its
- * 		coordinate system. Thus, prior to displaying on the screen, you must
- * 		convert each of these values to POINTS. This can be done by dividing
- * 		each of the values by the contentScaleFactor you are using. 
+ * 	coordinate system. Thus, prior to displaying on the screen, you must
+ * 	convert each of these values to POINTS. This can be done by dividing
+ * 	each of the values by the contentScaleFactor you are using. 
  */
 @property (nonatomic) CGRect bounds;
 

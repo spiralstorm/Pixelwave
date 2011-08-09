@@ -49,15 +49,15 @@
  * @code
  * @try
  * {
- * 	... Execute Pixelwave code
+ * ... Execute Pixelwave code
  * }
  * @catch (PXException *e)
  * {
- * 	... Handle Pixelwave exception
+ * ... Handle Pixelwave exception
  * }
  * @finally
  * {
- * 	...
+ * ...
  * }
  * @endcode
  */
@@ -66,8 +66,7 @@
 /**
  * Creates a Pixelwave based exception.
  *
- * @param reason
- * 	A human-readable message string summarizing the reason for the exception
+ * @param reason A human-readable message string summarizing the reason for the exception
  */
 - (id) initWithReason:(NSString *)_reason
 {
@@ -77,11 +76,9 @@
 /**
  * Creates a Pixelwave based exception.
  *
- * @param reason
- * 	A human-readable message string summarizing the reason for the exception
- * @param userInfo
- * 	A dictionary containing user-defined information relating to the
- * 	exception
+ * @param reason A human-readable message string summarizing the reason for the exception
+ * @param userInfo A dictionary containing user-defined information relating to the
+ * exception
  */
 - (id) initWithReason:(NSString *)_reason userInfo:(NSDictionary *)_userInfo
 {

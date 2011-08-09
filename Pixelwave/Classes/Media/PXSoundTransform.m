@@ -64,10 +64,8 @@
  * Creates a new sound transform with the given <code>volume</code> and
  * <code>pitch</code>.
  *
- * @param volume
- * 	The amplitude of the sound.
- * @param pitch
- * 	The frequency of the sound.
+ * @param volume The amplitude of the sound.
+ * @param pitch The frequency of the sound.
  *
  * @b Example:
  * @code
@@ -117,13 +115,10 @@
  * Creates a sound transform with the given <code>volume</code> and
  * <code>pitch</code>.
  *
- * @param volume
- * 	The amplitude of the sound.
- * @param pitch
- * 	The frequency of the sound.
+ * @param volume The amplitude of the sound.
+ * @param pitch The frequency of the sound.
  *
- * @return
- * 	The created sound transform.
+ * @return The created sound transform.
  *
  * @b Example:
  * @code

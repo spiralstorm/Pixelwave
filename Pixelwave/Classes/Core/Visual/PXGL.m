@@ -844,14 +844,11 @@ void PXGLDisableClientState(GLenum array)
  * parameter specified as pname.  target defines the target texture, which must
  * be GL_TEXTURE_2D.
  *
- * @param GLenum target
- * 	Specifies the target texture, which must be GL_TEXTURE_2D.
- * @param GLenum pname
- * 	Specifies the symbolic name of a single-valued texture parameter. Which
- * 	can be one of the following: GL_TEXTURE_MIN_FILTER,
- * 	GL_TEXTURE_MAG_FILTER, GL_TEXTURE_WRAP_S, or GL_TEXTURE_WRAP_T.
- * @param GLint param
- * 	Specifies the value of pname.
+ * @param GLenum target Specifies the target texture, which must be GL_TEXTURE_2D.
+ * @param GLenum pname Specifies the symbolic name of a single-valued texture parameter. Which
+ * can be one of the following: GL_TEXTURE_MIN_FILTER,
+ * GL_TEXTURE_MAG_FILTER, GL_TEXTURE_WRAP_S, or GL_TEXTURE_WRAP_T.
+ * @param GLint param Specifies the value of pname.
  */
 void PXGLTexParameteri(GLenum target, GLenum pname, GLint param)
 {

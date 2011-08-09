@@ -67,8 +67,7 @@
 /**
  * Changes the pitch and volume of every sound.
  *
- * @param soundTransform
- * 	The sound transform to set.
+ * @param soundTransform The sound transform to set.
  *
  * @b Example:
  * @code
@@ -87,8 +86,7 @@
 /**
  * Returns the global sound transform.
  *
- * @return
- * 	The global sound transform.
+ * @return The global sound transform.
  *
  * @b Example:
  * @code
@@ -105,8 +103,7 @@
 /**
  * Returns the global sound listener.
  *
- * @return
- * 	The global sound listener.
+ * @return The global sound listener.
  *
  * @b Example:
  * @code
@@ -121,8 +118,7 @@
 /**
  * Sets the speed of sound, this is useful for the doppler effect.
  *
- * @param speedOfSound
- * 	The speed of sound.
+ * @param speedOfSound The speed of sound.
  *
  * @b Example:
  * @code
@@ -137,8 +133,7 @@
 /**
  * Returns the speed of sound.
  *
- * @return
- * 	The speed of sound.
+ * @return The speed of sound.
  *
  * @b Example:
  * @code
@@ -158,8 +153,7 @@
  * options available are either <code>PXSoundMixerDistanceModel_Linear</code>
  * or <code>PXSoundMixerDistanceModel_Logarithmic</code>.
  *
- * @param distanceModel
- * 	The distance model.
+ * @param distanceModel The distance model.
  *
  * @b Example:
  * @code
@@ -184,8 +178,7 @@
  * The distance model is how the volume of a sound changes depending on how far
  * it is from the <code>PXSoundListener</code>.
  *
- * @return
- * 	The distance model.
+ * @return The distance model.
  *
  * @b Example:
  * @code

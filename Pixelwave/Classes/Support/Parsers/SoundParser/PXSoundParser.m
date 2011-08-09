@@ -79,14 +79,11 @@
  * to play the sound. This version also stores the origin, in case you
  * need/want it.
  *
- * @param data
- * 	The loaded data.
- * @param modifier
- * 	A modifier is used to modify the loaded bytes, a backup is kept so can
- * 	set the property to <code>nil</code> after getting a new sound, and
- * 	still have your previously loaded data.
- * @param origin
- * 	The origin of the font.
+ * @param data The loaded data.
+ * @param modifier A modifier is used to modify the loaded bytes, a backup is kept so can
+ * set the property to <code>nil</code> after getting a new sound, and
+ * still have your previously loaded data.
+ * @param origin The origin of the font.
  *
  * @b Example:
  * @code
@@ -222,8 +219,7 @@
  * Creates a new PXSound object containing all information needed to play the
  * sound.
  *
- * @return
- * 	The new PXSound object.
+ * @return The new PXSound object.
  */
 - (PXSound *)newSound
 {

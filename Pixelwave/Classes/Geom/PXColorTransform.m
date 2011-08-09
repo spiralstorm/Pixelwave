@@ -83,14 +83,10 @@
 /**
  * Creates a new color transform with the multipliers specified.
  *
- * @param redMultiplier
- * 	The red multiplier value ranging between 0.0f and 1.0f.
- * @param greenMultiplier
- * 	The green multiplier value ranging between 0.0f and 1.0f.
- * @param blueMultiplier
- * 	The blue multiplier value ranging between 0.0f and 1.0f.
- * @param alphaMultiplier
- * 	The alpha multiplier value ranging between 0.0f and 1.0f.
+ * @param redMultiplier The red multiplier value ranging between 0.0f and 1.0f.
+ * @param greenMultiplier The green multiplier value ranging between 0.0f and 1.0f.
+ * @param blueMultiplier The blue multiplier value ranging between 0.0f and 1.0f.
+ * @param alphaMultiplier The alpha multiplier value ranging between 0.0f and 1.0f.
  */
 - (id) initWithRedMult:(float)r greenMult:(float)g blueMult:(float)b alphaMult:(float)a
 {
@@ -135,14 +131,10 @@
 /**
  * Sets the multipliers to their corresponding values.
  *
- * @param red
- * 	The red multiplier value ranging between 0.0f and 1.0f.
- * @param green
- * 	The green multiplier value ranging between 0.0f and 1.0f.
- * @param blue
- * 	The blue multiplier value ranging between 0.0f and 1.0f.
- * @param alpha
- * 	The alpha multiplier value ranging between 0.0f and 1.0f.
+ * @param red The red multiplier value ranging between 0.0f and 1.0f.
+ * @param green The green multiplier value ranging between 0.0f and 1.0f.
+ * @param blue The blue multiplier value ranging between 0.0f and 1.0f.
+ * @param alpha The alpha multiplier value ranging between 0.0f and 1.0f.
  */
 - (void) setMultipliersWithRed:(float)red
 						 green:(float)green
@@ -159,14 +151,10 @@
  * Accepts color values ranging from 0 to 255 (a simgle byte) and sets the
  * color multipliers by converting them to percent values.
  *
- * @param red
- * 	The red multiplier value ranging between 0 and 255.
- * @param green
- * 	The green multiplier value ranging between 0 and 255.
- * @param blue
- * 	The blue multiplier value ranging between 0 and 255.
- * @param alpha
- * 	The alpha multiplier value ranging between 0 and 255.
+ * @param red The red multiplier value ranging between 0 and 255.
+ * @param green The green multiplier value ranging between 0 and 255.
+ * @param blue The blue multiplier value ranging between 0 and 255.
+ * @param alpha The alpha multiplier value ranging between 0 and 255.
  *
  */
 - (void) setMultipliersWithRedValue:(unsigned char)red
@@ -183,17 +171,12 @@
 /**
  * Creates a color transform with the multipliers specified.
  *
- * @param redMultiplier
- * 	The red multiplier value ranging between 0.0f and 1.0f.
- * @param greenMultiplier
- * 	The green multiplier value ranging between 0.0f and 1.0f.
- * @param blueMultiplier
- * 	The blue multiplier value ranging between 0.0f and 1.0f.
- * @param alphaMultiplier
- * 	The alpha multiplier value ranging between 0.0f and 1.0f.
+ * @param redMultiplier The red multiplier value ranging between 0.0f and 1.0f.
+ * @param greenMultiplier The green multiplier value ranging between 0.0f and 1.0f.
+ * @param blueMultiplier The blue multiplier value ranging between 0.0f and 1.0f.
+ * @param alphaMultiplier The alpha multiplier value ranging between 0.0f and 1.0f.
  *
- * @return
- * 	The created color transform.
+ * @return The created color transform.
  */
 + (PXColorTransform *)colorTransformWithRedMult:(float)r greenMult:(float)g blueMult:(float)b alphaMult:(float)a
 {

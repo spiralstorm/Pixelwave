@@ -272,10 +272,8 @@ BOOL pxSoundListenerInitialized = NO;
  * Changes the forward and up vectors to match the perspective at the given
  * angle.
  *
- * @param rotation
- * 	The angle in degrees of rotation.
- * @param perspective
- * 	The perspective of rotation.
+ * @param rotation The angle in degrees of rotation.
+ * @param perspective The perspective of rotation.
  *
  * @b Example:
  * @code
@@ -318,12 +316,9 @@ BOOL pxSoundListenerInitialized = NO;
 /**
  * Sets the position of the listener.
  *
- * @param x
- * 	The x-position in 3 space.
- * @param y
- * 	The y-position in 3 space.
- * @param z
- * 	The z-position in 3 space.
+ * @param x The x-position in 3 space.
+ * @param y The y-position in 3 space.
+ * @param z The z-position in 3 space.
  *
  * @b Example:
  * @code
@@ -348,12 +343,9 @@ BOOL pxSoundListenerInitialized = NO;
 /**
  * Sets the velocity of the listener.
  *
- * @param x
- * 	The x-velocity in 3 space.
- * @param y
- * 	The y-velocity in 3 space.
- * @param z
- * 	The z-velocity in 3 space.
+ * @param x The x-velocity in 3 space.
+ * @param y The y-velocity in 3 space.
+ * @param z The z-velocity in 3 space.
  *
  * @b Example:
  * @code

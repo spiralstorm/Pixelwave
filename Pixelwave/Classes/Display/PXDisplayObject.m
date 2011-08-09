@@ -587,17 +587,15 @@ static unsigned _pxDisplayObjectCount = 0;
 /**
  * Finds the position of the touch in this display object's coordinate system.
  *
- * @param nativeTouch
- * 	The touch to find the position of.
+ * @param nativeTouch The touch to find the position of.
  *
- * @return
- * 	The position of the touch in this display object's coordinate system.
+ * @return The position of the touch in this display object's coordinate system.
  *
  * @b Example:
  * @code
  * - (void) onTouchDown:(PXTouchEvent *)event
  * {
- * 	PXPoint *touchPosition = [self positionOfTouch:event.nativeTouch];
+ * PXPoint *touchPosition = [self positionOfTouch:event.nativeTouch];
  * }
  * @endcode
  */
@@ -637,11 +635,9 @@ static unsigned _pxDisplayObjectCount = 0;
  * Finds the bounding box of this display object in the target coordinate
  * space.
  *
- * @param targetCoordinateSpace
- * 	The coordinate space for the bounds
+ * @param targetCoordinateSpace The coordinate space for the bounds
  *
- * @return
- * 	The bounding box in the target coordinate system.
+ * @return The bounding box in the target coordinate system.
  *
  * @b Example:
  * @code
@@ -728,11 +724,9 @@ static unsigned _pxDisplayObjectCount = 0;
 /**
  * Converts a stage coordinate point to the display object's coordinate system.
  *
- * @param point
- * 	A point in the stage coordinate system.
+ * @param point A point in the stage coordinate system.
  *
- * @return
- * 	The converted point to this display object's coordinate system.
+ * @return The converted point to this display object's coordinate system.
  *
  * @b Example:
  * @code
@@ -769,11 +763,9 @@ static unsigned _pxDisplayObjectCount = 0;
  * Converts a display object's coordinate system point to the stage's
  * coordinate system.
  *
- * @param point
- * 	A point in this display object's coordinate system.
+ * @param point A point in this display object's coordinate system.
  *
- * @return
- * 	The converted point to the stage's coordinate system.
+ * @return The converted point to the stage's coordinate system.
  *
  * @b Example:
  * @code
@@ -810,12 +802,10 @@ static unsigned _pxDisplayObjectCount = 0;
  * Tests if the bounding box of the given object is within the bounding box of
  * this object.
  *
- * @param obj
- * 	The object for testing.
+ * @param obj The object for testing.
  *
- * @return
- * 	<code>YES</code> if the bounding box of the given object is within the
- * 	bounding box of this object.
+ * @return <code>YES</code> if the bounding box of the given object is within the
+ * bounding box of this object.
  *
  * @b Example:
  * @code
@@ -860,14 +850,11 @@ static unsigned _pxDisplayObjectCount = 0;
  * Tests if the given horizontal and vertical coordinate are within the
  * bounding box of this display object.
  *
- * @param x
- * 	The horizontal coordinate (in stage coordinates) for testing.
- * @param y
- * 	The vertical coordinate (in stage coordinates) for testing.
+ * @param x The horizontal coordinate (in stage coordinates) for testing.
+ * @param y The vertical coordinate (in stage coordinates) for testing.
  *
- * @return
- * 	<code>YES</code> if point is contained within the bounding box of this
- * 	display object.
+ * @return <code>YES</code> if point is contained within the bounding box of this
+ * display object.
  *
  * @b Example:
  * @code
@@ -899,17 +886,13 @@ static unsigned _pxDisplayObjectCount = 0;
  * Tests if the given horizontal and vertical coordinate are within the display
  * object.
  *
- * @param x
- * 	The horizontal coordinate (in stage coordinates) for testing.
- * @param y
- * 	The vertical coordinate (in stage coordinates) for testing.
- * @param shapeFlag
- * 	If <code>YES</code> a detailed collision detection is done of the actual
- * 	object.  If <code>NO</code> just the bounding box is tested.
+ * @param x The horizontal coordinate (in stage coordinates) for testing.
+ * @param y The vertical coordinate (in stage coordinates) for testing.
+ * @param shapeFlag If <code>YES</code> a detailed collision detection is done of the actual
+ * object.  If <code>NO</code> just the bounding box is tested.
  *
- * @return
- * 	<code>YES</code> if point is contained within the bounding box of this
- * 	display object.
+ * @return <code>YES</code> if point is contained within the bounding box of this
+ * display object.
  *
  * @b Example:
  * @code

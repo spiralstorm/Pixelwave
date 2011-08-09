@@ -82,12 +82,10 @@
  * Makes a new font parser that parses the data described in the system font
  * and allows you to create a new font.
  *
- * @param systemFont
- * 	The system font to parse.
- * @param options
- * 	The options that describe what type of font you want back. If
- * 	<code>nil</code> is supplied, then the default type of font for the font
- * 	type is used. If no default type is found, then no new font can be made.
+ * @param systemFont The system font to parse.
+ * @param options The options that describe what type of font you want back. If
+ * <code>nil</code> is supplied, then the default type of font for the font
+ * type is used. If no default type is found, then no new font can be made.
  *
  * @b Example:
  * @code
@@ -115,14 +113,11 @@
  * Makes a new font parser that parses the given data and allows you to create
  * a new font. This version also stores the origin, in case you need/want it.
  *
- * @param data
- * 	The loaded data.
- * @param options
- * 	The options that describe what type of font you want back. If
- * 	<code>nil</code> is supplied, then the default type of font for the font
- * 	type is used. If no default type is found, then no new font can be made.
- * @param origin
- * 	The origin of the font.
+ * @param data The loaded data.
+ * @param options The options that describe what type of font you want back. If
+ * <code>nil</code> is supplied, then the default type of font for the font
+ * type is used. If no default type is found, then no new font can be made.
+ * @param origin The origin of the font.
  *
  * @b Example:
  * @code
@@ -147,16 +142,12 @@
  * Makes a new font parser that parses the given data and allows you to create
  * a new font. This version also stores the origin, in case you need/want it.
  *
- * @param data
- * 	The loaded data.
- * @param options
- * 	The options that describe what type of font you want back. If
- * 	<code>nil</code> is supplied, then the default type of font for the font
- * 	type is used. If no default type is found, then no new font can be made.
- * @param origin
- * 	The origin of the font.
- * @param contentScaleFactor
- * 	The content scale factor of the parsed font.
+ * @param data The loaded data.
+ * @param options The options that describe what type of font you want back. If
+ * <code>nil</code> is supplied, then the default type of font for the font
+ * type is used. If no default type is found, then no new font can be made.
+ * @param origin The origin of the font.
+ * @param contentScaleFactor The content scale factor of the parsed font.
  *
  * @b Example:
  * @code
@@ -278,8 +269,7 @@
  * Creates a new PXFont object containing all information needed to view the
  * font.
  *
- * @return
- * 	The new PXFont object.
+ * @return The new PXFont object.
  */
 - (PXFont *)newFont
 {

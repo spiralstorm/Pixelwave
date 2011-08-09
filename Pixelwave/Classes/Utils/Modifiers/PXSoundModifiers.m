@@ -49,8 +49,7 @@
 /**
  * Makes a sound modifier that will convert your sound to mono!
  *
- * @return
- * 	A sound modifier that will convert your sound to mono.
+ * @return A sound modifier that will convert your sound to mono.
  */
 + (id<PXSoundModifier>) soundModifierToMono
 {

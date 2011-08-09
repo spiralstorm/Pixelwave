@@ -119,7 +119,7 @@
  * @endcode
  *
  * @b Note: The reference distance can not be negative, the absolute value will
- * 		be taken before use.
+ * 	be taken before use.
  *
  * @b Default: <code>[PXSoundMixer soundListener].defaultReferenceDistance</code>
  */
@@ -131,7 +131,7 @@
  * please see the <code>referenceDistance</code> description.
  *
  * @b Note: The logarithmic exponent can not be negative, the absolute value
- * 		will be taken before use.
+ * 	will be taken before use.
  *
  * @b Default: <code>[PXSoundMixer soundListener].defaultLogarithmicExponent</code>
  */

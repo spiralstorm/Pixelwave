@@ -75,9 +75,8 @@
  * Returns <code>nil</code> if the file could not be found, or the file type
  * isn't supported.
  *
- * @param filePath
- * 	The path of the file to load. The file path may be absolute or relative
- * 	to the application bundle.
+ * @param filePath The path of the file to load. The file path may be absolute or relative
+ * to the application bundle.
  */
 - (id) initWithContentsOfFile:(NSString *)path
 {
@@ -89,8 +88,7 @@
  * Returns <code>nil</code> if the file could not be found, or the file type
  * isn't supported.
  *
- * @param url
- * 	The url of the file to load.
+ * @param url The url of the file to load.
  */
 - (id) initWithContentsOfURL:(NSURL *)url
 {
@@ -193,11 +191,9 @@
  * Creates the absolute path from the relative path given. If the path is
  * already absolute, then it is just returned back.
  *
- * @param path
- * 	The relative path.
+ * @param path The relative path.
  *
- * @return
- * 	The absolute path.
+ * @return The absolute path.
  */
 + (NSString *)absolutePathFromPath:(NSString *)path
 {

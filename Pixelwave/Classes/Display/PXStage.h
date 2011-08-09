@@ -146,10 +146,10 @@ typedef enum
  * may be dispatched:
  * - <i>added</i> - When a display object is added to a display list.
  * - <i>addedToStage</i> - When a display object or any of its ancestors are
- * 						added to the main display list.
+ * 					added to the main display list.
  * - <i>removed</i> - When a display object is removed from the display list.
  * - <i>removedFromStage</i> - When a display object or any of its ancestors
- * 							are removed from the main display list.
+ * 						are removed from the main display list.
  *
  * The value of this property may be changed at any time and has an immediate
  * effect.

@@ -67,10 +67,8 @@
 /**
  * Creates a new point at (x, y).
  *
- * @param x
- * 	The horizontal coordinate.
- * @param y
- * 	The vertical coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
  *
  * @b Example:
  * @code
@@ -127,10 +125,8 @@
 /**
  * Sets the point to (x, y).
  *
- * @param x
- * 	The horizontal coordinate.
- * @param y
- * 	The vertical coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
  *
  * @b Example:
  * @code
@@ -152,11 +148,9 @@
  * Adds the coordinates of the given point to the coordinates of this point to
  * create a new point.
  *
- * @param point
- * 	The point to be added.
+ * @param point The point to be added.
  *
- * @return
- * 	The created point.
+ * @return The created point.
  *
  * @b Example:
  * @code
@@ -182,11 +176,9 @@
  * Subtracts the coordinates of the given point from the coordinates of this
  * point to create a new point.
  *
- * @param point
- * 	The point to be subtracted.
+ * @param point The point to be subtracted.
  *
- * @return
- * 	The created point.
+ * @return The created point.
  *
  * @b Example:
  * @code
@@ -212,12 +204,10 @@
  * Determines whether two points are equal.  Two points are equal if they have
  * the same x and y values.
  *
- * @param point
- * 	The point to be compared.
+ * @param point The point to be compared.
  *
- * @return
- * 	<code>YES</code> if the object is equal to this point object;
- * 	<code>NO</code> if it is not equal.
+ * @return <code>YES</code> if the object is equal to this point object;
+ * <code>NO</code> if it is not equal.
  *
  * @b Example:
  * @code
@@ -266,8 +256,7 @@
  * Scales the line segment between (0, 0) and the current point to a set
  * length.
  *
- * @param newLength
- * 	The scaling value.
+ * @param newLength The scaling value.
  *
  * @b Example:
  * @code
@@ -289,10 +278,8 @@
  * added to the original value of x to create the new x value.  The value of dy
  * is added to the original value of y to create the new y value.
  *
- * @param dx
- * 	The amount by which to offset the horizontal coordinate, x
- * @param dy
- * 	The amount by which to offset the vertical coordinate, y.
+ * @param dx The amount by which to offset the horizontal coordinate, x
+ * @param dy The amount by which to offset the vertical coordinate, y.
  *
  * @b Example:
  * @code
@@ -310,13 +297,10 @@
 /**
  * Returns the distance between pt1 and pt2.
  *
- * @param pt1
- * 	The first point.
- * @param pt2
- * 	The second point.
+ * @param pt1 The first point.
+ * @param pt2 The second point.
  *
- * @return
- * 	The distance between the first and second points.
+ * @return The distance between the first and second points.
  *
  * @b Example:
  * @code
@@ -337,13 +321,10 @@
 /**
  * Returns the angle between pt1 and pt2.
  *
- * @param pt1
- * 	The first point.
- * @param pt2
- * 	The second point.
+ * @param pt1 The first point.
+ * @param pt2 The second point.
  *
- * @return
- * 	The angle between the first and second degrees.
+ * @return The angle between the first and second degrees.
  *
  * @b Example:
  * @code
@@ -368,17 +349,13 @@
  * The closer the value of the parameter f is to 1.0, the closer the
  * interpolated point is to the first point (parameter pt1).
  *
- * @param pt1
- * 	The first point.
- * @param pt2
- * 	The second point.
- * @param f
- * 	The level of interpolation between the two points.  Indicates where the
- * 	new point will be, along the line between pt1 and pt2.  If f == 1, pt1
- * 	is returned; if == 0, pt2 is returned.
+ * @param pt1 The first point.
+ * @param pt2 The second point.
+ * @param f The level of interpolation between the two points.  Indicates where the
+ * new point will be, along the line between pt1 and pt2.  If f == 1, pt1
+ * is returned; if == 0, pt2 is returned.
  *
- * @return
- * 	The interpolated point.
+ * @return The interpolated point.
  *
  * @b Example:
  * @code
@@ -405,13 +382,10 @@
 /**
  * Converts a pair of polar coordinates to a cartesian point coordinate.
  *
- * @param len
- * 	The length coordinate of the polar pair.
- * @param angle
- * 	The angle, in radians, of the polar pair.
+ * @param len The length coordinate of the polar pair.
+ * @param angle The angle, in radians, of the polar pair.
  *
- * @return
- * 	The cartesian point.
+ * @return The cartesian point.
  *
  * @b Example:
  * @code
@@ -436,13 +410,10 @@
 /**
  * Creates a point at (x, y).
  *
- * @param x
- * 	The horizontal coordinate.
- * @param y
- * 	The vertical coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
  *
- * @return
- * 	The created point.
+ * @return The created point.
  *
  * @b Example:
  * @code

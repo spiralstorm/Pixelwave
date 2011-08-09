@@ -87,11 +87,9 @@
  * Creates a sound using the data given. The data is parsed into a usable
  * format.
  *
- * @param data
- * 	The raw data.
+ * @param data The raw data.
  *
- * @return
- * 	The parsed sound.
+ * @return The parsed sound.
  *
  * @b Example:
  * @code
@@ -110,14 +108,11 @@
  * Creates a sound using the data given. The data is parsed into a usable
  * format.
  *
- * @param data
- * 	The raw data.
- * @param modifier
- * 	The modifier is used to modify the loaded bytes; once set, it can not be
- * 	un-done. The modifier will be ignored if the data is not modifiable.
+ * @param data The raw data.
+ * @param modifier The modifier is used to modify the loaded bytes; once set, it can not be
+ * un-done. The modifier will be ignored if the data is not modifiable.
  *
- * @return
- * 	The parsed sound.
+ * @return The parsed sound.
  *
  * @b Example:
  * @code
@@ -175,8 +170,7 @@
  * Plays a sound from the start, doesn't loop and has a volume and pitch of
  * 1.0f.
  *
- * @return
- * 	The reference to the sound channel that will be playing.
+ * @return The reference to the sound channel that will be playing.
  *
  * @b Example:
  * @code
@@ -194,20 +188,16 @@
  * Plays a sound from the start, doesn't loop and has a volume and pitch of
  * 1.0f.
  *
- * @param startTime
- * 	The time in milliseconds for the sound to begin.  Each loop will also
- * 	begin at this time.  You should not set a start time for larger then the
- * 	length of the sound.
- * @param loopCount
- * 	The quantity of times you wish the sound to loop.  If 0 is stated, the
- * 	sound only plays once.  If 10 is stated, the sound plays 11 times.  If
- * 	<code>PX_SOUND_INFINITE_LOOPS</code> is stated, then the sound plays for
- * 	infinate times.
- * @param soundTransform
- * 	The the transform for the sound.
+ * @param startTime The time in milliseconds for the sound to begin.  Each loop will also
+ * begin at this time.  You should not set a start time for larger then the
+ * length of the sound.
+ * @param loopCount The quantity of times you wish the sound to loop.  If 0 is stated, the
+ * sound only plays once.  If 10 is stated, the sound plays 11 times.  If
+ * <code>PX_SOUND_INFINITE_LOOPS</code> is stated, then the sound plays for
+ * infinate times.
+ * @param soundTransform The the transform for the sound.
  *
- * @return
- * 	The reference to the sound channel that will be playing.
+ * @return The reference to the sound channel that will be playing.
  *
  * @b Example:
  * @code
@@ -248,12 +238,10 @@
 /**
  * Creates a sound by loading the file at the given path.
  *
- * @param filePath
- * 	The path of the file.
+ * @param filePath The path of the file.
  *
- * @return
- * 	The loaded and parsed sound, if the sound fails loading then
- * 	<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
  * @b Example:
  * @code
@@ -269,15 +257,12 @@
 /**
  * Creates a sound by loading the file at the given path.
  *
- * @param filePath
- * 	The path of the file.
- * @param modifier
- * 	The modifier is used to modify the loaded bytes; once set, it can not be
- * 	un-done. The modifier will be ignored if the data is not modifiable.
+ * @param filePath The path of the file.
+ * @param modifier The modifier is used to modify the loaded bytes; once set, it can not be
+ * un-done. The modifier will be ignored if the data is not modifiable.
  *
- * @return
- * 	The loaded and parsed sound, if the sound fails loading then
- * 	<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
  * @b Example:
  * @code
@@ -297,12 +282,10 @@
 /**
  * Creates a sound by loading the file at the given url.
  *
- * @param url
- * 	The url of the file.
+ * @param url The url of the file.
  *
- * @return
- * 	The loaded and parsed sound, if the sound fails loading then
- * 	<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
  * @b Example:
  * @code
@@ -318,15 +301,12 @@
 /**
  * Creates a sound by loading the file at the given url.
  *
- * @param url
- * 	The url of the file.
- * @param modifier
- * 	The modifier is used to modify the loaded bytes; once set, it can not be
- * 	un-done. The modifier will be ignored if the data is not modifiable.
+ * @param url The url of the file.
+ * @param modifier The modifier is used to modify the loaded bytes; once set, it can not be
+ * un-done. The modifier will be ignored if the data is not modifiable.
  *
- * @return
- * 	The loaded and parsed sound, if the sound fails loading then
- * 	<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
  * @b Example:
  * @code
@@ -346,12 +326,10 @@
 /**
  * Creates a sound by parsing the data.
  *
- * @param data
- * 	The raw data.
+ * @param data The raw data.
  *
- * @return
- * 	The loaded and parsed sound, if the sound fails loading then
- * 	<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
  * @b Example:
  * @code
@@ -367,15 +345,12 @@
 /**
  * Creates a sound by parsing the data.
  *
- * @param data
- * 	The raw data.
- * @param modifier
- * 	The modifier is used to modify the loaded bytes; once set, it can not be
- * 	un-done. The modifier will be ignored if the data is not modifiable.
+ * @param data The raw data.
+ * @param modifier The modifier is used to modify the loaded bytes; once set, it can not be
+ * un-done. The modifier will be ignored if the data is not modifiable.
  *
- * @return
- * 	The loaded and parsed sound, if the sound fails loading then
- * 	<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
  * @b Example:
  * @code

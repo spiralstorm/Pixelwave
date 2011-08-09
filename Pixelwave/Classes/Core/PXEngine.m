@@ -1331,7 +1331,7 @@ CGSize PXEngineGetScreenBufferSize()
 	return pixelSize;
 }
 
-/**
+/*
  * @param w The width of the area to grab, in pixels
  * @param h The height of the area to grab, in pixels
  * @param pixels An array of size w * h * 4.

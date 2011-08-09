@@ -138,10 +138,8 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
  * custom texture parser, you would register it with the base class of
  * PXTextureParser.
  *
- * @param parser
- * 	The parser you wish to register.
- * @param baseClass
- * 	The base class you are registering it for.
+ * @param parser The parser you wish to register.
+ * @param baseClass The base class you are registering it for.
  */
 + (void) registerParser:(Class)parser forBaseClass:(Class)baseClass
 {
@@ -161,10 +159,8 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 /**
  * Unregisters the parser from the base class.
  *
- * @param parser
- * 	The parser you wish to un-register.
- * @param baseClass
- * 	The base class you are un-registering it for.
+ * @param parser The parser you wish to un-register.
+ * @param baseClass The base class you are un-registering it for.
  */
 + (void) unregisterParser:(Class)parser forBaseClass:(Class)baseClass
 {
@@ -175,8 +171,7 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 /**
  * Unregisters all parser for the given base class.
  *
- * @param baseClass
- * 	The base class to unregister everything from.
+ * @param baseClass The base class to unregister everything from.
  */
 + (void) unregisterAllParsersForBaseClass:(Class)baseClass
 {
@@ -195,11 +190,9 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
  * Returns a linkedlist of parsers for the given base class. Note, this is not
  * a copy, but the actual list.
  *
- * @param baseClass
- * 	The base class for grabbing the parsers.
- * @return
- * 	A linkedlist of parsers for the given base class. Note, this is not a
- * 	copy, but the actual list.
+ * @param baseClass The base class for grabbing the parsers.
+ * @return A linkedlist of parsers for the given base class. Note, this is not a
+ * copy, but the actual list.
  */
 + (PXLinkedList *)parsersForBaseClass:(Class)baseClass
 {
@@ -210,15 +203,11 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
  * Finds the parser that is associated with the type of data and origin of the
  * base class type.
  *
- * @param data
- * 	The data to find an associative parser for.
- * @param origin
- * 	The origin the data came from.
- * @param baseClass
- * 	The base class for the search.
- * @return
- * 	IF a parser is found, then the parser will be the correct one associated
- * 	with the data. Otherwise <code>nil</code> is returned instead.
+ * @param data The data to find an associative parser for.
+ * @param origin The origin the data came from.
+ * @param baseClass The base class for the search.
+ * @return IF a parser is found, then the parser will be the correct one associated
+ * with the data. Otherwise <code>nil</code> is returned instead.
  */
 + (Class) parserForData:(NSData *)data
 				 origin:(NSString *)origin

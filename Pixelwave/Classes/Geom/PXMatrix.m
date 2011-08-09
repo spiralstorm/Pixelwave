@@ -75,24 +75,18 @@
 /**
  * Creates a new matrix with values of (a, b, c, d, tx, ty).
  *
- * @param a
- * 	The value that affects the positioning of pixels along the x-axis when
- * 	scaling or rotating.
- * @param b
- * 	The value that affects the positioning of pixels along the y-axis when
- * 	skewing or rotating.
- * @param c
- * 	The value that affects the positioning of pixels along the x-axis when
- * 	skewing or rotating.
- * @param d
- * 	The value that affects the positioning of pixels along the y-axis when
- * 	scaling or rotating.
- * @param tx
- * 	The value that affects the positioning of pixels along the x-axis when
- * 	translating.
- * @param ty
- * 	The value that affects the positioning of pixels along the y-axis when
- * 	translating.
+ * @param a The value that affects the positioning of pixels along the x-axis when
+ * scaling or rotating.
+ * @param b The value that affects the positioning of pixels along the y-axis when
+ * skewing or rotating.
+ * @param c The value that affects the positioning of pixels along the x-axis when
+ * skewing or rotating.
+ * @param d The value that affects the positioning of pixels along the y-axis when
+ * scaling or rotating.
+ * @param tx The value that affects the positioning of pixels along the x-axis when
+ * translating.
+ * @param ty The value that affects the positioning of pixels along the y-axis when
+ * translating.
  *
  * @b Example:
  * @code
@@ -139,24 +133,18 @@
 /**
  * Sets the matrix values to (a, b, c, d, tx, ty).
  *
- * @param a
- * 	The value that affects the positioning of pixels along the x-axis when
- * 	scaling or rotating.
- * @param b
- * 	The value that affects the positioning of pixels along the y-axis when
- * 	skewing or rotating.
- * @param c
- * 	The value that affects the positioning of pixels along the x-axis when
- * 	skewing or rotating.
- * @param d
- * 	The value that affects the positioning of pixels along the y-axis when
- * 	scaling or rotating.
- * @param tx
- * 	The value that affects the positioning of pixels along the x-axis when
- * 	translating.
- * @param ty
- * 	The value that affects the positioning of pixels along the y-axis when
- * 	translating.
+ * @param a The value that affects the positioning of pixels along the x-axis when
+ * scaling or rotating.
+ * @param b The value that affects the positioning of pixels along the y-axis when
+ * skewing or rotating.
+ * @param c The value that affects the positioning of pixels along the x-axis when
+ * skewing or rotating.
+ * @param d The value that affects the positioning of pixels along the y-axis when
+ * scaling or rotating.
+ * @param tx The value that affects the positioning of pixels along the x-axis when
+ * translating.
+ * @param ty The value that affects the positioning of pixels along the y-axis when
+ * translating.
  *
  * @b Example:
  * @code
@@ -180,8 +168,7 @@
  * Concatenates the specified matrix with this matrix, this is the same as
  * multiplying the specified matrix with this matrix.
  *
- * @param m
- * 	The matrix to be concatenated.
+ * @param m The matrix to be concatenated.
  *
  * @b Example:
  * @code
@@ -272,8 +259,7 @@
 /**
  * Rotates the matrix.
  *
- * @param angle
- * 	Angle of rotation in radians.
+ * @param angle Angle of rotation in radians.
  *
  * @b Example:
  * @code
@@ -306,10 +292,8 @@
 /**
  * Scales the matrix.
  *
- * @param sx
- * 	The horizontal scaling factor.
- * @param sy
- * 	The vertical scaling factor.
+ * @param sx The horizontal scaling factor.
+ * @param sy The vertical scaling factor.
  *
  * @b Example:
  * @code
@@ -330,10 +314,8 @@
 /**
  * Translates the matrix.
  *
- * @param dx
- * 	The horizontal translation.
- * @param dy
- * 	The vertical translation.
+ * @param dx The horizontal translation.
+ * @param dy The vertical translation.
  *
  * @b Example:
  * @code
@@ -353,16 +335,11 @@
  * Using the create box method is the same as if you were to call identity,
  * rotate, scale and translate in succession.
  *
- * @param scaleX
- * 	The horizontal scale factor.
- * @param scaleY
- * 	The vertical scale factor.
- * @param rotation
- * 	The angle of rotation in radians.
- * @param tx
- * 	The horizontal translation. 
- * @param ty
- * 	The vertical translation.
+ * @param scaleX The horizontal scale factor.
+ * @param scaleY The vertical scale factor.
+ * @param rotation The angle of rotation in radians.
+ * @param tx The horizontal translation. 
+ * @param ty The vertical translation.
  *
  * @b Example:
  * @code
@@ -383,11 +360,9 @@
 /**
  * Returns a point transformed by this matrix.
  *
- * @param point
- * 	The point for transformation.
+ * @param point The point for transformation.
  *
- * @return
- * 	The point after transformation.
+ * @return The point after transformation.
  *
  * @b Example:
  * @code
@@ -410,11 +385,9 @@
  * Returns a point transformed by this matrix, ignoring the tx and ty
  * parameters.
  *
- * @param point
- * 	The point for transformation.
+ * @param point The point for transformation.
  *
- * @return
- * 	The point after transformation.
+ * @return The point after transformation.
  *
  * @b Example:
  * @code
@@ -436,27 +409,20 @@
 /**
  * Creates a matrix with values of (a, b, c, d, tx, ty).
  *
- * @param a
- * 	The value that affects the positioning of pixels along the x-axis when
- * 	scaling or rotating.
- * @param b
- * 	The value that affects the positioning of pixels along the y-axis when
- * 	skewing or rotating.
- * @param c
- * 	The value that affects the positioning of pixels along the x-axis when
- * 	skewing or rotating.
- * @param d
- * 	The value that affects the positioning of pixels along the y-axis when
- * 	scaling or rotating.
- * @param tx
- * 	The value that affects the positioning of pixels along the x-axis when
- * 	translating.
- * @param ty
- * 	The value that affects the positioning of pixels along the y-axis when
- * 	translating.
+ * @param a The value that affects the positioning of pixels along the x-axis when
+ * scaling or rotating.
+ * @param b The value that affects the positioning of pixels along the y-axis when
+ * skewing or rotating.
+ * @param c The value that affects the positioning of pixels along the x-axis when
+ * skewing or rotating.
+ * @param d The value that affects the positioning of pixels along the y-axis when
+ * scaling or rotating.
+ * @param tx The value that affects the positioning of pixels along the x-axis when
+ * translating.
+ * @param ty The value that affects the positioning of pixels along the y-axis when
+ * translating.
  *
- * @return
- * 	The created matrix.
+ * @return The created matrix.
  *
  * @b Example:
  * @code

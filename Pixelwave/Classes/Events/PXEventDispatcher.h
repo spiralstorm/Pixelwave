@@ -90,16 +90,16 @@
  *
  * if (self)
  * {
- * 		eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];
- * 	}
+ * 	eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];
+ * }
  *
- * 	return self;
+ * return self;
  * }
  *
  * - (void) dealloc
  * {
- * 	[eventDispatcher release];
- * 	eventDispatcher = nil;
+ * [eventDispatcher release];
+ * eventDispatcher = nil;
  *
  * [super dealloc];
  * }
@@ -124,16 +124,16 @@
  *
  * - (BOOL) dispatchEvent:(PXEvent *)event
  * {
- * 	return [eventDispatcher dispatchEvent:event];
+ * return [eventDispatcher dispatchEvent:event];
  * }
  *
  * - (BOOL) hasEventListenerOfType:(NSString *)type
  * {
- * 	return [eventDispatcher hasEventListenerOfType:type];
+ * return [eventDispatcher hasEventListenerOfType:type];
  * }
  * - (BOOL) willTriggerEventOfType:(NSString *)type
  * {
- * 	return [eventDispatcher willTriggerEventOfType:type];
+ * return [eventDispatcher willTriggerEventOfType:type];
  * }
  *
  * @end 

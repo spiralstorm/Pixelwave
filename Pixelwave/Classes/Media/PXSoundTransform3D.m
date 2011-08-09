@@ -74,10 +74,8 @@
  * Creates a new 3D sound transform with the given <code>volume</code> and
  * <code>pitch</code>.
  *
- * @param volume
- * 	The amplitude of the sound.
- * @param pitch
- * 	The frequency of the sound.
+ * @param volume The amplitude of the sound.
+ * @param pitch The frequency of the sound.
  *
  * @b Example:
  * @code
@@ -169,12 +167,9 @@
 /**
  * Sets the position to (x, y, z).
  *
- * @param x
- * 	The horizontal coordinate.
- * @param y
- * 	The vertical coordinate.
- * @param z
- * 	The depth coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
+ * @param z The depth coordinate.
  *
  * @b Example:
  * @code
@@ -193,12 +188,9 @@
 /**
  * Sets the velocity to (x, y, z).
  *
- * @param x
- * 	The horizontal coordinate change per second.
- * @param y
- * 	The vertical coordinate change per second.
- * @param z
- * 	The depth coordinate change per second.
+ * @param x The horizontal coordinate change per second.
+ * @param y The vertical coordinate change per second.
+ * @param z The depth coordinate change per second.
  *
  * @b Example:
  * @code
@@ -222,13 +214,10 @@
  * Creates a 3D sound transform with the given <code>volume</code> and
  * <code>pitch</code>.
  *
- * @param volume
- * 	The amplitude of the sound.
- * @param pitch
- * 	The frequency of the sound.
+ * @param volume The amplitude of the sound.
+ * @param pitch The frequency of the sound.
  *
- * @return
- * 	The created sound transform.
+ * @return The created sound transform.
  *
  * @b Example:
  * @code

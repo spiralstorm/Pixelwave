@@ -85,14 +85,10 @@
  * <code>y</code>) and <code>size</code> of (<code>width</code>,
  * <code>height</code>).
  *
- * @param x
- * 	The horizontal coordinate of the <code>topLeft</code> corner.
- * @param y
- * 	The vertical coordinate of the <code>topLeft</code> corner.
- * @param width
- * 	The width in pixels.
- * @param height
- * 	The height in pixels.
+ * @param x The horizontal coordinate of the <code>topLeft</code> corner.
+ * @param y The vertical coordinate of the <code>topLeft</code> corner.
+ * @param width The width in pixels.
+ * @param height The height in pixels.
  *
  * @b Example:
  * @code
@@ -223,14 +219,10 @@
  * <code>y</code>) and <code>size</code> of (<code>width</code>,
  * <code>height</code>).
  *
- * @param x
- * 	The horizontal coordinate of the <code>topLeft</code> corner.
- * @param y
- * 	The vertical coordinate of the <code>topLeft</code> corner.
- * @param width
- * 	The width in pixels.
- * @param height
- * 	The height in pixels.
+ * @param x The horizontal coordinate of the <code>topLeft</code> corner.
+ * @param y The vertical coordinate of the <code>topLeft</code> corner.
+ * @param width The width in pixels.
+ * @param height The height in pixels.
  *
  * @b Example:
  * @code
@@ -254,14 +246,11 @@
  * Determines whether the specified point is contained within the rectangle's
  * area.
  *
- * @param x
- * 	The horizontal coordinate of the point.
- * @param y
- * 	The vertical coordinate of the point.
+ * @param x The horizontal coordinate of the point.
+ * @param y The vertical coordinate of the point.
  *
- * @return
- * 	<code>YES</code> if the rectangle contains the point, otherwise
- * 	<code>NO</code>.
+ * @return <code>YES</code> if the rectangle contains the point, otherwise
+ * <code>NO</code>.
  *
  * @b Example:
  * @code
@@ -284,12 +273,10 @@
  * Determines whether the specified point is contained within the rectangle's
  * area.
  *
- * @param point
- * 	The point to test.
+ * @param point The point to test.
  *
- * @return
- * 	<code>YES</code> if the rectangle contains the point, otherwise
- * 	<code>NO</code>.
+ * @return <code>YES</code> if the rectangle contains the point, otherwise
+ * <code>NO</code>.
  *
  * @b Example:
  * @code
@@ -309,12 +296,10 @@
  * Determines whether the entire specified rectangle is contained within this
  * rectangle's area.
  *
- * @param rect
- * 	The rectangle to test.
+ * @param rect The rectangle to test.
  *
- * @return
- * 	<code>YES</code> if this rectangle contains the rectangle provided,
- * 	otherwise <code>NO</code>.
+ * @return <code>YES</code> if this rectangle contains the rectangle provided,
+ * otherwise <code>NO</code>.
  *
  * @b Example:
  * @code
@@ -358,12 +343,10 @@
  * is only true if the <code>x</code>, <code>y</code>, <code>width</code> and
  * <code>height</code> properties are the same.
  *
- * @param rect
- * 	The rectangle to compare.
+ * @param rect The rectangle to compare.
  *
- * @return
- * 	<code>YES</code> if the rectangle specified is equal to this rectangle;
- * 	otherwise <code>NO</code>.
+ * @return <code>YES</code> if the rectangle specified is equal to this rectangle;
+ * otherwise <code>NO</code>.
  *
  * @b Example:
  * @code
@@ -391,9 +374,8 @@
 /**
  * Determines if the rectangle has an area of 0.
  *
- * @return
- * 	<code>YES</code> if the rectangle has an area of 0; otherwise
- * 	<code>NO</code>.
+ * @return <code>YES</code> if the rectangle has an area of 0; otherwise
+ * <code>NO</code>.
  *
  * @b Example:
  * @code
@@ -417,10 +399,8 @@
  * Increases the <code>size</code> of the rectangle by specified amounts, in
  * pixels, from the center.
  *
- * @param dx
- * 	The size change, in pixels, in the horizontal position.
- * @param dy
- * 	The size change, in pixels, in the vertical position.
+ * @param dx The size change, in pixels, in the horizontal position.
+ * @param dy The size change, in pixels, in the vertical position.
  *
  * @b Example:
  * @code
@@ -442,8 +422,7 @@
  * Increases the <code>size</code> of the rectangle by specified amounts, in
  * pixels, from the center.
  *
- * @param point
- * 	The size change, in pixels.
+ * @param point The size change, in pixels.
  *
  * @b Example:
  * @code
@@ -464,12 +443,10 @@
  * interesection of the two rectangles is returned as a rectangle.  Otherwise
  * an empty rectangle is returned.
  *
- * @param toIntersect
- * 	The rectangle to compare.
+ * @param toIntersect The rectangle to compare.
  *
- * @return
- * 	A rectangle defining the intersection of the rectangle specified, and
- * 	this rectangle.  It's empty if no interesection was found.
+ * @return A rectangle defining the intersection of the rectangle specified, and
+ * this rectangle.  It's empty if no interesection was found.
  *
  * @b Example:
  * @code
@@ -506,12 +483,10 @@
 /**
  * Determines if the rectangle specified intersects with this rectangle.
  *
- * @param toIntersect
- * 	The rectangle to compare.
+ * @param toIntersect The rectangle to compare.
  *
- * @return
- * 	<code>YES</code> if this rectangle intersects with the rectangle
- * 	specified; otherwise <code>NO</code>.
+ * @return <code>YES</code> if this rectangle intersects with the rectangle
+ * specified; otherwise <code>NO</code>.
  *
  * @b Example:
  * @code
@@ -531,10 +506,8 @@
 /**
  * Adjusts the location of the rectangle.
  *
- * @param dx
- * 	The horizontal change in position.
- * @param dy
- * 	The vertical change in position.
+ * @param dx The horizontal change in position.
+ * @param dy The vertical change in position.
  *
  * @b Example:
  * @code
@@ -553,8 +526,7 @@
 /**
  * Adjusts the location of the rectangle.
  *
- * @param point
- * 	The change in position.
+ * @param point The change in position.
  *
  * @b Example:
  * @code
@@ -593,11 +565,9 @@
  * Adds two rectangles together to create a rectangle with their combined
  * properties.
  *
- * @param rect
- * 	Rectangle to union with.
+ * @param rect Rectangle to union with.
  *
- * @return
- * 	The combined rectangle.
+ * @return The combined rectangle.
  *
  * @b Example:
  * @code
@@ -635,17 +605,12 @@
  * <code>y</code>) and <code>size</code> of (<code>width</code>,
  * <code>height</code>).
  *
- * @param x
- * 	The horizontal coordinate of the <code>topLeft</code> corner.
- * @param y
- * 	The vertical coordinate of the <code>topLeft</code> corner.
- * @param width
- * 	The width in pixels.
- * @param height
- * 	The height in pixels.
+ * @param x The horizontal coordinate of the <code>topLeft</code> corner.
+ * @param y The vertical coordinate of the <code>topLeft</code> corner.
+ * @param width The width in pixels.
+ * @param height The height in pixels.
  *
- * @return
- * 	The created rectangle.
+ * @return The created rectangle.
  *
  * @b Example:
  * @code

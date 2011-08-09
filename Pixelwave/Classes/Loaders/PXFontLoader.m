@@ -86,9 +86,8 @@
  * <code>nil</code> if the file could not be found, or the format isn't
  * supported.
  *
- * @param path
- * 	The path of the font file to load. The file path may be absolute or
- * 	relative to	the application bundle.
+ * @param path The path of the font file to load. The file path may be absolute or
+ * relative to	the application bundle.
  *
  * @b Example:
  * @code
@@ -112,14 +111,12 @@
  * <code>nil</code> if the file could not be found, or the format isn't
  * supported.
  *
- * @param path
- * 	The path of the font file to load. The file path may be absolute or
- * 	relative to	the application bundle.
- * @param options
- * 	The options defining what form of font you want. Ex. If a
- * 	<code>PXTextureFontOption</code> is given, then each glyph of the font
- * 	would be mapped to a texture. If the font file you are loading already
- * 	has this information, it is also loaded.
+ * @param path The path of the font file to load. The file path may be absolute or
+ * relative to	the application bundle.
+ * @param options The options defining what form of font you want. Ex. If a
+ * <code>PXTextureFontOption</code> is given, then each glyph of the font
+ * would be mapped to a texture. If the font file you are loading already
+ * has this information, it is also loaded.
  *
  * @b Example:
  * @code
@@ -144,8 +141,7 @@
  * <code>nil</code> if the file could not be found, or the format isn't
  * supported.
  *
- * @param url
- * 	The url of the font to load.
+ * @param url The url of the font to load.
  *
  * @b Example:
  * @code
@@ -169,13 +165,11 @@
  * <code>nil</code> if the file could not be found, or the format isn't
  * supported.
  *
- * @param url
- * 	The url of the font to load.
- * @param options
- * 	The options defining what form of font you want. Ex. If a
- * 	<code>PXTextureFontOption</code> is given, then each glyph of the font
- * 	would be mapped to a texture. If the font file you are loading already
- * 	has this information, it is also loaded.
+ * @param url The url of the font to load.
+ * @param options The options defining what form of font you want. Ex. If a
+ * <code>PXTextureFontOption</code> is given, then each glyph of the font
+ * would be mapped to a texture. If the font file you are loading already
+ * has this information, it is also loaded.
  *
  * @b Example:
  * @code
@@ -264,8 +258,7 @@
  * Creates a new PXFont object containing all information needed to view the
  * font.
  *
- * @return
- * 	The new PXFont object.
+ * @return The new PXFont object.
  */
 - (PXFont *)newFont
 {
@@ -305,17 +298,14 @@
  * <code>nil</code> if the file could not be found, or the format isn't
  * supported.
  *
- * @param path
- * 	The path of the font file to load. The file path may be absolute or
- * 	relative to	the application bundle.
- * @param options
- * 	The options defining what form of font you want. Ex. If a
- * 	<code>PXTextureFontOption</code> is given, then each glyph of the font
- * 	would be mapped to a texture. If the font file you are loading already
- * 	has this information, it is also loaded.
+ * @param path The path of the font file to load. The file path may be absolute or
+ * relative to	the application bundle.
+ * @param options The options defining what form of font you want. Ex. If a
+ * <code>PXTextureFontOption</code> is given, then each glyph of the font
+ * would be mapped to a texture. If the font file you are loading already
+ * has this information, it is also loaded.
  *
- * @return
- * 	The resulting, <code>autoreleased</code>, PXFontLoader object.
+ * @return The resulting, <code>autoreleased</code>, PXFontLoader object.
  *
  * @b Example:
  * @code
@@ -338,16 +328,13 @@
  * <code>nil</code> if the file could not be found, or the format isn't
  * supported.
  *
- * @param url
- * 	The url of the font to load.
- * @param options
- * 	The options defining what form of font you want. Ex. If a
- * 	<code>PXTextureFontOption</code> is given, then each glyph of the font
- * 	would be mapped to a texture. If the font file you are loading already
- * 	has this information, it is also loaded.
+ * @param url The url of the font to load.
+ * @param options The options defining what form of font you want. Ex. If a
+ * <code>PXTextureFontOption</code> is given, then each glyph of the font
+ * would be mapped to a texture. If the font file you are loading already
+ * has this information, it is also loaded.
  *
- * @return
- * 	The resulting, <code>autoreleased</code>, PXFontLoader object.
+ * @return The resulting, <code>autoreleased</code>, PXFontLoader object.
  *
  * @b Example:
  * @code

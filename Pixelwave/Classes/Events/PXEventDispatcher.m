@@ -110,8 +110,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 /**
  * Makes a new event disptacher with the given target.
  *
- * @param target
- * 	The target.
+ * @param target The target.
  */
 - (id) initWithTarget:(id<PXEventDispatcher>)_target
 {
@@ -144,10 +143,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 /**
  * Adds an event listener.
  *
- * @param type
- * 	The type
- * @param listener
- * 	The listener
+ * @param type The type
+ * @param listener The listener
  *
  * @b Example:
  *
@@ -159,7 +156,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * //...
  * - (void) onTouchDown:(PXTouchEvent *)event
  * {
- * 	// handle event
+ * // handle event
  * }
  * @endcode
  */
@@ -171,14 +168,10 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 /**
  * Adds an event listener.
  *
- * @param type
- * 	The type
- * @param listener
- * 	The listener
- * @param capture
- * 	If it should use capture
- * @param priority
- * 	The priority
+ * @param type The type
+ * @param listener The listener
+ * @param capture If it should use capture
+ * @param priority The priority
  *
  * @b Example:
  *
@@ -190,7 +183,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * //...
  * - (void) onTouchDown:(PXTouchEvent *)event
  * {
- * 	// handle event
+ * // handle event
  * }
  * @endcode
  */
@@ -290,10 +283,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 /**
  * Removes an event listener.
  *
- * @param type
- * 	The type
- * @param listener
- * 	The listener
+ * @param type The type
+ * @param listener The listener
  */
 - (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener
 {
@@ -303,12 +294,9 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 /**
  * Removes an event listener.
  *
- * @param type
- * 	The type
- * @param listener
- * 	The listener
- * @param capture
- * 	If it should use capture
+ * @param type The type
+ * @param listener The listener
+ * @param capture If it should use capture
  */
 - (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
 {
@@ -434,12 +422,10 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * Returns <code>YES</code> if this event dispatcher has a listener of the
  * type.
  *
- * @param type
- * 	The type.
+ * @param type The type.
  *
- * @return
- * 	Returns <code>YES</code> if this event dispatcher has a listener of the
- * 	type.
+ * @return Returns <code>YES</code> if this event dispatcher has a listener of the
+ * type.
  */
 - (BOOL) hasEventListenerOfType:(NSString *)type
 {
@@ -472,13 +458,11 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * right now, and sees if any node along the path has an event listener. This
  * really only applies to display object sinceonly they have event flow...
  *
- * @param type
- * 	The type
+ * @param type The type
  *
- * @return
- * 	This method returns <code>YES</code> if an event listener is triggered
- * 	during any phase of the event flow when an event of the specified type
- * 	is dispatched to this EventDispatcher object or any of its descendants.
+ * @return This method returns <code>YES</code> if an event listener is triggered
+ * during any phase of the event flow when an event of the specified type
+ * is dispatched to this EventDispatcher object or any of its descendants.
  */
 - (BOOL) willTriggerEventOfType:(NSString *)type
 {
@@ -512,11 +496,9 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 /**
  * Invokes the event on all listeners of the same type as <code>event</code>.
  *
- * @param event
- * 	The event
+ * @param event The event
  *
- * @return
- * 	<code>YES</code> if the event completed.
+ * @return <code>YES</code> if the event completed.
  */
 
 /*
