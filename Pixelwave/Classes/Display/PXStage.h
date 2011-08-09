@@ -117,7 +117,7 @@ typedef enum
 
 /**
  * The color with which to clear the stage every frame. This values is used if
- * #clearsScreen is set to <code>YES</code>.
+ * clearsScreen is set to <code>YES</code>.
  * 
  * Represented as a hexadecimal number with the format: RRGGBB
  *

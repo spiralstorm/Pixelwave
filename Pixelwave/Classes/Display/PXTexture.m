@@ -201,7 +201,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  * // point coordinates.
  * @endcode
  *
- * @see #setClipRect:
+ * @see setClipRect:
  */
 
 - (void) setClipRectWithX:(float)x

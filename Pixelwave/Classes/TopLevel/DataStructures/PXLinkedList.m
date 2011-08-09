@@ -129,8 +129,8 @@ _PXLLNode pxLinkedListBadNode;
  * as a list of all the entities in the world). For short lists, or one-time
  * operations you should stick to the fast enumeration method (#2 above).
  *
- * @see #PXLinkedListForEach
- * @see #PXLinkedListForEachReverse
+ * @see PXLinkedListForEach
+ * @see PXLinkedListForEachReverse
  *
  * 3. (Not recommended) The n00bish way. It's the most obvious way to go
  * but also the slowest. It's strongly @b discouraged to loop through a list

@@ -71,14 +71,14 @@ BOOL pxTextureDataExpandEdges = YES;
  * A PXTextureData object can be created with the contents of an external image
  * file via the PXTextureLoader class. Additionaly, a PXTextureData can be
  * initialized to contain a rasterized string of text with the
- * #initWithString:font: method.
+ * initWithString:font: method.
  * Additionally, a blank PXTextureData object can be created and populated by
  * the user at run-time.
  *
- * @see #initWithString:font:
- * @see #drawDisplayObject:
- * @see PXTextureLoader#initWithContentsOfFile:
- * @see #textureDataWithContentsOfFile:
+ * @see initWithString:font:
+ * @see drawDisplayObject:
+ * @see [PXTextureLoader initWithContentsOfFile]:
+ * @see textureDataWithContentsOfFile:
  */
 @implementation PXTextureData
 
@@ -207,15 +207,15 @@ BOOL pxTextureDataExpandEdges = YES;
  * Initializes a TextureData object with the given width and height values in
  * pixels. The returned texture data object is initially filled with white,
  * non-transparent pixels. To modify the contents of the image you can use the
- * #drawDisplayObject: method.
+ * drawDisplayObject: method.
  * 
  * @param width
  * 	The width of the new TextureData in pixels.
  * @param height
  * 	The height of the new TextureData in pixels.
  *
- * @see #drawDisplayObject:
- * @see #drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
+ * @see drawDisplayObject:
+ * @see drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
  */
 - (id) initWithWidth:(unsigned)width height:(unsigned)height
 {
@@ -238,7 +238,7 @@ BOOL pxTextureDataExpandEdges = YES;
 /**
  * Initializes a PXTextureData object with the given width and height values in
  * pixels. To modify the contents of the image you can use the
- * #drawDisplayObject: method.
+ * drawDisplayObject: method.
  *
  * @b Example:
  * @code
@@ -263,8 +263,8 @@ BOOL pxTextureDataExpandEdges = YES;
  * 	For texture datas with an alpha channel, use the format 0xRRGGBB. For
  * 	texture datas without an alpha channel use the format 0xAARRGGBB.
  *
- * @see #drawDisplayObject:
- * @see #drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
+ * @see drawDisplayObject:
+ * @see drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
  */
 
 - (id) initWithWidth:(unsigned)width
@@ -374,7 +374,6 @@ BOOL pxTextureDataExpandEdges = YES;
  * 	The text to render onto the texture data.
  * @param font
  * 	A UIFont object representing the font to use.
- 
  */
 - (id) initWithString:(NSString *)string font:(UIFont *)font
 {

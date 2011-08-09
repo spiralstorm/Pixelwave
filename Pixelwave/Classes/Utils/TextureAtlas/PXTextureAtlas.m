@@ -95,8 +95,8 @@
  * grabbed with the #frameWithName: method and inspected as necessary.
  *
  * @see PXAtlasFrame
- * @see #initWithContentsOfFile:
- * @see #initWithData:
+ * @see initWithContentsOfFile:
+ * @see initWithData:
  */
 @implementation PXTextureAtlas
 
@@ -140,7 +140,7 @@
  * 	An absolute path or one relative to the resource bundle, representing the
  * 	texture atlas definition file to load.
  *
- * @see #initWithContentsOfFile:modifier:
+ * @see initWithContentsOfFile:modifier:
  */
 - (id) initWithContentsOfFile:(NSString *)path
 {
@@ -304,9 +304,9 @@
  * 	is already associated with a different frame, that frame is
  * 	removed and is replaced by the one passed in.
  *
- * @see #initWithContentsOfFile:
- * @see #addFrameWithName:clipRect:textureData:
- * @see #addFrameWithName:clipRect:textureData:anchorX:anchorY:
+ * @see initWithContentsOfFile:
+ * @see addFrameWithName:clipRect:textureData:
+ * @see addFrameWithName:clipRect:textureData:anchorX:anchorY:
  */
 - (void) addFrame:(PXAtlasFrame *)frame withName:(NSString *)name
 {
@@ -363,7 +363,7 @@
  *
  * @see addFrameWithName:clipRect:textureData:anchorX:anchorY:
  * @see addFrame:withName:
- * @see PXAtlasFrame#initWithClipRect:textureData:
+ * @see [PXAtlasFrame initWithClipRect]:textureData:
  */
 - (PXAtlasFrame *)addFrameWithName:(NSString *)name
 						  clipRect:(PXClipRect *)clipRect
@@ -398,7 +398,7 @@
  *
  * @see addFrame:withName:
  * @see addFrameWithName:clipRect:textureData:
- * @see PXAtlasFrame#initWithClipRect:textureData:anchor:
+ * @see [PXAtlasFrame initWithClipRect]:textureData:anchor:
  */
 - (PXAtlasFrame *)addFrameWithName:(NSString *)name
 						  clipRect:(PXClipRect *)clipRect
@@ -434,7 +434,7 @@
  * 	with the given name. If name is <code>nil</code>, or isn't associated with
  * 	any frame in the atlas, <code>nil</code> is returned.
  *
- * @see PXAtlasFrame#setToTexture:
+ * @see [PXAtlasFrame setToTexture]:
  */
 - (PXTexture *)textureForFrame:(NSString *)name
 {
@@ -459,7 +459,7 @@
  * 	A PXTexture object who's contents will be modified to represent the
  * 	given frame.
  *
- * @see PXAtlasFrame#setToTexture:
+ * @see [PXAtlasFrame setToTexture]:
  */
 - (void) setFrame:(NSString *)name toTexture:(PXTexture *)texture
 {

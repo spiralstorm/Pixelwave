@@ -47,7 +47,7 @@
  * method, which should reset the internal state of the object to its original
  * state.
  *
- * @see PXObjectPool#releaseObject:
+ * @see [PXObjectPool releaseObject]:
  */
 @protocol PXPooledObject<NSObject>
 @required

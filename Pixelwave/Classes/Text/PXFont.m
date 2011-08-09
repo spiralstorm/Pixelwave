@@ -685,7 +685,7 @@ NSMutableDictionary *pxFonts = nil;
  * that can always be passed into the PXTextField.font property without
  * registering	them as font before hand.
  *
- * @see PXTextField#font
+ * @see [PXTextField font]
  */
 + (NSArray *)availableSystemFonts
 {
@@ -714,7 +714,7 @@ NSMutableDictionary *pxFonts = nil;
  * Checks if the given font name is available. If it is available it can
  * be safely passed to the PXTextField.font property
  *
- * @see PXTextField#font
+ * @see [PXTextField font]
  */
 + (BOOL) isSystemFontAvailable:(NSString *)name
 {

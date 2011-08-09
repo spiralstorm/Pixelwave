@@ -63,7 +63,7 @@ typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
  * @endcode
  *
  * @param methodSignature a valid method signature
- * @see PXEventDispatcher#addEventListenerOfType:listener:
+ * @see [PXEventDispatcher addEventListenerOfType]:listener:
  */
 #define PXListener(_selector_) [[[PXEventListener alloc] initWithTarget:self selector:@selector(_selector_)] autorelease]
 

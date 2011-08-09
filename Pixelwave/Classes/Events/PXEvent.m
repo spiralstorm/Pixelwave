@@ -217,7 +217,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 
 /**
  * Prevents the event from being dispatched any further in the event flow.
- * @see #stopImmediatePropegation
+ * @see stopImmediatePropegation
  */
 // Only relevant for the display list flow
 - (void) stopPropagation
@@ -234,7 +234,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  * dispatching for all remaining event listeners registered to listen for this
  * event.
  *
- * @see #stopPropegation
+ * @see stopPropegation
  */
 // Always relevant
 - (void) stopImmediatePropagation
