@@ -46,7 +46,7 @@
  * exceptions associated only with the Pixelwave engine, one would do the
  * following:
  *
- * <code>
+ * @code
  * @try
  * {
  * 	... Execute Pixelwave code
@@ -59,7 +59,7 @@
  * {
  * 	...
  * }
- * </code>
+ * @endcode
  */
 @implementation PXException
 
