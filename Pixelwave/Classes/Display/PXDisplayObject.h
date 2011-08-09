@@ -228,7 +228,7 @@ typedef enum
  *
  * @throws PXArgumentException if a nil value is set.
  *
- * @see [PXDisplayObjectContainer childByName]:
+ * @see [PXDisplayObjectContainer childByName:]
  */
 @property (nonatomic, copy) NSString *name;
 

@@ -56,7 +56,7 @@
  * initialized manually, however through a <code>PXSoundLoader</code> using the
  * <code>newSound</code> method.
  *
- * @see PXSoundLoader::newSound
+ * @see [PXSoundLoader newSound]
  */
 @implementation PXSound
 
@@ -231,7 +231,7 @@
  * [sound release];
  * @endcode
  *
- * @see PXSoundTransform, PXSound::is3DReady:
+ * @see PXSoundTransform, [PXSound is3DReady:]
  */
 - (PXSoundChannel *)playWithStartTime:(unsigned)startTime
 							loopCount:(int)loopCount

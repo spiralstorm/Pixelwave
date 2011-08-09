@@ -52,7 +52,7 @@
  * colorQuality is used to set up the OpenGL rendering surface's pixel format
  * and whether or not dithering is used.
  * 
- * @see [PXView initWithFrame]:colorQuality:
+ * @see [PXView initWithFrame:colorQuality:]
  * @see [PXView colorQuality]
  */
 typedef enum

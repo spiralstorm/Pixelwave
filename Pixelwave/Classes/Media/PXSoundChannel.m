@@ -51,7 +51,7 @@
  * channels should never be initialized manually, however through a
  * <code>PXSound</code> using the <code>play</code> method.
  *
- * @see PXSound::play
+ * @see [PXSound play]
  */
 @implementation PXSoundChannel
 

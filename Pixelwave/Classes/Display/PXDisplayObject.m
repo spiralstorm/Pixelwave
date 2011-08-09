@@ -718,7 +718,7 @@ static unsigned _pxDisplayObjectCount = 0;
  * For the time being, both rectWithCoordinateSpace and
  * boundsWithCoordinateSpace do the same thing.
  *
- * @see PXDisplayObject::boundsWithCoordinateSpace
+ * @see [PXDisplayObject boundsWithCoordinateSpace]
  */
 - (PXRectangle *)rectWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace
 {

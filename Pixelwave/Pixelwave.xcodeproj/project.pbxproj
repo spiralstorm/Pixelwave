@@ -538,8 +538,8 @@
 		2D85D523107E58C900F46896 /* PXMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXMath.h; sourceTree = "<group>"; };
 		2D85D524107E58C900F46896 /* PXMath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXMath.m; sourceTree = "<group>"; };
 		2D85D6D8107E932600F46896 /* PXTopLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXTopLevel.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2D85D6FD10F2828000487214 /* PXLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXLinkedList.h; sourceTree = "<group>"; };
-		2D85D6FE10F2828000487214 /* PXLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXLinkedList.m; sourceTree = "<group>"; };
+		2D85D6FD10F2828000487214 /* PXLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXLinkedList.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2D85D6FE10F2828000487214 /* PXLinkedList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXLinkedList.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2D877F6A1352A6A700212094 /* PXClipRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXClipRect.h; sourceTree = "<group>"; };
 		2D877F6B1352A6A700212094 /* PXClipRect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXClipRect.m; sourceTree = "<group>"; };
 		2D89805712BD61A1000F5464 /* PXExceptionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXExceptionUtils.h; sourceTree = "<group>"; };
@@ -574,7 +574,7 @@
 		2DAF67B011C58E2800A66884 /* PXDisplayObjectContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXDisplayObjectContainer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2DAF67B111C58E2800A66884 /* PXDisplayObjectContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXDisplayObjectContainer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2DAF67B211C58E2800A66884 /* PXGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXGraphics.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2DAF67B311C58E2800A66884 /* PXGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphics.m; sourceTree = "<group>"; };
+		2DAF67B311C58E2800A66884 /* PXGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXGraphics.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2DAF67B411C58E2800A66884 /* PXInteractiveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXInteractiveObject.h; sourceTree = "<group>"; };
 		2DAF67B511C58E2800A66884 /* PXInteractiveObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXInteractiveObject.m; sourceTree = "<group>"; };
 		2DAF67B611C58E2800A66884 /* PXShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXShape.h; sourceTree = "<group>"; };
@@ -965,9 +965,9 @@
 		52DAB89F1278A758002894E7 /* PXSoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSoundEngine.h; sourceTree = "<group>"; };
 		52DAB8A01278A758002894E7 /* PXSoundEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSoundEngine.m; sourceTree = "<group>"; };
 		52DAB8A51278A796002894E7 /* PXSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSound.h; sourceTree = "<group>"; };
-		52DAB8A61278A796002894E7 /* PXSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSound.m; sourceTree = "<group>"; };
+		52DAB8A61278A796002894E7 /* PXSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXSound.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		52DAB8A71278A796002894E7 /* PXSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSoundChannel.h; sourceTree = "<group>"; };
-		52DAB8A81278A796002894E7 /* PXSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSoundChannel.m; sourceTree = "<group>"; };
+		52DAB8A81278A796002894E7 /* PXSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXSoundChannel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		52DAB8A91278A796002894E7 /* PXSoundListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSoundListener.h; sourceTree = "<group>"; };
 		52DAB8AA1278A796002894E7 /* PXSoundListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSoundListener.m; sourceTree = "<group>"; };
 		52DAB8AB1278A796002894E7 /* PXSoundMixer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXSoundMixer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };

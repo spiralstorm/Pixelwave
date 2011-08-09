@@ -77,7 +77,7 @@ BOOL pxTextureDataExpandEdges = YES;
  *
  * @see initWithString:font:
  * @see drawDisplayObject:
- * @see [PXTextureLoader initWithContentsOfFile]:
+ * @see [PXTextureLoader initWithContentsOfFile:]
  * @see textureDataWithContentsOfFile:
  */
 @implementation PXTextureData

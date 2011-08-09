@@ -47,7 +47,7 @@
  * when adding and removing event listeners from the PXEventDispatcher class.
  * 
  * @see PXListener
- * @see [PXEventDispatcher addEventListenerOfType]:listener:useCapture:priority:
+ * @see [PXEventDispatcher addEventListenerOfType:listener:useCapture:priority:]
  */
 @implementation PXEventListener
 

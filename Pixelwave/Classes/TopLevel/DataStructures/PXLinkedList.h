@@ -146,7 +146,7 @@ typedef struct _sPXLLNode
  * <code>NO</code>.  Default value is <code>NO</code>, as it is advised to keep
  * a retain on the added elements.
  * 
- * @see PXLinkedList::initWithWeakReferences:
+ * @see [PXLinkedList initWithWeakReferences:]
  */
 @property (nonatomic, readonly) BOOL weakReferences;
 

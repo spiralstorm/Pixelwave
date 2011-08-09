@@ -43,7 +43,7 @@
 /**
  * Specifies the distance model used when rendering 3D sounds to the speakers.
  * 
- * @see [PXSoundMixer setDistanceModel]:
+ * @see [PXSoundMixer setDistanceModel:]
  */
 typedef enum
 {

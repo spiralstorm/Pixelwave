@@ -111,8 +111,8 @@ typedef enum
 @property (nonatomic, readonly) BOOL bubbles;
 /**
  * Describes whether the behavior represented by the event may be canceled. If
- * <code>YES</code>, [PXEvent preventDefault]: may be used.
- * @see [PXEvent preventDefault]:
+ * <code>YES</code>, [PXEvent preventDefault:] may be used.
+ * @see [PXEvent preventDefault:]
  */
 @property (nonatomic, readonly) BOOL cancelable;
 /**

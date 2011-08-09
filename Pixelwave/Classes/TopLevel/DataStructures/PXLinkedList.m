@@ -1028,7 +1028,7 @@ _PXLLNode pxLinkedListBadNode;
  * // add2 has a retain count of 1, and no index
  * @endcode
  *
- * @see PXLinkedList::containsObject:
+ * @see [PXLinkedList containsObject:]
  */
 - (void) removeObject:(PXGenericObject)object
 {
@@ -1485,7 +1485,7 @@ _PXLLNode pxLinkedListBadNode;
  * // add2 has a retain count of 2, and an index of 0
  * @endcode
  *
- * @see PXLinkedList::swapObject:withObject:
+ * @see [PXLinkedList swapObject:]withObject:
  */
 - (void) swapObjectAtIndex:(int)index1 withObjectAtIndex:(int)index2
 {
@@ -1601,7 +1601,7 @@ _PXLLNode pxLinkedListBadNode;
  * free(cArray);
  * @endcode
  *
- * @see PXLinkedList::count
+ * @see [PXLinkedList count]
  */
 - (PXGenericObject *)cArray
 {

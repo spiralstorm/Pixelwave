@@ -199,7 +199,7 @@ NSMutableDictionary *pxFonts = nil;
 
 /**
  * Registers a font to the font library with the given name.  To access this
- * font again use PXFont::fontWithName:
+ * font again use [PXFont fontWithName:]
  *
  * @param font
  * 	The font to be registered.
@@ -264,7 +264,7 @@ NSMutableDictionary *pxFonts = nil;
 
 /**
  * Loads, parses and registers a font to the font library with the given name.
- * To access this font again use PXFont::fontWithName:
+ * To access this font again use [PXFont fontWithName:]
  *
  * @param path
  * 	The location of the font to load.
@@ -309,7 +309,7 @@ NSMutableDictionary *pxFonts = nil;
 
 /**
  * Loads, parses and registers a font to the font library with the given name.
- * To access this font again use PXFont::fontWithName:
+ * To access this font again use [PXFont fontWithName:]
  *
  * @param url
  * 	The location of the font to load.
@@ -355,7 +355,7 @@ NSMutableDictionary *pxFonts = nil;
 }
 /**
  * Parses and registers a font to the font library with the given name. To
- * access this font again use PXFont::fontWithName:
+ * access this font again use [PXFont fontWithName:]
  *
  * @param data
  * 	The loaded font data.
@@ -398,7 +398,7 @@ NSMutableDictionary *pxFonts = nil;
 }
 /**
  * Parses and registers a font to the font library with the same name. To
- * access this font again use PXFont::fontWithName:
+ * access this font again use [PXFont fontWithName:]
  *
  * @param systemFont
  * 	The system font to parse. Note: The name of this font will be the same
@@ -433,7 +433,7 @@ NSMutableDictionary *pxFonts = nil;
 }
 /**
  * Parses and registers a font to the font library with the given name. To
- * access this font again use PXFont::fontWithName:
+ * access this font again use [PXFont fontWithName:]
  *
  * @param systemFont
  * 	The system font to parse.

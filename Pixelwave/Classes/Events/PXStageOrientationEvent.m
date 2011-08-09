@@ -68,7 +68,7 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
  * 	event flow.
  * @param cancelable
  * 	Describes whether the behavior represented by the event may be canceled.
- * 	If <code>YES</code>, [PXEvent preventDefault]: may be used.
+ * 	If <code>YES</code>, [PXEvent preventDefault:] may be used.
  * @param beforeOrientation
  * 	The old orientation of the stage.
  * @param afterOrientation

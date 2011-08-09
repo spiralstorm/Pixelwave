@@ -361,7 +361,7 @@
  *
  * @see addFrameWithName:clipRect:textureData:anchorX:anchorY:
  * @see addFrame:withName:
- * @see [PXAtlasFrame initWithClipRect]:textureData:
+ * @see [PXAtlasFrame initWithClipRect:textureData:]
  */
 - (PXAtlasFrame *)addFrameWithName:(NSString *)name
 						  clipRect:(PXClipRect *)clipRect
@@ -396,7 +396,7 @@
  *
  * @see addFrame:withName:
  * @see addFrameWithName:clipRect:textureData:
- * @see [PXAtlasFrame initWithClipRect]:textureData:anchor:
+ * @see [PXAtlasFrame initWithClipRect:textureData:anchor:]
  */
 - (PXAtlasFrame *)addFrameWithName:(NSString *)name
 						  clipRect:(PXClipRect *)clipRect
@@ -432,7 +432,7 @@
  * 	with the given name. If name is <code>nil</code>, or isn't associated with
  * 	any frame in the atlas, <code>nil</code> is returned.
  *
- * @see [PXAtlasFrame setToTexture]:
+ * @see [PXAtlasFrame setToTexture:]
  */
 - (PXTexture *)textureForFrame:(NSString *)name
 {
@@ -457,7 +457,7 @@
  * 	A PXTexture object who's contents will be modified to represent the
  * 	given frame.
  *
- * @see [PXAtlasFrame setToTexture]:
+ * @see [PXAtlasFrame setToTexture:]
  */
 - (void) setFrame:(NSString *)name toTexture:(PXTexture *)texture
 {

@@ -268,7 +268,7 @@ typedef enum
  * @b Example:
  * @code
  * PXShape *shape = [PXShape new];
- * [shape.graphics lineStyle::0xFF0000 alpha:1.0f];
+ * [shape.graphics [lineStyle 0xFF0000] alpha:1.0f];
  * [shape.graphics drawRectWithX:100 y:150 width:64 height:32];
  * // A red outline of a rectangle at (100, 150) with a size of (64, 32) will
  * // be drawn to the screen, assuming the shape was added to the display list.
