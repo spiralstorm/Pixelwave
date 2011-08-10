@@ -60,9 +60,9 @@
 
 PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *list);
 
-//////////////////////
-// Event Dispatcher //
-//////////////////////
+//
+// Event Dispatcher
+//
 
 /*
    DONE: (from AS3 docs for EventDispatcher)
@@ -90,10 +90,11 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * the PXEventDispatcher class maybe subclassed by any user class in order to
  * provide event dispatching behavior for that class. If a user class is
  * unable to subclass PXEventDispatcher because it is already subclassing a
- * different class, it may implement the PXEventDispatcher protocol. In
- * order to implement the methods of the protocol, a private PXEventDispatcher
+ * different class, it may implement the PXEventDispatcher protocol.
+ * 
+ * In order to implement the methods of the protocol, a private PXEventDispatcher
  * ivar should be created, to which all of the protocol method calls should be
- * forwarded.
+ * forwarded.See the #PXEventDispatcher protocol for more information.
  *
  * @see PXEventDispatcher
  */

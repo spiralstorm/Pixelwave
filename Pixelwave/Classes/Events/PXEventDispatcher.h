@@ -179,9 +179,9 @@
 - (BOOL) willTriggerEventOfType:(NSString *)type;
 @end
 
-//////////////////////
-// Event Dispatcher //
-//////////////////////
+//
+// Event Dispatcher
+//
 
 // TODO Later: Keep all the capture phase listeners in a separate
 // dictionary instead of doing string contcatenation with the keys
