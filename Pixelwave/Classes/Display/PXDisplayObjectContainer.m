@@ -933,14 +933,10 @@
  * they were at prior to the swap taking place.
  *
  * It is more efficent not to reference a child by index.  If at all possible
- * you should avoid using this method, and use:@n
- * swapChild:(PXDisplayObject *)child1 withChild:(PXDisplayObject *)child2 @n
- * instead.
+ * you should avoid using this method, and use #swapChild:withChild: instead.
  *
- * @param
- * index1 Index of the first child.
- * @param
- * index2 Index of the second child.
+ * @param index1 Index of the first child.
+ * @param index2 Index of the second child.
  *
  * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
@@ -1011,8 +1007,7 @@
  * be any child, grandchild, etc. of this container, as long as they are under
  * the point.
  *
- * @param
- * The point to check for objects under in global coordinates.
+ * @param point The point to check for objects under in global coordinates.
  *
  * **Example:**
  *	PXSprite *container = [[PXSprite alloc] init];

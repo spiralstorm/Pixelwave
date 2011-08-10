@@ -57,8 +57,8 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 @end
 
 /**
- * A PXTouchEvent object is dispatched into the event flow whenever a touch,
- * release or movement occurs.  The event has information needed by the user to
+ * Dispatched by subclasses of #PXInteractiveObject an associated touch
+ * begins, ends, moves, or cancels. The event has information needed by the user to
  * handle the touch correctly.
  */
 @implementation PXTouchEvent

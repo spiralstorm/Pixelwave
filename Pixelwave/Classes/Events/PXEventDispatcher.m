@@ -51,9 +51,8 @@
 // DELETE
 #import "PXTouchEvent.h"
 
-/* More info about the Event Flow:
- http://livedocs.adobe.com/flex/3/html/help.html?content=events_08.html#203937
- */
+// More info about the Event Flow:
+// http://livedocs.adobe.com/flex/3/html/help.html?content=events_08.html#203937
 
 // This string gets tagged at the end of capture event dictionary keys
 #define PX_CAPTURE_STRING @"_CAP_"
@@ -143,20 +142,18 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 /**
  * Adds an event listener.
  *
- * @param type The type
- * @param listener The listener
- *
  * **Example:**
- *
  * In this example the method <code>onTouch:</code> is assigned as a
  * listener to the stage's <code>touchDown</code> event.
- 
  *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
  *	//...
  *	- (void) onTouchDown:(PXTouchEvent *)event
  *	{
  *	// handle event
  *	}
+ *
+ * @param type The type
+ * @param listener The listener
  */
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener
 {
@@ -166,22 +163,20 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 /**
  * Adds an event listener.
  *
- * @param type The type
- * @param listener The listener
- * @param capture If it should use capture
- * @param priority The priority
- *
  * **Example:**
- *
  * In this example the method <code>onTouch:</code> is assigned as a
  * listener to the stage's <code>touchDown</code> event.
- 
  *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:) useCapture:NO priority:0];
  *	//...
  *	- (void) onTouchDown:(PXTouchEvent *)event
  *	{
  *	// handle event
  *	}
+ *
+ * @param type The type
+ * @param listener The listener
+ * @param capture If it should use capture
+ * @param priority The priority
  */
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {

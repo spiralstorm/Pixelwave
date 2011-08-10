@@ -71,7 +71,7 @@ BOOL pxTextureDataExpandEdges = YES;
  * A PXTextureData object can be created with the contents of an external image
  * file via the PXTextureLoader class. Additionaly, a PXTextureData can be
  * initialized to contain a rasterized string of text with the
- * initWithString:font: method.
+ * #initWithString:font: method.
  * Additionally, a blank PXTextureData object can be created and populated by
  * the user at run-time.
  *
@@ -207,7 +207,7 @@ BOOL pxTextureDataExpandEdges = YES;
  * Initializes a TextureData object with the given width and height values in
  * pixels. The returned texture data object is initially filled with white,
  * non-transparent pixels. To modify the contents of the image you can use the
- * drawDisplayObject: method.
+ * #drawDisplayObject: method.
  * 
  * @param width The width of the new TextureData in pixels.
  * @param height The height of the new TextureData in pixels.
@@ -236,7 +236,7 @@ BOOL pxTextureDataExpandEdges = YES;
 /**
  * Initializes a PXTextureData object with the given width and height values in
  * pixels. To modify the contents of the image you can use the
- * drawDisplayObject: method.
+ * #drawDisplayObject: method.
  *
  * **Example:**
  *	// Create two texture data objects 512 x 512 pixels in size and a blue fill.

@@ -49,13 +49,14 @@
 ///////////////////////////////
 
 /**
- * The protocol from which the PXEventDispatcher is derived. Implement this
- * protocol when your class cannot extend the PXEventDispatcher class. The
- * implementing class should simply create a private PXEventDispatcher object
+ * The protocol from which the PXEventDispatcher is derived.
+ * You should implement this protocol when your class requires event
+ * dispatching functionallity but cannot extend the <code>PXEventDispatcher</code> class.
+ * 
+ * The implementing class should simply create a private PXEventDispatcher object
  * and pass along all method invocations to it.
  *
  * **Example:**
- * <br/>
  * We want to create a subclass of <code>SomeOtherClass</code> and we want it
  * to have event dispatching capabilities. The easy thing to do would be to
  * have our class extend PXEventDispatcher. But since it already extends from
@@ -63,8 +64,8 @@
  * to implement the PXEventDispatcher protocol, since one class can implement
  * any number of protocols but only inherit from a single class. Here's what
  * our class would need to do to support the PXEventDispatcher protocol:
- 
- * @i Header:
+ *
+ * _Header:_
  *	#import "SomeOtherClass.h"
  *	#import "PXEventDispatcher.h"
  *	
@@ -75,8 +76,8 @@
  *	}
  *	
  *	@end 
- 
- * @i Implementation:
+ *
+ * _Implementation:_
  *	#import "MyEventDispatchingClass.h"
  *	 
  *	@implementation MyEventDispatchingClass
@@ -144,6 +145,9 @@
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: NO
 //-- ScriptArg[3]: 0
+/**
+ * Adding an event listener.
+ */
 - (BOOL) addEventListenerOfType:(NSString *)type
 					   listener:(PXEventListener *)listener
 					 useCapture:(BOOL)useCapture
@@ -152,14 +156,26 @@
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: NO
+/**
+ * Removing an event listener.
+ */
 - (BOOL) removeEventListenerOfType:(NSString *)type
 						  listener:(PXEventListener *)listener
 						useCapture:(BOOL)useCapture;
 //-- ScriptName: dispatchEvent
+/**
+ * Dispatching an event.
+ */
 - (BOOL) dispatchEvent:(PXEvent *)event;
 //-- ScriptName: hasEventListener
+/**
+ * Querying registered events.
+ */
 - (BOOL) hasEventListenerOfType:(NSString *)type;
 //-- ScriptName: willTrigger
+/**
+ * Querying registered events.
+ */
 - (BOOL) willTriggerEventOfType:(NSString *)type;
 @end
 

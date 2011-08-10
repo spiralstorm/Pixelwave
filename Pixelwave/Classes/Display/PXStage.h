@@ -88,10 +88,12 @@ typedef enum
  * This value may be changed at any time.
  *
  * Must be one of the following:
- * <code>PXStageOrientation_Portrait</code>@n
- * <code>PXStageOrientation_PortraitUpsideDown</code>@n
- * <code>PXStageOrientation_LandscapeLeft</code>@n
- * <code>PXStageOrientation_LandscapeRight</code>
+ *
+ * -<code>PXStageOrientation_Portrait</code>
+ * -<code>PXStageOrientation_PortraitUpsideDown</code>
+ * -<code>PXStageOrientation_LandscapeLeft</code>
+ * -<code>PXStageOrientation_LandscapeRight</code>
+ *
  */
 @property (nonatomic, assign) PXStageOrientation orientation;
 
@@ -117,7 +119,7 @@ typedef enum
 
 /**
  * The color with which to clear the stage every frame. This values is used if
- * clearsScreen is set to <code>YES</code>.
+ * #clearScreen is set to <code>YES</code>.
  * 
  * Represented as a hexadecimal number with the format: RRGGBB
  *
@@ -142,12 +144,13 @@ typedef enum
  *
  * If set to <code>YES</code>, the following display list modification events
  * may be dispatched:
+ * 
  * - <i>added</i> - When a display object is added to a display list.
  * - <i>addedToStage</i> - When a display object or any of its ancestors are
- * 					added to the main display list.
+ * added to the main display list.
  * - <i>removed</i> - When a display object is removed from the display list.
  * - <i>removedFromStage</i> - When a display object or any of its ancestors
- * 						are removed from the main display list.
+ * are removed from the main display list.
  *
  * The value of this property may be changed at any time and has an immediate
  * effect.

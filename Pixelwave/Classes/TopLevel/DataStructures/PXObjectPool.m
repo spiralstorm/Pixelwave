@@ -106,7 +106,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
  * <code>retainCount</code> of 1, and must be released by the user at a later
  * time. When the returned object is no longer needed it should be
  * returned to the pool. To return an object to the pool, pass it to the
- * releaseObject: method instead of calling <code>[NSObject release]</code> on
+ * #releaseObject: method instead of calling <code>[NSObject release]</code> on
  * it directly.
  *
  * @param typeClass The class from which an instance should be created

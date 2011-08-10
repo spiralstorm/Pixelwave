@@ -49,9 +49,11 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
 @end
 
 /**
- * A PXOrientationEvent object is dispatched into the event flow whenever an
+ * Dispatched by the main stage whenever an
  * orientation change occurs on the device. The event has information needed by
  * the user to handle the change correctly.
+ *
+ * @see PXStage
  */
 @implementation PXStageOrientationEvent
 
