@@ -42,15 +42,9 @@
 #import "PXMathUtils.h"
 
 /**
- * A PXVector3D object is a vector in a three-dimensional coordinate system,
+ * A vector (or point) in a three-dimensional coordinate system,
  * where x represents the horizontal axis and y represents the vertical axis
  * and z represents the depth axis.
- *
- * The following code creates a vector at (0, 0, 0):
- *	PXVector3D *vector = [PXVector3D new];
- *
- * The following code creates a vector at (10, -7, 4):
- *	PXVector3D *vector = [[PXVector3D alloc] initWithX:10.0f y:-7.0f z:4.0f];
  */
 @implementation PXVector3D
 

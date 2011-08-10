@@ -44,12 +44,6 @@
  * A PXPoint object represents a location in a two-dimensional coordinate
  * system, where x represents the horizontal axis and y represents the vertical
  * axis.
- *
- * The following code creates a point at (0, 0):
- *	PXPoint *point = [PXPoint new];
- *
- * The following code creates a point at (10, -7):
- *	PXPoint *point = [[PXPoint alloc] initWithX:10 y:-7];
  */
 @implementation PXPoint
 
