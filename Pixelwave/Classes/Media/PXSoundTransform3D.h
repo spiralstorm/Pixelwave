@@ -114,22 +114,22 @@
  * The actual volume is computed using the following formula:
  *	playingVolume = volume *	distanceVolume *	[PXSoundMixer soundTransform].volume
  *
- * **Note:** The reference distance can not be negative, the absolute value will
- * 	be taken before use.
- *
  * **Default:** <code>[PXSoundMixer soundListener].defaultReferenceDistance</code>
+ *
+ * @warning The reference distance can not be negative, the absolute value will
+ * be taken before use.
  */
 @property (nonatomic) float referenceDistance;
 /**
  * The exponent for the logarithmic distance model described in
- * <code>PXSoundMixer</code>.  The exponent is ignored if the distance model is
+ * <code>PXSoundMixer</code>. The exponent is ignored if the distance model is
  * set to <code>PXSoundMixerDistanceModel_Linear</code>.  For the forumla used
  * please see the <code>referenceDistance</code> description.
  *
- * **Note:** The logarithmic exponent can not be negative, the absolute value
- * 	will be taken before use.
- *
  * **Default:** <code>[PXSoundMixer soundListener].defaultLogarithmicExponent</code>
+ *
+ * @warning The logarithmic exponent can not be negative, the absolute value
+ * will be taken before use.
  */
 @property (nonatomic) float logarithmicExponent;
 

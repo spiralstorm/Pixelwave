@@ -41,7 +41,7 @@
 #import "PXSoundEngine.h"
 
 /**
- * A PXSoundTransform3D object represents the volume, pitch, position, velocity
+ * Represents the volume, pitch, position, velocity
  * and distance formula for a 3D-ready <code>PXSoundChannel</code>.
  *
  * The following code creates a sound transform with 120% volume and 80%

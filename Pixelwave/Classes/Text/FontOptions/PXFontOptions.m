@@ -81,13 +81,13 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
  * Creates a new PXFontOptions. The font options holds information necessary to
  * build a font properly.
  *
- * Note:	NO duplicate characters will ever exist in the font options
- * 	characters. If a duplicate is given, it is stripped out
- * 	automatically. Also space (character 32) is always defined in a set;
- * 	thus it does not need to be given.
- *
  * @param characterSets A single or multiple (or'ed together) PXFontCharacterSet(s).
  * @param specialCharacters Any characters not defined in the sets that you wish to include.
+ *
+ * @warning NO duplicate characters will ever exist in the font options
+ * characters. If a duplicate is given, it is stripped out
+ * automatically. Also space (character 32) is always defined in a set;
+ * thus it does not need to be given.
  */
 - (id) initWithCharacterSets:(unsigned)characterSets
 		   specialCharacters:(NSString *)specialCharacters
@@ -262,13 +262,13 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
  * Creates a PXFontOptions. The font options holds information necessary to
  * build a font properly.
  *
- * Note:	NO duplicate characters will ever exist in the font options
- * 	characters. If a duplicate is given, it is stripped out
- * 	automatically. Also space (character 32) is always defined in a set;
- * 	thus it does not need to be given.
- *
  * @param characterSets A single or multiple (or'ed together) PXFontCharacterSet(s).
  * @param specialCharacters Any characters not defined in the sets that you wish to include.
+ *
+ * @warning NO duplicate characters will ever exist in the font options
+ * characters. If a duplicate is given, it is stripped out
+ * automatically. Also space (character 32) is always defined in a set;
+ * thus it does not need to be given.
  */
 + (PXFontOptions *)fontOptionsWithCharacterSets:(unsigned)characterSets
 							  specialCharacters:(NSString *)specialCharacters
