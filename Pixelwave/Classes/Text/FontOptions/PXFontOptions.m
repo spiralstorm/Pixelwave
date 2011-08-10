@@ -54,7 +54,7 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 @end
 
 /**
- * A PXFontOptions creates options for when making a new font.  These options
+ * Defines a set of options to use when creating a new font. These options
  * will decide how the font will be created and what will be stored.
  *
  * **Example:**

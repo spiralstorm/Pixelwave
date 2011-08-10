@@ -53,8 +53,9 @@
 NSMutableDictionary *pxFonts = nil;
 
 /**
- * A PXFont keeps a global reference to all registered fonts.  This is useful
- * for re-using an already created font.
+ * The base class for all fonts.
+ *
+ * Also lets the user register fonts and query for available system fonts.
  *
  * @see PXTextField
  * @see PXTextureFont

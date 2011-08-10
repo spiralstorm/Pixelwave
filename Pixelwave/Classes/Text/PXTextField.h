@@ -175,9 +175,11 @@ typedef enum
 @property (nonatomic) BOOL border;
 
 /**
- * If the text should be smoothed when transformed. This property is set to
- * <code>NO</code> be default and should only be set to <code>YES</code> when
- * the text field is being transformed (such as during an animation)
+ * If the text should be smoothed when transformed.
+ *
+ * Because smoothing is a relatively expensive operation, it's
+ * recommended to only turn it on when
+ * the text field is being transformed (such as during an animation).
  *
  * **Default:** <code>NO</code>
  */

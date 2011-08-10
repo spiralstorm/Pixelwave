@@ -54,7 +54,8 @@
 //-- ScriptName: FontWithSystemFont
 - (id) initWithSystemFont:(NSString *)systemFont options:(PXFontOptions *)options;
 
-///////////////////////////////// Registering \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#pragma mark Registering
+
 //-- ScriptName: registerFont
 + (PXFont *)registerFont:(PXFont *)font withName:(NSString *)name;
 
@@ -78,24 +79,28 @@
 								  name:(NSString *)name
 							   options:(PXFontOptions *)options;
 
-//////////////////////////////// Unregistering \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#pragma mark Un-registering
+
 //-- ScriptName: unregisterFont
 + (void) unregisterFontWithName:(NSString *)name;
 //-- ScriptName: unregisterAllFonts
 + (void) unregisterAllFonts;
 
-/////////////////////////////////// Getting \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#pragma mark Getting
+
 //-- ScriptName: getFont
 + (PXFont *)fontWithName:(NSString *)name;
 
-/////////////////////////////////// Checking \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#pragma mark Checking
+
 //-- ScriptName: containsFont
 + (BOOL) containsFontWithName:(NSString *)name;
 
 + (NSArray *)availableSystemFonts;
 + (BOOL) isSystemFontAvailable:(NSString *)name;
 
-/////////////////////////////////// Creating \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+#pragma mark Creating
+
 //-- ScriptName: makeWithContentsOfFile
 + (PXFont *)fontWithContentsOfFile:(NSString *)path options:(PXFontOptions *)options;
 //-- ScriptName: makeWithContentsOfURL

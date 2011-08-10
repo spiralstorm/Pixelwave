@@ -59,8 +59,9 @@
 @end
 
 /**
- * A PXTextField object represents a box of text on the screen.
+ * A display object which represents a line of text.
  *
+ * _Example:_
  * The following code creates a text field with the Helvetica font, that can
  * only accept letters ',' and '!' with size of 30.0f.
  *
