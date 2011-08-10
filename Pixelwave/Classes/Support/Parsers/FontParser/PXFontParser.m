@@ -52,19 +52,17 @@
  * into information needed to render the font.
  *
  * @b Example:
- * @code
- * NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
- * PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil];
- * PXFont *font = [fontParser newFont];
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
+ *	PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil];
+ *	PXFont *font = [fontParser newFont];
  *
- * [PXFont registerFont:font withName:@"font"];
- * // The font is now registered as the name "font", so any time you want to
- * // reference it, you can use "font.
+ *	[PXFont registerFont:font withName:@"font"];
+ *	// The font is now registered as the name "font", so any time you want to
+ *	// reference it, you can use "font.
  *
- * [font release];
- * [fontParser release];
- * [data release];
- * @endcode
+ *	[font release];
+ *	[fontParser release];
+ *	[data release];
  */
 @implementation PXFontParser
 
@@ -88,21 +86,19 @@
  * type is used. If no default type is found, then no new font can be made.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:24.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",.!?"]];
- * PXFontParser *fontParser = [[PXFontParser alloc] initWithSystemFont:@"helvetica" options:fontOptions];
- * PXFont *font = [fontParser newFont];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:24.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",.!?"]];
+ *	PXFontParser *fontParser = [[PXFontParser alloc] initWithSystemFont:@"helvetica" options:fontOptions];
+ *	PXFont *font = [fontParser newFont];
  *
- * [PXFont registerFont:font withName:@"helvetica24"];
- * // The font is now registered as the name "helvetica24", so any time you
- * // want to reference it, you can use "font.
+ *	[PXFont registerFont:font withName:@"helvetica24"];
+ *	// The font is now registered as the name "helvetica24", so any time you
+ *	// want to reference it, you can use "font.
  *
- * [font release];
- * [fontParser release];
- * [fontOptions release];
- * @endcode
+ *	[font release];
+ *	[fontParser release];
+ *	[fontOptions release];
  */
 - (id) initWithSystemFont:(NSString *)systemFont options:(PXFontOptions *)_options
 {
@@ -120,19 +116,17 @@
  * @param origin The origin of the font.
  *
  * @b Example:
- * @code
- * NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
- * PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil origin:@"font.fnt"];
- * PXFont *font = [fontParser newFont];
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
+ *	PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil origin:@"font.fnt"];
+ *	PXFont *font = [fontParser newFont];
  *
- * [PXFont registerFont:font withName:@"font"];
- * // The font is now registered as the name "font", so any time you want to
- * // reference it, you can use "font.
+ *	[PXFont registerFont:font withName:@"font"];
+ *	// The font is now registered as the name "font", so any time you want to
+ *	// reference it, you can use "font.
  *
- * [font release];
- * [fontParser release];
- * [data release];
- * @endcode
+ *	[font release];
+ *	[fontParser release];
+ *	[data release];
  */
 - (id) initWithData:(NSData *)_data options:(PXFontOptions *)_options origin:(NSString *)_origin
 {
@@ -150,19 +144,17 @@
  * @param contentScaleFactor The content scale factor of the parsed font.
  *
  * @b Example:
- * @code
- * NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
- * PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil origin:@"font.fnt"];
- * PXFont *font = [fontParser newFont];
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
+ *	PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil origin:@"font.fnt"];
+ *	PXFont *font = [fontParser newFont];
  *
- * [PXFont registerFont:font withName:@"font"];
- * // The font is now registered as the name "font", so any time you want to
- * // reference it, you can use "font.
+ *	[PXFont registerFont:font withName:@"font"];
+ *	// The font is now registered as the name "font", so any time you want to
+ *	// reference it, you can use "font.
  *
- * [font release];
- * [fontParser release];
- * [data release];
- * @endcode
+ *	[font release];
+ *	[fontParser release];
+ *	[data release];
  */
 - (id) initWithData:(NSData *)_data options:(PXFontOptions *)_options origin:(NSString *)_origin contentScaleFactor:(float)_contentScaleFactor
 {

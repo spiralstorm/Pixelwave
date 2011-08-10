@@ -592,12 +592,10 @@ static unsigned _pxDisplayObjectCount = 0;
  * @return The position of the touch in this display object's coordinate system.
  *
  * @b Example:
- * @code
- * - (void) onTouchDown:(PXTouchEvent *)event
- * {
- * PXPoint *touchPosition = [self positionOfTouch:event.nativeTouch];
- * }
- * @endcode
+ *	- (void) onTouchDown:(PXTouchEvent *)event
+ *	{
+ *	PXPoint *touchPosition = [self positionOfTouch:event.nativeTouch];
+ *	}
  */
 - (PXPoint *)positionOfTouch:(UITouch *)nativeTouch
 {
@@ -640,48 +638,46 @@ static unsigned _pxDisplayObjectCount = 0;
  * @return The bounding box in the target coordinate system.
  *
  * @b Example:
- * @code
- * PXShape *shape1 = [[PXShape alloc] init];
- * PXShape *shape2 = [[PXShape alloc] init];
+ *	PXShape *shape1 = [[PXShape alloc] init];
+ *	PXShape *shape2 = [[PXShape alloc] init];
  *
- * [self addChild:shape1];
- * [self addChild:shape2];
+ *	[self addChild:shape1];
+ *	[self addChild:shape2];
  *
- * [shape1 release];
- * [shape2 release];
+ *	[shape1 release];
+ *	[shape2 release];
  *
- * shape1.x = 50.0f;
- * shape1.y = 25.0f;
- * shape2.x = 100.0f;
- * shape2.y = 75.0f;
+ *	shape1.x = 50.0f;
+ *	shape1.y = 25.0f;
+ *	shape2.x = 100.0f;
+ *	shape2.y = 75.0f;
  *
- * [shape1.graphics beginFill:0xFF0000 alpha:1.0f];
- * [shape1.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
- * [shape1.graphics endFill];
+ *	[shape1.graphics beginFill:0xFF0000 alpha:1.0f];
+ *	[shape1.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
+ *	[shape1.graphics endFill];
  *
- * [shape2.graphics beginFill:0x0000FF alpha:1.0f];
- * [shape2.graphics drawRectWithX:0.0f y:0.0f width:200.0f height:100.0f];
- * [shape2.graphics endFill];
+ *	[shape2.graphics beginFill:0x0000FF alpha:1.0f];
+ *	[shape2.graphics drawRectWithX:0.0f y:0.0f width:200.0f height:100.0f];
+ *	[shape2.graphics endFill];
  *
- * PXRectangle *bounds;
+ *	PXRectangle *bounds;
  *
- * bounds = [shape1 boundsWithCoordinateSpace:shape2];
- * NSLog (@"shape1 in shape2 = %@\n", [bounds description]);
- * // bounds = (x=-50.0f, y=-50.0f, w=100.0f, h=200.0f)
+ *	bounds = [shape1 boundsWithCoordinateSpace:shape2];
+ *	NSLog (@"shape1 in shape2 = %@\n", [bounds description]);
+ *	// bounds = (x=-50.0f, y=-50.0f, w=100.0f, h=200.0f)
  *
- * shape2.scale = 0.5f;
- * bounds = [shape1 boundsWithCoordinateSpace:shape2];
- * NSLog (@"shape1 in shape2 = %@\n", [bounds description]);
- * // bounds = (x=-100.0f, y=-100.0f, w=200.0f, h=400.0f)
+ *	shape2.scale = 0.5f;
+ *	bounds = [shape1 boundsWithCoordinateSpace:shape2];
+ *	NSLog (@"shape1 in shape2 = %@\n", [bounds description]);
+ *	// bounds = (x=-100.0f, y=-100.0f, w=200.0f, h=400.0f)
  *
- * bounds = [shape1 boundsWithCoordinateSpace:shape1];
- * NSLog (@"shape1 in shape1 = %@\n", [bounds description]);
- * // bounds = (x=0.0f, y=0.0f, w=100.0f, h=200.0f)
+ *	bounds = [shape1 boundsWithCoordinateSpace:shape1];
+ *	NSLog (@"shape1 in shape1 = %@\n", [bounds description]);
+ *	// bounds = (x=0.0f, y=0.0f, w=100.0f, h=200.0f)
  *
- * bounds = [shape1 boundsWithCoordinateSpace:self];
- * NSLog (@"shape1 in root = %@\n", [bounds description]);
- * // bounds = (x=50.0f, y=-25.0f, w=100.0f, h=200.0f)
- * @endcode
+ *	bounds = [shape1 boundsWithCoordinateSpace:self];
+ *	NSLog (@"shape1 in root = %@\n", [bounds description]);
+ *	// bounds = (x=50.0f, y=-25.0f, w=100.0f, h=200.0f)
  */
 - (PXRectangle *)boundsWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace
 {
@@ -729,22 +725,20 @@ static unsigned _pxDisplayObjectCount = 0;
  * @return The converted point to this display object's coordinate system.
  *
  * @b Example:
- * @code
- * PXShape *shape = [[PXShape alloc] init];
- * [self addChild:shape];
- * [shape release];
+ *	PXShape *shape = [[PXShape alloc] init];
+ *	[self addChild:shape];
+ *	[shape release];
  *
- * shape.x = 50.0f;
- * shape.y = 25.0f;
+ *	shape.x = 50.0f;
+ *	shape.y = 25.0f;
  *
- * [shape.graphics beginFill:0xFF0000 alpha:1.0f];
- * [shape.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
- * [shape.graphics endFill];
+ *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
+ *	[shape.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
+ *	[shape.graphics endFill];
  *
- * PXPoint *point = [PXPoint pointWithX:10.0f y:20.0f];
- * PXPoint *localPoint = [shape globalToLocal:point];
- * // Point will be at (x=10.0f, y=20.0f), localPoint = (x=-40.0f, y=-5.0f).
- * @endcode
+ *	PXPoint *point = [PXPoint pointWithX:10.0f y:20.0f];
+ *	PXPoint *localPoint = [shape globalToLocal:point];
+ *	// Point will be at (x=10.0f, y=20.0f), localPoint = (x=-40.0f, y=-5.0f).
  */
 - (PXPoint *)globalToLocal:(PXPoint *)point
 {
@@ -768,22 +762,20 @@ static unsigned _pxDisplayObjectCount = 0;
  * @return The converted point to the stage's coordinate system.
  *
  * @b Example:
- * @code
- * PXShape *shape = [[PXShape alloc] init];
- * [self addChild:shape];
- * [shape release];
+ *	PXShape *shape = [[PXShape alloc] init];
+ *	[self addChild:shape];
+ *	[shape release];
  *
- * shape.x = 50.0f;
- * shape.y = 25.0f;
+ *	shape.x = 50.0f;
+ *	shape.y = 25.0f;
  *
- * [shape.graphics beginFill:0xFF0000 alpha:1.0f];
- * [shape.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
- * [shape.graphics endFill];
+ *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
+ *	[shape.graphics drawRectWithX:0.0f y:0.0f width:100.0f height:200.0f];
+ *	[shape.graphics endFill];
  *
- * PXPoint *point = [PXPoint pointWithX:10.0f y:20.0f];
- * PXPoint *globalPoint = [shape localToGlobal:point];
- * // Point will be at (x=10.0f, y=20.0f), localPoint = (x=-60.0f, y=45.0f).
- * @endcode
+ *	PXPoint *point = [PXPoint pointWithX:10.0f y:20.0f];
+ *	PXPoint *globalPoint = [shape localToGlobal:point];
+ *	// Point will be at (x=10.0f, y=20.0f), localPoint = (x=-60.0f, y=45.0f).
  */
 - (PXPoint *)localToGlobal:(PXPoint *)point
 {
@@ -808,25 +800,23 @@ static unsigned _pxDisplayObjectCount = 0;
  * bounding box of this object.
  *
  * @b Example:
- * @code
- * PXTexture *tex1 = [PXTexture textureWithContentsOfFile:@"image.png"];
- * PXTexture *tex2 = [PXTexture textureWithContentsOfFile:@"image.png"];
+ *	PXTexture *tex1 = [PXTexture textureWithContentsOfFile:@"image.png"];
+ *	PXTexture *tex2 = [PXTexture textureWithContentsOfFile:@"image.png"];
  *
- * [self addChild:tex1];
- * [self addChild:tex2];
+ *	[self addChild:tex1];
+ *	[self addChild:tex2];
  *
- * BOOL collides;
+ *	BOOL collides;
  *
- * tex2.x = 0.0f;
- * collides = [tex1 hitTestObject:tex2];
- * NSLog (@"collides = %@\n", (collides ? @"YES" : @"NO"));
- * // collides = YES
+ *	tex2.x = 0.0f;
+ *	collides = [tex1 hitTestObject:tex2];
+ *	NSLog (@"collides = %@\n", (collides ? @"YES" : @"NO"));
+ *	// collides = YES
  *
- * tex2.x = (tex1.x + tex1.width) * 1.2f;
- * collides = [tex1 hitTestObject:tex2];
- * NSLog (@"collides = %@\n", (collides ? @"YES" : @"NO"));
- * // collides = NO
- * @endcode
+ *	tex2.x = (tex1.x + tex1.width) *	1.2f;
+ *	collides = [tex1 hitTestObject:tex2];
+ *	NSLog (@"collides = %@\n", (collides ? @"YES" : @"NO"));
+ *	// collides = NO
  */
 - (BOOL) hitTestObject:(PXDisplayObject *)obj
 {
@@ -857,25 +847,23 @@ static unsigned _pxDisplayObjectCount = 0;
  * display object.
  *
  * @b Example:
- * @code
- * PXTexture *tex = [PXTexture textureWithContentsOfFile:@"image.png"];
- * [self addChild:tex];
+ *	PXTexture *tex = [PXTexture textureWithContentsOfFile:@"image.png"];
+ *	[self addChild:tex];
  *
- * tex.width  = 100.0f;
- * tex.height = 100.0f;
+ *	tex.width  = 100.0f;
+ *	tex.height = 100.0f;
  *
- * BOOL collides;
+ *	BOOL collides;
  *
- * tex.x = 0.0f;
- * tex.y = 0.0f;
- * collides = [tex hitTestPointWithX:50.0f y:25.0f];
- * // collides = YES
+ *	tex.x = 0.0f;
+ *	tex.y = 0.0f;
+ *	collides = [tex hitTestPointWithX:50.0f y:25.0f];
+ *	// collides = YES
  *
- * tex.x = 75.0f;
- * tex.y = 75.0f;
- * collides = [tex hitTestPointWithX:50.0f y:25.0f];
- * // collides = NO
- * @endcode
+ *	tex.x = 75.0f;
+ *	tex.y = 75.0f;
+ *	collides = [tex hitTestPointWithX:50.0f y:25.0f];
+ *	// collides = NO
  */
 - (BOOL) hitTestPointWithX:(float)x y:(float)y
 {
@@ -895,23 +883,21 @@ static unsigned _pxDisplayObjectCount = 0;
  * display object.
  *
  * @b Example:
- * @code
- * PXShape *shape = [[PXShape alloc] init];
- * [self addChild:shape];
- * [shape release];
+ *	PXShape *shape = [[PXShape alloc] init];
+ *	[self addChild:shape];
+ *	[shape release];
  *
- * [shape.graphics beginFill:0xFF0000 alpha:1.0f];
- * [shape.graphics drawCircleWithX:50.0f y:50.0f radius:50.0f];
- * [shape.graphics endFill];
+ *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
+ *	[shape.graphics drawCircleWithX:50.0f y:50.0f radius:50.0f];
+ *	[shape.graphics endFill];
  *
- * BOOL collides;
+ *	BOOL collides;
  *
- * collides = [tex hitTestPointWithX:1.0f y:1.0f shapeFlag:NO];
- * // collides = YES
+ *	collides = [tex hitTestPointWithX:1.0f y:1.0f shapeFlag:NO];
+ *	// collides = YES
  *
- * collides = [tex hitTestPointWithX:1.0f y:1.0f shapeFlag:YES];
- * // collides = NO
- * @endcode
+ *	collides = [tex hitTestPointWithX:1.0f y:1.0f shapeFlag:YES];
+ *	// collides = NO
  */
 - (BOOL) hitTestPointWithX:(float)x y:(float)y shapeFlag:(BOOL)shapeFlag
 {

@@ -53,18 +53,16 @@
  * from the Helvetica font with size of 30.0f.  Then the texture that is
  * created gets displayed.
  *
- * @code
- * PXFontOptions *fontOptions = [PXFontOptions fontOptionsWithSize:30.0f
- *                                                   characterSets:PXFontCharacterSet_AllLetters
- *                                               specialCharacters:@",!"];
- * PXTextureFont *textureFont = [PXTextureFont registerSystemFontWithFont:@"Helvetica"
- *                                                                   name:@"fontName"
- *                                                            fontOptions:fontOptions];
+ *	PXFontOptions *fontOptions = [PXFontOptions fontOptionsWithSize:30.0f
+ *	                                                  characterSets:PXFontCharacterSet_AllLetters
+ *	                                              specialCharacters:@",!"];
+ *	PXTextureFont *textureFont = [PXTextureFont registerSystemFontWithFont:@"Helvetica"
+ *	                                                                  name:@"fontName"
+ *	                                                           fontOptions:fontOptions];
  *
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureFont.textureData];
- * [self addChild:texture];
- * [texture release];
- * @endcode
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureFont.textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
  * @see PXFont
  */

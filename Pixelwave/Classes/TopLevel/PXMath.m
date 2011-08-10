@@ -58,10 +58,8 @@
  * @return float - A pseudo-random number.
  *
  * @b Example:
- * @code
- * float randomValue = [PXMath random];
- * //0.0f <= randomValue < 1.0f
- * @endcode
+ *	float randomValue = [PXMath random];
+ *	//0.0f <= randomValue < 1.0f
  */
 + (float) random
 {
@@ -78,10 +76,8 @@
  * @return float - A pseudo-random number.
  *
  * @b Example:
- * @code
- * float randomValue = [PXMath randomFloatInRangeWithMin:3.0f max:4.5f];
- * //3.0f <= randomValue < 4.5f
- * @endcode
+ *	float randomValue = [PXMath randomFloatInRangeWithMin:3.0f max:4.5f];
+ *	//3.0f <= randomValue < 4.5f
  */
 + (float) randomFloatInRangeFrom:(float)min to:(float)max
 {
@@ -94,10 +90,8 @@
  * @return int - A pseudo-random number.
  *
  * @b Example:
- * @code
- * int randomValue = [PXMath randomIntInRangeWithMin:3 max:5];
- * //3 <= randomValue <= 5, randomValue will be either 3, 4 or 5.
- * @endcode
+ *	int randomValue = [PXMath randomIntInRangeWithMin:3 max:5];
+ *	//3 <= randomValue <= 5, randomValue will be either 3, 4 or 5.
  */
 + (int) randomIntInRangeFrom:(int)min to:(int)max
 {

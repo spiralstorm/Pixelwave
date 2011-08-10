@@ -59,20 +59,18 @@
  * forward-vector and the up-vector.  These vectors can quickly be set by using
  * the <code>setRotation-using2DPerspective-</code> method.
  *
- * @code
- *             |
- *             |  _ +z
- *             |  /|
- *             | /
- *             |/
- * ------------*-----------> +x
- *            /|
- *           / |
- *          /  |
- *             |
- *             V
- *            +y
- * @endcode
+ *	            |
+ *	            |  _ +z
+ *	            |  /|
+ *	            | /
+ *	            |/
+ *	------------*-----------> +x
+ *	           /|
+ *	          / |
+ *	         /  |
+ *	            |
+ *	            V
+ *	           +y
  * 
  */
 @implementation PXSoundListener
@@ -276,10 +274,8 @@ BOOL pxSoundListenerInitialized = NO;
  * @param perspective The perspective of rotation.
  *
  * @b Example:
- * @code
- * [[PXSoundMixer soundListener] setRotation:-90.0f using2DPerspective:PXSoundListener2DPerspective_SideView];
- * // forward[0,0,-1], up[0,1,0]
- * @endcode
+ *	[[PXSoundMixer soundListener] setRotation:-90.0f using2DPerspective:PXSoundListener2DPerspective_SideView];
+ *	// forward[0,0,-1], up[0,1,0]
  */
 - (void) setRotation:(float)rotation using2DPerspective:(PXSoundListener2DPerspective)perspective
 {
@@ -321,10 +317,8 @@ BOOL pxSoundListenerInitialized = NO;
  * @param z The z-position in 3 space.
  *
  * @b Example:
- * @code
- * [[PXSoundMixer soundListener] setPositionWithX:240.0f y:160.0f z:0.0f];
- * // Set's the position of the listener to [240.0f, 160.0f, 0.0f];
- * @endcode
+ *	[[PXSoundMixer soundListener] setPositionWithX:240.0f y:160.0f z:0.0f];
+ *	// Set's the position of the listener to [240.0f, 160.0f, 0.0f];
  */
 - (void) setPositionWithX:(float)x y:(float)y z:(float)z
 {
@@ -348,10 +342,8 @@ BOOL pxSoundListenerInitialized = NO;
  * @param z The z-velocity in 3 space.
  *
  * @b Example:
- * @code
- * [[PXSoundMixer soundListener] setVelocityWithX:10.0f y:-5.0f z:0.0f];
- * // Set's the velocity of the listener to [10.0f, -5.0f, 0.0f];
- * @endcode
+ *	[[PXSoundMixer soundListener] setVelocityWithX:10.0f y:-5.0f z:0.0f];
+ *	// Set's the velocity of the listener to [10.0f, -5.0f, 0.0f];
  */
 - (void) setVelocityWithX:(float)x y:(float)y z:(float)z
 {

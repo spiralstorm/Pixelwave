@@ -58,10 +58,8 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
  * will decide how the font will be created and what will be stored.
  *
  * @b Example:
- * @code
- * PXFontOptions *fontOptions = [[PXFontOptions alloc] initWithCharacterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                         specialCharacters:@",.!?"]];
- * @endcode
+ *	PXFontOptions *fontOptions = [[PXFontOptions alloc] initWithCharacterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                        specialCharacters:@",.!?"]];
  *
  * @see PXTextureFontOptions
  */

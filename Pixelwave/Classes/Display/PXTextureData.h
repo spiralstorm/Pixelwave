@@ -104,16 +104,14 @@
  * case the <code>contentScaleFactor</code> would be higher than one.
  *
  * @b Example:
- * @code
- * // Lets assume that this code is running on a device with a retina display,
- * // and the file "ball@2x.png" is available along side "ball.png" in the
- * // application bundle.
- * PXTextureData *textureData = [PXTextureData textureDataWithContentOfFile:@"ball.png"];
+ *	// Lets assume that this code is running on a device with a retina display,
+ *	// and the file "ball@2x.png" is available along side "ball.png" in the
+ *	// application bundle.
+ *	PXTextureData *textureData = [PXTextureData textureDataWithContentOfFile:@"ball.png"];
  *
- * NSLog(@"%f", textureData.contentScaleFactor); // output: 2.0
+ *	NSLog(@"%f", textureData.contentScaleFactor); // output: 2.0
  *
- * // The output would be 1.0 on a non-retina display device.
- * @endcode
+ *	// The output would be 1.0 on a non-retina display device.
  */
 @property (nonatomic, readonly) float contentScaleFactor;
 

@@ -50,18 +50,16 @@
  * to play the sound.
  *
  * @b Example:
- * @code
- * NSData *data = [[NSData alloc] initWithContentsOfFile:@"sound.wav"];
- * PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data];
- * PXSound *sound = [soundParser newSound];
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"sound.wav"];
+ *	PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data];
+ *	PXSound *sound = [soundParser newSound];
  *
- * // Play the sound
- * [sound play];
+ *	// Play the sound
+ *	[sound play];
  *
- * [sound release];
- * [soundParser release];
- * [data release];
- * @endcode
+ *	[sound release];
+ *	[soundParser release];
+ *	[data release];
  */
 @implementation PXSoundParser
 
@@ -86,22 +84,20 @@
  * @param origin The origin of the font.
  *
  * @b Example:
- * @code
- * NSData *data = [[NSData alloc] initWithContentsOfFile:@"sound.wav"];
- * PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data
- *                                                         modifier:[PXSoundModifiers soundModifierToMono]
- *                                                           origin:@"sound.wav"];
- * // Now generates a mono version of the sound (assuming the sound was
- * // modifiable).
- * PXSound *sound = [soundParser newSound];
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"sound.wav"];
+ *	PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data
+ *	                                                        modifier:[PXSoundModifiers soundModifierToMono]
+ *	                                                          origin:@"sound.wav"];
+ *	// Now generates a mono version of the sound (assuming the sound was
+ *	// modifiable).
+ *	PXSound *sound = [soundParser newSound];
  *
- * // Play the sound
- * [sound play];
+ *	// Play the sound
+ *	[sound play];
  *
- * [sound release];
- * [soundParser release];
- * [data release];
- * @endcode
+ *	[sound release];
+ *	[soundParser release];
+ *	[data release];
  */
 - (id) initWithData:(NSData *)_data
 		   modifier:(id<PXSoundModifier>)_modifier

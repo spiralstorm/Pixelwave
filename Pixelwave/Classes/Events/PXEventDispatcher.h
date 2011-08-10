@@ -65,79 +65,75 @@
  * our class would need to do to support the PXEventDispatcher protocol:
  
  * @i Header:
- * @code
- * #import "SomeOtherClass.h"
- * #import "PXEventDispatcher.h"
- * 
- * @interface MyEventDispatchingClass : SomeOtherClass <PXEventDispatcher>
- * {
- * @private
- * PXEventDispatcher *eventDispatcher;
- * }
- * 
- * @end 
- * @endcode
+ *	#import "SomeOtherClass.h"
+ *	#import "PXEventDispatcher.h"
+ *	
+ *	@interface MyEventDispatchingClass : SomeOtherClass <PXEventDispatcher>
+ *	{
+ *	@private
+ *	PXEventDispatcher *eventDispatcher;
+ *	}
+ *	
+ *	@end 
  
  * @i Implementation:
- * @code
- * #import "MyEventDispatchingClass.h"
- *  
- * @implementation MyEventDispatchingClass
- * 
- * - (id) init
- * {
- * self = [super init];
+ *	#import "MyEventDispatchingClass.h"
+ *	 
+ *	@implementation MyEventDispatchingClass
+ *	
+ *	- (id) init
+ *	{
+ *	self = [super init];
  *
- * if (self)
- * {
- * 	eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];
- * }
+ *	if (self)
+ *	{
+ *		eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];
+ *	}
  *
- * return self;
- * }
+ *	return self;
+ *	}
  *
- * - (void) dealloc
- * {
- * [eventDispatcher release];
- * eventDispatcher = nil;
+ *	- (void) dealloc
+ *	{
+ *	[eventDispatcher release];
+ *	eventDispatcher = nil;
  *
- * [super dealloc];
- * }
+ *	[super dealloc];
+ *	}
  *
- * // Implementation of protocol methods. They just pass the parameters to the
- * // internal PXEventDispatcher object.
+ *	// Implementation of protocol methods. They just pass the parameters to the
+ *	// internal PXEventDispatcher object.
  *
- * - (BOOL) addEventListenerOfType:(NSString *)type
- *                        listener:(PXEventListener *)listener
- *                      useCapture:(BOOL)useCapture
- *                        priority:(int)priority
- * {
- * return [eventDispatcher addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
- * }
+ *	- (BOOL) addEventListenerOfType:(NSString *)type
+ *	                       listener:(PXEventListener *)listener
+ *	                     useCapture:(BOOL)useCapture
+ *	                       priority:(int)priority
+ *	{
+ *	return [eventDispatcher addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
+ *	}
  *
- * - (BOOL) removeEventListenerOfType:(NSString *)type
- *                           listener:(PXEventListener *)listener
- *                         useCapture:(BOOL)useCapture
- * {
- * return [eventDispatcher removeEventListenerOfType:type listener:listener useCapture:useCapture];
- * }
+ *	- (BOOL) removeEventListenerOfType:(NSString *)type
+ *	                          listener:(PXEventListener *)listener
+ *	                        useCapture:(BOOL)useCapture
+ *	{
+ *	return [eventDispatcher removeEventListenerOfType:type listener:listener useCapture:useCapture];
+ *	}
  *
- * - (BOOL) dispatchEvent:(PXEvent *)event
- * {
- * return [eventDispatcher dispatchEvent:event];
- * }
+ *	- (BOOL) dispatchEvent:(PXEvent *)event
+ *	{
+ *	return [eventDispatcher dispatchEvent:event];
+ *	}
  *
- * - (BOOL) hasEventListenerOfType:(NSString *)type
- * {
- * return [eventDispatcher hasEventListenerOfType:type];
- * }
- * - (BOOL) willTriggerEventOfType:(NSString *)type
- * {
- * return [eventDispatcher willTriggerEventOfType:type];
- * }
+ *	- (BOOL) hasEventListenerOfType:(NSString *)type
+ *	{
+ *	return [eventDispatcher hasEventListenerOfType:type];
+ *	}
+ *	- (BOOL) willTriggerEventOfType:(NSString *)type
+ *	{
+ *	return [eventDispatcher willTriggerEventOfType:type];
+ *	}
  *
- * @end 
- * @endcode
+ *	@end 
  *
  * @see PXEventDispatcher
  */

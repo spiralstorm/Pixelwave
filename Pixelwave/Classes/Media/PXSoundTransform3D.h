@@ -109,14 +109,10 @@
  * If the distance model described in <code>PXSoundMixer</code> is set to
  * <code>PXSoundMixerDistanceModel_Logarithmic</code> then the distance volume
  * is calculated based on the following forumla:
- * @code
- * distanceVolume = (distance / referenceDistance) ^ (-logarithmicExponent)
- * @endcode
+ *	distanceVolume = (distance / referenceDistance) ^ (-logarithmicExponent)
  *
  * The actual volume is computed using the following formula:
- * @code
- * playingVolume = volume * distanceVolume * [PXSoundMixer soundTransform].volume
- * @endcode
+ *	playingVolume = volume *	distanceVolume *	[PXSoundMixer soundTransform].volume
  *
  * @b Note: The reference distance can not be negative, the absolute value will
  * 	be taken before use.

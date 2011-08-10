@@ -54,20 +54,18 @@
  * needed to render the image.
  *
  * @b Example:
- * @code
- * NSData *data = [[NSData alloc] initWithContentsOfFile:@"image.png"];
- * PXTextureParser *textureParser = [[PXTextureParser alloc] initWithData:data];
- * PXTextureData *textureData = [textureParser newTextureData];
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"image.png"];
+ *	PXTextureParser *textureParser = [[PXTextureParser alloc] initWithData:data];
+ *	PXTextureData *textureData = [textureParser newTextureData];
  *
- * // Add a copy of the texture to the display hierarchy.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [self addChild:texture];
- * [texture release];
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
- * [textureData release];
- * [textureParser release];
- * [data release];
- * @endcode
+ *	[textureData release];
+ *	[textureParser release];
+ *	[data release];
  */
 @implementation PXTextureParser
 
@@ -91,24 +89,22 @@
  * @param origin The origin of the font.
  *
  * @b Example:
- * @code
- * NSData *data = [[NSData alloc] initWithContentsOfFile:@"image.png"];
- * PXTextureParser *textureParser = [[PXTextureParser alloc] initWithData:data
- *                                                               modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]
- *                                                                 origin:@"image.png"];
- * // This texture data will be stored as a 5551 texture; as in, 5 bytes for
- * // red, green, and blue and only 1 byte for alpha.
- * PXTextureData *textureData = [textureParser newTextureData];
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"image.png"];
+ *	PXTextureParser *textureParser = [[PXTextureParser alloc] initWithData:data
+ *	                                                              modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]
+ *	                                                                origin:@"image.png"];
+ *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
+ *	// red, green, and blue and only 1 byte for alpha.
+ *	PXTextureData *textureData = [textureParser newTextureData];
  *
- * // Add a copy of the texture to the display hierarchy.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [self addChild:texture];
- * [texture release];
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
- * [textureData release];
- * [textureParser release];
- * [data release];
- * @endcode
+ *	[textureData release];
+ *	[textureParser release];
+ *	[data release];
  */
 - (id) initWithData:(NSData *)_data
 		   modifier:(id<PXTextureModifier>)_modifier

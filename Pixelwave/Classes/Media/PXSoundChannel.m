@@ -136,15 +136,13 @@
  * position.
  *
  * @b Example:
- * @code
- * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- * PXSoundChannel *channel = [sound play];
- * // The sound is playing
- * [channel pause];
- * // The sound is paused
- * [channel play];
- * // The sound is playing
- * @endcode
+ *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ *	PXSoundChannel *channel = [sound play];
+ *	// The sound is playing
+ *	[channel pause];
+ *	// The sound is paused
+ *	[channel play];
+ *	// The sound is playing
  */
 - (BOOL) play
 {
@@ -160,13 +158,11 @@
  * position.
  *
  * @b Example:
- * @code
- * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- * PXSoundChannel *channel = [sound play];
- * // The sound is playing
- * [channel pause];
- * // The sound is paused
- * @endcode
+ *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ *	PXSoundChannel *channel = [sound play];
+ *	// The sound is playing
+ *	[channel pause];
+ *	// The sound is paused
  */
 - (void) pause
 {
@@ -182,13 +178,11 @@
  * permanently from the play list.
  *
  * @b Example:
- * @code
- * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- * PXSoundChannel *channel = [sound play];
- * // The sound is playing
- * [channel stop];
- * // The sound is stopped and wont play again
- * @endcode
+ *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ *	PXSoundChannel *channel = [sound play];
+ *	// The sound is playing
+ *	[channel stop];
+ *	// The sound is stopped and wont play again
  */
 - (void) stop
 {
@@ -208,17 +202,15 @@
  * done.
  *
  * @b Example:
- * @code
- * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- * PXSoundChannel *channel = [sound play];
- * // The sound is playing
- * [channel rewind];
- * // The sound is rewinded and continues playing
- * [channel pause];
- * // The sound is paused
- * [channel rewind];
- * // The sound is rewinded and continues staying paused
- * @endcode
+ *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ *	PXSoundChannel *channel = [sound play];
+ *	// The sound is playing
+ *	[channel rewind];
+ *	// The sound is rewinded and continues playing
+ *	[channel pause];
+ *	// The sound is paused
+ *	[channel rewind];
+ *	// The sound is rewinded and continues staying paused
  */
 - (void) rewind
 {

@@ -123,10 +123,8 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
  * @return The string representation of the orientation.
  *
  * @b Example:
- * @code
- * NSString *orientationString = [PXStageOrientationEvent orientationName:PXStageOrientation_Portrait];
- * // orientationString = @"portrait"
- * @endcode
+ *	NSString *orientationString = [PXStageOrientationEvent orientationName:PXStageOrientation_Portrait];
+ *	// orientationString = @"portrait"
  */
 + (NSString *)orientationName:(PXStageOrientation)orientation
 {

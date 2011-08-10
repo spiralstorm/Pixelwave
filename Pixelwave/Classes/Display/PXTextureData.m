@@ -239,15 +239,13 @@ BOOL pxTextureDataExpandEdges = YES;
  * drawDisplayObject: method.
  *
  * @b Example:
- * @code
- * // Create two texture data objects 512 x 512 pixels in size and a blue fill.
- * 
- * // The first one has an alpha channel
- * PXTextureData *textureDataWithAlpha = [[PXTextureData alloc] initWithWidth:512 height:512 transparency:YES fillColor:0xFF0000FF];
- * 
- * // The second one doesn't
- * PXTextureData *textureDataWithoutAlpha = [[PXTextureData alloc] initWithWidth:512 height:512 transparency:NO fillColor:0x0000FF];
- * @endcode
+ *	// Create two texture data objects 512 x 512 pixels in size and a blue fill.
+ *	
+ *	// The first one has an alpha channel
+ *	PXTextureData *textureDataWithAlpha = [[PXTextureData alloc] initWithWidth:512 height:512 transparency:YES fillColor:0xFF0000FF];
+ *	
+ *	// The second one doesn't
+ *	PXTextureData *textureDataWithoutAlpha = [[PXTextureData alloc] initWithWidth:512 height:512 transparency:NO fillColor:0x0000FF];
  * 
  * @param width The width of the new TextureData in pixels.
  * @param height The height of the new TextureData in pixels.

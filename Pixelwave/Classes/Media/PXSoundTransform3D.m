@@ -46,13 +46,11 @@
  *
  * The following code creates a sound transform with 120% volume and 80%
  * pitch:
- * @code
- * PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
- * // Volume will be 120% and pitch will be 80%, position[0,0,0] and
- * // velocity[0,0,0], reference distance and logarithmic exponent is set to
- * // the defaults described in sound listener.  To access the sound listener
- * // use [PXSoundMixer soundListener].
- * @endcode
+ *	PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
+ *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
+ *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
+ *	// the defaults described in sound listener.  To access the sound listener
+ *	// use [PXSoundMixer soundListener].
  *
  * @see PXSoundChannel, PXSoundMixer, PXSoundListener
  */
@@ -78,13 +76,11 @@
  * @param pitch The frequency of the sound.
  *
  * @b Example:
- * @code
- * PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
- * // Volume will be 120% and pitch will be 80%, position[0,0,0] and
- * // velocity[0,0,0], reference distance and logarithmic exponent is set to
- * // the defaults described in sound listener.  To access the sound listener
- * // use [PXSoundMixer soundListener].
- * @endcode
+ *	PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
+ *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
+ *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
+ *	// the defaults described in sound listener.  To access the sound listener
+ *	// use [PXSoundMixer soundListener].
  *
  * @see PXSoundChannel, PXSoundMixer, PXSoundListener
  */
@@ -172,12 +168,10 @@
  * @param z The depth coordinate.
  *
  * @b Example:
- * @code
- * PXSoundTransform3D *transform = [PXSoundTransform3D new];
- * // transform will have a volume of 1.0f and pitch of 1.0f
- * [transform setX:5.0f y:7.0f z:0.0f];
- * // transform's position will now be (5.0f, 7.0f, 0.0f)
- * @endcode
+ *	PXSoundTransform3D *transform = [PXSoundTransform3D new];
+ *	// transform will have a volume of 1.0f and pitch of 1.0f
+ *	[transform setX:5.0f y:7.0f z:0.0f];
+ *	// transform's position will now be (5.0f, 7.0f, 0.0f)
  */
 - (void) setX:(float)_x y:(float)_y z:(float)_z
 {
@@ -193,12 +187,10 @@
  * @param z The depth coordinate change per second.
  *
  * @b Example:
- * @code
- * PXSoundTransform3D *transform = [PXSoundTransform3D new];
- * // transform will have a volume of 1.0f and pitch of 1.0f
- * [transform setVelocityX:-10.0f y:4.1f z:0.0f];
- * // transform's velocity will now be (-10.0f, 4.1f, 0.0f)
- * @endcode
+ *	PXSoundTransform3D *transform = [PXSoundTransform3D new];
+ *	// transform will have a volume of 1.0f and pitch of 1.0f
+ *	[transform setVelocityX:-10.0f y:4.1f z:0.0f];
+ *	// transform's velocity will now be (-10.0f, 4.1f, 0.0f)
  */
 - (void) setVelocityX:(float)_x y:(float)_y z:(float)_z
 {
@@ -220,13 +212,11 @@
  * @return The created sound transform.
  *
  * @b Example:
- * @code
- * PXSoundTransform3D *transform = [PXSoundTransform3D soundTransformWithVolume:1.2f pitch:0.8f];
- * // Volume will be 120% and pitch will be 80%, position[0,0,0] and
- * // velocity[0,0,0], reference distance and logarithmic exponent is set to
- * // the defaults described in sound listener.  To access the sound listener
- * // use [PXSoundMixer soundListener].
- * @endcode
+ *	PXSoundTransform3D *transform = [PXSoundTransform3D soundTransformWithVolume:1.2f pitch:0.8f];
+ *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
+ *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
+ *	// the defaults described in sound listener.  To access the sound listener
+ *	// use [PXSoundMixer soundListener].
  *
  * @see PXSoundChannel, PXSoundMixer, PXSoundListener
  */

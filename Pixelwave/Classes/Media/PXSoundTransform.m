@@ -45,10 +45,8 @@
  *
  * The following code creates a sound transform with 120% volume and 80%
  * pitch:
- * @code
- * PXSoundTransform *transform = [[PXSoundTransform alloc] initWithVolume:1.2f pitch:0.8f];
- * // Volume will be 120% and pitch will be 80%
- * @endcode
+ *	PXSoundTransform *transform = [[PXSoundTransform alloc] initWithVolume:1.2f pitch:0.8f];
+ *	// Volume will be 120% and pitch will be 80%
  */
 @implementation PXSoundTransform
 
@@ -68,10 +66,8 @@
  * @param pitch The frequency of the sound.
  *
  * @b Example:
- * @code
- * PXSoundTransform *transform = [[PXSoundTransform alloc] initWithVolume:1.2f pitch:0.8f];
- * // Volume will be 120% and pitch will be 80%
- * @endcode
+ *	PXSoundTransform *transform = [[PXSoundTransform alloc] initWithVolume:1.2f pitch:0.8f];
+ *	// Volume will be 120% and pitch will be 80%
  */
 - (id) initWithVolume:(float)_volume pitch:(float)_pitch
 {
@@ -121,10 +117,8 @@
  * @return The created sound transform.
  *
  * @b Example:
- * @code
- * PXSoundTransform *transform = [PXSoundTransform soundTransformWithVolume:1.2f pitch:0.8f];
- * // Volume will be 120% and pitch will be 80%
- * @endcode
+ *	PXSoundTransform *transform = [PXSoundTransform soundTransformWithVolume:1.2f pitch:0.8f];
+ *	// Volume will be 120% and pitch will be 80%
  */
 + (PXSoundTransform *)soundTransformWithVolume:(float)volume pitch:(float)pitch
 {

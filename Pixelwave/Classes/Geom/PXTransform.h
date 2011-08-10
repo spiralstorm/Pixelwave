@@ -58,18 +58,14 @@
  * values and must be re-assigned to the <code>matrix</code> property.
  * <br><br>
  * Wrong:
- * @code
- * // This would have no effect.
- * displayObject.transform.matrix.a = 5;
- * @endcode
+ *	// This would have no effect.
+ *	displayObject.transform.matrix.a = 5;
  *
  * Right:
- * @code
- * PXMatrix *mat = displayObject.transform.matrix;
- * mat.a = 5;
- * // This would work.
- * displayObject.transform.matrix = mat;
- * @endcode
+ *	PXMatrix *mat = displayObject.transform.matrix;
+ *	mat.a = 5;
+ *	// This would work.
+ *	displayObject.transform.matrix = mat;
  */
 @property (nonatomic, copy) PXMatrix *matrix;
 /**
@@ -90,18 +86,14 @@
  * <br><br>
  *
  * Wrong:
- * @code
- * // This would have no effect on the display object.
- * displayObject.transform.colorTransform.redMultiplier = 0.5f;
- * @endcode
+ *	// This would have no effect on the display object.
+ *	displayObject.transform.colorTransform.redMultiplier = 0.5f;
  *
  * Right:
- * @code
- * PXColorTransform *trans = displayObject.transform.colorTransform;
- * trans.redMultiplier = 0.5f;
- * // This would work.
- * displayObject.transform.colorTransform = trans;
- * @endcode
+ *	PXColorTransform *trans = displayObject.transform.colorTransform;
+ *	trans.redMultiplier = 0.5f;
+ *	// This would work.
+ *	displayObject.transform.colorTransform = trans;
  */
 @property (nonatomic, copy) PXColorTransform *colorTransform;
 /**

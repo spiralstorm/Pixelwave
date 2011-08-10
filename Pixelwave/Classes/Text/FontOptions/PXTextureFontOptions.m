@@ -45,15 +45,13 @@
  * stored.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:24.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",.!?"]];
- * [PXFont registerFontWithContentsOfFile:@"font.ttf"
- *                                   name:@"myFont"
- *                                options:fontOptions];
- * [fontOptions release];
- * @endcode
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:24.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",.!?"]];
+ *	[PXFont registerFontWithContentsOfFile:@"font.ttf"
+ *	                                  name:@"myFont"
+ *	                               options:fontOptions];
+ *	[fontOptions release];
  */
 @implementation PXTextureFontOptions
 

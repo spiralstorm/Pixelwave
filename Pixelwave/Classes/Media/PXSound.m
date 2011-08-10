@@ -92,12 +92,10 @@
  * @return The parsed sound.
  *
  * @b Example:
- * @code
- * NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
- * PXSound *sound = [[PXSound alloc] initWithData:data];
- * PXSoundChannel *channel = [sound play];
- * // The sound will begin playing, and channel will be your reference.
- * @endcode
+ *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
+ *	PXSound *sound = [[PXSound alloc] initWithData:data];
+ *	PXSoundChannel *channel = [sound play];
+ *	// The sound will begin playing, and channel will be your reference.
  */
 - (id) initWithData:(NSData *)data
 {
@@ -115,13 +113,11 @@
  * @return The parsed sound.
  *
  * @b Example:
- * @code
- * NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
- * PXSound *sound = [[PXSound alloc] initWithData:data modifier:[PXSoundModifiers soundModifierToMono]];
- * PXSoundChannel *channel = [sound play];
- * // The sound will be converted to mono, then begin playing, and channel will
- * // be your reference.
- * @endcode
+ *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
+ *	PXSound *sound = [[PXSound alloc] initWithData:data modifier:[PXSoundModifiers soundModifierToMono]];
+ *	PXSoundChannel *channel = [sound play];
+ *	// The sound will be converted to mono, then begin playing, and channel will
+ *	// be your reference.
  *
  * @see PXSoundParser
  */
@@ -173,11 +169,9 @@
  * @return The reference to the sound channel that will be playing.
  *
  * @b Example:
- * @code
- * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- * PXSoundChannel *channel = [sound play];
- * // The sound will begin playing, and channel will be your reference.
- * @endcode
+ *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ *	PXSoundChannel *channel = [sound play];
+ *	// The sound will begin playing, and channel will be your reference.
  */
 - (PXSoundChannel *)play
 {
@@ -200,26 +194,24 @@
  * @return The reference to the sound channel that will be playing.
  *
  * @b Example:
- * @code
- * PXSoundLoader *soundLoader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav"];
- * PXSound *sound = [soundLoader newSound];
+ *	PXSoundLoader *soundLoader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav"];
+ *	PXSound *sound = [soundLoader newSound];
  *
- * PXSoundTransform3D *soundTransform3D = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
- * soundTransform3D.x = 40.0f;
- * soundTransform3D.y = 15.0f;
- * // The sound can only be 3D if it is mono and the correct file type.  To
- * // check for this, you can use the <code>is3DReady</code> method.
+ *	PXSoundTransform3D *soundTransform3D = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
+ *	soundTransform3D.x = 40.0f;
+ *	soundTransform3D.y = 15.0f;
+ *	// The sound can only be 3D if it is mono and the correct file type.  To
+ *	// check for this, you can use the <code>is3DReady</code> method.
  *
- * PXSoundChannel *channel = [sound playWithStartTime:4500 loopCount:PX_SOUND_INFINITE_LOOPS soundTransform:soundTransform3D];
- * // The sound will begin at, and loop from, 4.5 seconds for an indefinite
- * // quantity of time.  It's volume will be 120% and pitch 80% at position
- * // [40.0f,15.0f,0.0f] with velocity [0.0f,0.0f,0.0f].
+ *	PXSoundChannel *channel = [sound playWithStartTime:4500 loopCount:PX_SOUND_INFINITE_LOOPS soundTransform:soundTransform3D];
+ *	// The sound will begin at, and loop from, 4.5 seconds for an indefinite
+ *	// quantity of time.  It's volume will be 120% and pitch 80% at position
+ *	// [40.0f,15.0f,0.0f] with velocity [0.0f,0.0f,0.0f].
  *
- * // Release the memory
- * [soundTransform3D release];
- * [soundLoader release];
- * [sound release];
- * @endcode
+ *	// Release the memory
+ *	[soundTransform3D release];
+ *	[soundLoader release];
+ *	[sound release];
  *
  * @see PXSoundTransform, [PXSound is3DReady:]
  */
@@ -244,10 +236,8 @@
  * <code>nil</code> is returned instead.
  *
  * @b Example:
- * @code
- * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- * // Sound is loaded and ready to go.
- * @endcode
+ *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ *	// Sound is loaded and ready to go.
  */
 + (PXSound *)soundWithContentsOfFile:(NSString *)path
 {
@@ -265,10 +255,8 @@
  * <code>nil</code> is returned instead.
  *
  * @b Example:
- * @code
- * PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
- * // Sound is loaded, converted to mono, and ready to go.
- * @endcode
+ *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
+ *	// Sound is loaded, converted to mono, and ready to go.
  */
 + (PXSound *)soundWithContentsOfFile:(NSString *)path modifier:(id<PXSoundModifier>)modifier
 {
@@ -288,10 +276,8 @@
  * <code>nil</code> is returned instead.
  *
  * @b Example:
- * @code
- * PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav"];
- * // Sound is loaded and ready to go.
- * @endcode
+ *	PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav"];
+ *	// Sound is loaded and ready to go.
  */
 + (PXSound *)soundWithContentsOfURL:(NSURL *)url
 {
@@ -309,10 +295,8 @@
  * <code>nil</code> is returned instead.
  *
  * @b Example:
- * @code
- * PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
- * // Sound is loaded, converted to mono, and ready to go.
- * @endcode
+ *	PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
+ *	// Sound is loaded, converted to mono, and ready to go.
  */
 + (PXSound *)soundWithContentsOfURL:(NSURL *)url modifier:(id<PXSoundModifier>)modifier
 {
@@ -332,11 +316,9 @@
  * <code>nil</code> is returned instead.
  *
  * @b Example:
- * @code
- * NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
- * PXSound *sound = [PXSound soundWithData:data];
- * // Sound is parsed, converted to mono, and ready to go.
- * @endcode
+ *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
+ *	PXSound *sound = [PXSound soundWithData:data];
+ *	// Sound is parsed, converted to mono, and ready to go.
  */
 + (PXSound *)soundWithData:(NSData *)data
 {
@@ -353,11 +335,9 @@
  * <code>nil</code> is returned instead.
  *
  * @b Example:
- * @code
- * NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
- * PXSound *sound = [PXSound soundWithData:data modifier:[PXSoundModifiers soundModifierToMono]];
- * // Sound is parsed, converted to mono, and ready to go.
- * @endcode
+ *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
+ *	PXSound *sound = [PXSound soundWithData:data modifier:[PXSoundModifiers soundModifierToMono]];
+ *	// Sound is parsed, converted to mono, and ready to go.
  */
 + (PXSound *)soundWithData:(NSData *)data modifier:(id<PXSoundModifier>)modifier
 {

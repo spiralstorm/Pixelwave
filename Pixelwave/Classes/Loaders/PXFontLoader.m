@@ -73,11 +73,9 @@
  * - .pfr
  *
  * @b Example:
- * @code
- * PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.fnt" options:nil];
- * PXFont *font = [fontLoader newFont];
- * [fontLoader release];
- * @endcode
+ *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.fnt" options:nil];
+ *	PXFont *font = [fontLoader newFont];
+ *	[fontLoader release];
  */
 @implementation PXFontLoader
 
@@ -90,17 +88,15 @@
  * relative to	the application bundle.
  *
  * @b Example:
- * @code
- * PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.fnt"];
- * PXFont *font = [fontLoader newFont];
+ *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.fnt"];
+ *	PXFont *font = [fontLoader newFont];
  *
- * [PXFont registerFont:font withName:@"font"];
- * // The font is now registered as the name "font", so any time you want to
- * // reference it, you can use "font.
+ *	[PXFont registerFont:font withName:@"font"];
+ *	// The font is now registered as the name "font", so any time you want to
+ *	// reference it, you can use "font.
  *
- * [font release];
- * [fontLoader release];
- * @endcode
+ *	[font release];
+ *	[fontLoader release];
  */
 - (id) initWithContentsOfFile:(NSString *)path
 {
@@ -119,17 +115,15 @@
  * has this information, it is also loaded.
  *
  * @b Example:
- * @code
- * PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.fnt" options:nil];
- * PXFont *font = [fontLoader newFont];
+ *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.fnt" options:nil];
+ *	PXFont *font = [fontLoader newFont];
  *
- * [PXFont registerFont:font withName:@"font"];
- * // The font is now registered as the name "font", so any time you want to
- * // reference it, you can use "font.
+ *	[PXFont registerFont:font withName:@"font"];
+ *	// The font is now registered as the name "font", so any time you want to
+ *	// reference it, you can use "font.
  *
- * [font release];
- * [fontLoader release];
- * @endcode
+ *	[font release];
+ *	[fontLoader release];
  */
 - (id) initWithContentsOfFile:(NSString *)path options:(PXFontOptions *)_options
 {
@@ -144,17 +138,15 @@
  * @param url The url of the font to load.
  *
  * @b Example:
- * @code
- * PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.fnt"]];
- * PXFont *font = [fontLoader newFont];
+ *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.fnt"]];
+ *	PXFont *font = [fontLoader newFont];
  *
- * [PXFont registerFont:font withName:@"font"];
- * // The font is now registered as the name "font", so any time you want to
- * // reference it, you can use "font.
+ *	[PXFont registerFont:font withName:@"font"];
+ *	// The font is now registered as the name "font", so any time you want to
+ *	// reference it, you can use "font.
  *
- * [font release];
- * [fontLoader release];
- * @endcode
+ *	[font release];
+ *	[fontLoader release];
  */
 - (id) initWithContentsOfURL:(NSURL *)url
 {
@@ -172,17 +164,15 @@
  * has this information, it is also loaded.
  *
  * @b Example:
- * @code
- * PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.fnt"] options:nil];
- * PXFont *font = [fontLoader newFont];
+ *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.fnt"] options:nil];
+ *	PXFont *font = [fontLoader newFont];
  *
- * [PXFont registerFont:font withName:@"font"];
- * // The font is now registered as the name "font", so any time you want to
- * // reference it, you can use "font.
+ *	[PXFont registerFont:font withName:@"font"];
+ *	// The font is now registered as the name "font", so any time you want to
+ *	// reference it, you can use "font.
  *
- * [font release];
- * [fontLoader release];
- * @endcode
+ *	[font release];
+ *	[fontLoader release];
  */
 
 // TODO: Test this method. I have a feeling it won't work with .fnt files
@@ -308,16 +298,14 @@
  * @return The resulting, <code>autoreleased</code>, PXFontLoader object.
  *
  * @b Example:
- * @code
- * PXFontLoader *fontLoader = [PXFontLoader fontLoaderWithContentsOfFile:@"font.fnt" options:nil];
- * PXFont *font = [fontLoader newFont];
+ *	PXFontLoader *fontLoader = [PXFontLoader fontLoaderWithContentsOfFile:@"font.fnt" options:nil];
+ *	PXFont *font = [fontLoader newFont];
  *
- * [PXFont registerFont:font withName:@"font"];
- * // The font is now registered as the name "font", so any time you want to
- * // reference it, you can use "font.
+ *	[PXFont registerFont:font withName:@"font"];
+ *	// The font is now registered as the name "font", so any time you want to
+ *	// reference it, you can use "font.
  *
- * [font release];
- * @endcode
+ *	[font release];
  */
 + (PXFontLoader *)fontLoaderWithContentsOfFile:(NSString *)path options:(PXFontOptions *)options
 {
@@ -337,16 +325,14 @@
  * @return The resulting, <code>autoreleased</code>, PXFontLoader object.
  *
  * @b Example:
- * @code
- * PXFontLoader *fontLoader = [PXFontLoader fontLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.fnt"] options:nil];
- * PXFont *font = [fontLoader newFont];
+ *	PXFontLoader *fontLoader = [PXFontLoader fontLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.fnt"] options:nil];
+ *	PXFont *font = [fontLoader newFont];
  *
- * [PXFont registerFont:font withName:@"font"];
- * // The font is now registered as the name "font", so any time you want to
- * // reference it, you can use "font.
+ *	[PXFont registerFont:font withName:@"font"];
+ *	// The font is now registered as the name "font", so any time you want to
+ *	// reference it, you can use "font.
  *
- * [font release];
- * @endcode
+ *	[font release];
  */
 + (PXFontLoader *)fontLoaderWithContentsOfURL:(NSURL *)url options:(PXFontOptions *)options
 {

@@ -88,26 +88,24 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * <b>Example</b>:
  * The following code sample loads a png file and renders it to the screen:
  * 
- * @code
- * // Create a loader object to load and parse the png from the application
- * // bundle.
- * PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"logo.png"];
- * // Turn the loaded data to an OpenGL texture
- * PXTextureData *textureData = [loader newTextureData];
- * // The loader is no longer needed
- * [loader release];
- * loader = nil;
+ *	// Create a loader object to load and parse the png from the application
+ *	// bundle.
+ *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"logo.png"];
+ *	// Turn the loaded data to an OpenGL texture
+ *	PXTextureData *textureData = [loader newTextureData];
+ *	// The loader is no longer needed
+ *	[loader release];
+ *	loader = nil;
  *
- * // Create a PXTexture display object to render the texture data to the
- * // screen.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [textureData release];
- * textureData = nil;
+ *	// Create a PXTexture display object to render the texture data to the
+ *	// screen.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[textureData release];
+ *	textureData = nil;
  *
- * // Add the display object to the display list so it can be rendered
- * [self addChild:texture];
- * [texture release];
- * @endcode
+ *	// Add the display object to the display list so it can be rendered
+ *	[self addChild:texture];
+ *	[texture release];
  */
 @implementation PXTextureLoader
 
@@ -123,18 +121,16 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * extension, and Pixelwave will try to find a valid image with that name.
  *
  * @b Example:
- * @code
- * PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"image.png"];
- * PXTextureData *textureData = [textureLoader newTextureData];
+ *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"image.png"];
+ *	PXTextureData *textureData = [textureLoader newTextureData];
  *
- * // Add a copy of the texture to the display hierarchy.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [self addChild:texture];
- * [texture release];
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
- * [textureData release];
- * [textureLoader release];
- * @endcode
+ *	[textureData release];
+ *	[textureLoader release];
  */
 - (id) initWithContentsOfFile:(NSString *)path
 {
@@ -153,21 +149,19 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * your previously loaded data.
  *
  * @b Example:
- * @code
- * PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"image.png"
- *                                                                         modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
- * // This texture data will be stored as a 5551 texture; as in, 5 bytes for
- * // red, green, and blue and only 1 byte for alpha.
- * PXTextureData *textureData = [textureLoader newTextureData];
+ *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"image.png"
+ *	                                                                        modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
+ *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
+ *	// red, green, and blue and only 1 byte for alpha.
+ *	PXTextureData *textureData = [textureLoader newTextureData];
  *
- * // Add a copy of the texture to the display hierarchy.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [self addChild:texture];
- * [texture release];
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
- * [textureData release];
- * [textureLoader release];
- * @endcode
+ *	[textureData release];
+ *	[textureLoader release];
  */
 - (id) initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)_modifier
 {
@@ -182,18 +176,16 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * @param url The url of the image to load.
  *
  * @b Example:
- * @code
- * PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
- * PXTextureData *textureData = [textureLoader newTextureData];
+ *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
+ *	PXTextureData *textureData = [textureLoader newTextureData];
  *
- * // Add a copy of the texture to the display hierarchy.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [self addChild:texture];
- * [texture release];
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
- * [textureData release];
- * [textureLoader release];
- * @endcode
+ *	[textureData release];
+ *	[textureLoader release];
  */
 - (id) initWithContentsOfURL:(NSURL *)url
 {
@@ -210,21 +202,19 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * your previously loaded data.
  *
  * @b Example:
- * @code
- * PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]
- *                                                                        modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
- * // This texture data will be stored as a 5551 texture; as in, 5 bytes for
- * // red, green, and blue and only 1 byte for alpha.
- * PXTextureData *textureData = [textureLoader newTextureData];
+ *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]
+ *	                                                                       modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
+ *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
+ *	// red, green, and blue and only 1 byte for alpha.
+ *	PXTextureData *textureData = [textureLoader newTextureData];
  *
- * // Add a copy of the texture to the display hierarchy.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [self addChild:texture];
- * [texture release];
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
- * [textureData release];
- * [textureLoader release];
- * @endcode
+ *	[textureData release];
+ *	[textureLoader release];
  */
 - (id) initWithContentsOfURL:(NSURL *)url modifier:(id<PXTextureModifier>)_modifier
 {
@@ -406,17 +396,15 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *
  *
  * @b Example:
- * @code
- * PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"];
- * PXTextureData *textureData = [textureLoader newTextureData];
+ *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"];
+ *	PXTextureData *textureData = [textureLoader newTextureData];
  *
- * // Add a copy of the texture to the display hierarchy.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [self addChild:texture];
- * [texture release];
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
- * [textureData release];
- * @endcode
+ *	[textureData release];
  */
 + (PXTextureLoader *)textureLoaderWithContentsOfFile:(NSString *)path
 {
@@ -437,20 +425,18 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
  *
  * @b Example:
- * @code
- * PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"
- *                                                                          modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
- * // This texture data will be stored as a 5551 texture; as in, 5 bytes for
- * // red, green, and blue and only 1 byte for alpha.
- * PXTextureData *textureData = [textureLoader newTextureData];
+ *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"
+ *	                                                                         modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
+ *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
+ *	// red, green, and blue and only 1 byte for alpha.
+ *	PXTextureData *textureData = [textureLoader newTextureData];
  *
- * // Add a copy of the texture to the display hierarchy.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [self addChild:texture];
- * [texture release];
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
- * [textureData release];
- * @endcode
+ *	[textureData release];
  */
 + (PXTextureLoader *)textureLoaderWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
@@ -466,17 +452,15 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
  *
  * @b Example:
- * @code
- * PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
- * PXTextureData *textureData = [textureLoader newTextureData];
+ *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
+ *	PXTextureData *textureData = [textureLoader newTextureData];
  *
- * // Add a copy of the texture to the display hierarchy.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [self addChild:texture];
- * [texture release];
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
- * [textureData release];
- * @endcode
+ *	[textureData release];
  */
 + (PXTextureLoader *)textureLoaderWithContentsOfURL:(NSURL *)url
 {
@@ -495,20 +479,18 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
  *
  * @b Example:
- * @code
- * PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]
- *                                                                         modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
- * // This texture data will be stored as a 5551 texture; as in, 5 bytes for
- * // red, green, and blue and only 1 byte for alpha.
- * PXTextureData *textureData = [textureLoader newTextureData];
+ *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]
+ *	                                                                        modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
+ *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
+ *	// red, green, and blue and only 1 byte for alpha.
+ *	PXTextureData *textureData = [textureLoader newTextureData];
  *
- * // Add a copy of the texture to the display hierarchy.
- * PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
- * [self addChild:texture];
- * [texture release];
+ *	// Add a copy of the texture to the display hierarchy.
+ *	PXTexture *texture = [[PXTexture alloc] initWithTextureData:textureData];
+ *	[self addChild:texture];
+ *	[texture release];
  *
- * [textureData release];
- * @endcode
+ *	[textureData release];
  */
 + (PXTextureLoader *)textureLoaderWithContentsOfURL:(NSURL *)url modifier:(id<PXTextureModifier>)modifier
 {

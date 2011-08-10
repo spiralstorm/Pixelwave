@@ -77,35 +77,33 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * - .caf
  *
  * @b Example:
- * @code
- * // Create a loader object to load and parse the wav from the application
- * // bundle.
- * PXSoundLoader *loader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav"];
- * // Turn the loaded data to an OpenAL sound
- * PXSound *sound = [loader newSound];
- * // The loader is no longer needed
- * [loader release];
- * loader = nil;
+ *	// Create a loader object to load and parse the wav from the application
+ *	// bundle.
+ *	PXSoundLoader *loader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav"];
+ *	// Turn the loaded data to an OpenAL sound
+ *	PXSound *sound = [loader newSound];
+ *	// The loader is no longer needed
+ *	[loader release];
+ *	loader = nil;
  *
- * // Create a PXSoundChannel object to play the sound
- * PXSoundChannel *channel = [sound playWithStartTime:0 loopCount:0 soundTransform:nil];
- * [sound release];
- * sound = nil;
+ *	// Create a PXSoundChannel object to play the sound
+ *	PXSoundChannel *channel = [sound playWithStartTime:0 loopCount:0 soundTransform:nil];
+ *	[sound release];
+ *	sound = nil;
  *
- * // Create a loader object to load and parse the mp3 from the application
- * // bundle.
- * loader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.mp3"];
- * // Turn the loaded data to an AVAudio sound
- * PXSound *sound = [loader newSound];
- * // The loader is no longer needed
- * [loader release];
- * loader = nil;
+ *	// Create a loader object to load and parse the mp3 from the application
+ *	// bundle.
+ *	loader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.mp3"];
+ *	// Turn the loaded data to an AVAudio sound
+ *	PXSound *sound = [loader newSound];
+ *	// The loader is no longer needed
+ *	[loader release];
+ *	loader = nil;
  *
- * // Create a PXSoundChannel object to play the sound
- * PXSoundChannel *channel = [sound playWithStartTime:0 loopCount:0 soundTransform:nil];
- * [sound release];
- * sound = nil;
- * @endcode
+ *	// Create a PXSoundChannel object to play the sound
+ *	PXSoundChannel *channel = [sound playWithStartTime:0 loopCount:0 soundTransform:nil];
+ *	[sound release];
+ *	sound = nil;
  */
 @implementation PXSoundLoader
 
@@ -120,10 +118,8 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * relative to	the application bundle.
  *
  * @b Example:
- * @code
- * PXSoundLoader *loader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav"];
- * // Loads the wav sound.
- * @endcode
+ *	PXSoundLoader *loader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav"];
+ *	// Loads the wav sound.
  */
 - (id) initWithContentsOfFile:(NSString *)path
 {
@@ -140,10 +136,8 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * them.
  *
  * @b Example:
- * @code
- * PXSoundLoader *loader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
- * // Loads the wav sound and converts it to mono if it is not.
- * @endcode
+ *	PXSoundLoader *loader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
+ *	// Loads the wav sound and converts it to mono if it is not.
  */
 - (id) initWithContentsOfFile:(NSString *)path modifier:(id<PXSoundModifier>)_modifier
 {
@@ -158,11 +152,9 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * @param url The url of the sound file to load.
  *
  * @b Example:
- * @code
- * NSURL *url = [NSURL URLWithString:@"www.website.com/sound.wav"];
- * PXSoundLoader *loader = [[PXSoundLoader alloc] initWithContentsOfURL:url];
- * // Loads the wav sound.
- * @endcode
+ *	NSURL *url = [NSURL URLWithString:@"www.website.com/sound.wav"];
+ *	PXSoundLoader *loader = [[PXSoundLoader alloc] initWithContentsOfURL:url];
+ *	// Loads the wav sound.
  */
 - (id) initWithContentsOfURL:(NSURL *)url
 {
@@ -178,11 +170,9 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * them.
  *
  * @b Example:
- * @code
- * NSURL *url = [NSURL URLWithString:@"www.website.com/sound.wav"];
- * PXSoundLoader *loader = [[PXSoundLoader alloc] initWithContentsOfURL:url modifier:[PXSoundModifiers soundModifierToMono]];
- * // Loads the wav sound and converts it to mono if it is not.
- * @endcode
+ *	NSURL *url = [NSURL URLWithString:@"www.website.com/sound.wav"];
+ *	PXSoundLoader *loader = [[PXSoundLoader alloc] initWithContentsOfURL:url modifier:[PXSoundModifiers soundModifierToMono]];
+ *	// Loads the wav sound and converts it to mono if it is not.
  */
 - (id) initWithContentsOfURL:(NSURL *)url modifier:(id<PXSoundModifier>)_modifier
 {
@@ -280,10 +270,8 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * @return The resulting, <code>autoreleased</code>, PXSoundLoader object.
  *
  * @b Example:
- * @code
- * PXSoundLoader *loader = [PXSoundLoader soundLoaderWithContentsOfFile:@"sound.wav"];
- * // Loads the wav sound.
- * @endcode
+ *	PXSoundLoader *loader = [PXSoundLoader soundLoaderWithContentsOfFile:@"sound.wav"];
+ *	// Loads the wav sound.
  */
 + (PXSoundLoader *)soundLoaderWithContentsOfFile:(NSString *)path
 {
@@ -302,10 +290,8 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * @return The resulting, <code>autoreleased</code>, PXSoundLoader object.
  *
  * @b Example:
- * @code
- * PXSoundLoader *loader = [PXSoundLoader soundLoaderWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
- * // Loads the wav sound and converts it to mono if it is not.
- * @endcode
+ *	PXSoundLoader *loader = [PXSoundLoader soundLoaderWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
+ *	// Loads the wav sound and converts it to mono if it is not.
  */
 + (PXSoundLoader *)soundLoaderWithContentsOfFile:(NSString *)path modifier:(id<PXSoundModifier>)modifier
 {
@@ -321,11 +307,9 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * @return The resulting, <code>autoreleased</code>, PXSoundLoader object.
  *
  * @b Example:
- * @code
- * NSURL *url = [NSURL URLWithString:@"www.website.com/sound.wav"];
- * PXSoundLoader *loader = [PXSoundLoader soundLoaderWithContentsOfURL:url];
- * // Loads the wav sound.
- * @endcode
+ *	NSURL *url = [NSURL URLWithString:@"www.website.com/sound.wav"];
+ *	PXSoundLoader *loader = [PXSoundLoader soundLoaderWithContentsOfURL:url];
+ *	// Loads the wav sound.
  */
 + (PXSoundLoader *)soundLoaderWithContentsOfURL:(NSURL *)url
 {
@@ -343,11 +327,9 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * @return The resulting, <code>autoreleased</code>, PXSoundLoader object.
  *
  * @b Example:
- * @code
- * NSURL *url = [NSURL URLWithString:@"www.website.com/sound.wav"];
- * PXSoundLoader *loader = [PXSoundLoader soundLoaderWithContentsOfURL:url modifier:[PXSoundModifiers soundModifierToMono]];
- * // Loads the wav sound and converts it to mono if it is not.
- * @endcode
+ *	NSURL *url = [NSURL URLWithString:@"www.website.com/sound.wav"];
+ *	PXSoundLoader *loader = [PXSoundLoader soundLoaderWithContentsOfURL:url modifier:[PXSoundModifiers soundModifierToMono]];
+ *	// Loads the wav sound and converts it to mono if it is not.
  */
 + (PXSoundLoader *)soundLoaderWithContentsOfURL:(NSURL *)url modifier:(id<PXSoundModifier>)modifier
 {

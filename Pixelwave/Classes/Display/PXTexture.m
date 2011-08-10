@@ -88,11 +88,9 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  * @param texture The texture data that this texture represents.
  *
  * @b Example:
- * @code
- * PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
- * PXTextureData *data = [loader newTextureData]; 
- * PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
- * @endcode
+ *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
+ *	PXTextureData *data = [loader newTextureData]; 
+ *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
  *
  * @see PXTextureData
  * @see PXTextureLoader
@@ -181,16 +179,14 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  * @param anchorY The vertical anchor position, in percent.
  *
  * @b Example:
- * @code
- * PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
- * PXTextureData *data = [loader newTextureData]; 
- * PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
+ *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
+ *	PXTextureData *data = [loader newTextureData]; 
+ *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
  *
- * [tex setClipRectWithX:16 y:16 width:32 height:64 usingAnchorX:0.5f anchorY:0.5f];
- * // tex would represent a 32x64 image that is part of the whole image of
- * // happy, starting at (16, 16).  Its anchor will be at (16, 32) in local
- * // point coordinates.
- * @endcode
+ *	[tex setClipRectWithX:16 y:16 width:32 height:64 usingAnchorX:0.5f anchorY:0.5f];
+ *	// tex would represent a 32x64 image that is part of the whole image of
+ *	// happy, starting at (16, 16).  Its anchor will be at (16, 32) in local
+ *	// point coordinates.
  *
  * @see setClipRect:
  */
@@ -354,15 +350,13 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  * @param y The vertical anchor position, in percent where 0.0f <= y <= 1.0f.
  *
  * @b Example:
- * @code
- * PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
- * PXTextureData *data = [loader newTextureData]; 
- * PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
+ *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
+ *	PXTextureData *data = [loader newTextureData]; 
+ *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
  *
- * [tex setAnchorWithX:0.5f y:0.5f];
- * // tex would represent the happy image.  Assuming happy is a 32x64 image,
- * // then its anchor will be at (16, 32) in local point coordinates.
- * @endcode
+ *	[tex setAnchorWithX:0.5f y:0.5f];
+ *	// tex would represent the happy image.  Assuming happy is a 32x64 image,
+ *	// then its anchor will be at (16, 32) in local point coordinates.
  *
  * @see PXTextureData
  * @see PXTextureLoader
@@ -382,15 +376,13 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  * @param y The vertical anchor position in points, within the textureData.
  *
  * @b Example:
- * @code
- * PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
- * PXTextureData *data = [loader newTextureData]; 
- * PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
+ *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
+ *	PXTextureData *data = [loader newTextureData]; 
+ *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
  *
- * [tex setAnchorWithPointX:16 pointY:32];
- * // tex would represent the happy image.  Assuming happy is a 32x64 image,
- * // then its anchor will be at (16, 32) in local point coordinates.
- * @endcode
+ *	[tex setAnchorWithPointX:16 pointY:32];
+ *	// tex would represent the happy image.  Assuming happy is a 32x64 image,
+ *	// then its anchor will be at (16, 32) in local point coordinates.
  *
  * @see PXTextureData
  * @see PXTextureLoader

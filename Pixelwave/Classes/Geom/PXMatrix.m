@@ -45,23 +45,17 @@
  * A PXMatrix object that represents a two-dimensional transformation matrix.
  *
  * The following code creates an identity matrix:
- * @code
- * PXMatrix *matrix = [PXMatrix new];
- * @endcode
+ *	PXMatrix *matrix = [PXMatrix new];
  *
  * The following code creates a matrix that has been rotated 30 degrees
  * (PI/6.0f radians) and translated (-4.0f, 2.5f):
- * @code
- * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- * @endcode
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *
  * Likewise the following code creates a matrix that has been rotated 30
  * degrees (PI/6.0f radians) and translated (-4.0f, 2.5f):
- * @code
- * PXMatrix *matrix = [PXMatrix new];
- * [matrix rotate:M_PI/6.0f];
- * [matrix translateX:-4.0f y:2.5f];
- * @endcode
+ *	PXMatrix *matrix = [PXMatrix new];
+ *	[matrix rotate:M_PI/6.0f];
+ *	[matrix translateX:-4.0f y:2.5f];
  */
 @implementation PXMatrix
 
@@ -89,10 +83,8 @@
  * translating.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- * @endcode
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
  */
 - (id) initWithA:(float)_a b:(float)_b c:(float)_c d:(float)_d tx:(float)_tx ty:(float)_ty
 {
@@ -147,11 +139,9 @@
  * translating.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [[PXMatrix alloc] init];
- * [matrix setA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- * @endcode
+ *	PXMatrix *matrix = [[PXMatrix alloc] init];
+ *	[matrix setA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
  */
 - (void) setA:(float)_a b:(float)_b c:(float)_c d:(float)_d tx:(float)_tx ty:(float)_ty
 {
@@ -171,14 +161,12 @@
  * @param m The matrix to be concatenated.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix1 = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- * // matrix1 will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- * PXMatrix *matrix2 = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:1.0f d:0.0f tx:-1.0f ty:1.0f];
- * // matrix2 will be (a=0.0f, b=1.0f, c=1.0f, d=0.0f, tx=1.0f, ty=3.0f)
- * [matrix1 concat:matrix2];
- * // matrix1 will be (a=0.5f, b=0.866025f, c=0.866025f, d=0.5f, tx=-4.366030f, ty=2.866030f)
- * @endcode
+ *	PXMatrix *matrix1 = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ *	// matrix1 will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ *	PXMatrix *matrix2 = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:1.0f d:0.0f tx:-1.0f ty:1.0f];
+ *	// matrix2 will be (a=0.0f, b=1.0f, c=1.0f, d=0.0f, tx=1.0f, ty=3.0f)
+ *	[matrix1 concat:matrix2];
+ *	// matrix1 will be (a=0.5f, b=0.866025f, c=0.866025f, d=0.5f, tx=-4.366030f, ty=2.866030f)
  */
 - (void) concat:(PXMatrix *)m
 {
@@ -206,12 +194,10 @@
  * Sets the values of the matrix to (a=1, b=0, c=0, d=1, tx=0, ty=0).
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- * [matrix identity];
- * // matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
- * @endcode
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ *	[matrix identity];
+ *	// matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
  */
 - (void) identity
 {
@@ -224,12 +210,10 @@
  * back to identity.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [[PXMatrix alloc] initWithA:1.0f b:1.0f c:0.5f d:1.0f tx:0.0f ty:0.0f];
- * // matrix will be (a=1.0f, b=1.0f, c=0.5f, d=1.0f, tx=0.0f, ty=0.0f)
- * [matrix invert];
- * // matrix will be (a=2.0f, b=-2.0f, c=-1.0f, d=2.0f, tx=0.0f, ty=0.0f)
- * @endcode
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:1.0f b:1.0f c:0.5f d:1.0f tx:0.0f ty:0.0f];
+ *	// matrix will be (a=1.0f, b=1.0f, c=0.5f, d=1.0f, tx=0.0f, ty=0.0f)
+ *	[matrix invert];
+ *	// matrix will be (a=2.0f, b=-2.0f, c=-1.0f, d=2.0f, tx=0.0f, ty=0.0f)
  */
 - (void) invert
 {
@@ -262,12 +246,10 @@
  * @param angle Angle of rotation in radians.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [PXMatrix new];
- * // matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
- * [matrix rotate:M_PI/6.0f]; //30 degrees
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=0.0f, ty=0.0f)
- * @endcode
+ *	PXMatrix *matrix = [PXMatrix new];
+ *	// matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
+ *	[matrix rotate:M_PI/6.0f]; //30 degrees
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=0.0f, ty=0.0f)
  */
 - (void) rotate:(float)angle
 {
@@ -296,12 +278,10 @@
  * @param sy The vertical scaling factor.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- * [matrix scaleX:0.5f y:0.5f];
- * // matrix will be (a=0.433012f, b=0.5f, c=0.5f, d=0.433012f, tx=-2.0f, ty=1.0f)
- * @endcode
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ *	[matrix scaleX:0.5f y:0.5f];
+ *	// matrix will be (a=0.433012f, b=0.5f, c=0.5f, d=0.433012f, tx=-2.0f, ty=1.0f)
  */
 - (void) scaleX:(float)sx y:(float)sy
 {
@@ -318,12 +298,10 @@
  * @param dy The vertical translation.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- * [matrix translateX:1.0f y:-0.5f];
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-3.0f, ty=2.0f)
- * @endcode
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ *	[matrix translateX:1.0f y:-0.5f];
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-3.0f, ty=2.0f)
  */
 - (void) translateX:(float)dx y:(float)dy
 {
@@ -342,12 +320,10 @@
  * @param ty The vertical translation.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- * [matrix createBoxWithScaleX:0.5f scaleY:0.5f rotation:M_PI/6.0f tx:-3.0f ty:2.0f];
- * // matrix will be (a=0.433013f, b=0.5f, c=0.5f, d=0.433013f, tx=-3.0f, ty=2.0f)
- * @endcode
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ *	[matrix createBoxWithScaleX:0.5f scaleY:0.5f rotation:M_PI/6.0f tx:-3.0f ty:2.0f];
+ *	// matrix will be (a=0.433013f, b=0.5f, c=0.5f, d=0.433013f, tx=-3.0f, ty=2.0f)
  */
 - (void) createBoxWithScaleX:(float)_scaleX scaleY:(float)_scaleY rotation:(float)_rotation tx:(float)_tx ty:(float)_ty
 {
@@ -365,13 +341,11 @@
  * @return The point after transformation.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:0.0f d:1.0f tx:-4.0f ty:2.5f];
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- * PXPoint *point = [[PXPoint alloc] initWithX:1.0f y:1.0f];
- * PXPoint *transformedPoint = [matrix transformPoint:point];
- * // transformedPoint will be (-4.0f, 4.5f)
- * @endcode
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:0.0f d:1.0f tx:-4.0f ty:2.5f];
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ *	PXPoint *point = [[PXPoint alloc] initWithX:1.0f y:1.0f];
+ *	PXPoint *transformedPoint = [matrix transformPoint:point];
+ *	// transformedPoint will be (-4.0f, 4.5f)
  */
 - (PXPoint *)transformPoint:(PXPoint *)point
 {
@@ -390,13 +364,11 @@
  * @return The point after transformation.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:0.0f d:1.0f tx:-4.0f ty:2.5f];
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- * PXPoint *point = [[PXPoint alloc] initWithX:1.0f y:1.0f];
- * PXPoint *transformedPoint = [matrix deltaTransformPoint:point];
- * // transformedPoint will be (0.0f, 2.0f)
- * @endcode
+ *	PXMatrix *matrix = [[PXMatrix alloc] initWithA:0.0f b:1.0f c:0.0f d:1.0f tx:-4.0f ty:2.5f];
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
+ *	PXPoint *point = [[PXPoint alloc] initWithX:1.0f y:1.0f];
+ *	PXPoint *transformedPoint = [matrix deltaTransformPoint:point];
+ *	// transformedPoint will be (0.0f, 2.0f)
  */
 - (PXPoint *)deltaTransformPoint:(PXPoint *)point
 {
@@ -425,10 +397,8 @@
  * @return The created matrix.
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [PXMatrix matrixWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
- * // matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
- * @endcode
+ *	PXMatrix *matrix = [PXMatrix matrixWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
+ *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
  */
 + (PXMatrix *)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
 {
@@ -439,10 +409,8 @@
  * Creates a matrix with values of (a=1.0, b=0.0, c=0.0, d=1.0, tx=0.0, ty=0.0)
  *
  * @b Example:
- * @code
- * PXMatrix *matrix = [PXMatrix identityMatrix];
- * // matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
- * @endcode
+ *	PXMatrix *matrix = [PXMatrix identityMatrix];
+ *	// matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
  */
 + (PXMatrix *)identityMatrix
 {

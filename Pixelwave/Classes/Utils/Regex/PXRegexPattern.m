@@ -61,21 +61,19 @@
  * is used to find matches later. A PXRegexPattern object is immutable.
  *
  * @b Example:
- * @code
- * PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"];
- * PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
- * [pattern release];
+ *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"];
+ *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
+ *	[pattern release];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  *
- * [matcher release];
- * @endcode
+ *	[matcher release];
  *
  * @see PXRegexMatcher
  */
@@ -101,21 +99,19 @@
  * @param flags The flags explaining how to compile the regex.
  *
  * @b Example:
- * @code
- * PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                           flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
- * PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
- * [pattern release];
+ *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                          flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
+ *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
+ *	[pattern release];
  *
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  *
- * [matcher release];
- * @endcode
+ *	[matcher release];
  */
 - (id) _initWithRegex:(NSString *)_regex flags:(unsigned)_flags
 {
@@ -344,19 +340,17 @@
  * @return The resulting, <code>autoreleased</code>, PXRegexPattern object.
  *
  * @b Example:
- * @code
- * PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"];
- * PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
+ *	PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"];
+ *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
  *
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  *
- * [matcher release];
- * @endcode
+ *	[matcher release];
  */
 + (PXRegexPattern *)patternWithRegex:(NSString *)regex
 {
@@ -374,20 +368,18 @@
  * @return The resulting, <code>autoreleased</code>, PXRegexPattern object.
  *
  * @b Example:
- * @code
- * PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                      flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
- * PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
+ *	PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                     flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
+ *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
  *
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  *
- * [matcher release];
- * @endcode
+ *	[matcher release];
  */
 + (PXRegexPattern *)patternWithRegex:(NSString *)regex flags:(unsigned)flags
 {

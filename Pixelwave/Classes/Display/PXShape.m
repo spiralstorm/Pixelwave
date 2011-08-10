@@ -47,9 +47,7 @@
  * vector drawing via the <code>PXGraphics</code> object.
  *
  * The following code creates a shape object:
- * @code
- * PXShape *shape = [PXShape new];
- * @endcode
+ *	PXShape *shape = [PXShape new];
  *
  * @see PXGraphics
  */

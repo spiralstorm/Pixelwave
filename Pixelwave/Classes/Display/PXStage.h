@@ -123,9 +123,7 @@ typedef enum
  *
  * <b>Example:</b>
  * The following examples set the stage's background color to red.
- * @code
- * stage.backgroundColor = 0xFF0000;
- * @endcode
+ *	stage.backgroundColor = 0xFF0000;
  */
 @property (nonatomic, assign) unsigned backgroundColor;
 

@@ -46,20 +46,18 @@
  * exceptions associated only with the Pixelwave engine, one would do the
  * following:
  *
- * @code
- * @try
- * {
- * ... Execute Pixelwave code
- * }
- * @catch (PXException *e)
- * {
- * ... Handle Pixelwave exception
- * }
- * @finally
- * {
- * ...
- * }
- * @endcode
+ *	@try
+ *	{
+ *	... Execute Pixelwave code
+ *	}
+ *	@catch (PXException *e)
+ *	{
+ *	... Handle Pixelwave exception
+ *	}
+ *	@finally
+ *	{
+ *	...
+ *	}
  */
 @implementation PXException
 

@@ -61,14 +61,12 @@
  * otherwise.
  *
  * @b Example:
- * @code
- * PXSound *mp3Sound = [PXSound soundWithContentsOfFile:@"sound.mp3"];
- * [mp3Sound is3DReady];
- * // Will return NO.
- * PXSound *wavSound = [PXSound soundWithContentsOfFile:@"sound.wav"];
- * [wavSound is3DReady];
- * // Will return YES if the wav sound was mono.
- * @endcode
+ *	PXSound *mp3Sound = [PXSound soundWithContentsOfFile:@"sound.mp3"];
+ *	[mp3Sound is3DReady];
+ *	// Will return NO.
+ *	PXSound *wavSound = [PXSound soundWithContentsOfFile:@"sound.wav"];
+ *	[wavSound is3DReady];
+ *	// Will return YES if the wav sound was mono.
  */
 @property (nonatomic, readonly) BOOL is3DReady;
 

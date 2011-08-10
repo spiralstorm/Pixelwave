@@ -81,25 +81,23 @@ NSMutableDictionary *pxFonts = nil;
  * type is used. If no default type is found, then no new font can be made.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.ttf"];
- * PXTextureFont *font = [PXFont initWithData:data options:fontOptions];
- * // font retain count = 1
- * [PXFont registerFont:font withName:@"font1"];
- * // font retain count = 2
- * [font release];
- * // font retain count = 1
- * [fontOptions release];
- * [data release];
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.ttf"];
+ *	PXTextureFont *font = [PXFont initWithData:data options:fontOptions];
+ *	// font retain count = 1
+ *	[PXFont registerFont:font withName:@"font1"];
+ *	// font retain count = 2
+ *	[font release];
+ *	// font retain count = 1
+ *	[fontOptions release];
+ *	[data release];
  *
- * // Size 12 font loaded from a true type font file, it contains all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "font1".
- * @endcode
+ *	// Size 12 font loaded from a true type font file, it contains all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "font1".
  */
 - (id) initWithData:(NSData *)data options:(PXFontOptions *)options
 {
@@ -132,23 +130,21 @@ NSMutableDictionary *pxFonts = nil;
  * type is used. If no default type is found, then no new font can be made.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXTextureFont *font = [PXFont initWithSystemFont:@"helvetica" options:fontOptions];
- * // font retain count = 1
- * [PXFont registerFont:font withName:@"helvetica"];
- * // font retain count = 2
- * [font release];
- * // font retain count = 1
- * [fontOptions release];
+ *	PXTextureFont *font = [PXFont initWithSystemFont:@"helvetica" options:fontOptions];
+ *	// font retain count = 1
+ *	[PXFont registerFont:font withName:@"helvetica"];
+ *	// font retain count = 2
+ *	[font release];
+ *	// font retain count = 1
+ *	[fontOptions release];
  *
- * // Size 12 font, helvetica, will be parsed. It will contain all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "helvetica".
- * @endcode
+ *	// Size 12 font, helvetica, will be parsed. It will contain all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "helvetica".
  */
 - (id) initWithSystemFont:(NSString *)systemFont options:(PXFontOptions *)options
 {
@@ -203,30 +199,28 @@ NSMutableDictionary *pxFonts = nil;
  * @return The registered font.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
- * PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithSystemFont:@"helvetica" options:fontOptions];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
+ *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithSystemFont:@"helvetica" options:fontOptions];
  *
- * // If the loading failed, don't register anything
- * if (!fontLoader)
- * {
- * // Handle this problem
- * }
- * PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
- * // font retain count = 1
- * [fontLoader release];
- * [fontOptions release];
+ *	// If the loading failed, don't register anything
+ *	if (!fontLoader)
+ *	{
+ *	// Handle this problem
+ *	}
+ *	PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
+ *	// font retain count = 1
+ *	[fontLoader release];
+ *	[fontOptions release];
  *
- * // Register the font, then release our copy.
- * [PXFont registerFont:font withName:@"font1"];
- * // font retain count = 2
- * [font release];
- * // font retain count = 1
- * // Size 12 Helvetica font with all letters, numbers and special characters
- * // ',.' will now be registered under the name "font1".
- * @endcode
+ *	// Register the font, then release our copy.
+ *	[PXFont registerFont:font withName:@"font1"];
+ *	// font retain count = 2
+ *	[font release];
+ *	// font retain count = 1
+ *	// Size 12 Helvetica font with all letters, numbers and special characters
+ *	// ',.' will now be registered under the name "font1".
  */
 + (PXFont *)registerFont:(PXFont *)font withName:(NSString *)name
 {
@@ -266,19 +260,17 @@ NSMutableDictionary *pxFonts = nil;
  * @return The registered font.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXTextureFont *font = [PXFont registerFontWithContentsOfFile:@"font.ttf" name:@"font1" options:fontOptions];
- * // font retain count = 1
- * [fontOptions release];
+ *	PXTextureFont *font = [PXFont registerFontWithContentsOfFile:@"font.ttf" name:@"font1" options:fontOptions];
+ *	// font retain count = 1
+ *	[fontOptions release];
  *
- * // Size 12 font loaded from a true type font file, it contains all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "font1".
- * @endcode
+ *	// Size 12 font loaded from a true type font file, it contains all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "font1".
  */
 + (PXFont *)registerFontWithContentsOfFile:(NSString *)path
 									  name:(NSString *)name
@@ -307,21 +299,19 @@ NSMutableDictionary *pxFonts = nil;
  * @return The registered font.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXTextureFont *font = [PXFont registerFontWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.ttf"]
- *                                                        name:@"font1"
- *                                                     options:fontOptions];
- * // font retain count = 1
- * [fontOptions release];
+ *	PXTextureFont *font = [PXFont registerFontWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.ttf"]
+ *	                                                       name:@"font1"
+ *	                                                    options:fontOptions];
+ *	// font retain count = 1
+ *	[fontOptions release];
  *
- * // Size 12 font loaded from a true type font file, it contains all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "font1".
- * @endcode
+ *	// Size 12 font loaded from a true type font file, it contains all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "font1".
  */
 + (PXFont *)registerFontWithContentsOfURL:(NSURL *)url
 									 name:(NSString *)name
@@ -349,21 +339,19 @@ NSMutableDictionary *pxFonts = nil;
  * @return The registered font.
  *
  * @b Example:
- * @code
- * NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.ttf"];
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.ttf"];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXTextureFont *font = [PXFont registerFontWithData:data name:@"font1" options:fontOptions];
- * // font retain count = 1
- * [data release];
- * [fontOptions release];
+ *	PXTextureFont *font = [PXFont registerFontWithData:data name:@"font1" options:fontOptions];
+ *	// font retain count = 1
+ *	[data release];
+ *	[fontOptions release];
  *
- * // Size 12 font loaded from a true type font file, it contains all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "font1".
- * @endcode
+ *	// Size 12 font loaded from a true type font file, it contains all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "font1".
  */
 + (PXFont *)registerFontWithData:(NSData *)data
 							name:(NSString *)name
@@ -388,19 +376,17 @@ NSMutableDictionary *pxFonts = nil;
  * @return The registered font.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXTextureFont *font = [PXFont registerFontWithSystemFont:@"helvetica" options:fontOptions];
- * // font retain count = 1
- * [fontOptions release];
+ *	PXTextureFont *font = [PXFont registerFontWithSystemFont:@"helvetica" options:fontOptions];
+ *	// font retain count = 1
+ *	[fontOptions release];
  *
- * // Size 12 font, helvetica, will be parsed. It will contain all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "helvetica".
- * @endcode
+ *	// Size 12 font, helvetica, will be parsed. It will contain all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "helvetica".
  */
 + (PXFont *)registerFontWithSystemFont:(NSString *)systemFont
 							   options:(PXFontOptions *)options
@@ -420,19 +406,17 @@ NSMutableDictionary *pxFonts = nil;
  * @return The registered font.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXTextureFont *font = [PXFont registerFontWithSystemFont:@"helvetica" name:@"font1" options:fontOptions];
- * // font retain count = 1
- * [fontOptions release];
+ *	PXTextureFont *font = [PXFont registerFontWithSystemFont:@"helvetica" name:@"font1" options:fontOptions];
+ *	// font retain count = 1
+ *	[fontOptions release];
  *
- * // Size 12 font, helvetica, will be parsed. It will contain all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "font1".
- * @endcode
+ *	// Size 12 font, helvetica, will be parsed. It will contain all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "font1".
  */
 + (PXFont *)registerFontWithSystemFont:(NSString *)systemFont
 								  name:(NSString *)name
@@ -454,34 +438,32 @@ NSMutableDictionary *pxFonts = nil;
  * @param name The name of a previously registered font.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
- * PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithSystemFont:@"helvetica" options:fontOptions];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
+ *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithSystemFont:@"helvetica" options:fontOptions];
  *
- * // If the loading failed, don't register anything
- * if (!fontLoader)
- * {
- * // Handle this problem
- * }
- * PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
- * // font retain count = 1
- * [fontLoader release];
- * [fontOptions release];
+ *	// If the loading failed, don't register anything
+ *	if (!fontLoader)
+ *	{
+ *	// Handle this problem
+ *	}
+ *	PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
+ *	// font retain count = 1
+ *	[fontLoader release];
+ *	[fontOptions release];
  *
- * // Register the font, then release our copy.
- * [PXFont registerFont:font withName:@"font1"];
- * // font retain count = 2
- * [font release];
- * // font retain count = 1
- * // Size 12 Helvetica font with all letters, numbers and special characters
- * // ',.' will now be registered under the name "font1".
+ *	// Register the font, then release our copy.
+ *	[PXFont registerFont:font withName:@"font1"];
+ *	// font retain count = 2
+ *	[font release];
+ *	// font retain count = 1
+ *	// Size 12 Helvetica font with all letters, numbers and special characters
+ *	// ',.' will now be registered under the name "font1".
  *
- * [PXFont unregisterFontWithName:@"font1"];
- * // font retain count = 0
- * font = nil;
- * @endcode
+ *	[PXFont unregisterFontWithName:@"font1"];
+ *	// font retain count = 0
+ *	font = nil;
  */
 + (void) unregisterFontWithName:(NSString *)name
 {
@@ -510,43 +492,41 @@ NSMutableDictionary *pxFonts = nil;
  * Unregisters all registered fonts with the font library.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXFontLoader *systemFontLoader = [[PXFontLoader alloc] initWithSystemFont:@"helvetica" options:fontOptions];
- * PXFontLoader *externalFontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.ttf" options:fontOptions];
+ *	PXFontLoader *systemFontLoader = [[PXFontLoader alloc] initWithSystemFont:@"helvetica" options:fontOptions];
+ *	PXFontLoader *externalFontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.ttf" options:fontOptions];
  *
- * // If the loading failed, don't register anything
- * if (!systemFontLoader)
- * {
- * // Handle this problem
- * }
- * if (!externalFontLoader)
- * {
- * // Handle this problem
- * }
+ *	// If the loading failed, don't register anything
+ *	if (!systemFontLoader)
+ *	{
+ *	// Handle this problem
+ *	}
+ *	if (!externalFontLoader)
+ *	{
+ *	// Handle this problem
+ *	}
  *
- * PXTextureFont *systemFont = (PXTextureFont *)([systemFontLoader newFont]);
- * PXTextureFont *externalFont = (PXTextureFont *)([externalFontLoader newFont]);
- * // systemFont retain count = 1, externalFont retain count = 1
+ *	PXTextureFont *systemFont = (PXTextureFont *)([systemFontLoader newFont]);
+ *	PXTextureFont *externalFont = (PXTextureFont *)([externalFontLoader newFont]);
+ *	// systemFont retain count = 1, externalFont retain count = 1
  *
- * [systemFontLoader release];
- * [externalFontLoader release];
- * [fontOptions release];
+ *	[systemFontLoader release];
+ *	[externalFontLoader release];
+ *	[fontOptions release];
  *
- * // Register the font, then release our copy.
- * [PXFont registerFont:systemFont   withName:@"systemFont"];
- * [PXFont registerFont:externalFont withName:@"externalFont"];
- * [systemFont release];
- * [externalFont release];
+ *	// Register the font, then release our copy.
+ *	[PXFont registerFont:systemFont   withName:@"systemFont"];
+ *	[PXFont registerFont:externalFont withName:@"externalFont"];
+ *	[systemFont release];
+ *	[externalFont release];
  *
- * [PXFont unregisterAllFonts];
- * // systemFont retain count = 0, externalFont retain count = 0
- * systemFont = nil;
- * externalFont = nil;
- * @endcode
+ *	[PXFont unregisterAllFonts];
+ *	// systemFont retain count = 0, externalFont retain count = 0
+ *	systemFont = nil;
+ *	externalFont = nil;
  */
 + (void) unregisterAllFonts
 {
@@ -565,34 +545,32 @@ NSMutableDictionary *pxFonts = nil;
  * <code>nil</code> will be returned instead.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithSystemFont:@"helvetica" options:fontOptions];
+ *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithSystemFont:@"helvetica" options:fontOptions];
  *
- * // If the loading failed, don't register anything
- * if (!fontLoader)
- * {
- * // Handle this problem
- * }
- * PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
- * // font retain count = 1
- * [fontLoader release];
- * [fontOptions release];
+ *	// If the loading failed, don't register anything
+ *	if (!fontLoader)
+ *	{
+ *	// Handle this problem
+ *	}
+ *	PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
+ *	// font retain count = 1
+ *	[fontLoader release];
+ *	[fontOptions release];
  *
- * // Register the font, then release our copy.
- * [PXFont registerFont:font withName:@"font1"];
- * // font retain count = 2
- * [font release];
- * // font retain count = 1
- * // Size 12 Helvetica font with all letters, numbers and special characters
- * // ',.' will now be registered under the name "font1".
+ *	// Register the font, then release our copy.
+ *	[PXFont registerFont:font withName:@"font1"];
+ *	// font retain count = 2
+ *	[font release];
+ *	// font retain count = 1
+ *	// Size 12 Helvetica font with all letters, numbers and special characters
+ *	// ',.' will now be registered under the name "font1".
  *
- * PXFont *registeredFont = [PXFont fontWithName:@"font1"];
- * // registeredFont will now be the same as font
- * @endcode
+ *	PXFont *registeredFont = [PXFont fontWithName:@"font1"];
+ *	// registeredFont will now be the same as font
  */
 + (PXFont *)fontWithName:(NSString *)name
 {
@@ -613,34 +591,32 @@ NSMutableDictionary *pxFonts = nil;
  * <code>NO</code>.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithSystemFont:@"helvetica" options:fontOptions];
+ *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithSystemFont:@"helvetica" options:fontOptions];
  *
- * // If the loading failed, don't register anything
- * if (!fontLoader)
- * {
- * // Handle this problem
- * }
- * PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
- * // font retain count = 1
- * [fontLoader release];
- * [fontOptions release];
+ *	// If the loading failed, don't register anything
+ *	if (!fontLoader)
+ *	{
+ *	// Handle this problem
+ *	}
+ *	PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
+ *	// font retain count = 1
+ *	[fontLoader release];
+ *	[fontOptions release];
  *
- * // Register the font, then release our copy.
- * [PXFont registerFont:font withName:@"font1"];
- * // font retain count = 2
- * [font release];
- * // font retain count = 1
- * // Size 12 Helvetica font with all letters, numbers and special characters
- * // ',.' will now be registered under the name "font1".
+ *	// Register the font, then release our copy.
+ *	[PXFont registerFont:font withName:@"font1"];
+ *	// font retain count = 2
+ *	[font release];
+ *	// font retain count = 1
+ *	// Size 12 Helvetica font with all letters, numbers and special characters
+ *	// ',.' will now be registered under the name "font1".
  *
- * [PXFont containsFontWithName:@"font1"]; // YES
- * [PXFont containsFontWithName:@"font2"]; // NO
- * @endcode
+ *	[PXFont containsFontWithName:@"font1"]; // YES
+ *	[PXFont containsFontWithName:@"font2"]; // NO
  */
 + (BOOL) containsFontWithName:(NSString *)name
 {
@@ -699,21 +675,19 @@ NSMutableDictionary *pxFonts = nil;
  * type is used. If no default type is found, then no new font can be made.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXTextureFont *font = [PXFont fontWithContentsOfFile:@"font.ttf" options:fontOptions];
+ *	PXTextureFont *font = [PXFont fontWithContentsOfFile:@"font.ttf" options:fontOptions];
  *
- * [PXFont registerFont:font withName:@"font1"];
+ *	[PXFont registerFont:font withName:@"font1"];
  *
- * [fontOptions release];
+ *	[fontOptions release];
  *
- * // Size 12 font loaded from a true type font file, it contains all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "font1".
- * @endcode
+ *	// Size 12 font loaded from a true type font file, it contains all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "font1".
  */
 + (PXFont *)fontWithContentsOfFile:(NSString *)path options:(PXFontOptions *)options
 {
@@ -739,21 +713,19 @@ NSMutableDictionary *pxFonts = nil;
  * type is used. If no default type is found, then no new font can be made.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXTextureFont *font = [PXFont fontWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.ttf"] options:fontOptions];
+ *	PXTextureFont *font = [PXFont fontWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.ttf"] options:fontOptions];
  *
- * [PXFont registerFont:font withName:@"font1"];
+ *	[PXFont registerFont:font withName:@"font1"];
  *
- * [fontOptions release];
+ *	[fontOptions release];
  *
- * // Size 12 font loaded from a true type font file, it contains all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "font1".
- * @endcode
+ *	// Size 12 font loaded from a true type font file, it contains all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "font1".
  */
 + (PXFont *)fontWithContentsOfURL:(NSURL *)url options:(PXFontOptions *)options
 {
@@ -779,23 +751,21 @@ NSMutableDictionary *pxFonts = nil;
  * type is used. If no default type is found, then no new font can be made.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.ttf"];
- * PXTextureFont *font = [PXFont fontWithData:data options:fontOptions];
+ *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.ttf"];
+ *	PXTextureFont *font = [PXFont fontWithData:data options:fontOptions];
  *
- * [PXFont registerFont:font withName:@"font1"];
+ *	[PXFont registerFont:font withName:@"font1"];
  *
- * [fontOptions release];
- * [data release];
+ *	[fontOptions release];
+ *	[data release];
  *
- * // Size 12 font loaded from a true type font file, it contains all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "font1".
- * @endcode
+ *	// Size 12 font loaded from a true type font file, it contains all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "font1".
  */
 + (PXFont *)fontWithData:(NSData *)data options:(PXFontOptions *)options
 {
@@ -812,19 +782,17 @@ NSMutableDictionary *pxFonts = nil;
  * type is used. If no default type is found, then no new font can be made.
  *
  * @b Example:
- * @code
- * PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
- *                                                                  characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
- *                                                              specialCharacters:@",."]];
+ *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
+ *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
+ *	                                                             specialCharacters:@",."]];
  *
- * PXTextureFont *font = [PXFont fontWithSystemFont:@"helvetica" options:fontOptions];
- * [PXFont registerFont:font withName:@"helvetica"];
- * [fontOptions release];
+ *	PXTextureFont *font = [PXFont fontWithSystemFont:@"helvetica" options:fontOptions];
+ *	[PXFont registerFont:font withName:@"helvetica"];
+ *	[fontOptions release];
  *
- * // Size 12 font, helvetica, will be parsed. It will contain all letters,
- * // numbers and special characters ',.' (assuming those glyphs could be found
- * // in the file) will now be registered under the name "helvetica".
- * @endcode
+ *	// Size 12 font, helvetica, will be parsed. It will contain all letters,
+ *	// numbers and special characters ',.' (assuming those glyphs could be found
+ *	// in the file) will now be registered under the name "helvetica".
  */
 + (PXFont *)fontWithSystemFont:(NSString *)systemFontName options:(PXFontOptions *)options
 {

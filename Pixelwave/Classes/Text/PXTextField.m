@@ -64,17 +64,15 @@
  * The following code creates a text field with the Helvetica font, that can
  * only accept letters ',' and '!' with size of 30.0f.
  *
- * @code
- * [PXTextureFont registerSystemFontWithFont:@"Helvetica"
- *                                      name:@"fontName"
- *                               fontOptions:[PXFontOptions fontOptionsWithSize:30.0f
- *                                                                characterSets:PXFontCharacterSet_AllLetters
- *                                                            specialCharacters:@",!"]];
+ *	[PXTextureFont registerSystemFontWithFont:@"Helvetica"
+ *	                                     name:@"fontName"
+ *	                              fontOptions:[PXFontOptions fontOptionsWithSize:30.0f
+ *	                                                               characterSets:PXFontCharacterSet_AllLetters
+ *	                                                           specialCharacters:@",!"]];
  *
- * PXTextField *textField = [[PXTextField alloc] initWithFont:@"fontName"];
+ *	PXTextField *textField = [[PXTextField alloc] initWithFont:@"fontName"];
  *
- * textField.text = @"Hi!";
- * @endcode
+ *	textField.text = @"Hi!";
  *
  * @see PXTextureFont, PXFont
  */
@@ -137,17 +135,15 @@
  * used instead.
  *
  * @b Example:
- * @code
- * [PXTextureFont registerSystemFontWithFont:@"Helvetica"
- *                                      name:@"fontName"
- *                               fontOptions:[PXFontOptions fontOptionsWithSize:30.0f
- *                                                                characterSets:PXFontCharacterSet_AllLetters
- *                                                            specialCharacters:@",!"]];
+ *	[PXTextureFont registerSystemFontWithFont:@"Helvetica"
+ *	                                     name:@"fontName"
+ *	                              fontOptions:[PXFontOptions fontOptionsWithSize:30.0f
+ *	                                                               characterSets:PXFontCharacterSet_AllLetters
+ *	                                                           specialCharacters:@",!"]];
  *
- * PXTextField *textField = [[PXTextField alloc] initWithFont:@"fontName"];
+ *	PXTextField *textField = [[PXTextField alloc] initWithFont:@"fontName"];
  *
- * textField.text = @"Hi!";
- * @endcode
+ *	textField.text = @"Hi!";
  *
  * @see PXTextureFont, PXFont
  */
@@ -620,9 +616,7 @@
  * then the this object will appear to have 0 size.
  *
  * @b Example:
- * @code
- * PXTextField *textField = [PXTextField textField];
- * @endcode
+ *	PXTextField *textField = [PXTextField textField];
  *
  * @see PXTextureFont, PXFont
  */
@@ -642,9 +636,7 @@
  * used instead.
  *
  * @b Example:
- * @code
- * PXTextField *textField = [PXTextField textField];
- * @endcode
+ *	PXTextField *textField = [PXTextField textField];
  *
  * @see PXTextureFont, PXFont
  */
@@ -662,15 +654,13 @@
  * @param text The text for the text field.
  *
  * @b Example:
- * @code
- * [PXTextureFont registerSystemFontWithFont:@"Helvetica"
- *                                      name:@"fontName"
- *                               fontOptions:[PXFontOptions fontOptionsWithSize:30.0f
- *                                                                characterSets:PXFontCharacterSet_AllLetters
- *                                                            specialCharacters:@",!"]];
+ *	[PXTextureFont registerSystemFontWithFont:@"Helvetica"
+ *	                                     name:@"fontName"
+ *	                              fontOptions:[PXFontOptions fontOptionsWithSize:30.0f
+ *	                                                               characterSets:PXFontCharacterSet_AllLetters
+ *	                                                           specialCharacters:@",!"]];
  *
- * PXTextField *textField = [PXTextField textFieldWithFont:@"fontName" text:@"Hi"];
- * @endcode
+ *	PXTextField *textField = [PXTextField textFieldWithFont:@"fontName" text:@"Hi"];
  *
  * @see PXTextureFont, PXFont
  */

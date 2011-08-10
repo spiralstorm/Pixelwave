@@ -47,17 +47,15 @@
 /**
  * Used to efficiently traverse the items in a linked list.
  *
- * @code
- * PXLinkedList *list = ...
- * 
- * // It's essential that this variable be declared before the loop
- * NSObject *item = nil;
+ *	PXLinkedList *list = ...
+ *	
+ *	// It's essential that this variable be declared before the loop
+ *	NSObject *item = nil;
  *
- * PXLinkedListForEach(list, item)
- * {
- * NSLog("Item = %@", item);
- * }
- * @endcode
+ *	PXLinkedListForEach(list, item)
+ *	{
+ *	NSLog("Item = %@", item);
+ *	}
  */
 #define PXLinkedListForEach(_list_,_obj_) \
 		int PX_UNIQUE_VAR(_len_) = 0; \
@@ -77,17 +75,15 @@
  * Used to efficiently traverse the items in a linked list from the end to the
  * start.
  *
- * @code
- * PXLinkedList *list = ...
- * 
- * // It's essential that this variable be declared before the loop
- * NSObject *item = nil;
+ *	PXLinkedList *list = ...
+ *	
+ *	// It's essential that this variable be declared before the loop
+ *	NSObject *item = nil;
  *
- * PXLinkedListForEachReverse(list, item)
- * {
- * NSLog("Item = %@", item);
- * }
- * @endcode
+ *	PXLinkedListForEachReverse(list, item)
+ *	{
+ *	NSLog("Item = %@", item);
+ *	}
  */
 #define PXLinkedListForEachReverse(_list_,_obj_) \
 		int PX_UNIQUE_VAR(_len_) = 0; \

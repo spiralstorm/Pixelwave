@@ -70,14 +70,12 @@
  * @param soundTransform The sound transform to set.
  *
  * @b Example:
- * @code
- * PXSoundTransform *soundTransform = [[PXSoundTransform alloc] initWithVolume:0.5f pitch:2.0f];
- * [PXSoundMixer setSoundTransform:soundTransform];
- * // All sounds will now be at 50% volume from what they were, meaning if a
- * // sound was at 30% volume, it is now at 15%, likewise the pitch is at 200%,
- * // meaning if the pitch of a sound was at 50%, it is now at 100%.
- * [soundTransform release];
- * @endcode
+ *	PXSoundTransform *soundTransform = [[PXSoundTransform alloc] initWithVolume:0.5f pitch:2.0f];
+ *	[PXSoundMixer setSoundTransform:soundTransform];
+ *	// All sounds will now be at 50% volume from what they were, meaning if a
+ *	// sound was at 30% volume, it is now at 15%, likewise the pitch is at 200%,
+ *	// meaning if the pitch of a sound was at 50%, it is now at 100%.
+ *	[soundTransform release];
  */
 + (void) setSoundTransform:(PXSoundTransform *)soundTransform
 {
@@ -89,11 +87,9 @@
  * @return The global sound transform.
  *
  * @b Example:
- * @code
- * PXSoundTransform *globalSoundTransform = [PXSoundMixer soundTransform];
- * // globalSoundTransform by default will have 1.0f for volume, and 1.0f for
- * // pitch.
- * @endcode
+ *	PXSoundTransform *globalSoundTransform = [PXSoundMixer soundTransform];
+ *	// globalSoundTransform by default will have 1.0f for volume, and 1.0f for
+ *	// pitch.
  */
 + (PXSoundTransform *)soundTransform
 {
@@ -106,9 +102,7 @@
  * @return The global sound listener.
  *
  * @b Example:
- * @code
- * PXSoundListener *globalSoundListener = [PXSoundMixer soundListener];
- * @endcode
+ *	PXSoundListener *globalSoundListener = [PXSoundMixer soundListener];
  */
 + (PXSoundListener *)soundListener
 {
@@ -121,10 +115,8 @@
  * @param speedOfSound The speed of sound.
  *
  * @b Example:
- * @code
- * [PXSoundMixer setSpeedOfSound:64.0f];
- * // Sets the speed of sound to 64.0 pixels/second.
- * @endcode
+ *	[PXSoundMixer setSpeedOfSound:64.0f];
+ *	// Sets the speed of sound to 64.0 pixels/second.
  */
 + (void) setSpeedOfSound:(float)speedOfSound
 {
@@ -136,9 +128,7 @@
  * @return The speed of sound.
  *
  * @b Example:
- * @code
- * float speedOfSound = [PXSoundMixer speedOfSound];
- * @endcode
+ *	float speedOfSound = [PXSoundMixer speedOfSound];
  *
  * @b Default: 340.29f
  */
@@ -156,9 +146,7 @@
  * @param distanceModel The distance model.
  *
  * @b Example:
- * @code
- * [PXSoundMixer setDistanceModel:PXSoundMixerDistanceModel_Logarithmic];
- * @endcode
+ *	[PXSoundMixer setDistanceModel:PXSoundMixerDistanceModel_Logarithmic];
  *
  * @see PXSoundListener
  *
@@ -181,9 +169,7 @@
  * @return The distance model.
  *
  * @b Example:
- * @code
- * PXSoundMixerDistanceModel distanceModel = [PXSoundMixer distanceModel];
- * @endcode
+ *	PXSoundMixerDistanceModel distanceModel = [PXSoundMixer distanceModel];
  */
 + (PXSoundMixerDistanceModel) distanceModel
 {

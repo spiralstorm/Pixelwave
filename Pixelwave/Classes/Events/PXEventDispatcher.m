@@ -151,14 +151,12 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * In this example the method <code>onTouch:</code> is assigned as a
  * listener to the stage's <code>touchDown</code> event.
  
- * @code
- * [self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
- * //...
- * - (void) onTouchDown:(PXTouchEvent *)event
- * {
- * // handle event
- * }
- * @endcode
+ *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
+ *	//...
+ *	- (void) onTouchDown:(PXTouchEvent *)event
+ *	{
+ *	// handle event
+ *	}
  */
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener
 {
@@ -178,14 +176,12 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * In this example the method <code>onTouch:</code> is assigned as a
  * listener to the stage's <code>touchDown</code> event.
  
- * @code
- * [self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:) useCapture:NO priority:0];
- * //...
- * - (void) onTouchDown:(PXTouchEvent *)event
- * {
- * // handle event
- * }
- * @endcode
+ *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:) useCapture:NO priority:0];
+ *	//...
+ *	- (void) onTouchDown:(PXTouchEvent *)event
+ *	{
+ *	// handle event
+ *	}
  */
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {

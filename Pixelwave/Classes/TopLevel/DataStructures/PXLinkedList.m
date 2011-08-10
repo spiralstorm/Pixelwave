@@ -95,14 +95,12 @@ _PXLLNode pxLinkedListBadNode;
  * is both cleaner and (much) faster than the previous one. It is the
  * @b encouraged way to loop through linked lists. Here's a code example:
  *
- * @code
- * PXLinkedList *list = ...
+ *	PXLinkedList *list = ...
  *
- * for (NSObject *item in list)
- * {
- * NSLog("Item = %@", item);
- * }
- * @endcode
+ *	for (NSObject *item in list)
+ *	{
+ *	NSLog("Item = %@", item);
+ *	}
  *
  * 2. <b>(For optimization only)</b> This is the @b fastest way to loop through
  * linked lists. (According to tests it could be as fast as looping through
@@ -110,17 +108,15 @@ _PXLLNode pxLinkedListBadNode;
  * fast enumeration method and requires you to write a bit more code.
  * Here's a code example:
  *
- * @code
- * PXLinkedList *list = ...
- * 
- * // It's essential that this variable be declared before the loop
- * NSObject *item = nil;
+ *	PXLinkedList *list = ...
+ *	
+ *	// It's essential that this variable be declared before the loop
+ *	NSObject *item = nil;
  *
- * PXLinkedListForEach(list, item)
- * {
- * NSLog("Item = %@", item);
- * }
- * @endcode
+ *	PXLinkedListForEach(list, item)
+ *	{
+ *	NSLog("Item = %@", item);
+ *	}
  *
  * We recommend only using this method of iteration for <b>very large lists</b>
  * and/or lists that require one or more iterations <i>every frame</i> (such
@@ -134,17 +130,15 @@ _PXLLNode pxLinkedListBadNode;
  * but also the slowest. It's strongly @b discouraged to loop through a list
  * this way. Here's an example to show you what <b>not to do</b>:
  *
- * @code
- * PXLinkedList *list = ...
+ *	PXLinkedList *list = ...
  *
- * NSObject *item = nil;
+ *	NSObject *item = nil;
  *
- * for(int i = 0; i < list.count; ++i)
- * {
- * item = [list objectAtIndex:i];
- * NSLog("Item %i = %@", i, item);
- * }
- * @endcode
+ *	for(int i = 0; i < list.count; ++i)
+ *	{
+ *	item = [list objectAtIndex:i];
+ *	NSLog("Item %i = %@", i, item);
+ *	}
  */
 @implementation PXLinkedList
 
@@ -160,18 +154,14 @@ _PXLLNode pxLinkedListBadNode;
  * Creates a linked list that uses pooled nodes if specified.
  *
  * Equivalent to calling:
- * @code
- * [linkedList initWithWeakReferences:NO usePooledNodes:pooledNodes]
- * @endcode
+ *	[linkedList initWithWeakReferences:NO usePooledNodes:pooledNodes]
  *
  * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's	recommended that
  * this value always be set to	<code>YES</code></b>.
  *
  * @b Example:
- * @code
- * PXLinkedList *list = [[PXLinkedList alloc] initWithPooledNodes:YES];
- * // list will use pooled nodes.
- * @endcode
+ *	PXLinkedList *list = [[PXLinkedList alloc] initWithPooledNodes:YES];
+ *	// list will use pooled nodes.
  */
 - (id) initWithPooledNodes:(BOOL)pooledNodes
 {
@@ -184,9 +174,7 @@ _PXLLNode pxLinkedListBadNode;
  * objects if <code>weakReferences</code> is set to NO.
  * 
  * Equivalent to calling:
- * @code
- * [linkedList initWithWeakReferences:weakReferences usePooledNodes:YES]
- * @endcode
+ *	[linkedList initWithWeakReferences:weakReferences usePooledNodes:YES]
  *
  * @param weakReferences <code>YES</code> if the list should not retain added elements;
  * <code>NO</code> if it should. Setting this to <code>YES</code> is only
@@ -194,10 +182,8 @@ _PXLLNode pxLinkedListBadNode;
  * default value is <code>NO</code>.
  *
  * @b Example:
- * @code
- * PXLinkedList *list = [[PXLinkedList alloc] initWithWeakReferences:NO];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * @endcode
+ *	PXLinkedList *list = [[PXLinkedList alloc] initWithWeakReferences:NO];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
  */
 - (id) initWithWeakReferences:(BOOL)weakReferences
 {
@@ -217,10 +203,8 @@ _PXLLNode pxLinkedListBadNode;
  * this value always be set to	<code>YES</code></b>.
  *
  * @b Example:
- * @code
- * PXLinkedList *list = [[PXLinkedList alloc] initWithWeakReferences:NO usePooledNodes:YES];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * @endcode
+ *	PXLinkedList *list = [[PXLinkedList alloc] initWithWeakReferences:NO usePooledNodes:YES];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
  */
 - (id) initWithWeakReferences:(BOOL)weakReferences
 			   usePooledNodes:(BOOL)pooledNodes;
@@ -397,21 +381,19 @@ _PXLLNode pxLinkedListBadNode;
  * @return The object at the specified index.
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 2, and an index of 1
- * PXPoint *foundObject = (PXPoint *)[list objectAtIndex:0];
- * // foundObject == add1
- * @endcode
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 2, and an index of 1
+ *	PXPoint *foundObject = (PXPoint *)[list objectAtIndex:0];
+ *	// foundObject == add1
  */
 - (PXGenericObject) objectAtIndex:(int)indexOfObject
 {
@@ -449,17 +431,15 @@ _PXLLNode pxLinkedListBadNode;
  * <code>NO</code>.
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * // add1 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	// add1 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * // add1 has a retain count of 2, and an index of 0
- * BOOL doesContain = [list containsObject:add1];
- * // doesContain == YES
- * @endcode
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	BOOL doesContain = [list containsObject:add1];
+ *	// doesContain == YES
  */
 - (BOOL) containsObject:(PXGenericObject)object
 {
@@ -491,17 +471,15 @@ _PXLLNode pxLinkedListBadNode;
  * <code>-1</code>.
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * // add1 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	// add1 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * // add1 has a retain count of 2, and an index of 0
- * int index = [list indexOfObject:add1];
- * // index == 0
- * @endcode
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	int index = [list indexOfObject:add1];
+ *	// index == 0
  */
 - (int) indexOfObject:(PXGenericObject)object
 {
@@ -557,22 +535,20 @@ _PXLLNode pxLinkedListBadNode;
  * 
  * @param object The object to add to the end of the list.
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * // add1's retain count is 1
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	// add1's retain count is 1
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * // add1's retain count is 2
- * [list release];
- * // add1's retain count is 1
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	// add1's retain count is 2
+ *	[list release];
+ *	// add1's retain count is 1
  *
- * list = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * // list will use pooled nodes, and will not keep a retain on added objects.
- * [list addObject:add1];
- * // add1's retain count is 1
- * @endcode
+ *	list = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	// list will use pooled nodes, and will not keep a retain on added objects.
+ *	[list addObject:add1];
+ *	// add1's retain count is 1
  *
  * @see PXPoint
  */
@@ -607,29 +583,27 @@ _PXLLNode pxLinkedListBadNode;
  * <br><br>
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list insertObjectAtFront:add1];
- * [list insertObjectAtFront:add2];
- * // add1 has a retain count of 2, and an index of 1
- * // add2 has a retain count of 2, and an index of 0
- * [list release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list insertObjectAtFront:add1];
+ *	[list insertObjectAtFront:add2];
+ *	// add1 has a retain count of 2, and an index of 1
+ *	// add2 has a retain count of 2, and an index of 0
+ *	[list release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * list = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * // list will use pooled nodes, and will not keep a retain on added objects.
- * [list insertObjectAtFront:add1];
- * [list insertObjectAtFront:add2];
- * // add1 has a retain count of 1, and an index of 1
- * // add2 has a retain count of 1, and an index of 0
- * @endcode
+ *	list = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	// list will use pooled nodes, and will not keep a retain on added objects.
+ *	[list insertObjectAtFront:add1];
+ *	[list insertObjectAtFront:add2];
+ *	// add1 has a retain count of 1, and an index of 1
+ *	// add2 has a retain count of 1, and an index of 0
  */
 
 /*
@@ -671,29 +645,27 @@ _PXLLNode pxLinkedListBadNode;
  * @param index The index to add the object to. Must be a value between 0 and count.
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list insertObject:add1 atIndex:0];
- * [list insertObject:add2 atIndex:0];
- * // add1 has a retain count of 2, and an index of 1
- * // add2 has a retain count of 2, and an index of 0
- * [list release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list insertObject:add1 atIndex:0];
+ *	[list insertObject:add2 atIndex:0];
+ *	// add1 has a retain count of 2, and an index of 1
+ *	// add2 has a retain count of 2, and an index of 0
+ *	[list release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * list = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * // list will use pooled nodes, and will not keep a retain on added objects.
- * [list insertObject:add1 atIndex:0];
- * [list insertObject:add2 atIndex:0];
- * // add1 has a retain count of 1, and an index of 1
- * // add2 has a retain count of 1, and an index of 0
- * @endcode
+ *	list = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	// list will use pooled nodes, and will not keep a retain on added objects.
+ *	[list insertObject:add1 atIndex:0];
+ *	[list insertObject:add2 atIndex:0];
+ *	// add1 has a retain count of 1, and an index of 1
+ *	// add2 has a retain count of 1, and an index of 0
  */
 - (void) insertObject:(PXGenericObject)object atIndex:(int)indexOfObject
 {
@@ -852,40 +824,38 @@ _PXLLNode pxLinkedListBadNode;
  * <i><b>Complexity:</b> O(n)</i>
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * PXLinkedList *otherList = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * [otherList addObject:add2];
- * // add1 has a retain count of 2, and an index of 0 in list
- * // add2 has a retain count of 2, and an index of 0 in otherList
- * [list addObjectsFromList:otherList];
- * // add1 has a retain count of 2, and an index of 0 in list
- * // add2 has a retain count of 3, and an index of 1 in list, and 0 in other list
- * [list release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 2, and an index of 0 in otherList
- * [otherList release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	PXLinkedList *otherList = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	[otherList addObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0 in list
+ *	// add2 has a retain count of 2, and an index of 0 in otherList
+ *	[list addObjectsFromList:otherList];
+ *	// add1 has a retain count of 2, and an index of 0 in list
+ *	// add2 has a retain count of 3, and an index of 1 in list, and 0 in other list
+ *	[list release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 2, and an index of 0 in otherList
+ *	[otherList release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * list = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * otherList = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * // list will use pooled nodes, and will not keep a retain on added objects.
- * [list addObject:add1];
- * [otherList addObject:add2];
- * // add1 has a retain count of 1, and an index of 0 in list
- * // add2 has a retain count of 1, and an index of 0 in otherList
- * [list addObjectsFromList:otherList];
- * // add1 has a retain count of 1, and an index of 0 in list
- * // add2 has a retain count of 1, and an index of 1 in list, and 0 in other list
- * @endcode
+ *	list = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	otherList = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	// list will use pooled nodes, and will not keep a retain on added objects.
+ *	[list addObject:add1];
+ *	[otherList addObject:add2];
+ *	// add1 has a retain count of 1, and an index of 0 in list
+ *	// add2 has a retain count of 1, and an index of 0 in otherList
+ *	[list addObjectsFromList:otherList];
+ *	// add1 has a retain count of 1, and an index of 0 in list
+ *	// add2 has a retain count of 1, and an index of 1 in list, and 0 in other list
  *
  * @see PXPoint
  */
@@ -907,35 +877,33 @@ _PXLLNode pxLinkedListBadNode;
  * the data over properly in the process.
  *
  * @b Example:
- * @code
- * PXPoint *point0 = [PXPoint pointWithX:3 y:4];
- * PXPoint *point1 = [PXPoint pointWithX:2 y:5];
- * PXPoint *point2 = [PXPoint pointWithX:1 y:6];
- * PXPoint *point3 = [PXPoint pointWithX:0 y:7];
- * // point0 has no index
- * // point1 has no index
- * // point2 has no index
- * // point3 has no index
+ *	PXPoint *point0 = [PXPoint pointWithX:3 y:4];
+ *	PXPoint *point1 = [PXPoint pointWithX:2 y:5];
+ *	PXPoint *point2 = [PXPoint pointWithX:1 y:6];
+ *	PXPoint *point3 = [PXPoint pointWithX:0 y:7];
+ *	// point0 has no index
+ *	// point1 has no index
+ *	// point2 has no index
+ *	// point3 has no index
  *
- * PXLinkedList *list = [[PXLinkedList alloc] init];
+ *	PXLinkedList *list = [[PXLinkedList alloc] init];
  *
- * [list addObject:point0];
- * [list addObject:point1];
- * [list addObject:point2];
- * [list addObject:point3];
- * // point0 has an index of 0
- * // point1 has an index of 1
- * // point2 has an index of 2
- * // point3 has an index of 3
+ *	[list addObject:point0];
+ *	[list addObject:point1];
+ *	[list addObject:point2];
+ *	[list addObject:point3];
+ *	// point0 has an index of 0
+ *	// point1 has an index of 1
+ *	// point2 has an index of 2
+ *	// point3 has an index of 3
  *
- * [list setIndex:2 ofObject:point0];
- * // point0 has an index of 2
- * // point1 has an index of 0
- * // point2 has an index of 1
- * // point3 has an index of 3
+ *	[list setIndex:2 ofObject:point0];
+ *	// point0 has an index of 2
+ *	// point1 has an index of 0
+ *	// point2 has an index of 1
+ *	// point3 has an index of 3
  *
- * [list release];
- * @endcode
+ *	[list release];
  *
  * @see PXPoint
  */
@@ -983,35 +951,33 @@ _PXLLNode pxLinkedListBadNode;
  * @param object The object to remove from the list.
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list insertObject:add1 atIndex:0];
- * [list insertObject:add2 atIndex:0];
- * // add1 has a retain count of 2, and an index of 1
- * // add2 has a retain count of 2, and an index of 0
- * [list removeObject:add2];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 1, and no index
- * [list release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list insertObject:add1 atIndex:0];
+ *	[list insertObject:add2 atIndex:0];
+ *	// add1 has a retain count of 2, and an index of 1
+ *	// add2 has a retain count of 2, and an index of 0
+ *	[list removeObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 1, and no index
+ *	[list release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * list = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * // list will use pooled nodes, and will not keep a retain on added objects.
- * [list insertObject:add1 atIndex:0];
- * [list insertObject:add2 atIndex:0];
- * // add1 has a retain count of 1, and an index of 1
- * // add2 has a retain count of 1, and an index of 0
- * [list removeObject:add2];
- * // add1 has a retain count of 1, and an index of 0
- * // add2 has a retain count of 1, and no index
- * @endcode
+ *	list = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	// list will use pooled nodes, and will not keep a retain on added objects.
+ *	[list insertObject:add1 atIndex:0];
+ *	[list insertObject:add2 atIndex:0];
+ *	// add1 has a retain count of 1, and an index of 1
+ *	// add2 has a retain count of 1, and an index of 0
+ *	[list removeObject:add2];
+ *	// add1 has a retain count of 1, and an index of 0
+ *	// add2 has a retain count of 1, and no index
  *
  * @see [PXLinkedList containsObject:]
  */
@@ -1059,35 +1025,33 @@ _PXLLNode pxLinkedListBadNode;
  * be a value between 0 and count - 1
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 2, and an index of 1
- * [list removeObjectAtIndex:0];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 2, and an index of 0
- * [list release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 2, and an index of 1
+ *	[list removeObjectAtIndex:0];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 2, and an index of 0
+ *	[list release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * list = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * // list will use pooled nodes, and will not keep a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 1, and an index of 0
- * // add2 has a retain count of 1, and an index of 1
- * [list removeObjectAtIndex:0];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and an index of 0
- * @endcode
+ *	list = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	// list will use pooled nodes, and will not keep a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 1, and an index of 0
+ *	// add2 has a retain count of 1, and an index of 1
+ *	[list removeObjectAtIndex:0];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and an index of 0
  *
  * @see PXPoint
  */
@@ -1123,35 +1087,33 @@ _PXLLNode pxLinkedListBadNode;
  * <i><b>Complexity:</b> O(1)</i>
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 2, and an index of 1
- * [list removeLastObject];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 1, and no index
- * [list release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 2, and an index of 1
+ *	[list removeLastObject];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 1, and no index
+ *	[list release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * list = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * // list will use pooled nodes, and will not keep a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 1, and an index of 0
- * // add2 has a retain count of 1, and an index of 1
- * [list removeLastObject];
- * // add1 has a retain count of 1, and an index of 0
- * // add2 has a retain count of 1, and no index
- * @endcode
+ *	list = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	// list will use pooled nodes, and will not keep a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 1, and an index of 0
+ *	// add2 has a retain count of 1, and an index of 1
+ *	[list removeLastObject];
+ *	// add1 has a retain count of 1, and an index of 0
+ *	// add2 has a retain count of 1, and no index
  *
  * @see PXPoint
  */
@@ -1174,35 +1136,33 @@ _PXLLNode pxLinkedListBadNode;
  * <i><b>Complexity:</b> O(1)</i>
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 2, and an index of 1
- * [list removeFirstObject];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 2, and an index of 0
- * [list release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 2, and an index of 1
+ *	[list removeFirstObject];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 2, and an index of 0
+ *	[list release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * list = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * // list will use pooled nodes, and will not keep a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 1, and an index of 0
- * // add2 has a retain count of 1, and an index of 1
- * [list removeFirstObject];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and an index of 0
- * @endcode
+ *	list = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	// list will use pooled nodes, and will not keep a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 1, and an index of 0
+ *	// add2 has a retain count of 1, and an index of 1
+ *	[list removeFirstObject];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and an index of 0
  *
  * @see PXPoint
  */
@@ -1224,35 +1184,33 @@ _PXLLNode pxLinkedListBadNode;
  * <i><b>Complexity:</b> O(n)</i>
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 2, and an index of 1
- * [list removeAllObjects];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
- * [list release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 2, and an index of 1
+ *	[list removeAllObjects];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
+ *	[list release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * list = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * // list will use pooled nodes, and will not keep a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 1, and an index of 0
- * // add2 has a retain count of 1, and an index of 1
- * [list removeAllObjects];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
- * @endcode
+ *	list = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	// list will use pooled nodes, and will not keep a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 1, and an index of 0
+ *	// add2 has a retain count of 1, and an index of 1
+ *	[list removeAllObjects];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
  * @see PXPoint
  */
@@ -1278,44 +1236,42 @@ _PXLLNode pxLinkedListBadNode;
  * <i><b>Complexity:</b> O(n * m)</i>
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * PXLinkedList *otherList = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 2, and an index of 1
- * [otherList addObject:add2];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 3, and an index of 1
- * [list removeObjectsInList:otherList];
- * // add1 has a retain count of 2, and no index
- * // add2 has a retain count of 2, and no index
- * [list release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
- * [otherList release];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	PXLinkedList *otherList = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 2, and an index of 1
+ *	[otherList addObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 3, and an index of 1
+ *	[list removeObjectsInList:otherList];
+ *	// add1 has a retain count of 2, and no index
+ *	// add2 has a retain count of 2, and no index
+ *	[list release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
+ *	[otherList release];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * list = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * otherList = [[PXLinkedList alloc] initWithWeakReferences:YES];
- * // list will use pooled nodes, and will not keep a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * [otherList addObject:add2];
- * // add1 has a retain count of 1, and an index of 0
- * // add2 has a retain count of 1, and an index of 1
- * [list removeObjectsInList:otherList];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
- * @endcode
+ *	list = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	otherList = [[PXLinkedList alloc] initWithWeakReferences:YES];
+ *	// list will use pooled nodes, and will not keep a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	[otherList addObject:add2];
+ *	// add1 has a retain count of 1, and an index of 0
+ *	// add2 has a retain count of 1, and an index of 1
+ *	[list removeObjectsInList:otherList];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
  * @see PXPoint
  */
@@ -1404,22 +1360,20 @@ _PXLLNode pxLinkedListBadNode;
  * @param object2 The object to swap with <code>object1</code>
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 2, and an index of 1
- * [list swapObject:add1 withObject:add2];
- * // add1 has a retain count of 2, and an index of 1
- * // add2 has a retain count of 2, and an index of 0
- * @endcode
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 2, and an index of 1
+ *	[list swapObject:add1 withObject:add2];
+ *	// add1 has a retain count of 2, and an index of 1
+ *	// add2 has a retain count of 2, and an index of 0
  */
 - (void) swapObject:(PXGenericObject)object1 withObject:(PXGenericObject)object2
 {
@@ -1448,22 +1402,20 @@ _PXLLNode pxLinkedListBadNode;
  * Must be a value between <code>0</code> and <code>count - 1</code>.
  *
  * @b Example:
- * @code
- * PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
- * PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
- * // add1 has a retain count of 1, and no index
- * // add2 has a retain count of 1, and no index
+ *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
+ *	PXPoint *add2 = [[PXPoint alloc] initWithX:2 y:5];
+ *	// add1 has a retain count of 1, and no index
+ *	// add2 has a retain count of 1, and no index
  *
- * PXLinkedList *list = [PXLinkedList new];
- * // list will use pooled nodes, and keeps a retain on added objects.
- * [list addObject:add1];
- * [list addObject:add2];
- * // add1 has a retain count of 2, and an index of 0
- * // add2 has a retain count of 2, and an index of 1
- * [list swapObjectAtIndex:0 withObjectAtIndex:1];
- * // add1 has a retain count of 2, and an index of 1
- * // add2 has a retain count of 2, and an index of 0
- * @endcode
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// list will use pooled nodes, and keeps a retain on added objects.
+ *	[list addObject:add1];
+ *	[list addObject:add2];
+ *	// add1 has a retain count of 2, and an index of 0
+ *	// add2 has a retain count of 2, and an index of 1
+ *	[list swapObjectAtIndex:0 withObjectAtIndex:1];
+ *	// add1 has a retain count of 2, and an index of 1
+ *	// add2 has a retain count of 2, and an index of 0
  *
  * @see [PXLinkedList swapObject:]withObject:
  */
@@ -1566,19 +1518,17 @@ _PXLLNode pxLinkedListBadNode;
  * returns 0 if the list is empty.
  *
  * Example:
- * @code
- * PXLinkedList *list = [PXLinkedList new];
- * // [populate list with strings]
- * NSObject **cArray = (NSString **)[list cArray];
- * int len = list.count;
+ *	PXLinkedList *list = [PXLinkedList new];
+ *	// [populate list with strings]
+ *	NSObject **cArray = (NSString **)[list cArray];
+ *	int len = list.count;
  *
- * for (int i = 0; i < len; ++i)
- * {
- * NSLog(@"%W", cArray[i];
- * }
+ *	for (int i = 0; i < len; ++i)
+ *	{
+ *	NSLog(@"%W", cArray[i];
+ *	}
  *
- * free(cArray);
- * @endcode
+ *	free(cArray);
  *
  * @see [PXLinkedList count]
  */
@@ -1643,12 +1593,10 @@ _PXLLNode pxLinkedListBadNode;
  * @return The created linked list.
  *
  * @b Example:
- * @code
- * PXLinkedList *list = [PXLinkedList linkedListWithPooledNodes:YES];
- * // list will use pooled nodes
- * list = [PXLinkedList linkedListWithPooledNodes:NO];
- * // list will not use pooled nodes
- * @endcode
+ *	PXLinkedList *list = [PXLinkedList linkedListWithPooledNodes:YES];
+ *	// list will use pooled nodes
+ *	list = [PXLinkedList linkedListWithPooledNodes:NO];
+ *	// list will not use pooled nodes
  */
 + (PXLinkedList *)linkedListWithPooledNodes:(BOOL)pooledNodes
 {
@@ -1666,10 +1614,8 @@ _PXLLNode pxLinkedListBadNode;
  * @return The created linked list.
  *
  * @b Example:
- * @code
- * PXLinkedList *list = [PXLinkedList linkedWithWeakReferences:YES];
- * // list will use weak references (will not retain objects added to it)
- * @endcode
+ *	PXLinkedList *list = [PXLinkedList linkedWithWeakReferences:YES];
+ *	// list will use weak references (will not retain objects added to it)
  */
 + (PXLinkedList *)linkedWithWeakReferences:(BOOL)weakReferences
 {
@@ -1689,10 +1635,8 @@ _PXLLNode pxLinkedListBadNode;
  * @return The created linked list.
  *
  * @b Example:
- * @code
- * PXLinkedList *list = [PXLinkedList linkedWithWeakReferences:YES usePooledNodes:YES];
- * // list will use weak references (will not retain objects added to it) and will use pooled nodes.
- * @endcode
+ *	PXLinkedList *list = [PXLinkedList linkedWithWeakReferences:YES usePooledNodes:YES];
+ *	// list will use weak references (will not retain objects added to it) and will use pooled nodes.
  */
 + (PXLinkedList *)linkedListWithWeakReferences:(BOOL)weakReferences usePooledNodes:(BOOL)pooledNodes
 {

@@ -53,18 +53,16 @@
  *
  * @b Example: This sample adjusts an image so that only the red color channel
  * is visible, by setting the multipliers for all the other channels to 0.
- * @code
- * PXTexture *myImage = ...
- * 
- * ...
- * 
- * PXColorTransform *newTransform = myImage.transform.colorTransform;
- * newTransform.redMultiplier = 1.0f;
- * newTransform.greenMultiplier = 0.0f;
- * newTransform.blueMultiplier = 0.0f;
+ *	PXTexture *myImage = ...
+ *	
+ *	...
+ *	
+ *	PXColorTransform *newTransform = myImage.transform.colorTransform;
+ *	newTransform.redMultiplier = 1.0f;
+ *	newTransform.greenMultiplier = 0.0f;
+ *	newTransform.blueMultiplier = 0.0f;
  *
- * myImage.transform.colorTransform = newTransform;
- * @endcode
+ *	myImage.transform.colorTransform = newTransform;
  * 
  * @see PXTransform
  */

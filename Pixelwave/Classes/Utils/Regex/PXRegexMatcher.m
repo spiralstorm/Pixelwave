@@ -55,23 +55,21 @@
  * A PXRegexMatcher uses a regex pattern to find matches in a given string.
  *
  * @b Example:
- * @code
- * PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"];
- * PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
+ *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"];
+ *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
  *
- * // The matcher will hold onto the pattern for you
- * [pattern release];
+ *	// The matcher will hold onto the pattern for you
+ *	[pattern release];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  *
- * [matcher release];
- * @endcode
+ *	[matcher release];
  *
  * @see PXRegexPattern
  */
@@ -100,23 +98,21 @@
  * @param string The string to parse.
  *
  * @b Example:
- * @code
- * PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"];
- * PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
+ *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"];
+ *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
  *
- * // The matcher will hold onto the pattern for you
- * [pattern release];
+ *	// The matcher will hold onto the pattern for you
+ *	[pattern release];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  *
- * [matcher release];
- * @endcode
+ *	[matcher release];
  */
 - (id) initWithPattern:(PXRegexPattern *)_pattern input:(NSString *)_input
 {
@@ -236,29 +232,27 @@
  * Resets the matcher back to the start.
  *
  * @b Example:
- * @code
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:@"person name:Steve age:56"];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:@"person name:Steve age:56"];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  *
- * // Restarts the matcher so we can print the results again!
- * [matcher restart];
+ *	// Restarts the matcher so we can print the results again!
+ *	[matcher restart];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
- * @endcode
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  */
 - (void) restart
 {
@@ -273,18 +267,16 @@
  * @return <code>YES</code> if a match was found; otherwise <code>NO</code>.
  *
  * @b Example:
- * @code
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:@"person name:Steve age:56"];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:@"person name:Steve age:56"];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
- * @endcode
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  */
 - (BOOL) next
 {
@@ -347,26 +339,24 @@
  * @return <code>YES</code> if a match was found; otherwise <code>NO</code>.
  *
  * @b Example:
- * @code
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:@"person name:Steve age:56"];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:@"person name:Steve age:56"];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  *
- * // Send 0 this time, so we can grab our results again.
- * if ([matcher nextFromIndex:0])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
- * @endcode
+ *	// Send 0 this time, so we can grab our results again.
+ *	if ([matcher nextFromIndex:0])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  */
 - (BOOL) nextFromIndex:(int)start
 {
@@ -417,31 +407,29 @@
  * @return The starting character position of the match.
  *
  * @b Example:
- * @code
- * NSString *string = @"person name:Steve age:56";
+ *	NSString *string = @"person name:Steve age:56";
  *
- * const char *utf8String = [string UTF8String];
- * int start;
- * int end;
- * unsigned curLength;
+ *	const char *utf8String = [string UTF8String];
+ *	int start;
+ *	int end;
+ *	unsigned curLength;
  *
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:string];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:string];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * start = [matcher start];
- * end = [matcher end];
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	start = [matcher start];
+ *	end = [matcher end];
  *
- * curLength = end - start;
- * char matchedString[curLength + 1];
- * memcpy(matchedString, utf8String, curLength);
- * matchedString[curLength + 1] = '\0';
+ *	curLength = end - start;
+ *	char matchedString[curLength + 1];
+ *	memcpy(matchedString, utf8String, curLength);
+ *	matchedString[curLength + 1] = '\0';
  *
- * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
- * }
- * @endcode
+ *	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
+ *	}
  */
 - (int) start
 {
@@ -457,31 +445,29 @@
  * @return The starting character position of the match.
  *
  * @b Example:
- * @code
- * NSString *string = @"person name:Steve age:56";
+ *	NSString *string = @"person name:Steve age:56";
  *
- * const char *utf8String = [string UTF8String];
- * int start;
- * int end;
- * unsigned curLength;
+ *	const char *utf8String = [string UTF8String];
+ *	int start;
+ *	int end;
+ *	unsigned curLength;
  *
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:string];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:string];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * start = [matcher startOfGroupAtIndex:1];
- * end = [matcher endOfGroupAtIndex:1];
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	start = [matcher startOfGroupAtIndex:1];
+ *	end = [matcher endOfGroupAtIndex:1];
  *
- * curLength = end - start;
- * char matchedString[curLength + 1];
- * memcpy(matchedString, utf8String, curLength);
- * matchedString[curLength + 1] = '\0';
+ *	curLength = end - start;
+ *	char matchedString[curLength + 1];
+ *	memcpy(matchedString, utf8String, curLength);
+ *	matchedString[curLength + 1] = '\0';
  *
- * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
- * }
- * @endcode
+ *	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
+ *	}
  */
 - (int) startOfGroupAtIndex:(int)index
 {
@@ -503,31 +489,29 @@
  * @return The ending character position of the match.
  *
  * @b Example:
- * @code
- * NSString *string = @"person name:Steve age:56";
+ *	NSString *string = @"person name:Steve age:56";
  *
- * const char *utf8String = [string UTF8String];
- * int start;
- * int end;
- * unsigned curLength;
+ *	const char *utf8String = [string UTF8String];
+ *	int start;
+ *	int end;
+ *	unsigned curLength;
  *
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:string];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:string];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * start = [matcher start];
- * end = [matcher end];
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	start = [matcher start];
+ *	end = [matcher end];
  *
- * curLength = end - start;
- * char matchedString[curLength + 1];
- * memcpy(matchedString, utf8String + start, curLength);
- * matchedString[curLength + 1] = '\0';
+ *	curLength = end - start;
+ *	char matchedString[curLength + 1];
+ *	memcpy(matchedString, utf8String + start, curLength);
+ *	matchedString[curLength + 1] = '\0';
  *
- * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
- * }
- * @endcode
+ *	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
+ *	}
  */
 - (int) end
 {
@@ -543,31 +527,29 @@
  * @return The ending character position of the match.
  *
  * @b Example:
- * @code
- * NSString *string = @"person name:Steve age:56";
+ *	NSString *string = @"person name:Steve age:56";
  *
- * const char *utf8String = [string UTF8String];
- * int start;
- * int end;
- * unsigned curLength;
+ *	const char *utf8String = [string UTF8String];
+ *	int start;
+ *	int end;
+ *	unsigned curLength;
  *
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:string];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:string];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * start = [matcher startOfGroupAtIndex:1];
- * end = [matcher endOfGroupAtIndex:1];
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	start = [matcher startOfGroupAtIndex:1];
+ *	end = [matcher endOfGroupAtIndex:1];
  *
- * curLength = end - start;
- * char matchedString[curLength + 1];
- * memcpy(matchedString, utf8String + start, curLength);
- * matchedString[curLength + 1] = '\0';
+ *	curLength = end - start;
+ *	char matchedString[curLength + 1];
+ *	memcpy(matchedString, utf8String + start, curLength);
+ *	matchedString[curLength + 1] = '\0';
  *
- * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
- * }
- * @endcode
+ *	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
+ *	}
  */
 - (int) endOfGroupAtIndex:(int)index
 {
@@ -592,27 +574,25 @@
  * @return The range of the characters in the match.
  *
  * @b Example:
- * @code
- * NSString *string = @"person name:Steve age:56";
+ *	NSString *string = @"person name:Steve age:56";
  *
- * const char *utf8String = [string UTF8String];
- * NSRange range;
+ *	const char *utf8String = [string UTF8String];
+ *	NSRange range;
  *
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:string];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:string];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * range = [matcher range];
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	range = [matcher range];
  *
- * char matchedString[range.length + 1];
- * memcpy(matchedString, utf8String + range.location, range.length);
- * matchedString[curLength + 1] = '\0';
+ *	char matchedString[range.length + 1];
+ *	memcpy(matchedString, utf8String + range.location, range.length);
+ *	matchedString[curLength + 1] = '\0';
  *
- * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
- * }
- * @endcode
+ *	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person name:Steve age:56"
+ *	}
  */
 - (NSRange) range
 {
@@ -625,27 +605,25 @@
  * @return The range of the characters in the match.
  *
  * @b Example:
- * @code
- * NSString *string = @"person name:Steve age:56";
+ *	NSString *string = @"person name:Steve age:56";
  *
- * const char *utf8String = [string UTF8String];
- * NSRange range;
+ *	const char *utf8String = [string UTF8String];
+ *	NSRange range;
  *
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:string];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:string];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * range = [matcher rangeOfGroupAtIndex:1];
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	range = [matcher rangeOfGroupAtIndex:1];
  *
- * char matchedString[range.length + 1];
- * memcpy(matchedString, utf8String + range.location, range.length);
- * matchedString[curLength + 1] = '\0';
+ *	char matchedString[range.length + 1];
+ *	memcpy(matchedString, utf8String + range.location, range.length);
+ *	matchedString[curLength + 1] = '\0';
  *
- * NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
- * }
- * @endcode
+ *	NSLog (@"%@", [NSString stringWithUTF8String:matchedString]); // @"person"
+ *	}
  */
 - (NSRange) rangeOfGroupAtIndex:(int)index
 {
@@ -672,16 +650,14 @@
  * @return The first group.
  *
  * @b Example:
- * @code
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:string];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:string];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher group]); // @"person name:Steve age:56"
- * }
- * @endcode
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher group]); // @"person name:Steve age:56"
+ *	}
  */
 - (NSString *)group
 {
@@ -695,18 +671,16 @@
  * @return The group at <code>index</code>.
  *
  * @b Example:
- * @code
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:string];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:string];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
- * @endcode
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  */
 - (NSString *)groupAtIndex:(int)index
 {
@@ -756,19 +730,17 @@
  * @return The resulting, <code>autoreleased</code>, PXRegexMatcher object.
  *
  * @b Example:
- * @code
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:@"person name:Steve age:56"];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:@"person name:Steve age:56"];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  *
- * @endcode
  */
 + (PXRegexMatcher *)regexMatcherWithRegex:(NSString *)regex input:(NSString *)input
 {
@@ -788,20 +760,18 @@
  * @return The resulting, <code>autoreleased</code>, PXRegexMatcher object.
  *
  * @b Example:
- * @code
- * PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
- *                                                          string:@"person name:Steve age:56"
- *                                                           flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
+ *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
+ *	                                                         string:@"person name:Steve age:56"
+ *	                                                          flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
  *
- * // If there are lots of potential matches, a while loop should be used.
- * if ([matcher next])
- * {
- * NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- * NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- * NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- * }
+ *	// If there are lots of potential matches, a while loop should be used.
+ *	if ([matcher next])
+ *	{
+ *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *	}
  *
- * @endcode
  */
 + (PXRegexMatcher *)regexMatcherWithRegex:(NSString *)regex input:(NSString *)input flags:(unsigned)flags
 {
