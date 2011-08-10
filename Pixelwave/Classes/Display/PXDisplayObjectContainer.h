@@ -69,7 +69,7 @@
  */
 @property (nonatomic, assign) BOOL touchChildren;
 /**
- * The number of children for this display object container.
+ * The number of display objects within this container.
  */
 @property (readonly) unsigned short numChildren;
 

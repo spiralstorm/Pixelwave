@@ -295,7 +295,9 @@
  * retain count by 1.
  *
  * @param child The object to be added.
- * @param index The index.
+ * @param index The index at which to add the display object. An index
+ * of 0 represents the very back of the screen, while higher indecies
+ * are closer to the top.
  *
  * @return The display object passed by the child parameter.
  *
