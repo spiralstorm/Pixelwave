@@ -67,14 +67,18 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * memory.
  *
  * The following sound formats are supported natively:
- * (Can not be 3D)
+ *
+ * _Can be 3D (if mono)_
+ *
+ * - .wav
+ * - .caf
+ *
+ * _Cannot be 3D_
+ *
  * - .mp3
  * - .m4a
  * - .alac and .acc
  * - .aiff, .aif and .aifc
- * (Can be 3D if it is mono)
- * - .wav
- * - .caf
  *
  * **Example:**
  *	// Create a loader object to load and parse the wav from the application

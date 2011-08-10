@@ -75,6 +75,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * object has been created in order to free up memory.
  *
  * The following image formats are supported natively:
+ * 
  * - .tiff and .tif
  * - .jpeg and .jpg
  * - .bmp and .BMPf

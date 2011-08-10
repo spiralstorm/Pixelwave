@@ -59,9 +59,8 @@
  * A PXFontLoader loads font information and creats PXFont objects from the
  * loaded information.
  *
- * If the font does not exist, or can not load, then nil is returned instead.
- *
  * The following font formats are supported natively:
+ * 
  * - .fnt (AngelCode Texture Font Format)
  * - .ttf
  * - .otf
