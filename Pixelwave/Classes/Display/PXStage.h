@@ -41,22 +41,22 @@
 
 @class PXView;
 
-/**
+/*@
  * Defines constants describing the orientation of the stage.
  */
 typedef enum
 {
-	/// Portrait mode is when the device is upright with the home button closest
-	/// to the ground
+	//@ Portrait mode is when the device is upright with the home button closest
+	//@ to the ground
 	PXStageOrientation_Portrait = 0,
-	/// PortraitUpsideDown mode is when the device is upside down, as in, the
-	/// home button is closest to the sky.
+	//@ PortraitUpsideDown mode is when the device is upside down, as in, the
+	//@ home button is closest to the sky.
 	PXStageOrientation_PortraitUpsideDown,
-	/// LandscapeLeft is when the device is sideways with the home button on the
-	/// left hand side.
+	//@ LandscapeLeft is when the device is sideways with the home button on the
+	//@ left hand side.
 	PXStageOrientation_LandscapeLeft,
-	/// LandscapeRight is when the device is sideways with the home button on
-	///	the right hand side.
+	//@ LandscapeRight is when the device is sideways with the home button on
+	//@	the right hand side.
 	PXStageOrientation_LandscapeRight
 } PXStageOrientation;
 
@@ -196,7 +196,7 @@ typedef enum
 @property (nonatomic, readonly) PXView *nativeView;
 
 /**
- * Statically returns a reference to the main stage associated with the
+ * A reference to the main stage associated with the
  * Pixelwave engine.
  */
 + (PXStage *)mainStage;

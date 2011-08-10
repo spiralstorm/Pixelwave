@@ -73,6 +73,7 @@ static unsigned _pxDisplayObjectCount = 0;
  * display list.
  *
  * Every display object has the following main components:
+ * 
  * - A transformation matrix representing the translation, rotation, scaling,
  * and skewing of the display object in relation to its parent's (ie. local
  * coordinates).
@@ -85,14 +86,18 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * To abstract away the details of setting transformation matrices and color
  * transforms, the following properties are available:
- * - x, y
- * - scaleX, scaleY
- * - width, height
- * - rotation
- * - alpha
+ * 
+ * - #x, #y
+ * - #scaleX, #scaleY
+ * - #width, #height
+ * - #rotation
+ * - #alpha
  *
  * Helper methods are available for getting the bounding-box of a display
- * object and performing hit-tests at a given two-dimentional coordinate.
+ * object and performing hit-tests:
+ * 
+ * - #boundsWithCoordinateSpace:
+ * - #hitTestPointWithX:y:shapeFlag:
  *
  * The PXDisplayObject class should never be instantiated directly. Instead
  * use one of its concrete subclasses or create your own.

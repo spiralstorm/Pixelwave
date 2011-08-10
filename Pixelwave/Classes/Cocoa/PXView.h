@@ -46,7 +46,7 @@
 
 @class EAGLContext;
 
-/**
+/*@
  * Indicates the quality of the colors used when rendering to the screen.
  * This enum is used when initializing a PXView object. Internally the
  * colorQuality is used to set up the OpenGL rendering surface's pixel format
@@ -57,15 +57,15 @@
  */
 typedef enum
 {
-	/// The lowest-quality pixel color format (RGB565 - 16 bit) with dithering
-	/// turned off. This is the fastest but least pretty option.
+	//@ The lowest-quality pixel color format (RGB565 - 16 bit) with dithering
+	//@ turned off. This is the fastest but least pretty option.
 	PXViewColorQuality_Low = 0,
-	/// Specifies an RGB565 pixel format (16 bit) with dithering turned on.
-	/// This option is slightly slower but generates smoother colors. Up-close
-	/// this option may yield some pixel artifacts due to the dithering process.
+	//@ Specifies an RGB565 pixel format (16 bit) with dithering turned on.
+	//@ This option is slightly slower but generates smoother colors. Up-close
+	//@ this option may yield some pixel artifacts due to the dithering process.
 	PXViewColorQuality_Medium,
-	/// Specifies an RGBA8888 pixel color format (32 bit). This is the highest
-	/// color quality possible, but also uses the most GPU memory.
+	//@ Specifies an RGBA8888 pixel color format (32 bit). This is the highest
+	//@ color quality possible, but also uses the most GPU memory.
 	PXViewColorQuality_High
 } PXViewColorQuality;
 

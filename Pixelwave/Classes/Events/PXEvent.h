@@ -51,27 +51,27 @@ PXExtern NSString * const PXEvent_RemovedFromStage;
 PXExtern NSString * const PXEvent_Render;
 PXExtern NSString * const PXEvent_SoundComplete;
 
-/// Event Phases
+//@ Event Phases
 typedef enum
 {
-	/// The capture phase happens when the event travels downwards toward's the
-	/// target.
+	//@ The capture phase happens when the event travels downwards toward's the
+	//@ target.
 	PXEventPhase_Capture = 1,
-	/// The target phase is when the event is on the target.
+	//@ The target phase is when the event is on the target.
 	PXEventPhase_Target,
-	/// The bubbling phase is when the event is 'bubbling' back up the hierarchy.
+	//@ The bubbling phase is when the event is 'bubbling' back up the hierarchy.
 	PXEventPhase_Bubbling
 } PXEventPhase;
 
 typedef enum
 {
-	/// Keeps the propegation going (it's default value).
+	//@ Keeps the propegation going (it's default value).
 	_PXStopPropegationLevel_KeepGoing = 0,
-	/// stopPropegation after the current node (only relevant when using the
-	/// displaylist event flow).
+	//@ stopPropegation after the current node (only relevant when using the
+	//@ displaylist event flow).
 	_PXStopPropegationLevel_StopAfter,
-	/// stopPropegation now (like calling break; in the middle of the
-	/// dispatch loop for the current node)
+	//@ stopPropegation now (like calling break; in the middle of the
+	//@ dispatch loop for the current node)
 	_PXStopPropegationLevel_StopNow
 } _PXStopPropegationLevel;
 

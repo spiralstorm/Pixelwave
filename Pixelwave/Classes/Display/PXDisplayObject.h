@@ -50,24 +50,24 @@
 
 typedef enum
 {
-	/// The initial state of _renderMode for PXDisplayObject. You must use PXGL
-	/// calls in your _renderGL method for this mode to work properly. It will
-	/// batch your gl draw calls together, so that less actual gl calls are
-	/// made. It will also manage the state of gl so when you use PXGL calls
-	/// such as PXGLEnable, it will enable intenral variables that will sync
-	/// with GL only when needed.
+	//@ The initial state of _renderMode for PXDisplayObject. You must use PXGL
+	//@ calls in your _renderGL method for this mode to work properly. It will
+	//@ batch your gl draw calls together, so that less actual gl calls are
+	//@ made. It will also manage the state of gl so when you use PXGL calls
+	//@ such as PXGLEnable, it will enable intenral variables that will sync
+	//@ with GL only when needed.
 	PXRenderMode_BatchAndManageStates = 0,
 
-	/// You still can only use PXGL calls in _renderGL, however after each draw
-	/// it will flush the buffer immediately to GL rather then batch.
+	//@ You still can only use PXGL calls in _renderGL, however after each draw
+	//@ it will flush the buffer immediately to GL rather then batch.
 	PXRenderMode_ManageStates,
 
-	/// For custom you use normal gl calls. The matrix and color transform will
-	/// be set in gl so that your _renderGL method begins in the correct place.
+	//@ For custom you use normal gl calls. The matrix and color transform will
+	//@ be set in gl so that your _renderGL method begins in the correct place.
 	PXRenderMode_Custom,
 
-	/// The initial state of _renderGL for PXDisplayObjectContainers. No
-	/// _renderGL calls will be made for this display object.
+	//@ The initial state of _renderGL for PXDisplayObjectContainers. No
+	//@ _renderGL calls will be made for this display object.
 	PXRenderMode_Off,
 } PXRenderMode;
 

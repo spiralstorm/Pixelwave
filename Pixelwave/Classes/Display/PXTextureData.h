@@ -48,11 +48,6 @@
 @class PXRectangle;
 @protocol PXTextureModifier;
 
-/**
- * An enum representing the possible pixel color formats of a PXTextureData
- * object.
- */
-
 @interface PXTextureData : NSObject
 {
 @public

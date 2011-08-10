@@ -44,7 +44,7 @@
 
 // TODO: Oz, why are indicies passed in as signed integers?
 
-/**
+/*@
  * Used to efficiently traverse the items in a linked list.
  *
  *	PXLinkedList *list = ...
@@ -71,7 +71,7 @@
 				PX_UNIQUE_VAR(_i_) < PX_UNIQUE_VAR(_len_); \
 				++PX_UNIQUE_VAR(_i_), PX_UNIQUE_VAR(_node_) = PX_UNIQUE_VAR(_node_)->next, _obj_ = (PX_UNIQUE_VAR(_node_) ? PX_UNIQUE_VAR(_node_)->data : 0))
 
-/**
+/*@
  * Used to efficiently traverse the items in a linked list from the end to the
  * start.
  *

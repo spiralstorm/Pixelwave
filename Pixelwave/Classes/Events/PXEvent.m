@@ -49,7 +49,6 @@ NSString * const PXEvent_AddedToStage = @"addedToStage";
 NSString * const PXEvent_RemovedFromStage = @"removedFromStage";
 NSString * const PXEvent_Render = @"render";
 NSString * const PXEvent_SoundComplete = @"soundComplete";
-//NSString * const PXEvent_MemoryWarning = @"memoryWarning";
 
 @interface PXEvent(Private)
 - (void) setType:(NSString *)type;
@@ -58,9 +57,13 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 /**
  * The base class for all events dispatched through the PXEventDispatcher
  * class.
+ * 
  * A PXEvent holds all of the information related to the given event, and is
  * always passed in as the first argument of every event listener invocation by
  * an event listener.
+ *
+ * While the PXEvent class is the base for all other event classes, it's not
+ * abstract, meaning that it can be used on its own for several common events.
  *
  * @see PXTouchEvent
  */

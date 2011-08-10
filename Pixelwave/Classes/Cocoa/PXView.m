@@ -85,12 +85,10 @@
  *
  * Once instantiated, a PXView starts up all of the engine's subsytems and
  * initializes the display list, providing a default <code>stage</code> and
- * <code>root</code> display object.
- *
- * In order to change an application's root object, the #setRoot: method must
- * be used.
+ * <code>root</code> display object. To change the application's root object
+ * use the #root property.
  * 
- * Only one PXView should exist for the duration of your app.
+ * @warning Only one PXView should exist for the duration of your app.
  */
 @implementation PXView
 

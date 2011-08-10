@@ -53,7 +53,7 @@
 @end
 
 /**
- * The PXStage Represents the entire drawing surface of the Pixelwave engine
+ * A special display object that represents the entire drawing surface of the Pixelwave engine
  * and contains several global properties such as the screen size and
  * orientation.
  * 
@@ -61,11 +61,12 @@
  * should be added to the root display object.
  *
  * An instace of the PXStage class is automatically created when the display
- * list is created by a PXView object. The PXStage class should never be
- * instantiated by the user.
+ * list is created by a PXView object.
  *
+ * @warning The PXStage class should never be instantiated by the user.
  * To access the global stage object, the [PXDisplayObject stage] property may be
- * read on any display object one the main display list.
+ * read on any display object one the main display list. Alternatively you can use
+ * the [PXStage mainStage] method.
  *
  * @see [PXDisplayObject stage]
  * @see [PXDisplayObject root]
