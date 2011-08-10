@@ -43,7 +43,7 @@
 #import "PXExceptionUtils.h"
 
 /**
- * The PXEventListener class acts as a wrapper for an Objective-C method. Used
+ * Acts as a wrapper for an Objective-C method. Used
  * when adding and removing event listeners from the PXEventDispatcher class.
  * 
  * @see PXListener
@@ -51,6 +51,8 @@
  */
 @implementation PXEventListener
 
+/**
+ */
 - (id) initWithTarget:(PXGenericObject)target selector:(SEL)selector
 {
 	// Check params

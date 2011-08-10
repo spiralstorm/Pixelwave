@@ -48,15 +48,15 @@
  *
  *	@try
  *	{
- *	... Execute Pixelwave code
+ *		// ... Execute Pixelwave code
  *	}
  *	@catch (PXException *e)
  *	{
- *	... Handle Pixelwave exception
+ *		// ... Handle Pixelwave exception
  *	}
  *	@finally
  *	{
- *	...
+ *		// ... Perform cleanup
  *	}
  *
  * @warning Exception handling isn't the standard way of handling run-time

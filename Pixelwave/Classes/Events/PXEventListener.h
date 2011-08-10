@@ -43,7 +43,7 @@
 
 typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
 
-/**
+/*@
  * Quickly generates a PXEventListener object for a given method
  * signature.
  * assumes that the method exists within the current class (<code>self</code>)
@@ -55,7 +55,7 @@ typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
  *	//...
  *	- (void) onTouchDown:(PXTouchEvent *)event
  *	{
- *	// handle event
+ *		// handle event
  *	}
  *
  * @param methodSignature a valid method signature

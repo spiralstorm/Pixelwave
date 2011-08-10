@@ -54,7 +54,7 @@
  *
  *	PXLinkedListForEach(list, item)
  *	{
- *	NSLog("Item = %@", item);
+ *		NSLog("Item = %@", item);
  *	}
  */
 #define PXLinkedListForEach(_list_,_obj_) \
@@ -82,7 +82,7 @@
  *
  *	PXLinkedListForEachReverse(list, item)
  *	{
- *	NSLog("Item = %@", item);
+ *		NSLog("Item = %@", item);
  *	}
  */
 #define PXLinkedListForEachReverse(_list_,_obj_) \

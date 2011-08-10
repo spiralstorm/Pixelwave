@@ -55,7 +55,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 @end
 
 /**
- * The base class for all events dispatched through the PXEventDispatcher
+ * The base class for all events dispatched through the #PXEventDispatcher
  * class.
  * 
  * A PXEvent holds all of the information related to the given event, and is
@@ -201,8 +201,8 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 
 /**
  * Causes the behavior represented by this event to be canceled.
- * Not all events may be canceled. Use PXEvent##cancelable to check if this
- * event's behavior can be canceled.
+ * Not all events may be canceled. Use the #cancelable property to
+ * check if this event's behavior can be canceled.
  */
 - (void) preventDefault
 {

@@ -145,11 +145,12 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * **Example:**
  * In this example the method <code>onTouch:</code> is assigned as a
  * listener to the stage's <code>touchDown</code> event.
+ * 
  *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
  *	//...
  *	- (void) onTouchDown:(PXTouchEvent *)event
  *	{
- *	// handle event
+ *		// handle event
  *	}
  *
  * @param type The type
@@ -166,11 +167,12 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * **Example:**
  * In this example the method <code>onTouch:</code> is assigned as a
  * listener to the stage's <code>touchDown</code> event.
+ * 
  *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:) useCapture:NO priority:0];
  *	//...
  *	- (void) onTouchDown:(PXTouchEvent *)event
  *	{
- *	// handle event
+ *		// handle event
  *	}
  *
  * @param type The type

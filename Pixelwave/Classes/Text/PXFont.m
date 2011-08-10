@@ -208,7 +208,7 @@ NSMutableDictionary *pxFonts = nil;
  *	// If the loading failed, don't register anything
  *	if (!fontLoader)
  *	{
- *	// Handle this problem
+ *		// Handle this problem
  *	}
  *	PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
  *	// font retain count = 1
@@ -447,7 +447,7 @@ NSMutableDictionary *pxFonts = nil;
  *	// If the loading failed, don't register anything
  *	if (!fontLoader)
  *	{
- *	// Handle this problem
+ *		// Handle this problem
  *	}
  *	PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
  *	// font retain count = 1
@@ -503,11 +503,11 @@ NSMutableDictionary *pxFonts = nil;
  *	// If the loading failed, don't register anything
  *	if (!systemFontLoader)
  *	{
- *	// Handle this problem
+ *		// Handle this problem
  *	}
  *	if (!externalFontLoader)
  *	{
- *	// Handle this problem
+ *		// Handle this problem
  *	}
  *
  *	PXTextureFont *systemFont = (PXTextureFont *)([systemFontLoader newFont]);
@@ -555,7 +555,7 @@ NSMutableDictionary *pxFonts = nil;
  *	// If the loading failed, don't register anything
  *	if (!fontLoader)
  *	{
- *	// Handle this problem
+ *		// Handle this problem
  *	}
  *	PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
  *	// font retain count = 1
@@ -601,7 +601,7 @@ NSMutableDictionary *pxFonts = nil;
  *	// If the loading failed, don't register anything
  *	if (!fontLoader)
  *	{
- *	// Handle this problem
+ *		// Handle this problem
  *	}
  *	PXTextureFont *font = (PXTextureFont *)([fontLoader newFont]);
  *	// font retain count = 1

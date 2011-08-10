@@ -599,7 +599,7 @@ static unsigned _pxDisplayObjectCount = 0;
  * **Example:**
  *	- (void) onTouchDown:(PXTouchEvent *)event
  *	{
- *	PXPoint *touchPosition = [self positionOfTouch:event.nativeTouch];
+ *		PXPoint *touchPosition = [self positionOfTouch:event.nativeTouch];
  *	}
  */
 - (PXPoint *)positionOfTouch:(UITouch *)nativeTouch

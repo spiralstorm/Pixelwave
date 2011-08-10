@@ -1525,7 +1525,7 @@ _PXLLNode pxLinkedListBadNode;
  *
  *	for (int i = 0; i < len; ++i)
  *	{
- *	NSLog(@"%W", cArray[i];
+ *		NSLog(@"%W", cArray[i];
  *	}
  *
  *	free(cArray);

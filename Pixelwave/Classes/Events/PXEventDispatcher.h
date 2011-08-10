@@ -72,7 +72,7 @@
  *	@interface MyEventDispatchingClass : SomeOtherClass <PXEventDispatcher>
  *	{
  *	@private
- *	PXEventDispatcher *eventDispatcher;
+ *		PXEventDispatcher *eventDispatcher;
  *	}
  *	
  *	@end 
@@ -84,22 +84,22 @@
  *	
  *	- (id) init
  *	{
- *	self = [super init];
+ *		self = [super init];
+ *		
+ *		if (self)
+ *		{
+ *			eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];
+ *		}
  *
- *	if (self)
- *	{
- *		eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];
- *	}
- *
- *	return self;
+ *		return self;
  *	}
  *
  *	- (void) dealloc
  *	{
- *	[eventDispatcher release];
- *	eventDispatcher = nil;
- *
- *	[super dealloc];
+ *		[eventDispatcher release];
+ *		eventDispatcher = nil;
+ *		
+ *		[super dealloc];
  *	}
  *
  *	// Implementation of protocol methods. They just pass the parameters to the
@@ -110,14 +110,14 @@
  *	                     useCapture:(BOOL)useCapture
  *	                       priority:(int)priority
  *	{
- *	return [eventDispatcher addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
+ *		return [eventDispatcher addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
  *	}
  *
  *	- (BOOL) removeEventListenerOfType:(NSString *)type
  *	                          listener:(PXEventListener *)listener
  *	                        useCapture:(BOOL)useCapture
  *	{
- *	return [eventDispatcher removeEventListenerOfType:type listener:listener useCapture:useCapture];
+ *		return [eventDispatcher removeEventListenerOfType:type listener:listener useCapture:useCapture];
  *	}
  *
  *	- (BOOL) dispatchEvent:(PXEvent *)event
@@ -127,11 +127,11 @@
  *
  *	- (BOOL) hasEventListenerOfType:(NSString *)type
  *	{
- *	return [eventDispatcher hasEventListenerOfType:type];
+ *		return [eventDispatcher hasEventListenerOfType:type];
  *	}
  *	- (BOOL) willTriggerEventOfType:(NSString *)type
  *	{
- *	return [eventDispatcher willTriggerEventOfType:type];
+ *		return [eventDispatcher willTriggerEventOfType:type];
  *	}
  *
  *	@end 

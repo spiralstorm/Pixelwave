@@ -68,9 +68,9 @@
  *	// If there are lots of potential matches, a while loop should be used.
  *	if ([matcher next])
  *	{
- *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
+ *		NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
+ *		NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
+ *		NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
  *	}
  *
  *	[matcher release];
@@ -97,21 +97,6 @@
  * @param pattern The regex to compile. If regex is not <code>nil</code> then it
  * immediately compiles the regex.
  * @param flags The flags explaining how to compile the regex.
- *
- * **Example:**
- *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"
- *	                                                          flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
- *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
- *	[pattern release];
- *
- *	if ([matcher next])
- *	{
- *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- *	}
- *
- *	[matcher release];
  */
 - (id) _initWithRegex:(NSString *)_regex flags:(unsigned)_flags
 {
@@ -338,19 +323,6 @@
  * immediately compiles the regex.
  *
  * @return The resulting, <code>autoreleased</code>, PXRegexPattern object.
- *
- * **Example:**
- *	PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"];
- *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
- *
- *	if ([matcher next])
- *	{
- *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- *	}
- *
- *	[matcher release];
  */
 + (PXRegexPattern *)patternWithRegex:(NSString *)regex
 {
@@ -366,20 +338,6 @@
  * @param flags The flags explaining how to compile the regex.
  *
  * @return The resulting, <code>autoreleased</code>, PXRegexPattern object.
- *
- * **Example:**
- *	PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"
- *	                                                     flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
- *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
- *
- *	if ([matcher next])
- *	{
- *	NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- *	NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- *	NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- *	}
- *
- *	[matcher release];
  */
 + (PXRegexPattern *)patternWithRegex:(NSString *)regex flags:(unsigned)flags
 {
