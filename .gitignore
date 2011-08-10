@@ -27,5 +27,6 @@ xcuserdata
 # Specifics #
 #############
 Docs/output/
+*.TrashIgnoredByCleanMyMac
 
 git-completion.bash
