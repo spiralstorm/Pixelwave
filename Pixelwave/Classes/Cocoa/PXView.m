@@ -506,11 +506,6 @@
 	return PXEngineGetStage();
 }
 
-/**
- * Sets the root display object of the Pixelwave engine.
- *
- * @param root The new root display object.
- */
 - (void) setRoot:(PXDisplayObject *)root
 {
 	if (!root)
