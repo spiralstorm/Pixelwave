@@ -47,11 +47,9 @@
 #import "PXDebug.h"
 
 /**
- * A PXSoundChannel object represents a loaded and playing sound.  Sound
- * channels should never be initialized manually, however through a
- * <code>PXSound</code> using the <code>play</code> method.
- *
- * @see [PXSound play]
+ * Represents a loaded and playing sound. Sound
+ * channels should never be initialized manually, but instead created
+ * via the [PXSound play] method.
  */
 @implementation PXSoundChannel
 

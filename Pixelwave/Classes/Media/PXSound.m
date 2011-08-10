@@ -52,9 +52,8 @@
 #import "PXSoundParser.h"
 
 /**
- * A PXSound object represents a loaded sound.  Sounds should never be
- * initialized manually, however through a <code>PXSoundLoader</code> using the
- * <code>newSound</code> method.
+ * Represents a loaded sound.  Sounds should never be
+ * initialized manually, but through a #PXSoundLoader or this class's utility creation methods.
  *
  * @see [PXSoundLoader newSound]
  */
