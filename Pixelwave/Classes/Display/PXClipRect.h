@@ -69,7 +69,12 @@
 // General clip shape
 
 /**
- * Avoid using values that aren't multiples of 90.0
+ * Specifies the rotation offset to be applied to the area of the texture
+ * covered by this clip rect when applied to a #PXTexture.
+ *
+ * Rotation value is in degrees.
+ *
+ * @warning Avoid using values that aren't multiples of 90.0
  * (it makes the hit-test act unintuitively, albeit correctly). For regular rotation changes
  * just use the [PXTexture rotation] property.
  */
@@ -77,9 +82,23 @@
 
 // Rect specific
 
+/**
+ * The horizontal position of the top-left corner of the
+ * clip rectangle, in points.
+ */
 @property (nonatomic) float x;
+/**
+ * The vertical position of the top-left corner of the
+ * clip rectangle, in points.
+ */
 @property (nonatomic) float y;
+/**
+ * The width of the rectangle in points.
+ */
 @property (nonatomic) float width;
+/**
+ * The height of the rectangle in points.
+ */
 @property (nonatomic) float height;
 
 /////////////

@@ -44,11 +44,8 @@
 }
 
 //-- ScriptName: setDrawBoundingBoxes
-/// @see drawBoundingBoxes
 + (void) setDrawBoundingBoxes:(BOOL)val;
 //-- ScriptName: drawBoundingBoxes
-/// When set to YES, red axis-aligned boxes are draw around
-/// each display object.
 + (BOOL) drawBoundingBoxes;
 
 //-- ScriptName: setDrawHitAreas

@@ -63,7 +63,12 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 
 /**
  * Provides tweaks and toggles for displaying debugging information about
- * the engine. This class exposes only static methods.
+ * the engine.
+ *
+ * This class exposes only static methods.
+ *
+ * @warning The tweaks in this class are designed for use in a testing
+ * environment and shouldn't be used in production code.
  */
 @implementation PXDebug
 
@@ -78,6 +83,11 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 		PXDebugDisableSetting(PXDebugSetting_DrawBoundingBoxes);
 	}
 }
+
+/**
+ * When set to YES, red axis-aligned boxes are drawn around
+ * each display object.
+ */
 + (BOOL) drawBoundingBoxes
 {
 	return (BOOL)(PXDebugIsEnabled(PXDebugSetting_DrawBoundingBoxes));
@@ -87,6 +97,12 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 {
 	PXDebugEnableSetting(PXDebugSetting_DrawHitAreas);
 }
+
+/**
+ * When set to <code>YES</code> blue axis-aligned boxes
+ * are drawn around each display object's hit area (the
+ * within which touches must land to register).
+ */
 + (BOOL) drawHitAreas
 {
 	return (BOOL)(PXDebugIsEnabled(PXDebugSetting_DrawHitAreas));
@@ -103,6 +119,11 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 		PXDebugDisableSetting(PXDebugSetting_HalveStage);
 	}
 }
+
+/**
+ * Renders the entire stage at half scale. This is particularly useful
+ * when you need to see what's going on outside of the stage's bounds.
+ */
 + (BOOL) halveStage
 {
 	return (BOOL)(PXDebugIsEnabled(PXDebugSetting_HalveStage));
@@ -119,6 +140,15 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 		PXDebugDisableSetting(PXDebugSetting_CalculateFrameRate);
 	}
 }
+/**
+ * When turned on, the engine's frame rate is calculated and can be
+ * queried via these methods:
+ * 
+ * - #timeBetweenFrames
+ * - #timeBetweenLogic
+ * - #timeBetweenRendering
+ * - #timeWaiting
+ */
 + (BOOL) calculateFrameRate
 {
 	return (BOOL)(PXDebugIsEnabled(PXDebugSetting_CalculateFrameRate));
@@ -135,11 +165,20 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 		PXDebugDisableSetting(PXDebugSetting_CountGLCalls);
 	}
 }
+
+/**
+ * When turned on, the amount of OpenGl calls performed each frame
+ * can be queried with the #glCallCount method
+ */
 + (BOOL) countGLCalls
 {
 	return (BOOL)(PXDebugIsEnabled(PXDebugSetting_CountGLCalls));
 }
 
+/**
+ * The amount of OpenGL calls performed in the previous frame.
+ * This method returns 0 if #countGLCalls is set to <code>NO</code>.
+ */
 + (unsigned) glCallCount
 {
 	return PXGLDBGGetRenderCallCount();
@@ -156,29 +195,64 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 		PXDebugDisableSetting(PXDebugSetting_LogErrors);
 	}
 }
+/**
+ * When turned on, Pixelwave errors are logged to the console.
+ */
 + (BOOL) logErrors
 {
 	return (BOOL)(PXDebugIsEnabled(PXDebugSetting_LogErrors));
 }
 
+/**
+ * The amount of time in seconds that passed between the last two frames.
+ * This value can be used to calculate the framerate of the
+ * application.
+ *
+ * @warning Returns 0 unless #calculateFrameRate is set to <code>YES</code>.
+ */
 + (float) timeBetweenFrames
 {
 	PXDebugInformIfCalculateFrameRateOn(@"timeBetweenFrames");
 
 	return _PXEngineDBGGetTimeBetweenFrames();
 }
+
+/**
+ * The duration, in seconds, of the last logic phase.
+ *
+ * The logic phase involves all user code invoked via
+ * <code>enterFrame</code> events.
+ *
+ * @warning Returns 0 unless #calculateFrameRate is set to <code>YES</code>.
+ */
 + (float) timeBetweenLogic
 {
 	PXDebugInformIfCalculateFrameRateOn(@"timeBetweenLogic");
 
 	return _PXEngineDBGGetTimeBetweenLogic();
 }
+/**
+ * The duration, in seconds, of the last rendering phase.
+ *
+ * @warning Returns 0 unless #calculateFrameRate is set to <code>YES</code>.
+ */
 + (float) timeBetweenRendering
 {
 	PXDebugInformIfCalculateFrameRateOn(@"timeBetweenRendering");
 
 	return _PXEngineDBGGetTimeBetweenRendering();
 }
+/**
+ * The amount of delay, in seconds, between the
+ * last two frames.
+ *
+ * Frames are delayed if a frame finishes before the
+ * next frame is scheduled to run. The amount of time
+ * allotted to each frame is set through the [PXStage frameRate]
+ * property.
+ *
+ * @warning Returns 0 unless #calculateFrameRate is set to <code>YES</code>.
+ */
 + (float) timeWaiting
 {
 	PXDebugInformIfCalculateFrameRateOn(@"timeWaiting");
