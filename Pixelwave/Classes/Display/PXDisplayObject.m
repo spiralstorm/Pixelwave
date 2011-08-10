@@ -99,7 +99,7 @@ static unsigned _pxDisplayObjectCount = 0;
  * - #boundsWithCoordinateSpace:
  * - #hitTestPointWithX:y:shapeFlag:
  *
- * The PXDisplayObject class should never be instantiated directly. Instead
+ * @warning The PXDisplayObject class should never be instantiated directly. Instead
  * use one of its concrete subclasses or create your own.
  *
  * @see PXSprite
