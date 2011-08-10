@@ -62,6 +62,10 @@
 /**
  * Determines whether or not the children of this object can be sent touch
  * events.
+ *
+ * @warning This unfortunately-named property is the result of trying
+ * to faithfully reproduce ActionScript's naming convention. The
+ * original was named <code>mouseChildren</code>.
  */
 @property (nonatomic, assign) BOOL touchChildren;
 /**
