@@ -87,7 +87,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  *
  * @param texture The texture data that this texture represents.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
@@ -178,7 +178,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  * @param anchorX The horizontal anchor position, in percent.
  * @param anchorY The vertical anchor position, in percent.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
@@ -349,7 +349,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  * @param x The horizontal anchor position, in percent where 0.0f <= x <= 1.0f.
  * @param y The vertical anchor position, in percent where 0.0f <= y <= 1.0f.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
@@ -375,7 +375,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  * @param x The horizontal anchor position in points, within the textureData.
  * @param y The vertical anchor position in points, within the textureData.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];

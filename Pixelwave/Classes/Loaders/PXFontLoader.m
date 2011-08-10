@@ -72,7 +72,7 @@
  * - .bdf
  * - .pfr
  *
- * @b Example:
+ * **Example:**
  *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.fnt" options:nil];
  *	PXFont *font = [fontLoader newFont];
  *	[fontLoader release];
@@ -87,7 +87,7 @@
  * @param path The path of the font file to load. The file path may be absolute or
  * relative to	the application bundle.
  *
- * @b Example:
+ * **Example:**
  *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.fnt"];
  *	PXFont *font = [fontLoader newFont];
  *
@@ -114,7 +114,7 @@
  * would be mapped to a texture. If the font file you are loading already
  * has this information, it is also loaded.
  *
- * @b Example:
+ * **Example:**
  *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfFile:@"font.fnt" options:nil];
  *	PXFont *font = [fontLoader newFont];
  *
@@ -137,7 +137,7 @@
  *
  * @param url The url of the font to load.
  *
- * @b Example:
+ * **Example:**
  *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.fnt"]];
  *	PXFont *font = [fontLoader newFont];
  *
@@ -163,7 +163,7 @@
  * would be mapped to a texture. If the font file you are loading already
  * has this information, it is also loaded.
  *
- * @b Example:
+ * **Example:**
  *	PXFontLoader *fontLoader = [[PXFontLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.fnt"] options:nil];
  *	PXFont *font = [fontLoader newFont];
  *
@@ -297,7 +297,7 @@
  *
  * @return The resulting, <code>autoreleased</code>, PXFontLoader object.
  *
- * @b Example:
+ * **Example:**
  *	PXFontLoader *fontLoader = [PXFontLoader fontLoaderWithContentsOfFile:@"font.fnt" options:nil];
  *	PXFont *font = [fontLoader newFont];
  *
@@ -324,7 +324,7 @@
  *
  * @return The resulting, <code>autoreleased</code>, PXFontLoader object.
  *
- * @b Example:
+ * **Example:**
  *	PXFontLoader *fontLoader = [PXFontLoader fontLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/font.fnt"] options:nil];
  *	PXFont *font = [fontLoader newFont];
  *

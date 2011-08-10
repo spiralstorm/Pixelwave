@@ -79,7 +79,7 @@ typedef enum
 @property (nonatomic, retain) PXDisplayObject *hitTestState;
 /**
  * Whether the button is enabled (pressable).
- * @b Default: <code>YES</code>.
+ * **Default:** <code>YES</code>.
  */
 @property (nonatomic, assign) BOOL enabled;
 

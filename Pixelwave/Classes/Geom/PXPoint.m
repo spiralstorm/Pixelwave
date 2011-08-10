@@ -66,7 +66,7 @@
  * @param x The horizontal coordinate.
  * @param y The vertical coordinate.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *point = [[PXPoint alloc] initWithX:5 y:7];
  *	// point will be (5,7)
  */
@@ -122,7 +122,7 @@
  * @param x The horizontal coordinate.
  * @param y The vertical coordinate.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *point = [PXPoint new];
  *	// point will be (0, 0)
  *	[point setX:5 y:7];
@@ -144,7 +144,7 @@
  *
  * @return The created point.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5 y:7];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3 y:10];
  *	PXPoint *pt3 = [pt1 addPoint:pt2];
@@ -170,7 +170,7 @@
  *
  * @return The created point.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5 y:7];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3 y:10];
  *	PXPoint *pt3 = [pt1 subtractPoint:pt2];
@@ -197,7 +197,7 @@
  * @return <code>YES</code> if the object is equal to this point object;
  * <code>NO</code> if it is not equal.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5.0f y:7.0f];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f y:10.0f];
  *	PXPoint *pt3 = [[PXPoint alloc] initWithX:-3.0f y:10.0f];
@@ -219,7 +219,7 @@
 /**
  * Sets the vector represented by this point to unit length.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	[point normalize];
  *	// point will now be (0.6f, 0.8f)
@@ -242,7 +242,7 @@
  *
  * @param newLength The scaling value.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	[point normalizeWithLength:10.0f];
  *	// point will now be (6, 8)
@@ -263,7 +263,7 @@
  * @param dx The amount by which to offset the horizontal coordinate, x
  * @param dy The amount by which to offset the vertical coordinate, y.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	[point offsetWithX:11.0f y:-5.0f];
  *	// point will now be (14.0f, -1.0f)
@@ -282,7 +282,7 @@
  *
  * @return The distance between the first and second points.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f y:-4.0f];
  *	float dist = [PXPoint distanceBetweenPointA:pt1 pointB:pt2];
@@ -304,7 +304,7 @@
  *
  * @return The angle between the first and second degrees.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:0.0f y:0.0f];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:5.0f y:-5.0f];
  *	float angle = [PXPoint angleBetweenPointA:pt1 pointB:pt2];
@@ -333,7 +333,7 @@
  *
  * @return The interpolated point.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f y:-4.0f];
  *	PXPoint *pt3 = [PXPoint pointByInterpolatingBetweenPointA:pt1 pointB:pt2 withCoefficientOfInterpolation:0.3f];
@@ -361,7 +361,7 @@
  *
  * @return The cartesian point.
  *
- * @b Example:
+ * **Example:**
  *	float angle = 45.0f *	(M_PI/180.0f);
  *	float length = 1.0f;
  *	PXPoint *point = [PXPoint pointUsingPolarCoordWithLen:length angle:angle];
@@ -387,7 +387,7 @@
  *
  * @return The created point.
  *
- * @b Example:
+ * **Example:**
  *	PXPoint *point = [PXPoint pointWithX:4 y:5];
  *	// point will be (4, 5)
  */

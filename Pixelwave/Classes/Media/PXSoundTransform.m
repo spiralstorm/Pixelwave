@@ -65,7 +65,7 @@
  * @param volume The amplitude of the sound.
  * @param pitch The frequency of the sound.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundTransform *transform = [[PXSoundTransform alloc] initWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%
  */
@@ -116,7 +116,7 @@
  *
  * @return The created sound transform.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundTransform *transform = [PXSoundTransform soundTransformWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%
  */

@@ -60,7 +60,7 @@
  * <code>YES</code> if the conditions for being 3D are met, <code>NO</code>
  * otherwise.
  *
- * @b Example:
+ * **Example:**
  *	PXSound *mp3Sound = [PXSound soundWithContentsOfFile:@"sound.mp3"];
  *	[mp3Sound is3DReady];
  *	// Will return NO.

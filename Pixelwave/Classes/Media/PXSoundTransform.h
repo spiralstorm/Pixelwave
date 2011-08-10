@@ -49,13 +49,13 @@
 /**
  * The amplitude of the sound.
  *
- * @b Default: 1.0f
+ * **Default:** 1.0f
  */
 @property (nonatomic) float volume;
 /**
  * The frequency of the sound.
  *
- * @b Default: 1.0f
+ * **Default:** 1.0f
  */
 @property (nonatomic) float pitch;
 

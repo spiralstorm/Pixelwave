@@ -69,7 +69,7 @@
  *
  * @param soundTransform The sound transform to set.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundTransform *soundTransform = [[PXSoundTransform alloc] initWithVolume:0.5f pitch:2.0f];
  *	[PXSoundMixer setSoundTransform:soundTransform];
  *	// All sounds will now be at 50% volume from what they were, meaning if a
@@ -86,7 +86,7 @@
  *
  * @return The global sound transform.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundTransform *globalSoundTransform = [PXSoundMixer soundTransform];
  *	// globalSoundTransform by default will have 1.0f for volume, and 1.0f for
  *	// pitch.
@@ -101,7 +101,7 @@
  *
  * @return The global sound listener.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundListener *globalSoundListener = [PXSoundMixer soundListener];
  */
 + (PXSoundListener *)soundListener
@@ -114,9 +114,9 @@
  *
  * @param speedOfSound The speed of sound.
  *
- * @b Example:
+ * **Example:**
  *	[PXSoundMixer setSpeedOfSound:64.0f];
- *	// Sets the speed of sound to 64.0 pixels/second.
+ *	// Sets the speed of sound to 64.0 points/second.
  */
 + (void) setSpeedOfSound:(float)speedOfSound
 {
@@ -127,10 +127,10 @@
  *
  * @return The speed of sound.
  *
- * @b Example:
+ * **Example:**
  *	float speedOfSound = [PXSoundMixer speedOfSound];
  *
- * @b Default: 340.29f
+ * **Default:** 340.29f
  */
 + (float) speedOfSound
 {
@@ -145,12 +145,12 @@
  *
  * @param distanceModel The distance model.
  *
- * @b Example:
+ * **Example:**
  *	[PXSoundMixer setDistanceModel:PXSoundMixerDistanceModel_Logarithmic];
  *
  * @see PXSoundListener
  *
- * @b Default: <code>PXSoundMixerDistanceModel_Logarithmic</code>
+ * **Default:** <code>PXSoundMixerDistanceModel_Logarithmic</code>
  */
 + (void) setDistanceModel:(PXSoundMixerDistanceModel)distanceModel
 {
@@ -168,7 +168,7 @@
  *
  * @return The distance model.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundMixerDistanceModel distanceModel = [PXSoundMixer distanceModel];
  */
 + (PXSoundMixerDistanceModel) distanceModel

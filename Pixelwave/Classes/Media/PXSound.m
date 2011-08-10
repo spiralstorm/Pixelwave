@@ -91,7 +91,7 @@
  *
  * @return The parsed sound.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
  *	PXSound *sound = [[PXSound alloc] initWithData:data];
  *	PXSoundChannel *channel = [sound play];
@@ -112,7 +112,7 @@
  *
  * @return The parsed sound.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
  *	PXSound *sound = [[PXSound alloc] initWithData:data modifier:[PXSoundModifiers soundModifierToMono]];
  *	PXSoundChannel *channel = [sound play];
@@ -168,7 +168,7 @@
  *
  * @return The reference to the sound channel that will be playing.
  *
- * @b Example:
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
  *	PXSoundChannel *channel = [sound play];
  *	// The sound will begin playing, and channel will be your reference.
@@ -193,7 +193,7 @@
  *
  * @return The reference to the sound channel that will be playing.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundLoader *soundLoader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav"];
  *	PXSound *sound = [soundLoader newSound];
  *
@@ -235,7 +235,7 @@
  * @return The loaded and parsed sound, if the sound fails loading then
  * <code>nil</code> is returned instead.
  *
- * @b Example:
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
  *	// Sound is loaded and ready to go.
  */
@@ -254,7 +254,7 @@
  * @return The loaded and parsed sound, if the sound fails loading then
  * <code>nil</code> is returned instead.
  *
- * @b Example:
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
  *	// Sound is loaded, converted to mono, and ready to go.
  */
@@ -275,7 +275,7 @@
  * @return The loaded and parsed sound, if the sound fails loading then
  * <code>nil</code> is returned instead.
  *
- * @b Example:
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav"];
  *	// Sound is loaded and ready to go.
  */
@@ -294,7 +294,7 @@
  * @return The loaded and parsed sound, if the sound fails loading then
  * <code>nil</code> is returned instead.
  *
- * @b Example:
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
  *	// Sound is loaded, converted to mono, and ready to go.
  */
@@ -315,7 +315,7 @@
  * @return The loaded and parsed sound, if the sound fails loading then
  * <code>nil</code> is returned instead.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
  *	PXSound *sound = [PXSound soundWithData:data];
  *	// Sound is parsed, converted to mono, and ready to go.
@@ -334,7 +334,7 @@
  * @return The loaded and parsed sound, if the sound fails loading then
  * <code>nil</code> is returned instead.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
  *	PXSound *sound = [PXSound soundWithData:data modifier:[PXSoundModifiers soundModifierToMono]];
  *	// Sound is parsed, converted to mono, and ready to go.

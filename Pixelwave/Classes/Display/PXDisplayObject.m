@@ -591,7 +591,7 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * @return The position of the touch in this display object's coordinate system.
  *
- * @b Example:
+ * **Example:**
  *	- (void) onTouchDown:(PXTouchEvent *)event
  *	{
  *	PXPoint *touchPosition = [self positionOfTouch:event.nativeTouch];
@@ -637,7 +637,7 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * @return The bounding box in the target coordinate system.
  *
- * @b Example:
+ * **Example:**
  *	PXShape *shape1 = [[PXShape alloc] init];
  *	PXShape *shape2 = [[PXShape alloc] init];
  *
@@ -724,7 +724,7 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * @return The converted point to this display object's coordinate system.
  *
- * @b Example:
+ * **Example:**
  *	PXShape *shape = [[PXShape alloc] init];
  *	[self addChild:shape];
  *	[shape release];
@@ -761,7 +761,7 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * @return The converted point to the stage's coordinate system.
  *
- * @b Example:
+ * **Example:**
  *	PXShape *shape = [[PXShape alloc] init];
  *	[self addChild:shape];
  *	[shape release];
@@ -799,7 +799,7 @@ static unsigned _pxDisplayObjectCount = 0;
  * @return <code>YES</code> if the bounding box of the given object is within the
  * bounding box of this object.
  *
- * @b Example:
+ * **Example:**
  *	PXTexture *tex1 = [PXTexture textureWithContentsOfFile:@"image.png"];
  *	PXTexture *tex2 = [PXTexture textureWithContentsOfFile:@"image.png"];
  *
@@ -846,7 +846,7 @@ static unsigned _pxDisplayObjectCount = 0;
  * @return <code>YES</code> if point is contained within the bounding box of this
  * display object.
  *
- * @b Example:
+ * **Example:**
  *	PXTexture *tex = [PXTexture textureWithContentsOfFile:@"image.png"];
  *	[self addChild:tex];
  *
@@ -882,7 +882,7 @@ static unsigned _pxDisplayObjectCount = 0;
  * @return <code>YES</code> if point is contained within the bounding box of this
  * display object.
  *
- * @b Example:
+ * **Example:**
  *	PXShape *shape = [[PXShape alloc] init];
  *	[self addChild:shape];
  *	[shape release];

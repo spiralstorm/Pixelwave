@@ -160,7 +160,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
  * Returns an object to the pool and takes control of its ownership.
  * Passing an object to this method is
  * equivalent to calling <code>release</code> on it, and so you must follow
- * the usual rules of object ownership. You should @b never return an object to
+ * the usual rules of object ownership. You should **never** return an object to
  * a pool if you don't have ownership of it (a retain on it) for the same reason
  * you shouldn't release it if you don't have a retain on it.
  *

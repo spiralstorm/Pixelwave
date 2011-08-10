@@ -273,7 +273,7 @@ BOOL pxSoundListenerInitialized = NO;
  * @param rotation The angle in degrees of rotation.
  * @param perspective The perspective of rotation.
  *
- * @b Example:
+ * **Example:**
  *	[[PXSoundMixer soundListener] setRotation:-90.0f using2DPerspective:PXSoundListener2DPerspective_SideView];
  *	// forward[0,0,-1], up[0,1,0]
  */
@@ -316,7 +316,7 @@ BOOL pxSoundListenerInitialized = NO;
  * @param y The y-position in 3 space.
  * @param z The z-position in 3 space.
  *
- * @b Example:
+ * **Example:**
  *	[[PXSoundMixer soundListener] setPositionWithX:240.0f y:160.0f z:0.0f];
  *	// Set's the position of the listener to [240.0f, 160.0f, 0.0f];
  */
@@ -341,7 +341,7 @@ BOOL pxSoundListenerInitialized = NO;
  * @param y The y-velocity in 3 space.
  * @param z The z-velocity in 3 space.
  *
- * @b Example:
+ * **Example:**
  *	[[PXSoundMixer soundListener] setVelocityWithX:10.0f y:-5.0f z:0.0f];
  *	// Set's the velocity of the listener to [10.0f, -5.0f, 0.0f];
  */

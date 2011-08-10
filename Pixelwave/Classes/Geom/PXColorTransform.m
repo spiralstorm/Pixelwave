@@ -51,7 +51,7 @@
  * 
  * <code>New color value = old color value * colorMultiplier</code>
  *
- * @b Example: This sample adjusts an image so that only the red color channel
+ * _Example:_ This sample adjusts an image so that only the red color channel
  * is visible, by setting the multipliers for all the other channels to 0.
  *	PXTexture *myImage = ...
  *	
@@ -79,7 +79,7 @@
 }
 
 /**
- * Creates a new color transform with the multipliers specified.
+ * Initializes the color transform with the multipliers specified.
  *
  * @param redMultiplier The red multiplier value ranging between 0.0f and 1.0f.
  * @param greenMultiplier The green multiplier value ranging between 0.0f and 1.0f.

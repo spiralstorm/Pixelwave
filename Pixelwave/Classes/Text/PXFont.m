@@ -80,7 +80,7 @@ NSMutableDictionary *pxFonts = nil;
  * <code>nil</code> is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -129,7 +129,7 @@ NSMutableDictionary *pxFonts = nil;
  * <code>nil</code> is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -198,7 +198,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @return The registered font.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -259,7 +259,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @return The registered font.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -298,7 +298,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @return The registered font.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -338,7 +338,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @return The registered font.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.ttf"];
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
@@ -375,7 +375,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @return The registered font.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -405,7 +405,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @return The registered font.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -437,7 +437,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @param name The name of a previously registered font.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -491,7 +491,7 @@ NSMutableDictionary *pxFonts = nil;
 /**
  * Unregisters all registered fonts with the font library.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -544,7 +544,7 @@ NSMutableDictionary *pxFonts = nil;
  * @return The registered font.  If no font was registered with that name, then
  * <code>nil</code> will be returned instead.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -590,7 +590,7 @@ NSMutableDictionary *pxFonts = nil;
  * @return <code>YES</code> if a font by that name was registered, otherwise
  * <code>NO</code>.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -674,7 +674,7 @@ NSMutableDictionary *pxFonts = nil;
  * <code>nil</code> is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -712,7 +712,7 @@ NSMutableDictionary *pxFonts = nil;
  * <code>nil</code> is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -750,7 +750,7 @@ NSMutableDictionary *pxFonts = nil;
  * <code>nil</code> is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];
@@ -781,7 +781,7 @@ NSMutableDictionary *pxFonts = nil;
  * <code>nil</code> is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",."]];

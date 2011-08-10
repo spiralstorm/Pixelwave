@@ -58,6 +58,13 @@
  *	{
  *	...
  *	}
+ *
+ * @warning Exception handling isn't the standard way of handling run-time
+ * errors in Objective-C. In Pixelwave exceptions are only thrown to let the
+ * user know when a hard error occured (such as accessing an out-of-bounds
+ * child in a container). For expected run-time errors (such as an incorrect
+ * file path) <code>nil</code> is returned. If Pixelwave is running in debug mode
+ * an error message is usually logged as well.
  */
 @implementation PXException
 

@@ -54,7 +54,7 @@
 /**
  * A PXRegexMatcher uses a regex pattern to find matches in a given string.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"];
  *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
  *
@@ -97,7 +97,7 @@
  * @param pattern The regex pattern.
  * @param string The string to parse.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"];
  *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
  *
@@ -231,7 +231,7 @@
 /**
  * Resets the matcher back to the start.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
  *	                                                         string:@"person name:Steve age:56"];
  *
@@ -266,7 +266,7 @@
  *
  * @return <code>YES</code> if a match was found; otherwise <code>NO</code>.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
  *	                                                         string:@"person name:Steve age:56"];
  *
@@ -338,7 +338,7 @@
  *
  * @return <code>YES</code> if a match was found; otherwise <code>NO</code>.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
  *	                                                         string:@"person name:Steve age:56"];
  *
@@ -406,7 +406,7 @@
  *
  * @return The starting character position of the match.
  *
- * @b Example:
+ * **Example:**
  *	NSString *string = @"person name:Steve age:56";
  *
  *	const char *utf8String = [string UTF8String];
@@ -444,7 +444,7 @@
  *
  * @return The starting character position of the match.
  *
- * @b Example:
+ * **Example:**
  *	NSString *string = @"person name:Steve age:56";
  *
  *	const char *utf8String = [string UTF8String];
@@ -488,7 +488,7 @@
  *
  * @return The ending character position of the match.
  *
- * @b Example:
+ * **Example:**
  *	NSString *string = @"person name:Steve age:56";
  *
  *	const char *utf8String = [string UTF8String];
@@ -526,7 +526,7 @@
  *
  * @return The ending character position of the match.
  *
- * @b Example:
+ * **Example:**
  *	NSString *string = @"person name:Steve age:56";
  *
  *	const char *utf8String = [string UTF8String];
@@ -573,7 +573,7 @@
  *
  * @return The range of the characters in the match.
  *
- * @b Example:
+ * **Example:**
  *	NSString *string = @"person name:Steve age:56";
  *
  *	const char *utf8String = [string UTF8String];
@@ -604,7 +604,7 @@
  *
  * @return The range of the characters in the match.
  *
- * @b Example:
+ * **Example:**
  *	NSString *string = @"person name:Steve age:56";
  *
  *	const char *utf8String = [string UTF8String];
@@ -649,7 +649,7 @@
  *
  * @return The first group.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
  *	                                                         string:string];
  *
@@ -670,7 +670,7 @@
  * 
  * @return The group at <code>index</code>.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
  *	                                                         string:string];
  *
@@ -729,7 +729,7 @@
  *
  * @return The resulting, <code>autoreleased</code>, PXRegexMatcher object.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
  *	                                                         string:@"person name:Steve age:56"];
  *
@@ -759,7 +759,7 @@
  *
  * @return The resulting, <code>autoreleased</code>, PXRegexMatcher object.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
  *	                                                         string:@"person name:Steve age:56"
  *	                                                          flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];

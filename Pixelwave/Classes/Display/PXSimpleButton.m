@@ -91,7 +91,7 @@
  * <code>nil</code> is specified then no interaction can exist on this
  * button.
  *
- * @b Example:
+ * **Example:**
  *	PXShape *upState = [PXShape new];
  *	PXShape *downState = [PXShape new];
  *
@@ -280,7 +280,7 @@
  * <code>nil</code> is specified then no interaction can exist on this
  * button.
  *
- * @b Example:
+ * **Example:**
  *	PXShape *upState = [PXShape new];
  *	PXShape *downState = [PXShape new];
  *

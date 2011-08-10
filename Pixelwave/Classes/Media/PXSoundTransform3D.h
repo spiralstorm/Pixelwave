@@ -58,38 +58,38 @@
 /**
  * The horizontal coordinate.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float x;
 /**
  * The vertical coordinate.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float y;
 /**
  * The depth coordinate.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float z;
 
 /**
  * The horizontal coordinate change per second.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float velocityX;
 /**
  * The vertical coordinate change per second.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float velocityY;
 /**
  * The depth coordinate change per second.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float velocityZ;
 
@@ -114,10 +114,10 @@
  * The actual volume is computed using the following formula:
  *	playingVolume = volume *	distanceVolume *	[PXSoundMixer soundTransform].volume
  *
- * @b Note: The reference distance can not be negative, the absolute value will
+ * **Note:** The reference distance can not be negative, the absolute value will
  * 	be taken before use.
  *
- * @b Default: <code>[PXSoundMixer soundListener].defaultReferenceDistance</code>
+ * **Default:** <code>[PXSoundMixer soundListener].defaultReferenceDistance</code>
  */
 @property (nonatomic) float referenceDistance;
 /**
@@ -126,10 +126,10 @@
  * set to <code>PXSoundMixerDistanceModel_Linear</code>.  For the forumla used
  * please see the <code>referenceDistance</code> description.
  *
- * @b Note: The logarithmic exponent can not be negative, the absolute value
+ * **Note:** The logarithmic exponent can not be negative, the absolute value
  * 	will be taken before use.
  *
- * @b Default: <code>[PXSoundMixer soundListener].defaultLogarithmicExponent</code>
+ * **Default:** <code>[PXSoundMixer soundListener].defaultLogarithmicExponent</code>
  */
 @property (nonatomic) float logarithmicExponent;
 

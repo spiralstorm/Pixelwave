@@ -55,58 +55,58 @@ typedef enum
 /**
  * The sound transform.
  *
- * @b Default: [1,1]
+ * **Default:** [1,1]
  */
 @property (nonatomic, copy) PXSoundTransform3D *transform;
 
 /**
  * The forward facing vector.
  *
- * @b Default: [0,0,-1]
+ * **Default:** [0,0,-1]
  */
 @property (nonatomic, assign) PXVector3D *forward;
 /**
  * The up facing vector.
  *
- * @b Default: [0,1,0]
+ * **Default:** [0,1,0]
  */
 @property (nonatomic, assign) PXVector3D *up;
 
 /**
  * The horizontal coordinate.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float x;
 /**
  * The vertical coordinate.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float y;
 /**
  * The depth coordinate.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float z;
 
 /**
  * The horizontal velocity.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float velocityX;
 /**
  * The vertical velocity.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float velocityY;
 /**
  * The depth velocity.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float velocityZ;
 
@@ -114,7 +114,7 @@ typedef enum
  * The default reference distance for
  * <code>PXSoundTransform3D</code>
  *
- * @b Default: 64.0f
+ * **Default:** 64.0f
  * @see PXSoundTransform3D
  */
 @property (nonatomic) float defaultReferenceDistance;
@@ -122,7 +122,7 @@ typedef enum
  * The default logarithmic exponent for
  * <code>PXSoundTransform3D</code>
  *
- * @b Default: 2.0f
+ * **Default:** 2.0f
  * @see PXSoundTransform3D
  */
 @property (nonatomic) float defaultLogarithmicExponent;

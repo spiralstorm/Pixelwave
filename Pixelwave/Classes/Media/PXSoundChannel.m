@@ -135,7 +135,7 @@
  * If the sound is not already playing, it plays the sound from it's current
  * position.
  *
- * @b Example:
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
  *	PXSoundChannel *channel = [sound play];
  *	// The sound is playing
@@ -157,7 +157,7 @@
  * If the sound is not already paused, it pauses the sound at it's current
  * position.
  *
- * @b Example:
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
  *	PXSoundChannel *channel = [sound play];
  *	// The sound is playing
@@ -177,7 +177,7 @@
  * If the sound is not already stopped, it stops the sound and removes it
  * permanently from the play list.
  *
- * @b Example:
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
  *	PXSoundChannel *channel = [sound play];
  *	// The sound is playing
@@ -201,7 +201,7 @@
  * pause if it was previously paused.  This does not reset the loops already
  * done.
  *
- * @b Example:
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
  *	PXSoundChannel *channel = [sound play];
  *	// The sound is playing

@@ -75,11 +75,11 @@ typedef enum
 }
 
 /**
- * The width, in pixels, of the stage.
+ * The width, in points, of the stage.
  */
 @property (nonatomic, readonly) int stageWidth;
 /**
- * The height, in pixels, of the stage.
+ * The height, in points, of the stage.
  */
 @property (nonatomic, readonly) int stageHeight;
 
@@ -103,7 +103,7 @@ typedef enum
  * take affect. If the orientation is accepted then a
  * <code>PXStageOrientationEvent_OrientationChange</code> will be sent.
  *
- * @b Default: NO
+ * **Default:** NO
  */
 @property (nonatomic, assign) BOOL autoOrients;
 
@@ -111,7 +111,7 @@ typedef enum
  * The value the <code>captureTouches</code> property of a PXInteractiveObject
  * instance should be set to when initialized.
  *
- * @b Default: YES
+ * **Default:** YES
  */
 @property (nonatomic, assign) BOOL defaultCaptureTouchesValue;
 
@@ -132,7 +132,7 @@ typedef enum
  * This option is set to <code>YES</code> by default, but may be set to
  * <code>NO</code> as an optimization.
  *
- * @b Default: YES
+ * **Default:** YES
  */
 @property (nonatomic) BOOL clearScreen;
 

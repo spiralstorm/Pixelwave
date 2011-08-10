@@ -146,7 +146,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * @param type The type
  * @param listener The listener
  *
- * @b Example:
+ * **Example:**
  *
  * In this example the method <code>onTouch:</code> is assigned as a
  * listener to the stage's <code>touchDown</code> event.
@@ -171,7 +171,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * @param capture If it should use capture
  * @param priority The priority
  *
- * @b Example:
+ * **Example:**
  *
  * In this example the method <code>onTouch:</code> is assigned as a
  * listener to the stage's <code>touchDown</code> event.

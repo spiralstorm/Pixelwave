@@ -44,7 +44,7 @@
  * options will decide how the texture atlas will be created and what will be
  * stored.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:24.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",.!?"]];

@@ -75,7 +75,7 @@
  * @param volume The amplitude of the sound.
  * @param pitch The frequency of the sound.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
  *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
@@ -167,7 +167,7 @@
  * @param y The vertical coordinate.
  * @param z The depth coordinate.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundTransform3D *transform = [PXSoundTransform3D new];
  *	// transform will have a volume of 1.0f and pitch of 1.0f
  *	[transform setX:5.0f y:7.0f z:0.0f];
@@ -186,7 +186,7 @@
  * @param y The vertical coordinate change per second.
  * @param z The depth coordinate change per second.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundTransform3D *transform = [PXSoundTransform3D new];
  *	// transform will have a volume of 1.0f and pitch of 1.0f
  *	[transform setVelocityX:-10.0f y:4.1f z:0.0f];
@@ -211,7 +211,7 @@
  *
  * @return The created sound transform.
  *
- * @b Example:
+ * **Example:**
  *	PXSoundTransform3D *transform = [PXSoundTransform3D soundTransformWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
  *	// velocity[0,0,0], reference distance and logarithmic exponent is set to

@@ -51,7 +51,7 @@
  * A PXFontParser takes data, from either the system or given, and parses it
  * into information needed to render the font.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
  *	PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil];
  *	PXFont *font = [fontParser newFont];
@@ -85,7 +85,7 @@
  * <code>nil</code> is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:24.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",.!?"]];
@@ -115,7 +115,7 @@
  * type is used. If no default type is found, then no new font can be made.
  * @param origin The origin of the font.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
  *	PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil origin:@"font.fnt"];
  *	PXFont *font = [fontParser newFont];
@@ -143,7 +143,7 @@
  * @param origin The origin of the font.
  * @param contentScaleFactor The content scale factor of the parsed font.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
  *	PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil origin:@"font.fnt"];
  *	PXFont *font = [fontParser newFont];

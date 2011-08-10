@@ -118,11 +118,12 @@ typedef enum
  * A value defined and kept by the user. This is a useful pointer for anyone
  * who wants to associate a display object with something else.
  *
- * Note:	If you free/delete/release the pointer then to set this variable to
- * 	<code>NULL</code> again, this way the rest of your application knows
- * 	that it no longer exists.
- *
- * @b Default: <code>NULL</code>
+ * **Default:** <code>NULL</code>
+ * 
+ * @warning If you free/delete/release the object pointed to by userData,
+ * remember to set userData to <code>NULL</code> to avoid
+ * memory access bugs, headaches, frustration, and possibly suicidal
+ * thoughts. Don't say we didn't warn you.
  */
 @property (nonatomic) void *userData;
 
@@ -132,14 +133,14 @@ typedef enum
  * fully opaque while a value of <code>0</code> will make the object completely
  * transparent.
  *
- * @b Default: 1.0f
+ * **Default:** 1.0f
  */
 @property (nonatomic) float alpha;
 /**
  * The angle of rotation of the display object in degrees. Positive rotation
  * values result in clock-wise rotation.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float rotation;
 /**
@@ -152,7 +153,7 @@ typedef enum
  * Note that modifying the <code>scaleX</code> property may change the value of
  * the	<code>width</code> and <code>height</code> properties and vice-versa
  *
- * @b Default: 1.0f
+ * **Default:** 1.0f
  */
 @property (nonatomic) float scaleX;
 /**
@@ -165,43 +166,43 @@ typedef enum
  * Note that modifying the <code>scaleY</code> property may change the value of
  * the	<code>width</code> and <code>height</code> properties and vice-versa
  *
- * @b Default: 1.0f
+ * **Default:** 1.0f
  */
 @property (nonatomic) float scaleY;
 /**
  * The offset of the display object's position across the horizontal axis.
- * Translation in Pixelwave is always measured in pixels, within the parent's
+ * Translation in Pixelwave is always measured in points, within the parent's
  * local coordinate space.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float x;
 /**
  * The offset of the display object's position across the vertical axis.
- * Translation in Pixelwave is always measured in pixels, within the parent's
+ * Translation in Pixelwave is always measured in points, within the parent's
  * local coordinate space.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float y;
 /**
- * The width, in pixels of the object's axis-aligned bounding box, within its
+ * The width, in points of the object's axis-aligned bounding box, within its
  * parent's coordinate space.
  *
- * Note that modifying the <code>width</code> property may change the value of
- * the	<code>scaleX</code> and <code>scaleY</code> properties and vice-versa
+ * Note that modifying the <code>width</code> property affects the value of
+ * the <code>scaleX</code> and <code>scaleY</code> properties and vice-versa
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float width;
 /**
- * The height, in pixels of the object's axis-aligned bounding box, within its
+ * The height, in points of the object's axis-aligned bounding box, within its
  * parent's coordinate space.
  *
- * Note that modifying the <code>height</code> property may change the value of
+ * Note that modifying the <code>height</code> property affects the value of
  * the	<code>scaleX</code> and <code>scaleY</code> properties and vice-versa
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float height;
 /**
@@ -210,7 +211,7 @@ typedef enum
  * If set to <code>NO</code>, the display object is ignored during the render
  * phase, and will not recieve any touch interaction events.
  *
- * @b Default: <code>YES</code>
+ * **Default:** <code>YES</code>
  */
 @property (nonatomic) BOOL visible;
 
@@ -267,26 +268,26 @@ typedef enum
  * @see scaleX
  * @see scaleY
  *
- * @b Default: 1.0f
+ * **Default:** 1.0f
  */
 //Derived properties
 @property (nonatomic) float scale;
 
 /**
  * The horizontal position of the first touch on the screen in this
- * PXDisplayObject's coordinate space.  If there is no fingers (touches) on the
+ * PXDisplayObject's coordinate space.  If there are no fingers (touches) on the
  * screen, then 0.0f is returned.
  */
 @property (nonatomic, readonly) float touchX;
 /**
  * The vertical position of the first touch on the screen in this
- * PXDisplayObject's coordinate space.  If there is no fingers (touches) on the
+ * PXDisplayObject's coordinate space.  If there are no fingers (touches) on the
  * screen, then 0.0f is returned.
  */
 @property (nonatomic, readonly) float touchY;
 /**
  * The position of the first touch on the screen in this PXDisplayObject's
- * coordinate space.  If there is no fingers (touches) on the screen, then
+ * coordinate space.  If there are no fingers (touches) on the screen, then
  * <code>nil</code> is returned.
  */
 @property (nonatomic, readonly) PXPoint *touchPosition;

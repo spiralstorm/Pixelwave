@@ -1273,8 +1273,8 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 
 /**
  * Reads the data from the texture and always returns it in RGBA8888 format.
- * the length of the array must be '4 bytes * number of pixels'
- * Specified coordinates are in PIXELS
+ * the length of the array must be '4 bytes * number of pixels'.
+ * Specified coordinates are in PIXELS (not points).
  */
 // TODO Later: Allow to return pixel data in other formats (RGB, LA88, A8, etc).
 // TODO: Look into if this could be done by switching the GLContext instead

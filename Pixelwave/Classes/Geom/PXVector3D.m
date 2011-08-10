@@ -71,7 +71,7 @@
  * @param y The vertical coordinate.
  * @param z The depth coordinate.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f];
  *	// vector will be (5,7,4)
  */
@@ -88,7 +88,7 @@
  * @param z The depth coordinate.
  * @param w The angle of rotation.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f w:0.0f];
  *	// vector will be (5,7,4) with angle of rotation 0
  */
@@ -148,7 +148,7 @@
  * @param y The vertical coordinate.
  * @param z The depth coordinate.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] init];
  *	[vector setX:5.0f y:7.0f z:4.0f];
  *	// vector will be (5,7,4) with angle of rotation 0
@@ -166,7 +166,7 @@
  * @param z The depth coordinate.
  * @param w The angle of rotation.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] init];
  *	[vector setX:5.0f y:7.0f z:4.0f w:0.0f];
  *	// vector will be (5,7,4) with angle of rotation 0
@@ -190,7 +190,7 @@
  *
  * @return The created vector.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:-3.0f y:10.0f z:-9.0f];
  *	PXVector3D *vec3 = [vec1 addPoint:vec2];
@@ -217,7 +217,7 @@
  *
  * @return The created vector.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:-3.0f y:10.0f z:-9.0f];
  *	PXVector3D *vec3 = [vec1 subtractVector:vec2];
@@ -244,7 +244,7 @@
  *
  * @return The created vector.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:0.7f y:0.4f z:0.591608f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:0.3f y:-0.4f z:-0.866025f];
  *	PXVector3D *crossVector = [vec1 crossProductWithVector:vec2];
@@ -267,7 +267,7 @@
  *
  * @param vector The vector to use for subtraction.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:-3.0f y:10.0f z:-9.0f];
  *	[vec1 decrementByVector:vec2];
@@ -286,7 +286,7 @@
  *
  * @param vector The vector to use for subtraction.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:-3.0f y:10.0f z:-9.0f];
  *	float dotProduct = [vec1 dotProductWithVector:vec2];
@@ -304,7 +304,7 @@
  * @param allFour If <code>YES</code> then w is also used in the test, otherwise just x, y
  * and z are used.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f w:0.0f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f w:1.0f];
  *	BOOL isEqualWithoutAllFour = [vec1 equalsVector:vec2 useAllFour:NO];
@@ -335,7 +335,7 @@
  *
  * @param vector The vector to use for addition.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:-3.0f y:10.0f z:-9.0f];
  *	[vec1 incrementByVector:vec2];
@@ -357,7 +357,7 @@
  * @param allFour If <code>YES</code> then w is also used in the test, otherwise just x, y
  * and z are used.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f w:0.0f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:4.2f y:7.4f z:4.1f w:0.9f];
  *	BOOL isNearlyEqualByHalf = [vec1 nearEqualsVector:vec2 withTolerance:0.5f useAllFour:YES];
@@ -385,7 +385,7 @@
 /**
  * Negates the x, y and z values of the vector.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f];
  *	// vector will be (5,7,4)
  *	[vector negate];
@@ -403,7 +403,7 @@
  *
  * @return The length of the vector.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:3.0f y:4.0f z:5.0f];
  *	// vector will be (3.0f, 4.0f, 5.0f)
  *	[vector normalize];
@@ -428,7 +428,7 @@
 /**
  * Scales the x, y and z values of the vector by 1/w.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:3.0f y:4.0f z:5.0f w:10.0f];
  *	// vector will be (3.0f, 4.0f, 5.0f, 10.0f)
  *	[vector project];
@@ -449,7 +449,7 @@
 /**
  * Scales the x, y and z values of the vector by the scalar.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:3.0f y:4.0f z:5.0f];
  *	// vector will be (3.0f, 4.0f, 5.0f, 10.0f)
  *	[vector scaleBy:0.1f];
@@ -470,7 +470,7 @@
  *
  * @return The angle in radians between the two vectors.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:3.0f y:4.0f z:5.0f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:-4.0f y:3.0f z:5.0f];
  *	float angleInRadians = [PXVector3D angleBetweenVectorA:vec1 vectorB:vec2];
@@ -500,7 +500,7 @@
  *
  * @return The distance between the two vectors.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:3.0f y:4.0f z:5.0f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:-4.0f y:3.0f z:5.0f];
  *	float distance = [PXVector3D distanceBetweenVectorA:vec1 vectorB:vec2];
@@ -519,7 +519,7 @@
  *
  * @return The squared distance between the two vectors.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:3.0f y:4.0f z:5.0f];
  *	PXVector3D *vec2 = [[PXVector3D alloc] initWithX:-4.0f y:3.0f z:5.0f];
  *	float distance = [PXVector3D distanceSquaredBetweenVectorA:vec1 vectorB:vec2];
@@ -543,7 +543,7 @@
  *
  * @return The created vector.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f];
  *	// vector will be (5,7,4)
  */
@@ -561,7 +561,7 @@
  *
  * @return The created vector.
  *
- * @b Example:
+ * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f w:0.0f];
  *	// vector will be (5,7,4) with angle of rotation 0
  */

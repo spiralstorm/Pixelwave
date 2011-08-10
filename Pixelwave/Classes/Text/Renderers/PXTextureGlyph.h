@@ -64,10 +64,11 @@
  * next. Thus, you would increment the current drawing position by the x value
  * of the advance.
  *
- * Note:	These values are in PIXELS and pixelwave uses POINTS for its
- * 	coordinate system. Thus, prior to displaying on the screen, you must
- * 	convert each of these values to POINTS. This can be done by dividing
- * 	each of the values by the contentScaleFactor you are using. 
+ * **Note:**
+ * These values are in PIXELS and pixelwave uses POINTS for its
+ * coordinate system. Thus, prior to displaying on the screen, you must
+ * convert each of these values to POINTS. This can be done by dividing
+ * each of the values by the contentScaleFactor you are using. 
  */
 @property (nonatomic) CGPoint advance;
 
@@ -76,10 +77,11 @@
  * should start at position (bounds.origin.x, bounds.origin.y) and it will 
  * consume the size of (bounds.size.width, bounds.size.height).
  * 
- * Note:	These values are in PIXELS and pixelwave uses POINTS for its
- * 	coordinate system. Thus, prior to displaying on the screen, you must
- * 	convert each of these values to POINTS. This can be done by dividing
- * 	each of the values by the contentScaleFactor you are using. 
+ * **Note:**
+ * These values are in PIXELS and pixelwave uses POINTS for its
+ * coordinate system. Thus, prior to displaying on the screen, you must
+ * convert each of these values to POINTS. This can be done by dividing
+ * each of the values by the contentScaleFactor you are using. 
  */
 @property (nonatomic) CGRect bounds;
 

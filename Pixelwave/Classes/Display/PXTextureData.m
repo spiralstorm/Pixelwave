@@ -238,7 +238,7 @@ BOOL pxTextureDataExpandEdges = YES;
  * pixels. To modify the contents of the image you can use the
  * drawDisplayObject: method.
  *
- * @b Example:
+ * **Example:**
  *	// Create two texture data objects 512 x 512 pixels in size and a blue fill.
  *	
  *	// The first one has an alpha channel

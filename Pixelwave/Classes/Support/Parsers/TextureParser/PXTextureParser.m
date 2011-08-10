@@ -53,7 +53,7 @@
  * A PXTextureParser takes the given data, and parses it into information
  * needed to render the image.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"image.png"];
  *	PXTextureParser *textureParser = [[PXTextureParser alloc] initWithData:data];
  *	PXTextureData *textureData = [textureParser newTextureData];
@@ -88,7 +88,7 @@
  * have your previously loaded data.
  * @param origin The origin of the font.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"image.png"];
  *	PXTextureParser *textureParser = [[PXTextureParser alloc] initWithData:data
  *	                                                              modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]

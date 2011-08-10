@@ -264,7 +264,7 @@
  *
  * @return The display object passed by the child parameter.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	// add1 has a retain count of 1
@@ -299,7 +299,7 @@
  *
  * @return The display object passed by the child parameter.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	// add1 has a retain count of 1
@@ -482,7 +482,7 @@
  *
  * @param PXDisplayObject The child to be removed.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	PXSimpleSprite *add2 = [PXSimpleSprite new];
@@ -521,7 +521,7 @@
  *
  * @param index The index of the child to be removed.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	PXSimpleSprite *add2 = [PXSimpleSprite new];
@@ -557,7 +557,7 @@
  *
  * @return YES if the specified child is a decendant of this container.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	[simpleSprite addChild:add1];
@@ -602,7 +602,7 @@
  * @return index
  * The index of the child.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	PXSimpleSprite *add2 = [PXSimpleSprite new];
@@ -658,7 +658,7 @@
  *
  * @return The child at the specified index.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	[simpleSprite addChild:add1];
@@ -702,7 +702,7 @@
  *
  * @return The child with the specified name.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	add1.name = @"Orange";
@@ -745,7 +745,7 @@
  * @param index New index of the child.
  * @param child Child to be repositioned.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	PXSimpleSprite *add2 = [PXSimpleSprite new];
@@ -819,7 +819,7 @@
  * @param child1 The first child.
  * @param child2 The second child.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	PXSimpleSprite *add2 = [PXSimpleSprite new];
@@ -940,7 +940,7 @@
  * @param
  * index2 Index of the second child.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	PXSimpleSprite *add2 = [PXSimpleSprite new];
@@ -975,7 +975,7 @@
  * Removes all of the children from the container, reducing each of the
  * object's retain counts by 1.
  *
- * @b Example:
+ * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
  *	PXSimpleSprite *add1 = [PXSimpleSprite new];
  *	PXSimpleSprite *add2 = [PXSimpleSprite new];
@@ -1012,7 +1012,7 @@
  * @param
  * The point to check for objects under in global coordinates.
  *
- * @b Example:
+ * **Example:**
  *	PXSprite *container = [[PXSprite alloc] init];
  *
  *	PXSprite *square1 = [[PXSprite alloc] init];

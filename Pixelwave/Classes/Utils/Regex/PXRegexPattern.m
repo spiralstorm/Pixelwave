@@ -60,7 +60,7 @@
  * A PXRegexPattern creates a compiled regex string from the given info. This
  * is used to find matches later. A PXRegexPattern object is immutable.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"];
  *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
  *	[pattern release];
@@ -98,7 +98,7 @@
  * immediately compiles the regex.
  * @param flags The flags explaining how to compile the regex.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"
  *	                                                          flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
  *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
@@ -339,7 +339,7 @@
  *
  * @return The resulting, <code>autoreleased</code>, PXRegexPattern object.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"];
  *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
  *
@@ -367,7 +367,7 @@
  *
  * @return The resulting, <code>autoreleased</code>, PXRegexPattern object.
  *
- * @b Example:
+ * **Example:**
  *	PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"
  *	                                                     flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
  *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];

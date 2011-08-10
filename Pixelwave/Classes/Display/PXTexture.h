@@ -97,14 +97,14 @@
 
 /**
  * The horizontal anchor position in percent.  If the texture was 32x64 and you
- * set the anchor to 0.5f, the horizontal position in pixel coordinates would
+ * set the anchor to 0.5f, the horizontal position in point coordinates would
  * be 16.  The anchor position is what the texture will rotate, scale, and
  * position around.
  */
 @property (nonatomic, assign) float anchorX;
 /**
  * The vertical anchor position in percent.  If the texture was 32x64 and you
- * set the anchor to 0.5f, the vertical position in pixel coordinates would
+ * set the anchor to 0.5f, the vertical position in point coordinates would
  * be 32.  The anchor position is what the texture will rotate, scale, and
  * position around.
  */

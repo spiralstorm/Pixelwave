@@ -218,7 +218,7 @@ typedef enum
  * @param alpha The alpha channel for the color ranging between 0.0f for invisible to
  * 1.0f for full visibility.
  *
- * @b Example:
+ * **Example:**
  *	PXShape *shape = [PXShape new];
  *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
  *	[shape.graphics drawRectWithX:100 y:150 width:64 height:32];
@@ -240,7 +240,7 @@ typedef enum
  * the <code>beginFill</code> call, and before this call will be filled in with
  * the specified color and alpha.
  *
- * @b Example:
+ * **Example:**
  *	PXShape *shape = [PXShape new];
  *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
  *	[shape.graphics drawRectWithX:100 y:150 width:64 height:32];
@@ -259,7 +259,7 @@ typedef enum
  * rectangle drawn after this call, will have be made up of lines with the
  * specified thickness, color and alpha.
  *
- * @b Example:
+ * **Example:**
  *	PXShape *shape = [PXShape new];
  *	[shape.graphics [lineStyle 0xFF0000] alpha:1.0f];
  *	[shape.graphics drawRectWithX:100 y:150 width:64 height:32];

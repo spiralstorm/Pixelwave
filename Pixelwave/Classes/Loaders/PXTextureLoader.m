@@ -120,7 +120,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * relative to	the application bundle. The path may also omit the file
  * extension, and Pixelwave will try to find a valid image with that name.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"image.png"];
  *	PXTextureData *textureData = [textureLoader newTextureData];
  *
@@ -148,7 +148,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * set this to <code>nil</code> after getting a new sound, and still have
  * your previously loaded data.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"image.png"
  *	                                                                        modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
  *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
@@ -175,7 +175,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *
  * @param url The url of the image to load.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
  *	PXTextureData *textureData = [textureLoader newTextureData];
  *
@@ -201,7 +201,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * set this to <code>nil</code> after getting a new sound, and still have
  * your previously loaded data.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]
  *	                                                                       modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
  *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
@@ -395,7 +395,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
  *
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"];
  *	PXTextureData *textureData = [textureLoader newTextureData];
  *
@@ -424,7 +424,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *
  * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"
  *	                                                                         modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
  *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
@@ -451,7 +451,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *
  * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
  *	PXTextureData *textureData = [textureLoader newTextureData];
  *
@@ -478,7 +478,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *
  * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
  *
- * @b Example:
+ * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]
  *	                                                                        modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
  *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for

@@ -103,7 +103,7 @@
  * is usually one, except when working with retina display graphics, in which
  * case the <code>contentScaleFactor</code> would be higher than one.
  *
- * @b Example:
+ * **Example:**
  *	// Lets assume that this code is running on a device with a retina display,
  *	// and the file "ball@2x.png" is available along side "ball.png" in the
  *	// application bundle.

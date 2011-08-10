@@ -59,11 +59,11 @@
  */
 @property (nonatomic, assign) float y;
 /**
- * The width in pixels.
+ * The size of the rectangle along the x-axis.
  */
 @property (nonatomic, assign) float width;
 /**
- * The height in pixels.
+ * The size of the rectangle along the y-acis.
  */
 @property (nonatomic, assign) float height;
 

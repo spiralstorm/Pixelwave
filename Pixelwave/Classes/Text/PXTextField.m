@@ -134,7 +134,7 @@
  * registered then the default (<code>PXTextFieldDefaultFont</code>) is
  * used instead.
  *
- * @b Example:
+ * **Example:**
  *	[PXTextureFont registerSystemFontWithFont:@"Helvetica"
  *	                                     name:@"fontName"
  *	                              fontOptions:[PXFontOptions fontOptionsWithSize:30.0f
@@ -615,7 +615,7 @@
  * set the text property of the PXTextField just created. If no texts exists,
  * then the this object will appear to have 0 size.
  *
- * @b Example:
+ * **Example:**
  *	PXTextField *textField = [PXTextField textField];
  *
  * @see PXTextureFont, PXFont
@@ -635,7 +635,7 @@
  * registered then the default (<code>PXTextFieldDefaultFont</code>) is
  * used instead.
  *
- * @b Example:
+ * **Example:**
  *	PXTextField *textField = [PXTextField textField];
  *
  * @see PXTextureFont, PXFont
@@ -653,7 +653,7 @@
  * used instead.
  * @param text The text for the text field.
  *
- * @b Example:
+ * **Example:**
  *	[PXTextureFont registerSystemFontWithFont:@"Helvetica"
  *	                                     name:@"fontName"
  *	                              fontOptions:[PXFontOptions fontOptionsWithSize:30.0f

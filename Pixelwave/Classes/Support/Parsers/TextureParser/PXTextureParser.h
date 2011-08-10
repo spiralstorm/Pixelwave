@@ -64,7 +64,7 @@
  * this to <code>nil</code> after getting a new texture data, and still have
  * your previously loaded data.
  *
- * @b Default: <code>nil</code>
+ * **Default:** <code>nil</code>
  */
 @property (nonatomic, retain) id<PXTextureModifier> modifier;
 /**

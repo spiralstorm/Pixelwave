@@ -54,7 +54,7 @@
  * implementing class should simply create a private PXEventDispatcher object
  * and pass along all method invocations to it.
  *
- * @b Example:
+ * **Example:**
  * <br/>
  * We want to create a subclass of <code>SomeOtherClass</code> and we want it
  * to have event dispatching capabilities. The easy thing to do would be to
@@ -184,7 +184,7 @@
 /**
  * Assign <code>YES</code> if this event dispatcher should dispatch events.
  *
- * @b Default: <code>YES</code>
+ * **Default:** <code>YES</code>
  */
 @property (nonatomic, assign) BOOL dispatchEvents;
 

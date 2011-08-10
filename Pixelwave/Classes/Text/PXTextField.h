@@ -89,88 +89,88 @@ typedef enum
 /**
  * The text of the text field.
  *
- * @b Default: <code>nil</code>
+ * **Default:** <code>nil</code>
  */
 @property (nonatomic, copy) NSString *text;
 /**
  * The registered name of the font.
  *
- * @b Default: <code>PXTextFieldDefaultFont</code>
+ * **Default:** <code>PXTextFieldDefaultFont</code>
  */
 @property (nonatomic, copy) NSString *font;
 /**
  * The size of the text.
  *
- * @b Default: 12.0f
+ * **Default:** 12.0f
  */
 @property (nonatomic) float fontSize;
 /**
  * The alignment of the text.
  *
- * @b Default: <code>PXTextFieldAlign_TopLeft</code>
+ * **Default:** <code>PXTextFieldAlign_TopLeft</code>
  */
 @property (nonatomic) PXTextFieldAlign align;
 /**
  * The horizontal alignment of the text.  Ranges between 0.0f and 1.0f.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float alignHorizontal;
 /**
  * The vertical alignment of the text.  Ranges between 0.0f and 1.0f.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float alignVertical;
 
 /**
  * The extra space between each letter.
  *
- * @b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float letterSpacing;
 
 /**
  * The color of the text.
  *
- * @b Default: 0x000000 - black
+ * **Default:** 0x000000 - black
  */
 @property (nonatomic) unsigned textColor;
 /**
  * The background color of the text field.
  *
- * @b Default: 0xFFFFFF - white
+ * **Default:** 0xFFFFFF - white
  */
 @property (nonatomic) unsigned backgroundColor;
 /**
  * The background alpha of the text field.
  *
- * @b Default: 1.0f
+ * **Default:** 1.0f
  */
 @property (nonatomic) float backgroundAlpha;
 /**
  * If <code>YES</code> it displays the background of the text field.
  *
- * @b Default: <code>NO</code>
+ * **Default:** <code>NO</code>
  */
 @property (nonatomic) BOOL background;
 
 /**
  * The border color of the text field.
  *
- * @b Default: 0x000000 - black
+ * **Default:** 0x000000 - black
  */
 @property (nonatomic) unsigned borderColor;
 /**
  * The border alpha of the text field.
  *
- * @b Default: 1.0f
+ * **Default:** 1.0f
  */
 @property (nonatomic) float borderAlpha;
 /**
  * If <code>YES</code> it displays the border of the text field.
  *
- * @b Default: <code>NO</code>
+ * **Default:** <code>NO</code>
  */
 @property (nonatomic) BOOL border;
 
@@ -179,7 +179,7 @@ typedef enum
  * <code>NO</code> be default and should only be set to <code>YES</code> when
  * the text field is being transformed (such as during an animation)
  *
- * @b Default: <code>NO</code>
+ * **Default:** <code>NO</code>
  */
 @property (nonatomic) BOOL smoothing;
 
@@ -187,7 +187,7 @@ typedef enum
  * If <code>YES</code> and the font has kerning values stored, then your text
  * will be kerned.
  *
- * @b Default: <code>YES</code>
+ * **Default:** <code>YES</code>
  */
 @property (nonatomic) BOOL kerning;
 

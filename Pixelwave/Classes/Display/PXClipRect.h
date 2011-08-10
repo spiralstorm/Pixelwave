@@ -70,9 +70,8 @@
 
 /**
  * Avoid using values that aren't multiples of 90.0
- * (it makes the hit-test act unintuitively). For regular rotation changes
- * just use
- * the rotation property
+ * (it makes the hit-test act unintuitively, albeit correctly). For regular rotation changes
+ * just use the [PXTexture rotation] property.
  */
 @property (nonatomic) float rotation;
 
@@ -88,8 +87,8 @@
 /////////////
 
 // When making a version of this method without rotation, the compiler freaks
-// out because it can't tell the differnce between it and the similarly named
-// method in PXRectangle
+// out because it can't tell the difference between it and the similarly named
+// method in PXRectangle.
 - (id) initWithX:(float)x y:(float)y width:(float)width height:(float)height rotation:(float)rotation;
 
 - (void) setX:(float)x

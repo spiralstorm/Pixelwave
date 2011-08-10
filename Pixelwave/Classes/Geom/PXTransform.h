@@ -104,7 +104,7 @@
 @property (nonatomic, readonly) PXColorTransform *concatenatedColorTransform;
 /**
  * A rectangle that defines the bounding area of this PXDisplayObject on the
- * stage, in pixels.
+ * stage, in points.
  */
 @property (nonatomic, readonly) PXRectangle *pixelBounds;
 

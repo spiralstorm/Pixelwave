@@ -54,7 +54,7 @@
  * this to <code>nil</code> after getting a new sound, and still have your
  * previously loaded data.
  *
- * @b Default: <code>nil</code>
+ * **Default:** <code>nil</code>
  */
 @property (nonatomic, retain) id<PXSoundModifier> modifier;
 

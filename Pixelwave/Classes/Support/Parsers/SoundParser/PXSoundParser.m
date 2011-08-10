@@ -49,7 +49,7 @@
  * A PXSoundParser takes the given data, and parses it into information needed
  * to play the sound.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"sound.wav"];
  *	PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data];
  *	PXSound *sound = [soundParser newSound];
@@ -83,7 +83,7 @@
  * still have your previously loaded data.
  * @param origin The origin of the font.
  *
- * @b Example:
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"sound.wav"];
  *	PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data
  *	                                                        modifier:[PXSoundModifiers soundModifierToMono]
