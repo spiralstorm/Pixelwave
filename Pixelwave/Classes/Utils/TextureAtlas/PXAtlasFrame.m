@@ -49,7 +49,7 @@
 #import "PXExceptionUtils.h"
 
 /**
- * Represents a sub-image within a PXTextureAtlas object.
+ * Represents a sub-image within a #PXTextureAtlas object.
  * A PXAtlasFrame is a simple data object containing information
  * about the sub-image such as its location within the master
  * atlas image and how it should be translated, rotated, and

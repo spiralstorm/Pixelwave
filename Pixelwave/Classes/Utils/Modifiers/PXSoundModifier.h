@@ -44,6 +44,6 @@
  */
 @protocol PXSoundModifier<NSObject>
 @required
-// Return a new textureInfo, do not modify the given one.
+/// Return a new textureInfo, do not modify the given one.
 - (PXParsedSoundData *)newModifiedSoundDataFromData:(PXParsedSoundData *)soundData;
 @end

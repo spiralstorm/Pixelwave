@@ -44,6 +44,6 @@
  */
 @protocol PXTextureModifier<NSObject>
 @required
-// Return a new textureInfo, do not modify the given one.
+/// Return a new textureInfo, do not modify the given one.
 - (PXParsedTextureData *)newModifiedTextureDataFromData:(PXParsedTextureData *)textureInfo;
 @end
