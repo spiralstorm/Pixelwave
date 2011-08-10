@@ -75,7 +75,7 @@ _PXLLNode pxLinkedListBadNode;
  * On the surface the PXLinkedList class is structured very similarly to the
  * native <code>NSArray</code>	class, but under the hood it uses a linked list
  * structure.
- * <br>
+ * 
  * The PXLinkedList class is designed to be fast and efficient. It has been
  * tested and found to be considerably faster than <code>NSArray</code> when
  * performing the following tasks:
@@ -574,11 +574,7 @@ _PXLLNode pxLinkedListBadNode;
  * object's retain count is incremented; otherwise the object's retain count
  * stays the same.
  *
- * <i><b>Complexity:</b> O(1)</i>
- *
- * @param object The object to add to the front of the list. Must be a descendant of the
- * <code>NSObject</code> class.
- * <br><br>
+ * _*Complexity:* O(1)_
  *
  * **Example:**
  *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
@@ -602,6 +598,9 @@ _PXLLNode pxLinkedListBadNode;
  *	[list insertObjectAtFront:add2];
  *	// add1 has a retain count of 1, and an index of 1
  *	// add2 has a retain count of 1, and an index of 0
+ *
+ * @param object The object to add to the front of the list. Must be a descendant of the
+ * <code>NSObject</code> class.
  */
 
 /*
@@ -815,7 +814,8 @@ _PXLLNode pxLinkedListBadNode;
 
 /**
  * Adds all of the objects from the provided list to this list.
- * <br>If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * 
+ * If <code>weakReferences</code> is set to <code>NO</code> (default), the
  * objects' retain counts are incremented; otherwise the object's retain count
  * stays the same.
  *
@@ -940,7 +940,7 @@ _PXLLNode pxLinkedListBadNode;
  * otherwise all of the objects after the index of the specified object are
  * shifted down by one to fill the gap.
  *
- * <br>If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * If <code>weakReferences</code> is set to <code>NO</code> (default), the
  * object's retain count is decremented; otherwise the object's retain count
  * stays the same.
  *
@@ -1175,7 +1175,8 @@ _PXLLNode pxLinkedListBadNode;
 
 /**
  * Removes all of the objects in the list, restoring it to its initial state.
- * <br>If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * 
+ * If <code>weakReferences</code> is set to <code>NO</code> (default), the
  * objects' retain counts are decremented; otherwise the object's retain count
  * stays the same.
  *
@@ -1227,7 +1228,8 @@ _PXLLNode pxLinkedListBadNode;
 
 /**
  * Removes all of the objects in the list that are also in the provided list.
- * <br>If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * 
+ * If <code>weakReferences</code> is set to <code>NO</code> (default), the
  * objects' retain counts are decremented; otherwise the object's retain count
  * stays the same.
  *

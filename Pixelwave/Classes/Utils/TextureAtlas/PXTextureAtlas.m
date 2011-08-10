@@ -68,18 +68,18 @@
  * a sub image within the atlas, such as its position within
  * the master image, angular offset, anchor position, etc.
  * 
- * <b>CREATION</b>
+ * *CREATION*
  * 
  * A Texture atlas can be created manually, requiring the user
  * to specify the master image and a PXAtlasFrame object for each
  * subimage within. Alternatively a texture atlas definition file
  * can be loaded and used to create the texture atlas. Currently
  * the following texture atlas format are supported:
- * <br>
- * - Zwoptex (.plist)<br>
+ *
+ * - Zwoptex (.plist)
  * - TexturePacker (.json)
  *
- * <b>USAGE</b>
+ * *USAGE*
  *
  * Once a texture atlas has been created (either manually or
  * with an external file), using it is quite simple. To quickly create
