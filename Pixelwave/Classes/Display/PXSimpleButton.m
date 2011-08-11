@@ -61,8 +61,40 @@
  * The hitTest state is a slightly special case as it can be either a #PXDisplayObject
  * _or_ a #PXRectangle object. If the #hitTest state is set to <code>nil</code>
  * the button will have no touch interactions.
+ * 
+ * The hitTest state
+ * ---
+ * When a button is touched down by the user, there's a chance that the user's finger
+ * will move slightly and leave the button's 'hit' bounds. If the user releases
+ * his/her finger at that point, it will seem like their touch was ignored, when
+ * in fact it was simply lifted out of bounds, an action which doesn't register
+ * a 'tap' event.
  *
- * **Note:** If the provided #hitTestState is a #PXRectangle object, the padding...
+ * To alleviate this issue, Pixelwave attempts to inflate a button's
+ * hit area automatically when it is touched down and deflate it back
+ * to its original size when the touch is released. This helps solve
+ * the issue mentioned above and also allows the user to validate
+ * that he/she is pressing the correct button by slightly moving
+ * his/her finger to see if the button has changed to its #downState.
+ *
+ * **But** there's one thing to note. Pixelwave will only perform this
+ * behavior if the #hitTestState of the button is an object of type #PXRectangle.
+ * 
+ * To use a #PXRectangle as the #hitTestState of the
+ * button you may:
+ * 
+ * 1. _(Recommended_) Use the #initWithUpState:downState:hitRectPadding: method.
+ * 
+ * > This  method will automatically create and use a #PXRectangle (with the same size as the button) for
+ * > the hitTestState.<br/>
+ * > This lets you avoid manually figuring out the size of the button and creating a
+ * > rectangle of the correct size.<br/>
+ * > It also lets you make the default hit area slightly larger
+ * > than the visual size of the button with the <code>hitRectPadding</code> parameter.
+ * 
+ * 2. Set #hitTestState property to any #PXRectangle object.
+ * 3. Pass a #PXRectangle object as the hitTestState of the
+ * #initWithUpState:downState:hitTestState: method.
  *
  * The following code creates a button with an up and down texture for its
  * states:
@@ -71,84 +103,31 @@
  *
  *	PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upTex downState:downTex hitTestState:nil];
  *
- * @warning It is advised that you listen to PXTouchEvent_Tap to provide the
- * most accurate information on when the touch is pressed and released
- * within the correct bounds. This is because tap will not get fired if
- * you press down inside the button and release outside; where as up
- * would.
+ * Listening to touch events
+ * ---
+ * In order to properly handle the event of the user tapping a #PXSimpleButton
+ * it's best to listen to the <code>PXTouchEvent_Tap</code> event.
  *
- * @see PXRectangle 
+ * The advantages of listening to a <code>tap</code> event as opposed to a <code>down</code> or
+ * <code>up</code> event are that a <code>tap</code> event is only fired in the
+ * case that the user released his/her touch within the bounds of the button.
+ * 
+ * Using the <code>tap</code> event may sound obvious, but not using it may have life altering effects.
+ * For example, after pressing down on the "delete all my files" button the user decides that she made a
+ * grave mistake and drags her finger away from the button before releasing it in the hope that it would cancel the operation.
+ * 
+ * A plain <code>up</code> event would fire no matter where the touch is released, making the user very upset/sad/possibly suicidal.
+ * A <code>tap</code> event on the other hand wouldn't be fired if the user decides to abort, thus helping us avoid app-related casualties.
+ * Thank you <code>tap</code> event!
+ *
+ * @see PXRectangle
  */
 @implementation PXSimpleButton
 
 @synthesize downState;
 @synthesize upState;
 @synthesize enabled;
-//@synthesize dragAreaPadding;
-
-- (id) init
-{
-	return [self initWithUpState:nil downState:nil hitTestState:nil];
-}
-
-/**
- * Creates a button with specified up and down state. A hit test state is
- * automatically created as a PXRectangle the size of the up state if one is
- * stated, or the size of the down state if no up state is provided. The states
- * retain count also gets increased by 1, so that the button has a strong
- * reference to it. Because the hit test state will be a #PXRectangle, it will be
- * automatically expanded by autoExpandSize as a padding.
- *
- * @param upState A PXDisplayObject that specifies the visual up state for the button.
- * @param downState A PXDisplayObject that specifies the visual down state for the button.
- *
- * **Example:**
- *
- *	PXShape *upState = [PXShape new];
- *	PXShape *downState = [PXShape new];
- *
- *	[upState.graphics beginFill:0xFF0000 alpha:1.0f];
- *	[upState.graphics drawRectWithX:100 y:100 width:20 height:15];
- *	[upState.graphics endFill];
- *	// draws a red rectangle at (100, 100) with a size of (20, 15)
- *
- *	[downState.graphics beginFill:0x0000FF alpha:1.0f];
- *	[downState.graphics drawRectWithX:105 y:105 width:15 height:10];
- *	[downState.graphics endFill];
- *	// draws a blue rectangle at (105, 105) with a size of (15, 10)
- *
- *	PXSimpleButton *button = [[PXSimpleButton alloc] initWithUpState:upState downState:downState];
- *	// Creates a button that is red with a hit-area at (100, 100) with size
- *	// (20, 15) when not pressed (up state), when it is pressed (down state) it
- *	// is blue with a hit area at (105, 105) with size (15, 10).
- *
- *	[button addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap:)];
- *	// Adding events to the button will allow you to listen in on interaction.
- *
- * @see PXRectangle;
- * @see PXShape
- * @see PXGraphics
- * @see PXTouchEvent
- */
-- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState
-		hitAreaPadding:(float)padding
-{	
-	// Create a rectangle of the size of the 'upState' or the 'downState' if the
-	// 'upState' is not provided.
-
-	hitAreaIsRect = YES;
-	
-	PXRectangle *bounds = nil;
-	PXDisplayObject *checkState = (_upState == nil) ? _downState : _upState;
-
-	if (checkState)
-	{
-		bounds = [checkState boundsWithCoordinateSpace:checkState];
-		[bounds inflateWithX:padding y:padding];
-	}
-
-	return [self initWithUpState:_upState downState:_downState hitTestState:bounds];
-}
+@synthesize autoInflateAmount;
 
 /**
  * Initializes a button with specified up, down and hit test states.
@@ -192,21 +171,21 @@
 - (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState hitTestState:(id<NSObject>)_hitTestState
 {
 	self = [super init];
-
+	
 	if (self)
 	{
 		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
-
-		dragAreaPadding = 60.0f;
-
+		
+		autoInflateAmount = 60.0f;
+		
 		downState = nil;
 		upState = nil;
 		hitTestState = nil;
-
+		
 		enabled = YES;
-
+		
 		visibleState = _PXSimpleButtonVisibleState_Up;
-
+		
 		listOfTouches = [[PXLinkedList alloc] init];
 		
 		// Don't set any states until after the listeners are made.
@@ -214,19 +193,64 @@
 		self.upState = _upState;
 		self.hitTestState = _hitTestState;
 	}
-
+	
 	return self;
 }
 
 - (void) dealloc
 {
 	[listOfTouches release];
-
+	
 	self.downState = nil;
 	self.upState = nil;
 	self.hitTestState = nil;
 	
 	[super dealloc];
+}
+
+- (id) init
+{
+	return [self initWithUpState:nil downState:nil hitTestState:nil];
+}
+
+- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState
+{
+	return [self initWithUpState:_upState downState:_downState hitRectWithPadding:0.0f];
+}
+
+/**
+ * Initializes a button with specified <code>up</code> state and
+ * <code>down</code> state, and a #PXRectangle for the <code>hitTest</code> state.
+ *
+ * The #PXRectangle object created for the #hitTestState is sized to match the #upState
+ * display object if one is provided, or the size of the #downState display object otherswise.
+ * 
+ * Because the #hitTestState will be a #PXRectangle object it will be
+ * automatically expanded when the button is pressed as specified by #autoInflateAmount.
+ *
+ * @param upState A PXDisplayObject that specifies the visual up state for the button.
+ * @param downState A PXDisplayObject that specifies the visual down state for the button.
+ *
+ * @see PXRectangle;
+ */
+- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState
+	hitRectWithPadding:(float)hitRectPadding
+{	
+	// Create a rectangle of the size of the 'upState' or the 'downState' if the
+	// 'upState' is not provided.
+
+	hitAreaIsRect = YES;
+	
+	PXRectangle *bounds = nil;
+	PXDisplayObject *checkState = (_upState == nil) ? _downState : _upState;
+
+	if (checkState)
+	{
+		bounds = [checkState boundsWithCoordinateSpace:checkState];
+		[bounds inflateWithX:hitRectPadding y:hitRectPadding];
+	}
+
+	return [self initWithUpState:_upState downState:_downState hitTestState:bounds];
 }
 
 - (void) setHitTestState:(id<NSObject>)newState
@@ -349,7 +373,7 @@
 {
 	if(isPressed)
 	{
-		float amount = -dragAreaPadding;
+		float amount = -autoInflateAmount;
 		return CGRectInset(hitAreaRect, amount, amount);
 	}
 	else
@@ -388,11 +412,11 @@
  */
 + (PXSimpleButton *)simpleButtonWithUpState:(PXDisplayObject *)upState
 								  downState:(PXDisplayObject *)downState
-							 hitAreaPadding:(float)hitAreaPadding
+						 hitRectWithPadding:(float)hitAreaPadding
 {
 	return [[[PXSimpleButton alloc] initWithUpState:upState
 										  downState:downState
-									 hitAreaPadding:hitAreaPadding] autorelease];
+								 hitRectWithPadding:hitAreaPadding] autorelease];
 }
 
 /**

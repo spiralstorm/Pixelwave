@@ -56,15 +56,17 @@ typedef enum
 
 	PXLinkedList *listOfTouches;
 	
-	float dragAreaPadding;
-	
 	BOOL enabled;
 	
 	BOOL isPressed;
 	
 	BOOL hitAreaIsRect;
 	CGRect hitAreaRect;
+	
+	float autoInflateAmount;
 }
+
+/// @name Setting the button's visual states
 
 /**
  * A PXDisplayObject that specifies the visual down state for the button.
@@ -86,24 +88,33 @@ typedef enum
  *
  */
 @property (nonatomic, retain) id<NSObject> hitTestState;
+
+/// @name Setting the button's hit area
+
+/**
+ * The amount of padding (in points) to apply to the rectangular
+ * hit area when the button is pressed down.
+ * 
+ * To turn off automatic inflation of the hit area simply set this value to 0. A negative value will
+ * deflate the hit area when the button is pressed instead.
+ *
+ * _Default:_ 60.0
+ *
+ * @warning The bounds of the button's hit area will only be inflated
+ * if the #hitTestState of the button is an object of type #PXRectangle.
+ * If #hitTestState is a #PXDisplayObject instead, this value will simply be ignored.
+ */
+@property (nonatomic, assign) float autoInflateAmount;
+
+/// @see Controlling user interaction
+
 /**
  * Whether the button is enabled (pressable).
  * **Default:** <code>YES</code>.
  */
 @property (nonatomic, assign) BOOL enabled;
 
-/*
- * A padding around the button that is automatically added to the size if and
- * only if the hit test state is a <code>PXRectangle</code>. A negative number
- * will decrease the size of the rectangle.
- * **Default:** 9.0f.
- */
-// @property (nonatomic, assign) float dragAreaPadding;
-
-//-- ScriptIgnore
-- (id) initWithUpState:(PXDisplayObject *)upState
-			 downState:(PXDisplayObject *)downState
-		hitAreaPadding:(float)padding;
+/// @name Creating and initializing Buttons
 
 //-- ScriptName: SimpleButton
 //-- ScriptArg[0]: nil
@@ -114,9 +125,17 @@ typedef enum
 		  hitTestState:(id<NSObject>)hitTestState;
 
 //-- ScriptIgnore
+- (id) initWithUpState:(PXDisplayObject *)upState
+			 downState:(PXDisplayObject *)downState
+	hitRectWithPadding:(float)hitRectPadding;
+
+- (id) initWithUpState:(PXDisplayObject *)upState
+			 downState:(PXDisplayObject *)downState;
+
+//-- ScriptIgnore
 + (PXSimpleButton *)simpleButtonWithUpState:(PXDisplayObject *)upState
 								  downState:(PXDisplayObject *)downState
-							 hitAreaPadding:(float)hitAreaPadding;
+						 hitRectWithPadding:(float)hitRectPadding;
 //-- ScriptName: make
 //-- ScriptArg[0]: nil
 //-- ScriptArg[1]: nil
