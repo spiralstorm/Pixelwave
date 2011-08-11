@@ -52,13 +52,10 @@
 #import "PXSoundParser.h"
 
 /**
- *	@ingroup Media
+ * Represents a loaded sound.  Sounds should never be
+ * initialized manually, but through a #PXSoundLoader or this class's utility creation methods.
  *
- *	A PXSound object represents a loaded sound.  Sounds should never be
- *	initialized manually, however through a <code>PXSoundLoader</code> using the
- *	<code>newSound</code> method.
- *
- *	@see PXSoundLoader::newSound
+ * @see [PXSoundLoader newSound]
  */
 @implementation PXSound
 
@@ -86,22 +83,18 @@
 }
 
 /**
- *	Creates a sound using the data given. The data is parsed into a usable
- *	format.
+ * Creates a sound using the data given. The data is parsed into a usable
+ * format.
  *
- *	@param data
- *		The raw data.
+ * @param data The raw data.
  *
- *	@return
- *		The parsed sound.
+ * @return The parsed sound.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
  *	PXSound *sound = [[PXSound alloc] initWithData:data];
  *	PXSoundChannel *channel = [sound play];
  *	// The sound will begin playing, and channel will be your reference.
- *	@endcode
  */
 - (id) initWithData:(NSData *)data
 {
@@ -109,28 +102,23 @@
 }
 
 /**
- *	Creates a sound using the data given. The data is parsed into a usable
- *	format.
+ * Creates a sound using the data given. The data is parsed into a usable
+ * format.
  *
- *	@param data
- *		The raw data.
- *	@param modifier
- *		The modifier is used to modify the loaded bytes; once set, it can not be
- *		un-done. The modifier will be ignored if the data is not modifiable.
+ * @param data The raw data.
+ * @param modifier The modifier is used to modify the loaded bytes; once set, it can not be
+ * un-done. The modifier will be ignored if the data is not modifiable.
  *
- *	@return
- *		The parsed sound.
+ * @return The parsed sound.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
  *	PXSound *sound = [[PXSound alloc] initWithData:data modifier:[PXSoundModifiers soundModifierToMono]];
  *	PXSoundChannel *channel = [sound play];
  *	// The sound will be converted to mono, then begin playing, and channel will
  *	// be your reference.
- *	@endcode
  *
- *	@see PXSoundParser
+ * @see PXSoundParser
  */
 - (id) initWithData:(NSData *)data modifier:(id<PXSoundModifier>)modifier
 {
@@ -174,18 +162,15 @@
 #pragma mark Methods
 
 /**
- *	Plays a sound from the start, doesn't loop and has a volume and pitch of
- *	1.0f.
+ * Plays a sound from the start, doesn't loop and has a volume and pitch of
+ * 1.0f.
  *
- *	@return
- *		The reference to the sound channel that will be playing.
+ * @return The reference to the sound channel that will be playing.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
  *	PXSoundChannel *channel = [sound play];
  *	// The sound will begin playing, and channel will be your reference.
- *	@endcode
  */
 - (PXSoundChannel *)play
 {
@@ -193,26 +178,21 @@
 }
 
 /**
- *	Plays a sound from the start, doesn't loop and has a volume and pitch of
- *	1.0f.
+ * Plays a sound from the start, doesn't loop and has a volume and pitch of
+ * 1.0f.
  *
- *	@param startTime
- *		The time in milliseconds for the sound to begin.  Each loop will also
- *		begin at this time.  You should not set a start time for larger then the
- *		length of the sound.
- *	@param loopCount
- *		The quantity of times you wish the sound to loop.  If 0 is stated, the
- *		sound only plays once.  If 10 is stated, the sound plays 11 times.  If
- *		<code>PX_SOUND_INFINITE_LOOPS</code> is stated, then the sound plays for
- *		infinate times.
- *	@param soundTransform
- *		The the transform for the sound.
+ * @param startTime The time in milliseconds for the sound to begin. Each loop will also
+ * begin at this time. You should not set a start time for larger then the
+ * length of the sound.
+ * @param loopCount The quantity of times you wish the sound to loop.  If 0 is stated, the
+ * sound only plays once. If 10 is stated, the sound plays 11 times. If
+ * <code>PX_SOUND_INFINITE_LOOPS</code> is stated, then the sound plays for
+ * infinate times.
+ * @param soundTransform The the transform for the sound.
  *
- *	@return
- *		The reference to the sound channel that will be playing.
+ * @return The reference to the sound channel that will be playing.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSoundLoader *soundLoader = [[PXSoundLoader alloc] initWithContentsOfFile:@"sound.wav"];
  *	PXSound *sound = [soundLoader newSound];
  *
@@ -220,7 +200,7 @@
  *	soundTransform3D.x = 40.0f;
  *	soundTransform3D.y = 15.0f;
  *	// The sound can only be 3D if it is mono and the correct file type.  To
- *	// check for this, you can use the <code>is3DReady</code> method.
+ *	// check for this, you can use the is3DReady method.
  *
  *	PXSoundChannel *channel = [sound playWithStartTime:4500 loopCount:PX_SOUND_INFINITE_LOOPS soundTransform:soundTransform3D];
  *	// The sound will begin at, and loop from, 4.5 seconds for an indefinite
@@ -231,9 +211,8 @@
  *	[soundTransform3D release];
  *	[soundLoader release];
  *	[sound release];
- *	@endcode
  *
- *	@see PXSoundTransform, PXSound::is3DReady:
+ * @see PXSoundTransform, [PXSound is3DReady]
  */
 - (PXSoundChannel *)playWithStartTime:(unsigned)startTime
 							loopCount:(int)loopCount
@@ -248,20 +227,16 @@
 #pragma mark Static Methods
 
 /**
- *	Creates a sound by loading the file at the given path.
+ * Creates a sound by loading the file at the given path.
  *
- *	@param filePath
- *		The path of the file.
+ * @param filePath The path of the file.
  *
- *	@return
- *		The loaded and parsed sound, if the sound fails loading then
- *		<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
  *	// Sound is loaded and ready to go.
- *	@endcode
  */
 + (PXSound *)soundWithContentsOfFile:(NSString *)path
 {
@@ -269,23 +244,18 @@
 }
 
 /**
- *	Creates a sound by loading the file at the given path.
+ * Creates a sound by loading the file at the given path.
  *
- *	@param filePath
- *		The path of the file.
- *	@param modifier
- *		The modifier is used to modify the loaded bytes; once set, it can not be
- *		un-done. The modifier will be ignored if the data is not modifiable.
+ * @param filePath The path of the file.
+ * @param modifier The modifier is used to modify the loaded bytes; once set, it can not be
+ * un-done. The modifier will be ignored if the data is not modifiable.
  *
- *	@return
- *		The loaded and parsed sound, if the sound fails loading then
- *		<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
  *	// Sound is loaded, converted to mono, and ready to go.
- *	@endcode
  */
 + (PXSound *)soundWithContentsOfFile:(NSString *)path modifier:(id<PXSoundModifier>)modifier
 {
@@ -297,20 +267,16 @@
 }
 
 /**
- *	Creates a sound by loading the file at the given url.
+ * Creates a sound by loading the file at the given url.
  *
- *	@param url
- *		The url of the file.
+ * @param url The url of the file.
  *
- *	@return
- *		The loaded and parsed sound, if the sound fails loading then
- *		<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav"];
  *	// Sound is loaded and ready to go.
- *	@endcode
  */
 + (PXSound *)soundWithContentsOfURL:(NSURL *)url
 {
@@ -318,23 +284,18 @@
 }
 
 /**
- *	Creates a sound by loading the file at the given url.
+ * Creates a sound by loading the file at the given url.
  *
- *	@param url
- *		The url of the file.
- *	@param modifier
- *		The modifier is used to modify the loaded bytes; once set, it can not be
- *		un-done. The modifier will be ignored if the data is not modifiable.
+ * @param url The url of the file.
+ * @param modifier The modifier is used to modify the loaded bytes; once set, it can not be
+ * un-done. The modifier will be ignored if the data is not modifiable.
  *
- *	@return
- *		The loaded and parsed sound, if the sound fails loading then
- *		<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
  *	// Sound is loaded, converted to mono, and ready to go.
- *	@endcode
  */
 + (PXSound *)soundWithContentsOfURL:(NSURL *)url modifier:(id<PXSoundModifier>)modifier
 {
@@ -346,45 +307,36 @@
 }
 
 /**
- *	Creates a sound by parsing the data.
+ * Creates a sound by parsing the data.
  *
- *	@param data
- *		The raw data.
+ * @param data The raw data.
  *
- *	@return
- *		The loaded and parsed sound, if the sound fails loading then
- *		<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
  *	PXSound *sound = [PXSound soundWithData:data];
  *	// Sound is parsed, converted to mono, and ready to go.
- *	@endcode
  */
 + (PXSound *)soundWithData:(NSData *)data
 {
 	return [[[PXSound alloc] initWithData:data] autorelease];
 }
 /**
- *	Creates a sound by parsing the data.
+ * Creates a sound by parsing the data.
  *
- *	@param data
- *		The raw data.
- *	@param modifier
- *		The modifier is used to modify the loaded bytes; once set, it can not be
- *		un-done. The modifier will be ignored if the data is not modifiable.
+ * @param data The raw data.
+ * @param modifier The modifier is used to modify the loaded bytes; once set, it can not be
+ * un-done. The modifier will be ignored if the data is not modifiable.
  *
- *	@return
- *		The loaded and parsed sound, if the sound fails loading then
- *		<code>nil</code> is returned instead.
+ * @return The loaded and parsed sound, if the sound fails loading then
+ * <code>nil</code> is returned instead.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
  *	PXSound *sound = [PXSound soundWithData:data modifier:[PXSoundModifiers soundModifierToMono]];
  *	// Sound is parsed, converted to mono, and ready to go.
- *	@endcode
  */
 + (PXSound *)soundWithData:(NSData *)data modifier:(id<PXSoundModifier>)modifier
 {

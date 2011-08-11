@@ -48,23 +48,22 @@
 #import "PXExceptionUtils.h"
 
 /**
- *	@ingroup Geom
+ * Describes the local transformation of a #PXDisplayObject in
+ * two-dimensional space and color space.
  *
- *	A PXTransform describes the local transformation of a PXDisplayObject in
- *	two-dimensional space and color space.
- *	<br>
- *	PXTransform also provides methods for finding the PXDisplayObject 's
- *	transformation in global (stage) coordinate space.<br>
- *	The two-dimensional transformation (translation, scale, rotation and skew)
- *	of the associated PXDisplayObject can be read and set via the
- *	<code>matrix</code> property.
- *	<br>
- *	The color transformation of the associated PXDisplayObject can be read and
- *	set via the <code>colorTransform</code> property.
- *	
- *	@see PXMatrix
- *	@see PXColorTransform
- *	@see PXDisplayObject
+ * #PXTransform also provides methods for finding the #PXDisplayObject 's
+ * transformation in global (stage) coordinate space.
+ *
+ * The two-dimensional transformation (translation, scale, rotation and skew)
+ * of the associated PXDisplayObject can be read and set via the
+ * #matrix property.
+ *
+ * The color transformation of the associated #PXDisplayObject can be read and
+ * set via the #colorTransform property.
+ *
+ * @see PXMatrix
+ * @see PXColorTransform
+ * @see PXDisplayObject
  */
 @implementation PXTransform
 

@@ -57,7 +57,6 @@
 
 #import "PXPrivateUtils.h"
 
-/// @cond DX_IGNORE
 typedef struct
 {
 	float baseLine;
@@ -112,7 +111,6 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 @interface PXFNTTextureFontFuser(Private)
 - (BOOL) parseFontWithParser:(PXFNTFontParser *)parser;
 @end
-/// @endcond
 
 #pragma mark -
 #pragma mark Fuser Implementation
@@ -226,7 +224,7 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 
 			// We check last off of now, so that when a change occurs we can
 			// update the values (this is done, so we do not need to calculate
-			// it out every time, instead it calculates it some of the time.)
+			// it out every time, instead it calculates it some of the time).
 			if (lastTextureData != textureData)
 			{
 				lastTextureData = textureData;

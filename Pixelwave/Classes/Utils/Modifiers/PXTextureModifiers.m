@@ -53,22 +53,18 @@
 #import "PXTextureModifierLA88.h"
 
 /**
- *	@ingroup Modifiers
- *
- *	PXTextureModifiers creates a texture modifier from a premade list of
- *	modifiers.
+ * PXTextureModifiers creates a texture modifier from a premade list of
+ * modifiers.
  */
 @implementation PXTextureModifiers
 
 /**
- *	Makes a texture modifier that will convert your texture to the desired
- *	format!
+ * Makes a texture modifier that will convert your texture to the desired
+ * format!
  *
- *	@param format
- *		The desired texture foramt.
+ * @param format The desired texture foramt.
  *
- *	@return
- *		A texture modifier that will convert your texture to the desired format.
+ * @return A texture modifier that will convert your texture to the desired format.
  */
 + (id<PXTextureModifier>) textureModifierToPixelFormat:(PXTextureDataPixelFormat)format
 {

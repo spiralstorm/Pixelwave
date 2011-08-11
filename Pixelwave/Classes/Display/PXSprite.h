@@ -44,13 +44,11 @@
 @interface PXSprite : PXDisplayObjectContainer
 {
 @public
-/// @cond DX_IGNORE
 	PXGraphics *_graphics;
-/// @endcond
 }
 
 /**
- *	The graphics object that belongs to the sprite where vector drawing is done.
+ * The graphics object that belongs to the sprite where vector drawing is done.
  */
 @property (nonatomic, readonly) PXGraphics *graphics;
 

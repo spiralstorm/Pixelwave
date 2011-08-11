@@ -42,16 +42,14 @@
 @class PXObjectPool;
 
 /**
- *	@ingroup TopLevel
- *
- *	An optional protocol, used to customize the behaviour of a PXObjectPool.
+ * An optional protocol, used to customize the behaviour of a PXObjectPool.
  */
 @protocol PXObjectPoolDelegate<NSObject>
 /**
- *	A PXObjectPool will automatically call this method when it needs to allocate
- *	a new object. You should return the object you'd like to pass back to the
- *	user, or <code>nil</code> if you'd like the pool to instantiate the object
- *	with the default consructor.
+ * A PXObjectPool will automatically call this method when it needs to allocate
+ * a new object. You should return the object you'd like to pass back to the
+ * user, or <code>nil</code> if you'd like the pool to instantiate the object
+ * with the default consructor.
  */
 //-- ScriptIgnore
 - (PXGenericObject) objectPool:(PXObjectPool *)objectPool newObjectForType:(Class)type;
@@ -66,8 +64,8 @@
 }
 
 /**
- *	An optional delegate of type PXObjectPoolDelegate. Can be used to customize
- *	what objects will be returned to the user for any given class type.
+ * An optional delegate of type PXObjectPoolDelegate. Can be used to customize
+ * what objects will be returned to the user for any given class type.
  */
 @property(nonatomic, retain) id<PXObjectPoolDelegate> delegate;
 

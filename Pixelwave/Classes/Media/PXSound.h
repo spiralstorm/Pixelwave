@@ -50,25 +50,23 @@
 }
 
 /**
- *	The length, in milliseconds, of the sound.
+ * The length, in milliseconds, of the sound.
  */
 @property (nonatomic, readonly) unsigned length;
 /**
- *	If the sound is mono and of file type "wav" or "caf" then it is considered
- *	to be 3D ready.
+ * If the sound is mono and of file type "wav" or "caf" then it is considered
+ * to be 3D ready.
  *
- *	<code>YES</code> if the conditions for being 3D are met, <code>NO</code>
- *	otherwise.
+ * <code>YES</code> if the conditions for being 3D are met, <code>NO</code>
+ * otherwise.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSound *mp3Sound = [PXSound soundWithContentsOfFile:@"sound.mp3"];
  *	[mp3Sound is3DReady];
  *	// Will return NO.
  *	PXSound *wavSound = [PXSound soundWithContentsOfFile:@"sound.wav"];
  *	[wavSound is3DReady];
  *	// Will return YES if the wav sound was mono.
- *	@endcode
  */
 @property (nonatomic, readonly) BOOL is3DReady;
 
@@ -110,8 +108,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXSound (PrivateButPublic)
 - (id) _initWithLength:(unsigned)length;
 @end
-/// @endcond

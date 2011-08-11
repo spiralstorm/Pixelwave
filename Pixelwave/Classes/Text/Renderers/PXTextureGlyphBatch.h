@@ -44,9 +44,9 @@
 @class PXTextureData;
 
 /*
- *	Holds all the info needed for a texture-based font rendered to render
- *	a group of glyphs. The properties of this class should be accessed
- *	directly (with ->) for speed.
+ * Holds all the info needed for a texture-based font rendered to render
+ * a group of glyphs. The properties of this class should be accessed
+ * directly (with ->) for speed.
  *
  */
 @interface PXTextureGlyphBatch : NSObject<NSCopying, PXPooledObject>

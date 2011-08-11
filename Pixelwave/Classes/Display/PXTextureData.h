@@ -48,19 +48,8 @@
 @class PXRectangle;
 @protocol PXTextureModifier;
 
-/**
- *	@ingroup Display
- *
- *	An enum representing the possible pixel color formats of a PXTextureData
- *	object.
- */
-
-/**
- *	@ingroup Display
- */
 @interface PXTextureData : NSObject
 {
-/// @cond DX_IGNORE
 @public
 	// gl handle
 	GLuint _glName;
@@ -87,31 +76,28 @@
 	// Actual texture size (Must be a power of 2)
 	unsigned textureWidth;
 	unsigned textureHeight;
-/// @endcond
 }
 
 /**
- *	The width of the texture data in pixels.
+ * The width of the texture data in pixels.
  */
 @property (nonatomic, readonly) float width;
 /**
- *	The height of the texture data in pixels.
+ * The height of the texture data in pixels.
  */
 @property (nonatomic, readonly) float height;
 
 /**
- *	A rectangle representing the TextureData. The x/y are always 0, while width
- *	and height are the width and height of the TextureData in pixels.
+ * A rectangle representing the TextureData. The x and y values are always 0.0f, while #width and #height are the width and height of the TextureData in pixels.
  */
 @property (nonatomic, readonly) PXRectangle *rect;
 
 /**
- *	The scaling factor used when creating the PXTextureData object. This value
- *	is usually one, except when working with retina display graphics, in which
- *	case the <code>contentScaleFactor</code> would be higher than one.
+ * The scaling factor used when creating the PXTextureData object. This value
+ * is usually one, except when working with retina display graphics, in which
+ * case the <code>contentScaleFactor</code> would be higher than one.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	// Lets assume that this code is running on a device with a retina display,
  *	// and the file "ball@2x.png" is available along side "ball.png" in the
  *	// application bundle.
@@ -120,27 +106,26 @@
  *	NSLog(@"%f", textureData.contentScaleFactor); // output: 2.0
  *
  *	// The output would be 1.0 on a non-retina display device.
- *	@endcode
  */
 @property (nonatomic, readonly) float contentScaleFactor;
 
 /**
- *	A boolean value indicating if the pixel format of this PXTextureData
- *	supports an alpha channel.
+ * A boolean value indicating if the pixel format of this PXTextureData
+ * supports an alpha channel.
  */
 @property (nonatomic, readonly) BOOL transparency;
 
 /**
- *	The OpenGL handle used to reference this texture data object in GPU memory.
- *	This value is available as a convenience and should not be used by the user
- *	to modify properties of the texture data object in OpenGL.
+ * The OpenGL handle used to reference this texture data object in GPU memory.
+ * This value is available as a convenience and should not be used by the user
+ * to modify properties of the texture data object in OpenGL.
  */
 @property (nonatomic, readonly) GLuint glTextureName;
 
 /**
  * The pixel format of the data.
  *
- *	@see PXTextureDataPixelFormat
+ * @see PXTextureDataPixelFormat
  */
 @property (nonatomic, readonly) PXTextureDataPixelFormat pixelFormat;
 
@@ -258,7 +243,6 @@
 								 modifier:(id<PXTextureModifier>)modifier;
 @end
 
-/// @cond DX_IGNORE
 @interface PXTextureData(PrivateButPublic)
 - (id) _init;
 - (id) _initWithoutGLName;
@@ -270,30 +254,23 @@
 					  contentScaleFactor:(float)contentScaleFactor
 								  format:(PXTextureDataPixelFormat)pixelFormat;
 @end
-/// @endcond
 
 /**
- *	Populates a C array with the pixels of a PXTextureData within the specified
- *	rectangle area.
- *	
- *	The data returned is in the format RGBA8, where each component is
- *	represented by an unsigned byte.
+ * Populates a C array with the pixels of a PXTextureData within the specified
+ * rectangle area.
+ * 
+ * The data returned is in the format RGBA8, where each component is
+ * represented by an unsigned byte.
  *
- *	Please note, this is not a fast method. Refrain from using it in real-time
- *	code.
+ * Please note, this is not a fast method. Refrain from using it in real-time
+ * code.
  *
- *	@param textureData
- *		The PXTextureData object to read the pixels from.
- *	@param x
- *		The left coordinate of the clipping rectangle.
- *	@param y
- *		The top coordinate of the clipping rectangle.
- *	@param width
- *		The width of the clipping rectangle.
- *	@param height
- *		The height of the clipping rectangle
- *	@param pixels
- *		An unsigned byte array with a length of <code>width * height * 4</code>
- *	
+ * @param textureData The PXTextureData object to read the pixels from.
+ * @param x The left coordinate of the clipping rectangle.
+ * @param y The top coordinate of the clipping rectangle.
+ * @param width The width of the clipping rectangle.
+ * @param height The height of the clipping rectangle
+ * @param pixels An unsigned byte array with a length of <code>width * height * 4</code>
+ * 
  */
 void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width, int height, void *pixels);

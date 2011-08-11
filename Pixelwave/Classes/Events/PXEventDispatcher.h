@@ -49,99 +49,94 @@
 ///////////////////////////////
 
 /**
- *	@ingroup Events
+ * The protocol from which the #PXEventDispatcher is derived.
+ * You should implement this protocol when your class requires event
+ * dispatching functionallity but cannot extend the #PXEventDispatcher class.
+ * 
+ * The implementing class should simply create a private #PXEventDispatcher object
+ * and pass along all method invocations to it.
  *
- *	The protocol from which the PXEventDispatcher is derived. Implement this
- *	protocol when your class cannot extend the PXEventDispatcher class. The
- *	implementing class should simply create a private PXEventDispatcher object
- *	and pass along all method invocations to it.
+ * **Example:**
+ * We want to create a subclass of <code>SomeOtherClass</code> and we want it
+ * to have event dispatching capabilities. The easy thing to do would be to
+ * have our class extend #PXEventDispatcher. But since it already extends from
+ * <code>SomeOtherClass</code> we need a different solution. The solution is
+ * to implement the #PXEventDispatcher protocol, since one class can implement
+ * any number of protocols but only inherit from a single class. Here's what
+ * our class would need to do to support the #PXEventDispatcher protocol:
  *
- *	@b Example:
- *	<br/>
- *	We want to create a subclass of <code>SomeOtherClass</code> and we want it
- *	to have event dispatching capabilities. The easy thing to do would be to
- *	have our class extend PXEventDispatcher. But since it already extends from
- *	<code>SomeOtherClass</code> we need a different solution. The solution is
- *	to implement the PXEventDispatcher protocol, since one class can implement
- *	any number of protocols but only inherit from a single class. Here's what
- *	our class would need to do to support the PXEventDispatcher protocol:
- 
- *	@i Header:
- *	@code
- * #import "SomeOtherClass.h"
- * #import "PXEventDispatcher.h"
+ * _Header:_
+ *	#import "SomeOtherClass.h"
+ *	#import "PXEventDispatcher.h"
  *	
- * @interface MyEventDispatchingClass : SomeOtherClass <PXEventDispatcher>
+ *	@interface MyEventDispatchingClass : SomeOtherClass <PXEventDispatcher>
  *	{
- * @private
- *	PXEventDispatcher *eventDispatcher;
- * }
+ *	@private
+ *		PXEventDispatcher *eventDispatcher;
+ *	}
  *	
- * @end 
- *	@endcode
- 
- *	@i Implementation:
- *	@code
- * #import "MyEventDispatchingClass.h"
+ *	@end 
+ *
+ * _Implementation:_
+ *	#import "MyEventDispatchingClass.h"
  *	 
- * @implementation MyEventDispatchingClass
+ *	@implementation MyEventDispatchingClass
  *	
- * - (id) init
- * {
- *	self = [super init];
- *
- *	if (self)
+ *	- (id) init
  *	{
- * 		eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];
- * 	}
+ *		self = [super init];
+ *		
+ *		if (self)
+ *		{
+ *			eventDispatcher = [[PXEventDispatcher alloc] initWithTarget:self];
+ *		}
  *
- * 	return self;
- * }
+ *		return self;
+ *	}
  *
- * - (void) dealloc
- * {
- * 	[eventDispatcher release];
- * 	eventDispatcher = nil;
+ *	- (void) dealloc
+ *	{
+ *		[eventDispatcher release];
+ *		eventDispatcher = nil;
+ *		
+ *		[super dealloc];
+ *	}
  *
- *	[super dealloc];
- * }
+ *	// Implementation of protocol methods. They just pass the parameters to the
+ *	// internal PXEventDispatcher object.
  *
- * // Implementation of protocol methods. They just pass the parameters to the
- * // internal PXEventDispatcher object.
+ *	- (BOOL) addEventListenerOfType:(NSString *)type
+ *	                       listener:(PXEventListener *)listener
+ *	                     useCapture:(BOOL)useCapture
+ *	                       priority:(int)priority
+ *	{
+ *		return [eventDispatcher addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
+ *	}
  *
- * - (BOOL) addEventListenerOfType:(NSString *)type
- *                        listener:(PXEventListener *)listener
- *                      useCapture:(BOOL)useCapture
- *                        priority:(int)priority
- * {
- *	return [eventDispatcher addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
- * }
+ *	- (BOOL) removeEventListenerOfType:(NSString *)type
+ *	                          listener:(PXEventListener *)listener
+ *	                        useCapture:(BOOL)useCapture
+ *	{
+ *		return [eventDispatcher removeEventListenerOfType:type listener:listener useCapture:useCapture];
+ *	}
  *
- * - (BOOL) removeEventListenerOfType:(NSString *)type
- *                           listener:(PXEventListener *)listener
- *                         useCapture:(BOOL)useCapture
- * {
- *	return [eventDispatcher removeEventListenerOfType:type listener:listener useCapture:useCapture];
- * }
+ *	- (BOOL) dispatchEvent:(PXEvent *)event
+ *	{
+ *	return [eventDispatcher dispatchEvent:event];
+ *	}
  *
- * - (BOOL) dispatchEvent:(PXEvent *)event
- * {
- * 	return [eventDispatcher dispatchEvent:event];
- * }
+ *	- (BOOL) hasEventListenerOfType:(NSString *)type
+ *	{
+ *		return [eventDispatcher hasEventListenerOfType:type];
+ *	}
+ *	- (BOOL) willTriggerEventOfType:(NSString *)type
+ *	{
+ *		return [eventDispatcher willTriggerEventOfType:type];
+ *	}
  *
- * - (BOOL) hasEventListenerOfType:(NSString *)type
- * {
- * 	return [eventDispatcher hasEventListenerOfType:type];
- * }
- * - (BOOL) willTriggerEventOfType:(NSString *)type
- * {
- * 	return [eventDispatcher willTriggerEventOfType:type];
- * }
+ *	@end 
  *
- * @end 
- *	@endcode
- *
- *	@see PXEventDispatcher
+ * @see PXEventDispatcher
  */
 @protocol PXEventDispatcher<NSObject>
 @required
@@ -150,6 +145,9 @@
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: NO
 //-- ScriptArg[3]: 0
+/**
+ * Adding an event listener.
+ */
 - (BOOL) addEventListenerOfType:(NSString *)type
 					   listener:(PXEventListener *)listener
 					 useCapture:(BOOL)useCapture
@@ -158,20 +156,32 @@
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: required
 //-- ScriptArg[2]: NO
+/**
+ * Removing an event listener.
+ */
 - (BOOL) removeEventListenerOfType:(NSString *)type
 						  listener:(PXEventListener *)listener
 						useCapture:(BOOL)useCapture;
 //-- ScriptName: dispatchEvent
+/**
+ * Dispatching an event.
+ */
 - (BOOL) dispatchEvent:(PXEvent *)event;
 //-- ScriptName: hasEventListener
+/**
+ * Querying registered events.
+ */
 - (BOOL) hasEventListenerOfType:(NSString *)type;
 //-- ScriptName: willTrigger
+/**
+ * Querying registered events.
+ */
 - (BOOL) willTriggerEventOfType:(NSString *)type;
 @end
 
-//////////////////////
-// Event Dispatcher //
-//////////////////////
+//
+// Event Dispatcher
+//
 
 // TODO Later: Keep all the capture phase listeners in a separate
 // dictionary instead of doing string contcatenation with the keys
@@ -179,20 +189,18 @@
 
 @interface PXEventDispatcher : NSObject <PXEventDispatcher>
 {
-/// @cond DX_IGNORE
 @private
 	id<PXEventDispatcher> target;
 
 	NSMutableDictionary *eventListeners;
 	
 	BOOL dispatchEvents;
-/// @endcond
 }
 
 /**
- *	Assign <code>YES</code> if this event dispatcher should dispatch events.
+ * Assign <code>YES</code> if this event dispatcher should dispatch events.
  *
- *	@b Default: <code>YES</code>
+ * **Default:** <code>YES</code>
  */
 @property (nonatomic, assign) BOOL dispatchEvents;
 
@@ -235,7 +243,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXEventDispatcher(Protected)
 - (void) _prepEvent:(PXEvent *)event;
 
@@ -244,4 +251,3 @@
 	withCurrentTarget:(PXGenericObject)currentTarget
 		   eventPhase:(char)phase;
 @end
-/// @endcond

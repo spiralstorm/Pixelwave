@@ -52,23 +52,19 @@
 
 #import "PXSettings.h"
 
-/// @cond DX_IGNORE
 @interface PXTextField(Private)
 - (void) validate;
 - (void) updateBackgroundCoordinates;
 - (void) updateBorderCoordinates;
 @end
-/// @endcond
 
 /**
- *	@ingroup Text
+ * A display object which represents a line of text.
  *
- *	A PXTextField object represents a box of text on the screen.
+ * _Example:_
+ * The following code creates a text field with the Helvetica font, that can
+ * only accept letters ',' and '!' with size of 30.0f.
  *
- *	The following code creates a text field with the Helvetica font, that can
- *	only accept letters ',' and '!' with size of 30.0f.
- *
- *	@code
  *	[PXTextureFont registerSystemFontWithFont:@"Helvetica"
  *	                                     name:@"fontName"
  *	                              fontOptions:[PXFontOptions fontOptionsWithSize:30.0f
@@ -78,9 +74,8 @@
  *	PXTextField *textField = [[PXTextField alloc] initWithFont:@"fontName"];
  *
  *	textField.text = @"Hi!";
- *	@endcode
  *
- *	@see PXTextureFont, PXFont
+ * @see PXTextureFont, PXFont
  */
 @implementation PXTextField
 
@@ -134,15 +129,13 @@
 }
 
 /**
- *	Creates a new PXTextField with a registered font.
+ * Creates a new PXTextField with a registered font.
  *
- *	@param fontName
- *		The name of the registered font.  If the font does not exist or was not
- *		registered then the default (<code>PXTextFieldDefaultFont</code>) is
- *		used instead.
+ * @param fontName The name of the registered font.  If the font does not exist or was not
+ * registered then the default (<code>PXTextFieldDefaultFont</code>) is
+ * used instead.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	[PXTextureFont registerSystemFontWithFont:@"Helvetica"
  *	                                     name:@"fontName"
  *	                              fontOptions:[PXFontOptions fontOptionsWithSize:30.0f
@@ -152,9 +145,8 @@
  *	PXTextField *textField = [[PXTextField alloc] initWithFont:@"fontName"];
  *
  *	textField.text = @"Hi!";
- *	@endcode
  *
- *	@see PXTextureFont, PXFont
+ * @see PXTextureFont, PXFont
  */
 - (id) initWithFont:(NSString *)_fontName
 {
@@ -619,17 +611,15 @@
 }
 
 /**
- *	Creates a PXTextField using the default font
- *	(<code>PXTextFieldDefaultFont</code>). No text will be displayed until you
- *	set the text property of the PXTextField just created. If no texts exists,
- *	then the this object will appear to have 0 size.
+ * Creates a PXTextField using the default font
+ * (<code>PXTextFieldDefaultFont</code>). No text will be displayed until you
+ * set the text property of the PXTextField just created. If no texts exists,
+ * then the this object will appear to have 0 size.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextField *textField = [PXTextField textField];
- *	@endcode
  *
- *	@see PXTextureFont, PXFont
+ * @see PXTextureFont, PXFont
  */
 + (PXTextField *)textField
 {
@@ -637,22 +627,19 @@
 }
 
 /**
- *	Creates a PXTextField using the registered font if it exists, or the default
- *	font (<code>PXTextFieldDefaultFont</code>). No text will be displayed until
- *	you set the text property of the PXTextField just created. If no texts
- *	exists, then the this object will appear to have 0 size.
+ * Creates a PXTextField using the registered font if it exists, or the default
+ * font (<code>PXTextFieldDefaultFont</code>). No text will be displayed until
+ * you set the text property of the PXTextField just created. If no texts
+ * exists, then the this object will appear to have 0 size.
  *
- *	@param fontName
- *		The name of the registered font.  If the font does not exist or was not
- *		registered then the default (<code>PXTextFieldDefaultFont</code>) is
- *		used instead.
+ * @param fontName The name of the registered font.  If the font does not exist or was not
+ * registered then the default (<code>PXTextFieldDefaultFont</code>) is
+ * used instead.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextField *textField = [PXTextField textField];
- *	@endcode
  *
- *	@see PXTextureFont, PXFont
+ * @see PXTextureFont, PXFont
  */
 + (PXTextField *)textFieldWithFont:(NSString *)_fontName
 {
@@ -660,17 +647,14 @@
 }
 
 /**
- *	Creates a PXTextField with a registered font.
+ * Creates a PXTextField with a registered font.
  *
- *	@param fontName
- *		The name of the registered font.  If the font does not exist or was not
- *		registered then the default (<code>PXTextFieldDefaultFont</code>) is
- *		used instead.
- *	@param text
- *		The text for the text field.
+ * @param fontName The name of the registered font.  If the font does not exist or was not
+ * registered then the default (<code>PXTextFieldDefaultFont</code>) is
+ * used instead.
+ * @param text The text for the text field.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	[PXTextureFont registerSystemFontWithFont:@"Helvetica"
  *	                                     name:@"fontName"
  *	                              fontOptions:[PXFontOptions fontOptionsWithSize:30.0f
@@ -678,9 +662,8 @@
  *	                                                           specialCharacters:@",!"]];
  *
  *	PXTextField *textField = [PXTextField textFieldWithFont:@"fontName" text:@"Hi"];
- *	@endcode
  *
- *	@see PXTextureFont, PXFont
+ * @see PXTextureFont, PXFont
  */
 + (PXTextField *)textFieldWithFont:(NSString *)_fontName text:(NSString *)_text
 {

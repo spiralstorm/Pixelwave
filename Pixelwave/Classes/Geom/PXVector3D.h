@@ -49,28 +49,28 @@
 }
 
 /**
- *	The length of the line segment from (0, 0, 0) to this point.
+ * The length of the line segment from (0, 0, 0) to this point.
  */
 @property (nonatomic, readonly) float length;
 /**
- *	The squared length of the line segment from (0, 0, 0) to this point.
+ * The squared length of the line segment from (0, 0, 0) to this point.
  */
 @property (nonatomic, readonly) float lengthSquared;
 
 /**
- *	The angle of rotation.
+ * The angle of rotation.
  */
 @property (nonatomic, assign) float w;
 /**
- *	The horizontal coordinate.
+ * The horizontal coordinate.
  */
 @property (nonatomic, assign) float x;
 /**
- *	The vertical coordinate.
+ * The vertical coordinate.
  */
 @property (nonatomic, assign) float y;
 /**
- *	The depth coordinate.
+ * The depth coordinate.
  */
 @property (nonatomic, assign) float z;
 

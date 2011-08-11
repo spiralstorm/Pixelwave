@@ -58,7 +58,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXTextureAtlasParser (PrivateButPublic)
 - (id) _initWithData:(NSData *)data
   contentScaleFactor:(float)contentScaleFactor
@@ -66,4 +65,3 @@
 			  origin:(NSString *)origin;
 - (BOOL) _parseWithModifier:(id<PXTextureModifier>)modifier;
 @end
-/// @endcond

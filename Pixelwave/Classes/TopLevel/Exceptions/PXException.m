@@ -42,34 +42,36 @@
 #import "PXTypeException.h"
 
 /**
- *	@ingroup TopLevel
+ * The base class of all exceptions in the Pixelwave framework. To catch
+ * exceptions associated only with the Pixelwave engine, one would do the
+ * following:
  *
- *	The base class of all exceptions in the Pixelwave framework. To catch
- *	exceptions associated only with the Pixelwave engine, one would do the
- *	following:
- *
- *	<code>
  *	@try
  *	{
- *		... Execute Pixelwave code
+ *		// ... Execute Pixelwave code
  *	}
  *	@catch (PXException *e)
  *	{
- *		... Handle Pixelwave exception
+ *		// ... Handle Pixelwave exception
  *	}
  *	@finally
  *	{
- *		...
+ *		// ... Perform cleanup
  *	}
- *	</code>
+ *
+ * @warning Exception handling isn't the standard way of handling run-time
+ * errors in Objective-C. In Pixelwave exceptions are only thrown to let the
+ * user know when a hard error occured (such as accessing an out-of-bounds
+ * child in a container). For expected run-time errors (such as an incorrect
+ * file path) <code>nil</code> is returned. If Pixelwave is running in debug mode
+ * an error message is usually logged as well.
  */
 @implementation PXException
 
 /**
- *	Creates a Pixelwave based exception.
+ * Creates a Pixelwave based exception.
  *
- *	@param reason
- *		A human-readable message string summarizing the reason for the exception
+ * @param reason A human-readable message string summarizing the reason for the exception
  */
 - (id) initWithReason:(NSString *)_reason
 {
@@ -77,13 +79,11 @@
 }
 
 /**
- *	Creates a Pixelwave based exception.
+ * Creates a Pixelwave based exception.
  *
- *	@param reason
- *		A human-readable message string summarizing the reason for the exception
- *	@param userInfo
- *		A dictionary containing user-defined information relating to the
- *		exception
+ * @param reason A human-readable message string summarizing the reason for the exception
+ * @param userInfo A dictionary containing user-defined information relating to the
+ * exception
  */
 - (id) initWithReason:(NSString *)_reason userInfo:(NSDictionary *)_userInfo
 {

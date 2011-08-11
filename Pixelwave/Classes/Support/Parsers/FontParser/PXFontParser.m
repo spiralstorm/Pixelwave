@@ -48,13 +48,10 @@
 #import "PXFontFuser.h"
 
 /**
- *	@ingroup Parser
+ * A PXFontParser takes data, from either the system or given, and parses it
+ * into information needed to render the font.
  *
- *	A PXFontParser takes data, from either the system or given, and parses it
- *	into information needed to render the font.
- *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
  *	PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil];
  *	PXFont *font = [fontParser newFont];
@@ -66,7 +63,6 @@
  *	[font release];
  *	[fontParser release];
  *	[data release];
- *	@endcode
  */
 @implementation PXFontParser
 
@@ -81,18 +77,15 @@
 }
 
 /**
- *	Makes a new font parser that parses the data described in the system font
- *	and allows you to create a new font.
+ * Makes a new font parser that parses the data described in the system font
+ * and allows you to create a new font.
  *
- *	@param systemFont
- *		The system font to parse.
- *	@param options
- *		The options that describe what type of font you want back. If
- *		<code>nil</code> is supplied, then the default type of font for the font
- *		type is used. If no default type is found, then no new font can be made.
+ * @param systemFont The system font to parse.
+ * @param options The options that describe what type of font you want back. If
+ * <code>nil</code> is supplied, then the default type of font for the font
+ * type is used. If no default type is found, then no new font can be made.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:24.0f
  *	                                                                 characterSets:PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals
  *	                                                             specialCharacters:@",.!?"]];
@@ -106,7 +99,6 @@
  *	[font release];
  *	[fontParser release];
  *	[fontOptions release];
- *	@endcode
  */
 - (id) initWithSystemFont:(NSString *)systemFont options:(PXFontOptions *)_options
 {
@@ -114,20 +106,16 @@
 }
 
 /**
- *	Makes a new font parser that parses the given data and allows you to create
- *	a new font. This version also stores the origin, in case you need/want it.
+ * Makes a new font parser that parses the given data and allows you to create
+ * a new font. This version also stores the origin, in case you need/want it.
  *
- *	@param data
- *		The loaded data.
- *	@param options
- *		The options that describe what type of font you want back. If
- *		<code>nil</code> is supplied, then the default type of font for the font
- *		type is used. If no default type is found, then no new font can be made.
- *	@param origin
- *		The origin of the font.
+ * @param data The loaded data.
+ * @param options The options that describe what type of font you want back. If
+ * <code>nil</code> is supplied, then the default type of font for the font
+ * type is used. If no default type is found, then no new font can be made.
+ * @param origin The origin of the font.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
  *	PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil origin:@"font.fnt"];
  *	PXFont *font = [fontParser newFont];
@@ -139,29 +127,23 @@
  *	[font release];
  *	[fontParser release];
  *	[data release];
- *	@endcode
  */
 - (id) initWithData:(NSData *)_data options:(PXFontOptions *)_options origin:(NSString *)_origin
 {
 	return [self initWithData:_data options:_options origin:_origin contentScaleFactor:1.0f];
 }
 /**
- *	Makes a new font parser that parses the given data and allows you to create
- *	a new font. This version also stores the origin, in case you need/want it.
+ * Makes a new font parser that parses the given data and allows you to create
+ * a new font. This version also stores the origin, in case you need/want it.
  *
- *	@param data
- *		The loaded data.
- *	@param options
- *		The options that describe what type of font you want back. If
- *		<code>nil</code> is supplied, then the default type of font for the font
- *		type is used. If no default type is found, then no new font can be made.
- *	@param origin
- *		The origin of the font.
- *	@param contentScaleFactor
- *		The content scale factor of the parsed font.
+ * @param data The loaded data.
+ * @param options The options that describe what type of font you want back. If
+ * <code>nil</code> is supplied, then the default type of font for the font
+ * type is used. If no default type is found, then no new font can be made.
+ * @param origin The origin of the font.
+ * @param contentScaleFactor The content scale factor of the parsed font.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"font.fnt"];
  *	PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:nil origin:@"font.fnt"];
  *	PXFont *font = [fontParser newFont];
@@ -173,7 +155,6 @@
  *	[font release];
  *	[fontParser release];
  *	[data release];
- *	@endcode
  */
 - (id) initWithData:(NSData *)_data options:(PXFontOptions *)_options origin:(NSString *)_origin contentScaleFactor:(float)_contentScaleFactor
 {
@@ -277,11 +258,10 @@
 }
 
 /**
- *	Creates a new PXFont object containing all information needed to view the
- *	font.
+ * Creates a new PXFont object containing all information needed to view the
+ * font.
  *
- *	@return
- *		The new PXFont object.
+ * @return The new PXFont object.
  */
 - (PXFont *)newFont
 {

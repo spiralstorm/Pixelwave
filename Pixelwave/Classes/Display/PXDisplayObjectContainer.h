@@ -43,7 +43,6 @@
 
 @interface PXDisplayObjectContainer : PXInteractiveObject<NSFastEnumeration>
 {
-/// @cond DX_IGNORE
 @public
 	BOOL _touchChildren;
 	unsigned short _numChildren;
@@ -58,16 +57,19 @@
 	// Optimization, adding/removing a child
 	void (*_impAddChildBefore)(id, SEL, PXDisplayObject *, PXDisplayObject *, BOOL);
 	void (*_impRemoveChild)(id, SEL, PXDisplayObject *, BOOL);
-/// @endcond
 }
 
 /**
- *	Determines whether or not the children of this object can be sent touch
- *	events.
+ * Determines whether or not the children of this object can be sent touch
+ * events.
+ *
+ * @warning This unfortunately-named property is the result of trying
+ * to faithfully reproduce ActionScript's naming convention. The
+ * original was named <code>mouseChildren</code>.
  */
 @property (nonatomic, assign) BOOL touchChildren;
 /**
- *	The number of children for this display object container.
+ * The number of display objects within this container.
  */
 @property (readonly) unsigned short numChildren;
 
@@ -122,7 +124,6 @@
 - (NSArray *)objectsUnderPoint:(PXPoint *)point;
 @end
 
-/// @cond DX_IGNORE
 @interface PXDisplayObjectContainer (Override)
 - (void) _preChildRenderGL;
 - (void) _postChildRenderGL;

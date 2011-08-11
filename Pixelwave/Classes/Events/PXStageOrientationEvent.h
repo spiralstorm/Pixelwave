@@ -51,11 +51,11 @@ PXExtern NSString * const PXStageOrientationEvent_OrientationChange;
 }
 
 /**
- *	The old orientation of the stage.
+ * The old orientation of the stage.
  */
 @property (nonatomic, readonly) PXStageOrientation beforeOrientation;
 /**
- *	The new orientation of the stage.
+ * The new orientation of the stage.
  */
 @property (nonatomic, readonly) PXStageOrientation afterOrientation;
 

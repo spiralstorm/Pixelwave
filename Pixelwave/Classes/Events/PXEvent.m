@@ -49,22 +49,23 @@ NSString * const PXEvent_AddedToStage = @"addedToStage";
 NSString * const PXEvent_RemovedFromStage = @"removedFromStage";
 NSString * const PXEvent_Render = @"render";
 NSString * const PXEvent_SoundComplete = @"soundComplete";
-//NSString * const PXEvent_MemoryWarning = @"memoryWarning";
 
 @interface PXEvent(Private)
 - (void) setType:(NSString *)type;
 @end
 
 /**
- *	@ingroup Events
+ * The base class for all events dispatched through the #PXEventDispatcher
+ * class.
+ * 
+ * A PXEvent holds all of the information related to the given event, and is
+ * always passed in as the first argument of every event listener invocation by
+ * an event listener.
  *
- *	The base class for all events dispatched through the PXEventDispatcher
- *	class.
- *	A PXEvent holds all of the information related to the given event, and is
- *	always passed in as the first argument of every event listener invocation by
- *	an event listener.
+ * While the PXEvent class is the base for all other event classes, it's not
+ * abstract, meaning that it can be used on its own for several common events.
  *
- *	@see PXTouchEvent
+ * @see PXTouchEvent
  */
 @implementation PXEvent
 
@@ -83,14 +84,13 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 }
 
 /**
- *	Makes a new event with the given properties. These properties may not change
- *	after the event object is created.
+ * Makes a new event with the given properties. These properties may not change
+ * after the event object is created.
  *
- *	Uses default values <code>bubbling = NO</code> and
- *	<code>cancelable = NO</code>.
+ * Uses default values <code>bubbling = NO</code> and
+ * <code>cancelable = NO</code>.
  *
- *	@param type
- *		A string representing the type of the event
+ * @param type A string representing the type of the event
  */
 - (id) initWithType:(NSString *)type
 {
@@ -98,16 +98,13 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 }
 
 /**
- *	Makes a new event with the given properties. These properties may not change
- *	after the event object is created.
+ * Makes a new event with the given properties. These properties may not change
+ * after the event object is created.
  *
- *	@param type
- *		A string representing the type of the event
- *	@param bubbles
- *		Whether the event should participate in the bubbling phase of the event
- *		flow.
- *	@param cancelable
- *		Whether the behavior described by the event can be canceled by the user.
+ * @param type A string representing the type of the event
+ * @param bubbles Whether the event should participate in the bubbling phase of the event
+ * flow.
+ * @param cancelable Whether the behavior described by the event can be canceled by the user.
  */
 - (id) initWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable
 {
@@ -203,9 +200,9 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 }
 
 /**
- *	Causes the behavior represented by this event to be canceled.
- *	Not all events may be canceled. Use PXEvent##cancelable to check if this
- *	event's behavior can be canceled.
+ * Causes the behavior represented by this event to be canceled.
+ * Not all events may be canceled. Use the #cancelable property to
+ * check if this event's behavior can be canceled.
  */
 - (void) preventDefault
 {
@@ -216,8 +213,8 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 }
 
 /**
- *	Prevents the event from being dispatched any further in the event flow.
- *	@see #stopImmediatePropegation
+ * Prevents the event from being dispatched any further in the event flow.
+ * @see stopImmediatePropegation
  */
 // Only relevant for the display list flow
 - (void) stopPropagation
@@ -230,11 +227,11 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 }
 
 /**
- *	Stops the event from being dispatched any further, and cancels event
- *	dispatching for all remaining event listeners registered to listen for this
- *	event.
+ * Stops the event from being dispatched any further, and cancels event
+ * dispatching for all remaining event listeners registered to listen for this
+ * event.
  *
- *	@see #stopPropegation
+ * @see stopPropegation
  */
 // Always relevant
 - (void) stopImmediatePropagation
@@ -243,7 +240,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 }
 
 /**
- *	Whether the preventDefault method has been called on this event.
+ * Whether the preventDefault method has been called on this event.
  */
 - (BOOL) isDefaultPrevented
 {
@@ -251,14 +248,13 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 }
 
 /**
- *	Makes a event with the given properties. These properties may not change
- *	after the event object is created.
+ * Makes a event with the given properties. These properties may not change
+ * after the event object is created.
  *
- *	Uses default values <code>bubbling = NO</code> and
- *	<code>cancelable = NO</code>.
+ * Uses default values <code>bubbling = NO</code> and
+ * <code>cancelable = NO</code>.
  *
- *	@param type
- *		A string representing the type of the event
+ * @param type A string representing the type of the event
  */
 - (PXEvent *)eventWithType:(NSString *)type
 {
@@ -266,16 +262,13 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 }
 
 /**
- *	Makes a event with the given properties. These properties may not change
- *	after the event object is created.
+ * Makes a event with the given properties. These properties may not change
+ * after the event object is created.
  *
- *	@param type
- *		A string representing the type of the event
- *	@param bubbles
- *		Whether the event should participate in the bubbling phase of the event
- *		flow.
- *	@param cancelable
- *		Whether the behavior described by the event can be canceled by the user.
+ * @param type A string representing the type of the event
+ * @param bubbles Whether the event should participate in the bubbling phase of the event
+ * flow.
+ * @param cancelable Whether the behavior described by the event can be canceled by the user.
  */
 - (PXEvent *)eventWithType:(NSString *)type bubbles:(BOOL) bubbles cancelable:(BOOL) cancelable
 {

@@ -44,19 +44,17 @@
 static PXObjectPool *pxSharedObjectPool = nil;
 
 /**
- *	@ingroup TopLevel
+ * An abstract object pool, capable of pooling multiple types of objects.
+ * You should use an object pool in situations where the same type of class
+ * must be allocated and deallocated many times over a period of time. The
+ * object pool holds on to unused objects instead of deallocating them, to
+ * avoid the overhead involved in allocating and releasing memory
  *
- *	An abstract object pool, capable of pooling multiple types of objects.
- *	You should use an object pool in situations where the same type of class
- *	must be allocated and deallocated many times over a period of time. The
- *	object pool holds on to unused objects instead of deallocating them, to
- *	avoid the overhead involved in allocating and releasing memory
+ * You may create and keep track of your own instance of PXObjectPool, but you
+ * can also use the global shared object pool to quickly access pooled object
+ * across the entire application.
  *
- *	You may create and keep track of your own instance of PXObjectPool, but you
- *	can also use the global shared object pool to quickly access pooled object
- *	across the entire application.
- *
- *	@see sharedObjectPool
+ * @see sharedObjectPool
  */
 @implementation PXObjectPool
 
@@ -83,10 +81,10 @@ static PXObjectPool *pxSharedObjectPool = nil;
 }
 
 /**
- *	Clears all cached data in the pool from memory. As a pool is used it can
- *	potentially collect many unused objects. Call this method to get rid of all
- *	objects currently sitting in the pool without being used. Useful in low
- *	system memory situations.
+ * Clears all cached data in the pool from memory. As a pool is used it can
+ * potentially collect many unused objects. Call this method to get rid of all
+ * objects currently sitting in the pool without being used. Useful in low
+ * system memory situations.
  */
 - (void) purgeCachedData
 {
@@ -104,18 +102,17 @@ static PXObjectPool *pxSharedObjectPool = nil;
 #pragma mark Grabbing objects from pool
 
 /**
- *	Returns a pooled object of the given type. The returned object will have a
- *	<code>retainCount</code> of 1, and must be released by the user at a later
- *	time. When the returned object is no longer needed it should be
- *	returned to the pool. To return an object to the pool, pass it to the
- *	#releaseObject: method instead of calling <code>[NSObject release]</code> on
- *	it directly.
+ * Returns a pooled object of the given type. The returned object will have a
+ * <code>retainCount</code> of 1, and must be released by the user at a later
+ * time. When the returned object is no longer needed it should be
+ * returned to the pool. To return an object to the pool, pass it to the
+ * #releaseObject: method instead of calling <code>[NSObject release]</code> on
+ * it directly.
  *
- *	@param typeClass
- *		The class from which an instance should be created
- *	@return A pooled instantiated object of the given class.
+ * @param typeClass The class from which an instance should be created
+ * @return A pooled instantiated object of the given class.
  *
- *	@see #releaseObject:
+ * @see releaseObject:
  */
 - (PXGenericObject) newObjectUsingClass:(Class)typeClass
 {
@@ -160,29 +157,29 @@ static PXObjectPool *pxSharedObjectPool = nil;
 #pragma mark Returning Objects to pool
 
 /**
- *	Returns an object to the pool and takes control of its ownership.
- *	Passing an object to this method is
- *	equivalent to calling <code>release</code> on it, and so you must follow
- *	the usual rules of object ownership. You should @b never return an object to
- *	a pool if you don't have ownership of it (a retain on it) for the same reason
- *	you shouldn't release it if you don't have a retain on it.
+ * Returns an object to the pool and takes control of its ownership.
+ * Passing an object to this method is
+ * equivalent to calling <code>release</code> on it, and so you must follow
+ * the usual rules of object ownership. You should **never** return an object to
+ * a pool if you don't have ownership of it (a retain on it) for the same reason
+ * you shouldn't release it if you don't have a retain on it.
  *
- *	Another important part of returning an object to a pool is resetting its
- *	state. An object that is returned to the pool with a state that hasn't been
- *	reset may be given to the user at a different time, causing confusion as
- *	the user expects an object with a fresh state. This can lead to memory
- *	leaks and crashes which can be difficult to debug.
+ * Another important part of returning an object to a pool is resetting its
+ * state. An object that is returned to the pool with a state that hasn't been
+ * reset may be given to the user at a different time, causing confusion as
+ * the user expects an object with a fresh state. This can lead to memory
+ * leaks and crashes which can be difficult to debug.
  *
- *	To avoid this confusion, have your pooled objects implement the
- *	PXPooledObject protocol, which requires a <code>reset</code> method to be
- *	implemented. This <code>reset</code> method is autuamatically invoked
- *	when the object is returned to a PXObjectPool, and should take care of
- *	resetting its internal state.
+ * To avoid this confusion, have your pooled objects implement the
+ * PXPooledObject protocol, which requires a <code>reset</code> method to be
+ * implemented. This <code>reset</code> method is autuamatically invoked
+ * when the object is returned to a PXObjectPool, and should take care of
+ * resetting its internal state.
  *
- *	If you need to pool objects which you didn't design (and hence can't conform
- *	to the PXPooledObject protocol) you must reset their states manually before
- *	returning them to the pool.
- *	
+ * If you need to pool objects which you didn't design (and hence can't conform
+ * to the PXPooledObject protocol) you must reset their states manually before
+ * returning them to the pool.
+ * 
  */
 // Releases the object
 - (void) releaseObject:(PXGenericObject)object
@@ -216,8 +213,8 @@ static PXObjectPool *pxSharedObjectPool = nil;
 #pragma mark Static Methods
 
 /**
- *	A global object pool which can be shared accross the entire application.
- *	You're welcome!
+ * A global object pool which can be shared accross the entire application.
+ * You're welcome!
  */
 + (PXObjectPool *)sharedObjectPool
 {

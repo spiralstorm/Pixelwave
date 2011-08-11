@@ -48,14 +48,12 @@
 
 #define pxKMaxTextureSize         1024
 
-/// @cond DX_IGNORE
 @interface PXCGTextureParser(Private)
 - (BOOL) processCGImage:(CGImageRef)image
 			orientation:(UIImageOrientation)orientation
 			  sizeToFit:(BOOL)sizeToFit
 			pixelFormat:(PXTextureDataPixelFormat)_pixelFormat;
 @end
-/// @endcond
 
 @implementation PXCGTextureParser
 
@@ -479,8 +477,8 @@
 }
 
 /*
- *	This is a special initializer that gets called directly
- *	(by [PXTextureData initWithCGImage:] and doesn't get passed in by the super.
+ * This is a special initializer that gets called directly
+ * (by [PXTextureData initWithCGImage:] and doesn't get passed in by the super.
  */
 - (id) initWithCGImage:(CGImageRef)image
 		   scaleFactor:(float)scaleFactor

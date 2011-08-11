@@ -51,7 +51,6 @@
 #import "PXDebug.h"
 #import "PXMathUtils.h"
 
-/// @cond DX_IGNORE
 // 1 byte = 8 bits, 8 bits * 8 (header bytes) = 64 bits.
 typedef u_int64_t _PXPNGHeader;
 
@@ -72,7 +71,6 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 - (void) makePNGStruct:(png_structp *)pngPtr infoStruct:(png_infop *)infoPtr;
 - (BOOL) unpackPNGFromPNG:(png_structp *)pngPtr info:(png_infop *)infoPtr;
 @end
-/// @endcond
 
 @implementation PXPNGTextureParser
 

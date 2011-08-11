@@ -56,14 +56,15 @@ typedef enum
 }
 
 /**
- *	The characters used for the font.
+ * The characters used for the font.
  *
- *	Note:	NO duplicate characters will ever exist in the font options
- *			characters. If a duplicate is given, it is stripped out
- *			automatically. Also space (character 32) is always defined in a set;
- *			thus it does not need to be given.
+ * **Default:** <code>(PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals | PXFontCharacterSet_Punctuation)</code>
+ * 
+ * @warning NO duplicate characters will ever exist in the font options
+ * characters. If a duplicate is given, it is stripped out
+ * automatically. Also space (character 32) is always defined in a set;
+ * thus it does not need to be given.
  *
- *	@b Default: <code>(PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals | PXFontCharacterSet_Punctuation)</code>
  */
 @property (nonatomic, copy) NSString *characters;
 

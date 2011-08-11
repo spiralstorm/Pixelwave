@@ -66,7 +66,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXALSoundChannel(PrivateButPublic)
 - (id) _initWithSound:(PXALSound *)sound
 			startTime:(unsigned)startTime
@@ -75,4 +74,3 @@
 
 - (void) _updateDistanceModel;
 @end
-/// @endcond

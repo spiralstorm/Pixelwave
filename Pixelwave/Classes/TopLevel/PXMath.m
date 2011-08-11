@@ -41,29 +41,25 @@
 #import "PXMathUtils.h"
 
 /**
- *	Contains static methods for computing random values.
- *	The PXMath class does not implement methods for general mathematical
- *	operations such as <code>sin, cos, abs, sqrt, etc.</code>, but
- *	instead is concentrated on dealing with random number generation.
+ * Contains static methods for computing random values.
+ * The PXMath class does not implement methods for general mathematical
+ * operations such as <code>sin, cos, abs, sqrt, etc.</code>, but
+ * instead is concentrated on dealing with random number generation.
  *
- *	It is recommended to use the native C methods and Macros for common math
- *	operations such as <code>sqrtf(), sinf(), atan2f(), etc.</code>.
- *	
- *	@ingroup TopLevel
+ * It is recommended to use the native C methods and Macros for common math
+ * operations such as <code>sqrtf(), sinf(), atan2f(), etc.</code>.
  */
 
 @implementation PXMath
 
 /**
- *	Returns a pseudo-random number, where 0.0f <= number < 1.0f.
+ * Returns a pseudo-random number, where 0.0f <= number < 1.0f.
  *
- *	@return float - A pseudo-random number.
+ * @return A pseudo-random number.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	float randomValue = [PXMath random];
  *	//0.0f <= randomValue < 1.0f
- *	@endcode
  */
 + (float) random
 {
@@ -71,19 +67,17 @@
 }
 
 /**
- *	Returns a pseudo-random number, where min <= number < max.  Due to the way
- *	floating points work, the max value is possible under certain circumstances;
- *	such as the min being 0.00001f and the max being 0.00002f.  However this is
- *	still unlikely, and in the general use case it will never be equal to the
- *	max.
+ * Returns a pseudo-random number, where min <= number < max.  Due to the way
+ * floating points work, the max value is possible under certain circumstances;
+ * such as the min being 0.00001f and the max being 0.00002f.  However this is
+ * still unlikely, and in the general use case it will never be equal to the
+ * max.
  *
- *	@return float - A pseudo-random number.
+ * @return A pseudo-random number.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	float randomValue = [PXMath randomFloatInRangeWithMin:3.0f max:4.5f];
  *	//3.0f <= randomValue < 4.5f
- *	@endcode
  */
 + (float) randomFloatInRangeFrom:(float)min to:(float)max
 {
@@ -91,15 +85,13 @@
 }
 
 /**
- *	Returns a pseudo-random number, where min <= number <= max.
+ * Returns a pseudo-random number, where min <= number <= max.
  *
- *	@return int - A pseudo-random number.
+ * @return A pseudo-random number.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	int randomValue = [PXMath randomIntInRangeWithMin:3 max:5];
  *	//3 <= randomValue <= 5, randomValue will be either 3, 4 or 5.
- *	@endcode
  */
 + (int) randomIntInRangeFrom:(int)min to:(int)max
 {
@@ -107,9 +99,9 @@
 }
 
 /**
- *	Sets the seed for random number generation based on the current time.
- *	This method gets called automatically when the Pixelwave engine is
- *	initialized.
+ * Sets the seed for random number generation based on the current time.
+ * This method gets called automatically when the Pixelwave engine is
+ * initialized.
  */
 + (void) seedRandomWithTime
 {
@@ -117,11 +109,11 @@
 }
 
 /**
- *	Sets the seed for random number generation with the specified value.
- *	Useful in cases where a reproducible set of psuedo-random numbers is
- *	required.
+ * Sets the seed for random number generation with the specified value.
+ * Useful in cases where a reproducible set of psuedo-random numbers is
+ * required.
  *
- *	@param unsigned int value - The new seed value.
+ * @param value The new seed value.
  */
 + (void) seedRandomWithValue:(unsigned)value
 {

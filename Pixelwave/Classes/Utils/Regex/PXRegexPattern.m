@@ -50,22 +50,17 @@
 
 #import "PXDebug.h"
 
-/// @cond DX_IGNORE
 @interface PXRegexPattern (Private)
 - (void) updateRegexPtr;
 - (void) freeRegexPtr;
 - (void) _setFlags:(unsigned)val;
 @end
-/// @endcond
 
 /**
- *	@ingroup Utils
+ * A PXRegexPattern creates a compiled regex string from the given info. This
+ * is used to find matches later. A PXRegexPattern object is immutable.
  *
- *	A PXRegexPattern creates a compiled regex string from the given info. This
- *	is used to find matches later. A PXRegexPattern object is immutable.
- *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"];
  *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
  *	[pattern release];
@@ -79,9 +74,8 @@
  *	}
  *
  *	[matcher release];
- *	@endcode
  *
- *	@see PXRegexMatcher
+ * @see PXRegexMatcher
  */
 @implementation PXRegexPattern
 
@@ -97,31 +91,12 @@
 	return nil;
 }
 
-/**
- *	Creates a new regex pattern.
+/*
+ * Creates a new regex pattern.
  *
- *	@param pattern
- *		The regex to compile. If regex is not <code>nil</code> then it
- *		immediately compiles the regex.
- *	@param flags
- *		The flags explaining how to compile the regex.
- *
- *	@b Example:
- *	@code
- *	PXRegexPattern *pattern = [[PXRegexPattern alloc] initWithRegex:@"^(\\w+)\\s(.*)$"
- *	                                                          flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
- *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
- *	[pattern release];
- *
- *	if ([matcher next])
- *	{
- *		NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- *		NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- *		NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- *	}
- *
- *	[matcher release];
- *	@endcode
+ * @param pattern The regex to compile. If regex is not <code>nil</code> then it
+ * immediately compiles the regex.
+ * @param flags The flags explaining how to compile the regex.
  */
 - (id) _initWithRegex:(NSString *)_regex flags:(unsigned)_flags
 {
@@ -313,11 +288,10 @@
 #pragma mark -
 
 /**
- *	Creates a new PXRegexMatcher object without specifying the input string to
- *	match.
+ * Creates a new PXRegexMatcher object without specifying the input string to
+ * match.
  *
- *	@return
- *		The new PXRegexMatcher object.
+ * @return The new PXRegexMatcher object.
  */
 - (PXRegexMatcher *)matcher
 {
@@ -325,14 +299,12 @@
 }
 
 /**
- *	Creates a new PXRegexMatcher object containing all information needed to
- *	match your strings with the compiled regex.
+ * Creates a new PXRegexMatcher object containing all information needed to
+ * match your strings with the compiled regex.
  *
- *	@param string
- *		The string to find matches for.
+ * @param string The string to find matches for.
  *
- *	@return
- *		The new PXRegexMatcher object.
+ * @return The new PXRegexMatcher object.
  */
 - (PXRegexMatcher *)matcherWithInput:(NSString *)input
 {
@@ -344,30 +316,13 @@
 #pragma mark -
 
 /**
- *	Creates a regex pattern with the default flags
- *	<code>(PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine)</code>
+ * Creates a regex pattern with the default flags
+ * <code>(PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine)</code>
  *
- *	@param pattern
- *		The regex to compile. If regex is not <code>nil</code> then it
- *		immediately compiles the regex.
+ * @param pattern The regex to compile. If regex is not <code>nil</code> then it
+ * immediately compiles the regex.
  *
- *	@return
- *		The resulting, <code>autoreleased</code>, PXRegexPattern object.
- *
- *	@b Example:
- *	@code
- *	PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"];
- *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
- *
- *	if ([matcher next])
- *	{
- *		NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- *		NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- *		NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- *	}
- *
- *	[matcher release];
- *	@endcode
+ * @return The resulting, <code>autoreleased</code>, @PXRegexPattern object.
  */
 + (PXRegexPattern *)patternWithRegex:(NSString *)regex
 {
@@ -376,32 +331,13 @@
 }
 
 /**
- *	Creates a regex pattern.
+ * Creates a regex pattern.
  *
- *	@param pattern
- *		The regex to compile. If regex is not <code>nil</code> then it
- *		immediately compiles the regex.
- *	@param flags
- *		The flags explaining how to compile the regex.
+ * @param pattern The regex to compile. If regex is not <code>nil</code> then it
+ * immediately compiles the regex.
+ * @param flags The flags explaining how to compile the regex.
  *
- *	@return
- *		The resulting, <code>autoreleased</code>, PXRegexPattern object.
- *
- *	@b Example:
- *	@code
- *	PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"
- *	                                                     flags:PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine];
- *	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern string:@"person name:Steve age:56"];
- *
- *	if ([matcher next])
- *	{
- *		NSLog (@"%@", [matcher groupAtIndex:0]); // @"person name:Steve age:56"
- *		NSLog (@"%@", [matcher groupAtIndex:1]); // @"person"
- *		NSLog (@"%@", [matcher groupAtIndex:2]); // @"name:Steve age:56"
- *	}
- *
- *	[matcher release];
- *	@endcode
+ * @return The resulting, <code>autoreleased</code>, @PXRegexPattern object.
  */
 + (PXRegexPattern *)patternWithRegex:(NSString *)regex flags:(unsigned)flags
 {
@@ -411,7 +347,7 @@
 }
 
 /**
- *	Not yet implemented
+ * Not yet implemented
  */
 + (NSString *)quoteString:(NSString *)input
 {
@@ -420,7 +356,7 @@
 }
 
 /**
- *	Invokes #splitString:limit: using 0 as the limit.
+ * Invokes #splitString:limit: using 0 as the limit.
  */
 + (NSArray *)splitString:(NSString *)input
 {
@@ -428,7 +364,7 @@
 }
 
 /**
- *	Not yet implemented
+ * Not yet implemented
  */
 + (NSArray *)splitString:(NSString *)input limit:(int)limit
 {

@@ -47,7 +47,6 @@
 
 #import "PXDebug.h"
 
-/// @cond DX_IGNORE
 typedef struct
 {
 	void *bytes;
@@ -79,7 +78,6 @@ OSStatus PXALSoundLoaderFileSetSize(void *inClientData,
 @interface PXALSoundParser(Private)
 - (BOOL) loadAudioFromFileID:(AudioFileID)afID;
 @end
-/// @endcond
 
 @implementation PXALSoundParser
 

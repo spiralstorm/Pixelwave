@@ -41,7 +41,6 @@
 
 @interface PXInteractiveObject : PXDisplayObject
 {
-/// @cond DX_IGNORE
 @public
 	BOOL _touchEnabled;
 	BOOL _captureTouches;
@@ -57,15 +56,14 @@
 
 	PXLinkedList *touchList;
 	PXLinkedList *touchUpHistoryList;
-/// @endcond
 }
 
 /**
- *	Specifies whether the object can recieve touch events.
+ * Specifies whether the object can recieve touch events.
  */
 @property (nonatomic) BOOL touchEnabled;
 /**
- *	Specifies whether the object captures touch events.
+ * Specifies whether the object captures touch events.
  */
 @property (nonatomic) BOOL captureTouches;
 

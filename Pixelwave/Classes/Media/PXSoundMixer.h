@@ -41,11 +41,9 @@
 @class PXSoundListener;
 
 /**
- *	@ingroup Media
- *
- *	Specifies the distance model used when rendering 3D sounds to the speakers.
- *	
- *	@see PXSoundMixer#setDistanceModel:
+ * Specifies the distance model used when rendering 3D sounds to the speakers.
+ * 
+ * @see [PXSoundMixer setDistanceModel:]
  */
 typedef enum
 {
@@ -54,8 +52,7 @@ typedef enum
 	PXSoundMixerDistanceModel_Linear = 0,
 	/// The linear distance model means that the sound falls off in a
 	/// logarithmic fashion the further it is away from the listener. The
-	/// exponent is defined in <code>PXSoundChannel3D</code>.
-	/// @see PXSoundChannel3D
+	/// exponent is defined in #PXSoundChannel3D.
 	PXSoundMixerDistanceModel_Logarithmic
 } PXSoundMixerDistanceModel;
 

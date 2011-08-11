@@ -46,13 +46,10 @@
 #import "PXSoundModifier.h"
 
 /**
- *	@ingroup Parser
+ * A PXSoundParser takes the given data, and parses it into information needed
+ * to play the sound.
  *
- *	A PXSoundParser takes the given data, and parses it into information needed
- *	to play the sound.
- *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"sound.wav"];
  *	PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data];
  *	PXSound *sound = [soundParser newSound];
@@ -63,7 +60,6 @@
  *	[sound release];
  *	[soundParser release];
  *	[data release];
- *	@endcode
  */
 @implementation PXSoundParser
 
@@ -77,21 +73,17 @@
 }
 
 /**
- *	Makes a new sound parser given data, and parses it into information needed
- *	to play the sound. This version also stores the origin, in case you
- *	need/want it.
+ * Makes a new sound parser given data, and parses it into information needed
+ * to play the sound. This version also stores the origin, in case you
+ * need/want it.
  *
- *	@param data
- *		The loaded data.
- *	@param modifier
- *		A modifier is used to modify the loaded bytes, a backup is kept so can
- *		set the property to <code>nil</code> after getting a new sound, and
- *		still have your previously loaded data.
- *	@param origin
- *		The origin of the font.
+ * @param data The loaded data.
+ * @param modifier A modifier is used to modify the loaded bytes, a backup is kept so can
+ * set the property to <code>nil</code> after getting a new sound, and
+ * still have your previously loaded data.
+ * @param origin The origin of the font.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"sound.wav"];
  *	PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data
  *	                                                        modifier:[PXSoundModifiers soundModifierToMono]
@@ -106,7 +98,6 @@
  *	[sound release];
  *	[soundParser release];
  *	[data release];
- *	@endcode
  */
 - (id) initWithData:(NSData *)_data
 		   modifier:(id<PXSoundModifier>)_modifier
@@ -221,11 +212,10 @@
 }
 
 /**
- *	Creates a new PXSound object containing all information needed to play the
- *	sound.
+ * Creates a new PXSound object containing all information needed to play the
+ * sound.
  *
- *	@return
- *		The new PXSound object.
+ * @return The new PXSound object.
  */
 - (PXSound *)newSound
 {

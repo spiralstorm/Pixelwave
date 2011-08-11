@@ -56,84 +56,80 @@
 }
 
 /**
- *	The horizontal coordinate.
+ * The horizontal coordinate.
  *
- *	@b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float x;
 /**
- *	The vertical coordinate.
+ * The vertical coordinate.
  *
- *	@b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float y;
 /**
- *	The depth coordinate.
+ * The depth coordinate.
  *
- *	@b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float z;
 
 /**
- *	The horizontal coordinate change per second.
+ * The horizontal coordinate change per second.
  *
- *	@b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float velocityX;
 /**
- *	The vertical coordinate change per second.
+ * The vertical coordinate change per second.
  *
- *	@b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float velocityY;
 /**
- *	The depth coordinate change per second.
+ * The depth coordinate change per second.
  *
- *	@b Default: 0.0f
+ * **Default:** 0.0f
  */
 @property (nonatomic) float velocityZ;
 
 /**
- *	The reference for how the volume changes based on it's distance from the
- *	listener.
+ * The reference for how the volume changes based on it's distance from the
+ * listener.
  *
- *	If the distance model described in <code>PXSoundMixer</code> is set to
- *	<code>PXSoundMixerDistanceModel_Linear</code> then the
- *	<code>logarithmicExponent</code> is ignored and if a
- *	<code>PXSoundChannel</code> is further then the reference distance away from
- *	the listener, then the sound will not be heard.  Anywhere in between will be
- *	linearly distributed.  So if the <code>PXSoundChannel</code> is 70% of the
- *	reference distance away from the user, then the sound is played at 70%
- *	volume.
+ * If the distance model described in #PXSoundMixer is set to
+ * <code>PXSoundMixerDistanceModel_Linear</code> then the
+ * <code>logarithmicExponent</code> is ignored and if a
+ * #PXSoundChannel is further then the reference distance away from
+ * the listener, then the sound will not be heard. Anywhere in between will be
+ * linearly distributed. So if the #PXSoundChannel is 70% of the
+ * reference distance away from the user, then the sound is played at 70%
+ * volume.
  *
- *	If the distance model described in <code>PXSoundMixer</code> is set to
- *	<code>PXSoundMixerDistanceModel_Logarithmic</code> then the distance volume
- *	is calculated based on the following forumla:
- *	@code
+ * If the distance model described in #PXSoundMixer is set to
+ * <code>PXSoundMixerDistanceModel_Logarithmic</code> then the distance volume
+ * is calculated based on the following forumla:
  *	distanceVolume = (distance / referenceDistance) ^ (-logarithmicExponent)
- *	@endcode
  *
- *	The actual volume is computed using the following formula:
- *	@code
+ * The actual volume is computed using the following formula:
  *	playingVolume = volume * distanceVolume * [PXSoundMixer soundTransform].volume
- *	@endcode
  *
- *	@b Note: The reference distance can not be negative, the absolute value will
- *			be taken before use.
+ * **Default:** <code>[PXSoundMixer soundListener].defaultReferenceDistance</code>
  *
- *	@b Default: <code>[PXSoundMixer soundListener].defaultReferenceDistance</code>
+ * @warning The reference distance can not be negative, the absolute value will
+ * be taken before use.
  */
 @property (nonatomic) float referenceDistance;
 /**
- *	The exponent for the logarithmic distance model described in
- *	<code>PXSoundMixer</code>.  The exponent is ignored if the distance model is
- *	set to <code>PXSoundMixerDistanceModel_Linear</code>.  For the forumla used
- *	please see the <code>referenceDistance</code> description.
+ * The exponent for the logarithmic distance model described in
+ * #PXSoundMixer. The exponent is ignored if the distance model is
+ * set to <code>PXSoundMixerDistanceModel_Linear</code>.  For the forumla used
+ * please see the #referenceDistance description.
  *
- *	@b Note: The logarithmic exponent can not be negative, the absolute value
- *			will be taken before use.
+ * **Default:** <code>[PXSoundMixer soundListener].defaultLogarithmicExponent</code>
  *
- *	@b Default: <code>[PXSoundMixer soundListener].defaultLogarithmicExponent</code>
+ * @warning The logarithmic exponent can not be negative, the absolute value
+ * will be taken before use.
  */
 @property (nonatomic) float logarithmicExponent;
 

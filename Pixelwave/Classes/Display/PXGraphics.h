@@ -43,17 +43,15 @@
 // TODO Later: Redo graphics class to use triangulation.
 
 /**
- *	@ingroup Display
+ * A PXGraphics object represents a way of defining and drawing vector shapes.
+ * Both #PXSprite and #PXShape have #PXGraphics objects that can be
+ * used for drawing.
  *
- *	A PXGraphics object represents a way of defining and drawing vector shapes.
- *	Both PXSprite and PXShape have <code>graphics</code> objects that can be
- *	used for drawing.
+ * <b>IMPORTANT NOTE</b>: This is not the final version of the Graphics class,
+ * much more functionality will be added in a later version.
  *
- *	<b>IMPORTANT NOTE</b>: This is not the final version of the Graphics class,
- *	much more functionality will be added in a later version.
- *
- *	@see PXSprite
- *	@see PXShape
+ * @see PXSprite
+ * @see PXShape
  */
 @interface PXGraphics : NSObject
 {
@@ -64,10 +62,8 @@
 
 	float currentX;
 	float currentY;
-/// @cond DX_IGNORE
 @private
 	int currentGroupType;
-/// @endcond
 }
 
 //-- ScriptName: beginFill
@@ -110,7 +106,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXGraphics(PrivateButPublic)
 - (void) _lineToX:(float)x y:(float)y;
 - (void) _renderGL;
@@ -118,4 +113,3 @@
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float) y;
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float) y shapeFlag:(BOOL) shapeFlag;
 @end
-/// @endcond

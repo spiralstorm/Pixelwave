@@ -41,29 +41,27 @@
 
 @interface PXColorTransform : NSObject <NSCopying, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @private
 	float redMultiplier;
 	float greenMultiplier;
 	float blueMultiplier;
 	float alphaMultiplier;
-/// @endcond
 }
 
 /**
- *	The red multiplier value ranging between 0.0f and 1.0f.
+ * The red multiplier value ranging between 0.0f and 1.0f.
  */
 @property (nonatomic, assign) float redMultiplier;
 /**
- *	The green multiplier value ranging between 0.0f and 1.0f.
+ * The green multiplier value ranging between 0.0f and 1.0f.
  */
 @property (nonatomic, assign) float greenMultiplier;
 /**
- *	The blue multiplier value ranging between 0.0f and 1.0f.
+ * The blue multiplier value ranging between 0.0f and 1.0f.
  */
 @property (nonatomic, assign) float blueMultiplier;
 /**
- *	The alpha multiplier value ranging between 0.0f and 1.0f.
+ * The alpha multiplier value ranging between 0.0f and 1.0f.
  */
 @property (nonatomic, assign) float alphaMultiplier;
 

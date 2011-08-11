@@ -49,50 +49,46 @@
 
 id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 
-/// @cond DX_IGNORE
 @interface PXTextureLoader(Private)
 - (id) initWithContentsOfFile:(NSString *)path
 						orURL:(NSURL *)url
 					modifier:(id<PXTextureModifier>)_modifier;
 - (NSString *)updatePath:(NSString *)path;
 @end
-/// @endcond
 
 /**
- *	@ingroup Loaders
+ * A PXTextureLoader loads images synchronously and creates #PXTextureData
+ * objects.
  *
- *	A PXTextureLoader loads images synchronously and creates PXTextureData
- *	objects.
+ * Once instantiated with a valid file path, objects of the #PXTextureLoader
+ * class hold a copy of the loaded data and can be used to generate
+ * PXTextureData instances.
  *
- *	Once instantiated with a valid file path, objects of the PXTextureLoader
- *	class hold a copy of the loaded data and can be used to generate
- *	PXTextureData instances.
+ * For most uses generating more than one #PXTextureData object is unnecessary
+ * as a single PXTextureData may be shared among many PXTexture display
+ * objects.
  *
- *	For most uses generating more than one PXTextureData object is unnecessary
- *	as a single PXTextureData may be shared among many PXTexture display
- *	objects.
+ * Once a PXTextureData instance has been created, the #PXTextureLoader instance
+ * may be safely deallocated by calling <code>release</code>.
+ * Since PXTextureLoader keeps a copy of the loaded data, it is
+ * advisable to release all unneeded instances as soon as a #PXTextureData
+ * object has been created in order to free up memory.
  *
- *	Once a PXTextureData instance has been created, the PXTextureLoader instance
- *	may be safely deallocated by calling <code>release</code>.
- *	Since PXTextureLoader keeps a copy of the loaded data, it is
- *	advisable to release all unneeded instances as soon as a PXTextureData
- *	object has been created in order to free up memory.
+ * The following image formats are supported natively:
+ * 
+ * - .tiff and .tif
+ * - .jpeg and .jpg
+ * - .bmp and .BMPf
+ * - .ico
+ * - .cur
+ * - .xmb
+ * - .png (uses libpng)
+ * - .pvr
+ * - .pvrtc
  *
- *	The following image formats are supported natively:
- *	- .tiff and .tif
- *	- .jpeg and .jpg
- *	- .bmp and .BMPf
- *	- .ico
- *	- .cur
- *	- .xmb
- *	- .png (uses libpng)
- *	- .pvr
- *	- .pvrtc
- *
- *	<b>Example</b>:
- *	The following code sample loads a png file and renders it to the screen:
- *	
- *	@code
+ * <b>Example</b>:
+ * The following code sample loads a png file and renders it to the screen:
+ * 
  *	// Create a loader object to load and parse the png from the application
  *	// bundle.
  *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"logo.png"];
@@ -111,24 +107,21 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *	// Add the display object to the display list so it can be rendered
  *	[self addChild:texture];
  *	[texture release];
- *	@endcode
  */
 @implementation PXTextureLoader
 
 #pragma mark Utility Initializers
 
 /**
- *	Creates a new PXTextureLoader instance containing the loaded image data.
- *	Returns <code>nil</code> if the file could not be found, or the image format
- *	isn't supported.
+ * Creates a new PXTextureLoader instance containing the loaded image data.
+ * Returns <code>nil</code> if the file could not be found, or the image format
+ * isn't supported.
  *
- *	@param path
- *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle. The path may also omit the file
- *		extension, and Pixelwave will try to find a valid image with that name.
+ * @param path The path of the image file to load. The file path may be absolute or
+ * relative to	the application bundle. The path may also omit the file
+ * extension, and Pixelwave will try to find a valid image with that name.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"image.png"];
  *	PXTextureData *textureData = [textureLoader newTextureData];
  *
@@ -139,28 +132,24 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *
  *	[textureData release];
  *	[textureLoader release];
- *	@endcode
  */
 - (id) initWithContentsOfFile:(NSString *)path
 {
 	return [self initWithContentsOfFile:path orURL:nil modifier:[PXTextureLoader defaultModifier]];
 }
 /**
- *	Creates a new PXTextureLoader instance containing the loaded image data.
- *	Returns <code>nil</code> if the file could not be found, or the image format
- *	isn't supported.
+ * Creates a new PXTextureLoader instance containing the loaded image data.
+ * Returns <code>nil</code> if the file could not be found, or the image format
+ * isn't supported.
  *
- *	@param path
- *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle. The path may also omit the file
- *		extension, and Pixelwave will try to find a valid image with that name.
- *	@param modifier
- *		A modifier is used to modify the loaded bytes, a backup is kept so can
- *		set this to <code>nil</code> after getting a new sound, and still have
- *		your previously loaded data.
+ * @param path The path of the image file to load. The file path may be absolute or
+ * relative to	the application bundle. The path may also omit the file
+ * extension, and Pixelwave will try to find a valid image with that name.
+ * @param modifier A modifier is used to modify the loaded bytes, a backup is kept so can
+ * set this to <code>nil</code> after getting a new sound, and still have
+ * your previously loaded data.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:@"image.png"
  *	                                                                        modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
  *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
@@ -174,7 +163,6 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *
  *	[textureData release];
  *	[textureLoader release];
- *	@endcode
  */
 - (id) initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)_modifier
 {
@@ -182,15 +170,13 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 }
 
 /**
- *	Creates a new PXTextureLoader instance containing the loaded image data.
- *	Returns <code>nil</code> if the file at the url could not be found, or the
- *	image format isn't supported.
+ * Creates a new PXTextureLoader instance containing the loaded image data.
+ * Returns <code>nil</code> if the file at the url could not be found, or the
+ * image format isn't supported.
  *
- *	@param url
- *		The url of the image to load.
+ * @param url The url of the image to load.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
  *	PXTextureData *textureData = [textureLoader newTextureData];
  *
@@ -201,26 +187,22 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *
  *	[textureData release];
  *	[textureLoader release];
- *	@endcode
  */
 - (id) initWithContentsOfURL:(NSURL *)url
 {
 	return [self initWithContentsOfFile:nil orURL:url modifier:[PXTextureLoader defaultModifier]];
 }
 /**
- *	Creates a new PXTextureLoader instance containing the loaded image data.
- *	Returns <code>nil</code> if the file at the url could not be found, or the
- *	image format isn't supported.
+ * Creates a new PXTextureLoader instance containing the loaded image data.
+ * Returns <code>nil</code> if the file at the url could not be found, or the
+ * image format isn't supported.
  *
- *	@param url
- *		The url of the image to load.
- *	@param modifier
- *		A modifier is used to modify the loaded bytes, a backup is kept so can
- *		set this to <code>nil</code> after getting a new sound, and still have
- *		your previously loaded data.
+ * @param url The url of the image to load.
+ * @param modifier A modifier is used to modify the loaded bytes, a backup is kept so can
+ * set this to <code>nil</code> after getting a new sound, and still have
+ * your previously loaded data.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]
  *	                                                                       modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
  *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
@@ -234,7 +216,6 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *
  *	[textureData release];
  *	[textureLoader release];
- *	@endcode
  */
 - (id) initWithContentsOfURL:(NSURL *)url modifier:(id<PXTextureModifier>)_modifier
 {
@@ -304,9 +285,9 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 }
 
 /**
- *	Use this method to change the automatic contentScaleFactor adjustment
- *	that happens when an image is loaded in. It is not advised to use this
- *	method unless you know what you're doing.
+ * Use this method to change the automatic contentScaleFactor adjustment
+ * that happens when an image is loaded in. It is not advised to use this
+ * method unless you know what you're doing.
  */
 - (void) setContentScaleFactor:(float)val
 {
@@ -324,10 +305,9 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 }
 
 /*
- *	Auto-completes the extension of the file if one wasn't provided.
- *	This method also checks for a file with the @2x extension in it and returns
- *	its name if it finds it. Otherwise it returns the original path.
- *
+ * Auto-completes the extension of the file if one wasn't provided.
+ * This method also checks for a file with the @2x extension in it and returns
+ * its name if it finds it. Otherwise it returns the original path.
  */
 - (NSString *)updatePath:(NSString *)path
 {
@@ -351,11 +331,10 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 }
 
 /**
- *	Creates a new PXTextureData object containing a copy of the loaded image
- *	data. Note that all returned copies must be released by the caller.
+ * Creates a new PXTextureData object containing a copy of the loaded image
+ * data. Note that all returned copies must be released by the caller.
  *
- *	@return
- *		The new texture data.
+ * @return The new texture data.
  */
 - (PXTextureData *)newTextureData
 {
@@ -365,10 +344,11 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 #pragma mark Utility Methods
 
 /**
- *	Given an image name (with an extension or not), this method tries to find a
- *	valid path for it. If it doesn't find an exact match to the fileName, it
- *	tries to find siblings with the same name and a supported extension.
- *	Returns nil if nothing was found.
+ * Given an image name (with an extension or not), this method tries to find a
+ * valid path for it.
+ * If it doesn't find an exact match to the fileName, it
+ * tries to find siblings with the same name and a supported extension.
+ * Returns <code>nil</code> if nothing was found.
  */
 + (NSString *)resolvePathForImageFile:(NSString *)fileName
 {
@@ -405,21 +385,18 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 //////////////////////
 
 /**
- *	Creates a PXTextureLoader instance containing the loaded image data. Returns
- *	<code>nil</code> if the file could not be found, or the image format isn't
- *	supported.
+ * Creates a PXTextureLoader instance containing the loaded image data. Returns
+ * <code>nil</code> if the file could not be found, or the image format isn't
+ * supported.
  *
- *	@param path
- *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle. The path may also omit the file
- *		extension, and Pixelwave will try to find a valid image with that name.
+ * @param path The path of the image file to load. The file path may be absolute or
+ * relative to	the application bundle. The path may also omit the file
+ * extension, and Pixelwave will try to find a valid image with that name.
  *
- *	@return
- *		The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXTextureLoader object.
  *
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"];
  *	PXTextureData *textureData = [textureLoader newTextureData];
  *
@@ -429,31 +406,26 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *	[texture release];
  *
  *	[textureData release];
- *	@endcode
  */
 + (PXTextureLoader *)textureLoaderWithContentsOfFile:(NSString *)path
 {
 	return [[[PXTextureLoader alloc] initWithContentsOfFile:path] autorelease];
 }
 /**
- *	Creates a PXTextureLoader instance containing the loaded image data. Returns
- *	<code>nil</code> if the file could not be found, or the image format isn't
- *	supported.
+ * Creates a PXTextureLoader instance containing the loaded image data. Returns
+ * <code>nil</code> if the file could not be found, or the image format isn't
+ * supported.
  *
- *	@param path
- *		The path of the image file to load. The file path may be absolute or
- *		relative to	the application bundle. The path may also omit the file
- *		extension, and Pixelwave will try to find a valid image with that name.
- *	@param modifier
- *		A modifier is used to modify the loaded bytes, a backup is kept so can
- *		set this to <code>nil</code> after getting a new sound, and still have
- *		your previously loaded data.
+ * @param path The path of the image file to load. The file path may be absolute or
+ * relative to	the application bundle. The path may also omit the file
+ * extension, and Pixelwave will try to find a valid image with that name.
+ * @param modifier A modifier is used to modify the loaded bytes, a backup is kept so can
+ * set this to <code>nil</code> after getting a new sound, and still have
+ * your previously loaded data.
  *
- *	@return
- *		The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXTextureLoader object.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"
  *	                                                                         modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
  *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
@@ -466,25 +438,21 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *	[texture release];
  *
  *	[textureData release];
- *	@endcode
  */
 + (PXTextureLoader *)textureLoaderWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
 	return [[[PXTextureLoader alloc] initWithContentsOfFile:path modifier:modifier] autorelease];
 }
 /**
- *	Creates a PXTextureLoader instance containing the loaded image data. Returns
- *	<code>nil</code> if the file at the url could not be found, or the image
- *	format isn't supported.
+ * Creates a PXTextureLoader instance containing the loaded image data. Returns
+ * <code>nil</code> if the file at the url could not be found, or the image
+ * format isn't supported.
  *
- *	@param url
- *		The url of the image to load.
+ * @param url The url of the image to load.
  *
- *	@return
- *		The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXTextureLoader object.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
  *	PXTextureData *textureData = [textureLoader newTextureData];
  *
@@ -494,29 +462,24 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *	[texture release];
  *
  *	[textureData release];
- *	@endcode
  */
 + (PXTextureLoader *)textureLoaderWithContentsOfURL:(NSURL *)url
 {
 	return [[[PXTextureLoader alloc] initWithContentsOfURL:url] autorelease];
 }
 /**
- *	Creates a PXTextureLoader instance containing the loaded image data. Returns
- *	<code>nil</code> if the file at the url could not be found, or the image
- *	format isn't supported.
+ * Creates a PXTextureLoader instance containing the loaded image data. Returns
+ * <code>nil</code> if the file at the url could not be found, or the image
+ * format isn't supported.
  *
- *	@param url
- *		The url of the image to load.
- *	@param modifier
- *		A modifier is used to modify the loaded bytes, a backup is kept so can
- *		set this to <code>nil</code> after getting a new sound, and still have
- *		your previously loaded data.
+ * @param url The url of the image to load.
+ * @param modifier A modifier is used to modify the loaded bytes, a backup is kept so can
+ * set this to <code>nil</code> after getting a new sound, and still have
+ * your previously loaded data.
  *
- *	@return
- *		The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXTextureLoader object.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]
  *	                                                                        modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]];
  *	// This texture data will be stored as a 5551 texture; as in, 5 bytes for
@@ -529,7 +492,6 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *	[texture release];
  *
  *	[textureData release];
- *	@endcode
  */
 + (PXTextureLoader *)textureLoaderWithContentsOfURL:(NSURL *)url modifier:(id<PXTextureModifier>)modifier
 {

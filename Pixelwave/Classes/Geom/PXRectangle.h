@@ -46,57 +46,55 @@
 
 @interface PXRectangle : NSObject <NSCopying, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @private
 	float x, y, width, height;
-/// @endcond
 }
 
 /**
- *	The <code>topLeft</code> corner's horizontal coordinate.
+ * The <code>topLeft</code> corner's horizontal coordinate.
  */
 @property (nonatomic, assign) float x;
 /**
- *	The <code>topLeft</code> corner's vertical coordinate.
+ * The <code>topLeft</code> corner's vertical coordinate.
  */
 @property (nonatomic, assign) float y;
 /**
- *	The width in pixels.
+ * The size of the rectangle along the x-axis.
  */
 @property (nonatomic, assign) float width;
 /**
- *	The height in pixels.
+ * The size of the rectangle along the y-acis.
  */
 @property (nonatomic, assign) float height;
 
 /**
- *	The <code>topLeft</code> corner's vertical coordinate.
+ * The <code>topLeft</code> corner's vertical coordinate.
  */
 @property (nonatomic, assign) float top;
 /**
- *	The <code>bottomRight</code> corner's vertical coordinate.
+ * The <code>bottomRight</code> corner's vertical coordinate.
  */
 @property (nonatomic, assign) float bottom;
 /**
- *	The <code>left</code> corner's horizontal coordinate.
+ * The <code>left</code> corner's horizontal coordinate.
  */
 @property (nonatomic, assign) float left;
 /**
- *	The <code>right</code> corner's horizontal coordinate.
+ * The <code>right</code> corner's horizontal coordinate.
  */
 @property (nonatomic, assign) float right;
 
 /**
- *	A point with the values of the <code>width</code> and <code>height</code>
- *	properties.
+ * A point with the values of the <code>width</code> and <code>height</code>
+ * properties.
  */
 @property (nonatomic, assign) PXPoint *size;
 /**
- *	A point with the values of the rectangle's bottom-right corner cordinates.
+ * A point with the values of the rectangle's bottom-right corner cordinates.
  */
 @property (nonatomic, assign) PXPoint *bottomRight;
 /**
- *	A point with the values of the rectangle's top-left corner cordinates.
+ * A point with the values of the rectangle's top-left corner cordinates.
  */
 @property (nonatomic, assign) PXPoint *topLeft;
 

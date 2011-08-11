@@ -1,0 +1,1 @@
+Articles and the official manual are also available at the [Documentation Center](http://www.pixelwave.org/docs)

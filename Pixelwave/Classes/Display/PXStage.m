@@ -48,31 +48,28 @@
 
 #import "PXExceptionUtils.h"
 
-/// @cond DX_IGNORE
 @interface PXStage (Private)
 - (void) onUnsettablePropertyAccess;
 @end
-/// @endcond
 
 /**
- *	@ingroup Display
+ * A special display object that represents the entire drawing surface of the Pixelwave engine
+ * and contains several global properties such as the screen size and
+ * orientation.
+ * 
+ * Display objects should never be added directly to the stage. instead they
+ * should be added to the root display object.
  *
- *	The PXStage Represents the entire drawing surface of the Pixelwave engine
- *	and contains several global properties such as the screen size and
- *	orientation.
- *	
- *	Display objects should never be added directly to the stage. instead they
- *	should be added to the root display object.
+ * An instace of the PXStage class is automatically created when the display
+ * list is created by a PXView object.
  *
- *	An instace of the PXStage class is automatically created when the display
- *	list is created by a PXView object. The PXStage class should never be
- *	instantiated by the user.
+ * @warning The PXStage class should never be instantiated by the user.
+ * To access the global stage object, the [PXDisplayObject stage] property may be
+ * read on any display object one the main display list. Alternatively you can use
+ * the [PXStage mainStage] method.
  *
- *	To access the global stage object, the PXDisplayObject#stage property may be
- *	read on any display object one the main display list.
- *
- *	@see PXDisplayObject#stage
- *	@see PXDisplayObject#root
+ * @see [PXDisplayObject stage]
+ * @see [PXDisplayObject root]
  */
 @implementation PXStage
 

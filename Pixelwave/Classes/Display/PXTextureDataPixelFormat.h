@@ -41,9 +41,7 @@
 #define _PX_TEXTURE_DATA_PIXEL_FORMAT_H_
 
 /**
- *	@ingroup Display
- *
- *	The possible pixel formats for a PXTextureData object.
+ * The possible pixel formats for a PXTextureData object.
  */
 typedef enum
 {

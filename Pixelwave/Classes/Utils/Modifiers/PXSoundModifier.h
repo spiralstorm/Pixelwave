@@ -40,12 +40,10 @@
 #include "PXParsedSoundData.h"
 
 /**
- *	@ingroup Modifiers
- *
- *	The protocol required to make a new sound modifier.
+ * The protocol required to make a new sound modifier.
  */
 @protocol PXSoundModifier<NSObject>
 @required
-// Return a new textureInfo, do not modify the given one.
+/// Return a new textureInfo, do not modify the given one.
 - (PXParsedSoundData *)newModifiedSoundDataFromData:(PXParsedSoundData *)soundData;
 @end

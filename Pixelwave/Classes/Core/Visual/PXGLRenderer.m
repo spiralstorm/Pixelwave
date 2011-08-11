@@ -128,7 +128,7 @@ GLuint PXGLBufferIndexID  = 0;
 #endif
 
 /*
- *	This method initializes the buffer arrays.
+ * This method initializes the buffer arrays.
  */
 void PXGLRendererInit( )
 {
@@ -158,7 +158,7 @@ void PXGLRendererInit( )
 }
 
 /*
- *	This method frees the memory used by the buffers.
+ * This method frees the memory used by the buffers.
  */
 void PXGLRendererDealloc( )
 {
@@ -188,13 +188,13 @@ void PXGLRendererDealloc( )
 }
 
 /*
- *	This method sets the draw mode, switching modes will cause the buffer to be
- *	flushed.  Line loops and strips will also cause the buffer to be flushed, as
- *	they can not be combined with anything else.
+ * This method sets the draw mode, switching modes will cause the buffer to be
+ * flushed.  Line loops and strips will also cause the buffer to be flushed, as
+ * they can not be combined with anything else.
  *
- *	@param GLenum mode - Specifies what kind of primitives to render. Symbolic
- *	constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES,
- *	GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, and GL_TRIANGLES are accepted.
+ * @param GLenum mode - Specifies what kind of primitives to render. Symbolic
+ * constants GL_POINTS, GL_LINE_STRIP, GL_LINE_LOOP, GL_LINES,
+ * GL_TRIANGLE_STRIP, GL_TRIANGLE_FAN, and GL_TRIANGLES are accepted.
  */
 void PXGLSetDrawMode(GLenum mode)
 {
@@ -208,15 +208,15 @@ void PXGLSetDrawMode(GLenum mode)
 }
 
 /*
- *	This method checks how frequently the color changes, which deterimines later
- *	whether or not GLColor4ub or color GLColorPointer should be used.  One
- *	should check if bufferVertexColorState is not equal to
- *	PX_GL_VERTEX_COLOR_MULTIPLE prior to calling this function.
+ * This method checks how frequently the color changes, which deterimines later
+ * whether or not GLColor4ub or color GLColorPointer should be used.  One
+ * should check if bufferVertexColorState is not equal to
+ * PX_GL_VERTEX_COLOR_MULTIPLE prior to calling this function.
  *
- *	@param GLubyte red   - The red value for the color [0,255]
- *	@param GLubyte green - The green value for the color [0,255]
- *	@param GLubyte blue  - The blue value for the color [0,255]
- *	@param GLubyte alpha - The alpha value for the color [0,255]
+ * @param GLubyte red   - The red value for the color [0,255]
+ * @param GLubyte green - The green value for the color [0,255]
+ * @param GLubyte blue  - The blue value for the color [0,255]
+ * @param GLubyte alpha - The alpha value for the color [0,255]
  */
 void PXGLSetBufferLastVertexColor(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha)
 {
@@ -240,7 +240,7 @@ void PXGLSetBufferLastVertexColor(GLubyte red, GLubyte green, GLubyte blue, GLub
 }
 
 /*
- *	This method enables the color array if it is not enabeled already.
+ * This method enables the color array if it is not enabeled already.
  */
 void PXGLEnableColorArray( )
 {
@@ -255,7 +255,7 @@ void PXGLEnableColorArray( )
 }
 
 /*
- *	This method disables the color array if it is not disabled already.
+ * This method disables the color array if it is not disabled already.
  */
 void PXGLDisableColorArray( )
 {
@@ -270,9 +270,9 @@ void PXGLDisableColorArray( )
 }
 
 /*
- *	This method simply returns the current size that the vertex buffer is at.
+ * This method simply returns the current size that the vertex buffer is at.
  *
- *	@return - the current size that the vertex buffer is at.
+ * @return - the current size that the vertex buffer is at.
  */
 unsigned PXGLGetCurrentVertexIndex( )
 {
@@ -280,10 +280,10 @@ unsigned PXGLGetCurrentVertexIndex( )
 }
 
 /*
- *	This method sets the current vertex size (aka. its current indexed
- *	position).
+ * This method sets the current vertex size (aka. its current indexed
+ * position).
  *
- *	@param unsigned index - The current indexed position.
+ * @param unsigned index - The current indexed position.
  */
 void PXGLSetCurrentVertexIndex(unsigned index)
 {
@@ -296,9 +296,9 @@ void PXGLSetCurrentVertexIndex(unsigned index)
 }
 
 /*
- *	This method simply returns the current size that the index buffer is at.
+ * This method simply returns the current size that the index buffer is at.
  *
- *	@return - the current size that the index buffer is at.
+ * @return - the current size that the index buffer is at.
  */
 unsigned PXGLGetCurrentIndex( )
 {
@@ -306,10 +306,10 @@ unsigned PXGLGetCurrentIndex( )
 }
 
 /*
- *	This method sets the current index buffer size (aka. its current indexed
- *	position).
+ * This method sets the current index buffer size (aka. its current indexed
+ * position).
  *
- *	@param unsigned index - The current indexed position.
+ * @param unsigned index - The current indexed position.
  */
 void PXGLSetCurrentIndex(unsigned index)
 {
@@ -322,10 +322,10 @@ void PXGLSetCurrentIndex(unsigned index)
 }
 
 /*
- *	This method simply returns the current size that the point size buffer is
- *	at.
+ * This method simply returns the current size that the point size buffer is
+ * at.
  *
- *	@return - the current size that the point size buffer is at.
+ * @return - the current size that the point size buffer is at.
  */
 unsigned PXGLGetCurrentPointSizeIndex( )
 {
@@ -333,10 +333,10 @@ unsigned PXGLGetCurrentPointSizeIndex( )
 }
 
 /*
- *	This method sets the current point size buffer size (aka. its current
- *	indexed position).
+ * This method sets the current point size buffer size (aka. its current
+ * indexed position).
  *
- *	@param unsigned index - The current indexed position.
+ * @param unsigned index - The current indexed position.
  */
 void PXGLSetCurrentPointSizeIndex(unsigned index)
 {
@@ -349,10 +349,10 @@ void PXGLSetCurrentPointSizeIndex(unsigned index)
 }
 
 /*
- *	This method returns a pointer to the next vertex in the buffer.  If the next
- *	vertex is outside of the buffer's range, then the buffer doubles in size.
+ * This method returns a pointer to the next vertex in the buffer.  If the next
+ * vertex is outside of the buffer's range, then the buffer doubles in size.
  *
- *	@return - A pointer to the next vertex in the buffer.
+ * @return - A pointer to the next vertex in the buffer.
  */
 PXGLColoredTextureVertex *PXGLNextVertex( )
 {
@@ -376,10 +376,10 @@ PXGLColoredTextureVertex *PXGLNextVertex( )
 }
 
 /*
- *	This method returns a pointer to the vertex at a given index.  If the index
- *	is out of bounds then an assertion is thrown (in debug mode).
+ * This method returns a pointer to the vertex at a given index.  If the index
+ * is out of bounds then an assertion is thrown (in debug mode).
  *
- *	@return - A pointer to the vertex at the given index.
+ * @return - A pointer to the vertex at the given index.
  */
 PXGLColoredTextureVertex *PXGLGetVertexAt(unsigned index)
 {
@@ -389,10 +389,10 @@ PXGLColoredTextureVertex *PXGLGetVertexAt(unsigned index)
 }
 
 /*
- *	This method returns a pointer to the current vertex.  If the buffer is empty
- *	this will assert so (in debug mode).
+ * This method returns a pointer to the current vertex.  If the buffer is empty
+ * this will assert so (in debug mode).
  *
- *	@return - A pointer to the current vertex.
+ * @return - A pointer to the current vertex.
  */
 PXGLColoredTextureVertex *PXGLCurrentVertex( )
 {
@@ -402,10 +402,10 @@ PXGLColoredTextureVertex *PXGLCurrentVertex( )
 }
 
 /*
- *	This method returns a pointer to the next index in the buffer.  If the next
- *	index is outside of the buffer's range, then the buffer doubles in size.
+ * This method returns a pointer to the next index in the buffer.  If the next
+ * index is outside of the buffer's range, then the buffer doubles in size.
  *
- *	@return - A pointer to the next index in the buffer.
+ * @return - A pointer to the next index in the buffer.
  */
 GLushort *PXGLNextIndex( )
 {
@@ -428,10 +428,10 @@ GLushort *PXGLNextIndex( )
 }
 
 /*
- *	This method returns a pointer to the index at a given index.  If the index
- *	is out of bounds then an assertion is thrown (in debug mode).
+ * This method returns a pointer to the index at a given index.  If the index
+ * is out of bounds then an assertion is thrown (in debug mode).
  *
- *	@return - A pointer to the index at the given index.
+ * @return - A pointer to the index at the given index.
  */
 GLushort *PXGLGetIndexAt(unsigned index)
 {
@@ -441,10 +441,10 @@ GLushort *PXGLGetIndexAt(unsigned index)
 }
 
 /*
- *	This method returns a pointer to the current index.  If the buffer is empty
- *	this will assert so (in debug mode).
+ * This method returns a pointer to the current index.  If the buffer is empty
+ * this will assert so (in debug mode).
  *
- *	@return - A pointer to the current index.
+ * @return - A pointer to the current index.
  */
 GLushort *PXGLCurrentIndex( )
 {
@@ -454,11 +454,11 @@ GLushort *PXGLCurrentIndex( )
 }
 
 /*
- *	This method returns a pointer to the next point size in the buffer.  If the
- *	next point size  is outside of the buffer's range, then the buffer doubles
- *	in size.
+ * This method returns a pointer to the next point size in the buffer.  If the
+ * next point size  is outside of the buffer's range, then the buffer doubles
+ * in size.
  *
- *	@return - A pointer to the next point size in the buffer.
+ * @return - A pointer to the next point size in the buffer.
  */
 GLfloat *PXGLNextPointSize( )
 {
@@ -482,10 +482,10 @@ GLfloat *PXGLNextPointSize( )
 }
 
 /*
- *	This method returns a pointer to the point size at a given index.  If the
- *	index is out of bounds then an assertion is thrown (in debug mode).
+ * This method returns a pointer to the point size at a given index.  If the
+ * index is out of bounds then an assertion is thrown (in debug mode).
  *
- *	@return - A pointer to the point size at the given index.
+ * @return - A pointer to the point size at the given index.
  */
 GLfloat *PXGLGetPointSizeAt(unsigned index)
 {
@@ -495,10 +495,10 @@ GLfloat *PXGLGetPointSizeAt(unsigned index)
 }
 
 /*
- *	This method returns a pointer to the current point size.  If the buffer is
- *	empty this will assert so (in debug mode).
+ * This method returns a pointer to the current point size.  If the buffer is
+ * empty this will assert so (in debug mode).
  *
- *	@return - A pointer to the current point size.
+ * @return - A pointer to the current point size.
  */
 GLfloat *PXGLCurrentPointSize( )
 {
@@ -508,16 +508,16 @@ GLfloat *PXGLCurrentPointSize( )
 }
 
 /*
- *	This method runs through all of the pre-render commands... which as of now
- *	none exist.
+ * This method runs through all of the pre-render commands... which as of now
+ * none exist.
  */
 void PXGLRendererPreRender( )
 {
 }
 
 /*
- *	This method flushes the buffer, incase anything is left in it at the end of
- *	a render cycle.
+ * This method flushes the buffer, incase anything is left in it at the end of
+ * a render cycle.
  */
 void PXGLRendererPostRender( )
 {
@@ -529,9 +529,9 @@ void PXGLRendererPostRender( )
 }
 
 /*
- *	This method consolidates the buffers, meaning if any of the buffers are less
- *	then 1/4 of their max size, then it will reduce the size of the buffer to
- *	half of it's normal size.
+ * This method consolidates the buffers, meaning if any of the buffers are less
+ * then 1/4 of their max size, then it will reduce the size of the buffer to
+ * half of it's normal size.
  */
 void PXGLConsolidateBuffer( )
 {
@@ -614,9 +614,9 @@ PXInline void PXGLDraw()
 }
 
 /*
- *	This method flushes the buffer to GL, meaning that it takes whatever the
- *	buffer status is right now, and calls the appropriate methods in gl to
- *	display them.
+ * This method flushes the buffer to GL, meaning that it takes whatever the
+ * buffer status is right now, and calls the appropriate methods in gl to
+ * display them.
  */
 void PXGLFlushBufferToGL( )
 {
@@ -799,7 +799,7 @@ void PXGLFlushBufferToGL( )
 }
 
 /*
- *	This method flushes the buffer, if the buffer is empty then nothing occurs.
+ * This method flushes the buffer, if the buffer is empty then nothing occurs.
  */
 void PXGLFlushBuffer( )
 {

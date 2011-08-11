@@ -40,10 +40,8 @@
 #import "PXRangeException.h"
 
 /**
- *	@ingroup TopLevel
- *
- *	Represents an exception invloving a passed value being out of range such as
- *	an out of bound index.
+ * Represents an exception invloving a passed value being out of range such as
+ * an out of bound index.
  */
 @implementation PXRangeException
 

@@ -43,9 +43,6 @@
 
 #include "PXTouchEngine.h"
 
-/**
- *	@internal
- */
 @interface PXEngine : NSObject
 {
 @private
@@ -509,7 +506,7 @@ float PXEngineGetRenderFrameRate()
 }
 
 /**
- *	Plays and pauses the engine
+ * Plays and pauses the engine
  */
 void PXEngineSetRunning(bool val)
 {
@@ -570,8 +567,8 @@ void PXEngineDispatchFrameEvents()
 }
 
 /**
- *	The main rendering function. This renders the entire display list, starting
- *	at the stage, to the screen.
+ * The main rendering function. This renders the entire display list, starting
+ * at the stage, to the screen.
  */
 void PXEngineRender()
 {
@@ -1276,8 +1273,8 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 
 /**
  * Reads the data from the texture and always returns it in RGBA8888 format.
- * the length of the array must be '4 bytes * number of pixels'
- * Specified coordinates are in PIXELS
+ * the length of the array must be '4 bytes * number of pixels'.
+ * Specified coordinates are in PIXELS (not points).
  */
 // TODO Later: Allow to return pixel data in other formats (RGB, LA88, A8, etc).
 // TODO: Look into if this could be done by switching the GLContext instead
@@ -1321,7 +1318,7 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 }
 
 /**
- *	The size of the view in PIXELS
+ * The size of the view in PIXELS
  */
 CGSize PXEngineGetScreenBufferSize()
 {
@@ -1334,10 +1331,10 @@ CGSize PXEngineGetScreenBufferSize()
 	return pixelSize;
 }
 
-/**
- *	@param w The width of the area to grab, in pixels
- *	@param h The height of the area to grab, in pixels
- *	@param pixels An array of size w * h * 4.
+/*
+ * @param w The width of the area to grab, in pixels
+ * @param h The height of the area to grab, in pixels
+ * @param pixels An array of size w * h * 4.
  */
 void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pixels)
 {

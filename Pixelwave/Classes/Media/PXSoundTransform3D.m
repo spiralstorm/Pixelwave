@@ -41,22 +41,18 @@
 #import "PXSoundEngine.h"
 
 /**
- *	@ingroup Media
+ * Represents the volume, pitch, position, velocity
+ * and distance formula for a 3D-ready #PXSoundChannel.
  *
- *	A PXSoundTransform3D object represents the volume, pitch, position, velocity
- *	and distance formula for a 3D-ready <code>PXSoundChannel</code>.
- *
- *	The following code creates a sound transform with 120% volume and 80%
- *	pitch:
- *	@code
+ * The following code creates a sound transform with 120% volume and 80%
+ * pitch:
  *	PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
  *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
  *	// the defaults described in sound listener.  To access the sound listener
  *	// use [PXSoundMixer soundListener].
- *	@endcode
  *
- *	@see PXSoundChannel, PXSoundMixer, PXSoundListener
+ * @see PXSoundChannel, PXSoundMixer, PXSoundListener
  */
 @implementation PXSoundTransform3D
 
@@ -73,24 +69,20 @@
 }
 
 /**
- *	Creates a new 3D sound transform with the given <code>volume</code> and
- *	<code>pitch</code>.
+ * Creates a new 3D sound transform with the given <code>volume</code> and
+ * <code>pitch</code>.
  *
- *	@param volume
- *		The amplitude of the sound.
- *	@param pitch
- *		The frequency of the sound.
+ * @param volume The amplitude of the sound.
+ * @param pitch The frequency of the sound.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
  *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
- *	// the defaults described in sound listener.  To access the sound listener
+ *	// the defaults described in sound listener. To access the sound listener
  *	// use [PXSoundMixer soundListener].
- *	@endcode
  *
- *	@see PXSoundChannel, PXSoundMixer, PXSoundListener
+ * @see PXSoundChannel, PXSoundMixer, PXSoundListener
  */
 - (id) initWithVolume:(float)_volume pitch:(float)_pitch
 {
@@ -169,22 +161,17 @@
 #pragma mark Methods
 
 /**
- *	Sets the position to (x, y, z).
+ * Sets the position to (x, y, z).
  *
- *	@param x
- *		The horizontal coordinate.
- *	@param y
- *		The vertical coordinate.
- *	@param z
- *		The depth coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
+ * @param z The depth coordinate.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSoundTransform3D *transform = [PXSoundTransform3D new];
  *	// transform will have a volume of 1.0f and pitch of 1.0f
  *	[transform setX:5.0f y:7.0f z:0.0f];
  *	// transform's position will now be (5.0f, 7.0f, 0.0f)
- *	@endcode
  */
 - (void) setX:(float)_x y:(float)_y z:(float)_z
 {
@@ -193,22 +180,17 @@
 	z = _z;
 }
 /**
- *	Sets the velocity to (x, y, z).
+ * Sets the velocity to (x, y, z).
  *
- *	@param x
- *		The horizontal coordinate change per second.
- *	@param y
- *		The vertical coordinate change per second.
- *	@param z
- *		The depth coordinate change per second.
+ * @param x The horizontal coordinate change per second.
+ * @param y The vertical coordinate change per second.
+ * @param z The depth coordinate change per second.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSoundTransform3D *transform = [PXSoundTransform3D new];
  *	// transform will have a volume of 1.0f and pitch of 1.0f
  *	[transform setVelocityX:-10.0f y:4.1f z:0.0f];
  *	// transform's velocity will now be (-10.0f, 4.1f, 0.0f)
- *	@endcode
  */
 - (void) setVelocityX:(float)_x y:(float)_y z:(float)_z
 {
@@ -221,27 +203,22 @@
 #pragma mark Static Methods
 
 /**
- *	Creates a 3D sound transform with the given <code>volume</code> and
- *	<code>pitch</code>.
+ * Creates a 3D sound transform with the given <code>volume</code> and
+ * <code>pitch</code>.
  *
- *	@param volume
- *		The amplitude of the sound.
- *	@param pitch
- *		The frequency of the sound.
+ * @param volume The amplitude of the sound.
+ * @param pitch The frequency of the sound.
  *
- *	@return
- *		The created sound transform.
+ * @return The created sound transform.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSoundTransform3D *transform = [PXSoundTransform3D soundTransformWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
  *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
  *	// the defaults described in sound listener.  To access the sound listener
  *	// use [PXSoundMixer soundListener].
- *	@endcode
  *
- *	@see PXSoundChannel, PXSoundMixer, PXSoundListener
+ * @see PXSoundChannel, PXSoundMixer, PXSoundListener
  */
 + (PXSoundTransform3D *)soundTransform3DWithVolume:(float)volume pitch:(float)pitch
 {
