@@ -53,16 +53,18 @@ typedef enum
 @protected
 	PXDisplayObject *downState;
 	PXDisplayObject *upState;
-	id<NSObject> hitTestState;
+	PXDisplayObject *hitTestState;
 
 	_PXSimpleButtonVisibleState visibleState;
 
 	PXLinkedList *listOfTouches;
-
-	CGRect autoExpandRect;
-	float autoExpandSize;
-
+	
 	BOOL enabled;
+	
+	BOOL isPressed;
+	
+	BOOL hitAreaIsRect;
+	CGRect hitAreaRect;
 @private
 	PXEventListener *pxSBOnTouchDown;
 	PXEventListener *pxSBOnTouchUp;

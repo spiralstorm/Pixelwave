@@ -52,8 +52,10 @@
 @interface PXSimpleButton(Private)
 - (void) pxSimpleButtonOnTouchDown:(PXTouchEvent *)event;
 - (void) pxSimpleButtonOnTouchUp:(PXTouchEvent *)event;
-- (void) pxSimpleBuuttonOnTouchMove:(PXTouchEvent *)event;
+- (void) pxSimpleButtonOnTouchMove:(PXTouchEvent *)event;
 - (void) pxSimpleButtonOnTouchCancel:(PXTouchEvent *)event;
+
+- (CGRect) currentHitAreaRect;
 @end
 /// @endcond
 
@@ -88,7 +90,6 @@
 
 @synthesize downState;
 @synthesize upState;
-@synthesize hitTestState;
 @synthesize enabled;
 @synthesize autoExpandSize;
 
@@ -143,24 +144,18 @@
 {
 	// Create a rectangle of the size of the 'upState' or the 'downState' if the
 	// 'upState' is not provided.
-	PXRectangle *_hitTestState = nil;
 
+	hitAreaIsRect = YES;
+	
+	PXRectangle *bounds = nil;
 	PXDisplayObject *checkState = (_upState == nil) ? _downState : _upState;
 
 	if (checkState)
 	{
-		CGRect rect = CGRectZero;
-		[checkState _measureGlobalBounds:&rect];
-
-		if (CGRectIsEmpty(rect) == false)
-		{
-			_hitTestState = [[PXRectangle alloc] initWithX:rect.origin.x y:rect.origin.y width:rect.size.width height:rect.size.height];
-		}
+		bounds = [checkState boundsWithCoordinateSpace:checkState];
 	}
 
-	id retVal = [self initWithUpState:_upState downState:_downState hitTestState:_hitTestState];
-	[_hitTestState release];
-	return retVal;
+	return [self initWithUpState:_upState downState:_downState hitTestState:bounds];
 }
 
 /**
@@ -213,9 +208,9 @@
 
 	if (self)
 	{
-		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
+		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
 
-		autoExpandSize = 9.0f;
+		autoExpandSize = 75.0f;
 
 		downState = nil;
 		upState = nil;
@@ -229,7 +224,7 @@
 
 		pxSBOnTouchDown   = [PXListener(pxSimpleButtonOnTouchDown:)   retain];
 		pxSBOnTouchUp     = [PXListener(pxSimpleButtonOnTouchUp:)     retain];
-		pxSBOnTouchMove   = [PXListener(pxSimpleBuuttonOnTouchMove:)  retain];
+		pxSBOnTouchMove   = [PXListener(pxSimpleButtonOnTouchMove:)  retain];
 		pxSBOnTouchCancel = [PXListener(pxSimpleButtonOnTouchCancel:) retain];
 
 		// Don't set any states until after the listeners are made.
@@ -259,26 +254,36 @@
 
 - (void) setHitTestState:(id<NSObject>)newState
 {
-	if (hitTestState != nil)
+	if (hitTestState != nil || hitAreaIsRect)
 	{
 		[self removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSBOnTouchDown];
 		[self removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSBOnTouchUp];
 		[self removeEventListenerOfType:PXTouchEvent_TouchMove   listener:pxSBOnTouchMove];
 		[self removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxSBOnTouchCancel];
 	}
-
-	if ([newState isKindOfClass:[PXRectangle class]] == NO &&
-		[newState isKindOfClass:[PXDisplayObject class]] == NO)
-	{
-		PXDebugLog(@"PXSimpleButton ERROR: hitTestState MUST be either a PXRectangle or PXDisplayObject\n");
-		newState = nil;
-	}
-
+	
 	[newState retain];
 	[hitTestState release];
-	hitTestState = newState;
-
-	if (hitTestState != nil)
+	hitTestState = nil;
+	
+	hitAreaIsRect = NO;
+	
+	if([newState isKindOfClass:[PXDisplayObject class]])
+	{
+		hitTestState = [(PXDisplayObject *)newState retain];
+	}
+	else if([newState isKindOfClass:[PXRectangle class]])
+	{
+		hitAreaIsRect = YES;
+		hitAreaRect = PXRectangleToCGRect((PXRectangle *)newState);
+	}else if(newState != nil)
+	{
+		PXDebugLog(@"PXSimpleButton ERROR: hitTestState MUST be either a PXRectangle or PXDisplayObject\n");
+	}
+	
+	[newState release];
+	
+	if (hitTestState != nil || hitAreaIsRect)
 	{
 		[self addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSBOnTouchDown];
 		[self addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSBOnTouchUp];
@@ -287,32 +292,34 @@
 	}
 }
 
+- (id<NSObject>) hitTestState
+{
+	if(hitAreaIsRect)
+	{
+		return PXRectangleFromCGRect(hitAreaRect);
+	}
+	else
+	{
+		return hitTestState;
+	}
+}
+
 - (void) pxSimpleButtonOnTouchDown:(PXTouchEvent *)event
 {
 	if (event.eventPhase != PXEventPhase_Target)
 		return;
 
-	if ([hitTestState isKindOfClass:[PXRectangle class]] == YES)
-	{
-		PXRectangle *rect = (PXRectangle *)hitTestState;
-
-		float doubleExpandSize = autoExpandSize * 2.0f;
-
-		autoExpandRect = CGRectMake(rect.x - autoExpandSize,
-									rect.y - autoExpandSize,
-									rect.width  + doubleExpandSize,
-									rect.height + doubleExpandSize);
-	}
-
 	[listOfTouches addObject:event.nativeTouch];
 
 	visibleState = _PXSimpleButtonVisibleState_Down;
+	
+	isPressed = YES;
 }
 - (void) pxSimpleButtonOnTouchUp:(PXTouchEvent *)event
 {
 	[self pxSimpleButtonOnTouchCancel:event];
 }
-- (void) pxSimpleBuuttonOnTouchMove:(PXTouchEvent *)event
+- (void) pxSimpleButtonOnTouchMove:(PXTouchEvent *)event
 {
 	// Checking the auto expand rect is automatically done
 	if (event.insideTarget == YES)
@@ -331,62 +338,49 @@
 	if ([listOfTouches count] == 0)
 	{
 		visibleState = _PXSimpleButtonVisibleState_Up;
-
-		autoExpandRect = CGRectZero;
 	}
+	
+	isPressed = NO;
 }
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
 	*retBounds = CGRectZero;
 
-	// If a hit test exists. . .
-	if (hitTestState)
-	{
-		if ([hitTestState isKindOfClass:[PXDisplayObject class]] == YES)
-		{
-			// Ask the hit test for the GLOBAL bounds, because it needs to take
-			// any children it may have into affect.
-			[((PXDisplayObject *)hitTestState) _measureGlobalBounds:retBounds];
-		}
-		else
-		{
-			// If you haven't pressed down, the autoExpandRect will be empty.
-			if (CGRectIsEmpty(autoExpandRect))
-			{
-				PXRectangle *rect = (PXRectangle *)hitTestState;
-				*retBounds = CGRectMake(rect.x, rect.y, rect.width, rect.height);
-			}
-			else
-			{
-				*retBounds = autoExpandRect;
-			}
-		}
-	}
+	if(hitAreaIsRect){
+		*retBounds = [self currentHitAreaRect];
+	}else if(hitTestState){
+		// Ask the hit test for the GLOBAL bounds, because it needs to take
+		// any children it may have into affect.
+		[hitTestState _measureGlobalBounds:retBounds];
+	}	
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
-	if (hitTestState)
+	if(hitAreaIsRect)
 	{
-		if ([hitTestState isKindOfClass:[PXDisplayObject class]])
-		{
-			return [((PXDisplayObject *)hitTestState) _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag];
-		}
-		else
-		{
-			if (CGRectIsEmpty(autoExpandRect))
-			{
-				return [((PXRectangle *)hitTestState) containsX:x y:y];
-			}
-			else
-			{
-				return CGRectContainsPoint(autoExpandRect, CGPointMake(x, y));
-			}
-		}
+		return CGRectContainsPoint([self currentHitAreaRect], CGPointMake(x, y));
 	}
-
+	else if(hitTestState)
+	{
+		return [hitTestState _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag];
+	}
+	
 	return NO;
+}
+
+- (CGRect) currentHitAreaRect
+{
+	if(isPressed)
+	{
+		float amount = -autoExpandSize;
+		return CGRectInset(hitAreaRect, amount, amount);
+	}
+	else
+	{
+		return hitAreaRect;
+	}
 }
 
 - (void) _renderGL
