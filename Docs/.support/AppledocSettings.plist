@@ -32,7 +32,7 @@
 	<key>--output</key>
 	<string>../output</string>
 	<key>--project-name</key>
-	<string>Pixelwave API Reference</string>
+	<string>Pixelwave API</string>
 	<key>--project-version</key>
 	<string>1.2</string>
 	<key>--repeat-first-par</key>
