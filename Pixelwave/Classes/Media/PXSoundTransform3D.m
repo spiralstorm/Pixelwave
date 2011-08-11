@@ -42,7 +42,7 @@
 
 /**
  * Represents the volume, pitch, position, velocity
- * and distance formula for a 3D-ready <code>PXSoundChannel</code>.
+ * and distance formula for a 3D-ready #PXSoundChannel.
  *
  * The following code creates a sound transform with 120% volume and 80%
  * pitch:
@@ -79,7 +79,7 @@
  *	PXSoundTransform3D *transform = [[PXSoundTransform3D alloc] initWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%, position[0,0,0] and
  *	// velocity[0,0,0], reference distance and logarithmic exponent is set to
- *	// the defaults described in sound listener.  To access the sound listener
+ *	// the defaults described in sound listener. To access the sound listener
  *	// use [PXSoundMixer soundListener].
  *
  * @see PXSoundChannel, PXSoundMixer, PXSoundListener

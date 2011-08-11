@@ -680,7 +680,7 @@
  * @param regex The regex string to be converted into a pattern.
  * @param string The string to parse.
  *
- * @return The resulting, <code>autoreleased</code>, PXRegexMatcher object.
+ * @return The resulting, <code>autoreleased</code>, #PXRegexMatcher object.
  *
  */
 + (PXRegexMatcher *)regexMatcherWithRegex:(NSString *)regex input:(NSString *)input
@@ -698,7 +698,7 @@
  * @param string The string to parse.
  * @param flags The flags explaining how to compile the regex.
  *
- * @return The resulting, <code>autoreleased</code>, PXRegexMatcher object.
+ * @return The resulting, <code>autoreleased</code>, #PXRegexMatcher object.
  *
  */
 + (PXRegexMatcher *)regexMatcherWithRegex:(NSString *)regex input:(NSString *)input flags:(unsigned)flags

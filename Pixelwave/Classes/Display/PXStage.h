@@ -99,7 +99,7 @@ typedef enum
 
 /**
  * If <code>YES</code> then the stage automatically rotates to the orientations
- * acceptable It will send out a <code>PXStageOrientation</code> with the type
+ * acceptable It will send out a #PXStageOrientation with the type
  * <code>PXStageOrientationEvent_OrientationChanging</code>. If that event is
  * canceled (using <code>preventDefault</code>) then the orientation will not
  * take affect. If the orientation is accepted then a
@@ -110,7 +110,7 @@ typedef enum
 @property (nonatomic, assign) BOOL autoOrients;
 
 /**
- * The value the <code>captureTouches</code> property of a PXInteractiveObject
+ * The value the <code>captureTouches</code> property of a #PXInteractiveObject
  * instance should be set to when initialized.
  *
  * **Default:** YES
@@ -163,21 +163,21 @@ typedef enum
 
 /**
  * The frame rate at which enterFrame events will be dispatched.
- * 0 < <code>renderFrameRate</code> <= <code>frameRate</code> <= 60.  This is
+ * 0 < #renderFrameRate <= #frameRate <= 60.  This is
  * due to the iPhone's screen refresh rate being 60hz.
  */
 @property (nonatomic) float frameRate;
 /**
  * The frame rate at which the contents of the stage will be rendered to the
  * screen.
- * 0 < <code>renderFrameRate</code> <= <code>frameRate</code> <= 60.  This is
+ * 0 < #renderFrameRate <= #frameRate <= 60. This is
  * due to the iPhone's screen refresh rate being 60hz.
  */
 @property (nonatomic) float renderFrameRate;
 
 /**
  * Defines whether or not the engine is currently running. To pause the engine
- * set this property to >code>false</code>. Set it to <code>true</code> to
+ * set this property to code>false</code>. Set it to <code>true</code> to
  * resume normal operations.
  *
  * Important note: The engine will not dispatch any events when not playing.

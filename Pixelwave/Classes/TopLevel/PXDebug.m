@@ -221,7 +221,7 @@ PXInline_c void PXDebugLog(NSString *format, ...)
  * The duration, in seconds, of the last logic phase.
  *
  * The logic phase involves all user code invoked via
- * <code>enterFrame</code> events.
+ * <code>PXEvent_EnterFrame</code> events.
  *
  * @warning Returns 0 unless #calculateFrameRate is set to <code>YES</code>.
  */

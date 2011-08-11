@@ -613,6 +613,9 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 
 #pragma mark Utility functions
 
+/**
+ *
+ */
 + (PXTexture *)texture
 {
 	return [[PXTexture new] autorelease];
@@ -626,10 +629,16 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 {
 	return [[[PXTexture alloc] initWithTextureData:textureData] autorelease];
 }
+/**
+ *
+ */
 + (PXTexture *)textureWithContentsOfFile:(NSString *)path
 {
 	return [PXTexture textureWithContentsOfFile:path modifier:nil];
 }
+/**
+ *
+ */
 + (PXTexture *)textureWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:path
@@ -643,12 +652,16 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 
 	return [texture autorelease];
 }
-
+/**
+ *
+ */
 + (PXTexture *)textureWithContentsOfURL:(NSURL *)url
 {
 	return [PXTexture textureWithContentsOfURL:url modifier:nil];
 }
-
+/**
+ *
+ */
 + (PXTexture *)textureWithContentsOfURL:(NSURL *)url modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:url
@@ -662,12 +675,16 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 
 	return [texture autorelease];
 }
-
+/**
+ *
+ */
 + (PXTexture *)textureWithData:(NSData *)data
 {
 	return [PXTexture textureWithData:data modifier:nil];
 }
-
+/**
+ *
+ */
 + (PXTexture *)textureWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureData *textureData = [[PXTextureData alloc] initWithData:data modifier:modifier];

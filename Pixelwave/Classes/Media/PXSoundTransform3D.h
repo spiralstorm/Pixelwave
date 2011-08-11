@@ -97,22 +97,22 @@
  * The reference for how the volume changes based on it's distance from the
  * listener.
  *
- * If the distance model described in <code>PXSoundMixer</code> is set to
+ * If the distance model described in #PXSoundMixer is set to
  * <code>PXSoundMixerDistanceModel_Linear</code> then the
  * <code>logarithmicExponent</code> is ignored and if a
- * <code>PXSoundChannel</code> is further then the reference distance away from
- * the listener, then the sound will not be heard.  Anywhere in between will be
- * linearly distributed.  So if the <code>PXSoundChannel</code> is 70% of the
+ * #PXSoundChannel is further then the reference distance away from
+ * the listener, then the sound will not be heard. Anywhere in between will be
+ * linearly distributed. So if the #PXSoundChannel is 70% of the
  * reference distance away from the user, then the sound is played at 70%
  * volume.
  *
- * If the distance model described in <code>PXSoundMixer</code> is set to
+ * If the distance model described in #PXSoundMixer is set to
  * <code>PXSoundMixerDistanceModel_Logarithmic</code> then the distance volume
  * is calculated based on the following forumla:
  *	distanceVolume = (distance / referenceDistance) ^ (-logarithmicExponent)
  *
  * The actual volume is computed using the following formula:
- *	playingVolume = volume *	distanceVolume *	[PXSoundMixer soundTransform].volume
+ *	playingVolume = volume * distanceVolume * [PXSoundMixer soundTransform].volume
  *
  * **Default:** <code>[PXSoundMixer soundListener].defaultReferenceDistance</code>
  *
@@ -122,9 +122,9 @@
 @property (nonatomic) float referenceDistance;
 /**
  * The exponent for the logarithmic distance model described in
- * <code>PXSoundMixer</code>. The exponent is ignored if the distance model is
+ * #PXSoundMixer. The exponent is ignored if the distance model is
  * set to <code>PXSoundMixerDistanceModel_Linear</code>.  For the forumla used
- * please see the <code>referenceDistance</code> description.
+ * please see the #referenceDistance description.
  *
  * **Default:** <code>[PXSoundMixer soundListener].defaultLogarithmicExponent</code>
  *

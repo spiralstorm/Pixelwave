@@ -49,21 +49,21 @@
 ///////////////////////////////
 
 /**
- * The protocol from which the PXEventDispatcher is derived.
+ * The protocol from which the #PXEventDispatcher is derived.
  * You should implement this protocol when your class requires event
- * dispatching functionallity but cannot extend the <code>PXEventDispatcher</code> class.
+ * dispatching functionallity but cannot extend the #PXEventDispatcher class.
  * 
- * The implementing class should simply create a private PXEventDispatcher object
+ * The implementing class should simply create a private #PXEventDispatcher object
  * and pass along all method invocations to it.
  *
  * **Example:**
  * We want to create a subclass of <code>SomeOtherClass</code> and we want it
  * to have event dispatching capabilities. The easy thing to do would be to
- * have our class extend PXEventDispatcher. But since it already extends from
+ * have our class extend #PXEventDispatcher. But since it already extends from
  * <code>SomeOtherClass</code> we need a different solution. The solution is
- * to implement the PXEventDispatcher protocol, since one class can implement
+ * to implement the #PXEventDispatcher protocol, since one class can implement
  * any number of protocols but only inherit from a single class. Here's what
- * our class would need to do to support the PXEventDispatcher protocol:
+ * our class would need to do to support the #PXEventDispatcher protocol:
  *
  * _Header:_
  *	#import "SomeOtherClass.h"

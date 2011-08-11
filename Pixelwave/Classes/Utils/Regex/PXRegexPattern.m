@@ -91,7 +91,7 @@
 	return nil;
 }
 
-/**
+/*
  * Creates a new regex pattern.
  *
  * @param pattern The regex to compile. If regex is not <code>nil</code> then it
@@ -322,7 +322,7 @@
  * @param pattern The regex to compile. If regex is not <code>nil</code> then it
  * immediately compiles the regex.
  *
- * @return The resulting, <code>autoreleased</code>, PXRegexPattern object.
+ * @return The resulting, <code>autoreleased</code>, @PXRegexPattern object.
  */
 + (PXRegexPattern *)patternWithRegex:(NSString *)regex
 {
@@ -337,7 +337,7 @@
  * immediately compiles the regex.
  * @param flags The flags explaining how to compile the regex.
  *
- * @return The resulting, <code>autoreleased</code>, PXRegexPattern object.
+ * @return The resulting, <code>autoreleased</code>, @PXRegexPattern object.
  */
 + (PXRegexPattern *)patternWithRegex:(NSString *)regex flags:(unsigned)flags
 {

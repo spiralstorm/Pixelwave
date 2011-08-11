@@ -50,17 +50,17 @@
 /**
  * Describes the local transformation of a #PXDisplayObject in
  * two-dimensional space and color space.
- * 
- * PXTransform also provides methods for finding the PXDisplayObject 's
+ *
+ * #PXTransform also provides methods for finding the #PXDisplayObject 's
  * transformation in global (stage) coordinate space.
  *
  * The two-dimensional transformation (translation, scale, rotation and skew)
  * of the associated PXDisplayObject can be read and set via the
  * #matrix property.
- * 
- * The color transformation of the associated PXDisplayObject can be read and
+ *
+ * The color transformation of the associated #PXDisplayObject can be read and
  * set via the #colorTransform property.
- * 
+ *
  * @see PXMatrix
  * @see PXColorTransform
  * @see PXDisplayObject

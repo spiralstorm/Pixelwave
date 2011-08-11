@@ -44,7 +44,7 @@
 
 /**
  * A PXGraphics object represents a way of defining and drawing vector shapes.
- * Both PXSprite and PXShape have <code>graphics</code> objects that can be
+ * Both #PXSprite and #PXShape have #PXGraphics objects that can be
  * used for drawing.
  *
  * <b>IMPORTANT NOTE</b>: This is not the final version of the Graphics class,

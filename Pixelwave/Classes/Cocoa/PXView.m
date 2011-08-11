@@ -83,12 +83,12 @@
  * recommended to set the view's <code>frame</code> to be the same size as the
  * screen.
  *
- * Once instantiated, a PXView starts up all of the engine's subsytems and
- * initializes the display list, providing a default <code>stage</code> and
- * <code>root</code> display object. To change the application's root object
+ * Once instantiated, a #PXView starts up all of the engine's subsytems and
+ * initializes the display list, providing a default #stage and
+ * #root display object. To change the application's root object
  * use the #root property.
  * 
- * @warning Only one PXView should exist for the duration of your app.
+ * @warning Only one #PXView should exist for the duration of your app.
  */
 @implementation PXView
 

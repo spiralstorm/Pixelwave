@@ -55,7 +55,7 @@
 /**
  * Returns a pseudo-random number, where 0.0f <= number < 1.0f.
  *
- * @return float - A pseudo-random number.
+ * @return A pseudo-random number.
  *
  * **Example:**
  *	float randomValue = [PXMath random];
@@ -73,7 +73,7 @@
  * still unlikely, and in the general use case it will never be equal to the
  * max.
  *
- * @return float - A pseudo-random number.
+ * @return A pseudo-random number.
  *
  * **Example:**
  *	float randomValue = [PXMath randomFloatInRangeWithMin:3.0f max:4.5f];
@@ -87,7 +87,7 @@
 /**
  * Returns a pseudo-random number, where min <= number <= max.
  *
- * @return int - A pseudo-random number.
+ * @return A pseudo-random number.
  *
  * **Example:**
  *	int randomValue = [PXMath randomIntInRangeWithMin:3 max:5];
@@ -113,7 +113,7 @@
  * Useful in cases where a reproducible set of psuedo-random numbers is
  * required.
  *
- * @param value - The new seed value.
+ * @param value The new seed value.
  */
 + (void) seedRandomWithValue:(unsigned)value
 {

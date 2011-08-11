@@ -53,7 +53,7 @@
 
 /**
  * The options object defines what form of font you want. Ex. If a
- * <code>PXTextureFontOption</code> is given, then each glyph of the font would
+ * #PXTextureFontOption is given, then each glyph of the font would
  * be mapped to a texture. If the font file you are loading already has this
  * information, it is also loaded.
  */

@@ -59,7 +59,7 @@
 }
 
 /**
- * Creates a new vector at (x, y, z).
+ * Creates a new vector at (#x, #y, #z).
  *
  * @param x The horizontal coordinate.
  * @param y The vertical coordinate.
@@ -75,7 +75,7 @@
 }
 
 /**
- * Creates a new vector at (x, y, z) with rotation w.
+ * Creates a new vector at (#x, #y, #z) with rotation #w.
  *
  * @param x The horizontal coordinate.
  * @param y The vertical coordinate.
@@ -136,7 +136,7 @@
 #pragma mark Additional Methods
 
 /**
- * Sets the vector to (x, y, z).
+ * Sets the vector to (#x, #y, #z).
  *
  * @param x The horizontal coordinate.
  * @param y The vertical coordinate.
@@ -153,7 +153,7 @@
 }
 
 /**
- * Sets the vector to (x, y, z) with rotation w.
+ * Sets the vector to (#x, #y, #z) with rotation #w.
  *
  * @param x The horizontal coordinate.
  * @param y The vertical coordinate.
@@ -295,8 +295,8 @@
  * Check to see if this vector is equal to another.
  *
  * @param vector The vector for checking.
- * @param allFour If <code>YES</code> then w is also used in the test, otherwise just x, y
- * and z are used.
+ * @param allFour If <code>YES</code> then #w is also used in the test, otherwise just #x, #y
+ * and #z are used.
  *
  * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f w:0.0f];
@@ -348,8 +348,8 @@
  *
  * @param vector The vector for checking.
  * @param tolerance The tolerance for the check.
- * @param allFour If <code>YES</code> then w is also used in the test, otherwise just x, y
- * and z are used.
+ * @param allFour If <code>YES</code> then #w is also used in the test, otherwise just #x, #y
+ * and #z are used.
  *
  * **Example:**
  *	PXVector3D *vec1 = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f w:0.0f];
@@ -377,7 +377,7 @@
 }
 
 /**
- * Negates the x, y and z values of the vector.
+ * Negates the #x, #y and #z values of the vector.
  *
  * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f];
@@ -393,7 +393,7 @@
 }
 
 /**
- * Normalizes the x, y and z values of the vector.
+ * Normalizes the #x, #y and #z values of the vector.
  *
  * @return The length of the vector.
  *
@@ -420,7 +420,7 @@
 }
 
 /**
- * Scales the x, y and z values of the vector by 1/w.
+ * Scales the #x, #y and #z values of the vector by <code>1 / </code> #w.
  *
  * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:3.0f y:4.0f z:5.0f w:10.0f];
@@ -441,7 +441,7 @@
 }
 
 /**
- * Scales the x, y and z values of the vector by the scalar.
+ * Scales the #x, #y and #z values of the vector by the scalar.
  *
  * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:3.0f y:4.0f z:5.0f];
@@ -529,7 +529,7 @@
 }
 
 /**
- * Creates a vector at (x, y, z).
+ * Creates a vector at (#x, #y, #z).
  *
  * @param x The horizontal coordinate.
  * @param y The vertical coordinate.
@@ -546,7 +546,7 @@
 	return [PXVector3D vector3DWithX:x y:y z:z w:0.0f];
 }
 /**
- * Creates a new vector at (x, y, z) with rotation w.
+ * Creates a new vector at (#x, #y, #z) with rotation #w.
  *
  * @param x The horizontal coordinate.
  * @param y The vertical coordinate.

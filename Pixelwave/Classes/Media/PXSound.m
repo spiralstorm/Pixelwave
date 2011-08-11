@@ -181,11 +181,11 @@
  * Plays a sound from the start, doesn't loop and has a volume and pitch of
  * 1.0f.
  *
- * @param startTime The time in milliseconds for the sound to begin.  Each loop will also
- * begin at this time.  You should not set a start time for larger then the
+ * @param startTime The time in milliseconds for the sound to begin. Each loop will also
+ * begin at this time. You should not set a start time for larger then the
  * length of the sound.
  * @param loopCount The quantity of times you wish the sound to loop.  If 0 is stated, the
- * sound only plays once.  If 10 is stated, the sound plays 11 times.  If
+ * sound only plays once. If 10 is stated, the sound plays 11 times. If
  * <code>PX_SOUND_INFINITE_LOOPS</code> is stated, then the sound plays for
  * infinate times.
  * @param soundTransform The the transform for the sound.
@@ -200,7 +200,7 @@
  *	soundTransform3D.x = 40.0f;
  *	soundTransform3D.y = 15.0f;
  *	// The sound can only be 3D if it is mono and the correct file type.  To
- *	// check for this, you can use the <code>is3DReady</code> method.
+ *	// check for this, you can use the is3DReady method.
  *
  *	PXSoundChannel *channel = [sound playWithStartTime:4500 loopCount:PX_SOUND_INFINITE_LOOPS soundTransform:soundTransform3D];
  *	// The sound will begin at, and loop from, 4.5 seconds for an indefinite
@@ -212,7 +212,7 @@
  *	[soundLoader release];
  *	[sound release];
  *
- * @see PXSoundTransform, [PXSound is3DReady:]
+ * @see PXSoundTransform, [PXSound is3DReady]
  */
 - (PXSoundChannel *)playWithStartTime:(unsigned)startTime
 							loopCount:(int)loopCount

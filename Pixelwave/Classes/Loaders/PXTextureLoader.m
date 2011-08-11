@@ -57,21 +57,21 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 @end
 
 /**
- * A PXTextureLoader loads images synchronously and creates PXTextureData
+ * A PXTextureLoader loads images synchronously and creates #PXTextureData
  * objects.
  *
- * Once instantiated with a valid file path, objects of the PXTextureLoader
+ * Once instantiated with a valid file path, objects of the #PXTextureLoader
  * class hold a copy of the loaded data and can be used to generate
  * PXTextureData instances.
  *
- * For most uses generating more than one PXTextureData object is unnecessary
+ * For most uses generating more than one #PXTextureData object is unnecessary
  * as a single PXTextureData may be shared among many PXTexture display
  * objects.
  *
- * Once a PXTextureData instance has been created, the PXTextureLoader instance
+ * Once a PXTextureData instance has been created, the #PXTextureLoader instance
  * may be safely deallocated by calling <code>release</code>.
  * Since PXTextureLoader keeps a copy of the loaded data, it is
- * advisable to release all unneeded instances as soon as a PXTextureData
+ * advisable to release all unneeded instances as soon as a #PXTextureData
  * object has been created in order to free up memory.
  *
  * The following image formats are supported natively:
@@ -308,7 +308,6 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * Auto-completes the extension of the file if one wasn't provided.
  * This method also checks for a file with the @2x extension in it and returns
  * its name if it finds it. Otherwise it returns the original path.
- *
  */
 - (NSString *)updatePath:(NSString *)path
 {
@@ -346,9 +345,10 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 
 /**
  * Given an image name (with an extension or not), this method tries to find a
- * valid path for it. If it doesn't find an exact match to the fileName, it
+ * valid path for it.
+ * If it doesn't find an exact match to the fileName, it
  * tries to find siblings with the same name and a supported extension.
- * Returns nil if nothing was found.
+ * Returns <code>nil</code> if nothing was found.
  */
 + (NSString *)resolvePathForImageFile:(NSString *)fileName
 {
@@ -393,7 +393,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * relative to	the application bundle. The path may also omit the file
  * extension, and Pixelwave will try to find a valid image with that name.
  *
- * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXTextureLoader object.
  *
  *
  * **Example:**
@@ -423,7 +423,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * set this to <code>nil</code> after getting a new sound, and still have
  * your previously loaded data.
  *
- * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXTextureLoader object.
  *
  * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfFile:@"image.png"
@@ -450,7 +450,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  *
  * @param url The url of the image to load.
  *
- * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXTextureLoader object.
  *
  * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]];
@@ -477,7 +477,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * set this to <code>nil</code> after getting a new sound, and still have
  * your previously loaded data.
  *
- * @return The resulting, <code>autoreleased</code>, PXTextureLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXTextureLoader object.
  *
  * **Example:**
  *	PXTextureLoader *textureLoader = [PXTextureLoader textureLoaderWithContentsOfURL:[NSURL URLWithString:@"www.myWebsite.com/image.png"]

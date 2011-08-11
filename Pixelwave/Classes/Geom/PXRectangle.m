@@ -47,17 +47,17 @@
 
 /**
  * A PXRectangle object is an area defined by its position, as indicated by its
- * <code>top-left</code> corner (<code>x</code>, <code>y</code>) and by its
- * <code>width</code> and its <code>height</code>.
+ * <code>top-left</code> corner (#x, #y) and by its
+ * #width and its #height.
  *
- * The <code>x</code>, <code>y</code>, <code>width</code> and
- * <code>height</code> properties of the PXRectangle class are independent of
+ * The #x, #y, #width and
+ * #height properties of the #PXRectangle class are independent of
  * each other; changing the value of one property has no effect on the others.
- * However, the <code>right</code> and <code>bottom</code> properties are
+ * However, the #right and #bottom properties are
  * integrally related to those four properties.  For example, if you change the
- * value of the <code>right</code> property, the value of the
- * <code>width</code> property changes; if you change the <code>bottom</code>
- * property, the value of the <code>height</code> property changes.
+ * value of the #right property, the value of the
+ * #width property changes; if you change the #bottom
+ * property, the value of the #height< property changes.
  *
  * The following code creates a rectangle at (0, 0) with a size of (0, 0):
  *	PXRectangle *rect = [PXRectangle new];
@@ -77,9 +77,8 @@
 }
 
 /**
- * Creates a new rectangle with <code>topLeft</code> corner at (<code>x</code>,
- * <code>y</code>) and <code>size</code> of (<code>width</code>,
- * <code>height</code>).
+ * Creates a new rectangle with <code>topLeft</code> corner at (#x,
+ * #y) and size of (#width, #height).
  *
  * @param x The horizontal coordinate of the <code>topLeft</code> corner.
  * @param y The vertical coordinate of the <code>topLeft</code> corner.
@@ -209,9 +208,8 @@
 #pragma mark Methods
 
 /**
- * Sets the rectangle's <code>topLeft</code> corner to (<code>x</code>,
- * <code>y</code>) and <code>size</code> of (<code>width</code>,
- * <code>height</code>).
+ * Sets the rectangle's <code>topLeft</code> corner to (#x,
+ * #y) and #size of (#width, #height).
  *
  * @param x The horizontal coordinate of the <code>topLeft</code> corner.
  * @param y The vertical coordinate of the <code>topLeft</code> corner.
@@ -325,9 +323,9 @@
 }
 
 /**
- * Determines whether the rectangle specified is equal to this rectangle.  This
- * is only true if the <code>x</code>, <code>y</code>, <code>width</code> and
- * <code>height</code> properties are the same.
+ * Determines whether the rectangle specified is equal to this rectangle. This
+ * is only true if the #x, #y, #width and
+ * #height properties are the same.
  *
  * @param rect The rectangle to compare.
  *
@@ -378,7 +376,7 @@
 }
 
 /**
- * Increases the <code>size</code> of the rectangle by specified amounts
+ * Increases the #size of the rectangle by specified amounts
  * from the center.
  *
  * @param dx The size change in the horizontal position.
@@ -399,7 +397,7 @@
 }
 
 /**
- * Increases the <code>size</code> of the rectangle by specified amounts
+ * Increases the #size of the rectangle by specified amounts
  * from the center.
  *
  * @param point The size change.
@@ -567,9 +565,8 @@
 #pragma mark Static Methods
 
 /**
- * Creates a rectangle with <code>topLeft</code> corner at (<code>x</code>,
- * <code>y</code>) and <code>size</code> of (<code>width</code>,
- * <code>height</code>).
+ * Creates a rectangle with <code>topLeft</code> corner at (#x,
+ * #y) and #size of (#width, #height).
  *
  * @param x The horizontal coordinate of the <code>topLeft</code> corner.
  * @param y The vertical coordinate of the <code>topLeft</code> corner.

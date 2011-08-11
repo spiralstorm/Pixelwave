@@ -128,19 +128,21 @@
 @property (nonatomic, assign) BOOL repeat;
 
 /**
- * The width of the clipping area, or of the <code>textureData</code> property
+ * The width of the clipping area, or of the #textureData property
  * if no clipping area is set.
  */
 @property (nonatomic, readonly) float contentWidth;
 /**
- * The height of the clipping area, or of the <code>textureData</code> property
+ * The height of the clipping area, or of the #textureData property
  * if no clipping area is set.
  */
 @property (nonatomic, readonly) float contentHeight;
 
 /**
  * The rotation offset of the content, as defined by the texture's
- * clip rectangle. The default value is 0.
+ * clip rectangle.
+ *
+ * **default** <code>0</code>
  */
 @property (nonatomic, readonly) float contentRotation;
 

@@ -205,7 +205,8 @@ BOOL pxTextureDataExpandEdges = YES;
 
 /**
  * Initializes a TextureData object with the given width and height values in
- * pixels. The returned texture data object is initially filled with white,
+ * pixels.
+ * The returned texture data object is initially filled with white,
  * non-transparent pixels. To modify the contents of the image you can use the
  * #drawDisplayObject: method.
  * 
@@ -235,7 +236,8 @@ BOOL pxTextureDataExpandEdges = YES;
 
 /**
  * Initializes a PXTextureData object with the given width and height values in
- * pixels. To modify the contents of the image you can use the
+ * pixels.
+ * To modify the contents of the image you can use the
  * #drawDisplayObject: method.
  *
  * **Example:**
@@ -498,10 +500,8 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- * Renders the source TextureData onto this TextureData. To modify
- * the transformation with which the source is drawn onto the texture you can
- * pass custom <code>matrix</code> and <code>colorTransform</code> objects, or
- * <code>nil</code> for the default transformations.
+ * Renders the source TextureData onto this TextureData.
+ * To modify the transformation with which the source is drawn onto the texture you can pass custom <code>matrix</code> and <code>colorTransform</code> objects, or <code>nil</code> for the default transformations.
  *
  * @param source A PXTextureData to draw onto this PXTextureData.
  * @param matrix A PXMatrix object representing the transformation with which
@@ -550,7 +550,8 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- * Renders the given display object onto the TextureData. The transformation of
+ * Renders the given display object onto the TextureData.
+ * The transformation of
  * the source display object is ignored during the render process. To modify
  * the transformation with which the source is drawn onto the texture you can
  * pass custom <code>matrix</code> and <code>colorTransform</code> objects, or

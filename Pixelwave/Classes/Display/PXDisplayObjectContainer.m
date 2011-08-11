@@ -479,10 +479,10 @@
 /**
  * Removes the child from the container, and decreases its retain count by 1.
  * If the specified object is not a child of this container, then a
- * <code>PXArgumentException</code> is thrown.  All of the other children move
+ * #PXArgumentException is thrown. All of the other children move
  * down a position to fill the gap left by the removed child.
  *
- * @param PXDisplayObject The child to be removed.
+ * @param child The child to be removed.
  *
  * **Example:**
  *	PXSimpleSprite *simpleSprite = [PXSimpleSprite new];
@@ -518,7 +518,7 @@
 /**
  * Removes the child from the container, and decreases its retain count by 1.
  * If the object is not a child of this container, then a
- * <code>PXRangeException</code> is thrown.  All of the other children move
+ * #PXRangeException is thrown. All of the other children move
  * down a position to fill the gap left by the removed child.
  *
  * @param index The index of the child to be removed.
@@ -597,7 +597,7 @@
 /**
  * Retrieves the index of the specified child.  If the specified child is not
  * part of this container, then <code>-1</code> is returned instead and a
- * <code>PXArgumentException</code> is thrown.
+ * #PXArgumentException is thrown.
  *
  * @param child The child in question.
  *
@@ -654,7 +654,7 @@
 /**
  * Retrieves the child at the specified index.  If no child was found at the
  * index, then <code>nil</code> is returned instead.  If the index is out of
- * bounds then a <code>PXRangeException</code> is thrown.
+ * bounds then a #PXRangeException is thrown.
  *
  * @param index The index.
  *

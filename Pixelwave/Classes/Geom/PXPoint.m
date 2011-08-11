@@ -322,7 +322,7 @@
  * @param pt1 The first point.
  * @param pt2 The second point.
  * @param f The level of interpolation between the two points.  Indicates where the
- * new point will be, along the line between pt1 and pt2.  If f == 1, pt1
+ * new point will be, along the line between pt1 and pt2. If f == 1, pt1
  * is returned; if == 0, pt2 is returned.
  *
  * @return The interpolated point.
@@ -356,7 +356,7 @@
  * @return The cartesian point.
  *
  * **Example:**
- *	float angle = 45.0f *	(M_PI/180.0f);
+ *	float angle = 45.0f * (M_PI/180.0f);
  *	float length = 1.0f;
  *	PXPoint *point = [PXPoint pointUsingPolarCoordWithLen:length angle:angle];
  *	// point will be (0.707107f, 0.707107f)

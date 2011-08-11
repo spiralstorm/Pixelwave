@@ -52,18 +52,18 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
 @end
 
 /**
- * A PXSoundLoader Loads sounds synchronously and creates PXSound objects.
+ * A #PXSoundLoader Loads sounds synchronously and creates #PXSound objects.
  *
  * Once instantiated with a valid file path, objects of the PXSound class will
  * hold the necessary info to play the sound.
  *
- * For most uses generating more than one PXSound object is unnecessary as a
- * single PXSound may be shared among many PXSoundChannels.
+ * For most uses generating more than one #PXSound object is unnecessary as a
+ * single #PXSound may be shared among many #PXSoundChannels.
  *
- * Once a PXSound instance has been created, the PXSoundLoader instance may be
- * safely deallocated by calling <code>release</code>.  Since PXSoundLoader
+ * Once a #PXSound instance has been created, the #PXSoundLoader instance may be
+ * safely deallocated by calling <code>release</code>. Since #PXSoundLoader
  * keeps a copy of the loaded data, it is advisable to release all unneeded
- * instances as soon as a PXSound object has been created in order to free up
+ * instances as soon as a #PXSound object has been created in order to free up
  * memory.
  *
  * The following sound formats are supported natively:
@@ -271,7 +271,7 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * @param filePath The path of the sound file to load. The file path may be absolute or
  * relative to	the application bundle.
  *
- * @return The resulting, <code>autoreleased</code>, PXSoundLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXSoundLoader object.
  *
  * **Example:**
  *	PXSoundLoader *loader = [PXSoundLoader soundLoaderWithContentsOfFile:@"sound.wav"];
@@ -291,7 +291,7 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * @param modifier If a modifier is stated, it will be used on the loaded bytes to modify
  * them.
  *
- * @return The resulting, <code>autoreleased</code>, PXSoundLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXSoundLoader object.
  *
  * **Example:**
  *	PXSoundLoader *loader = [PXSoundLoader soundLoaderWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
@@ -308,7 +308,7 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  *
  * @param url The url of the sound file to load.
  *
- * @return The resulting, <code>autoreleased</code>, PXSoundLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXSoundLoader object.
  *
  * **Example:**
  *	NSURL *url = [NSURL URLWithString:@"www.website.com/sound.wav"];
@@ -328,7 +328,7 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  * @param modifier If a modifier is stated, it will be used on the loaded bytes to modify
  * them.
  *
- * @return The resulting, <code>autoreleased</code>, PXSoundLoader object.
+ * @return The resulting, <code>autoreleased</code>, #PXSoundLoader object.
  *
  * **Example:**
  *	NSURL *url = [NSURL URLWithString:@"www.website.com/sound.wav"];

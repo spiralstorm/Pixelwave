@@ -209,8 +209,8 @@ typedef enum
 }
 
 /**
- * Begins a fill sequence.  Any line, circle, ellipse or rectangle drawn after
- * this call, and before <code>endFill</code> will be filled in with the
+ * Begins a fill sequence. Any line, circle, ellipse or rectangle drawn after
+ * this call, and before #endFill will be filled in with the
  * specified color and alpha.
  *
  * @param color The color for the fill in hex form ranging from 0x000000 for black, and
@@ -236,8 +236,8 @@ typedef enum
 }
 
 /**
- * Ends the fill sequence.  Any line, circle, ellipse or rectangle drawn after
- * the <code>beginFill</code> call, and before this call will be filled in with
+ * Ends the fill sequence. Any line, circle, ellipse or rectangle drawn after
+ * the #beginFill call, and before this call will be filled in with
  * the specified color and alpha.
  *
  * **Example:**

@@ -54,7 +54,7 @@
 	BOOL invalidated;
 @public
 	// Raw data
-	ushort _numVertices;
+	int _numVertices;
 	PXGLTextureVertex *_vertices;
 
 	// The size of the frame within the texture atlas

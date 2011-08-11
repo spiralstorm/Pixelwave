@@ -88,8 +88,7 @@
 @property (nonatomic, readonly) float height;
 
 /**
- * A rectangle representing the TextureData. The x/y are always 0, while width
- * and height are the width and height of the TextureData in pixels.
+ * A rectangle representing the TextureData. The x and y values are always 0.0f, while #width and #height are the width and height of the TextureData in pixels.
  */
 @property (nonatomic, readonly) PXRectangle *rect;
 

@@ -111,16 +111,14 @@ typedef enum
 @property (nonatomic) float velocityZ;
 
 /**
- * The default reference distance for
- * <code>PXSoundTransform3D</code>
+ * The default reference distance for #PXSoundTransform3D
  *
  * **Default:** 64.0f
  * @see PXSoundTransform3D
  */
 @property (nonatomic) float defaultReferenceDistance;
 /**
- * The default logarithmic exponent for
- * <code>PXSoundTransform3D</code>
+ * The default logarithmic exponent for #PXSoundTransform3D
  *
  * **Default:** 2.0f
  * @see PXSoundTransform3D

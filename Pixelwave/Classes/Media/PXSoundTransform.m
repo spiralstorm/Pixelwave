@@ -41,7 +41,7 @@
 
 /**
  * A PXSoundTransform object represents the volume and pitch of a
- * <code>PXSoundChannel</code>.
+ * #PXSoundChannel.
  *
  * The following code creates a sound transform with 120% volume and 80%
  * pitch:
@@ -59,8 +59,8 @@
 }
 
 /**
- * Creates a new sound transform with the given <code>volume</code> and
- * <code>pitch</code>.
+ * Creates a new sound transform with the given #volume and
+ * #pitch.
  *
  * @param volume The amplitude of the sound.
  * @param pitch The frequency of the sound.
@@ -108,8 +108,7 @@
 #pragma mark Static Methods
 
 /**
- * Creates a sound transform with the given <code>volume</code> and
- * <code>pitch</code>.
+ * Creates a sound transform with the given #volume and #pitch.
  *
  * @param volume The amplitude of the sound.
  * @param pitch The frequency of the sound.

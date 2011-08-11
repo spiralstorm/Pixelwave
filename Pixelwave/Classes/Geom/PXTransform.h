@@ -48,15 +48,15 @@
 	PXDisplayObject *_displayObject;
 }
 /**
- * A matrix containing the local transformation of the PXDisplayObject
- * associated with the given PXTransform.
+ * A matrix containing the local transformation of the #PXDisplayObject
+ * associated with the given #PXTransform.
  * 
  * Note that the <code>matrix</code> property returns a copy of itself and
  * creates a copy of values assigned to it. That means that transformation of
- * a PXDisplayObject can't be set by dereferencing
- * <code>transform.matrix</code>.  Instead a PXMatrix object containing the new
+ * a #PXDisplayObject can't be set by dereferencing
+ * <code>transform.matrix</code>. Instead a #PXMatrix object containing the new
  * values and must be re-assigned to the <code>matrix</code> property.
- * 
+ *
  * Wrong:
  *	// This would have no effect.
  *	displayObject.transform.matrix.a = 5;
@@ -69,18 +69,18 @@
  */
 @property (nonatomic, copy) PXMatrix *matrix;
 /**
- * The matrix values combined with all of the PXDisplayObject 's parents.
- * Describes the transformation of the PXDisplayObject in global (stage)
+ * The matrix values combined with all of the #PXDisplayObject 's parents.
+ * Describes the transformation of the #PXDisplayObject in global (stage)
  * coordinates.
  */
 @property (nonatomic, readonly) PXMatrix *concatenatedMatrix;
 /**
- * The color transformation of the associated PXDisplayObject in local color space.
+ * The color transformation of the associated #PXDisplayObject in local color space.
  * 
  * Note that the <code>colorTransform</code> property returns a copy of itself
  * and creates a copy of values assigned to it. That means that the color
- * transformation of a PXDisplayObject can't be set by dereferencing
- * <code>transform.colorTransform</code>.  Instead a PXColorTransform object
+ * transformation of a #PXDisplayObject can't be set by dereferencing
+ * <code>transform.colorTransform</code>. Instead a #PXColorTransform object
  * containing the new values and must be re-assigned to the
  * <code>colorTransform</code> property.
  *
@@ -96,14 +96,14 @@
  */
 @property (nonatomic, copy) PXColorTransform *colorTransform;
 /**
- * The color transform combined with all of the PXDisplayObject 's parents.
+ * The color transform combined with all of the #PXDisplayObject 's parents.
  * 
- * It essentially describes the color transformation of the PXDisplayObject in global
+ * It essentially describes the color transformation of the #PXDisplayObject in global
  * (stage) color space.
  */
 @property (nonatomic, readonly) PXColorTransform *concatenatedColorTransform;
 /**
- * A rectangle that defines the axis-aligned bounds the PXDisplayObject associated
+ * A rectangle that defines the axis-aligned bounds the #PXDisplayObject associated
  * with the transform on the stage, in points.
  */
 @property (nonatomic, readonly) PXRectangle *pixelBounds;

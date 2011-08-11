@@ -83,8 +83,8 @@ _PXLLNode pxLinkedListBadNode;
  * - Adding and removing objects to and from the ends of the list
  * - Adding and removing objects to and from the middle of the list
  * - Looping through the list <i>(And much more so when using
- * <code>#PXLinkedListForEach</code> or its counterpart
- * <code>#PXLinkedListForEachReverse</code>)</i>
+ * <code>PXLinkedListForEach</code> or its counterpart
+ * <code>PXLinkedListForEachReverse</code>)</i>
  * 
  * <br/>
  * *Iterating through a linked list*
@@ -136,9 +136,6 @@ _PXLLNode pxLinkedListBadNode;
  *		item = [list objectAtIndex:i];
  *		NSLog("Item %i = %@", i, item);
  *	}
- *
- * @see PXLinkedListForEach
- * @see PXLinkedListForEachReverse
  */
 @implementation PXLinkedList
 
@@ -156,8 +153,8 @@ _PXLLNode pxLinkedListBadNode;
  * Equivalent to calling:
  *	[linkedList initWithWeakReferences:NO usePooledNodes:pooledNodes]
  *
- * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's	recommended that
- * this value always be set to	<code>YES</code></b>.
+ * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's recommended that
+ * this value always be set to <code>YES</code></b>.
  *
  * **Example:**
  *	PXLinkedList *list = [[PXLinkedList alloc] initWithPooledNodes:YES];
@@ -171,7 +168,7 @@ _PXLLNode pxLinkedListBadNode;
 
 /**
  * Creates a new linked list that uses pooled nodes and only retains added
- * objects if <code>weakReferences</code> is set to NO.
+ * objects if #weakReferences is set to NO.
  * 
  * Equivalent to calling:
  *	[linkedList initWithWeakReferences:weakReferences usePooledNodes:YES]
@@ -193,14 +190,14 @@ _PXLLNode pxLinkedListBadNode;
 
 /**
  * Creates a new linked list that uses pooled nodes if specified and only
- * retains added objects if <code>weakReferences</code> is set to NO.
+ * retains added objects if #weakReferences is set to NO.
  *
  * @param weakReferences <code>YES</code> if the list should not retain added elements;
  * <code>NO</code> if it should. Setting this to <code>YES</code> is only
  * useful in very rare circumstances and should be used with caution. The
  * default value is <code>NO</code>.
- * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's	recommended that
- * this value always be set to	<code>YES</code></b>.
+ * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's recommended that
+ * this value always be set to <code>YES</code></b>.
  *
  * **Example:**
  *	PXLinkedList *list = [[PXLinkedList alloc] initWithWeakReferences:NO usePooledNodes:YES];
@@ -374,7 +371,7 @@ _PXLLNode pxLinkedListBadNode;
  * <i><b>Complexity:</b> O(n)</i>
  *
  * @param index The index from which to look up the return object. Must be a value
- * between <code>0</code> and <code>count - 1</code>
+ * between <code>0</code> and #count <code>- 1</code>
  *
  * @return The object at the specified index.
  *
@@ -525,7 +522,7 @@ _PXLLNode pxLinkedListBadNode;
 
 /**
  * Adds the specified object to the end of list.  If
- * <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * #weakReferences is set to <code>NO</code> (default), the
  * object's retain count is incremented; otherwise the object's retain count
  * stays the same.
  *
@@ -570,7 +567,7 @@ _PXLLNode pxLinkedListBadNode;
  * Adds the specified object to the front of list, shifting all subsequent
  * object up by one.
  *
- * If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * If #weakReferences is set to <code>NO</code> (default), the
  * object's retain count is incremented; otherwise the object's retain count
  * stays the same.
  *
@@ -628,7 +625,7 @@ _PXLLNode pxLinkedListBadNode;
 /**
  * Adds the specified object to the list at the specified index.
  *
- * If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * If #weakReferences is set to <code>NO</code> (default), the
  * object's retain count is incremented; otherwise the object's retain count
  * stays the same.
  *
@@ -815,7 +812,7 @@ _PXLLNode pxLinkedListBadNode;
 /**
  * Adds all of the objects from the provided list to this list.
  * 
- * If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * If #weakReferences is set to <code>NO</code> (default), the
  * objects' retain counts are incremented; otherwise the object's retain count
  * stays the same.
  *
@@ -940,7 +937,7 @@ _PXLLNode pxLinkedListBadNode;
  * otherwise all of the objects after the index of the specified object are
  * shifted down by one to fill the gap.
  *
- * If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * If #weakReferences is set to <code>NO</code> (default), the
  * object's retain count is decremented; otherwise the object's retain count
  * stays the same.
  *
@@ -1013,14 +1010,14 @@ _PXLLNode pxLinkedListBadNode;
  * otherwise all of the objects following the oject at <code>index</code> are
  * shifted down by one.
  *
- * If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * If #weakReferences is set to <code>NO</code> (default), the
  * object's retain count is decremented; otherwise the object's retain count
  * stays the same.
  * 
  * <i><b>Complexity:</b> O(n)</i>
  * 
  * @param index The index from which to remove the object. <code>index</code> must be
- * be a value between 0 and count - 1
+ * be a value between 0 and #count - 1
  *
  * **Example:**
  *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
@@ -1076,9 +1073,9 @@ _PXLLNode pxLinkedListBadNode;
 
 /**
  * Removes the last object in the list (object at index
- * <code>count - 1</code>).  If the list is empty the call is ignored.
+ * #count <code>- 1</code>).  If the list is empty the call is ignored.
  *
- * If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * If #weakReferences is set to <code>NO</code> (default), the
  * object's retain count is decremented; otherwise the object's retain count
  * stays the same.
  *
@@ -1127,7 +1124,7 @@ _PXLLNode pxLinkedListBadNode;
  * Removes the first object in the list (object at index <code>0</code>).  If
  * the list is empty the call is ignored.
  *
- * If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * If #weakReferences is set to <code>NO</code> (default), the
  * object's retain count is decremented; otherwise the object's retain count
  * stays the same. 
  * 
@@ -1176,7 +1173,7 @@ _PXLLNode pxLinkedListBadNode;
 /**
  * Removes all of the objects in the list, restoring it to its initial state.
  * 
- * If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * If #weakReferences is set to <code>NO</code> (default), the
  * objects' retain counts are decremented; otherwise the object's retain count
  * stays the same.
  *
@@ -1229,7 +1226,7 @@ _PXLLNode pxLinkedListBadNode;
 /**
  * Removes all of the objects in the list that are also in the provided list.
  * 
- * If <code>weakReferences</code> is set to <code>NO</code> (default), the
+ * If #weakReferences is set to <code>NO</code> (default), the
  * objects' retain counts are decremented; otherwise the object's retain count
  * stays the same.
  *
@@ -1397,9 +1394,9 @@ _PXLLNode pxLinkedListBadNode;
  * a PXArgumentException is thrown.
  * 
  * @param index1 The index of the object to swap with the object at <code>index2</code>.
- * Must be a value between <code>0</code> and <code>count - 1</code>.
+ * Must be a value between <code>0</code> and #count <code>- 1</code>.
  * @param index2 The index of the object to swap with the object at <code>index1</code>.
- * Must be a value between <code>0</code> and <code>count - 1</code>.
+ * Must be a value between <code>0</code> and #count <code>- 1</code>.
  *
  * **Example:**
  *	PXPoint *add1 = [[PXPoint alloc] initWithX:3 y:4];
@@ -1556,7 +1553,7 @@ _PXLLNode pxLinkedListBadNode;
  * The individual items in the list aren't duplicated, only their reference is.
  * 
  * Note that the new list also retains each of the objects as long as
- * <code>weakReferences</code> is set to <code>NO</code> (default).
+ * #weakReferences is set to <code>NO</code> (default).
  */
 // Implemented so that we can comment it
 - (id) copy
@@ -1587,8 +1584,8 @@ _PXLLNode pxLinkedListBadNode;
 /**
  * Creates a linked list with strong references.
  *
- * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's	recommended that
- * this value always be set to	<code>YES</code></b>.
+ * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's recommended that
+ * this value always be set to <code>YES</code></b>.
  *
  * @return The created linked list.
  *
@@ -1626,7 +1623,7 @@ _PXLLNode pxLinkedListBadNode;
  * Creates a linked list.
  *
  * @param pooledNodes Whether or not too use pooled nodes internally. <b>It's	recommended that
- * this value always be set to	<code>YES</code></b>.
+ * this value always be set to <code>YES</code></b>.
  * @param weakReferences <code>YES</code> if the list should not retain added elements;
  * <code>NO</code> if it should. Setting this to <code>YES</code> is only
  * useful in very rare circumstances and should be used with caution. The

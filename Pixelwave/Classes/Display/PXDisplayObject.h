@@ -150,8 +150,8 @@ typedef enum
  * 
  * A negative value flips the object.
  *
- * Note that modifying the <code>scaleX</code> property may change the value of
- * the	<code>width</code> and <code>height</code> properties and vice-versa
+ * Note that modifying the #scaleX property may change the value of
+ * the #width and #height properties and vice-versa
  *
  * **Default:** 1.0f
  */
@@ -163,8 +163,8 @@ typedef enum
  * 
  * A negative value flips the object.
  *
- * Note that modifying the <code>scaleY</code> property may change the value of
- * the	<code>width</code> and <code>height</code> properties and vice-versa
+ * Note that modifying the #scaleY property may change the value of
+ * the #width and #height properties and vice-versa
  *
  * **Default:** 1.0f
  */
@@ -189,8 +189,8 @@ typedef enum
  * The width, in points of the object's axis-aligned bounding box, within its
  * parent's coordinate space.
  *
- * Note that modifying the <code>width</code> property affects the value of
- * the <code>scaleX</code> and <code>scaleY</code> properties and vice-versa
+ * Note that modifying the #width property affects the value of
+ * the #scaleX and #scaleY properties and vice-versa
  *
  * **Default:** 0.0f
  */
@@ -199,8 +199,8 @@ typedef enum
  * The height, in points of the object's axis-aligned bounding box, within its
  * parent's coordinate space.
  *
- * Note that modifying the <code>height</code> property affects the value of
- * the	<code>scaleX</code> and <code>scaleY</code> properties and vice-versa
+ * Note that modifying the #height property affects the value of
+ * the #scaleX and #scaleY properties and vice-versa
  *
  * **Default:** 0.0f
  */
@@ -224,10 +224,10 @@ typedef enum
 
 /**
  * A non-unique name.
- * <code>name</code> may never be <code>nil</code>. If a name isn't assigned,
+ * #name may never be <code>nil</code>. If a name isn't assigned,
  * one will be automatically generated.
  *
- * @throws PXArgumentException if a nil value is set.
+ * @throws #PXArgumentException if a nil value is set.
  *
  * @see [PXDisplayObjectContainer childByName:]
  */
@@ -257,11 +257,11 @@ typedef enum
 @property (nonatomic, readonly) PXStage *stage;
 
 /**
- * Represents both the <code>scaleX</code> and <code>scaleY</code> properties.
- * Setting this property will set the values of <code>scaleX</code> and
- * <code>scaleY</code> to the given value.
+ * Represents both the #scaleX and #scaleY properties.
+ * Setting this property will set the values of #scaleX and
+ * #scaleY to the given value.
  *
- * If the <code>scaleX</code> and <code>scaleY</code> properties are equal,
+ * If the #scaleX</code> and #scaleY properties are equal,
  * this property will be equal to their value. If their values differ, this
  * property will be equal to <code>1.0</code>.
  *
@@ -292,7 +292,7 @@ typedef enum
  */
 @property (nonatomic, readonly) PXPoint *touchPosition;
 /**
- * A list of <code>PXPoint</code>s that represent the positions of every touch
+ * A list of #PXPoint s that represent the positions of every touch
  * on the screen in this PXDisplayObject's coordinate space.  If there are no
  * current touches on the screen, <code>nil</code> is returned.
  */
