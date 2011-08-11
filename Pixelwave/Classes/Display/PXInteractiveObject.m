@@ -84,7 +84,7 @@
 
 		_captureTouches = [PXStage mainStage].defaultCaptureTouchesValue;
 
-		// So, what is all of this for? We manually add tap and double tap
+		// So, what is all of this for? We manually add tap
 		// events rather then the engine handeling them.
 
 		// Grab the listener and retain it. They are autoreleased, thus at the
@@ -125,9 +125,12 @@
 	addedListeners = YES;
 
 	// add the listeners
-	BOOL addedDown   = [super addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown];
-	BOOL addedUp     = [super addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp];
-	BOOL addedCancel = [super addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel];
+	BOOL addedDown   = [super addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown useCapture:NO priority:0];
+	// We add these at a high priority so that the isInside method
+	// can query the hit area before any of the other up/cancel listeners
+	// get a change to change it.
+	BOOL addedUp     = [super addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp useCapture:NO priority:10000];
+	BOOL addedCancel = [super addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:NO priority:10000];
 	BOOL addedAll = addedDown && addedUp && addedCancel;
 
 	// If any of them failed to add, then we will have to remove any we added
@@ -228,7 +231,7 @@
 	if (properlyRemoved == NO)
 		return NO;
 
-	// We only care about tap and double tap events.
+	// We only care about tap events.
 	BOOL isTapEvent = [type isEqualToString:PXTouchEvent_Tap];
 
 	if (isTapEvent == NO)

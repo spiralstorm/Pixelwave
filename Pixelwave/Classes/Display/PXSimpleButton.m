@@ -48,16 +48,9 @@
 #include "PXPrivateUtils.h"
 #include "PXDebug.h"
 
-/// @cond DX_IGNORE
 @interface PXSimpleButton(Private)
-- (void) pxSimpleButtonOnTouchDown:(PXTouchEvent *)event;
-- (void) pxSimpleButtonOnTouchUp:(PXTouchEvent *)event;
-- (void) pxSimpleButtonOnTouchMove:(PXTouchEvent *)event;
-- (void) pxSimpleButtonOnTouchCancel:(PXTouchEvent *)event;
-
 - (CGRect) currentHitAreaRect;
 @end
-/// @endcond
 
 /**
  *	@ingroup Display
@@ -91,7 +84,7 @@
 @synthesize downState;
 @synthesize upState;
 @synthesize enabled;
-@synthesize autoExpandSize;
+//@synthesize dragAreaPadding;
 
 - (id) init
 {
@@ -141,7 +134,8 @@
  *	@see PXTouchEvent
  */
 - (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState
-{
+		hitAreaPadding:(float)padding
+{	
 	// Create a rectangle of the size of the 'upState' or the 'downState' if the
 	// 'upState' is not provided.
 
@@ -153,6 +147,7 @@
 	if (checkState)
 	{
 		bounds = [checkState boundsWithCoordinateSpace:checkState];
+		[bounds inflateWithX:padding y:padding];
 	}
 
 	return [self initWithUpState:_upState downState:_downState hitTestState:bounds];
@@ -210,7 +205,7 @@
 	{
 		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
 
-		autoExpandSize = 75.0f;
+		dragAreaPadding = 60.0f;
 
 		downState = nil;
 		upState = nil;
@@ -221,12 +216,7 @@
 		visibleState = _PXSimpleButtonVisibleState_Up;
 
 		listOfTouches = [[PXLinkedList alloc] init];
-
-		pxSBOnTouchDown   = [PXListener(pxSimpleButtonOnTouchDown:)   retain];
-		pxSBOnTouchUp     = [PXListener(pxSimpleButtonOnTouchUp:)     retain];
-		pxSBOnTouchMove   = [PXListener(pxSimpleButtonOnTouchMove:)  retain];
-		pxSBOnTouchCancel = [PXListener(pxSimpleButtonOnTouchCancel:) retain];
-
+		
 		// Don't set any states until after the listeners are made.
 		self.downState = _downState;
 		self.upState = _upState;
@@ -243,25 +233,12 @@
 	self.downState = nil;
 	self.upState = nil;
 	self.hitTestState = nil;
-
-	[pxSBOnTouchDown   release];
-	[pxSBOnTouchUp     release];
-	[pxSBOnTouchMove   release];
-	[pxSBOnTouchCancel release];
-
+	
 	[super dealloc];
 }
 
 - (void) setHitTestState:(id<NSObject>)newState
-{
-	if (hitTestState != nil || hitAreaIsRect)
-	{
-		[self removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSBOnTouchDown];
-		[self removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSBOnTouchUp];
-		[self removeEventListenerOfType:PXTouchEvent_TouchMove   listener:pxSBOnTouchMove];
-		[self removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxSBOnTouchCancel];
-	}
-	
+{	
 	[newState retain];
 	[hitTestState release];
 	hitTestState = nil;
@@ -282,14 +259,6 @@
 	}
 	
 	[newState release];
-	
-	if (hitTestState != nil || hitAreaIsRect)
-	{
-		[self addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxSBOnTouchDown];
-		[self addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxSBOnTouchUp];
-		[self addEventListenerOfType:PXTouchEvent_TouchMove   listener:pxSBOnTouchMove];
-		[self addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxSBOnTouchCancel];
-	}
 }
 
 - (id<NSObject>) hitTestState
@@ -304,43 +273,57 @@
 	}
 }
 
-- (void) pxSimpleButtonOnTouchDown:(PXTouchEvent *)event
+- (BOOL) dispatchEvent:(PXEvent *)event
 {
-	if (event.eventPhase != PXEventPhase_Target)
-		return;
-
-	[listOfTouches addObject:event.nativeTouch];
-
-	visibleState = _PXSimpleButtonVisibleState_Down;
+	[self retain];
+	BOOL dispatched = [super dispatchEvent:event];
 	
-	isPressed = YES;
-}
-- (void) pxSimpleButtonOnTouchUp:(PXTouchEvent *)event
-{
-	[self pxSimpleButtonOnTouchCancel:event];
-}
-- (void) pxSimpleButtonOnTouchMove:(PXTouchEvent *)event
-{
-	// Checking the auto expand rect is automatically done
-	if (event.insideTarget == YES)
-	{
-		visibleState = _PXSimpleButtonVisibleState_Down;
-	}
-	else
-	{
-		visibleState = _PXSimpleButtonVisibleState_Up;
-	}
-}
-- (void) pxSimpleButtonOnTouchCancel:(PXTouchEvent *)event
-{
-	[listOfTouches removeObject:event.nativeTouch];
-
-	if ([listOfTouches count] == 0)
-	{
-		visibleState = _PXSimpleButtonVisibleState_Up;
-	}
+	if(!dispatched) return NO;
 	
-	isPressed = NO;
+	// It's important to do this logic afterwards so that we're not changing
+	// this hit area BEFORE a touch up event, which will cause tap to
+	// not fire if the touch was in the buffer zone.
+	if ([event isKindOfClass:[PXTouchEvent class]])
+	{
+		PXTouchEvent *touchEvent = (PXTouchEvent *)event;
+		NSString *eventType = touchEvent.type;
+		
+		if([eventType isEqualToString:PXTouchEvent_TouchDown])
+		{
+			[listOfTouches addObject:touchEvent.nativeTouch];
+			
+			visibleState = _PXSimpleButtonVisibleState_Down;
+			
+			isPressed = YES;
+		}
+		else if ([eventType isEqualToString:PXTouchEvent_TouchMove])
+		{
+			// Checking the auto expand rect is automatically done
+			if (touchEvent.insideTarget == YES)
+			{
+				visibleState = _PXSimpleButtonVisibleState_Down;
+			}
+			else
+			{
+				visibleState = _PXSimpleButtonVisibleState_Up;
+			}
+		}
+		else if ([eventType isEqualToString:PXTouchEvent_TouchUp]
+				 || [eventType isEqualToString:PXTouchEvent_TouchCancel])
+		{
+			[listOfTouches removeObject:touchEvent.nativeTouch];
+			
+			if ([listOfTouches count] == 0)
+			{
+				visibleState = _PXSimpleButtonVisibleState_Up;
+			}
+			
+			isPressed = NO;
+		}
+	}
+	[self release];
+	
+	return dispatched;
 }
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
@@ -374,7 +357,7 @@
 {
 	if(isPressed)
 	{
-		float amount = -autoExpandSize;
+		float amount = -dragAreaPadding;
 		return CGRectInset(hitAreaRect, amount, amount);
 	}
 	else
@@ -450,9 +433,11 @@
  */
 + (PXSimpleButton *)simpleButtonWithUpState:(PXDisplayObject *)upState
 								  downState:(PXDisplayObject *)downState
+							 hitAreaPadding:(float)hitAreaPadding
 {
 	return [[[PXSimpleButton alloc] initWithUpState:upState
-										  downState:downState] autorelease];
+										  downState:downState
+									 hitAreaPadding:hitAreaPadding] autorelease];
 }
 
 /**

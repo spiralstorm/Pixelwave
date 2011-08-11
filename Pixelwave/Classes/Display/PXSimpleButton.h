@@ -39,17 +39,14 @@
 
 #import "PXInteractiveObject.h"
 
-/// @cond DX_IGNORE
 typedef enum
 {
 	_PXSimpleButtonVisibleState_Up = 0,
 	_PXSimpleButtonVisibleState_Down
 } _PXSimpleButtonVisibleState;
-/// @endcond
 
 @interface PXSimpleButton : PXInteractiveObject
 {
-/// @cond DX_IGNORE
 @protected
 	PXDisplayObject *downState;
 	PXDisplayObject *upState;
@@ -59,18 +56,14 @@ typedef enum
 
 	PXLinkedList *listOfTouches;
 	
+	float dragAreaPadding;
+	
 	BOOL enabled;
 	
 	BOOL isPressed;
 	
 	BOOL hitAreaIsRect;
 	CGRect hitAreaRect;
-@private
-	PXEventListener *pxSBOnTouchDown;
-	PXEventListener *pxSBOnTouchUp;
-	PXEventListener *pxSBOnTouchMove;
-	PXEventListener *pxSBOnTouchCancel;
-/// @endcond
 }
 
 /**
@@ -112,11 +105,12 @@ typedef enum
  *
  *	@b Default: 9.0f.
  */
-@property (nonatomic, assign) float autoExpandSize;
+// @property (nonatomic, assign) float dragAreaPadding;
 
 //-- ScriptIgnore
 - (id) initWithUpState:(PXDisplayObject *)upState
-			 downState:(PXDisplayObject *)downState;
+			 downState:(PXDisplayObject *)downState
+		hitAreaPadding:(float)padding;
 
 //-- ScriptName: SimpleButton
 //-- ScriptArg[0]: nil
@@ -128,7 +122,8 @@ typedef enum
 
 //-- ScriptIgnore
 + (PXSimpleButton *)simpleButtonWithUpState:(PXDisplayObject *)upState
-								  downState:(PXDisplayObject *)downState;
+								  downState:(PXDisplayObject *)downState
+							 hitAreaPadding:(float)hitAreaPadding;
 //-- ScriptName: make
 //-- ScriptArg[0]: nil
 //-- ScriptArg[1]: nil
