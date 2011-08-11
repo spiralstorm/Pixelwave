@@ -42,9 +42,9 @@
 @class Slider;
 
 @protocol SliderDelegate
-- (void)sliderDidBeginDrag:(Slider *)slider;
-- (void)sliderDidEndDrag:(Slider *)slider;
-- (void)slider:(Slider *)slider didChangeValue:(float)value;
+- (void) sliderDidBeginDrag:(Slider *)slider;
+- (void) sliderDidEndDrag:(Slider *)slider;
+- (void) slider:(Slider *)slider didChangeValue:(float)value;
 @end
 
 @interface Slider : PXSimpleSprite
@@ -56,8 +56,8 @@
 	PXTexture *barBody;
 	PXTexture *barRightCap;
 	PXTexture *sliderButtonTexture;
-
-	PXSimpleButton *sliderButton;
+	
+	PXSimpleSprite *sliderSprite;
 
 	UITouch *currentTouch;
 
@@ -73,7 +73,7 @@
 
 @property (nonatomic, assign) id<SliderDelegate> delegate;
 
-- (id)initWithSkin:(PXTextureData *)skin;
+- (id) initWithSkin:(PXTextureData *)skin;
 
 + (Slider *)sliderWithSkin:(PXTextureData *)skin;
 

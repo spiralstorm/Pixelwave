@@ -43,52 +43,70 @@
 
 - (void) initializeAsRoot
 {
-	
 	// Set the background color of the stage to a sensible gray
 	self.stage.backgroundColor = 0x444444;
-	
+
 	////////////////////
 	// Load the sound //
 	////////////////////
-	
+
 	sound = [PXSound soundWithContentsOfFile:@"Bell.wav"];
 	[sound retain];
-	
+
 	///////////////////////
 	// Instructions text //
 	///////////////////////
-	
+
 	txtInstructions = [PXTextField new];
-	
+
 	txtInstructions.font = @"Chalkduster";
 	txtInstructions.fontSize = 30.0f;
-	
+
 	txtInstructions.align = PXTextFieldAlign_Center;
 	txtInstructions.textColor = 0xFFFFFF;
-	
+
 	txtInstructions.x = self.stage.stageWidth * 0.5f;
 	txtInstructions.y = self.stage.stageHeight * 0.5f;
-	
+
 	txtInstructions.text = @"[Touch for sound]";
-	
+
 	[self addChild:txtInstructions];
-	
+
+	// An optimization - we are only listening to touches on the stage anyway.
+	self.stage.touchChildren = NO;
+
 	/////////////////////
 	// Event Listeners //
 	/////////////////////
-	
-	// Use an ENTER_FRAME event to animate the text
+
+	// Use an EnterFrame event to animate the text
 	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
-	// Use the TOUCH_DOWN event to play a sound when the screen is pressed
+	// Use the TouchDown event to play a sound when the screen is pressed
 	[self.stage addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown)];
 }
 
-- (void)onTouchDown
+- (void) dealloc
+{
+	// Always remember to remove event listeners
+	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
+	[self removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown)];
+
+	// Clean up memory
+	[sound release];
+	sound = nil;
+
+	[txtInstructions release];
+	txtInstructions = nil;
+
+	[super dealloc];
+}
+
+- (void) onTouchDown
 {
 	// Specify the volume and pitch we want to use in a SoundTransform object
 	PXSoundTransform *t = [PXSoundTransform soundTransformWithVolume:[PXMath randomFloatInRangeFrom:0.5f to:1.0f] 
 															   pitch:[PXMath randomFloatInRangeFrom:0.5f to:2.0f]];
-	
+
 	// Play the sound with the random transformation
 	[sound playWithStartTime:0 loopCount:0 soundTransform:t];
 }
@@ -97,22 +115,6 @@
 {
 	// Pulsate the text so the user doesn't get bored
 	txtInstructions.alpha = 0.5 + sinf(PXGetTimerSec() * 2.0f) * 0.5f;
-}
-
-- (void) dealloc
-{
-	// Always remember to remove event listeners
-	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
-	[self removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown)];
-	
-	// Clean up memory
-	[sound release];
-	sound = nil;
-	
-	[txtInstructions release];
-	txtInstructions = nil;
-	
-	[super dealloc];
 }
 
 @end

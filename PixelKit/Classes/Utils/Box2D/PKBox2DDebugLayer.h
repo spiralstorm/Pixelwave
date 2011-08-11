@@ -60,6 +60,7 @@ class PKB2DebugDraw;
 
 @property (nonatomic) BOOL touchPicking;
 @property (nonatomic) BOOL precisePicking;
+@property (nonatomic, readonly) PKBox2DTouchPicker *touchPicker;
 
 - (id) initWithPhysicsWorld:(b2World *)physicsWorld;
 

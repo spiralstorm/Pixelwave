@@ -41,16 +41,13 @@
 
 #import "Slider.h"
 
-// TODO: Remove this line
-#import "PXTextureFontOptions.h"
-
 #define REFLECTION_ALPHA 0.05f
 static NSString *fontName = @"TrebuchetMS";
 
 @interface SimpleSliderRoot(Private)
 - (PXTextField *)newTextField;
 - (PXTextField *)textFieldForSlider:(Slider *)slider;
-- (void)updateTextField:(PXTextField *)textField withValue:(float)value;
+- (void) updateTextField:(PXTextField *)textField withValue:(float)value;
 - (PXTextField *)refForTextField:(PXTextField *)txt;
 @end
 

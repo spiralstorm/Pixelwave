@@ -118,7 +118,6 @@ CGPoint PXUtilsGlobalToLocal(PXDisplayObject *displayObject, CGPoint point)
 	PXUtilsDisplayObjectMultiplyUp(displayObject, &matrix);
 
 	point = PXGLMatrixConvertPoint(&matrix, point);
-	//PX_GL_CONVERT_POINT_TO_MATRIX(matrix, point.x, point.y);
 
 	return point;
 }

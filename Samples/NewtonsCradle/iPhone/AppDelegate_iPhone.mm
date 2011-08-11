@@ -55,7 +55,7 @@
 	[UIApplication sharedApplication].idleTimerDisabled = YES;
 
 	// Create a new Pixelwave View
-	pixelView = [[PXView alloc] initWithFrame:window.frame];	
+	pixelView = [[PXView alloc] initWithFrame:window.frame];
 	// Set some basic settings
 	pixelView.stage.backgroundColor = 0x808080;
 	pixelView.stage.frameRate = 60;
@@ -81,6 +81,7 @@
 {
     [window release];
 	[pixelView release];
+
     [super dealloc];
 }
 

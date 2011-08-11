@@ -39,6 +39,7 @@
 
 #import "Box2D.h"
 #import "Pixelwave.h"
+#import "PKBox2DTouchPickerEvent.h"
 
 @interface PKBox2DTouchPicker : PXDisplayObject
 {
@@ -51,5 +52,6 @@
 @property (nonatomic) BOOL precise;
 
 - (id) initWithWorld:(b2World *)physicsWorld;
+- (void) resetTouches;
 
 @end

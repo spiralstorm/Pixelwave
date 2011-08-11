@@ -1278,6 +1278,10 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	{
 		PXGLSetCurrentPointSizeIndex(oldPointSizeIndex);
 		PXGLSetCurrentVertexIndex(oldVertexIndex);
+		if (isPointSizeArray)
+		{
+			PXGLSetCurrentPointSizeIndex(oldPointSizeIndex);
+		}
 	}
 
 	// We are adding a 1 pixel buffer to the bounding box
@@ -1516,6 +1520,11 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 		PXGLSetCurrentIndex(oldIndex);
 		PXGLSetCurrentPointSizeIndex(oldPointSizeIndex);
 		PXGLSetCurrentVertexIndex(oldVertexIndex);
+
+		if (isPointSizeArray)
+		{
+			PXGLSetCurrentPointSizeIndex(oldPointSizeIndex);
+		}
 	}
 
 	// We are adding a 1 pixel buffer to the bounding box

@@ -60,15 +60,15 @@
 {
 	va_list args;
 	va_start(args, shape0);
-	
+
 	b2Body *body = [Box2DUtils bodyInWorld:physicsWorld
 							   withBodyDef:bodyDef
 								fixtureDef:fixtureDef
 									shape0:shape0
 								shapesList:args];
-	
+
 	va_end(args);
-	
+
 	return body;
 }
 
@@ -213,28 +213,28 @@
 	// Convert all the values to meters
 	float halfWidth = PointsToMeters(rect.width * 0.5f);
 	float halfHeight = PointsToMeters(rect.height * 0.5f);
-	
+
 	float left = PointsToMeters(rect.left);
 	float right = PointsToMeters(rect.right);
 	float top = PointsToMeters(rect.top);
 	float bottom = PointsToMeters(rect.bottom);
-	
+
 	thickness = PointsToMeters(thickness);
-	
+
 	// Create a body to hold the border shapes
 	b2BodyDef bodyDef;
 	b2Body *body = physicsWorld->CreateBody(&bodyDef);
-	
+
 	// Create all the shapes
 	b2PolygonShape box;
 	b2FixtureDef fixtureDef;
-	
+
 	fixtureDef.shape = &box;
-	
+
 	// Bottom
 	box.SetAsBox(halfWidth, thickness, b2Vec2(left + halfWidth, bottom), 0.0f);
 	body->CreateFixture(&fixtureDef);
-	
+
 	// Top
 	box.SetAsBox(halfWidth, thickness, b2Vec2(left + halfWidth, top), 0.0f);
 	body->CreateFixture(&fixtureDef);
@@ -242,11 +242,11 @@
 	// Left
 	box.SetAsBox(thickness, halfHeight, b2Vec2(left, top + halfHeight), 0.0f);
 	body->CreateFixture(&fixtureDef);
-	
+
 	// Right
 	box.SetAsBox(thickness, halfHeight, b2Vec2(right, top + halfHeight), 0.0f);
 	body->CreateFixture(&fixtureDef);
-	
+
 	return body;
 }
 

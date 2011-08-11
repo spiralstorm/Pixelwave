@@ -39,6 +39,7 @@
 
 #import "PKBox2DTouchPicker.h"
 #import "PXMathUtils.h"
+#import "PKBox2DTouchPickerEvent.h"
 
 // Query Callback
 class PKTouchPickerQueryCallback : public b2QueryCallback
@@ -85,10 +86,12 @@ public:
 	b2MouseJoint *touchJoint;
 	b2Body *jointBody;
 	b2Body *touchedBody;
+	b2Fixture *touchedFixture;
 }
 
 @property (nonatomic, readonly) UITouch *nativeTouch;
 @property (nonatomic, readonly) b2MouseJoint *joint;
+@property (nonatomic, readonly) b2Fixture *fixture;
 
 @property (nonatomic) b2Vec2 position;
 
@@ -103,6 +106,7 @@ public:
 
 @synthesize nativeTouch;
 @synthesize joint = touchJoint;
+@synthesize fixture = touchedFixture;
 
 - (id) init
 {
@@ -127,6 +131,7 @@ public:
 		// Set the world and the joint
 		physicsWorld = _physicsWorld;
 		
+		touchedFixture = fixture;
 		touchedBody = fixture->GetBody();
 		
 		touchJoint = NULL;
@@ -146,12 +151,13 @@ public:
 		if (jointBody)
 			physicsWorld->DestroyBody(jointBody);
 	}
-
+	
 	touchJoint = NULL;
 	jointBody = NULL;
 	physicsWorld = NULL;
+	touchedFixture = NULL;
 	touchedBody = NULL;
-
+	
 	[super dealloc];
 }
 
@@ -209,6 +215,8 @@ public:
 - (void) onTouchDown:(PXTouchEvent *)event;
 - (void) onTouchMove:(PXTouchEvent *)event;
 - (void) onTouchUp:(PXTouchEvent *)event;
+
+- (void) removeTouch:(PKBox2DTouch *)touch;
 @end
 
 @implementation PKBox2DTouchPicker
@@ -244,6 +252,18 @@ public:
 	[super dealloc];
 }
 
+/**
+ *	Ends all current picking operations, and dispatches a "PickEnd" event
+ *	for each one.
+ */
+- (void) resetTouches
+{	
+	while(touches.count > 0){
+		PKBox2DTouch *touch = [touches lastObject];
+		[self removeTouch:touch];
+	}
+}
+
 - (void)onAddedToStage
 {
 	PXStage *stage = self.stage;
@@ -251,7 +271,7 @@ public:
 	[stage addEventListenerOfType:PXTouchEvent_TouchDown		listener:PXListener(onTouchDown:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchMove		listener:PXListener(onTouchMove:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchUp		listener:PXListener(onTouchUp:)];
-	[stage addEventListenerOfType:PXTouchEvent_TouchOut		listener:PXListener(onTouchUp:)];
+//	[stage addEventListenerOfType:PXTouchEvent_TouchOut		listener:PXListener(onTouchUp:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchCancel	listener:PXListener(onTouchUp:)];
 }
 - (void)onRemovedFromStage
@@ -263,7 +283,7 @@ public:
 	[stage removeEventListenerOfType:PXTouchEvent_TouchDown	listener:PXListener(onTouchDown:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchMove	listener:PXListener(onTouchMove:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchUp		listener:PXListener(onTouchUp:)];
-	[stage removeEventListenerOfType:PXTouchEvent_TouchOut	listener:PXListener(onTouchUp:)];
+//	[stage removeEventListenerOfType:PXTouchEvent_TouchOut	listener:PXListener(onTouchUp:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchCancel	listener:PXListener(onTouchUp:)];
 }
 
@@ -310,13 +330,30 @@ public:
 	{
 		return;
 	}
+	
+	// Let's tell the user about this, and give them a chance to cancel
+	// this pick.
+	PKBox2DTouchPickerEvent *pickerEvent = [[PKBox2DTouchPickerEvent alloc] initWithType:PKBox2DTouchPickerEvent_PickStart
+																			cancelable:YES
+																				 fixture:fixture
+																			 nativeTouch:event.nativeTouch];
+	
+	[self dispatchEvent:pickerEvent];
+	BOOL defaultPrevented = [pickerEvent isDefaultPrevented];
+	
+	[pickerEvent release];
+	
+	// We gave the user a chance to ignore this pick. If they did, exit.
+	if(defaultPrevented){
+		return;
+	}
 
 	// A touch happened, create one.
 	PKBox2DTouch *touch = [[PKBox2DTouch alloc] initWithWorld:physicsWorld
 													  fixture:fixture
 												  nativeTouch:event.nativeTouch];
 
-	touch.position = pos;// localPos;
+	touch.position = pos;
 	
 	[touches addObject:touch];
 	[touch release];
@@ -347,14 +384,27 @@ public:
 	PKBox2DTouch *touch;
 	for (touch in touches)
 	{
-		// If the touch that was released is equal to a saved touch, then remove
+		// If the touch that was released is equal to a saved touch, remove
 		// that touch.
 		if (touch.nativeTouch == event.nativeTouch)
 		{
-			[touches removeObject:touch];
+			[self removeTouch:touch];
 			break;
 		}
 	}
+}
+
+- (void) removeTouch:(PKBox2DTouch *)touch
+{
+	// Touch end can't be cancelled, we just let the user know in this case.
+	PKBox2DTouchPickerEvent *pickerEvent = nil;
+	
+	pickerEvent = [[PKBox2DTouchPickerEvent alloc] initWithType:PKBox2DTouchPickerEvent_PickEnd cancelable:NO fixture:touch.fixture nativeTouch:touch.nativeTouch];
+	
+	[self dispatchEvent:pickerEvent];
+	[pickerEvent release];
+	
+	[touches removeObject:touch];
 }
 
 @end

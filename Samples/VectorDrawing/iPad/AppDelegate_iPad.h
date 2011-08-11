@@ -40,7 +40,8 @@
 #import <UIKit/UIKit.h>
 #import "Pixelwave.h"
 
-@interface AppDelegate_iPad : NSObject <UIApplicationDelegate> {
+@interface AppDelegate_iPad : NSObject <UIApplicationDelegate>
+{
     UIWindow *window;
 	PXView *pixelView;
 }

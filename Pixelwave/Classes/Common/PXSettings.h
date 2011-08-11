@@ -82,6 +82,10 @@ extern PXVersion pxVersion;
 // Misc //
 //////////
 
+PXExtern const float PXEngineTouchRadius;
+PXExtern const float PXEngineTouchRadiusSquared;
+PXExtern const float PXEngineTapDuration;
+
 // Should the engine randomize the timer when it starts out? Why not.
 #define PX_SEED_RAND_WITH_TIME_ON_INIT 1
 
@@ -101,7 +105,7 @@ PXExtern NSString * const PXTextFieldDefaultFont;
 // Screen colors //
 ///////////////////
 
-#define PX_VIEW_DEFAULT_COLOR_QUALITY PXViewColorQuality_Medium
+#define PX_VIEW_DEFAULT_COLOR_QUALITY PXViewColorQuality_High
 
 // Point color conversion.
 // Faster if this is set to 0, however less accurate when it comes to floating

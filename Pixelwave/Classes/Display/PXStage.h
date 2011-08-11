@@ -72,6 +72,7 @@ typedef enum
 
 	BOOL dispatchesDisplayListEvents;
 	BOOL autoOrients;
+	BOOL defaultCaptureTouchesValue;
 /// @endcond
 }
 
@@ -99,9 +100,9 @@ typedef enum
 /**
  *	If <code>YES</code> then the stage automatically rotates to the orientations
  *	acceptable It will send out a <code>PXStageOrientation</code> with the type
- *	<code>PXStageOrientationEvent_OrientationChanging</code>. If that event is canceled
- *	(using <code>preventDefault</code>) then the orientation will not take
- *	affect. If the orientation is accepted then a
+ *	<code>PXStageOrientationEvent_OrientationChanging</code>. If that event is
+ *	canceled (using <code>preventDefault</code>) then the orientation will not
+ *	take affect. If the orientation is accepted then a
  *	<code>PXStageOrientationEvent_OrientationChange</code> will be sent.
  *
  *	@b Default: NO
@@ -109,8 +110,16 @@ typedef enum
 @property (nonatomic, assign) BOOL autoOrients;
 
 /**
- *	The color with which to clear the stage every frame.
- *	This values is used if #clearsScreen is set to <code>YES</code>.
+ *	The value the <code>captureTouches</code> property of a PXInteractiveObject
+ *	instance should be set to when initialized.
+ *
+ *	@b Default: YES
+ */
+@property (nonatomic, assign) BOOL defaultCaptureTouchesValue;
+
+/**
+ *	The color with which to clear the stage every frame. This values is used if
+ *	#clearsScreen is set to <code>YES</code>.
  *	
  *	Represented as a hexadecimal number with the format: RRGGBB
  *
@@ -126,6 +135,8 @@ typedef enum
  *	Whether the screen will be cleared before each draw.
  *	This option is set to <code>YES</code> by default, but may be set to
  *	<code>NO</code> as an optimization.
+ *
+ *	@b Default: YES
  */
 @property (nonatomic) BOOL clearScreen;
 

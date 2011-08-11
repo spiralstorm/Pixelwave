@@ -82,6 +82,7 @@
 @synthesize orientation;
 @synthesize dispatchesDisplayListEvents;
 @synthesize autoOrients;
+@synthesize defaultCaptureTouchesValue;
 
 - (id) init
 {
@@ -100,11 +101,14 @@
 		_touchChildren = YES;
 
 		autoOrients = NO;
+		defaultCaptureTouchesValue = YES;
 
 		dispatchesDisplayListEvents = YES;
 
 		[_name release];
 		_name = nil;
+
+		_captureTouches = NO;
 
 	//	self.orientation = PXStageOrientation_Portrait;
 	}
@@ -116,6 +120,7 @@
 {
 	return self;
 }
+
 - (PXDisplayObject *)root
 {
 	return self;
@@ -157,6 +162,7 @@
 {
 	PXEngineSetRunning(val);
 }
+
 - (BOOL) playing
 {
 	return PXEngineGetRunning();
@@ -166,6 +172,7 @@
 {
 	PXEngineSetLogicFrameRate(fps);
 }
+
 - (float) frameRate
 {
 	return PXEngineGetLogicFrameRate();
@@ -175,6 +182,7 @@
 {
 	PXEngineSetRenderFrameRate(fps);
 }
+
 - (float) renderFrameRate
 {
 	return PXEngineGetRenderFrameRate();
@@ -282,6 +290,11 @@
 }
 
 - (void) setTouchEnabled:(BOOL)val
+{
+	[self onUnsettablePropertyAccess];
+}
+
+- (void) setCaptureTouches:(BOOL)val
 {
 	[self onUnsettablePropertyAccess];
 }

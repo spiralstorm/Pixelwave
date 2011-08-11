@@ -41,6 +41,7 @@
 #import "PXEvent.h"
 
 #import "PXEngine.h"
+#import "PXTouchEngine.h"
 #import "PXStage.h"
 
 #import "PXPrivateUtils.h"
@@ -231,8 +232,8 @@
 		
 		// ADDED event
 		e = [[PXEvent alloc] initWithType:PXEvent_Added
-							   doesBubble:YES
-							 isCancelable:NO];
+							   bubbles:YES
+							 cancelable:NO];
 		[child dispatchEvent:e];
 		[e release];
 		
@@ -245,8 +246,8 @@
 			// dispatch ADDED_TO_STAGE event
 			
 			e = [[PXEvent alloc] initWithType:PXEvent_AddedToStage
-											doesBubble:NO
-										  isCancelable:NO];
+											bubbles:NO
+										  cancelable:NO];
 			
 			[child _dispatchAndPropegateEvent:e];
 			// Note child is not guaranteed to be in the display list, or even
@@ -370,55 +371,58 @@
 
 - (void) removeChild:(PXDisplayObject *)child dispatchEvents:(BOOL)dispatchEvents
 {	
-	//I don't have any children, so none can be removed
-	if (!_childrenHead)
+	// I don't have any children, so none can be removed
+	if (!_childrenHead || !child)
 	{
 		return;
 	}
-	
+
 	/////////////////
 	// Linked List //
 	/////////////////
-	
+
 	//_childrenHead and _childrenTail must both be null or both be non-null
 	NSAssert((_childrenHead && _childrenTail) || (!_childrenHead && !_childrenTail), @"_childrenHead and _childrenTail must both be null or both be non-null");
-	
+
 	////////////
 	// Events //
 	////////////
-	
+
+	// Removes all touch captures that may be associating with this child.
+	PXTouchEngineRemoveAllTouchCapturesFromObject(child);
+
 	// Removed events come before things get romoved
 	if (dispatchEvents)
 	{
 		// Get an extra hold on the child, in case all of its owners release it
 		// on the listeners
 		[child retain];
-		
-		PXEvent *e = nil;
-		
+
+		PXEvent *event = nil;
+
 		// REMOVED event
-		e = [[PXEvent alloc] initWithType:PXEvent_Removed
-							   doesBubble:YES
-							 isCancelable:NO];
-		
-		[child dispatchEvent:e];
-		[e release];
-		
+		event = [[PXEvent alloc] initWithType:PXEvent_Removed
+								   bubbles:YES
+								 cancelable:NO];
+
+		[child dispatchEvent:event];
+		[event release];
+
 		// If the child hasn't been removed while we dispatched the remove event
 		// on it, dispatch the next event
-		if (child.stage)
+		if (child.stage != nil)
 		{
 			// REMOVED_FROM_STAGE event
-			
-			PXEvent *e = [[PXEvent alloc] initWithType:PXEvent_RemovedFromStage
-											doesBubble:NO
-										  isCancelable:NO];
-			
-			[child _dispatchAndPropegateEvent:e];
-			
-			[e release];
+
+			event = [[PXEvent alloc] initWithType:PXEvent_RemovedFromStage
+									   bubbles:NO
+									 cancelable:NO];
+
+			[child _dispatchAndPropegateEvent:event];
+
+			[event release];
 		}
-		
+
 		// Is the child still MY child?
 		if (child->_parent != self)
 		{
@@ -427,11 +431,11 @@
 			[child release];
 			return;
 		}
-		
+
 		// Get rid of my extra hold
 		[child release];
 	}
-	
+
 	/////////////////
 	// Linked List //
 	/////////////////
@@ -479,7 +483,7 @@
 	///////////
 
 	child->_parent = nil;
-	
+
 	[child release]; //release my real hold
 }
 
@@ -515,13 +519,13 @@
 		PXThrowNilParam(child);
 		return;
 	}
-	
+
 	if (child->_parent != self)
 	{
 		PXThrowDispNotChild;
 		return;
 	}
-	
+
 	_impRemoveChild(self, nil, child, PXEngineGetStage().dispatchesDisplayListEvents);
 }
 

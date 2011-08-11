@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -18,7 +18,6 @@
 		2D7E91D3107B8F7400B98F2B /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D7E91D1107B8F7400B98F2B /* OpenGLES.framework */; };
 		2DC35CE212CBDFE100B2F195 /* libPixelKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2DC35CE112CBDFD000B2F195 /* libPixelKit.a */; };
 		2DC35D9912CBE34200B2F195 /* Box2DUtils.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DC35D9812CBE34200B2F195 /* Box2DUtils.mm */; };
-		2DC35DEA12CC024F00B2F195 /* Box2DListeners.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DC35DE912CC024F00B2F195 /* Box2DListeners.mm */; };
 		2DD6222F12BA94F800F200F1 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DD6220E12BA8F9D00F200F1 /* MainWindow_iPhone.xib */; };
 		2DD6223012BA94FE00F200F1 /* MainWindow_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DD6220A12BA8F9D00F200F1 /* MainWindow_iPad.xib */; };
 		2DD6223112BA950F00F200F1 /* AppDelegate_iPad.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6220912BA8F9D00F200F1 /* AppDelegate_iPad.mm */; };
@@ -28,11 +27,21 @@
 		2DD624EE12BAD4BF00F200F1 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DD624E912BAD4BF00F200F1 /* Icon-72.png */; };
 		2DD624EF12BAD4BF00F200F1 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DD624EA12BAD4BF00F200F1 /* Icon.png */; };
 		2DD624F012BAD4BF00F200F1 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DD624EB12BAD4BF00F200F1 /* Icon@2x.png */; };
-		5296B56412D50B9F00A8D494 /* Attacher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5296B56312D50B9F00A8D494 /* Attacher.mm */; };
-		5296B56712D50DF100A8D494 /* BodyAttacher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5296B56612D50DF100A8D494 /* BodyAttacher.mm */; };
-		5296B6F512D535DF00A8D494 /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 5296B6F212D535DF00A8D494 /* background.png */; };
-		5296B6F612D535DF00A8D494 /* Clacker.png in Resources */ = {isa = PBXBuildFile; fileRef = 5296B6F312D535DF00A8D494 /* Clacker.png */; };
-		5296B6F712D535DF00A8D494 /* would.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5296B6F412D535DF00A8D494 /* would.wav */; };
+		2DE6D0B213E7381000B85014 /* Atlas.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DE6D0B013E7381000B85014 /* Atlas.png */; };
+		2DE6D0B313E7381000B85014 /* Atlas@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DE6D0B113E7381000B85014 /* Atlas@2x.png */; };
+		2DF9AF1C13E5BDDC006BF50F /* Atlas.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1513E5BDDC006BF50F /* Atlas.json */; };
+		2DF9AF1E13E5BDDC006BF50F /* Atlas@2x.json in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1713E5BDDC006BF50F /* Atlas@2x.json */; };
+		2DF9AF2013E5BDDC006BF50F /* BGiPad.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1913E5BDDC006BF50F /* BGiPad.png */; };
+		2DF9AF2113E5BDDC006BF50F /* BGiPhone.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1A13E5BDDC006BF50F /* BGiPhone.png */; };
+		2DF9AF2213E5BDDC006BF50F /* BGiPhone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DF9AF1B13E5BDDC006BF50F /* BGiPhone@2x.png */; };
+		2DF9AF2B13E5C9BC006BF50F /* Attacher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9AF2513E5C9BC006BF50F /* Attacher.mm */; };
+		2DF9AF2C13E5C9BC006BF50F /* BodyAttacher.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9AF2713E5C9BC006BF50F /* BodyAttacher.mm */; };
+		2DF9AF2D13E5C9BC006BF50F /* Box2DListeners.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9AF2A13E5C9BC006BF50F /* Box2DListeners.mm */; };
+		2DF9AF3113E5C9F0006BF50F /* CradleItemSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9AF3013E5C9F0006BF50F /* CradleItemSprite.m */; };
+		2DF9AF3413E5CB96006BF50F /* CradleBallSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9AF3313E5CB96006BF50F /* CradleBallSprite.m */; };
+		2DF9AF4513E5D425006BF50F /* Globals.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9AF4413E5D425006BF50F /* Globals.m */; };
+		2DF9AF4813E5D67C006BF50F /* CradleItemShadowSprite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9AF4713E5D67C006BF50F /* CradleItemShadowSprite.m */; };
+		5296B6F712D535DF00A8D494 /* wood.wav in Resources */ = {isa = PBXBuildFile; fileRef = 5296B6F412D535DF00A8D494 /* wood.wav */; };
 		52ABDD711256746000AB0756 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52ABDD701256746000AB0756 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		52DAB9431278A90E002894E7 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DAB9421278A90E002894E7 /* AVFoundation.framework */; };
 		52DAB9491278A91D002894E7 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52DAB9481278A91D002894E7 /* AudioToolbox.framework */; };
@@ -85,8 +94,6 @@
 		2DC35CCD12CBDFAC00B2F195 /* PixelKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = PixelKit.xcodeproj; sourceTree = PIXEL_KIT_SRC; };
 		2DC35D9712CBE34200B2F195 /* Box2DUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2DUtils.h; sourceTree = "<group>"; };
 		2DC35D9812CBE34200B2F195 /* Box2DUtils.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Box2DUtils.mm; sourceTree = "<group>"; };
-		2DC35DE812CC024F00B2F195 /* Box2DListeners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2DListeners.h; sourceTree = "<group>"; };
-		2DC35DE912CC024F00B2F195 /* Box2DListeners.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Box2DListeners.mm; sourceTree = "<group>"; };
 		2DD6220812BA8F9D00F200F1 /* AppDelegate_iPad.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate_iPad.h; sourceTree = "<group>"; };
 		2DD6220912BA8F9D00F200F1 /* AppDelegate_iPad.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = AppDelegate_iPad.mm; sourceTree = "<group>"; };
 		2DD6220A12BA8F9D00F200F1 /* MainWindow_iPad.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow_iPad.xib; sourceTree = "<group>"; };
@@ -99,15 +106,30 @@
 		2DD624E912BAD4BF00F200F1 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		2DD624EA12BAD4BF00F200F1 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		2DD624EB12BAD4BF00F200F1 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		2DE6D0B013E7381000B85014 /* Atlas.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Atlas.png; sourceTree = "<group>"; };
+		2DE6D0B113E7381000B85014 /* Atlas@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Atlas@2x.png"; sourceTree = "<group>"; };
+		2DF9AF1513E5BDDC006BF50F /* Atlas.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Atlas.json; sourceTree = "<group>"; };
+		2DF9AF1713E5BDDC006BF50F /* Atlas@2x.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Atlas@2x.json"; sourceTree = "<group>"; };
+		2DF9AF1913E5BDDC006BF50F /* BGiPad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BGiPad.png; sourceTree = "<group>"; };
+		2DF9AF1A13E5BDDC006BF50F /* BGiPhone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BGiPhone.png; sourceTree = "<group>"; };
+		2DF9AF1B13E5BDDC006BF50F /* BGiPhone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BGiPhone@2x.png"; sourceTree = "<group>"; };
+		2DF9AF2413E5C9BC006BF50F /* Attacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attacher.h; sourceTree = "<group>"; };
+		2DF9AF2513E5C9BC006BF50F /* Attacher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Attacher.mm; sourceTree = "<group>"; };
+		2DF9AF2613E5C9BC006BF50F /* BodyAttacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyAttacher.h; sourceTree = "<group>"; };
+		2DF9AF2713E5C9BC006BF50F /* BodyAttacher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BodyAttacher.mm; sourceTree = "<group>"; };
+		2DF9AF2813E5C9BC006BF50F /* Box2DListenerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2DListenerDelegate.h; sourceTree = "<group>"; };
+		2DF9AF2913E5C9BC006BF50F /* Box2DListeners.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2DListeners.h; sourceTree = "<group>"; };
+		2DF9AF2A13E5C9BC006BF50F /* Box2DListeners.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Box2DListeners.mm; sourceTree = "<group>"; };
+		2DF9AF2F13E5C9F0006BF50F /* CradleItemSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CradleItemSprite.h; sourceTree = "<group>"; };
+		2DF9AF3013E5C9F0006BF50F /* CradleItemSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CradleItemSprite.m; sourceTree = "<group>"; };
+		2DF9AF3213E5CB96006BF50F /* CradleBallSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CradleBallSprite.h; sourceTree = "<group>"; };
+		2DF9AF3313E5CB96006BF50F /* CradleBallSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CradleBallSprite.m; sourceTree = "<group>"; };
+		2DF9AF4313E5D425006BF50F /* Globals.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Globals.h; sourceTree = "<group>"; };
+		2DF9AF4413E5D425006BF50F /* Globals.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Globals.m; sourceTree = "<group>"; };
+		2DF9AF4613E5D67C006BF50F /* CradleItemShadowSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CradleItemShadowSprite.h; sourceTree = "<group>"; };
+		2DF9AF4713E5D67C006BF50F /* CradleItemShadowSprite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CradleItemShadowSprite.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* NewtonsCradle_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewtonsCradle_Prefix.pch; sourceTree = "<group>"; };
-		5296B21112D3C5C100A8D494 /* Box2DListenerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2DListenerDelegate.h; sourceTree = "<group>"; };
-		5296B56212D50B9F00A8D494 /* Attacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Attacher.h; sourceTree = "<group>"; };
-		5296B56312D50B9F00A8D494 /* Attacher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Attacher.mm; sourceTree = "<group>"; };
-		5296B56512D50DF100A8D494 /* BodyAttacher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BodyAttacher.h; sourceTree = "<group>"; };
-		5296B56612D50DF100A8D494 /* BodyAttacher.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BodyAttacher.mm; sourceTree = "<group>"; };
-		5296B6F212D535DF00A8D494 /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
-		5296B6F312D535DF00A8D494 /* Clacker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Clacker.png; sourceTree = "<group>"; };
-		5296B6F412D535DF00A8D494 /* would.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = would.wav; sourceTree = "<group>"; };
+		5296B6F412D535DF00A8D494 /* wood.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = wood.wav; sourceTree = "<group>"; };
 		52ABDD701256746000AB0756 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		52DAB9421278A90E002894E7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		52DAB9481278A91D002894E7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -139,15 +161,12 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				5296B56212D50B9F00A8D494 /* Attacher.h */,
-				5296B56312D50B9F00A8D494 /* Attacher.mm */,
-				5296B56512D50DF100A8D494 /* BodyAttacher.h */,
-				5296B56612D50DF100A8D494 /* BodyAttacher.mm */,
+				2DF9AF4313E5D425006BF50F /* Globals.h */,
+				2DF9AF4413E5D425006BF50F /* Globals.m */,
 				2D7E9117107B896900B98F2B /* NewtonsCradleRoot.h */,
 				2D7E9118107B896900B98F2B /* NewtonsCradleRoot.mm */,
-				5296B21112D3C5C100A8D494 /* Box2DListenerDelegate.h */,
-				2DC35DE812CC024F00B2F195 /* Box2DListeners.h */,
-				2DC35DE912CC024F00B2F195 /* Box2DListeners.mm */,
+				2DF9AF2E13E5C9C8006BF50F /* Display */,
+				2DF9AF2313E5C9BC006BF50F /* Physics */,
 				2DC35D9612CBE34200B2F195 /* Utils */,
 			);
 			path = Classes;
@@ -278,12 +297,44 @@
 			path = Media;
 			sourceTree = "<group>";
 		};
+		2DF9AF2313E5C9BC006BF50F /* Physics */ = {
+			isa = PBXGroup;
+			children = (
+				2DF9AF2413E5C9BC006BF50F /* Attacher.h */,
+				2DF9AF2513E5C9BC006BF50F /* Attacher.mm */,
+				2DF9AF2613E5C9BC006BF50F /* BodyAttacher.h */,
+				2DF9AF2713E5C9BC006BF50F /* BodyAttacher.mm */,
+				2DF9AF2813E5C9BC006BF50F /* Box2DListenerDelegate.h */,
+				2DF9AF2913E5C9BC006BF50F /* Box2DListeners.h */,
+				2DF9AF2A13E5C9BC006BF50F /* Box2DListeners.mm */,
+			);
+			path = Physics;
+			sourceTree = "<group>";
+		};
+		2DF9AF2E13E5C9C8006BF50F /* Display */ = {
+			isa = PBXGroup;
+			children = (
+				2DF9AF2F13E5C9F0006BF50F /* CradleItemSprite.h */,
+				2DF9AF3013E5C9F0006BF50F /* CradleItemSprite.m */,
+				2DF9AF4613E5D67C006BF50F /* CradleItemShadowSprite.h */,
+				2DF9AF4713E5D67C006BF50F /* CradleItemShadowSprite.m */,
+				2DF9AF3213E5CB96006BF50F /* CradleBallSprite.h */,
+				2DF9AF3313E5CB96006BF50F /* CradleBallSprite.m */,
+			);
+			path = Display;
+			sourceTree = "<group>";
+		};
 		5296B6ED12D5358100A8D494 /* Media */ = {
 			isa = PBXGroup;
 			children = (
-				5296B6F212D535DF00A8D494 /* background.png */,
-				5296B6F312D535DF00A8D494 /* Clacker.png */,
-				5296B6F412D535DF00A8D494 /* would.wav */,
+				2DF9AF1513E5BDDC006BF50F /* Atlas.json */,
+				2DF9AF1713E5BDDC006BF50F /* Atlas@2x.json */,
+				2DE6D0B013E7381000B85014 /* Atlas.png */,
+				2DE6D0B113E7381000B85014 /* Atlas@2x.png */,
+				2DF9AF1913E5BDDC006BF50F /* BGiPad.png */,
+				2DF9AF1A13E5BDDC006BF50F /* BGiPhone.png */,
+				2DF9AF1B13E5BDDC006BF50F /* BGiPhone@2x.png */,
+				5296B6F412D535DF00A8D494 /* wood.wav */,
 			);
 			path = Media;
 			sourceTree = "<group>";
@@ -315,8 +366,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0410;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "NewtonsCradle" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -374,9 +428,14 @@
 				2DD624EF12BAD4BF00F200F1 /* Icon.png in Resources */,
 				2DD624F012BAD4BF00F200F1 /* Icon@2x.png in Resources */,
 				2D37543212BBD20A00FA7A59 /* Default~iPad.png in Resources */,
-				5296B6F512D535DF00A8D494 /* background.png in Resources */,
-				5296B6F612D535DF00A8D494 /* Clacker.png in Resources */,
-				5296B6F712D535DF00A8D494 /* would.wav in Resources */,
+				5296B6F712D535DF00A8D494 /* wood.wav in Resources */,
+				2DF9AF1C13E5BDDC006BF50F /* Atlas.json in Resources */,
+				2DF9AF1E13E5BDDC006BF50F /* Atlas@2x.json in Resources */,
+				2DF9AF2013E5BDDC006BF50F /* BGiPad.png in Resources */,
+				2DF9AF2113E5BDDC006BF50F /* BGiPhone.png in Resources */,
+				2DF9AF2213E5BDDC006BF50F /* BGiPhone@2x.png in Resources */,
+				2DE6D0B213E7381000B85014 /* Atlas.png in Resources */,
+				2DE6D0B313E7381000B85014 /* Atlas@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,9 +451,13 @@
 				2DD6223212BA950F00F200F1 /* AppDelegate_iPhone.mm in Sources */,
 				2D7E9119107B896900B98F2B /* NewtonsCradleRoot.mm in Sources */,
 				2DC35D9912CBE34200B2F195 /* Box2DUtils.mm in Sources */,
-				2DC35DEA12CC024F00B2F195 /* Box2DListeners.mm in Sources */,
-				5296B56412D50B9F00A8D494 /* Attacher.mm in Sources */,
-				5296B56712D50DF100A8D494 /* BodyAttacher.mm in Sources */,
+				2DF9AF2B13E5C9BC006BF50F /* Attacher.mm in Sources */,
+				2DF9AF2C13E5C9BC006BF50F /* BodyAttacher.mm in Sources */,
+				2DF9AF2D13E5C9BC006BF50F /* Box2DListeners.mm in Sources */,
+				2DF9AF3113E5C9F0006BF50F /* CradleItemSprite.m in Sources */,
+				2DF9AF3413E5CB96006BF50F /* CradleBallSprite.m in Sources */,
+				2DF9AF4513E5D425006BF50F /* Globals.m in Sources */,
+				2DF9AF4813E5D67C006BF50F /* CradleItemShadowSprite.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -423,6 +486,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NewtonsCradle_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = "NewtonsCradle-Info.plist";
 				PRODUCT_NAME = NewtonsCradle;
 				SDKROOT = iphoneos;
@@ -436,6 +500,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = NewtonsCradle_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				INFOPLIST_FILE = "NewtonsCradle-Info.plist";
 				PRODUCT_NAME = NewtonsCradle;
 				SDKROOT = iphoneos;
@@ -455,7 +520,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(PIXELWAVE_SRC)/** $(PIXEL_KIT_SRC)/**";
@@ -475,7 +539,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(PIXELWAVE_SRC)/** $(PIXEL_KIT_SRC)/**";

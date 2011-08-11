@@ -455,6 +455,10 @@
 		52C63C3911E505BB0010A572 /* zutil.h in Headers */ = {isa = PBXBuildFile; fileRef = 52C63C1E11E505BB0010A572 /* zutil.h */; };
 		52C7F63412E6106200AD09A2 /* PXStageOrientationEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 52C7F63212E6106200AD09A2 /* PXStageOrientationEvent.h */; };
 		52C7F63512E6106200AD09A2 /* PXStageOrientationEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 52C7F63312E6106200AD09A2 /* PXStageOrientationEvent.m */; };
+		52D7FF4A13E8617200FABF6C /* PXTouchEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 52D7FF4813E8617200FABF6C /* PXTouchEngine.h */; };
+		52D7FF4B13E8617200FABF6C /* PXTouchEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D7FF4913E8617200FABF6C /* PXTouchEngine.m */; };
+		52D7FF4D13E8623C00FABF6C /* PXEnginePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 52D7FF4C13E8623C00FABF6C /* PXEnginePrivate.h */; };
+		52D7FF7513E865E600FABF6C /* PXEnginePrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D7FF7413E865E600FABF6C /* PXEnginePrivate.m */; };
 		52DAB8991278A744002894E7 /* PXGL.h in Headers */ = {isa = PBXBuildFile; fileRef = 52DAB8941278A744002894E7 /* PXGL.h */; };
 		52DAB89A1278A744002894E7 /* PXGL.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB8951278A744002894E7 /* PXGL.m */; };
 		52DAB89B1278A744002894E7 /* PXGLPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 52DAB8961278A744002894E7 /* PXGLPrivate.h */; };
@@ -506,7 +510,7 @@
 		1D776D0A1057F9EA00516B26 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1D776D0B1057F9EA00516B26 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1DAD0FD21056FFB800A5AC03 /* PXView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXView.h; sourceTree = "<group>"; };
-		1DAD0FD31056FFB800A5AC03 /* PXView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXView.m; sourceTree = "<group>"; };
+		1DAD0FD31056FFB800A5AC03 /* PXView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		1DAD0FEF1057014100A5AC03 /* Pixelwave.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pixelwave.h; sourceTree = "<group>"; };
 		2D0E8CE61353F2C200A42B3D /* PXTextureAtlasParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureAtlasParser.h; sourceTree = "<group>"; };
 		2D0E8CE71353F2C200A42B3D /* PXTextureAtlasParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureAtlasParser.m; sourceTree = "<group>"; };
@@ -546,7 +550,7 @@
 		2DABCBC81352BA8300FB437A /* PXAtlasFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAtlasFrame.h; sourceTree = "<group>"; };
 		2DABCBC91352BA8300FB437A /* PXAtlasFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAtlasFrame.m; sourceTree = "<group>"; };
 		2DAF677211C58DEA00A66884 /* PXEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEngine.h; sourceTree = "<group>"; };
-		2DAF677311C58DEA00A66884 /* PXEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEngine.m; sourceTree = "<group>"; };
+		2DAF677311C58DEA00A66884 /* PXEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXEngine.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2DAF678011C58DF900A66884 /* PXColorTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXColorTransform.h; sourceTree = "<group>"; };
 		2DAF678111C58DF900A66884 /* PXColorTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXColorTransform.m; sourceTree = "<group>"; };
 		2DAF678211C58DF900A66884 /* PXMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXMatrix.h; sourceTree = "<group>"; };
@@ -557,18 +561,18 @@
 		2DAF678711C58DF900A66884 /* PXRectangle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXRectangle.m; sourceTree = "<group>"; };
 		2DAF678811C58DF900A66884 /* PXTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTransform.h; sourceTree = "<group>"; };
 		2DAF678911C58DF900A66884 /* PXTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTransform.m; sourceTree = "<group>"; };
-		2DAF679411C58E1500A66884 /* PXEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEvent.h; sourceTree = "<group>"; };
-		2DAF679511C58E1500A66884 /* PXEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEvent.m; sourceTree = "<group>"; };
+		2DAF679411C58E1500A66884 /* PXEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2DAF679511C58E1500A66884 /* PXEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2DAF679611C58E1500A66884 /* PXEventDispatcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEventDispatcher.h; sourceTree = "<group>"; };
 		2DAF679711C58E1500A66884 /* PXEventDispatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEventDispatcher.m; sourceTree = "<group>"; };
 		2DAF679811C58E1500A66884 /* PXEventListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEventListener.h; sourceTree = "<group>"; };
 		2DAF679911C58E1500A66884 /* PXEventListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEventListener.m; sourceTree = "<group>"; };
 		2DAF679A11C58E1500A66884 /* PXTouchEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTouchEvent.h; sourceTree = "<group>"; };
-		2DAF679B11C58E1500A66884 /* PXTouchEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTouchEvent.m; sourceTree = "<group>"; };
+		2DAF679B11C58E1500A66884 /* PXTouchEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXTouchEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2DAF67AE11C58E2800A66884 /* PXDisplayObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDisplayObject.h; sourceTree = "<group>"; };
 		2DAF67AF11C58E2800A66884 /* PXDisplayObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDisplayObject.m; sourceTree = "<group>"; };
 		2DAF67B011C58E2800A66884 /* PXDisplayObjectContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXDisplayObjectContainer.h; sourceTree = "<group>"; };
-		2DAF67B111C58E2800A66884 /* PXDisplayObjectContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXDisplayObjectContainer.m; sourceTree = "<group>"; };
+		2DAF67B111C58E2800A66884 /* PXDisplayObjectContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXDisplayObjectContainer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2DAF67B211C58E2800A66884 /* PXGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphics.h; sourceTree = "<group>"; };
 		2DAF67B311C58E2800A66884 /* PXGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphics.m; sourceTree = "<group>"; };
 		2DAF67B411C58E2800A66884 /* PXInteractiveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXInteractiveObject.h; sourceTree = "<group>"; };
@@ -946,8 +950,12 @@
 		52C63C1C11E505BB0010A572 /* zlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zlib.h; sourceTree = "<group>"; };
 		52C63C1D11E505BB0010A572 /* zutil.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zutil.c; sourceTree = "<group>"; };
 		52C63C1E11E505BB0010A572 /* zutil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zutil.h; sourceTree = "<group>"; };
-		52C7F63212E6106200AD09A2 /* PXStageOrientationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXStageOrientationEvent.h; sourceTree = "<group>"; };
-		52C7F63312E6106200AD09A2 /* PXStageOrientationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXStageOrientationEvent.m; sourceTree = "<group>"; };
+		52C7F63212E6106200AD09A2 /* PXStageOrientationEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXStageOrientationEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		52C7F63312E6106200AD09A2 /* PXStageOrientationEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXStageOrientationEvent.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		52D7FF4813E8617200FABF6C /* PXTouchEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTouchEngine.h; sourceTree = "<group>"; };
+		52D7FF4913E8617200FABF6C /* PXTouchEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTouchEngine.m; sourceTree = "<group>"; };
+		52D7FF4C13E8623C00FABF6C /* PXEnginePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEnginePrivate.h; sourceTree = "<group>"; };
+		52D7FF7413E865E600FABF6C /* PXEnginePrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEnginePrivate.m; sourceTree = "<group>"; };
 		52DAB8941278A744002894E7 /* PXGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGL.h; sourceTree = "<group>"; };
 		52DAB8951278A744002894E7 /* PXGL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGL.m; sourceTree = "<group>"; };
 		52DAB8961278A744002894E7 /* PXGLPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLPrivate.h; sourceTree = "<group>"; };
@@ -973,9 +981,9 @@
 		52DAB8B41278A796002894E7 /* PXAVSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAVSound.h; sourceTree = "<group>"; };
 		52DAB8B51278A796002894E7 /* PXAVSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAVSound.m; sourceTree = "<group>"; };
 		52DAB8BB1278A796002894E7 /* PXALSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXALSoundChannel.h; sourceTree = "<group>"; };
-		52DAB8BC1278A796002894E7 /* PXALSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXALSoundChannel.m; sourceTree = "<group>"; };
+		52DAB8BC1278A796002894E7 /* PXALSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXALSoundChannel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		52DAB8BD1278A796002894E7 /* PXAVSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAVSoundChannel.h; sourceTree = "<group>"; };
-		52DAB8BE1278A796002894E7 /* PXAVSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAVSoundChannel.m; sourceTree = "<group>"; };
+		52DAB8BE1278A796002894E7 /* PXAVSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXAVSoundChannel.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		52DAB9521278A946002894E7 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		52DAB9561278A94D002894E7 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		52DAB95A1278A955002894E7 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -1292,8 +1300,12 @@
 		2D77D533106A6240007AE269 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				52D7FF4C13E8623C00FABF6C /* PXEnginePrivate.h */,
+				52D7FF7413E865E600FABF6C /* PXEnginePrivate.m */,
 				2DAF677211C58DEA00A66884 /* PXEngine.h */,
 				2DAF677311C58DEA00A66884 /* PXEngine.m */,
+				52D7FF4813E8617200FABF6C /* PXTouchEngine.h */,
+				52D7FF4913E8617200FABF6C /* PXTouchEngine.m */,
 				52DAB88B1278A70C002894E7 /* Audio */,
 				52DAB88A1278A6FA002894E7 /* Visual */,
 			);
@@ -2387,6 +2399,8 @@
 				5286DBE913E0CFCA00E5971F /* CJSONScanner.h in Headers */,
 				5286DBEB13E0CFCA00E5971F /* CJSONSerializer.h in Headers */,
 				5286DBED13E0CFCA00E5971F /* JSONRepresentation.h in Headers */,
+				52D7FF4A13E8617200FABF6C /* PXTouchEngine.h in Headers */,
+				52D7FF4D13E8623C00FABF6C /* PXEnginePrivate.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2626,6 +2640,8 @@
 				5286DBE813E0CFCA00E5971F /* CJSONDeserializer.m in Sources */,
 				5286DBEA13E0CFCA00E5971F /* CJSONScanner.m in Sources */,
 				5286DBEC13E0CFCA00E5971F /* CJSONSerializer.m in Sources */,
+				52D7FF4B13E8617200FABF6C /* PXTouchEngine.m in Sources */,
+				52D7FF7513E865E600FABF6C /* PXEnginePrivate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -169,7 +169,7 @@ void PKB2DebugDraw::DrawTransform(const b2Transform& xf)
 
 @implementation PKBox2DDebugLayer
 
-@synthesize physicsWorld;
+@synthesize physicsWorld, touchPicker;
 
 - (id) init
 {

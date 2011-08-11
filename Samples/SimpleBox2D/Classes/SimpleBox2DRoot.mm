@@ -77,7 +77,7 @@
 	// Set up the callbacks
 	destructionListener = NULL;
 	contactListener = NULL;
-	
+
 	// Uncomment these to listen to Box2D events:
 
 	// destructionListener = new DestructionListener();
@@ -85,53 +85,52 @@
 
 	// contactListener = new ContactListener();
 	// physicsWorld->SetContactListener(contactListener);
-	
+
 	//////////////////////////
 	// Set up the main loop //
 	/////////////////////////
 
-	[self addEventListenerOfType:PXEvent_EnterFrame
-						listener:PXListener(onFrame)];
+	[self addEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 
 	///////////////////////////
 	// Add some instructions //
 	///////////////////////////
-	
+
 	NSString *fontName = @"American Typewriter";
 
 	PXFontOptions *fontOptions = [PXTextureFontOptions textureFontOptionsWithSize:15.0f
 																	characterSets:PXFontCharacterSet_AllLetters
 																specialCharacters:nil];
-	
+
 	PXFont *font = [PXFont fontWithSystemFont:fontName options:fontOptions];	
 	[PXFont registerFont:font withName:fontName];
 
 	PXTextField *txtInstruction = nil;
-	
+
 	// Label
 	txtInstruction = [PXTextField textFieldWithFont:fontName
 											   text:@"drag to interact"];
-	
+
 	txtInstruction.textColor = 0xFFFFFF;
 	txtInstruction.letterSpacing = 1.0f;
 	txtInstruction.alpha = 0.75f;
 	txtInstruction.x = 20.0f;
 	txtInstruction.y = 20.0f;
-	
+
 	[self addChild:txtInstruction];
-	
+
 	// Label
 	txtInstruction = [PXTextField textFieldWithFont:fontName
 											   text:@"tilt to change gravity"];
-	
+
 	txtInstruction.textColor = 0xFFFFFF;
 	txtInstruction.letterSpacing = 1.0f;
 	txtInstruction.alpha = 0.75f;
 	txtInstruction.x = 20.0f;
 	txtInstruction.y = 40.0f;
-	
+
 	[self addChild:txtInstruction];
-	
+
 	/////////////////////////////////////
 	// Set up the debug graphics layer //
 	/////////////////////////////////////
@@ -159,7 +158,7 @@
 - (void) dealloc
 {
 	[UIAccelerometer sharedAccelerometer].delegate = nil;
-	
+
 	// Cleaning up: Release retained objects, remove event listeners, etc.
 	delete physicsWorld;
 	physicsWorld = NULL;
@@ -212,18 +211,18 @@
 	//////////////////////
 	// Create the walls //
 	//////////////////////
-	
+
 	float wallSize = 10.0f;
-	
+
 	PXRectangle *bounds = [PXRectangle rectangleWithX:0.0f
 													y:0.0f
 												width:stageWidth
 											   height:stageHeight];
-	
+
 	[Box2DUtils staticBorderInWorld:physicsWorld
 							   rect:bounds
 						  thickness:wallSize];
-	
+
 	// Define a triangle
 	int32 count = 3;
 	float angle = 30.0f;
@@ -247,7 +246,7 @@
 	unsigned short polygonY = stageHeight - (wallSize + (polygonSize * 0.5f));
 
 	// Set up our loop variables
-	short polygonCount;
+	signed short polygonCount;
 	unsigned char treeDepth;
 	unsigned char polygonIndex;
 

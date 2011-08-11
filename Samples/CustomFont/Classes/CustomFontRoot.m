@@ -51,7 +51,10 @@
  *	and display the current time using several TextField objects to emulate
  *	the look of a digital clock. We also use the HSV (Hue, Saturation, Value)
  *	color space to easily animate through all the colors of the rainbow on our
- *	"LED" display
+ *	"LED" display.
+ *
+ *	NOTE: This app is designed for the iPad only. As an exercise you could
+ *	try to make it fit into an iPhone app as well. But don't feel bad if you don't.
  */
 @implementation CustomFontRoot
 
@@ -71,6 +74,9 @@
 	
 	timeLabel = [TimeLabel new];
 	[self addChild:timeLabel];
+
+	// Optimization - We are only going to listen to touch events on the stage.
+	self.stage.touchChildren = NO;
 	
 	// Position the label is the initial spot
 	[self centerLabel];
@@ -99,14 +105,15 @@
 	///////////////////////
 	
 	// On click, let's toggle between military/non-military time
-	[self.stage addEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTap)];
+	[self.stage addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap)];
 }
 
 - (void) dealloc
 {
-	[self.stage removeEventListenerOfType:PXTouchEvent_TouchDown listener:PXListener(onTap)];
+	[self.stage removeEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onTap)];
 	[self.stage removeEventListenerOfType:PXStageOrientationEvent_OrientationChanging listener:PXListener(orientationChanging:)];
 	[self.stage removeEventListenerOfType:PXStageOrientationEvent_OrientationChange listener:PXListener(orientationChange:)];
+
 	[self removeEventListenerOfType:PXEvent_EnterFrame listener:PXListener(onFrame)];
 	
 	[timeLabel release];
@@ -117,11 +124,10 @@
 	[super dealloc];
 }
 
-/*
+/**
  *	The main loop
- *
  */
-- (void)onFrame
+- (void) onFrame
 {
 	// Set the label to display the current time
 	[timeLabel setTimeWithDate:[NSDate date]];
@@ -133,7 +139,7 @@
 	[timeLabel setHue:hue];
 }
 
-- (void)onTap
+- (void) onTap
 {
 	timeLabel.militaryTime = !timeLabel.militaryTime;
 }
@@ -152,9 +158,9 @@
  *	Just for s#!ts and giggles, let's support all orientation except
  *	updside down.
  */
-- (void)orientationChanging:(PXStageOrientationEvent *)e
+- (void) orientationChanging:(PXStageOrientationEvent *)e
 {
-	if(e.afterOrientation == PXStageOrientation_PortraitUpsideDown)
+	if (e.afterOrientation == PXStageOrientation_PortraitUpsideDown)
 	{
 		[e preventDefault];
 	}
@@ -164,7 +170,7 @@
  *	When the orientation of the device changes, update the label to be
  *	in the center
  */
-- (void)orientationChange:(PXStageOrientationEvent *)e
+- (void) orientationChange:(PXStageOrientationEvent *)e
 {
 	[self centerLabel];
 }
