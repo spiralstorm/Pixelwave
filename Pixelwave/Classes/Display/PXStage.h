@@ -123,7 +123,7 @@ typedef enum
  * 
  * Represented as a hexadecimal number with the format: RRGGBB
  *
- * <b>Example:</b>
+ * **Example:**
  * The following examples set the stage's background color to red.
  *	stage.backgroundColor = 0xFF0000;
  */
@@ -145,11 +145,11 @@ typedef enum
  * If set to <code>YES</code>, the following display list modification events
  * may be dispatched:
  * 
- * - <i>added</i> - When a display object is added to a display list.
- * - <i>addedToStage</i> - When a display object or any of its ancestors are
+ * - _added_ - When a display object is added to a display list.
+ * - _addedToStage_ - When a display object or any of its ancestors are
  * added to the main display list.
- * - <i>removed</i> - When a display object is removed from the display list.
- * - <i>removedFromStage</i> - When a display object or any of its ancestors
+ * - _removed_ - When a display object is removed from the display list.
+ * - _removedFromStage_ - When a display object or any of its ancestors
  * are removed from the main display list.
  *
  * The value of this property may be changed at any time and has an immediate

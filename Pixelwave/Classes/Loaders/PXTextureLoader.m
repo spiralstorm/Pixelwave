@@ -86,7 +86,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  * - .pvr
  * - .pvrtc
  *
- * <b>Example</b>:
+ * **Example**:
  * The following code sample loads a png file and renders it to the screen:
  * 
  *	// Create a loader object to load and parse the png from the application

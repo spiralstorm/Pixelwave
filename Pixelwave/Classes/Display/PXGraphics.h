@@ -47,7 +47,7 @@
  * Both #PXSprite and #PXShape have #PXGraphics objects that can be
  * used for drawing.
  *
- * <b>IMPORTANT NOTE</b>: This is not the final version of the Graphics class,
+ * **IMPORTANT NOTE**: This is not the final version of the Graphics class,
  * much more functionality will be added in a later version.
  *
  * @see PXSprite

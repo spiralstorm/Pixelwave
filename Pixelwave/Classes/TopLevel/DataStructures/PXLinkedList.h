@@ -128,13 +128,13 @@ typedef struct _sPXLLNode
 /**
  * The first object in the list.
  *
- * <i><b>Complexity:</b> O(1)</i>
+ * _**Complexity:** O(1)_
  */
 @property (nonatomic, readonly) PXGenericObject firstObject;
 /**
  * The last object in the list.
  *
- * <i><b>Complexity:</b> O(1)</i>
+ * _**Complexity:** O(1)_
  */
 @property (nonatomic, readonly) PXGenericObject lastObject;
 /**

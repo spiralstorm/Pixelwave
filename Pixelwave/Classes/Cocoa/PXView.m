@@ -727,7 +727,7 @@
 /**
  * A screen grab of the current state of the main display list, as a UIImage.
  *
- * <b>Please note</b> that this is a fairly expensive method to execute, and
+ * **Please note** that this is a fairly expensive method to execute, and
  * shouldn't be used for real-time effects to avoid a performance hit.
  *
  * This method is generally intended for debugging purposes, but can be safely
