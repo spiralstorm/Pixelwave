@@ -80,6 +80,11 @@ void PXMathSeedRandomWithValue(unsigned value)
 	srand(value);
 }
 
+float PXMathLog(float val, float base)
+{
+	return logf(val) / logf(base);
+}
+
 bool PXMathPointInLine(PXMathPoint *ans, PXMathPoint *point, PXMathLine *line)
 {
 	float x1 = line->pointA.x;
