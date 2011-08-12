@@ -43,16 +43,16 @@
 #import "PXExceptionUtils.h"
 
 /**
- *	@ingroup Events
- *
- *	The PXEventListener class acts as a wrapper for an Objective-C method. Used
- *	when adding and removing event listeners from the PXEventDispatcher class.
- *	
- *	@see #PXListener
- *	@see PXEventDispatcher#addEventListenerOfType:listener:useCapture:priority:
+ * Acts as a wrapper for an Objective-C method. Used
+ * when adding and removing event listeners from the #PXEventDispatcher class.
+ * 
+ * @see PXListener
+ * @see [PXEventDispatcher addEventListenerOfType:listener:useCapture:priority:]
  */
 @implementation PXEventListener
 
+/**
+ */
 - (id) initWithTarget:(PXGenericObject)target selector:(SEL)selector
 {
 	// Check params

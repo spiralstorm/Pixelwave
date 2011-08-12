@@ -50,7 +50,6 @@
 
 #define PX_GRAPHICS_DEFAULT_PRECISION 0.25f
 
-/// @cond DX_IGNORE
 //LineGroup class used to store vertices
 #define PX_GRAPHICS_GROUP_MAX_POINTS 100
 typedef enum
@@ -177,7 +176,6 @@ typedef enum
 }
 
 @end
-/// @endcond
 
 //Main Graphics Class
 
@@ -211,28 +209,24 @@ typedef enum
 }
 
 /**
- *	Begins a fill sequence.  Any line, circle, ellipse or rectangle drawn after
- *	this call, and before <code>endFill</code> will be filled in with the
- *	specified color and alpha.
+ * Begins a fill sequence. Any line, circle, ellipse or rectangle drawn after
+ * this call, and before #endFill will be filled in with the
+ * specified color and alpha.
  *
- *	@param color
- *		The color for the fill in hex form ranging from 0x000000 for black, and
- *		0xFFFFFF for white.
- *	@param alpha
- *		The alpha channel for the color ranging between 0.0f for invisible to
- *		1.0f for full visibility.
+ * @param color The color for the fill in hex form ranging from 0x000000 for black, and
+ * 0xFFFFFF for white.
+ * @param alpha The alpha channel for the color ranging between 0.0f for invisible to
+ * 1.0f for full visibility.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXShape *shape = [PXShape new];
  *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
  *	[shape.graphics drawRectWithX:100 y:150 width:64 height:32];
  *	[shape.graphics endFill];
  *	// A red rectangle at (100, 150) with a size of (64, 32) will be drawn to
  *	// the screen, assuming the shape was added to the display list.
- *	@endcode
  *
- *	@see PXShape
+ * @see PXShape
  */
 - (void) beginFill:(unsigned)color alpha:(float)alpha
 {
@@ -242,41 +236,37 @@ typedef enum
 }
 
 /**
- *	Ends the fill sequence.  Any line, circle, ellipse or rectangle drawn after
- *	the <code>beginFill</code> call, and before this call will be filled in with
- *	the specified color and alpha.
+ * Ends the fill sequence. Any line, circle, ellipse or rectangle drawn after
+ * the #beginFill call, and before this call will be filled in with
+ * the specified color and alpha.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXShape *shape = [PXShape new];
  *	[shape.graphics beginFill:0xFF0000 alpha:1.0f];
  *	[shape.graphics drawRectWithX:100 y:150 width:64 height:32];
  *	[shape.graphics endFill];
  *	// A red rectangle at (100, 150) with a size of (64, 32) will be drawn to
  *	// the screen, assuming the shape was added to the display list.
- *	@endcode
  *
- *	@see PXShape
+ * @see PXShape
  */
 - (void) endFill
 {
 }
 
 /**
- *	Sets the values needed to define a line.  Any line, circle, ellipse or
- *	rectangle drawn after this call, will have be made up of lines with the
- *	specified thickness, color and alpha.
+ * Sets the values needed to define a line.  Any line, circle, ellipse or
+ * rectangle drawn after this call, will have be made up of lines with the
+ * specified thickness, color and alpha.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXShape *shape = [PXShape new];
- *	[shape.graphics lineStyle::0xFF0000 alpha:1.0f];
+ *	[shape.graphics [lineStyle 0xFF0000] alpha:1.0f];
  *	[shape.graphics drawRectWithX:100 y:150 width:64 height:32];
  *	// A red outline of a rectangle at (100, 150) with a size of (64, 32) will
  *	// be drawn to the screen, assuming the shape was added to the display list.
- *	@endcode
  *
- *	@see PXShape
+ * @see PXShape
  */
 - (void) lineStyleWithThickness:(float)thickness color:(unsigned)color alpha:(float)lineAlpha
 {

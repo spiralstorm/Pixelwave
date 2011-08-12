@@ -64,12 +64,12 @@ PXInline PXLinkedList *PXParserGetArray(Class baseClass);
 PXInline void PXParserRemoveBaseClass(Class baseClass);
 
 /*
- *	The PXParser is a registration class to assign PXParsers to their base
- *	classes. A PXParser example is PXTextureParser (being the base class) and
- *	PXPNGTextureParser being the actual parser. This is the parser used if an
- *	image being loaded is a png. The parsers are kept in order, thus if you add
- *	a new parser in that takes PNG data, then your parser will get fired and
- *	ours will be ignored.
+ * The PXParser is a registration class to assign PXParsers to their base
+ * classes. A PXParser example is PXTextureParser (being the base class) and
+ * PXPNGTextureParser being the actual parser. This is the parser used if an
+ * image being loaded is a png. The parsers are kept in order, thus if you add
+ * a new parser in that takes PNG data, then your parser will get fired and
+ * ours will be ignored.
  */
 @implementation PXParser
 
@@ -134,14 +134,12 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 #pragma mark -
 
 /**
- *	Registers the parser with it's base class. Ex. if you wanted to make a
- *	custom texture parser, you would register it with the base class of
- *	PXTextureParser.
+ * Registers the parser with it's base class. Ex. if you wanted to make a
+ * custom texture parser, you would register it with the base class of
+ * PXTextureParser.
  *
- *	@param parser
- *		The parser you wish to register.
- *	@param baseClass
- *		The base class you are registering it for.
+ * @param parser The parser you wish to register.
+ * @param baseClass The base class you are registering it for.
  */
 + (void) registerParser:(Class)parser forBaseClass:(Class)baseClass
 {
@@ -159,12 +157,10 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 
 // Unregirstration
 /**
- *	Unregisters the parser from the base class.
+ * Unregisters the parser from the base class.
  *
- *	@param parser
- *		The parser you wish to un-register.
- *	@param baseClass
- *		The base class you are un-registering it for.
+ * @param parser The parser you wish to un-register.
+ * @param baseClass The base class you are un-registering it for.
  */
 + (void) unregisterParser:(Class)parser forBaseClass:(Class)baseClass
 {
@@ -173,17 +169,16 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 	[array removeObject:parser];
 }
 /**
- *	Unregisters all parser for the given base class.
+ * Unregisters all parser for the given base class.
  *
- *	@param baseClass
- *		The base class to unregister everything from.
+ * @param baseClass The base class to unregister everything from.
  */
 + (void) unregisterAllParsersForBaseClass:(Class)baseClass
 {
 	PXParserRemoveBaseClass(baseClass);
 }
 /**
- *	Unregisters all parsers from all base classes.
+ * Unregisters all parsers from all base classes.
  */
 + (void) unregisterAllParsers
 {
@@ -192,14 +187,12 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 
 // Getting
 /**
- *	Returns a linkedlist of parsers for the given base class. Note, this is not
- *	a copy, but the actual list.
+ * Returns a linkedlist of parsers for the given base class. Note, this is not
+ * a copy, but the actual list.
  *
- *	@param baseClass
- *		The base class for grabbing the parsers.
- *	@return
- *		A linkedlist of parsers for the given base class. Note, this is not a
- *		copy, but the actual list.
+ * @param baseClass The base class for grabbing the parsers.
+ * @return A linkedlist of parsers for the given base class. Note, this is not a
+ * copy, but the actual list.
  */
 + (PXLinkedList *)parsersForBaseClass:(Class)baseClass
 {
@@ -207,18 +200,14 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 }
 
 /**
- *	Finds the parser that is associated with the type of data and origin of the
- *	base class type.
+ * Finds the parser that is associated with the type of data and origin of the
+ * base class type.
  *
- *	@param data
- *		The data to find an associative parser for.
- *	@param origin
- *		The origin the data came from.
- *	@param baseClass
- *		The base class for the search.
- *	@return
- *		IF a parser is found, then the parser will be the correct one associated
- *		with the data. Otherwise <code>nil</code> is returned instead.
+ * @param data The data to find an associative parser for.
+ * @param origin The origin the data came from.
+ * @param baseClass The base class for the search.
+ * @return IF a parser is found, then the parser will be the correct one associated
+ * with the data. Otherwise `nil` is returned instead.
  */
 + (Class) parserForData:(NSData *)data
 				 origin:(NSString *)origin
@@ -247,8 +236,8 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 }
 
 /**
- *	A list of all the file types supported by this parser. Each extension
- *	always is lower-case.
+ * A list of all the file types supported by this parser. Each extension
+ * always is lower-case.
  */
 + (NSArray *)supportedFileExtensions
 {

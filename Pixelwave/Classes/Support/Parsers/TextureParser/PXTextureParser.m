@@ -50,13 +50,10 @@
 #include "PXPrivateUtils.h"
 
 /**
- *	@ingroup Parser
+ * A PXTextureParser takes the given data, and parses it into information
+ * needed to render the image.
  *
- *	A PXTextureParser takes the given data, and parses it into information
- *	needed to render the image.
- *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"image.png"];
  *	PXTextureParser *textureParser = [[PXTextureParser alloc] initWithData:data];
  *	PXTextureData *textureData = [textureParser newTextureData];
@@ -69,7 +66,6 @@
  *	[textureData release];
  *	[textureParser release];
  *	[data release];
- *	@endcode
  */
 @implementation PXTextureParser
 
@@ -83,20 +79,16 @@
 	return nil;
 }
 /**
- *	Makes a new texture parser takes the given data, and parses it into
- *	information needed to render the image.
+ * Makes a new texture parser takes the given data, and parses it into
+ * information needed to render the image.
  *
- *	@param data
- *		The loaded data.
- *	@param modifier
- *		A modifier is used to modify the loaded bytes, a backup is kept so can
- *		set this to <code>nil</code> after getting a new texture data, and still
- *		have your previously loaded data.
- *	@param origin
- *		The origin of the font.
+ * @param data The loaded data.
+ * @param modifier A modifier is used to modify the loaded bytes, a backup is kept so can
+ * set this to `nil` after getting a new texture data, and still
+ * have your previously loaded data.
+ * @param origin The origin of the font.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	NSData *data = [[NSData alloc] initWithContentsOfFile:@"image.png"];
  *	PXTextureParser *textureParser = [[PXTextureParser alloc] initWithData:data
  *	                                                              modifier:[PXTextureModifiers textureModifierToPixelFormat:PXTextureDataPixelFormat_RGBA5551]
@@ -113,7 +105,6 @@
  *	[textureData release];
  *	[textureParser release];
  *	[data release];
- *	@endcode
  */
 - (id) initWithData:(NSData *)_data
 		   modifier:(id<PXTextureModifier>)_modifier
@@ -230,11 +221,10 @@
 }
 
 /**
- *	Creates a new PXTextureData object containing a copy of the loaded image
- *	data. Note that all returned copies must be released by the caller.
+ * Creates a new PXTextureData object containing a copy of the loaded image
+ * data. Note that all returned copies must be released by the caller.
  *
- *	@return
- *		The new texture data.
+ * @return The new texture data.
  */
 - (PXTextureData *)newTextureData
 {

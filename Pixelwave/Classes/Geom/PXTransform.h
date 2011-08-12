@@ -44,84 +44,72 @@
 
 @interface PXTransform : NSObject
 {
-/// @cond DX_IGNORE
 @public
 	PXDisplayObject *_displayObject;
-/// @endcond
 }
 /**
- *	A matrix containing the local transformation of the PXDisplayObject
- *	associated with the given PXTransform.
- *	<br>
- *	Note that the <code>matrix</code> property returns a copy of itself and
- *	creates a copy of values assigned to it. That means that transformation of
- *	a PXDisplayObject can't be set by dereferencing
- *	<code>transform.matrix</code>.  Instead a PXMatrix object containing the new
- *	values and must be re-assigned to the <code>matrix</code> property.
- *	<br><br>
- *	Wrong:
- *	@code
+ * A matrix containing the local transformation of the #PXDisplayObject
+ * associated with the given #PXTransform.
+ * 
+ * Note that the `matrix` property returns a copy of itself and
+ * creates a copy of values assigned to it. That means that transformation of
+ * a #PXDisplayObject can't be set by dereferencing
+ * `transform.matrix`. Instead a #PXMatrix object containing the new
+ * values and must be re-assigned to the `matrix` property.
+ *
+ * Wrong:
  *	// This would have no effect.
  *	displayObject.transform.matrix.a = 5;
- *	@endcode
  *
- *	Right:
- *	@code
- *	PXMatrix *mat = displayObject.transform.matrix;
- *	mat.a = 5;
+ * Right:
+ *	PXMatrix *matrix = displayObject.transform.matrix;
+ *	matrix.a = 5;
  *	// This would work.
- *	displayObject.transform.matrix = mat;
- *	@endcode
+ *	displayObject.transform.matrix = matrix;
  */
 @property (nonatomic, copy) PXMatrix *matrix;
 /**
- *	The matrix values combined with all of the PXDisplayObject 's parents.
- *	Describes the transformation of the PXDisplayObject in global (stage)
- *	coordinates.
+ * The matrix values combined with all of the #PXDisplayObject 's parents.
+ * Describes the transformation of the #PXDisplayObject in global (stage)
+ * coordinates.
  */
 @property (nonatomic, readonly) PXMatrix *concatenatedMatrix;
 /**
- *	The transformation of the PXDisplayObject 's color in local color space.
- *	<br>
- *	Note that the <code>colorTransform</code> property returns a copy of itself
- *	and creates a copy of values assigned to it. That means that color
- *	transformation of a PXDisplayObject can't be set by dereferencing
- *	<code>transform.colorTransform</code>.  Instead a PXColorTransform object
- *	containing the new values and must be re-assigned to the
- *	<code>colorTransform</code> property.
- *	<br><br>
+ * The color transformation of the associated #PXDisplayObject in local color space.
+ * 
+ * Note that the `colorTransform` property returns a copy of itself
+ * and creates a copy of values assigned to it. That means that the color
+ * transformation of a #PXDisplayObject can't be set by dereferencing
+ * `transform.colorTransform`. Instead a #PXColorTransform object
+ * containing the new values and must be re-assigned to the
+ * `colorTransform` property.
  *
- *	Wrong:
- *	@code
+ * Wrong:
  *	// This would have no effect on the display object.
  *	displayObject.transform.colorTransform.redMultiplier = 0.5f;
- *	@endcode
  *
- *	Right:
- *	@code
- *	PXColorTransform *trans = displayObject.transform.colorTransform;
- *	trans.redMultiplier = 0.5f;
+ * Right:
+ *	PXColorTransform *colorTransform = displayObject.transform.colorTransform;
+ *	colorTransform.redMultiplier = 0.5f;
  *	// This would work.
- *	displayObject.transform.colorTransform = trans;
- *	@endcode
+ *	displayObject.transform.colorTransform = colorTransform;
  */
 @property (nonatomic, copy) PXColorTransform *colorTransform;
 /**
- *	The color transform combined with all of the PXDisplayObject 's parents.
- *	Describes the color transformation of the PXDisplayObject in global
- *	(stage) color space.
+ * The color transform combined with all of the #PXDisplayObject 's parents.
+ * 
+ * It essentially describes the color transformation of the #PXDisplayObject in global
+ * (stage) color space.
  */
 @property (nonatomic, readonly) PXColorTransform *concatenatedColorTransform;
 /**
- *	A rectangle that defines the bounding area of this PXDisplayObject on the
- *	stage, in pixels.
+ * A rectangle that defines the axis-aligned bounds the #PXDisplayObject associated
+ * with the transform on the stage, in points.
  */
 @property (nonatomic, readonly) PXRectangle *pixelBounds;
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXTransform (PrivateButPublic)
 - (id) _initWithDisplayObject:(PXDisplayObject *)dispObject;
 @end
-/// @endcond

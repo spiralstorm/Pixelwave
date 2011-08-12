@@ -40,20 +40,18 @@
 #pragma mark Header
 
 /**
- *	@ingroup TopLevel
+ * This protocol should be implemented by all classes which will be pooled in
+ * a PXObjectPool. It requires that the class implement the `reset`
+ * method, which should reset the internal state of the object to its original
+ * state.
  *
- *	This protocol should be implemented by all classes which will be pooled in
- *	a PXObjectPool. It requires that the class implement the <code>reset</code>
- *	method, which should reset the internal state of the object to its original
- *	state.
- *
- *	@see PXObjectPool#releaseObject:
+ * @see [PXObjectPool releaseObject:]
  */
 @protocol PXPooledObject<NSObject>
 @required
 /**
- *	Use this method to reset the object to its original state. This includes
- *	releasing all retained objects and resetting all numerical values.
+ * Use this method to reset the object to its original state. This includes
+ * releasing all retained objects and resetting all numerical values.
  */
 //-- ScriptName: reset
 - (void) reset;

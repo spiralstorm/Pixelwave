@@ -63,13 +63,13 @@ void PXTouchEngineDealloc()
 }
 
 /**
- *	The function first cycles through all the display objects on the screen in
- *	reverse order, looking for the most immediate target of a touch event, and
- *	then traverses up the display hierarchy until it finds an interactive object
- *	for which touches are enabled.
- *		- Bekenn, Pixelwave forums
+ * The function first cycles through all the display objects on the screen in
+ * reverse order, looking for the most immediate target of a touch event, and
+ * then traverses up the display hierarchy until it finds an interactive object
+ * for which touches are enabled.
+ * - Bekenn, Pixelwave forums
  *
- *	Returns the displayObject that should recieve the event (could be nil)
+ * Returns the displayObject that should recieve the event (could be nil)
  */
 PXDisplayObject *PXTouchEngineFindTouchTarget(float x, float y)
 {

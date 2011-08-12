@@ -49,19 +49,12 @@
 #import "PXSoundTransform3D.h"
 
 /**
- *	@ingroup Media
+ * Represents a listener in a three-dimensional
+ * coordinate system.  A listener's orientation is defined by two vectors; the
+ * forward-vector and the up-vector.  These vectors can quickly be set by using
+ * the `setRotation:using2DPerspective:` method.
  *
- *	A PXSoundListener object represents a listener in a three-dimensional
- *	coordinate system.  A listener's orientation is defined by two vectors; the
- *	forward-vector and the up-vector.  These vectors can quickly be set by using
- *	the <code>setRotation:using2DPerspective:</code> method.
  *
- *	A PXSoundListener object represents a listener in a three-dimensional
- *	coordinate system.  A listener's orientation is defined by two vectors; the
- *	forward-vector and the up-vector.  These vectors can quickly be set by using
- *	the <code>setRotation-using2DPerspective-</code> method.
- *
- *	@code
  *	            |
  *	            |  _ +z
  *	            |  /|
@@ -74,7 +67,6 @@
  *	            |
  *	            V
  *	           +y
- *	@endcode
  * 
  */
 @implementation PXSoundListener
@@ -271,19 +263,15 @@ BOOL pxSoundListenerInitialized = NO;
 #pragma mark -
 #pragma mark Methods
 /**
- *	Changes the forward and up vectors to match the perspective at the given
- *	angle.
+ * Changes the forward and up vectors to match the perspective at the given
+ * angle.
  *
- *	@param rotation
- *		The angle in degrees of rotation.
- *	@param perspective
- *		The perspective of rotation.
+ * @param rotation The angle in degrees of rotation.
+ * @param perspective The perspective of rotation.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	[[PXSoundMixer soundListener] setRotation:-90.0f using2DPerspective:PXSoundListener2DPerspective_SideView];
  *	// forward[0,0,-1], up[0,1,0]
- *	@endcode
  */
 - (void) setRotation:(float)rotation using2DPerspective:(PXSoundListener2DPerspective)perspective
 {
@@ -318,20 +306,15 @@ BOOL pxSoundListenerInitialized = NO;
 }
 
 /**
- *	Sets the position of the listener.
+ * Sets the position of the listener.
  *
- *	@param x
- *		The x-position in 3 space.
- *	@param y
- *		The y-position in 3 space.
- *	@param z
- *		The z-position in 3 space.
+ * @param x The x-position in 3 space.
+ * @param y The y-position in 3 space.
+ * @param z The z-position in 3 space.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	[[PXSoundMixer soundListener] setPositionWithX:240.0f y:160.0f z:0.0f];
  *	// Set's the position of the listener to [240.0f, 160.0f, 0.0f];
- *	@endcode
  */
 - (void) setPositionWithX:(float)x y:(float)y z:(float)z
 {
@@ -348,20 +331,15 @@ BOOL pxSoundListenerInitialized = NO;
 }
 
 /**
- *	Sets the velocity of the listener.
+ * Sets the velocity of the listener.
  *
- *	@param x
- *		The x-velocity in 3 space.
- *	@param y
- *		The y-velocity in 3 space.
- *	@param z
- *		The z-velocity in 3 space.
+ * @param x The x-velocity in 3 space.
+ * @param y The y-velocity in 3 space.
+ * @param z The z-velocity in 3 space.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	[[PXSoundMixer soundListener] setVelocityWithX:10.0f y:-5.0f z:0.0f];
  *	// Set's the velocity of the listener to [10.0f, -5.0f, 0.0f];
- *	@endcode
  */
 - (void) setVelocityWithX:(float)x y:(float)y z:(float)z
 {

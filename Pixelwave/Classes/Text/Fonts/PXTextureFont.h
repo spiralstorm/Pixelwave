@@ -44,7 +44,6 @@
 
 @interface PXTextureFont : PXFont
 {
-/// @cond DX_IGNORE
 @public
 	float _baseLine;
 	float _fontSize;
@@ -52,12 +51,11 @@
 @protected
 	NSMutableDictionary *characterToGlyph;
 	NSMutableDictionary *charactersToKern;
-/// @endcond
 }
 
 /**
- *	A list holding references to every PXTextureData used to make up the
- *	PXTextureFont object
+ * A list holding references to every PXTextureData used to make up the
+ * PXTextureFont object
  */
 @property (nonatomic, readonly) NSArray *textureDatas;
 

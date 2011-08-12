@@ -45,20 +45,18 @@
 #include "PXSoundEngine.h"
 
 /**
- *	@ingroup Media
+ * The PXSoundMixer contains a series of static methods to manipulate how
+ * sounds are played and listened to.
  *
- *	The PXSoundMixer contains a series of static methods to manipulate how
- *	sounds are played and listened to.
- *
- *	@see PXSoundTransform, PXSoundListener
+ * @see PXSoundTransform, PXSoundListener
  */
 @implementation PXSoundMixer
 
 /**
- *	Initializes the sound engine so that when you go to play a sound there is
- *	not the initial delay of setting up the engine. This is suggested to do at
- *	the start of your program if you are in need of playing sounds immediately
- *	within the duration of your app.
+ * Initializes the sound engine so that when you go to play a sound there is
+ * not the initial delay of setting up the engine. This is suggested to do at
+ * the start of your program if you are in need of playing sounds immediately
+ * within the duration of your app.
  */
 + (void) warmUp
 {
@@ -67,37 +65,31 @@
 }
 
 /**
- *	Changes the pitch and volume of every sound.
+ * Changes the pitch and volume of every sound.
  *
- *	@param soundTransform
- *		The sound transform to set.
+ * @param soundTransform The sound transform to set.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSoundTransform *soundTransform = [[PXSoundTransform alloc] initWithVolume:0.5f pitch:2.0f];
  *	[PXSoundMixer setSoundTransform:soundTransform];
  *	// All sounds will now be at 50% volume from what they were, meaning if a
  *	// sound was at 30% volume, it is now at 15%, likewise the pitch is at 200%,
  *	// meaning if the pitch of a sound was at 50%, it is now at 100%.
  *	[soundTransform release];
- *	@endcode
  */
 + (void) setSoundTransform:(PXSoundTransform *)soundTransform
 {
 	PXSoundEngineSetSoundTransform(soundTransform);
 }
 /**
- *	Returns the global sound transform.
+ * Returns the global sound transform.
  *
- *	@return
- *		The global sound transform.
+ * @return The global sound transform.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSoundTransform *globalSoundTransform = [PXSoundMixer soundTransform];
  *	// globalSoundTransform by default will have 1.0f for volume, and 1.0f for
  *	// pitch.
- *	@endcode
  */
 + (PXSoundTransform *)soundTransform
 {
@@ -105,15 +97,12 @@
 }
 
 /**
- *	Returns the global sound listener.
+ * Returns the global sound listener.
  *
- *	@return
- *		The global sound listener.
+ * @return The global sound listener.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSoundListener *globalSoundListener = [PXSoundMixer soundListener];
- *	@endcode
  */
 + (PXSoundListener *)soundListener
 {
@@ -121,33 +110,27 @@
 }
 
 /**
- *	Sets the speed of sound, this is useful for the doppler effect.
+ * Sets the speed of sound, this is useful for the doppler effect.
  *
- *	@param speedOfSound
- *		The speed of sound.
+ * @param speedOfSound The speed of sound.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	[PXSoundMixer setSpeedOfSound:64.0f];
- *	// Sets the speed of sound to 64.0 pixels/second.
- *	@endcode
+ *	// Sets the speed of sound to 64.0 points/second.
  */
 + (void) setSpeedOfSound:(float)speedOfSound
 {
 	PXSoundEngineSetSpeedOfSound(speedOfSound);
 }
 /**
- *	Returns the speed of sound.
+ * Returns the speed of sound.
  *
- *	@return
- *		The speed of sound.
+ * @return The speed of sound.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	float speedOfSound = [PXSoundMixer speedOfSound];
- *	@endcode
  *
- *	@b Default: 340.29f
+ * **Default:** 340.29f
  */
 + (float) speedOfSound
 {
@@ -155,22 +138,19 @@
 }
 
 /**
- *	Sets the distance model for the sound. This means that the further the
- *	sound gets from the listener, how it the volume will change. The two
- *	options available are either <code>PXSoundMixerDistanceModel_Linear</code>
- *	or <code>PXSoundMixerDistanceModel_Logarithmic</code>.
+ * Sets the distance model for the sound. This means that the further the
+ * sound gets from the listener, how it the volume will change. The two
+ * options available are either `PXSoundMixerDistanceModel_Linear`
+ * or `PXSoundMixerDistanceModel_Logarithmic`.
  *
- *	@param distanceModel
- *		The distance model.
+ * @param distanceModel The distance model.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	[PXSoundMixer setDistanceModel:PXSoundMixerDistanceModel_Logarithmic];
- *	@endcode
  *
- *	@see PXSoundListener
+ * @see PXSoundListener
  *
- *	@b Default: <code>PXSoundMixerDistanceModel_Logarithmic</code>
+ * **Default:** `PXSoundMixerDistanceModel_Logarithmic`
  */
 + (void) setDistanceModel:(PXSoundMixerDistanceModel)distanceModel
 {
@@ -178,21 +158,18 @@
 }
 
 /**
- *	Returns the current distance model, the two options are
- *	<code>PXSoundMixerDistanceModel_Linear</code> or
- *	<code>PXSoundMixerDistanceModel_Logarithmic</code>.  The default value is
- *	<code>PXSoundMixerDistanceModel_Logarithmic</code>.
+ * Returns the current distance model, the two options are
+ * `PXSoundMixerDistanceModel_Linear` or
+ * `PXSoundMixerDistanceModel_Logarithmic`.  The default value is
+ * `PXSoundMixerDistanceModel_Logarithmic`.
  *
- *	The distance model is how the volume of a sound changes depending on how far
- *	it is from the <code>PXSoundListener</code>.
+ * The distance model is how the volume of a sound changes depending on how far
+ * it is from the `PXSoundListener`.
  *
- *	@return
- *		The distance model.
+ * @return The distance model.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXSoundMixerDistanceModel distanceModel = [PXSoundMixer distanceModel];
- *	@endcode
  */
 + (PXSoundMixerDistanceModel) distanceModel
 {
@@ -200,28 +177,28 @@
 }
 
 /**
- *	Plays all sound channels.
+ * Plays all sound channels.
  */
 + (void) playAll
 {
 	PXSoundEnginePlayAll();
 }
 /**
- *	Pauses all sound channels.
+ * Pauses all sound channels.
  */
 + (void) pauseAll
 {
 	PXSoundEnginePauseAll();
 }
 /**
- *	Stops all sound channels.
+ * Stops all sound channels.
  */
 + (void) stopAll
 {
 	PXSoundEngineStopAll();
 }
 /**
- *	Rewinds all sound channels.
+ * Rewinds all sound channels.
  */
 + (void) rewindAll
 {

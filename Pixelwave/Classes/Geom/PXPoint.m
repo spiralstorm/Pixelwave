@@ -41,21 +41,9 @@
 #include "PXMathUtils.h"
 
 /**
- *	@ingroup Geom
- *
- *	A PXPoint object represents a location in a two-dimensional coordinate
- *	system, where x represents the horizontal axis and y represents the vertical
- *	axis.
- *
- *	The following code creates a point at (0, 0):
- *	@code
- *	PXPoint *point = [PXPoint new];
- *	@endcode
- *
- *	The following code creates a point at (10, -7):
- *	@code
- *	PXPoint *point = [[PXPoint alloc] initWithX:10 y:-7];
- *	@endcode
+ * A PXPoint object represents a location in a two-dimensional coordinate
+ * system, where x represents the horizontal axis and y represents the vertical
+ * axis.
  */
 @implementation PXPoint
 
@@ -67,18 +55,14 @@
 }
 
 /**
- *	Creates a new point at (x, y).
+ * Creates a new point at (x, y).
  *
- *	@param x
- *		The horizontal coordinate.
- *	@param y
- *		The vertical coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *point = [[PXPoint alloc] initWithX:5 y:7];
  *	// point will be (5,7)
- *	@endcode
  */
 - (id) initWithX:(float)_x y:(float)_y
 {
@@ -127,20 +111,16 @@
 #pragma mark Methods
 
 /**
- *	Sets the point to (x, y).
+ * Sets the point to (x, y).
  *
- *	@param x
- *		The horizontal coordinate.
- *	@param y
- *		The vertical coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *point = [PXPoint new];
  *	// point will be (0, 0)
  *	[point setX:5 y:7];
  *	// point will now be (5, 7)
- *	@endcode
  */
 - (void) setX:(float)_x y:(float)_y
 {
@@ -151,24 +131,20 @@
 #pragma mark Flash Methods
 
 /**
- *	Adds the coordinates of the given point to the coordinates of this point to
- *	create a new point.
+ * Adds the coordinates of the given point to the coordinates of this point to
+ * create a new point.
  *
- *	@param point
- *		The point to be added.
+ * @param point The point to be added.
  *
- *	@return
- *		The created point.
+ * @return The created point.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5 y:7];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3 y:10];
  *	PXPoint *pt3 = [pt1 addPoint:pt2];
  *	// pt3 will be (2, 17)
  *	PXPoint *pt4 = [pt2 addPoint:pt3];
  *	// pt4 will be (-1, 27)
- *	@endcode
  */
 - (PXPoint *)addPoint:(PXPoint *)point
 {
@@ -181,24 +157,20 @@
 }
 
 /**
- *	Subtracts the coordinates of the given point from the coordinates of this
- *	point to create a new point.
+ * Subtracts the coordinates of the given point from the coordinates of this
+ * point to create a new point.
  *
- *	@param point
- *		The point to be subtracted.
+ * @param point The point to be subtracted.
  *
- *	@return
- *		The created point.
+ * @return The created point.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5 y:7];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3 y:10];
  *	PXPoint *pt3 = [pt1 subtractPoint:pt2];
  *	// pt3 will be (8, -3)
  *	PXPoint *pt4 = [pt2 subtractPoint:pt3];
  *	// pt3 will now be (-11, 13)
- *	@endcode
  */
 - (PXPoint *)subtractPoint:(PXPoint *)point
 {
@@ -211,18 +183,15 @@
 }
 
 /**
- *	Determines whether two points are equal.  Two points are equal if they have
- *	the same x and y values.
+ * Determines whether two points are equal.  Two points are equal if they have
+ * the same x and y values.
  *
- *	@param point
- *		The point to be compared.
+ * @param point The point to be compared.
  *
- *	@return
- *		<code>YES</code> if the object is equal to this point object;
- *		<code>NO</code> if it is not equal.
+ * @return `YES` if the object is equal to this point object;
+ * `NO` if it is not equal.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5.0f y:7.0f];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f y:10.0f];
  *	PXPoint *pt3 = [[PXPoint alloc] initWithX:-3.0f y:10.0f];
@@ -230,7 +199,6 @@
  *	// will result in NO
  *	isEqual = [pt2 isEqualToPoint:pt3];
  *	// will result in YES
- *	@endcode
  */
 - (BOOL) isEqualToPoint:(PXPoint *)point
 {
@@ -243,14 +211,12 @@
 }
 
 /**
- *	Sets the vector represented by this point to unit length.
+ * Sets the vector represented by this point to unit length.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	[point normalize];
  *	// point will now be (0.6f, 0.8f)
- *	@endcode
  */
 - (void) normalize
 {
@@ -265,18 +231,15 @@
 }
 
 /**
- *	Scales the line segment between (0, 0) and the current point to a set
- *	length.
+ * Scales the line segment between (0, 0) and the current point to a set
+ * length.
  *
- *	@param newLength
- *		The scaling value.
+ * @param newLength The scaling value.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	[point normalizeWithLength:10.0f];
  *	// point will now be (6, 8)
- *	@endcode
  */
 - (void) normalizeWithLength:(float)newLength
 {
@@ -287,21 +250,17 @@
 }
 
 /**
- *	Offsets the PXPoint object by the specified amount.  The value of dx is
- *	added to the original value of x to create the new x value.  The value of dy
- *	is added to the original value of y to create the new y value.
+ * Offsets the PXPoint object by the specified amount.  The value of dx is
+ * added to the original value of x to create the new x value.  The value of dy
+ * is added to the original value of y to create the new y value.
  *
- *	@param dx
- *		The amount by which to offset the horizontal coordinate, x
- *	@param dy
- *		The amount by which to offset the vertical coordinate, y.
+ * @param dx The amount by which to offset the horizontal coordinate, x
+ * @param dy The amount by which to offset the vertical coordinate, y.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *point = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	[point offsetWithX:11.0f y:-5.0f];
  *	// point will now be (14.0f, -1.0f)
- *	@endcode
  */
 - (void) offsetWithX:(float)dx y:(float)dy
 {
@@ -310,23 +269,18 @@
 }
 
 /**
- *	Returns the distance between pt1 and pt2.
+ * Returns the distance between pt1 and pt2.
  *
- *	@param pt1
- *		The first point.
- *	@param pt2
- *		The second point.
+ * @param pt1 The first point.
+ * @param pt2 The second point.
  *
- *	@return
- *		The distance between the first and second points.
+ * @return The distance between the first and second points.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f y:-4.0f];
  *	float dist = [PXPoint distanceBetweenPointA:pt1 pointB:pt2];
  *	// dist will be 10.0f
- *	@endcode
  */
 + (float) distanceBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2
 {
@@ -337,23 +291,18 @@
 }
 
 /**
- *	Returns the angle between pt1 and pt2.
+ * Returns the angle between pt1 and pt2.
  *
- *	@param pt1
- *		The first point.
- *	@param pt2
- *		The second point.
+ * @param pt1 The first point.
+ * @param pt2 The second point.
  *
- *	@return
- *		The angle between the first and second degrees.
+ * @return The angle between the first and second degrees.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:0.0f y:0.0f];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:5.0f y:-5.0f];
  *	float angle = [PXPoint angleBetweenPointA:pt1 pointB:pt2];
  *	// angle will be 45.0f
- *	@endcode
  */
 + (float) angleBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2
 {
@@ -363,32 +312,26 @@
 }
 
 /**
- *	Determines a point between two specified points.  The parameter f determines
- *	where the new interpolated point is located relative to the two end points
- *	specified by parameters pt1 and pt2.
- *	
- *	The closer the value of the parameter f is to 1.0, the closer the
- *	interpolated point is to the first point (parameter pt1).
+ * Determines a point between two specified points.  The parameter f determines
+ * where the new interpolated point is located relative to the two end points
+ * specified by parameters pt1 and pt2.
+ * 
+ * The closer the value of the parameter f is to 1.0, the closer the
+ * interpolated point is to the first point (parameter pt1).
  *
- *	@param pt1
- *		The first point.
- *	@param pt2
- *		The second point.
- *	@param f
- *		The level of interpolation between the two points.  Indicates where the
- *		new point will be, along the line between pt1 and pt2.  If f == 1, pt1
- *		is returned; if == 0, pt2 is returned.
+ * @param pt1 The first point.
+ * @param pt2 The second point.
+ * @param f The level of interpolation between the two points.  Indicates where the
+ * new point will be, along the line between pt1 and pt2. If f == 1, pt1
+ * is returned; if == 0, pt2 is returned.
  *
- *	@return
- *		The interpolated point.
+ * @return The interpolated point.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:3.0f y:4.0f];
  *	PXPoint *pt2 = [[PXPoint alloc] initWithX:-3.0f y:-4.0f];
  *	PXPoint *pt3 = [PXPoint pointByInterpolatingBetweenPointA:pt1 pointB:pt2 withCoefficientOfInterpolation:0.3f];
  *	// pt3 will be (-1.2f, -1.6f)
- *	@endcode
  */
 + (PXPoint *)pointByInterpolatingBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2 withCoefficientOfInterpolation:(float)f
 {
@@ -405,23 +348,18 @@
 }
 
 /**
- *	Converts a pair of polar coordinates to a cartesian point coordinate.
+ * Converts a pair of polar coordinates to a cartesian point coordinate.
  *
- *	@param len
- *		The length coordinate of the polar pair.
- *	@param angle
- *		The angle, in radians, of the polar pair.
+ * @param len The length coordinate of the polar pair.
+ * @param angle The angle, in radians, of the polar pair.
  *
- *	@return
- *		The cartesian point.
+ * @return The cartesian point.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	float angle = 45.0f * (M_PI/180.0f);
  *	float length = 1.0f;
  *	PXPoint *point = [PXPoint pointUsingPolarCoordWithLen:length angle:angle];
  *	// point will be (0.707107f, 0.707107f)
- *	@endcode
  */
 + (PXPoint *)pointUsingPolarCoordWithLen:(float)len angle:(float)angle
 {
@@ -436,21 +374,16 @@
 #pragma mark Static Methods
 
 /**
- *	Creates a point at (x, y).
+ * Creates a point at (x, y).
  *
- *	@param x
- *		The horizontal coordinate.
- *	@param y
- *		The vertical coordinate.
+ * @param x The horizontal coordinate.
+ * @param y The vertical coordinate.
  *
- *	@return
- *		The created point.
+ * @return The created point.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXPoint *point = [PXPoint pointWithX:4 y:5];
  *	// point will be (4, 5)
- *	@endcode
  */
 + (PXPoint *)pointWithX:(float)x y:(float)y
 {

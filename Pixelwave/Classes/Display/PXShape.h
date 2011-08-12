@@ -43,14 +43,12 @@
 
 @interface PXShape : PXDisplayObject
 {
-/// @cond DX_IGNORE
 @public
 	PXGraphics *_graphics;
-/// @endcond
 }
 
 /**
- *	The graphics object that belongs to the shape where vector drawing is done.
+ * The graphics object that belongs to the shape where vector drawing is done.
  */
 @property (nonatomic, readonly) PXGraphics *graphics;
 

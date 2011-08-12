@@ -44,22 +44,20 @@
 
 @interface PXPoint : NSObject <NSCopying, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @private
 	float x, y;
-/// @endcond
 }
 
 /**
- *	The horizontal coordinate.
+ * The horizontal coordinate.
  */
 @property (nonatomic, assign) float x;
 /**
- *	The vertical coordinate.
+ * The vertical coordinate.
  */
 @property (nonatomic, assign) float y;
 /**
- *	The length of the line segment from (0, 0) to this point.
+ * The length of the line segment from (0, 0) to this point.
  */
 @property (nonatomic, readonly) float length;
 

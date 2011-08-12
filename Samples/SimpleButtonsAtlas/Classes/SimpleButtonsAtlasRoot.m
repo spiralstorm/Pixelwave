@@ -134,8 +134,8 @@
 
 	// Make the two simple buttons, one for the left arrow and one for the right
 	// arrow.
-	leftArrow = [[PXSimpleButton alloc] initWithUpState:leftArrowUp downState:leftArrowDown hitTestState:leftArrowUp];
-	rightArrow = [[PXSimpleButton alloc] initWithUpState:rightArrowUp downState:rightArrowDown hitTestState:rightArrowUp];
+	leftArrow = [[PXSimpleButton alloc] initWithUpState:leftArrowUp downState:leftArrowDown];
+	rightArrow = [[PXSimpleButton alloc] initWithUpState:rightArrowUp downState:rightArrowDown];
 
 	// Make the left arrow point left by flipping it in the horizontal direction
 	leftArrow.scaleX = -1.0f;

@@ -54,7 +54,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXAVSoundChannel(PrivateButPublic)
 - (id) _initWithData:(NSData *)data
 		   startTime:(unsigned)startTime
@@ -63,4 +62,3 @@
 
 - (void) _setEngineVolume:(float)volume;
 @end
-/// @endcond

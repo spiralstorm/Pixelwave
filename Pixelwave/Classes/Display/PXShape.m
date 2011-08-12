@@ -43,17 +43,13 @@
 #import "PXShape.h"
 
 /**
- *	@ingroup Display
+ * A PXShape is a basic display object that is lightweight and designed for
+ * vector drawing via the `PXGraphics` object.
  *
- *	A PXShape is a basic display object that is lightweight and designed for
- *	vector drawing via the <code>PXGraphics</code> object.
- *
- *	The following code creates a shape object:
- *	@code
+ * The following code creates a shape object:
  *	PXShape *shape = [PXShape new];
- *	@endcode
  *
- *	@see PXGraphics
+ * @see PXGraphics
  */
 @implementation PXShape
 

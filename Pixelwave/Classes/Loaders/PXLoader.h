@@ -53,16 +53,16 @@ typedef enum
 }
 
 /**
- *	The origin type either <code>PXLoaderOriginType_File</code> or
- *	<code>PXLoaderOriginType_URL</code>
+ * The origin type either `PXLoaderOriginType_File` or
+ * `PXLoaderOriginType_URL`
  */
 @property (nonatomic, readonly) PXLoaderOriginType originType;
 /**
- *	The origin of the loaded data.
+ * The origin of the loaded data.
  */
 @property (nonatomic, readonly) NSString *origin;
 /**
- *	The loaded data.
+ * The loaded data.
  */
 @property (nonatomic, readonly) NSData *data;
 
@@ -79,7 +79,6 @@ typedef enum
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXLoader(Protected)
 - (id) _initWithContentsOfFile:(NSString *)path orURL:(NSURL *)url;
 
@@ -87,4 +86,3 @@ typedef enum
 - (void) _setOrigin:(NSString *)origin;
 - (void) _log:(NSString *)message;
 @end
-/// @endcond

@@ -46,32 +46,26 @@
 #include "PXMathUtils.h"
 
 /**
- *	@ingroup Geom
+ * A PXRectangle object is an area defined by its position, as indicated by its
+ * `top-left` corner (#x, #y) and by its
+ * #width and its #height.
  *
- *	A PXRectangle object is an area defined by its position, as indicated by its
- *	<code>top-left</code> corner (<code>x</code>, <code>y</code>) and by its
- *	<code>width</code> and its <code>height</code>.
+ * The #x, #y, #width and
+ * #height properties of the #PXRectangle class are independent of
+ * each other; changing the value of one property has no effect on the others.
+ * However, the #right and #bottom properties are
+ * integrally related to those four properties.  For example, if you change the
+ * value of the #right property, the value of the
+ * #width property changes; if you change the #bottom
+ * property, the value of the #height< property changes.
  *
- *	The <code>x</code>, <code>y</code>, <code>width</code> and
- *	<code>height</code> properties of the PXRectangle class are independent of
- *	each other; changing the value of one property has no effect on the others.
- *	However, the <code>right</code> and <code>bottom</code> properties are
- *	integrally related to those four properties.  For example, if you change the
- *	value of the <code>right</code> property, the value of the
- *	<code>width</code> property changes; if you change the <code>bottom</code>
- *	property, the value of the <code>height</code> property changes.
- *
- *	The following code creates a rectangle at (0, 0) with a size of (0, 0):
- *	@code
+ * The following code creates a rectangle at (0, 0) with a size of (0, 0):
  *	PXRectangle *rect = [PXRectangle new];
- *	@endcode
  *
- *	The following code creates a rectangle at (10, -7) with a size of (20, 10):
- *	@code
+ * The following code creates a rectangle at (10, -7) with a size of (20, 10):
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:10 y:-7 width:20 height:10];
- *	@endcode
  *
- *	@see PXPoint
+ * @see PXPoint
  */
 @implementation PXRectangle
 
@@ -83,24 +77,17 @@
 }
 
 /**
- *	Creates a new rectangle with <code>topLeft</code> corner at (<code>x</code>,
- *	<code>y</code>) and <code>size</code> of (<code>width</code>,
- *	<code>height</code>).
+ * Creates a new rectangle with `topLeft` corner at (#x,
+ * #y) and size of (#width, #height).
  *
- *	@param x
- *		The horizontal coordinate of the <code>topLeft</code> corner.
- *	@param y
- *		The vertical coordinate of the <code>topLeft</code> corner.
- *	@param width
- *		The width in pixels.
- *	@param height
- *		The height in pixels.
+ * @param x The horizontal coordinate of the `topLeft` corner.
+ * @param y The vertical coordinate of the `topLeft` corner.
+ * @param width The width of the rectangle.
+ * @param height The height of the rectangle.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
- *	@endcode
  */
 - (id) initWithX:(float)_x y:(float)_y width:(float)_width height:(float)_height
 {
@@ -221,26 +208,19 @@
 #pragma mark Methods
 
 /**
- *	Sets the rectangle's <code>topLeft</code> corner to (<code>x</code>,
- *	<code>y</code>) and <code>size</code> of (<code>width</code>,
- *	<code>height</code>).
+ * Sets the rectangle's `topLeft` corner to (#x,
+ * #y) and #size of (#width, #height).
  *
- *	@param x
- *		The horizontal coordinate of the <code>topLeft</code> corner.
- *	@param y
- *		The vertical coordinate of the <code>topLeft</code> corner.
- *	@param width
- *		The width in pixels.
- *	@param height
- *		The height in pixels.
+ * @param x The horizontal coordinate of the `topLeft` corner.
+ * @param y The vertical coordinate of the `topLeft` corner.
+ * @param width The width of the rectangle.
+ * @param height The height of the rectangle.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [PXRectangle new];
  *	// Top-left will be (0, 0) size will be (0, 0).
  *	[rect setX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
- *	@endcode
  */
 - (void) setX:(float)_x y:(float)_y width:(float)_width height:(float)_height
 {
@@ -253,25 +233,20 @@
 #pragma mark Flash Methods
 
 /**
- *	Determines whether the specified point is contained within the rectangle's
- *	area.
+ * Determines whether the specified point is contained within the rectangle's
+ * area.
  *
- *	@param x
- *		The horizontal coordinate of the point.
- *	@param y
- *		The vertical coordinate of the point.
+ * @param x The horizontal coordinate of the point.
+ * @param y The vertical coordinate of the point.
  *
- *	@return
- *		<code>YES</code> if the rectangle contains the point, otherwise
- *		<code>NO</code>.
+ * @return `YES` if the rectangle contains the point, otherwise
+ * `NO`.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	BOOL isContained = [rect containsX:3 y:8];
  *	// isContained is YES
- *	@endcode
  */
 - (BOOL) containsX:(float)_x y:(float)_y
 {
@@ -283,24 +258,20 @@
 }
 
 /**
- *	Determines whether the specified point is contained within the rectangle's
- *	area.
+ * Determines whether the specified point is contained within the rectangle's
+ * area.
  *
- *	@param point
- *		The point to test.
+ * @param point The point to test.
  *
- *	@return
- *		<code>YES</code> if the rectangle contains the point, otherwise
- *		<code>NO</code>.
+ * @return `YES` if the rectangle contains the point, otherwise
+ * `NO`.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	PXPoint *point = [[PXPoint alloc] initWithX:3 y:8];
  *	BOOL isContained = [rect containsPoint:point];
  *	// isContained is YES
- *	@endcode
  */
 - (BOOL) containsPoint:(PXPoint *)point
 {
@@ -308,18 +279,15 @@
 }
 
 /**
- *	Determines whether the entire specified rectangle is contained within this
- *	rectangle's area.
+ * Determines whether the entire specified rectangle is contained within this
+ * rectangle's area.
  *
- *	@param rect
- *		The rectangle to test.
+ * @param rect The rectangle to test.
  *
- *	@return
- *		<code>YES</code> if this rectangle contains the rectangle provided,
- *		otherwise <code>NO</code>.
+ * @return `YES` if this rectangle contains the rectangle provided,
+ * otherwise `NO`.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect1 will have its top-left will be (-5, 7) size will be (10, 4).
  *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-3 y:8 width:4 height:2];
@@ -328,7 +296,6 @@
  *	// isContained is YES
  *	isContained = [rect2 containsRect:rect1];
  *	// isContained is NO
- *	@endcode
  */
 - (BOOL) containsRect:(PXRectangle *)rect
 {
@@ -356,26 +323,22 @@
 }
 
 /**
- *	Determines whether the rectangle specified is equal to this rectangle.  This
- *	is only true if the <code>x</code>, <code>y</code>, <code>width</code> and
- *	<code>height</code> properties are the same.
+ * Determines whether the rectangle specified is equal to this rectangle. This
+ * is only true if the #x, #y, #width and
+ * #height properties are the same.
  *
- *	@param rect
- *		The rectangle to compare.
+ * @param rect The rectangle to compare.
  *
- *	@return
- *		<code>YES</code> if the rectangle specified is equal to this rectangle;
- *		otherwise <code>NO</code>.
+ * @return `YES` if the rectangle specified is equal to this rectangle;
+ * otherwise `NO`.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect1 will have its top-left will be (-5, 7) size will be (10, 4).
  *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect2 will have its top-left will be (-5, 7) size will be (10, 4).
  *	BOOL isEqual = [rect1 isEqualToRect:rect2];
  *	// isEqual is YES
- *	@endcode
  */
 - (BOOL) isEqualToRect:(PXRectangle *)rectangle
 {
@@ -391,21 +354,18 @@
 }
 
 /**
- *	Determines if the rectangle has an area of 0.
+ * Determines if the rectangle has an area of 0.
  *
- *	@return
- *		<code>YES</code> if the rectangle has an area of 0; otherwise
- *		<code>NO</code>.
+ * @return `YES` if the rectangle has an area of 0; otherwise
+ * `NO`.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	BOOL emptyRect = [rect isEmpty];
  *	// emptyRect is NO.
  *	rect.width = 0;
  *	emptyRect = [rect isEmpty];
  *	// emptyRect is YES.
- *	@endcode
  */
 - (BOOL) isEmpty
 {
@@ -416,21 +376,17 @@
 }
 
 /**
- *	Increases the <code>size</code> of the rectangle by specified amounts, in
- *	pixels, from the center.
+ * Increases the #size of the rectangle by specified amounts
+ * from the center.
  *
- *	@param dx
- *		The size change, in pixels, in the horizontal position.
- *	@param dy
- *		The size change, in pixels, in the vertical position.
+ * @param dx The size change in the horizontal position.
+ * @param dy The size change in the vertical position.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	[rect inflateWithX:1 y:0.5f];
  *	// Top-left will be (-6, 6.5) size will be (12, 5).
- *	@endcode
  */
 - (void) inflateWithX:(float)dx y:(float)dy
 {
@@ -441,20 +397,17 @@
 }
 
 /**
- *	Increases the <code>size</code> of the rectangle by specified amounts, in
- *	pixels, from the center.
+ * Increases the #size of the rectangle by specified amounts
+ * from the center.
  *
- *	@param point
- *		The size change, in pixels.
+ * @param point The size change.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	PXPoint *point = [[PXPoint alloc] initWithX:1 y:0.5f];
  *	[rect inflateWithPoint:point];
  *	// Top-left will be (-6, 6.5) size will be (12, 5).
- *	@endcode
  */
 - (void) inflateWithPoint:(PXPoint *)point
 {
@@ -462,26 +415,22 @@
 }
 
 /**
- *	If the rectangle specified interesects with this rectangle, then the
- *	interesection of the two rectangles is returned as a rectangle.  Otherwise
- *	an empty rectangle is returned.
+ * If the rectangle specified interesects with this rectangle, then the
+ * interesection of the two rectangles is returned as a rectangle.  Otherwise
+ * an empty rectangle is returned.
  *
- *	@param toIntersect
- *		The rectangle to compare.
+ * @param toIntersect The rectangle to compare.
  *
- *	@return
- *		A rectangle defining the intersection of the rectangle specified, and
- *		this rectangle.  It's empty if no interesection was found.
+ * @return A rectangle defining the intersection of the rectangle specified, and
+ * this rectangle.  It's empty if no interesection was found.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect1 will have its top-left will be (-5, 7) size will be (10, 4).
  *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-7 y:3 width:5 height:8];
  *	// rect2 will have its top-left will be (-7, 3) size will be (5, 8).
  *	PXRectangle *intersection = [rect1 intersectionWithRect:rect2];
  *	// intersection will have its top-left will be (-5, 7) size will be (3, 4).
- *	@endcode
  */
 - (PXRectangle *)intersectionWithRect:(PXRectangle *)toIntersect
 {
@@ -506,24 +455,20 @@
 }
 
 /**
- *	Determines if the rectangle specified intersects with this rectangle.
+ * Determines if the rectangle specified intersects with this rectangle.
  *
- *	@param toIntersect
- *		The rectangle to compare.
+ * @param toIntersect The rectangle to compare.
  *
- *	@return
- *		<code>YES</code> if this rectangle intersects with the rectangle
- *		specified; otherwise <code>NO</code>.
+ * @return `YES` if this rectangle intersects with the rectangle
+ * specified; otherwise `NO`.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect1 will have its top-left will be (-5, 7) size will be (10, 4).
  *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-7 y:3 width:5 height:8];
  *	// rect2 will have its top-left will be (-7, 3) size will be (5, 8).
  *	BOOL intersects = [rect1 intersectsWithRect:rect2];
  *	// intersects is YES.
- *	@endcode
  */
 - (BOOL) intersectsWithRect:(PXRectangle *)toIntersect
 {
@@ -531,20 +476,16 @@
 }
 
 /**
- *	Adjusts the location of the rectangle.
+ * Adjusts the location of the rectangle.
  *
- *	@param dx
- *		The horizontal change in position.
- *	@param dy
- *		The vertical change in position.
+ * @param dx The horizontal change in position.
+ * @param dy The vertical change in position.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	[rect offsetWithX:4 y:-6];
  *	// Top-left will be (-1, 1) size will be (10, 4).
- *	@endcode
  */
 - (void) offsetWithX:(float)dx y:(float)dy
 {
@@ -553,19 +494,16 @@
 }
 
 /**
- *	Adjusts the location of the rectangle.
+ * Adjusts the location of the rectangle.
  *
- *	@param point
- *		The change in position.
+ * @param point The change in position.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	PXPoint *point = [[PXPoint alloc] initWithX:4 y:-6];
  *	[rect offsetWithPoint:point];
  *	// Top-left will be (-1, 1) size will be (10, 4).
- *	@endcode
  */
 - (void) offsetWithPoint:(PXPoint *)point
 {
@@ -573,15 +511,13 @@
 }
 
 /**
- *	Sets all of the rectangle's properties to 0.
+ * Sets all of the rectangle's properties to 0.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  *	[rect setEmpty];
  *	// Top-left will be (0, 0) size will be (0, 0).
- *	@endcode
  */
 - (void) setEmpty
 {
@@ -592,24 +528,20 @@
 }
 
 /**
- *	Adds two rectangles together to create a rectangle with their combined
- *	properties.
+ * Adds two rectangles together to create a rectangle with their combined
+ * properties.
  *
- *	@param rect
- *		Rectangle to union with.
+ * @param rect Rectangle to union with.
  *
- *	@return
- *		The combined rectangle.
+ * @return The combined rectangle.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
  *	// rect1 will have its top-left will be (-5, 7) size will be (10, 4).
  *	PXRectangle *rect2 = [[PXRectangle alloc] initWithX:-7 y:3 width:5 height:8];
  *	// rect2 will have its top-left will be (-7, 3) size will be (5, 8).
  *	PXRectangle *unionRect = [rect1 unionWithRect:rect2];
  *	// unionRect will have its top-left will be (-7, 3) size will be (12, 8).
- *	@endcode
  */
 - (PXRectangle *)unionWithRect:(PXRectangle *)toUnion
 {
@@ -633,27 +565,19 @@
 #pragma mark Static Methods
 
 /**
- *	Creates a rectangle with <code>topLeft</code> corner at (<code>x</code>,
- *	<code>y</code>) and <code>size</code> of (<code>width</code>,
- *	<code>height</code>).
+ * Creates a rectangle with `topLeft` corner at (#x,
+ * #y) and #size of (#width, #height).
  *
- *	@param x
- *		The horizontal coordinate of the <code>topLeft</code> corner.
- *	@param y
- *		The vertical coordinate of the <code>topLeft</code> corner.
- *	@param width
- *		The width in pixels.
- *	@param height
- *		The height in pixels.
+ * @param x The horizontal coordinate of the `topLeft` corner.
+ * @param y The vertical coordinate of the `topLeft` corner.
+ * @param width The width of the rectangle.
+ * @param height The height of the rectangle.
  *
- *	@return
- *		The created rectangle.
+ * @return The created rectangle.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXRectangle *rect = [PXRectangle rectangleWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
- *	@endcode
  */
 + (PXRectangle *)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height
 {

@@ -58,7 +58,7 @@ typedef struct
 } PXGenericAtlasParserFrame;
 
 /**
- *	This class can be subclassed and used to efficiently parse standard atlases
+ * This class can be subclassed and used to efficiently parse standard atlases
  */
 
 @interface PXSimpleAtlasParser : PXTextureAtlasParser

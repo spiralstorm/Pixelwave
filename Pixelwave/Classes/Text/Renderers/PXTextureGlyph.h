@@ -43,51 +43,51 @@
 
 @interface PXTextureGlyph : NSObject
 {
-/// @cond DX_IGNORE
 @public
 	CGPoint _advance;
 	CGRect _bounds;
 	CGRect _textureBounds;
-/// @endcond
 @private
 	PXTextureData *textureData;
 }
 
 /**
- *	The texture data that will be used for the graphical representation of this
- *	texture glpyh.
+ * The texture data that will be used for the graphical representation of this
+ * texture glpyh.
  */
 @property (nonatomic, retain) PXTextureData *textureData;
 
 /**
- *	The advance describes the position this glyph will move the next glyph; as
- *	in, if you were to draw two glyphs next to eachother on the horizontal
- *	plane, then the x-advance would be the distance from the first glyph to the
- *	next. Thus, you would increment the current drawing position by the x value
- *	of the advance.
+ * The advance describes the position this glyph will move the next glyph; as
+ * in, if you were to draw two glyphs next to eachother on the horizontal
+ * plane, then the x-advance would be the distance from the first glyph to the
+ * next. Thus, you would increment the current drawing position by the x value
+ * of the advance.
  *
- *	Note:	These values are in PIXELS and pixelwave uses POINTS for its
- *			coordinate system. Thus, prior to displaying on the screen, you must
- *			convert each of these values to POINTS. This can be done by dividing
- *			each of the values by the contentScaleFactor you are using. 
+ * **Note:**
+ * These values are in PIXELS and pixelwave uses POINTS for its
+ * coordinate system. Thus, prior to displaying on the screen, you must
+ * convert each of these values to POINTS. This can be done by dividing
+ * each of the values by the contentScaleFactor you are using. 
  */
 @property (nonatomic) CGPoint advance;
 
 /**
- *	The bounds describe the size and origin of the glyph. Meaning, the glyph
- *	should start at position (bounds.origin.x, bounds.origin.y) and it will 
- *	consume the size of (bounds.size.width, bounds.size.height).
- *	
- *	Note:	These values are in PIXELS and pixelwave uses POINTS for its
- *			coordinate system. Thus, prior to displaying on the screen, you must
- *			convert each of these values to POINTS. This can be done by dividing
- *			each of the values by the contentScaleFactor you are using. 
+ * The bounds describe the size and origin of the glyph. Meaning, the glyph
+ * should start at position (bounds.origin.x, bounds.origin.y) and it will 
+ * consume the size of (bounds.size.width, bounds.size.height).
+ * 
+ * **Note:**
+ * These values are in PIXELS and pixelwave uses POINTS for its
+ * coordinate system. Thus, prior to displaying on the screen, you must
+ * convert each of these values to POINTS. This can be done by dividing
+ * each of the values by the contentScaleFactor you are using. 
  */
 @property (nonatomic) CGRect bounds;
 
 /**
- *	The texture bounds describes box, whos values range between 0.0f and 1.0f,
- *	that describe where on the texture this glyph's data is representing.
+ * The texture bounds describes box, whos values range between 0.0f and 1.0f,
+ * that describe where on the texture this glyph's data is representing.
  */
 @property (nonatomic) CGRect textureBounds;
 

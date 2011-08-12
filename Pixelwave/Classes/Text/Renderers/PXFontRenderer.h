@@ -43,24 +43,20 @@
 
 @interface PXFontRenderer : NSObject
 {
-/// @cond DX_IGNORE
 @public
 	PXTextField *_textField;
 	CGRect _bounds;
 @protected
 	float shiftX;
 	float shiftY;
-/// @endcond
 }
 
 @property (nonatomic, assign) BOOL smoothing;
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXFontRenderer(Protected)
 - (void) _updateAlignment;
 - (void) _validate;
 - (void) _renderGL;
 @end
-/// @endcond

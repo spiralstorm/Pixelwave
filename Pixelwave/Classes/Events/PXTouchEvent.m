@@ -52,18 +52,14 @@ NSString * const PXTouchEvent_TouchMove = @"touchMove";
 NSString * const PXTouchEvent_TouchUp = @"touchUp";
 NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 
-/// @cond DX_IGNORE
 @interface PXTouchEvent(Private)
 - (void) setNativeTouch:(UITouch *)touch;
 @end
-/// @endcond
 
 /**
- *	@ingroup Events
- *
- *	A PXTouchEvent object is dispatched into the event flow whenever a touch,
- *	release or movement occurs.  The event has information needed by the user to
- *	handle the touch correctly.
+ * Dispatched by subclasses of #PXInteractiveObject an associated touch
+ * begins, ends, moves, or cancels. The event has information needed by the user to
+ * handle the touch correctly.
  */
 @implementation PXTouchEvent
 
@@ -73,22 +69,17 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 @synthesize tapCount = _tapCount;
 
 /**
- *	Creates a touch event.
+ * Creates a touch event.
  *
- *	@param type
- *		A string representing the type of the event.
- *	@param nativeTouch
- *		The touch object used for keeping track of what finger started the
- *		touch.
- *	@param stageX
- *		The horizontal location in global (stage) coordinates where the touch
- *		occured.
- *	@param stageY
- *		The vertical location in global (stage) coordinates where the touch
- *		occured.
- *	@param tapCount
- *		The number of touches that have been repeated in the same place without
- *		moving.
+ * @param type A string representing the type of the event.
+ * @param nativeTouch The touch object used for keeping track of what finger started the
+ * touch.
+ * @param stageX The horizontal location in global (stage) coordinates where the touch
+ * occured.
+ * @param stageY The vertical location in global (stage) coordinates where the touch
+ * occured.
+ * @param tapCount The number of touches that have been repeated in the same place without
+ * moving.
  */
 - (id) initWithType:(NSString *)type
 		nativeTouch:(UITouch *)touch

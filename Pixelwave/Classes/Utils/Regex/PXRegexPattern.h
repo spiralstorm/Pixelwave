@@ -50,32 +50,30 @@ typedef enum
 
 @interface PXRegexPattern : NSObject <NSCopying>
 {
-/// @cond DX_IGNORE
 @public
 	void *_regexPtr;
 
 @protected
 	NSString *regex;
 	unsigned flags;
-/// @endcond
 }
 
 /**
- *	A list of <code>PXRegexPatternFlag</code> flags that will define how the
- *	regex is compiled.
+ * A list of `PXRegexPatternFlag` flags that will define how the
+ * regex is compiled.
  */
 @property (nonatomic, readonly) unsigned flags;
 
 /**
- *	The compiled regex pattern.
+ * The compiled regex pattern.
  */
 @property (nonatomic, readonly) NSString *regex;
 
 /**
- *	Returns the number of capturing groups in this matcher's pattern.
+ * Returns the number of capturing groups in this matcher's pattern.
  *
- *	Group zero denotes the entire pattern by convention. It is not included in
- *	this count.
+ * Group zero denotes the entire pattern by convention. It is not included in
+ * this count.
  */
 @property (nonatomic, readonly) unsigned capturingGroupCount;
 

@@ -46,33 +46,31 @@
 
 @class EAGLContext;
 
-/**
- *	@ingroup Cocoa
- *	Indicates the quality of the colors used when rendering to the screen.
- *	This enum is used when initializing a PXView object. Internally the
- *	colorQuality is used to set up the OpenGL rendering surface's pixel format
- *	and whether or not dithering is used.
- *	
- *	@see PXView#initWithFrame:colorQuality:
- *	@see PXView#colorQuality
+/*@
+ * Indicates the quality of the colors used when rendering to the screen.
+ * This enum is used when initializing a PXView object. Internally the
+ * colorQuality is used to set up the OpenGL rendering surface's pixel format
+ * and whether or not dithering is used.
+ * 
+ * @see [PXView initWithFrame:colorQuality:]
+ * @see [PXView colorQuality]
  */
 typedef enum
 {
-	/// The lowest-quality pixel color format (RGB565 - 16 bit) with dithering
-	/// turned off. This is the fastest but least pretty option.
+	//@ The lowest-quality pixel color format (RGB565 - 16 bit) with dithering
+	//@ turned off. This is the fastest but least pretty option.
 	PXViewColorQuality_Low = 0,
-	/// Specifies an RGB565 pixel format (16 bit) with dithering turned on.
-	/// This option is slightly slower but generates smoother colors. Up-close
-	/// this option may yield some pixel artifacts due to the dithering process.
+	//@ Specifies an RGB565 pixel format (16 bit) with dithering turned on.
+	//@ This option is slightly slower but generates smoother colors. Up-close
+	//@ this option may yield some pixel artifacts due to the dithering process.
 	PXViewColorQuality_Medium,
-	/// Specifies an RGBA8888 pixel color format (32 bit). This is the highest
-	/// color quality possible, but also uses the most GPU memory.
+	//@ Specifies an RGBA8888 pixel color format (32 bit). This is the highest
+	//@ color quality possible, but also uses the most GPU memory.
 	PXViewColorQuality_High
 } PXViewColorQuality;
 
 @interface PXView : UIView <NSCoding>
 {
-/// @cond DX_IGNORE
 	// TODO: Move the framebuffer and renderbuffer creation to PXGL ?
 @public
 	GLuint _pxViewFramebuffer; // the main frame buffer
@@ -87,27 +85,26 @@ typedef enum
 	BOOL hasBeenCurrent;
 	BOOL contentScaleFactorSupported;
 	BOOL firstOrientationChange;
-/// @endcond
 }
 
 /**
- *	The root display object of the Pixelwave engine.
+ * The root display object of the Pixelwave engine.
  */
 @property (nonatomic, retain) PXDisplayObject *root;
 /**
- *	The global stage of the Pixelwave engine.
+ * The global stage of the Pixelwave engine.
  */
 @property (nonatomic, readonly) PXStage *stage;
 /**
- *	See iOS API docs for UIView.contentScaleFactor
+ * See iOS API docs for UIView.contentScaleFactor
  */
 @property (nonatomic) float contentScaleFactor;
 /**
- *	The color quality the view was created with.
- *	This is a read-only property and may only be set at initialization.
- *	
- *	@see #initWithFrame:contentScaleFactor:colorQuality:
- *	@see PXViewColorQuality
+ * The color quality the view was created with.
+ * This is a read-only property and may only be set at initialization.
+ * 
+ * @see initWithFrame:contentScaleFactor:colorQuality:
+ * @see PXViewColorQuality
  */
 @property (nonatomic, readonly) PXViewColorQuality colorQuality;
 
@@ -127,11 +124,9 @@ typedef enum
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXView(PrivateButPublic)
 - (void) _setCurrentContext;
 - (BOOL) _isCurrentContext;
 - (void) _clearCurrentContext;
 - (void) _swapBuffers;
 @end
-/// @endcond

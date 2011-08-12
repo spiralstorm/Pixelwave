@@ -51,9 +51,8 @@
 // DELETE
 #import "PXTouchEvent.h"
 
-/* More info about the Event Flow:
- http://livedocs.adobe.com/flex/3/html/help.html?content=events_08.html#203937
- */
+// More info about the Event Flow:
+// http://livedocs.adobe.com/flex/3/html/help.html?content=events_08.html#203937
 
 // This string gets tagged at the end of capture event dictionary keys
 #define PX_CAPTURE_STRING @"_CAP_"
@@ -61,9 +60,9 @@
 
 PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *list);
 
-//////////////////////
-// Event Dispatcher //
-//////////////////////
+//
+// Event Dispatcher
+//
 
 /*
    DONE: (from AS3 docs for EventDispatcher)
@@ -78,27 +77,26 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  */
 
 /**
- *	@ingroup Events
+ * The base class for all classes that dispatch events.
+ * The event dispatcher allows individual methods to be associated with any
+ * event.
  *
- *	The base class for all classes that dispatch events.
- *	The event dispatcher allows individual methods to be associated with any
- *	event.
+ * Event types are represented as NSString objects and methods are
+ * wrapped in PXEventListener objects, while information about events is passed
+ * along in PXEvent objects.
  *
- *	Event types are represented as NSString objects and methods are
- *	wrapped in PXEventListener objects, while information about events is passed
- *	along in PXEvent objects.
+ * The PXEventDispatcher is the base class for all display objects.
  *
- *	The PXEventDispatcher is the base class for all display objects.
+ * the PXEventDispatcher class maybe subclassed by any user class in order to
+ * provide event dispatching behavior for that class. If a user class is
+ * unable to subclass PXEventDispatcher because it is already subclassing a
+ * different class, it may implement the PXEventDispatcher protocol.
+ * 
+ * In order to implement the methods of the protocol, a private PXEventDispatcher
+ * ivar should be created, to which all of the protocol method calls should be
+ * forwarded.See the #PXEventDispatcher protocol for more information.
  *
- *	the PXEventDispatcher class maybe subclassed by any user class in order to
- *	provide event dispatching behavior for that class. If a user class is
- *	unable to subclass PXEventDispatcher because it is already subclassing a
- *	different class, it may implement the PXEventDispatcher protocol. In
- *	order to implement the methods of the protocol, a private PXEventDispatcher
- *	ivar should be created, to which all of the protocol method calls should be
- *	forwarded.
- *
- *	@see PXEventDispatcher
+ * @see PXEventDispatcher
  */
 @implementation PXEventDispatcher
 
@@ -110,10 +108,9 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 }
 
 /**
- *	Makes a new event disptacher with the given target.
+ * Makes a new event disptacher with the given target.
  *
- *	@param target
- *		The target.
+ * @param target The target.
  */
 - (id) initWithTarget:(id<PXEventDispatcher>)_target
 {
@@ -144,26 +141,21 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 #pragma mark Adding Listeners
 
 /**
- *	Adds an event listener.
+ * Adds an event listener.
  *
- *	@param type
- *		The type
- *	@param listener
- *		The listener
+ * **Example:**
+ * In this example the method `onTouch:` is assigned as a
+ * listener to the stage's `touchDown` event.
+ * 
+ *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
+ *	//...
+ *	- (void) onTouchDown:(PXTouchEvent *)event
+ *	{
+ *		// handle event
+ *	}
  *
- *	@b Example:
- *
- *	In this example the method <code>onTouch:</code> is assigned as a
- *	listener to the stage's <code>touchDown</code> event.
- 
- *	@code
- * [self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
- * //...
- * - (void) onTouchDown:(PXTouchEvent *)event
- * {
- * 	// handle event
- * }
- *	@endcode
+ * @param type The type
+ * @param listener The listener
  */
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener
 {
@@ -171,30 +163,23 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 }
 
 /**
- *	Adds an event listener.
+ * Adds an event listener.
  *
- *	@param type
- *		The type
- *	@param listener
- *		The listener
- *	@param capture
- *		If it should use capture
- *	@param priority
- *		The priority
+ * **Example:**
+ * In this example the method `onTouch:` is assigned as a
+ * listener to the stage's `touchDown` event.
+ * 
+ *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:) useCapture:NO priority:0];
+ *	//...
+ *	- (void) onTouchDown:(PXTouchEvent *)event
+ *	{
+ *		// handle event
+ *	}
  *
- *	@b Example:
- *
- *	In this example the method <code>onTouch:</code> is assigned as a
- *	listener to the stage's <code>touchDown</code> event.
- 
- *	@code
- * [self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:) useCapture:NO priority:0];
- * //...
- * - (void) onTouchDown:(PXTouchEvent *)event
- * {
- * 	// handle event
- * }
- *	@endcode
+ * @param type The type
+ * @param listener The listener
+ * @param capture If it should use capture
+ * @param priority The priority
  */
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
@@ -290,12 +275,10 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 #pragma mark Removing Listeners
 
 /**
- *	Removes an event listener.
+ * Removes an event listener.
  *
- *	@param type
- *		The type
- *	@param listener
- *		The listener
+ * @param type The type
+ * @param listener The listener
  */
 - (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener
 {
@@ -303,14 +286,11 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 }
 
 /**
- *	Removes an event listener.
+ * Removes an event listener.
  *
- *	@param type
- *		The type
- *	@param listener
- *		The listener
- *	@param capture
- *		If it should use capture
+ * @param type The type
+ * @param listener The listener
+ * @param capture If it should use capture
  */
 - (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
 {
@@ -370,7 +350,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 // This way subclasses won't have to override this method to know when private event
 // listeners are removed when this method is called.
 /**
- *	Removes all of the event listeners.
+ * Removes all of the event listeners.
  */
 - (void) removeAllEventListeners
 {
@@ -433,15 +413,13 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 #pragma mark Querying
 
 /**
- *	Returns <code>YES</code> if this event dispatcher has a listener of the
- *	type.
+ * Returns `YES` if this event dispatcher has a listener of the
+ * type.
  *
- *	@param type
- *		The type.
+ * @param type The type.
  *
- *	@return
- *		Returns <code>YES</code> if this event dispatcher has a listener of the
- *		type.
+ * @return Returns `YES` if this event dispatcher has a listener of the
+ * type.
  */
 - (BOOL) hasEventListenerOfType:(NSString *)type
 {
@@ -466,21 +444,19 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 }
 
 /**
- *	This method returns <code>YES</code> if an event listener is triggered
- *	during any phase of the event flow when an event of the specified type is
- *	dispatched to this EventDispatcher object or any of its descendants.
+ * This method returns `YES` if an event listener is triggered
+ * during any phase of the event flow when an event of the specified type is
+ * dispatched to this EventDispatcher object or any of its descendants.
  *
- *	Essentially, checks the entire flow path of the event, were it to dispatch
- *	right now, and sees if any node along the path has an event listener. This
- *	really only applies to display object sinceonly they have event flow...
+ * Essentially, checks the entire flow path of the event, were it to dispatch
+ * right now, and sees if any node along the path has an event listener. This
+ * really only applies to display object sinceonly they have event flow...
  *
- *	@param type
- *		The type
+ * @param type The type
  *
- *	@return
- *		This method returns <code>YES</code> if an event listener is triggered
- *		during any phase of the event flow when an event of the specified type
- *		is dispatched to this EventDispatcher object or any of its descendants.
+ * @return This method returns `YES` if an event listener is triggered
+ * during any phase of the event flow when an event of the specified type
+ * is dispatched to this EventDispatcher object or any of its descendants.
  */
 - (BOOL) willTriggerEventOfType:(NSString *)type
 {
@@ -512,19 +488,17 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 }
 
 /**
- *	Invokes the event on all listeners of the same type as <code>event</code>.
+ * Invokes the event on all listeners of the same type as `event`.
  *
- *	@param event
- *		The event
+ * @param event The event
  *
- *	@return
- *		<code>YES</code> if the event completed.
+ * @return `YES` if the event completed.
  */
 
 /*
- *	Take good care when calling this function (retain this object before/release
- *	after).  The reason is that after object.dispatchEvent is called, there's no
- *	guarantee that this object wasn't deleted by one of the event handlers
+ * Take good care when calling this function (retain this object before/release
+ * after).  The reason is that after object.dispatchEvent is called, there's no
+ * guarantee that this object wasn't deleted by one of the event handlers
  */
 - (BOOL) dispatchEvent:(PXEvent *)event
 {
@@ -589,10 +563,10 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 #pragma mark Private functions
 
 /*
- *	This actually dispatches the event listeners
- *	Loops through all of the listeners for the given type of event and invokes
- *	them with the given event object. Assumes that the event has already been
- *	re-set.
+ * This actually dispatches the event listeners
+ * Loops through all of the listeners for the given type of event and invokes
+ * them with the given event object. Assumes that the event has already been
+ * re-set.
  */
 - (void) _invokeEvent:(PXEvent *)event withCurrentTarget:(PXGenericObject)currentTarget eventPhase:(char)phase
 {

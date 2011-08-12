@@ -51,34 +51,32 @@ PXExtern NSString * const PXEvent_RemovedFromStage;
 PXExtern NSString * const PXEvent_Render;
 PXExtern NSString * const PXEvent_SoundComplete;
 
-/// @ingroup Events
-/// Event Phases
+//@ Event Phases
 typedef enum
 {
-	/// The capture phase happens when the event travels downwards toward's the
-	/// target.
+	//@ The capture phase happens when the event travels downwards toward's the
+	//@ target.
 	PXEventPhase_Capture = 1,
-	/// The target phase is when the event is on the target.
+	//@ The target phase is when the event is on the target.
 	PXEventPhase_Target,
-	/// The bubbling phase is when the event is 'bubbling' back up the hierarchy.
+	//@ The bubbling phase is when the event is 'bubbling' back up the hierarchy.
 	PXEventPhase_Bubbling
 } PXEventPhase;
 
 typedef enum
 {
-	/// Keeps the propegation going (it's default value).
+	//@ Keeps the propegation going (it's default value).
 	_PXStopPropegationLevel_KeepGoing = 0,
-	/// stopPropegation after the current node (only relevant when using the
-	/// displaylist event flow).
+	//@ stopPropegation after the current node (only relevant when using the
+	//@ displaylist event flow).
 	_PXStopPropegationLevel_StopAfter,
-	/// stopPropegation now (like calling break; in the middle of the
-	/// dispatch loop for the current node)
+	//@ stopPropegation now (like calling break; in the middle of the
+	//@ dispatch loop for the current node)
 	_PXStopPropegationLevel_StopNow
 } _PXStopPropegationLevel;
 
 @interface PXEvent : NSObject <NSCopying, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @public
 	// The object on which dispatchEvent() was called.
 	PXGenericObject _target;
@@ -104,22 +102,21 @@ typedef enum
 	// These 3 remain constant for the lifetime of the event
 	BOOL _bubbles;
 	BOOL _cancelable;
-/// @endcond
 }
 
 /**
- *	Describes whether the event participates in the bubbling phase of the event
- *	flow.
+ * Describes whether the event participates in the bubbling phase of the event
+ * flow.
  */
 @property (nonatomic, readonly) BOOL bubbles;
 /**
- *	Describes whether the behavior represented by the event may be canceled. If
- *	<code>YES</code>, PXEvent#preventDefault: may be used.
- *	@see PXEvent#preventDefault:
+ * Describes whether the behavior represented by the event may be canceled. If
+ * `YES`, #preventDefault may be used.
+ * @see [PXEvent preventDefault]
  */
 @property (nonatomic, readonly) BOOL cancelable;
 /**
- *	The node in the event flow currently processing the event.
+ * The node in the event flow currently processing the event.
  */
 @property (nonatomic, readonly) PXGenericObject currentTarget;
 /**
@@ -127,12 +124,12 @@ typedef enum
  */
 @property (nonatomic, readonly) PXGenericObject target;
 /**
- *	A string representing the type of the event
+ * A string representing the type of the event
  */
 @property (nonatomic, readonly) NSString *type;
 /**
- *	The event in which the event is currently participating
- *	@see PXEventPhase
+ * The event in which the event is currently participating
+ * @see PXEventPhase
  */
 @property (nonatomic, readonly) PXEventPhase eventPhase;
 

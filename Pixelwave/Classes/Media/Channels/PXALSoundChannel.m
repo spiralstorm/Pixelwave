@@ -49,12 +49,10 @@
 #import "PXMathUtils.h"
 #import "PXDebugUtils.h"
 
-/// @cond DX_IGNORE
 @interface PXALSoundChannel(Private)
 - (BOOL) errorOccured;
 - (void) _setDone:(BOOL)done;
 @end
-/// @endcond
 
 @implementation PXALSoundChannel
 

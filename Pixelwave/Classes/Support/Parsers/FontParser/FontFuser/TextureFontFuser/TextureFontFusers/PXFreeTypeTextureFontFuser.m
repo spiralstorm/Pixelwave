@@ -60,11 +60,9 @@
 #import "PXTextureData.h"
 #import "PXPoint.h"
 
-/// @cond DX_IGNORE
 @interface PXFreeTypeTextureFontFuser(Private)
 - (BOOL) _parseFontWithOptions:(PXTextureFontOptions *)tfOptions parser:(PXFreeTypeFontParser *)ftParser;
 @end
-/// @endcond
 
 @implementation PXFreeTypeTextureFontFuser
 

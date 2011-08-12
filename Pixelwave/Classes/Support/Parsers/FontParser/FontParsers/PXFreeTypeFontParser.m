@@ -44,12 +44,10 @@
 #include FT_FREETYPE_H
 #include FT_GLYPH_H
 
-/// @cond DX_IGNORE
 @interface PXFreeTypeFontParser (Private)
 - (FT_Error) openLibrary;
 - (FT_Error) loadFace;
 @end
-/// @endcond
 
 @implementation PXFreeTypeFontParser
 

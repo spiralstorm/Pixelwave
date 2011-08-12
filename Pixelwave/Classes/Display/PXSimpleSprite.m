@@ -40,11 +40,9 @@
 #import "PXSimpleSprite.h"
 
 /**
- *	@ingroup Display
+ * A PXSimpleSprite is a concrete display object that can contain children.
  *
- *	A PXSimpleSprite is a concrete display object that can contain children.
- *
- *	@see PXSprite
+ * @see PXSprite
  */
 @implementation PXSimpleSprite
 

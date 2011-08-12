@@ -44,7 +44,6 @@
 
 @interface PXTextureFontRenderer : PXFontRenderer
 {
-/// @cond DX_IGNORE
 @protected
 	NSMutableDictionary *glNameToTextureGlyphBatch;
 	PXTextureFont *font;
@@ -52,7 +51,6 @@
 	GLuint smoothingType;
 	
 	BOOL enableColors;
-/// @endcond
 }
 
 - (id) initWithFont:(PXTextureFont *)font;

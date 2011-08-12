@@ -46,12 +46,10 @@
 
 #import "PXDebug.h"
 
-/// @cond DX_IGNORE
 @interface PXAVSoundParser(Private)
 + (AVAudioPlayer *)validateAndReleasePlayer:(AVAudioPlayer *)player
 							withSavedPlayer:(AVAudioPlayer *)savedPlayer;
 @end
-/// @endcond
 
 @implementation PXAVSoundParser
 

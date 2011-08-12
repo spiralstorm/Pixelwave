@@ -46,7 +46,6 @@
 
 #import "PXPrivateUtils.h"
 
-/// @cond DX_IGNORE
 // Dictionary that holds the keys for the parsers
 static NSMutableDictionary *pxFontFuserKeyFromParsers = nil;
 // Dictionary that holds the keys for the options
@@ -83,7 +82,6 @@ PXInline Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
 + (void) makeDictionaries;
 + (void) releaseDictionaries;
 @end
-/// @endcond
 
 #pragma mark -
 @implementation PXFontFuser

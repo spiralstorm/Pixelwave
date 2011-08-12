@@ -44,22 +44,18 @@
 
 // TODO: Oz, why are indicies passed in as signed integers?
 
-/**
- *	@ingroup TopLevel
+/*@
+ * Used to efficiently traverse the items in a linked list.
  *
- *	Used to efficiently traverse the items in a linked list.
+ *	PXLinkedList *list = ...
+ *	
+ *	// It's essential that this variable be declared before the loop
+ *	NSObject *item = nil;
  *
- *	@code
- * PXLinkedList *list = ...
- * 
- * // It's essential that this variable be declared before the loop
- * NSObject *item = nil;
- *
- * PXLinkedListForEach(list, item)
- * {
- *	NSLog("Item = %@", item);
- * }
- *	@endcode
+ *	PXLinkedListForEach(list, item)
+ *	{
+ *		NSLog("Item = %@", item);
+ *	}
  */
 #define PXLinkedListForEach(_list_,_obj_) \
 		int PX_UNIQUE_VAR(_len_) = 0; \
@@ -75,23 +71,19 @@
 				PX_UNIQUE_VAR(_i_) < PX_UNIQUE_VAR(_len_); \
 				++PX_UNIQUE_VAR(_i_), PX_UNIQUE_VAR(_node_) = PX_UNIQUE_VAR(_node_)->next, _obj_ = (PX_UNIQUE_VAR(_node_) ? PX_UNIQUE_VAR(_node_)->data : 0))
 
-/**
- *	@ingroup TopLevel
+/*@
+ * Used to efficiently traverse the items in a linked list from the end to the
+ * start.
  *
- *	Used to efficiently traverse the items in a linked list from the end to the
- *	start.
+ *	PXLinkedList *list = ...
+ *	
+ *	// It's essential that this variable be declared before the loop
+ *	NSObject *item = nil;
  *
- *	@code
- * PXLinkedList *list = ...
- * 
- * // It's essential that this variable be declared before the loop
- * NSObject *item = nil;
- *
- * PXLinkedListForEachReverse(list, item)
- * {
- *	NSLog("Item = %@", item);
- * }
- *	@endcode
+ *	PXLinkedListForEachReverse(list, item)
+ *	{
+ *		NSLog("Item = %@", item);
+ *	}
  */
 #define PXLinkedListForEachReverse(_list_,_obj_) \
 		int PX_UNIQUE_VAR(_len_) = 0; \
@@ -107,7 +99,6 @@
 				PX_UNIQUE_VAR(_i_) >= 0; \
 				--PX_UNIQUE_VAR(_i_), PX_UNIQUE_VAR(_node_) = PX_UNIQUE_VAR(_node_)->prev, _obj_ = (PX_UNIQUE_VAR(_node_) ? PX_UNIQUE_VAR(_node_)->data : 0))
 
-/// @cond DX_IGNORE
 // structure PXLinkedList Node, made public (but private) so the
 // PXLinkedListForEach and reverse methods work for other people.
 typedef struct _sPXLLNode
@@ -117,11 +108,9 @@ typedef struct _sPXLLNode
 
 	PXGenericObject data;
 } _PXLLNode;
-/// @endcond
 
 @interface PXLinkedList : NSObject<NSFastEnumeration, NSCopying, NSCoding, PXPooledObject>
 {
-/// @cond DX_IGNORE
 @public
 	_PXLLNode *_head;
 	_PXLLNode *_tail;
@@ -130,31 +119,30 @@ typedef struct _sPXLLNode
 
 	BOOL _pooledNodes;
 	BOOL _keepStrongReference;
-/// @endcond
 }
 
 /**
- *	The number of items in the list.
+ * The number of items in the list.
  */
 @property (nonatomic, readonly) unsigned count;
 /**
- *	The first object in the list.
+ * The first object in the list.
  *
- *	<i><b>Complexity:</b> O(1)</i>
+ * _**Complexity:** O(1)_
  */
 @property (nonatomic, readonly) PXGenericObject firstObject;
 /**
- *	The last object in the list.
+ * The last object in the list.
  *
- *	<i><b>Complexity:</b> O(1)</i>
+ * _**Complexity:** O(1)_
  */
 @property (nonatomic, readonly) PXGenericObject lastObject;
 /**
- *	<code>YES</code> if the list does not retain its elements; otherwise
- *	<code>NO</code>.  Default value is <code>NO</code>, as it is advised to keep
- *	a retain on the added elements.
- *	
- *	@see PXLinkedList::initWithWeakReferences:
+ * `YES` if the list does not retain its elements; otherwise
+ * `NO`.  Default value is `NO`, as it is advised to keep
+ * a retain on the added elements.
+ * 
+ * @see [PXLinkedList initWithWeakReferences:]
  */
 @property (nonatomic, readonly) BOOL weakReferences;
 

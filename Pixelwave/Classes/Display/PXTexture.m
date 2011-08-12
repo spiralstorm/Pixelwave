@@ -64,14 +64,12 @@
 PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXTexturePadding padding, BOOL paddingEnabled);
 
 /**
- *	@ingroup Display
+ * Used for drawing PXTextureData objects to the screen.
+ * A PXTexture is a subclass of the PXDisplayObject which can be specified to
+ * render an entire texture or just a specific area.
  *
- *	Used for drawing PXTextureData objects to the screen.
- *	A PXTexture is a subclass of the PXDisplayObject which can be specified to
- *	render an entire texture or just a specific area.
- *
- *	@see PXTextureLoader
- *	@see PXTextureData
+ * @see PXTextureLoader
+ * @see PXTextureData
  */
 @implementation PXTexture
 
@@ -85,20 +83,17 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 }
 
 /**
- *	Creates a texture that represents the specified texture data.
+ * Creates a texture that represents the specified texture data.
  *
- *	@param texture
- *		The texture data that this texture represents.
+ * @param texture The texture data that this texture represents.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
- *	@endcode
  *
- *	@see PXTextureData
- *	@see PXTextureLoader
+ * @see PXTextureData
+ * @see PXTextureLoader
  */
 - (id) initWithTextureData:(PXTextureData *)_textureData
 {
@@ -174,23 +169,16 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 #pragma mark Clipping the texture
 
 /**
- *	Sets the clip area and anchor point in one call.
+ * Sets the clip area and anchor point in one call.
  *
- *	@param x
- *		The left position of the clip rectangle in points.
- *	@param y
- *		The top position of the clip rectangle in points.
- *	@param width
- *		The width of the clip rectangle in points.
- *	@param height
- *		The height of the clip rectangle in points.
- *	@param anchorX
- *		The horizontal anchor position, in percent.
- *	@param anchorY
- *		The vertical anchor position, in percent.
+ * @param x The left position of the clip rectangle in points.
+ * @param y The top position of the clip rectangle in points.
+ * @param width The width of the clip rectangle in points.
+ * @param height The height of the clip rectangle in points.
+ * @param anchorX The horizontal anchor position, in percent.
+ * @param anchorY The vertical anchor position, in percent.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
@@ -199,9 +187,8 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  *	// tex would represent a 32x64 image that is part of the whole image of
  *	// happy, starting at (16, 16).  Its anchor will be at (16, 32) in local
  *	// point coordinates.
- *	@endcode
  *
- *	@see #setClipRect:
+ * @see setClipRect:
  */
 
 - (void) setClipRectWithX:(float)x
@@ -354,18 +341,15 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 }
 
 /**
- *	Sets anchor position in percent.  If the texture was 32x64 and you set the x
- *	anchor position to 0.5f, and the y anchor position to 0.5f, then in point
- *	coordinates the anchor would be at (16, 32) in local point coordinates.  The
- *	anchor position is what the texture will rotate and position itself around.
+ * Sets anchor position in percent.  If the texture was 32x64 and you set the x
+ * anchor position to 0.5f, and the y anchor position to 0.5f, then in point
+ * coordinates the anchor would be at (16, 32) in local point coordinates.  The
+ * anchor position is what the texture will rotate and position itself around.
  *
- *	@param x
- *		The horizontal anchor position, in percent where 0.0f <= x <= 1.0f.
- *	@param y
- *		The vertical anchor position, in percent where 0.0f <= y <= 1.0f.
+ * @param x The horizontal anchor position, in percent where 0.0f <= x <= 1.0f.
+ * @param y The vertical anchor position, in percent where 0.0f <= y <= 1.0f.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
@@ -373,10 +357,9 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  *	[tex setAnchorWithX:0.5f y:0.5f];
  *	// tex would represent the happy image.  Assuming happy is a 32x64 image,
  *	// then its anchor will be at (16, 32) in local point coordinates.
- *	@endcode
  *
- *	@see PXTextureData
- *	@see PXTextureLoader
+ * @see PXTextureData
+ * @see PXTextureLoader
  */
 - (void) setAnchorWithX:(float)x y:(float)y
 {
@@ -386,16 +369,13 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 }
 
 /**
- *	Sets anchor position in points, relative to the current textureData.
- *	If #textureData is <code>nil</code>, this method call is ignored.
+ * Sets anchor position in points, relative to the current textureData.
+ * If #textureData is `nil`, this method call is ignored.
  *
- *	@param x
- *		The horizontal anchor position in points, within the textureData.
- *	@param y
- *		The vertical anchor position in points, within the textureData.
+ * @param x The horizontal anchor position in points, within the textureData.
+ * @param y The vertical anchor position in points, within the textureData.
  *
- *	@b Example:
- *	@code
+ * **Example:**
  *	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:@"happy.png"];
  *	PXTextureData *data = [loader newTextureData]; 
  *	PXTexture *tex = [[PXTexture alloc] initWithTextureData:data];
@@ -403,10 +383,9 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
  *	[tex setAnchorWithPointX:16 pointY:32];
  *	// tex would represent the happy image.  Assuming happy is a 32x64 image,
  *	// then its anchor will be at (16, 32) in local point coordinates.
- *	@endcode
  *
- *	@see PXTextureData
- *	@see PXTextureLoader
+ * @see PXTextureData
+ * @see PXTextureLoader
  */
 - (void) setAnchorWithPointX:(float)x pointY:(float)y
 {
@@ -634,23 +613,32 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 
 #pragma mark Utility functions
 
+/**
+ *
+ */
 + (PXTexture *)texture
 {
 	return [[PXTexture new] autorelease];
 }
 /**
- *	Creates an autoreleased PXTexture object with the given PXTextureData object
+ * Creates an autoreleased PXTexture object with the given PXTextureData object
  *
- *	@see PXTextureData
+ * @see PXTextureData
  */
 + (PXTexture *)textureWithTextureData:(PXTextureData *)textureData
 {
 	return [[[PXTexture alloc] initWithTextureData:textureData] autorelease];
 }
+/**
+ *
+ */
 + (PXTexture *)textureWithContentsOfFile:(NSString *)path
 {
 	return [PXTexture textureWithContentsOfFile:path modifier:nil];
 }
+/**
+ *
+ */
 + (PXTexture *)textureWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfFile:path
@@ -664,12 +652,16 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 
 	return [texture autorelease];
 }
-
+/**
+ *
+ */
 + (PXTexture *)textureWithContentsOfURL:(NSURL *)url
 {
 	return [PXTexture textureWithContentsOfURL:url modifier:nil];
 }
-
+/**
+ *
+ */
 + (PXTexture *)textureWithContentsOfURL:(NSURL *)url modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureLoader *textureLoader = [[PXTextureLoader alloc] initWithContentsOfURL:url
@@ -683,12 +675,16 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 
 	return [texture autorelease];
 }
-
+/**
+ *
+ */
 + (PXTexture *)textureWithData:(NSData *)data
 {
 	return [PXTexture textureWithData:data modifier:nil];
 }
-
+/**
+ *
+ */
 + (PXTexture *)textureWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier
 {
 	PXTextureData *textureData = [[PXTextureData alloc] initWithData:data modifier:modifier];

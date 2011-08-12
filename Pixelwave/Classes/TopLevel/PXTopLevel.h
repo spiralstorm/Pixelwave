@@ -70,10 +70,8 @@ double PXGetTimerSec();
 long PXGetTimer();
 /// @}
 	
-/// @cond DX_IGNORE
 void _PXTopLevelInitialize();
 void _PXTopLevelDealloc();
-/// @endcond
 
 #ifdef __cplusplus
 }

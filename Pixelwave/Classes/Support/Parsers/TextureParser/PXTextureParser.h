@@ -48,7 +48,6 @@
 
 @interface PXTextureParser : PXParser
 {
-/// @cond DX_IGNORE
 @protected
 	id<PXTextureModifier> modifier;
 
@@ -58,25 +57,24 @@
 	CGSize contentSize;
 
 	float contentScaleFactor;
-/// @endcond
 }
 
 /**
- *	A modifier is used to modify the loaded bytes, a backup is kept so can set
- *	this to <code>nil</code> after getting a new texture data, and still have
- *	your previously loaded data.
+ * A modifier is used to modify the loaded bytes, a backup is kept so can set
+ * this to `nil` after getting a new texture data, and still have
+ * your previously loaded data.
  *
- *	@b Default: <code>nil</code>
+ * **Default:** `nil`
  */
 @property (nonatomic, retain) id<PXTextureModifier> modifier;
 /**
- *	Returns <code>YES</code> if the texture data is modifiable, otherwise
- *	<code>NO</code> is returned.
+ * Returns `YES` if the texture data is modifiable, otherwise
+ * `NO` is returned.
  */
 @property (nonatomic, readonly) BOOL isModifiable;
 
 /**
- *	Returns the content scale factor of the parsed texture.
+ * Returns the content scale factor of the parsed texture.
  */
 @property (nonatomic) float contentScaleFactor;
 
@@ -91,7 +89,6 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXTextureParser (PrivateButPublic)
 - (id) _initWithData:(NSData *)data
 		   modifier:(id<PXTextureModifier>)modifier
@@ -100,4 +97,3 @@
 - (BOOL) _initializeTexture:(GLuint)texName;
 - (void) _expandEdges:(PXParsedTextureData *)data;
 @end
-/// @endcond

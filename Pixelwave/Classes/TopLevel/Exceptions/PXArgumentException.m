@@ -40,10 +40,8 @@
 #import "PXArgumentException.h"
 
 /**
- *	@ingroup TopLevel
- *
- *	Represents an exception involving one or more of the arguments passed to a
- *	method call.
+ * Represents an exception involving one or more of the arguments passed to a
+ * method call.
  */
 @implementation PXArgumentException
 

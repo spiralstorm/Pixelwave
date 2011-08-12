@@ -48,67 +48,63 @@
 
 #import "PXTextureAtlasParser.h"
 
-/// @cond DX_IGNORE
 @interface PXTextureAtlas(Private)
 - (id) initWithData:(NSData *)data
 	   scaleFactor:(float)scaleFactor
 		  modifier:(id<PXTextureModifier>)modifier
 			origin:(NSString *)origin;
 @end
-/// @endcond
 
 /**
- *	@ingroup Utils
+ * Abstracts the concept of a texture atlas
+ * (several images arranged into one larger image) into
+ * a simple object containing a 'frame' for each sub-image.
  *
- *	Abstracts the concept of a texture atlas
- *	(several images arranged into one larger image) into
- *	a simple object containing a 'frame' for each sub-image.
+ * The PXTextureAtlas class supports atlases backed by one
+ * or multiple images.
  *
- *	The PXTextureAtlas class supports atlases backed by one
- *	or multiple images.
+ * Frames within the texture atlas are represented by the
+ * PXAtlasFrame class. Each frame contains information about
+ * a sub image within the atlas, such as its position within
+ * the master image, angular offset, anchor position, etc.
+ * 
+ * *CREATION*
+ * 
+ * A Texture atlas can be created manually, requiring the user
+ * to specify the master image and a PXAtlasFrame object for each
+ * subimage within. Alternatively a texture atlas definition file
+ * can be loaded and used to create the texture atlas. Currently
+ * the following texture atlas format are supported:
  *
- *	Frames within the texture atlas are represented by the
- *	PXAtlasFrame class. Each frame contains information about
- *	a sub image within the atlas, such as its position within
- *	the master image, angular offset, anchor position, etc.
- *	
- *	<b>CREATION</b>
- *	
- *	A Texture atlas can be created manually, requiring the user
- *	to specify the master image and a PXAtlasFrame object for each
- *	subimage within. Alternatively a texture atlas definition file
- *	can be loaded and used to create the texture atlas. Currently
- *	the following texture atlas format are supported:
- *	<br>
- *	- Zwoptex (.plist)<br>
- *	- TexturePacker (.json)
+ * - Zwoptex (.plist)
+ * - TexturePacker (.json)
  *
- *	<b>USAGE</b>
+ * *USAGE*
  *
- *	Once a texture atlas has been created (either manually or
- *	with an external file), using it is quite simple. To quickly create
- *	a PXTexture containing a specific subimage, use the #textureForFrame:
- *	method, specifying the name of the frame to use.
+ * Once a texture atlas has been created (either manually or
+ * with an external file), using it is quite simple. To quickly create
+ * a PXTexture containing a specific subimage, use the #textureForFrame:
+ * method, specifying the name of the frame to use.
  *
- *	To set a specific sub-image in the atlas to a PXTexture that already 
- *	exists use the #setFrame:toTexture: method instead.
+ * To set a specific sub-image in the atlas to a PXTexture that already 
+ * exists use the #setFrame:toTexture: method instead.
  *
- *	If more control is needed, the actual PXAtlasFrame object can be
- *	grabbed with the #frameWithName: method and inspected as necessary.
+ * If more control is needed, the actual PXAtlasFrame object can be
+ * grabbed with the #frameWithName: method and inspected as necessary.
  *
- *	@see PXAtlasFrame
- *	@see #initWithContentsOfFile:
- *	@see #initWithData:
+ * @see PXAtlasFrame
+ * @see initWithContentsOfFile:
+ * @see initWithData:
  */
 @implementation PXTextureAtlas
 
 /**
- *	Initializes an empty texture atlas. The texture atlas
- *	can be populated with frames using the addFrame:withName: and
- *	removeFrame: methods.
+ * Initializes an empty texture atlas. The texture atlas
+ * can be populated with frames using the addFrame:withName: and
+ * removeFrame: methods.
  *
- *	@see addFrame:withName:
- *	@see removeFrame:
+ * @see addFrame:withName:
+ * @see removeFrame:
  */
 - (id) init
 {
@@ -135,14 +131,13 @@
 // a URL in a production app?
 
 /**
- *	Loads the texture atlas definition file specified by <code>path</code>
- *	and initializes the texture atlas with it.
- *	
- *	@param path
- *		An absolute path or one relative to the resource bundle, representing the
- *		texture atlas definition file to load.
+ * Loads the texture atlas definition file specified by `path`
+ * and initializes the texture atlas with it.
+ * 
+ * @param path An absolute path or one relative to the resource bundle, representing the
+ * texture atlas definition file to load.
  *
- *	@see #initWithContentsOfFile:modifier:
+ * @see initWithContentsOfFile:modifier:
  */
 - (id) initWithContentsOfFile:(NSString *)path
 {
@@ -150,18 +145,16 @@
 }
 
 /**
- *	Loads the texture atlas definition file specified by <code>path</code>
- *	and initializes the texture atlas with it. Also allows to specify an
- *	optional PXTextureModifier, which will be applied to the entire loaded texture
- *	atlas image.
+ * Loads the texture atlas definition file specified by `path`
+ * and initializes the texture atlas with it. Also allows to specify an
+ * optional PXTextureModifier, which will be applied to the entire loaded texture
+ * atlas image.
  *
- *	@param path
- *		An absolute path or one relative to the resource bundle, representing the
- *		texture atlas definition file to load.
+ * @param path An absolute path or one relative to the resource bundle, representing the
+ * texture atlas definition file to load.
  *
- *	@param modifier
- *		An optional modifier, to be applied to the loaded atlas image. Default value
- *		is <code>nil</code>
+ * @param modifier An optional modifier, to be applied to the loaded atlas image. Default value
+ * is `nil`
  */
 - (id) initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
@@ -185,25 +178,22 @@
 }
 
 /**
- *	Initializes and populates the texture atlas with data representing
- *	a texture atlas definition file.
+ * Initializes and populates the texture atlas with data representing
+ * a texture atlas definition file.
  *
- *	@param data
- *		An NSDate object representing the bytes of a texture definition file.
+ * @param data An NSDate object representing the bytes of a texture definition file.
  */
 - (id) initWithData:(NSData *)data
 {
 	return [self initWithData:data modifier:nil];
 }
 /**
- *	Initializes and populates the texture atlas with data representing
- *	a texture atlas definition file. Also allows for an optional PXTextureModifier.
+ * Initializes and populates the texture atlas with data representing
+ * a texture atlas definition file. Also allows for an optional PXTextureModifier.
  *
- *	@param data
- *		An NSDate object representing the bytes of a texture definition file.
+ * @param data An NSDate object representing the bytes of a texture definition file.
  *
- *	@param modifier
- *		An optional PXTextureModifier to be applied to the loaded atlas texture data.
+ * @param modifier An optional PXTextureModifier to be applied to the loaded atlas texture data.
  */
 - (id) initWithData:(NSData *)data modifier:(id<PXTextureModifier>)modifier
 {
@@ -292,23 +282,21 @@
 #pragma mark Standard container methods (add/remove/read)
 
 /**
- *	Adds the given frame to the atlas. Useful when creating a custom
- *	PXTextureAtlas object (as opposed to loading one from file).
+ * Adds the given frame to the atlas. Useful when creating a custom
+ * PXTextureAtlas object (as opposed to loading one from file).
  *
- *	@param frame
- *		The frame to add to the atlas. The frame object is retained
- *		by the atlas and can be safely released by the caller after this
- *		method is called.
+ * @param frame The frame to add to the atlas. The frame object is retained
+ * by the atlas and can be safely released by the caller after this
+ * method is called.
  *
- *	@param name
- *		The name to associate the given frame with. This is the name
- *		used to dereference the frame later on. If the name specified
- *		is already associated with a different frame, that frame is
- *		removed and is replaced by the one passed in.
+ * @param name The name to associate the given frame with. This is the name
+ * used to dereference the frame later on. If the name specified
+ * is already associated with a different frame, that frame is
+ * removed and is replaced by the one passed in.
  *
- *	@see #initWithContentsOfFile:
- *	@see #addFrameWithName:clipRect:textureData:
- *	@see #addFrameWithName:clipRect:textureData:anchorX:anchorY:
+ * @see initWithContentsOfFile:
+ * @see addFrameWithName:clipRect:textureData:
+ * @see addFrameWithName:clipRect:textureData:anchorX:anchorY:
  */
 - (void) addFrame:(PXAtlasFrame *)frame withName:(NSString *)name
 {
@@ -319,12 +307,12 @@
 }
 
 /**
- *	Removes the frame associated with the given name. If a frame with that
- *	name doesn't exist, nothing happens.
+ * Removes the frame associated with the given name. If a frame with that
+ * name doesn't exist, nothing happens.
  *
- *	Note: Once a frame is removed from the texture atlas, the atlas's retain on it is released.
- *	If you need to keep a reference to the frame you're about to remove, it's best to get the
- *	reference before calling this method via the #frameWithName: method.
+ * Note: Once a frame is removed from the texture atlas, the atlas's retain on it is released.
+ * If you need to keep a reference to the frame you're about to remove, it's best to get the
+ * reference before calling this method via the #frameWithName: method.
  */
 - (void) removeFrame:(NSString *)name
 {
@@ -336,9 +324,9 @@
 }
 
 /**
- *	Returns the frame associated with the given name.
- *	returns <code>nil</code> if the given name isn't associated with
- *	any frame.
+ * Returns the frame associated with the given name.
+ * returns `nil` if the given name isn't associated with
+ * any frame.
  */
 - (PXAtlasFrame *)frameWithName:(NSString *)name
 {
@@ -352,20 +340,17 @@
 /////////////
 
 /**
- *	A utility method for quickly adding a frame without the
- *	need to create and manage a PXAtlasFrame object.
+ * A utility method for quickly adding a frame without the
+ * need to create and manage a PXAtlasFrame object.
  *
- *	@param name
- *		The name to associate the frame with.
- *	@param clipRect
- *		A PXClipRect object representing the location of the sub-image
- *		represented by this frame, within the atlas image.
- *	@param textureData
- *		A PXTextureData object representing the master atlas image.
+ * @param name The name to associate the frame with.
+ * @param clipRect A PXClipRect object representing the location of the sub-image
+ * represented by this frame, within the atlas image.
+ * @param textureData A PXTextureData object representing the master atlas image.
  *
- *	@see addFrameWithName:clipRect:textureData:anchorX:anchorY:
- *	@see addFrame:withName:
- *	@see PXAtlasFrame#initWithClipRect:textureData:
+ * @see addFrameWithName:clipRect:textureData:anchorX:anchorY:
+ * @see addFrame:withName:
+ * @see [PXAtlasFrame initWithClipRect:textureData:]
  */
 - (PXAtlasFrame *)addFrameWithName:(NSString *)name
 						  clipRect:(PXClipRect *)clipRect
@@ -383,24 +368,19 @@
 }
 
 /**
- *	A utility method for quickly adding a frame without the
- *	need to create and manage a PXAtlasFrame object.
+ * A utility method for quickly adding a frame without the
+ * need to create and manage a PXAtlasFrame object.
  *
- *	@param name
- *		The name to associate the frame with.
- *	@param clipRect
- *		A PXClipRect object representing the location of the sub-image
- *		represented by this frame, within the atlas image.
- *	@param textureData
- *		A PXTextureData object representing the master atlas image.
- *	@param anchorX
- *		The anchorX value (in percent) to set for the created frame.
- *	@param anchorY
- *		The anchorY value (in percent) to set for the created frame.
+ * @param name The name to associate the frame with.
+ * @param clipRect A PXClipRect object representing the location of the sub-image
+ * represented by this frame, within the atlas image.
+ * @param textureData A PXTextureData object representing the master atlas image.
+ * @param anchorX The anchorX value (in percent) to set for the created frame.
+ * @param anchorY The anchorY value (in percent) to set for the created frame.
  *
- *	@see addFrame:withName:
- *	@see addFrameWithName:clipRect:textureData:
- *	@see PXAtlasFrame#initWithClipRect:textureData:anchor:
+ * @see addFrame:withName:
+ * @see addFrameWithName:clipRect:textureData:
+ * @see [PXAtlasFrame initWithClipRect:textureData:anchor:]
  */
 - (PXAtlasFrame *)addFrameWithName:(NSString *)name
 						  clipRect:(PXClipRect *)clipRect
@@ -425,18 +405,16 @@
 // Reading
 
 /**
- *	A utility method for quickly creating a PXTexture object
- *	representing the frame with the given name.
+ * A utility method for quickly creating a PXTexture object
+ * representing the frame with the given name.
  *
- *	@param name
- *		The name of the frame to use.
+ * @param name The name of the frame to use.
  *
- *	@return
- *		An autoreleased PXTexture object representing the frame associated
- *		with the given name. If name is <code>nil</code>, or isn't associated with
- *		any frame in the atlas, <code>nil</code> is returned.
+ * @return An autoreleased PXTexture object representing the frame associated
+ * with the given name. If name is `nil`, or isn't associated with
+ * any frame in the atlas, `nil` is returned.
  *
- *	@see PXAtlasFrame#setToTexture:
+ * @see [PXAtlasFrame setToTexture:]
  */
 - (PXTexture *)textureForFrame:(NSString *)name
 {
@@ -451,17 +429,15 @@
 }
 
 /**
- *	A utility method for quickly modifying the given PXTexture object
- *	to represent the frame with the given name.
+ * A utility method for quickly modifying the given PXTexture object
+ * to represent the frame with the given name.
  *
- *	@param name
- *		The name of the frame to use. If a frame isn't associated with that name,
- *		nothing happens.
- *	@param texture
- *		A PXTexture object who's contents will be modified to represent the
- *		given frame.
+ * @param name The name of the frame to use. If a frame isn't associated with that name,
+ * nothing happens.
+ * @param texture A PXTexture object who's contents will be modified to represent the
+ * given frame.
  *
- *	@see PXAtlasFrame#setToTexture:
+ * @see [PXAtlasFrame setToTexture:]
  */
 - (void) setFrame:(NSString *)name toTexture:(PXTexture *)texture
 {
@@ -475,10 +451,9 @@
 // Static
 
 /**
- *	A utility method for quickly creating an empty texture atlas.
+ * A utility method for quickly creating an empty texture atlas.
  *
- *	@return
- *		An empty, autoreleased PXTextureAtlas object.
+ * @return An empty, autoreleased PXTextureAtlas object.
  */
 + (PXTextureAtlas *)textureAtlas
 {
@@ -486,11 +461,10 @@
 }
 
 /**
- *	A utility method for quickly creating a texture atlas with
- *	the contents of an atlas definition file on the hard drive.
+ * A utility method for quickly creating a texture atlas with
+ * the contents of an atlas definition file on the hard drive.
  *
- *	@return
- *		An autoreleased PXTextureAtlas object.
+ * @return An autoreleased PXTextureAtlas object.
  */
 
 + (PXTextureAtlas *)textureAtlasWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier

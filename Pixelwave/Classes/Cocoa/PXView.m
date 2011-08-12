@@ -57,7 +57,6 @@
 
 #include "PXDebug.h"
 
-/// @cond DX_IGNORE
 @interface PXView(Private)
 - (void) updateOrientation;
 - (BOOL) setupWithScaleFactor:(float)contentScaleFactor
@@ -67,42 +66,36 @@
 
 - (void) touchHandeler:(NSSet *)touches function:(void(*)(UITouch *touch, CGPoint *pos))function;
 @end
-/// @endcond
 
 /*
- *	This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView
- *	subclass. The view content is basically an EAGL surface you render your
- *	OpenGL scene into. Note that setting the view non-opaque will only work if
- *	the EAGL surface has an alpha channel.
- *	
+ * This class wraps the CAEAGLLayer from CoreAnimation into a convenient UIView
+ * subclass. The view content is basically an EAGL surface you render your
+ * OpenGL scene into. Note that setting the view non-opaque will only work if
+ * the EAGL surface has an alpha channel.
+ * 
  */
 
 /**
- *	@ingroup Cocoa
- *	
- *	A UIView subclass that provides a mechanism to create a Pixelwave rendering
- *	surface which acts as the root of the entire engine.
+ * A UIView subclass that provides a mechanism to create a Pixelwave rendering
+ * surface which acts as the root of the entire engine.
  *
- *	Although the view's render area may be set to any value, it is highly
- *	recommended to set the view's <code>frame</code> to be the same size as the
- *	screen.
+ * Although the view's render area may be set to any value, it is highly
+ * recommended to set the view's `frame` to be the same size as the
+ * screen.
  *
- *	Once instantiated, a PXView starts up all of the engine's subsytems and
- *	initializes the display list, providing a default <code>stage</code> and
- *	<code>root</code> display object.
- *
- *	In order to change an application's root object, the #setRoot: method must
- *	be used.
- *	
- *	Only one PXView should exist for the duration of your app.
+ * Once instantiated, a #PXView starts up all of the engine's subsytems and
+ * initializes the display list, providing a default #stage and
+ * #root display object. To change the application's root object
+ * use the #root property.
+ * 
+ * @warning Only one #PXView should exist for the duration of your app.
  */
 @implementation PXView
 
 @synthesize colorQuality;
 
 /**
- *	@param frame
- *		The size of the newly created view.
+ * @param frame The size of the newly created view.
  */
 - (id) initWithFrame:(CGRect)frame
 {
@@ -111,12 +104,10 @@
 }
 
 /**
- *	@param frame
- *		The size of the newly created view.
- *	@param colorQuality
- *		The quality to use for the underlying OpenGL rendering surface. This
- *		value must be one of the possible values defined in PXViewColorQuality.
- *		The default value is PXViewColorQuality_Medium.
+ * @param frame The size of the newly created view.
+ * @param colorQuality The quality to use for the underlying OpenGL rendering surface. This
+ * value must be one of the possible values defined in PXViewColorQuality.
+ * The default value is PXViewColorQuality_Medium.
  */
 - (id) initWithFrame:(CGRect)frame colorQuality:(PXViewColorQuality)_colorQuality
 {
@@ -126,12 +117,10 @@
 }
 
 /**
- *	@param frame
- *		The size of the newly created view.
- *	@param contentScaleFactor
- *		The multiplier value by which the contents of the view should be scaled.
- *		This value usually corresponds to the contentScaleFactor of the device.
- *		Pass 0.0 to use the default	value.
+ * @param frame The size of the newly created view.
+ * @param contentScaleFactor The multiplier value by which the contents of the view should be scaled.
+ * This value usually corresponds to the contentScaleFactor of the device.
+ * Pass 0.0 to use the default	value.
  */
 - (id) initWithFrame:(CGRect)frame contentScaleFactor:(float)_contentScaleFactor
 {
@@ -141,18 +130,15 @@
 }
 
 /**
- *	@param frame
- *		The size of the newly created view.
- *	@param contentScaleFactor
- *		The multiplier value by which the contents of the view should be scaled.
- *		This value usually corresponds to the contentScaleFactor of the device.
- *		Pass 0.0 to use the default	value.
- *	@param colorQuality
- *		The quality to use for the underlying OpenGL rendering surface. This
- *		value must be one of the possible values defined in PXViewColorQuality.
- *		The default value is PXViewColorQuality_Medium.
+ * @param frame The size of the newly created view.
+ * @param contentScaleFactor The multiplier value by which the contents of the view should be scaled.
+ * This value usually corresponds to the contentScaleFactor of the device.
+ * Pass 0.0 to use the default	value.
+ * @param colorQuality The quality to use for the underlying OpenGL rendering surface. This
+ * value must be one of the possible values defined in PXViewColorQuality.
+ * The default value is PXViewColorQuality_Medium.
  *
- *	@see PXViewColorQuality
+ * @see PXViewColorQuality
  */
 - (id) initWithFrame:(CGRect)frame contentScaleFactor:(float)_contentScaleFactor
 		colorQuality:(PXViewColorQuality)_colorQuality
@@ -520,12 +506,6 @@
 	return PXEngineGetStage();
 }
 
-/**
- *	Sets the root display object of the Pixelwave engine.
- *
- *	@param root
- *		The new root display object.
- */
 - (void) setRoot:(PXDisplayObject *)root
 {
 	if (!root)
@@ -747,7 +727,7 @@
 /**
  * A screen grab of the current state of the main display list, as a UIImage.
  *
- * <b>Please note</b> that this is a fairly expensive method to execute, and
+ * **Please note** that this is a fairly expensive method to execute, and
  * shouldn't be used for real-time effects to avoid a performance hit.
  *
  * This method is generally intended for debugging purposes, but can be safely

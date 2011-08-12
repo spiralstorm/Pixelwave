@@ -40,8 +40,8 @@
 #import "PXGL.h"
 
 /**
- *	Describes the clip area within a TextureData object. The coordinates are
- *	in points as opposed to pixels.
+ * Describes the clip area within a TextureData object. The coordinates are
+ * in points as opposed to pixels.
  */
 @interface PXClipRect : NSObject <NSCopying>
 {
@@ -54,7 +54,7 @@
 	BOOL invalidated;
 @public
 	// Raw data
-	ushort _numVertices;
+	int _numVertices;
 	PXGLTextureVertex *_vertices;
 
 	// The size of the frame within the texture atlas
@@ -69,18 +69,36 @@
 // General clip shape
 
 /**
- *	Avoid using values that aren't multiples of 90.0
- *	(it makes the hit-test act unintuitively). For regular rotation changes
- *	just use
- *	the rotation property
+ * Specifies the rotation offset to be applied to the area of the texture
+ * covered by this clip rect when applied to a #PXTexture.
+ *
+ * Rotation value is in degrees.
+ *
+ * @warning Avoid using values that aren't multiples of 90.0
+ * (it makes the hit-test act unintuitively, albeit correctly). For regular rotation changes
+ * just use the [PXTexture rotation] property.
  */
 @property (nonatomic) float rotation;
 
 // Rect specific
 
+/**
+ * The horizontal position of the top-left corner of the
+ * clip rectangle, in points.
+ */
 @property (nonatomic) float x;
+/**
+ * The vertical position of the top-left corner of the
+ * clip rectangle, in points.
+ */
 @property (nonatomic) float y;
+/**
+ * The width of the rectangle in points.
+ */
 @property (nonatomic) float width;
+/**
+ * The height of the rectangle in points.
+ */
 @property (nonatomic) float height;
 
 /////////////
@@ -88,8 +106,8 @@
 /////////////
 
 // When making a version of this method without rotation, the compiler freaks
-// out because it can't tell the differnce between it and the similarly named
-// method in PXRectangle
+// out because it can't tell the difference between it and the similarly named
+// method in PXRectangle.
 - (id) initWithX:(float)x y:(float)y width:(float)width height:(float)height rotation:(float)rotation;
 
 - (void) setX:(float)x

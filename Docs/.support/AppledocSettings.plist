@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>--ignore</key>
+	<array>
+		<string>Pixelwave/Classes/Core</string>
+		<string>Pixelwave/Classes/Support</string>
+		<string>Pixelwave/Classes/Common</string>
+		<string>Pixelwave/ExternalFrameworks</string>
+		<string>Pixelwave/Classes/Media/Sounds</string>
+		<string>Pixelwave/Classes/Media/Channels</string>
+		<string>Pixelwave/Classes/Text/Renderers</string>
+		<string>Pixelwave/Classes/Text/</string>
+	</array>
+	<key>--project-company</key>
+	<string>Spiralstorm Games</string>
+	<key>--company-id</key>
+	<string>com.spiralstorm</string>
+	<key>--create-html</key>
+	<true/>
+	<key>--create-docset</key>
+	<false/>
+	<key>--install-docset</key>
+	<false/>
+	<key>--publish-docset</key>
+	<false/>
+	<key>--verbose</key>
+	<integer>3</integer>
+	<key>--logformat</key>
+	<integer>1</integer>
+	<key>--output</key>
+	<string>../output</string>
+	<key>--project-name</key>
+	<string>Pixelwave API</string>
+	<key>--project-version</key>
+	<string>1.2</string>
+	<key>--repeat-first-par</key>
+	<false/>
+	<key>--search-undocumented-doc</key>
+	<false/>
+	<key>--keep-undocumented-members</key>
+	<false/>
+	<key>--keep-undocumented-objects</key>
+	<false/>
+	<key>--crossref-format</key>
+	<string>#%@\s*?</string>
+	<key>--docset-bundle-id</key>
+	<string>com.spiralstorm.Pixelwave.API_Reference.docset</string>
+	<key>--docset-bundle-name</key>
+	<string>Pixelwave API Reference</string>
+	<key>--docset-desc</key>
+	<string>The official API reference for the Pixelwave framework.</string>
+	<key>--docset-feed-name</key>
+	<string>Pixelwave API Reference</string>
+	<key>--docset-feed-url</key>
+	<string>http://www.pixelwave.org/download/%DOCSETATOMFILENAME</string>
+	<key>--docset-package-url</key>
+	<string>http://www.pixelwave.org/download/%DOCSETPACKAGEFILENAME</string>
+	<key>--docset-publisher-id</key>
+	<string>com.spiralstorm</string>
+	<key>--docset-publisher-name</key>
+	<string>Spiralstorm Games</string>
+	<key>--templates</key>
+	<string>Templates</string>
+	<key>--index-desc</key>
+	<string>./index.markdown</string>
+</dict>
+</plist>

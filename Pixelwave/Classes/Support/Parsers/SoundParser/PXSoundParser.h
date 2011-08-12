@@ -54,16 +54,16 @@
 }
 
 /**
- *	A modifier is used to modify the loaded bytes, a backup is kept so can set
- *	this to <code>nil</code> after getting a new sound, and still have your
- *	previously loaded data.
+ * A modifier is used to modify the loaded bytes, a backup is kept so can set
+ * this to `nil` after getting a new sound, and still have your
+ * previously loaded data.
  *
- *	@b Default: <code>nil</code>
+ * **Default:** `nil`
  */
 @property (nonatomic, retain) id<PXSoundModifier> modifier;
 /**
- *	Returns <code>YES</code> if the sound data is modifiable, otherwise
- *	<code>NO</code> is returned.
+ * Returns `YES` if the sound data is modifiable, otherwise
+ * `NO` is returned.
  */
 @property (nonatomic, readonly) BOOL isModifiable;
 
@@ -78,10 +78,8 @@
 
 @end
 
-/// @cond DX_IGNORE
 @interface PXSoundParser (PrivateButPublic)
 - (id) _initWithData:(NSData *)data
 		   modifier:(id<PXSoundModifier>)modifier
 			  origin:(NSString *)origin;
 @end
-/// @endcond
