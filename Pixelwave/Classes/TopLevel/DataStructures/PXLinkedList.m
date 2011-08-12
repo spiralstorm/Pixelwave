@@ -91,8 +91,7 @@ _PXLLNode pxLinkedListBadNode;
  * 
  * There are 3 (count 'em) ways to loop through a linked list:
  * 
- * 1) _(Recommended)_ Using Objective-C's fast enumeration. This method
- * is both cleaner and (much) faster than the previous one. It is the
+ * 1) _(Recommended)_ Using Objective-C's fast enumeration. It is the
  * **encouraged** way to loop through linked lists. Here's a code example:
  *
  *	PXLinkedList *list = ...
