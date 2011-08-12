@@ -258,28 +258,29 @@
 	[newState retain];
 	[hitTestState release];
 	hitTestState = nil;
-	
+
 	hitAreaIsRect = NO;
-	
-	if([newState isKindOfClass:[PXDisplayObject class]])
+
+	if ([newState isKindOfClass:[PXDisplayObject class]])
 	{
 		hitTestState = [(PXDisplayObject *)newState retain];
 	}
-	else if([newState isKindOfClass:[PXRectangle class]])
+	else if ([newState isKindOfClass:[PXRectangle class]])
 	{
 		hitAreaIsRect = YES;
 		hitAreaRect = PXRectangleToCGRect((PXRectangle *)newState);
-	}else if(newState != nil)
+	}
+	else if (newState != nil)
 	{
 		PXDebugLog(@"PXSimpleButton ERROR: hitTestState MUST be either a PXRectangle or PXDisplayObject\n");
 	}
-	
+
 	[newState release];
 }
 
 - (id<NSObject>) hitTestState
 {
-	if(hitAreaIsRect)
+	if (hitAreaIsRect)
 	{
 		return PXRectangleFromCGRect(hitAreaRect);
 	}
@@ -294,7 +295,8 @@
 	[self retain];
 	BOOL dispatched = [super dispatchEvent:event];
 	
-	if(!dispatched) return NO;
+	if (!dispatched)
+		return NO;
 	
 	// It's important to do this logic afterwards so that we're not changing
 	// this hit area BEFORE a touch up event, which will cause tap to
@@ -304,7 +306,7 @@
 		PXTouchEvent *touchEvent = (PXTouchEvent *)event;
 		NSString *eventType = touchEvent.type;
 		
-		if([eventType isEqualToString:PXTouchEvent_TouchDown])
+		if ([eventType isEqualToString:PXTouchEvent_TouchDown])
 		{
 			[listOfTouches addObject:touchEvent.nativeTouch];
 			
@@ -324,8 +326,8 @@
 				visibleState = _PXSimpleButtonVisibleState_Up;
 			}
 		}
-		else if ([eventType isEqualToString:PXTouchEvent_TouchUp]
-				 || [eventType isEqualToString:PXTouchEvent_TouchCancel])
+		else if ([eventType isEqualToString:PXTouchEvent_TouchUp] ||
+				 [eventType isEqualToString:PXTouchEvent_TouchCancel])
 		{
 			[listOfTouches removeObject:touchEvent.nativeTouch];
 			
@@ -346,34 +348,38 @@
 {
 	*retBounds = CGRectZero;
 
-	if(hitAreaIsRect){
+	if (hitAreaIsRect)
+	{
 		*retBounds = [self currentHitAreaRect];
-	}else if(hitTestState){
+	}
+	else if (hitTestState)
+	{
 		// Ask the hit test for the GLOBAL bounds, because it needs to take
 		// any children it may have into affect.
 		[hitTestState _measureGlobalBounds:retBounds];
-	}	
+	}
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
-	if(hitAreaIsRect)
+	if (hitAreaIsRect)
 	{
 		return CGRectContainsPoint([self currentHitAreaRect], CGPointMake(x, y));
 	}
-	else if(hitTestState)
+	else if (hitTestState)
 	{
 		return [hitTestState _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag];
 	}
-	
+
 	return NO;
 }
 
 - (CGRect) currentHitAreaRect
 {
-	if(isPressed)
+	if (isPressed)
 	{
 		float amount = -autoInflateAmount;
+
 		return CGRectInset(hitAreaRect, amount, amount);
 	}
 	else

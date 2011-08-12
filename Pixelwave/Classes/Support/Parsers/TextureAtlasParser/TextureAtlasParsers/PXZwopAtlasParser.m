@@ -318,7 +318,7 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 	int width;
 	int height;
 
-	if(![pxZwopAtlasParserRectMatcher next])
+	if (![pxZwopAtlasParserRectMatcher next])
 	{
 		return NO;
 	}
@@ -349,7 +349,7 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 	int width;
 	int height;
 
-	if(![pxZwopAtlasParserSizeMatcher next])
+	if (![pxZwopAtlasParserSizeMatcher next])
 	{
 		return NO;
 	}
