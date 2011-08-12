@@ -84,7 +84,7 @@
  *
  * @param clipRect The position and area (in points) of the sub-image within the master atlas image.
  * @param textureData The PXTextureData within which this sub-image is contained.
- * @param anchor The anchor point to be assigned to this sub-image when extracted from the texture atlas. Pass <code>nil</code> for the default value (<code>{0, 0}</code>).
+ * @param anchor The anchor point to be assigned to this sub-image when extracted from the texture atlas. Pass `nil` for the default value (`{0, 0}`).
  */
 - (id) initWithClipRect:(PXClipRect *)_clipRect
 			textureData:(PXTextureData *)_textureData
@@ -101,7 +101,7 @@
  *
  * @param clipRect The position and area (in points) of the sub-image within the master atlas image.
  * @param textureData The PXTextureData within which this sub-image is contained.
- * @param anchor The anchor point to be assigned to this sub-image when extracted from the texture atlas. Pass <code>nil</code> for the default value (<code>{0, 0}</code>).
+ * @param anchor The anchor point to be assigned to this sub-image when extracted from the texture atlas. Pass `nil` for the default value (`{0, 0}`).
  * @param padding The amount of padding (white space) that should exists around the sub-image when extracted from the texture atlas.
  */
 - (id) initWithClipRect:(PXClipRect *)_clipRect

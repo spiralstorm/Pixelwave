@@ -53,8 +53,8 @@ typedef enum
 }
 
 /**
- * The origin type either <code>PXLoaderOriginType_File</code> or
- * <code>PXLoaderOriginType_URL</code>
+ * The origin type either `PXLoaderOriginType_File` or
+ * `PXLoaderOriginType_URL`
  */
 @property (nonatomic, readonly) PXLoaderOriginType originType;
 /**

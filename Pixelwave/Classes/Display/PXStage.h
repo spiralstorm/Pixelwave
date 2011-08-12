@@ -89,28 +89,28 @@ typedef enum
  *
  * Must be one of the following:
  *
- * -<code>PXStageOrientation_Portrait</code>
- * -<code>PXStageOrientation_PortraitUpsideDown</code>
- * -<code>PXStageOrientation_LandscapeLeft</code>
- * -<code>PXStageOrientation_LandscapeRight</code>
+ * -`PXStageOrientation_Portrait`
+ * -`PXStageOrientation_PortraitUpsideDown`
+ * -`PXStageOrientation_LandscapeLeft`
+ * -`PXStageOrientation_LandscapeRight`
  *
  */
 @property (nonatomic, assign) PXStageOrientation orientation;
 
 /**
- * If <code>YES</code> then the stage automatically rotates to the orientations
+ * If `YES` then the stage automatically rotates to the orientations
  * acceptable It will send out a #PXStageOrientation with the type
- * <code>PXStageOrientationEvent_OrientationChanging</code>. If that event is
- * canceled (using <code>preventDefault</code>) then the orientation will not
+ * `PXStageOrientationEvent_OrientationChanging`. If that event is
+ * canceled (using `preventDefault`) then the orientation will not
  * take affect. If the orientation is accepted then a
- * <code>PXStageOrientationEvent_OrientationChange</code> will be sent.
+ * `PXStageOrientationEvent_OrientationChange` will be sent.
  *
  * **Default:** NO
  */
 @property (nonatomic, assign) BOOL autoOrients;
 
 /**
- * The value the <code>captureTouches</code> property of a #PXInteractiveObject
+ * The value the `captureTouches` property of a #PXInteractiveObject
  * instance should be set to when initialized.
  *
  * **Default:** YES
@@ -119,7 +119,7 @@ typedef enum
 
 /**
  * The color with which to clear the stage every frame. This values is used if
- * #clearScreen is set to <code>YES</code>.
+ * #clearScreen is set to `YES`.
  * 
  * Represented as a hexadecimal number with the format: RRGGBB
  *
@@ -131,8 +131,8 @@ typedef enum
 
 /**
  * Whether the screen will be cleared before each draw.
- * This option is set to <code>YES</code> by default, but may be set to
- * <code>NO</code> as an optimization.
+ * This option is set to `YES` by default, but may be set to
+ * `NO` as an optimization.
  *
  * **Default:** YES
  */
@@ -142,7 +142,7 @@ typedef enum
  * Describes whether display list modification events should be dispatched
  * when a PXDisplayObject is added or removed from a display list.
  *
- * If set to <code>YES</code>, the following display list modification events
+ * If set to `YES`, the following display list modification events
  * may be dispatched:
  * 
  * - _added_ - When a display object is added to a display list.
@@ -155,8 +155,8 @@ typedef enum
  * The value of this property may be changed at any time and has an immediate
  * effect.
  *
- * This option is set to <code>YES</code> by default, but may be set to
- * <code>NO</code> to avoid the overhead involved with dispatching display list
+ * This option is set to `YES` by default, but may be set to
+ * `NO` to avoid the overhead involved with dispatching display list
  * modification events.
  */
 @property (nonatomic) BOOL dispatchesDisplayListEvents;
@@ -177,7 +177,7 @@ typedef enum
 
 /**
  * Defines whether or not the engine is currently running. To pause the engine
- * set this property to code>false</code>. Set it to <code>true</code> to
+ * set this property to code>false</code>. Set it to `true` to
  * resume normal operations.
  *
  * Important note: The engine will not dispatch any events when not playing.

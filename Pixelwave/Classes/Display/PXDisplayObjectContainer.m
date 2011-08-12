@@ -71,10 +71,10 @@
  * PXSimpleSprite instead.
  *
  * When a PXDisplayObjectContainer is deallocated it removes all of its
- * children, which invokes the <code>remove</code> event on each one. This
+ * children, which invokes the `remove` event on each one. This
  * behavior differs from that of Flash because all containers in Objective-C
  * must remove their contents once deallocated (to avoid
- * <code>child.parent</code> pointing to a zombie).
+ * `child.parent` pointing to a zombie).
  *
  * @see PXDisplayObject
  * @see PXSimpleSprite
@@ -596,7 +596,7 @@
 
 /**
  * Retrieves the index of the specified child.  If the specified child is not
- * part of this container, then <code>-1</code> is returned instead and a
+ * part of this container, then `-1` is returned instead and a
  * #PXArgumentException is thrown.
  *
  * @param child The child in question.
@@ -653,7 +653,7 @@
 
 /**
  * Retrieves the child at the specified index.  If no child was found at the
- * index, then <code>nil</code> is returned instead.  If the index is out of
+ * index, then `nil` is returned instead.  If the index is out of
  * bounds then a #PXRangeException is thrown.
  *
  * @param index The index.
@@ -698,7 +698,7 @@
 
 /**
  * Retrieves the child with the specified name.  If no child was found with the
- * specified name, then <code>nil</code> is returned instead.
+ * specified name, then `nil` is returned instead.
  *
  * @param name The case sensitive name of the child.
  *

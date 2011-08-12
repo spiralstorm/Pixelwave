@@ -72,7 +72,7 @@
 
 /**
  * Creates a new loader object containing the loaded information as data.
- * Returns <code>nil</code> if the file could not be found, or the file type
+ * Returns `nil` if the file could not be found, or the file type
  * isn't supported.
  *
  * @param filePath The path of the file to load. The file path may be absolute or relative
@@ -85,7 +85,7 @@
 
 /**
  * Creates a new loader object containing the loaded information as data.
- * Returns <code>nil</code> if the file could not be found, or the file type
+ * Returns `nil` if the file could not be found, or the file type
  * isn't supported.
  *
  * @param url The url of the file to load.

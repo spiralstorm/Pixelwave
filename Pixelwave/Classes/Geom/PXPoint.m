@@ -188,8 +188,8 @@
  *
  * @param point The point to be compared.
  *
- * @return <code>YES</code> if the object is equal to this point object;
- * <code>NO</code> if it is not equal.
+ * @return `YES` if the object is equal to this point object;
+ * `NO` if it is not equal.
  *
  * **Example:**
  *	PXPoint *pt1 = [[PXPoint alloc] initWithX:5.0f y:7.0f];

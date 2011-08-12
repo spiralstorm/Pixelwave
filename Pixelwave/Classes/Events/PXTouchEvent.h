@@ -70,14 +70,14 @@ PXExtern NSString * const PXTouchEvent_TouchCancel;
  * Indicates if the touch which triggered this event has been captured by the
  * target. The object which captured the event will usually be a
  * #PXInteractiveObject for which the [PXInteractiveObject captureTouches]
- * property has been set to <code>YES</code>. If #captured equals
- * <code>YES</code>, the [PXTouchEvent target] property will represent the
+ * property has been set to `YES`. If #captured equals
+ * `YES`, the [PXTouchEvent target] property will represent the
  * object which captured this touch.
  */
 @property (nonatomic, readonly) BOOL captured;
 
 /**
- * Returns <code>YES</code> if the touch is contained within the bounds of the
+ * Returns `YES` if the touch is contained within the bounds of the
  * target.
  */
 @property (nonatomic, readonly) BOOL insideTarget;

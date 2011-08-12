@@ -140,8 +140,8 @@
 /**
  * Sets the distance model for the sound. This means that the further the
  * sound gets from the listener, how it the volume will change. The two
- * options available are either <code>PXSoundMixerDistanceModel_Linear</code>
- * or <code>PXSoundMixerDistanceModel_Logarithmic</code>.
+ * options available are either `PXSoundMixerDistanceModel_Linear`
+ * or `PXSoundMixerDistanceModel_Logarithmic`.
  *
  * @param distanceModel The distance model.
  *
@@ -150,7 +150,7 @@
  *
  * @see PXSoundListener
  *
- * **Default:** <code>PXSoundMixerDistanceModel_Logarithmic</code>
+ * **Default:** `PXSoundMixerDistanceModel_Logarithmic`
  */
 + (void) setDistanceModel:(PXSoundMixerDistanceModel)distanceModel
 {
@@ -159,12 +159,12 @@
 
 /**
  * Returns the current distance model, the two options are
- * <code>PXSoundMixerDistanceModel_Linear</code> or
- * <code>PXSoundMixerDistanceModel_Logarithmic</code>.  The default value is
- * <code>PXSoundMixerDistanceModel_Logarithmic</code>.
+ * `PXSoundMixerDistanceModel_Linear` or
+ * `PXSoundMixerDistanceModel_Logarithmic`.  The default value is
+ * `PXSoundMixerDistanceModel_Logarithmic`.
  *
  * The distance model is how the volume of a sound changes depending on how far
- * it is from the <code>PXSoundListener</code>.
+ * it is from the `PXSoundListener`.
  *
  * @return The distance model.
  *

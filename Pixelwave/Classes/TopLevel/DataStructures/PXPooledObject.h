@@ -41,7 +41,7 @@
 
 /**
  * This protocol should be implemented by all classes which will be pooled in
- * a PXObjectPool. It requires that the class implement the <code>reset</code>
+ * a PXObjectPool. It requires that the class implement the `reset`
  * method, which should reset the internal state of the object to its original
  * state.
  *

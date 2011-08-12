@@ -370,7 +370,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 
 /**
  * Sets anchor position in points, relative to the current textureData.
- * If #textureData is <code>nil</code>, this method call is ignored.
+ * If #textureData is `nil`, this method call is ignored.
  *
  * @param x The horizontal anchor position in points, within the textureData.
  * @param y The vertical anchor position in points, within the textureData.

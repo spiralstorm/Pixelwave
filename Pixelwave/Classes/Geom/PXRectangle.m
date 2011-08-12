@@ -47,7 +47,7 @@
 
 /**
  * A PXRectangle object is an area defined by its position, as indicated by its
- * <code>top-left</code> corner (#x, #y) and by its
+ * `top-left` corner (#x, #y) and by its
  * #width and its #height.
  *
  * The #x, #y, #width and
@@ -77,11 +77,11 @@
 }
 
 /**
- * Creates a new rectangle with <code>topLeft</code> corner at (#x,
+ * Creates a new rectangle with `topLeft` corner at (#x,
  * #y) and size of (#width, #height).
  *
- * @param x The horizontal coordinate of the <code>topLeft</code> corner.
- * @param y The vertical coordinate of the <code>topLeft</code> corner.
+ * @param x The horizontal coordinate of the `topLeft` corner.
+ * @param y The vertical coordinate of the `topLeft` corner.
  * @param width The width of the rectangle.
  * @param height The height of the rectangle.
  *
@@ -208,11 +208,11 @@
 #pragma mark Methods
 
 /**
- * Sets the rectangle's <code>topLeft</code> corner to (#x,
+ * Sets the rectangle's `topLeft` corner to (#x,
  * #y) and #size of (#width, #height).
  *
- * @param x The horizontal coordinate of the <code>topLeft</code> corner.
- * @param y The vertical coordinate of the <code>topLeft</code> corner.
+ * @param x The horizontal coordinate of the `topLeft` corner.
+ * @param y The vertical coordinate of the `topLeft` corner.
  * @param width The width of the rectangle.
  * @param height The height of the rectangle.
  *
@@ -239,8 +239,8 @@
  * @param x The horizontal coordinate of the point.
  * @param y The vertical coordinate of the point.
  *
- * @return <code>YES</code> if the rectangle contains the point, otherwise
- * <code>NO</code>.
+ * @return `YES` if the rectangle contains the point, otherwise
+ * `NO`.
  *
  * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
@@ -263,8 +263,8 @@
  *
  * @param point The point to test.
  *
- * @return <code>YES</code> if the rectangle contains the point, otherwise
- * <code>NO</code>.
+ * @return `YES` if the rectangle contains the point, otherwise
+ * `NO`.
  *
  * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
@@ -284,8 +284,8 @@
  *
  * @param rect The rectangle to test.
  *
- * @return <code>YES</code> if this rectangle contains the rectangle provided,
- * otherwise <code>NO</code>.
+ * @return `YES` if this rectangle contains the rectangle provided,
+ * otherwise `NO`.
  *
  * **Example:**
  *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
@@ -329,8 +329,8 @@
  *
  * @param rect The rectangle to compare.
  *
- * @return <code>YES</code> if the rectangle specified is equal to this rectangle;
- * otherwise <code>NO</code>.
+ * @return `YES` if the rectangle specified is equal to this rectangle;
+ * otherwise `NO`.
  *
  * **Example:**
  *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
@@ -356,8 +356,8 @@
 /**
  * Determines if the rectangle has an area of 0.
  *
- * @return <code>YES</code> if the rectangle has an area of 0; otherwise
- * <code>NO</code>.
+ * @return `YES` if the rectangle has an area of 0; otherwise
+ * `NO`.
  *
  * **Example:**
  *	PXRectangle *rect = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
@@ -459,8 +459,8 @@
  *
  * @param toIntersect The rectangle to compare.
  *
- * @return <code>YES</code> if this rectangle intersects with the rectangle
- * specified; otherwise <code>NO</code>.
+ * @return `YES` if this rectangle intersects with the rectangle
+ * specified; otherwise `NO`.
  *
  * **Example:**
  *	PXRectangle *rect1 = [[PXRectangle alloc] initWithX:-5 y:7 width:10 height:4];
@@ -565,11 +565,11 @@
 #pragma mark Static Methods
 
 /**
- * Creates a rectangle with <code>topLeft</code> corner at (#x,
+ * Creates a rectangle with `topLeft` corner at (#x,
  * #y) and #size of (#width, #height).
  *
- * @param x The horizontal coordinate of the <code>topLeft</code> corner.
- * @param y The vertical coordinate of the <code>topLeft</code> corner.
+ * @param x The horizontal coordinate of the `topLeft` corner.
+ * @param y The vertical coordinate of the `topLeft` corner.
  * @param width The width of the rectangle.
  * @param height The height of the rectangle.
  *

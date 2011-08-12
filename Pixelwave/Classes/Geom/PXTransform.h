@@ -51,11 +51,11 @@
  * A matrix containing the local transformation of the #PXDisplayObject
  * associated with the given #PXTransform.
  * 
- * Note that the <code>matrix</code> property returns a copy of itself and
+ * Note that the `matrix` property returns a copy of itself and
  * creates a copy of values assigned to it. That means that transformation of
  * a #PXDisplayObject can't be set by dereferencing
- * <code>transform.matrix</code>. Instead a #PXMatrix object containing the new
- * values and must be re-assigned to the <code>matrix</code> property.
+ * `transform.matrix`. Instead a #PXMatrix object containing the new
+ * values and must be re-assigned to the `matrix` property.
  *
  * Wrong:
  *	// This would have no effect.
@@ -77,12 +77,12 @@
 /**
  * The color transformation of the associated #PXDisplayObject in local color space.
  * 
- * Note that the <code>colorTransform</code> property returns a copy of itself
+ * Note that the `colorTransform` property returns a copy of itself
  * and creates a copy of values assigned to it. That means that the color
  * transformation of a #PXDisplayObject can't be set by dereferencing
- * <code>transform.colorTransform</code>. Instead a #PXColorTransform object
+ * `transform.colorTransform`. Instead a #PXColorTransform object
  * containing the new values and must be re-assigned to the
- * <code>colorTransform</code> property.
+ * `colorTransform` property.
  *
  * Wrong:
  *	// This would have no effect on the display object.

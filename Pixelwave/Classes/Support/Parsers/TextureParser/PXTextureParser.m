@@ -84,7 +84,7 @@
  *
  * @param data The loaded data.
  * @param modifier A modifier is used to modify the loaded bytes, a backup is kept so can
- * set this to <code>nil</code> after getting a new texture data, and still
+ * set this to `nil` after getting a new texture data, and still
  * have your previously loaded data.
  * @param origin The origin of the font.
  *

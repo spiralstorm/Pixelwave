@@ -49,7 +49,7 @@
  * The color of each pixel of a display object is calculated, right before
  * rendering, like so:
  * 
- * <code>New color value = old color value * colorMultiplier</code>
+ * `New color value = old color value * colorMultiplier`
  *
  * _Example:_ This sample adjusts an image so that only the red color channel
  * is visible, by setting the multipliers for all the other channels to 0.

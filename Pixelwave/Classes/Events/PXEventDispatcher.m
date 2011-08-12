@@ -144,8 +144,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * Adds an event listener.
  *
  * **Example:**
- * In this example the method <code>onTouch:</code> is assigned as a
- * listener to the stage's <code>touchDown</code> event.
+ * In this example the method `onTouch:` is assigned as a
+ * listener to the stage's `touchDown` event.
  * 
  *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
  *	//...
@@ -166,8 +166,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * Adds an event listener.
  *
  * **Example:**
- * In this example the method <code>onTouch:</code> is assigned as a
- * listener to the stage's <code>touchDown</code> event.
+ * In this example the method `onTouch:` is assigned as a
+ * listener to the stage's `touchDown` event.
  * 
  *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:) useCapture:NO priority:0];
  *	//...
@@ -413,12 +413,12 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 #pragma mark Querying
 
 /**
- * Returns <code>YES</code> if this event dispatcher has a listener of the
+ * Returns `YES` if this event dispatcher has a listener of the
  * type.
  *
  * @param type The type.
  *
- * @return Returns <code>YES</code> if this event dispatcher has a listener of the
+ * @return Returns `YES` if this event dispatcher has a listener of the
  * type.
  */
 - (BOOL) hasEventListenerOfType:(NSString *)type
@@ -444,7 +444,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 }
 
 /**
- * This method returns <code>YES</code> if an event listener is triggered
+ * This method returns `YES` if an event listener is triggered
  * during any phase of the event flow when an event of the specified type is
  * dispatched to this EventDispatcher object or any of its descendants.
  *
@@ -454,7 +454,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  *
  * @param type The type
  *
- * @return This method returns <code>YES</code> if an event listener is triggered
+ * @return This method returns `YES` if an event listener is triggered
  * during any phase of the event flow when an event of the specified type
  * is dispatched to this EventDispatcher object or any of its descendants.
  */
@@ -488,11 +488,11 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 }
 
 /**
- * Invokes the event on all listeners of the same type as <code>event</code>.
+ * Invokes the event on all listeners of the same type as `event`.
  *
  * @param event The event
  *
- * @return <code>YES</code> if the event completed.
+ * @return `YES` if the event completed.
  */
 
 /*

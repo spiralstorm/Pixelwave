@@ -51,11 +51,11 @@
 }
 
 /**
- * The <code>topLeft</code> corner's horizontal coordinate.
+ * The `topLeft` corner's horizontal coordinate.
  */
 @property (nonatomic, assign) float x;
 /**
- * The <code>topLeft</code> corner's vertical coordinate.
+ * The `topLeft` corner's vertical coordinate.
  */
 @property (nonatomic, assign) float y;
 /**
@@ -68,24 +68,24 @@
 @property (nonatomic, assign) float height;
 
 /**
- * The <code>topLeft</code> corner's vertical coordinate.
+ * The `topLeft` corner's vertical coordinate.
  */
 @property (nonatomic, assign) float top;
 /**
- * The <code>bottomRight</code> corner's vertical coordinate.
+ * The `bottomRight` corner's vertical coordinate.
  */
 @property (nonatomic, assign) float bottom;
 /**
- * The <code>left</code> corner's horizontal coordinate.
+ * The `left` corner's horizontal coordinate.
  */
 @property (nonatomic, assign) float left;
 /**
- * The <code>right</code> corner's horizontal coordinate.
+ * The `right` corner's horizontal coordinate.
  */
 @property (nonatomic, assign) float right;
 
 /**
- * A point with the values of the <code>width</code> and <code>height</code>
+ * A point with the values of the `width` and `height`
  * properties.
  */
 @property (nonatomic, assign) PXPoint *size;

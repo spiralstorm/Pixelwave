@@ -57,7 +57,7 @@
  * If the sound is mono and of file type "wav" or "caf" then it is considered
  * to be 3D ready.
  *
- * <code>YES</code> if the conditions for being 3D are met, <code>NO</code>
+ * `YES` if the conditions for being 3D are met, `NO`
  * otherwise.
  *
  * **Example:**

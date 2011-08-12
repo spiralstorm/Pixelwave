@@ -79,7 +79,7 @@
  *
  * @param data The loaded data.
  * @param modifier A modifier is used to modify the loaded bytes, a backup is kept so can
- * set the property to <code>nil</code> after getting a new sound, and
+ * set the property to `nil` after getting a new sound, and
  * still have your previously loaded data.
  * @param origin The origin of the font.
  *

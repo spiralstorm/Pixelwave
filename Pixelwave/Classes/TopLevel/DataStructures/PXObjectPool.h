@@ -48,7 +48,7 @@
 /**
  * A PXObjectPool will automatically call this method when it needs to allocate
  * a new object. You should return the object you'd like to pass back to the
- * user, or <code>nil</code> if you'd like the pool to instantiate the object
+ * user, or `nil` if you'd like the pool to instantiate the object
  * with the default consructor.
  */
 //-- ScriptIgnore

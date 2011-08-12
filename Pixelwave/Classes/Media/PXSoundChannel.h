@@ -70,7 +70,7 @@ typedef enum
  */
 @property (nonatomic, readonly) unsigned position;
 /**
- * <code>YES</code> if the sound is playing, otherwise <code>NO</code>.
+ * `YES` if the sound is playing, otherwise `NO`.
  */
 @property (nonatomic, readonly) BOOL isPlaying;
 

@@ -82,7 +82,7 @@
  *
  * @param systemFont The system font to parse.
  * @param options The options that describe what type of font you want back. If
- * <code>nil</code> is supplied, then the default type of font for the font
+ * `nil` is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
  * **Example:**
@@ -111,7 +111,7 @@
  *
  * @param data The loaded data.
  * @param options The options that describe what type of font you want back. If
- * <code>nil</code> is supplied, then the default type of font for the font
+ * `nil` is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  * @param origin The origin of the font.
  *
@@ -138,7 +138,7 @@
  *
  * @param data The loaded data.
  * @param options The options that describe what type of font you want back. If
- * <code>nil</code> is supplied, then the default type of font for the font
+ * `nil` is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  * @param origin The origin of the font.
  * @param contentScaleFactor The content scale factor of the parsed font.

@@ -501,22 +501,22 @@ BOOL pxTextureDataExpandEdges = YES;
 
 /**
  * Renders the source TextureData onto this TextureData.
- * To modify the transformation with which the source is drawn onto the texture you can pass custom <code>matrix</code> and <code>colorTransform</code> objects, or <code>nil</code> for the default transformations.
+ * To modify the transformation with which the source is drawn onto the texture you can pass custom `matrix` and `colorTransform` objects, or `nil` for the default transformations.
  *
  * @param source A PXTextureData to draw onto this PXTextureData.
  * @param matrix A PXMatrix object representing the transformation with which
- * <code>source</code> will be rendered. Pass <code>nil</code> to use the
+ * `source` will be rendered. Pass `nil` to use the
  * default (identity) matrix.
  * @param colorTransform A PXColorTransform object representing the color transformation with
- * which <code>source</code> will be rendered. Pass <code>nil</code> to use
+ * which `source` will be rendered. Pass `nil` to use
  * the default transformation.
- * @param clipRect A PXRectangle object defining the area of the <code>source</code> object
- * to draw. Pass <code>nil</code> to use the entire area of
- * <code>source</code>.
+ * @param clipRect A PXRectangle object defining the area of the `source` object
+ * to draw. Pass `nil` to use the entire area of
+ * `source`.
  * @param smoothing A boolean value indicating if a TextureData object should be smoothed
  * when rotated or scaled. Only applies when drawing a TextureData object.
  * @param clearTexture A boolean value indicating if the TextureData should be cleared before
- * being drawn onto. Pass <code>NO</code> for this value as an optimization
+ * being drawn onto. Pass `NO` for this value as an optimization
  * if the entire surface of the PXTextureData will be drawn into.
  */
 - (void) drawTextureData:(PXTextureData *)source
@@ -554,23 +554,23 @@ BOOL pxTextureDataExpandEdges = YES;
  * The transformation of
  * the source display object is ignored during the render process. To modify
  * the transformation with which the source is drawn onto the texture you can
- * pass custom <code>matrix</code> and <code>colorTransform</code> objects, or
- * <code>nil</code> for the default transformations.
+ * pass custom `matrix` and `colorTransform` objects, or
+ * `nil` for the default transformations.
  *
  * @param source A PXDisplayObject to draw onto this PXTextureData.
  * @param matrix A PXMatrix object representing the transformation with which
- * <code>source</code> will be rendered. Pass <code>nil</code> to use the
+ * `source` will be rendered. Pass `nil` to use the
  * default transformation.
  * @param colorTransform A PXColorTransform object representing the color transformation with
- * which <code>source</code> will be rendered. Pass <code>nil</code> to use
+ * which `source` will be rendered. Pass `nil` to use
  * the default transformation.
- * @param clipRect A PXRectangle object defining the area of the <code>source</code> object
- * to draw. Pass <code>nil</code> to use the entire area of
- * <code>source</code>.
+ * @param clipRect A PXRectangle object defining the area of the `source` object
+ * to draw. Pass `nil` to use the entire area of
+ * `source`.
  * @param smoothing A boolean value indicating if a TextureData object should be smoothed
  * when rotated or scaled. Only applies when drawing a TextureData object.
  * @param clearTexture A boolean value indicating if the TextureData should be cleared before
- * being drawn onto. Pass <code>NO</code> for this value as an optimization
+ * being drawn onto. Pass `NO` for this value as an optimization
  * if the entire surface of the PXTextureData will be drawn into.
  */
 - (void) drawDisplayObject:(PXDisplayObject *)source
@@ -660,7 +660,7 @@ BOOL pxTextureDataExpandEdges = YES;
  * @param filePath The path of the image to load. The path can point to a file in the
  * application bundle or the application's sandox on the hard-drive.
  *
- * @return The resulting, <code>autoreleased</code>, PXTextureData object.
+ * @return The resulting, `autoreleased`, PXTextureData object.
  */
 + (PXTextureData *)textureDataWithContentsOfFile:(NSString *)path
 {

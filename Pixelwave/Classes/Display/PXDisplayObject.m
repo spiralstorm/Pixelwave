@@ -801,7 +801,7 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * @param obj The object for testing.
  *
- * @return <code>YES</code> if the bounding box of the given object is within the
+ * @return `YES` if the bounding box of the given object is within the
  * bounding box of this object.
  *
  * **Example:**
@@ -848,7 +848,7 @@ static unsigned _pxDisplayObjectCount = 0;
  * @param x The horizontal coordinate (in stage coordinates) for testing.
  * @param y The vertical coordinate (in stage coordinates) for testing.
  *
- * @return <code>YES</code> if point is contained within the bounding box of this
+ * @return `YES` if point is contained within the bounding box of this
  * display object.
  *
  * **Example:**
@@ -881,10 +881,10 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * @param x The horizontal coordinate (in stage coordinates) for testing.
  * @param y The vertical coordinate (in stage coordinates) for testing.
- * @param shapeFlag If <code>YES</code> a detailed collision detection is done of the actual
- * object.  If <code>NO</code> just the bounding box is tested.
+ * @param shapeFlag If `YES` a detailed collision detection is done of the actual
+ * object.  If `NO` just the bounding box is tested.
  *
- * @return <code>YES</code> if point is contained within the bounding box of this
+ * @return `YES` if point is contained within the bounding box of this
  * display object.
  *
  * **Example:**

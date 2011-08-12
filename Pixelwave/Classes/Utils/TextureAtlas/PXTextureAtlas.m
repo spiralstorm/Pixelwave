@@ -131,7 +131,7 @@
 // a URL in a production app?
 
 /**
- * Loads the texture atlas definition file specified by <code>path</code>
+ * Loads the texture atlas definition file specified by `path`
  * and initializes the texture atlas with it.
  * 
  * @param path An absolute path or one relative to the resource bundle, representing the
@@ -145,7 +145,7 @@
 }
 
 /**
- * Loads the texture atlas definition file specified by <code>path</code>
+ * Loads the texture atlas definition file specified by `path`
  * and initializes the texture atlas with it. Also allows to specify an
  * optional PXTextureModifier, which will be applied to the entire loaded texture
  * atlas image.
@@ -154,7 +154,7 @@
  * texture atlas definition file to load.
  *
  * @param modifier An optional modifier, to be applied to the loaded atlas image. Default value
- * is <code>nil</code>
+ * is `nil`
  */
 - (id) initWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
@@ -325,7 +325,7 @@
 
 /**
  * Returns the frame associated with the given name.
- * returns <code>nil</code> if the given name isn't associated with
+ * returns `nil` if the given name isn't associated with
  * any frame.
  */
 - (PXAtlasFrame *)frameWithName:(NSString *)name
@@ -411,8 +411,8 @@
  * @param name The name of the frame to use.
  *
  * @return An autoreleased PXTexture object representing the frame associated
- * with the given name. If name is <code>nil</code>, or isn't associated with
- * any frame in the atlas, <code>nil</code> is returned.
+ * with the given name. If name is `nil`, or isn't associated with
+ * any frame in the atlas, `nil` is returned.
  *
  * @see [PXAtlasFrame setToTexture:]
  */

@@ -43,11 +43,11 @@
 /**
  * Contains static methods for computing random values.
  * The PXMath class does not implement methods for general mathematical
- * operations such as <code>sin, cos, abs, sqrt, etc.</code>, but
+ * operations such as `sin, cos, abs, sqrt, etc.`, but
  * instead is concentrated on dealing with random number generation.
  *
  * It is recommended to use the native C methods and Macros for common math
- * operations such as <code>sqrtf(), sinf(), atan2f(), etc.</code>.
+ * operations such as `sqrtf(), sinf(), atan2f(), etc.`.
  */
 
 @implementation PXMath

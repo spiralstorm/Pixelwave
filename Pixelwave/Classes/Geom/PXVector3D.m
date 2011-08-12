@@ -295,7 +295,7 @@
  * Check to see if this vector is equal to another.
  *
  * @param vector The vector for checking.
- * @param allFour If <code>YES</code> then #w is also used in the test, otherwise just #x, #y
+ * @param allFour If `YES` then #w is also used in the test, otherwise just #x, #y
  * and #z are used.
  *
  * **Example:**
@@ -348,7 +348,7 @@
  *
  * @param vector The vector for checking.
  * @param tolerance The tolerance for the check.
- * @param allFour If <code>YES</code> then #w is also used in the test, otherwise just #x, #y
+ * @param allFour If `YES` then #w is also used in the test, otherwise just #x, #y
  * and #z are used.
  *
  * **Example:**
@@ -420,7 +420,7 @@
 }
 
 /**
- * Scales the #x, #y and #z values of the vector by <code>1 / </code> #w.
+ * Scales the #x, #y and #z values of the vector by `1 / ` #w.
  *
  * **Example:**
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:3.0f y:4.0f z:5.0f w:10.0f];

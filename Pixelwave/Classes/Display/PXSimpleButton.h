@@ -78,9 +78,9 @@ typedef enum
 @property (nonatomic, retain) PXDisplayObject *upState;
 /**
  * A PXDisplayObject or PXRectangle that specifies the hit area for the button.
- * If <code>nil</code> is specified then no interaction can exist on this
+ * If `nil` is specified then no interaction can exist on this
  * button. If neither a PXDisplayObject nor PXRectangle are specified, a debug
- * message will be printed and it will be treated as though <code>nil</code>
+ * message will be printed and it will be treated as though `nil`
  * were passed instead.
  *
  * @warning: The hit test state will never be rendered. It is only used to
@@ -110,7 +110,7 @@ typedef enum
 
 /**
  * Whether the button is enabled (pressable).
- * **Default:** <code>YES</code>.
+ * **Default:** `YES`.
  */
 @property (nonatomic, assign) BOOL enabled;
 

@@ -57,10 +57,10 @@
  * and pass along all method invocations to it.
  *
  * **Example:**
- * We want to create a subclass of <code>SomeOtherClass</code> and we want it
+ * We want to create a subclass of `SomeOtherClass` and we want it
  * to have event dispatching capabilities. The easy thing to do would be to
  * have our class extend #PXEventDispatcher. But since it already extends from
- * <code>SomeOtherClass</code> we need a different solution. The solution is
+ * `SomeOtherClass` we need a different solution. The solution is
  * to implement the #PXEventDispatcher protocol, since one class can implement
  * any number of protocols but only inherit from a single class. Here's what
  * our class would need to do to support the #PXEventDispatcher protocol:
@@ -198,9 +198,9 @@
 }
 
 /**
- * Assign <code>YES</code> if this event dispatcher should dispatch events.
+ * Assign `YES` if this event dispatcher should dispatch events.
  *
- * **Default:** <code>YES</code>
+ * **Default:** `YES`
  */
 @property (nonatomic, assign) BOOL dispatchEvents;
 

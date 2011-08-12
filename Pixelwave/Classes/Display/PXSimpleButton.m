@@ -59,7 +59,7 @@
  * can share the same one.
  * 
  * The hitTest state is a slightly special case as it can be either a #PXDisplayObject
- * _or_ a #PXRectangle object. If the #hitTest state is set to <code>nil</code>
+ * _or_ a #PXRectangle object. If the #hitTest state is set to `nil`
  * the button will have no touch interactions.
  * 
  * The hitTest state
@@ -90,7 +90,7 @@
  * > This lets you avoid manually figuring out the size of the button and creating a
  * > rectangle of the correct size.<br/>
  * > It also lets you make the default hit area slightly larger
- * > than the visual size of the button with the <code>hitRectPadding</code> parameter.
+ * > than the visual size of the button with the `hitRectPadding` parameter.
  * 
  * 2. Set #hitTestState property to any #PXRectangle object.
  * 3. Pass a #PXRectangle object as the hitTestState of the
@@ -106,19 +106,19 @@
  * Listening to touch events
  * ---
  * In order to properly handle the event of the user tapping a #PXSimpleButton
- * it's best to listen to the <code>PXTouchEvent_Tap</code> event.
+ * it's best to listen to the `PXTouchEvent_Tap` event.
  *
- * The advantages of listening to a <code>tap</code> event as opposed to a <code>down</code> or
- * <code>up</code> event are that a <code>tap</code> event is only fired in the
+ * The advantages of listening to a `tap` event as opposed to a `down` or
+ * `up` event are that a `tap` event is only fired in the
  * case that the user released his/her touch within the bounds of the button.
  * 
- * Using the <code>tap</code> event may sound obvious, but not using it may have life altering effects.
+ * Using the `tap` event may sound obvious, but not using it may have life altering effects.
  * For example, after pressing down on the "delete all my files" button the user decides that she made a
  * grave mistake and drags her finger away from the button before releasing it in the hope that it would cancel the operation.
  * 
- * A plain <code>up</code> event would fire no matter where the touch is released, making the user very upset/sad/possibly suicidal.
- * A <code>tap</code> event on the other hand wouldn't be fired if the user decides to abort, thus helping us avoid app-related casualties.
- * Thank you <code>tap</code> event!
+ * A plain `up` event would fire no matter where the touch is released, making the user very upset/sad/possibly suicidal.
+ * A `tap` event on the other hand wouldn't be fired if the user decides to abort, thus helping us avoid app-related casualties.
+ * Thank you `tap` event!
  *
  * @see PXRectangle
  */
@@ -160,9 +160,9 @@
  * @param upState Displayed when the button is in its normal state (not pressed down).
  * @param downState Displayed when the user presses down on the button.
  * @param hitTestState a #PXDisplayObject or #PXRectangle that specifies the hit shape
- * of the button. If <code>nil</code> is specified then no interaction can exist
+ * of the button. If `nil` is specified then no interaction can exist
  * on this button. An object that is neither a #PXDisplayObject nor a #PXRectangle
- * will be regarded as <code>nil</code>.
+ * will be regarded as `nil`.
  * 
  * @see PXShape
  * @see PXGraphics
@@ -219,8 +219,8 @@
 }
 
 /**
- * Initializes a button with specified <code>up</code> state and
- * <code>down</code> state, and a #PXRectangle for the <code>hitTest</code> state.
+ * Initializes a button with specified `up` state and
+ * `down` state, and a #PXRectangle for the `hitTest` state.
  *
  * The #PXRectangle object created for the #hitTestState is sized to match the #upState
  * display object if one is provided, or the size of the #downState display object otherswise.

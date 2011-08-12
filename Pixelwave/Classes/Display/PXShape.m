@@ -44,7 +44,7 @@
 
 /**
  * A PXShape is a basic display object that is lightweight and designed for
- * vector drawing via the <code>PXGraphics</code> object.
+ * vector drawing via the `PXGraphics` object.
  *
  * The following code creates a shape object:
  *	PXShape *shape = [PXShape new];

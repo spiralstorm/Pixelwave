@@ -89,13 +89,13 @@ typedef enum
 /**
  * The text of the text field.
  *
- * **Default:** <code>nil</code>
+ * **Default:** `nil`
  */
 @property (nonatomic, copy) NSString *text;
 /**
  * The registered name of the font.
  *
- * **Default:** <code>PXTextFieldDefaultFont</code>
+ * **Default:** `PXTextFieldDefaultFont`
  */
 @property (nonatomic, copy) NSString *font;
 /**
@@ -107,7 +107,7 @@ typedef enum
 /**
  * The alignment of the text.
  *
- * **Default:** <code>PXTextFieldAlign_TopLeft</code>
+ * **Default:** `PXTextFieldAlign_TopLeft`
  */
 @property (nonatomic) PXTextFieldAlign align;
 /**
@@ -149,9 +149,9 @@ typedef enum
  */
 @property (nonatomic) float backgroundAlpha;
 /**
- * If <code>YES</code> it displays the background of the text field.
+ * If `YES` it displays the background of the text field.
  *
- * **Default:** <code>NO</code>
+ * **Default:** `NO`
  */
 @property (nonatomic) BOOL background;
 
@@ -168,9 +168,9 @@ typedef enum
  */
 @property (nonatomic) float borderAlpha;
 /**
- * If <code>YES</code> it displays the border of the text field.
+ * If `YES` it displays the border of the text field.
  *
- * **Default:** <code>NO</code>
+ * **Default:** `NO`
  */
 @property (nonatomic) BOOL border;
 
@@ -181,15 +181,15 @@ typedef enum
  * recommended to only turn it on when
  * the text field is being transformed (such as during an animation).
  *
- * **Default:** <code>NO</code>
+ * **Default:** `NO`
  */
 @property (nonatomic) BOOL smoothing;
 
 /**
- * If <code>YES</code> and the font has kerning values stored, then your text
+ * If `YES` and the font has kerning values stored, then your text
  * will be kerned.
  *
- * **Default:** <code>YES</code>
+ * **Default:** `YES`
  */
 @property (nonatomic) BOOL kerning;
 

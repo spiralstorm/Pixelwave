@@ -186,7 +186,7 @@
  * length of the sound.
  * @param loopCount The quantity of times you wish the sound to loop.  If 0 is stated, the
  * sound only plays once. If 10 is stated, the sound plays 11 times. If
- * <code>PX_SOUND_INFINITE_LOOPS</code> is stated, then the sound plays for
+ * `PX_SOUND_INFINITE_LOOPS` is stated, then the sound plays for
  * infinate times.
  * @param soundTransform The the transform for the sound.
  *
@@ -232,7 +232,7 @@
  * @param filePath The path of the file.
  *
  * @return The loaded and parsed sound, if the sound fails loading then
- * <code>nil</code> is returned instead.
+ * `nil` is returned instead.
  *
  * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav"];
@@ -251,7 +251,7 @@
  * un-done. The modifier will be ignored if the data is not modifiable.
  *
  * @return The loaded and parsed sound, if the sound fails loading then
- * <code>nil</code> is returned instead.
+ * `nil` is returned instead.
  *
  * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfFile:@"sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
@@ -272,7 +272,7 @@
  * @param url The url of the file.
  *
  * @return The loaded and parsed sound, if the sound fails loading then
- * <code>nil</code> is returned instead.
+ * `nil` is returned instead.
  *
  * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav"];
@@ -291,7 +291,7 @@
  * un-done. The modifier will be ignored if the data is not modifiable.
  *
  * @return The loaded and parsed sound, if the sound fails loading then
- * <code>nil</code> is returned instead.
+ * `nil` is returned instead.
  *
  * **Example:**
  *	PXSound *sound = [PXSound soundWithContentsOfURL:@"www.mywebsite.com/sound.wav" modifier:[PXSoundModifiers soundModifierToMono]];
@@ -312,7 +312,7 @@
  * @param data The raw data.
  *
  * @return The loaded and parsed sound, if the sound fails loading then
- * <code>nil</code> is returned instead.
+ * `nil` is returned instead.
  *
  * **Example:**
  *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];
@@ -331,7 +331,7 @@
  * un-done. The modifier will be ignored if the data is not modifiable.
  *
  * @return The loaded and parsed sound, if the sound fails loading then
- * <code>nil</code> is returned instead.
+ * `nil` is returned instead.
  *
  * **Example:**
  *	NSData *data = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sound.wav" ofType:nil]];

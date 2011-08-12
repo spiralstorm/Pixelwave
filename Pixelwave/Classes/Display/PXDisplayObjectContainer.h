@@ -65,7 +65,7 @@
  *
  * @warning This unfortunately-named property is the result of trying
  * to faithfully reproduce ActionScript's naming convention. The
- * original was named <code>mouseChildren</code>.
+ * original was named `mouseChildren`.
  */
 @property (nonatomic, assign) BOOL touchChildren;
 /**

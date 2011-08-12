@@ -69,8 +69,8 @@
 }
 
 /**
- * Creates a new 3D sound transform with the given <code>volume</code> and
- * <code>pitch</code>.
+ * Creates a new 3D sound transform with the given `volume` and
+ * `pitch`.
  *
  * @param volume The amplitude of the sound.
  * @param pitch The frequency of the sound.
@@ -203,8 +203,8 @@
 #pragma mark Static Methods
 
 /**
- * Creates a 3D sound transform with the given <code>volume</code> and
- * <code>pitch</code>.
+ * Creates a 3D sound transform with the given `volume` and
+ * `pitch`.
  *
  * @param volume The amplitude of the sound.
  * @param pitch The frequency of the sound.

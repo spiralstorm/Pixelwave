@@ -80,7 +80,7 @@
  * surface which acts as the root of the entire engine.
  *
  * Although the view's render area may be set to any value, it is highly
- * recommended to set the view's <code>frame</code> to be the same size as the
+ * recommended to set the view's `frame` to be the same size as the
  * screen.
  *
  * Once instantiated, a #PXView starts up all of the engine's subsytems and

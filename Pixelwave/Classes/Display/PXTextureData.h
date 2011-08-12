@@ -95,7 +95,7 @@
 /**
  * The scaling factor used when creating the PXTextureData object. This value
  * is usually one, except when working with retina display graphics, in which
- * case the <code>contentScaleFactor</code> would be higher than one.
+ * case the `contentScaleFactor` would be higher than one.
  *
  * **Example:**
  *	// Lets assume that this code is running on a device with a retina display,
@@ -270,7 +270,7 @@
  * @param y The top coordinate of the clipping rectangle.
  * @param width The width of the clipping rectangle.
  * @param height The height of the clipping rectangle
- * @param pixels An unsigned byte array with a length of <code>width * height * 4</code>
+ * @param pixels An unsigned byte array with a length of `width * height * 4`
  * 
  */
 void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width, int height, void *pixels);

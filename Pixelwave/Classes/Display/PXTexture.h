@@ -121,8 +121,8 @@
 /**
  * Determines how pixels outside of the texture's boundaries should be handled.
  * If the clipRect of the texture is outside of the bounds of the texture,
- * setting repeat to <code>YES</code> will simply repeat the texture's pixels
- * to fill the gap. If set to <code>NO</code>, the 1-pixel boundary around the
+ * setting repeat to `YES` will simply repeat the texture's pixels
+ * to fill the gap. If set to `NO`, the 1-pixel boundary around the
  * edge of will be stretched to fill the gap.
  */
 @property (nonatomic, assign) BOOL repeat;
@@ -142,7 +142,7 @@
  * The rotation offset of the content, as defined by the texture's
  * clip rectangle.
  *
- * **default** <code>0</code>
+ * **default** `0`
  */
 @property (nonatomic, readonly) float contentRotation;
 

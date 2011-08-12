@@ -118,10 +118,10 @@ typedef enum
  * A value defined and kept by the user. This is a useful pointer for anyone
  * who wants to associate a display object with something else.
  *
- * **Default:** <code>NULL</code>
+ * **Default:** `NULL`
  * 
  * @warning If you free/delete/release the object pointed to by userData,
- * remember to set userData to <code>NULL</code> to avoid
+ * remember to set userData to `NULL` to avoid
  * memory access bugs, headaches, frustration, and possibly suicidal
  * thoughts. Don't say we didn't warn you.
  */
@@ -129,8 +129,8 @@ typedef enum
 
 /**
  * A value between 0 and 1 representing the display object's transparency.
- * an <code>alpha</code> value of <code>1</code> will make the object
- * fully opaque while a value of <code>0</code> will make the object completely
+ * an `alpha` value of `1` will make the object
+ * fully opaque while a value of `0` will make the object completely
  * transparent.
  *
  * **Default:** 1.0f
@@ -207,11 +207,11 @@ typedef enum
 @property (nonatomic) float height;
 /**
  * A boolean representing the display object's visibility.
- * If set to <code>YES</code>, the display object is rendered as usual.
- * If set to <code>NO</code>, the display object is ignored during the render
+ * If set to `YES`, the display object is rendered as usual.
+ * If set to `NO`, the display object is ignored during the render
  * phase, and will not recieve any touch interaction events.
  *
- * **Default:** <code>YES</code>
+ * **Default:** `YES`
  */
 @property (nonatomic) BOOL visible;
 
@@ -224,7 +224,7 @@ typedef enum
 
 /**
  * A non-unique name.
- * #name may never be <code>nil</code>. If a name isn't assigned,
+ * #name may never be `nil`. If a name isn't assigned,
  * one will be automatically generated.
  *
  * @throws #PXArgumentException if a nil value is set.
@@ -234,21 +234,21 @@ typedef enum
 @property (nonatomic, copy) NSString *name;
 
 /**
- * The display object's container, or <code>nil</code> if the display object is
+ * The display object's container, or `nil` if the display object is
  * not on a display list.
  */
 @property (nonatomic, readonly) PXDisplayObjectContainer *parent;
 
 /**
  * The global root display object.
- * Will equal <code>nil</code> if the display object isn't part of a
+ * Will equal `nil` if the display object isn't part of a
  * display list descending from the root display object.
  */
 @property (nonatomic, readonly) PXDisplayObject *root;
 
 /**
  * The global stage display object.
- * Will equal <code>nil</code> if the display object isn't part of the main
+ * Will equal `nil` if the display object isn't part of the main
  * display list.
  *
  * If a display object isn't on the main display list it can't	be rendered to
@@ -263,7 +263,7 @@ typedef enum
  *
  * If the #scaleX</code> and #scaleY properties are equal,
  * this property will be equal to their value. If their values differ, this
- * property will be equal to <code>1.0</code>.
+ * property will be equal to `1.0`.
  *
  * @see scaleX
  * @see scaleY
@@ -288,13 +288,13 @@ typedef enum
 /**
  * The position of the first touch on the screen in this PXDisplayObject's
  * coordinate space.  If there are no fingers (touches) on the screen, then
- * <code>nil</code> is returned.
+ * `nil` is returned.
  */
 @property (nonatomic, readonly) PXPoint *touchPosition;
 /**
  * A list of #PXPoint s that represent the positions of every touch
  * on the screen in this PXDisplayObject's coordinate space.  If there are no
- * current touches on the screen, <code>nil</code> is returned.
+ * current touches on the screen, `nil` is returned.
  */
 @property (nonatomic, readonly) NSArray *touchPositions;
 

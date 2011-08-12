@@ -78,7 +78,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @param data The data to parse.
  * @param options The options that describe what type of font you want back. If
- * <code>nil</code> is supplied, then the default type of font for the font
+ * `nil` is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
  * **Example:**
@@ -127,7 +127,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @param systemFont The system font to parse.
  * @param options The options that describe what type of font you want back. If
- * <code>nil</code> is supplied, then the default type of font for the font
+ * `nil` is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
  * **Example:**
@@ -543,7 +543,7 @@ NSMutableDictionary *pxFonts = nil;
  * @param name The name of a font previously registered by you.
  *
  * @return The registered font.  If no font was registered with that name, then
- * <code>nil</code> will be returned instead.
+ * `nil` will be returned instead.
  *
  * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
@@ -588,8 +588,8 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @param name The name of a font previously registered by you.
  *
- * @return <code>YES</code> if a font by that name was registered, otherwise
- * <code>NO</code>.
+ * @return `YES` if a font by that name was registered, otherwise
+ * `NO`.
  *
  * **Example:**
  *	PXTextureFontOptions *fontOptions = [[PXTextureFontOptions alloc] initWithSize:12.0f
@@ -672,7 +672,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @param path The location of the font to load.
  * @param options The options that describe what type of font you want back. If
- * <code>nil</code> is supplied, then the default type of font for the font
+ * `nil` is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
  * **Example:**
@@ -710,7 +710,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @param url The location of the font to load.
  * @param options The options that describe what type of font you want back. If
- * <code>nil</code> is supplied, then the default type of font for the font
+ * `nil` is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
  * **Example:**
@@ -748,7 +748,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @param data The data to parse.
  * @param options The options that describe what type of font you want back. If
- * <code>nil</code> is supplied, then the default type of font for the font
+ * `nil` is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
  * **Example:**
@@ -779,7 +779,7 @@ NSMutableDictionary *pxFonts = nil;
  *
  * @param systemFont The system font to parse.
  * @param options The options that describe what type of font you want back. If
- * <code>nil</code> is supplied, then the default type of font for the font
+ * `nil` is supplied, then the default type of font for the font
  * type is used. If no default type is found, then no new font can be made.
  *
  * **Example:**

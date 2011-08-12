@@ -132,7 +132,7 @@
  * Creates a new PXTextField with a registered font.
  *
  * @param fontName The name of the registered font.  If the font does not exist or was not
- * registered then the default (<code>PXTextFieldDefaultFont</code>) is
+ * registered then the default (`PXTextFieldDefaultFont`) is
  * used instead.
  *
  * **Example:**
@@ -612,7 +612,7 @@
 
 /**
  * Creates a PXTextField using the default font
- * (<code>PXTextFieldDefaultFont</code>). No text will be displayed until you
+ * (`PXTextFieldDefaultFont`). No text will be displayed until you
  * set the text property of the PXTextField just created. If no texts exists,
  * then the this object will appear to have 0 size.
  *
@@ -628,12 +628,12 @@
 
 /**
  * Creates a PXTextField using the registered font if it exists, or the default
- * font (<code>PXTextFieldDefaultFont</code>). No text will be displayed until
+ * font (`PXTextFieldDefaultFont`). No text will be displayed until
  * you set the text property of the PXTextField just created. If no texts
  * exists, then the this object will appear to have 0 size.
  *
  * @param fontName The name of the registered font.  If the font does not exist or was not
- * registered then the default (<code>PXTextFieldDefaultFont</code>) is
+ * registered then the default (`PXTextFieldDefaultFont`) is
  * used instead.
  *
  * **Example:**
@@ -650,7 +650,7 @@
  * Creates a PXTextField with a registered font.
  *
  * @param fontName The name of the registered font.  If the font does not exist or was not
- * registered then the default (<code>PXTextFieldDefaultFont</code>) is
+ * registered then the default (`PXTextFieldDefaultFont`) is
  * used instead.
  * @param text The text for the text field.
  *

@@ -87,8 +87,8 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  * Makes a new event with the given properties. These properties may not change
  * after the event object is created.
  *
- * Uses default values <code>bubbling = NO</code> and
- * <code>cancelable = NO</code>.
+ * Uses default values `bubbling = NO` and
+ * `cancelable = NO`.
  *
  * @param type A string representing the type of the event
  */
@@ -251,8 +251,8 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  * Makes a event with the given properties. These properties may not change
  * after the event object is created.
  *
- * Uses default values <code>bubbling = NO</code> and
- * <code>cancelable = NO</code>.
+ * Uses default values `bubbling = NO` and
+ * `cancelable = NO`.
  *
  * @param type A string representing the type of the event
  */

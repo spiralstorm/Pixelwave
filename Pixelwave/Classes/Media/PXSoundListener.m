@@ -52,7 +52,7 @@
  * Represents a listener in a three-dimensional
  * coordinate system.  A listener's orientation is defined by two vectors; the
  * forward-vector and the up-vector.  These vectors can quickly be set by using
- * the <code>setRotation:using2DPerspective:</code> method.
+ * the `setRotation:using2DPerspective:` method.
  *
  *
  *	            |

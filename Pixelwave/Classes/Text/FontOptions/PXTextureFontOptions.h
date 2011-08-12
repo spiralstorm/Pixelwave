@@ -53,7 +53,7 @@
  * A texture modifier to be applied to a texture font generated using these
  * options.
  *
- * **Default:** <code>nil</code>
+ * **Default:** `nil`
  */
 @property (nonatomic, retain) id<PXTextureModifier> textureModifier;
 

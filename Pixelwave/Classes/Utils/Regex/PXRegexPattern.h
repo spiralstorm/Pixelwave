@@ -59,7 +59,7 @@ typedef enum
 }
 
 /**
- * A list of <code>PXRegexPatternFlag</code> flags that will define how the
+ * A list of `PXRegexPatternFlag` flags that will define how the
  * regex is compiled.
  */
 @property (nonatomic, readonly) unsigned flags;

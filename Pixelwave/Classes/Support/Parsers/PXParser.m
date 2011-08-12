@@ -207,7 +207,7 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
  * @param origin The origin the data came from.
  * @param baseClass The base class for the search.
  * @return IF a parser is found, then the parser will be the correct one associated
- * with the data. Otherwise <code>nil</code> is returned instead.
+ * with the data. Otherwise `nil` is returned instead.
  */
 + (Class) parserForData:(NSData *)data
 				 origin:(NSString *)origin

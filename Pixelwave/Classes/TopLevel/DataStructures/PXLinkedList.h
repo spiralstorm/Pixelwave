@@ -138,8 +138,8 @@ typedef struct _sPXLLNode
  */
 @property (nonatomic, readonly) PXGenericObject lastObject;
 /**
- * <code>YES</code> if the list does not retain its elements; otherwise
- * <code>NO</code>.  Default value is <code>NO</code>, as it is advised to keep
+ * `YES` if the list does not retain its elements; otherwise
+ * `NO`.  Default value is `NO`, as it is advised to keep
  * a retain on the added elements.
  * 
  * @see [PXLinkedList initWithWeakReferences:]

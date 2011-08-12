@@ -58,7 +58,7 @@ typedef enum
 /**
  * The characters used for the font.
  *
- * **Default:** <code>(PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals | PXFontCharacterSet_Punctuation)</code>
+ * **Default:** `(PXFontCharacterSet_AllLetters | PXFontCharacterSet_Numerals | PXFontCharacterSet_Punctuation)`
  * 
  * @warning NO duplicate characters will ever exist in the font options
  * characters. If a duplicate is given, it is stripped out

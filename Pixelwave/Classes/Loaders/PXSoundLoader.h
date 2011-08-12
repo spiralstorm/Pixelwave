@@ -51,10 +51,10 @@
 
 /**
  * A modifier is used to modify the loaded bytes, a backup is kept so can set
- * this to <code>nil</code> after getting a new sound, and still have your
+ * this to `nil` after getting a new sound, and still have your
  * previously loaded data.
  *
- * **Default:** <code>nil</code>
+ * **Default:** `nil`
  */
 @property (nonatomic, retain) id<PXSoundModifier> modifier;
 

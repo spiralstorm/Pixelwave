@@ -241,7 +241,7 @@
 /**
  * Finds the next match.
  *
- * @return <code>YES</code> if a match was found; otherwise <code>NO</code>.
+ * @return `YES` if a match was found; otherwise `NO`.
  *
  * **Example:**
  *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
@@ -313,7 +313,7 @@
  * @param start The character position to start the search. If any value less then 0 is
  * given, we use the current position instead.
  *
- * @return <code>YES</code> if a match was found; otherwise <code>NO</code>.
+ * @return `YES` if a match was found; otherwise `NO`.
  *
  * **Example:**
  *	PXRegexMatcher *matcher = [PXRegexMatcher regexMatcherWithRegex:@"^(\\w+)\\s(.*)$"
@@ -629,11 +629,11 @@
 	return [self groupAtIndex:0];
 }
 /**
- * Returns the group at <code>index</code> that the matcher has found.
+ * Returns the group at `index` that the matcher has found.
  *
  * @param index The index of the group you wish to receieve.
  * 
- * @return The group at <code>index</code>.
+ * @return The group at `index`.
  */
 - (NSString *)groupAtIndex:(int)index
 {
@@ -675,12 +675,12 @@
 /**
  * Creates a regex matcher, that creates a pattern with the regex string, and
  * then matches it to the string. It uses the default regex flags
- * <code>(PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine)</code>
+ * `(PXRegexPatternFlag_Extended | PXRegexPatternFlag_NewLine)`
  *
  * @param regex The regex string to be converted into a pattern.
  * @param string The string to parse.
  *
- * @return The resulting, <code>autoreleased</code>, #PXRegexMatcher object.
+ * @return The resulting, `autoreleased`, #PXRegexMatcher object.
  *
  */
 + (PXRegexMatcher *)regexMatcherWithRegex:(NSString *)regex input:(NSString *)input
@@ -698,7 +698,7 @@
  * @param string The string to parse.
  * @param flags The flags explaining how to compile the regex.
  *
- * @return The resulting, <code>autoreleased</code>, #PXRegexMatcher object.
+ * @return The resulting, `autoreleased`, #PXRegexMatcher object.
  *
  */
 + (PXRegexMatcher *)regexMatcherWithRegex:(NSString *)regex input:(NSString *)input flags:(unsigned)flags

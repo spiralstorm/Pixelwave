@@ -99,7 +99,7 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 }
 
 /**
- * When set to <code>YES</code> blue axis-aligned boxes
+ * When set to `YES` blue axis-aligned boxes
  * are drawn around each display object's hit area (the
  * within which touches must land to register).
  */
@@ -177,7 +177,7 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 
 /**
  * The amount of OpenGL calls performed in the previous frame.
- * This method returns 0 if #countGLCalls is set to <code>NO</code>.
+ * This method returns 0 if #countGLCalls is set to `NO`.
  */
 + (unsigned) glCallCount
 {
@@ -208,7 +208,7 @@ PXInline_c void PXDebugLog(NSString *format, ...)
  * This value can be used to calculate the framerate of the
  * application.
  *
- * @warning Returns 0 unless #calculateFrameRate is set to <code>YES</code>.
+ * @warning Returns 0 unless #calculateFrameRate is set to `YES`.
  */
 + (float) timeBetweenFrames
 {
@@ -221,9 +221,9 @@ PXInline_c void PXDebugLog(NSString *format, ...)
  * The duration, in seconds, of the last logic phase.
  *
  * The logic phase involves all user code invoked via
- * <code>PXEvent_EnterFrame</code> events.
+ * `PXEvent_EnterFrame` events.
  *
- * @warning Returns 0 unless #calculateFrameRate is set to <code>YES</code>.
+ * @warning Returns 0 unless #calculateFrameRate is set to `YES`.
  */
 + (float) timeBetweenLogic
 {
@@ -234,7 +234,7 @@ PXInline_c void PXDebugLog(NSString *format, ...)
 /**
  * The duration, in seconds, of the last rendering phase.
  *
- * @warning Returns 0 unless #calculateFrameRate is set to <code>YES</code>.
+ * @warning Returns 0 unless #calculateFrameRate is set to `YES`.
  */
 + (float) timeBetweenRendering
 {
@@ -251,7 +251,7 @@ PXInline_c void PXDebugLog(NSString *format, ...)
  * allotted to each frame is set through the [PXStage frameRate]
  * property.
  *
- * @warning Returns 0 unless #calculateFrameRate is set to <code>YES</code>.
+ * @warning Returns 0 unless #calculateFrameRate is set to `YES`.
  */
 + (float) timeWaiting
 {

@@ -98,8 +98,8 @@
  * listener.
  *
  * If the distance model described in #PXSoundMixer is set to
- * <code>PXSoundMixerDistanceModel_Linear</code> then the
- * <code>logarithmicExponent</code> is ignored and if a
+ * `PXSoundMixerDistanceModel_Linear` then the
+ * `logarithmicExponent` is ignored and if a
  * #PXSoundChannel is further then the reference distance away from
  * the listener, then the sound will not be heard. Anywhere in between will be
  * linearly distributed. So if the #PXSoundChannel is 70% of the
@@ -107,14 +107,14 @@
  * volume.
  *
  * If the distance model described in #PXSoundMixer is set to
- * <code>PXSoundMixerDistanceModel_Logarithmic</code> then the distance volume
+ * `PXSoundMixerDistanceModel_Logarithmic` then the distance volume
  * is calculated based on the following forumla:
  *	distanceVolume = (distance / referenceDistance) ^ (-logarithmicExponent)
  *
  * The actual volume is computed using the following formula:
  *	playingVolume = volume * distanceVolume * [PXSoundMixer soundTransform].volume
  *
- * **Default:** <code>[PXSoundMixer soundListener].defaultReferenceDistance</code>
+ * **Default:** `[PXSoundMixer soundListener].defaultReferenceDistance`
  *
  * @warning The reference distance can not be negative, the absolute value will
  * be taken before use.
@@ -123,10 +123,10 @@
 /**
  * The exponent for the logarithmic distance model described in
  * #PXSoundMixer. The exponent is ignored if the distance model is
- * set to <code>PXSoundMixerDistanceModel_Linear</code>.  For the forumla used
+ * set to `PXSoundMixerDistanceModel_Linear`.  For the forumla used
  * please see the #referenceDistance description.
  *
- * **Default:** <code>[PXSoundMixer soundListener].defaultLogarithmicExponent</code>
+ * **Default:** `[PXSoundMixer soundListener].defaultLogarithmicExponent`
  *
  * @warning The logarithmic exponent can not be negative, the absolute value
  * will be taken before use.

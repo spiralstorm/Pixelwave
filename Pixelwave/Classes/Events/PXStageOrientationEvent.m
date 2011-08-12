@@ -67,7 +67,7 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
  * @param bubbles Describes whether the event participates in the bubbling phase of the
  * event flow.
  * @param cancelable Describes whether the behavior represented by the event may be canceled.
- * If <code>YES</code>, [PXEvent preventDefault:] may be used.
+ * If `YES`, [PXEvent preventDefault:] may be used.
  * @param beforeOrientation The old orientation of the stage.
  * @param afterOrientation The new orientation of the stage.
  */
