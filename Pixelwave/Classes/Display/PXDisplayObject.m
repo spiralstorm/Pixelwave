@@ -138,15 +138,9 @@ static unsigned _pxDisplayObjectCount = 0;
 		PXGLMatrixIdentity(&_matrix);
 		PXGLColorTransformIdentity(&_colorTransform);
 		
-		//transform = [[PXTransform alloc] initWithDisplayObject:self];
-		
 		// Properties
 		_parent = nil;
 
-		//When using init with format it makes a nsmutablestring that doesn't get released,
-		//so we must release the string in order to not leak memory.
-		//_name = [NSString stringWithFormat:@"instance%i", _displayObjectCount];
-		//[_name retain];
 		_name = [[NSString alloc] initWithFormat:@"instance%u", _pxDisplayObjectCount];
 		++_pxDisplayObjectCount;
 
@@ -164,7 +158,7 @@ static unsigned _pxDisplayObjectCount = 0;
 
 - (void) dealloc
 {
-	//Remove all frame listeners I registered with the engine
+	// Remove all frame listeners I registered with the engine
 	if ([self hasEventListenerOfType:PXEvent_EnterFrame])
 	{
 		PXEngineRemoveFrameListener(self);
@@ -172,9 +166,6 @@ static unsigned _pxDisplayObjectCount = 0;
 
 	[_name release];
 	_name = nil;
-
-	//[transform release];
-	//transform = nil;
 
 	_impRenderGL = 0;
 
