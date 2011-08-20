@@ -113,6 +113,26 @@
 	return self;
 }
 
+/**
+ * Signals Pixelwave to dispatch a `render` event to alert display objects
+ * the next time a frame is about to be rendered. After the #invalidate method
+ * is called, before the rendering phase is about to start, but after all
+ * `enterFrame` events have been fired, a `render` event is dispatched.
+ *
+ * this method must be called every time you need a `render` event to be
+ * dispatched.
+ *
+ * The `render` event lets you make changes to the display list right before
+ * the rendering phase. This allows to write more optimized code which
+ * only updates the display list when it is absolutely necessary.
+ */
+- (void) invalidate
+{
+	
+}
+
+#pragma Properties
+
 - (PXStage *)stage
 {
 	return self;

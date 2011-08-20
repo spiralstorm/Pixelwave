@@ -195,6 +195,8 @@ typedef enum
  */
 @property (nonatomic, readonly) PXView *nativeView;
 
+- (void) invalidate;
+
 /**
  * A reference to the main stage associated with the
  * Pixelwave engine.
