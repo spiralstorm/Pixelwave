@@ -41,7 +41,7 @@
 #define PX_ENGINE_H
 
 #ifdef __cplusplus
-extern "C" {
+//extern "C" {
 #endif
 
 #include "PXGL.h"
@@ -55,67 +55,13 @@ extern "C" {
 @class PXDisplayObject;
 @class PXTextureData;
 
-// TODO: Organize all these methods into groups (with comment headers)
+//////////////
+// Creation //
+//////////////
 
 void PXEngineInit(PXView *view);
 void PXEngineDealloc( );
 BOOL PXEngineIsInitialized( );
-
-PXView *PXEngineGetView( );
-float PXEngineGetViewWidth( );
-float PXEngineGetViewHeight( );
-void PXEngineUpdateViewSize();
-
-void PXEngineConvertPointToStageOrientation(float *x, float *y);
-
-PXStage *PXEngineGetStage( );
-
-void PXEngineSetContentScaleFactor(float scale);
-float PXEngineGetContentScaleFactor();
-float PXEngineGetOneOverContentScaleFactor();
-// TODO: Rename this to something like deviceScaleFactor
-float PXEngineGetMainScreenScale();
-
-void PXEngineSetMultiTouchEnabled(BOOL enabled);
-
-void PXEngineSetRoot(PXDisplayObject *root);
-PXDisplayObject *PXEngineGetRoot( );
-
-void PXEngineSetClearScreen(BOOL clear);
-BOOL PXEngineShouldClearScreen();
-void PXEngineSetClearColor(PXColor4f color);
-PXColor4f PXEngineGetClearColor();
-
-void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transformationsEnabled, bool canBeUsedForTouches);
-
-void PXEngineSetRunning(bool val);
-bool PXEngineGetRunning();
-
-void PXEngineSetLogicFrameRate(float fps);
-float PXEngineGetLogicFrameRate();
-void PXEngineSetRenderFrameRate(float fps);
-float PXEngineGetRenderFrameRate();
-
-void PXEngineAddFrameListener(PXDisplayObject *displayObject);
-void PXEngineRemoveFrameListener(PXDisplayObject *displayObject);
-void PXEngineAddRenderListener(PXDisplayObject *displayObject);
-void PXEngineRemoveRenderListener(PXDisplayObject *displayObject);
-
-void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source, PXGLMatrix *matrix, PXGLColorTransform *colorTransform, CGRect *clipRect, BOOL smoothing, BOOL clearTexture);
-
-PXObjectPool *PXEngineGetSharedObjectPool();
-
-CGSize PXEngineGetScreenBufferSize();
-void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pixels);
-
-///////////
-// Debug //
-///////////
-
-float _PXEngineDBGGetTimeBetweenFrames();
-float _PXEngineDBGGetTimeBetweenLogic();
-float _PXEngineDBGGetTimeBetweenRendering();
-float _PXEngineDBGGetTimeWaiting();
 
 ///////////////
 // Main loop //
@@ -126,6 +72,93 @@ void PXEngineDispatchTouchEvents( );
 void PXEngineDispatchFrameEvents( );
 void PXEngineDispatchRenderEvents( );
 void PXEngineRender( );
+
+//////////////////////////////////
+// Dealing with the native view //
+//////////////////////////////////
+
+PXView *PXEngineGetView( );
+float PXEngineGetViewWidth( );
+float PXEngineGetViewHeight( );
+void PXEngineUpdateViewSize();
+
+void PXEngineSetMultiTouchEnabled(BOOL enabled);
+	
+//////////////////////////
+// Content scale factor //
+//////////////////////////
+	
+void PXEngineSetContentScaleFactor(float scale);
+float PXEngineGetContentScaleFactor();
+float PXEngineGetOneOverContentScaleFactor();
+// TODO: Rename this to something like deviceScaleFactor
+float PXEngineGetMainScreenScale();
+
+////////
+// GL //
+////////
+
+CGSize PXEngineGetScreenBufferSize();
+void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pixels);
+
+///////////////////////////////////
+// Working with the stage / root //
+///////////////////////////////////
+	
+void PXEngineConvertPointToStageOrientation(float *x, float *y);
+PXStage *PXEngineGetStage( );
+
+void PXEngineSetClearScreen(BOOL clear);
+BOOL PXEngineShouldClearScreen();
+void PXEngineSetClearColor(PXColor4f color);
+PXColor4f PXEngineGetClearColor();
+
+void PXEngineSetRoot(PXDisplayObject *root);
+PXDisplayObject *PXEngineGetRoot( );
+
+/////////////////////////////
+// Control the engine loop //
+/////////////////////////////
+	
+void PXEngineSetRunning(bool val);
+bool PXEngineGetRunning();
+
+void PXEngineSetLogicFrameRate(float fps);
+float PXEngineGetLogicFrameRate();
+void PXEngineSetRenderFrameRate(float fps);
+float PXEngineGetRenderFrameRate();
+
+///////////////////////////////
+// Broadcast event listeners //
+///////////////////////////////
+	
+void PXEngineAddFrameListener(PXDisplayObject *displayObject);
+void PXEngineRemoveFrameListener(PXDisplayObject *displayObject);
+void PXEngineAddRenderListener(PXDisplayObject *displayObject);
+void PXEngineRemoveRenderListener(PXDisplayObject *displayObject);
+
+///////////////
+// Rendering //
+///////////////
+
+void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transformationsEnabled, bool canBeUsedForTouches);
+
+void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source, PXGLMatrix *matrix, PXGLColorTransform *colorTransform, CGRect *clipRect, BOOL smoothing, BOOL clearTexture);
+
+///////////
+// Utils //
+///////////
+
+PXObjectPool *PXEngineGetSharedObjectPool();
+
+///////////
+// Debug //
+///////////
+
+float _PXEngineDBGGetTimeBetweenFrames();
+float _PXEngineDBGGetTimeBetweenLogic();
+float _PXEngineDBGGetTimeBetweenRendering();
+float _PXEngineDBGGetTimeWaiting();
 
 #ifdef __cplusplus
 }
