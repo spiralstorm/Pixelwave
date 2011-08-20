@@ -98,6 +98,8 @@ float PXEngineGetRenderFrameRate();
 
 void PXEngineAddFrameListener(PXDisplayObject *displayObject);
 void PXEngineRemoveFrameListener(PXDisplayObject *displayObject);
+void PXEngineAddRenderListener(PXDisplayObject *displayObject);
+void PXEngineRemoveRenderListener(PXDisplayObject *displayObject);
 
 void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source, PXGLMatrix *matrix, PXGLColorTransform *colorTransform, CGRect *clipRect, BOOL smoothing, BOOL clearTexture);
 
@@ -122,6 +124,7 @@ float _PXEngineDBGGetTimeWaiting();
 // IN ORDER
 void PXEngineDispatchTouchEvents( );
 void PXEngineDispatchFrameEvents( );
+void PXEngineDispatchRenderEvents( );
 void PXEngineRender( );
 
 #ifdef __cplusplus

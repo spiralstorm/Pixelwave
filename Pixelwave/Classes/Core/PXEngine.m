@@ -65,8 +65,10 @@ PXObjectPool *pxEngineSharedObjectPool = nil;
 
 PXLinkedList *pxEngineCachedListeners = nil;			//Strongly referenced
 PXLinkedList *pxEngineFrameListeners = nil;				//Strongly referenced
+PXLinkedList *pxEngineRenderListeners = nil;			//Strongly referenced
 
 PXEvent *pxEngineEnterFrameEvent = nil;					//Strongly referenced
+PXEvent *pxEngineRenderEvent = nil;						//Strongly referenced
 
 bool pxEngineInitialized = false;
 bool pxEngineShouldClear = false;
@@ -225,11 +227,15 @@ void PXEngineDealloc()
 
 	[pxEngineEnterFrameEvent release];
 	pxEngineEnterFrameEvent = nil;
+	[pxEngineRenderEvent release];
+	pxEngineRenderEvent = nil;
 
 	[pxEngineCachedListeners release];
 	pxEngineCachedListeners = nil;
 	[pxEngineFrameListeners release];
 	pxEngineFrameListeners = nil;
+	[pxEngineRenderListeners release];
+	pxEngineRenderListeners = nil;
 
 	// Get rid of the render-to-texture buffer
 	if (pxEngineRTTFBO != 0)
@@ -566,6 +572,64 @@ void PXEngineDispatchFrameEvents()
 	[pxEngineCachedListeners removeAllObjects];
 }
 
+#pragma mark Registering Render Event Listeners
+
+void PXEngineAddRenderListener(PXDisplayObject *displayObject)
+{
+	if (pxEngineRenderListeners == nil)
+	{
+		pxEngineRenderListeners = [[PXLinkedList alloc] init];
+		pxEngineRenderEvent = [[PXEvent alloc] initWithType:PXEvent_Render bubbles:NO cancelable:NO];
+	}
+	
+	[pxEngineRenderListeners addObject:displayObject];
+}
+
+void PXEngineRemoveRenderListener(PXDisplayObject *displayObject)
+{
+	if (pxEngineRenderListeners == nil)
+		return;
+	
+	[pxEngineRenderListeners removeObject:displayObject];
+	
+	// If that was the last listener, get rid of the list
+	// and the shared event object.
+	if (pxEngineRenderListeners.count == 0)
+	{
+		[pxEngineRenderListeners release];
+		pxEngineRenderListeners = nil;
+		
+		[pxEngineRenderEvent release];
+		pxEngineRenderEvent = nil;
+	}
+}
+
+void PXEngineDispatchRenderEvents()
+{
+	if (pxEngineRenderEvent == nil)
+		return;
+	
+	PXDisplayObject *child = nil;
+	
+	// Dispatch it on all listeners (listeners must be PXDisplayObjects, but
+	// aren't necessarily on the display list, don't have to have a non-nil
+	// 'parent').
+	PXLinkedListForEach(pxEngineRenderListeners, child)
+	{
+		[pxEngineCachedListeners addObject:child];
+	}
+	
+	PXLinkedListForEach(pxEngineCachedListeners, child)
+	{
+		// The enterFrame event doesn't follow the usual event flow
+		// (capture, target, bubble), even though it's dispatched
+		// into the display list in some cases.
+		[child _dispatchEventNoFlow:pxEngineRenderEvent];
+	}
+	
+	[pxEngineCachedListeners removeAllObjects];
+}
+
 /**
  * The main rendering function. This renders the entire display list, starting
  * at the stage, to the screen.
@@ -807,6 +871,7 @@ void PXEngineRenderPhase()
 			}
 #endif
 
+			PXEngineDispatchRenderEvents();
 			PXEngineRender(); //Render
 			pxEngineRenderTimeAccum -= pxEngineRenderDT;
 
