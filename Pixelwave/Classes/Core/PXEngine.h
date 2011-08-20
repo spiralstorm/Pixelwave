@@ -41,7 +41,7 @@
 #define PX_ENGINE_H
 
 #ifdef __cplusplus
-//extern "C" {
+extern "C" {
 #endif
 
 #include "PXGL.h"
