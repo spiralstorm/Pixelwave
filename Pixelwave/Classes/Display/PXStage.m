@@ -128,7 +128,7 @@
  */
 - (void) invalidate
 {
-	
+	PXEngineInvalidateStage();
 }
 
 #pragma Properties

@@ -116,6 +116,8 @@ PXColor4f PXEngineGetClearColor();
 void PXEngineSetRoot(PXDisplayObject *root);
 PXDisplayObject *PXEngineGetRoot( );
 
+void PXEngineInvalidateStage();
+
 /////////////////////////////
 // Control the engine loop //
 /////////////////////////////

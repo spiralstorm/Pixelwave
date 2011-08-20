@@ -94,6 +94,8 @@ float pxEngineLogicTimeAccum = 0.0f;
 CGSize pxEngineViewSize;
 PXColor4f pxEngineClearColor = {1.0f, 1.0f, 1.0f, 1.0f}; // Initialize to white
 
+BOOL pxStageWasInvalidated = NO;
+
 #ifdef PX_DEBUG_MODE
 float pxEngineTimeBetweenFrames = 0.0f;
 float pxEngineTimeBetweenLogic = 0.0f;
@@ -411,18 +413,10 @@ PXColor4f PXEngineGetClearColor()
 	return pxEngineClearColor;
 }
 
-/*
-void PXEngineSetTimerInterval(float seconds)
+void PXEngineInvalidateStage()
 {
-	[pxEngine startAnimationWithInterval:1.0f / seconds];
+	pxStageWasInvalidated = YES;
 }
-
-void PXEngineSetTimerStep(float dt)
-{
-	pxEngineRenderDT = dt;
-	pxEngineRenderDTAccum = 0.0f;
-}
-*/
 
 #pragma mark Setting the Frame Rate
 
@@ -870,8 +864,15 @@ void PXEngineRenderPhase()
 				start = [NSDate timeIntervalSinceReferenceDate];
 			}
 #endif
-
-			PXEngineDispatchRenderEvents();
+			// We only dispatch render events if [stage invalidate]
+			// was called.
+			if(pxStageWasInvalidated)
+			{
+				PXEngineDispatchRenderEvents();
+				// This flag must be reset *after* the event is dispatched.
+				// This is the behavior exhibited by Flash.
+				pxStageWasInvalidated = NO;
+			}
 			PXEngineRender(); //Render
 			pxEngineRenderTimeAccum -= pxEngineRenderDT;
 
