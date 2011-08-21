@@ -42,6 +42,8 @@
 #import "PXExceptionUtils.h"
 #import "PXPrivateUtils.h"
 
+#import "PXDebugUtils.h"
+
 NSString * const PXEvent_EnterFrame = @"enterFrame";
 NSString * const PXEvent_Added = @"added";
 NSString * const PXEvent_Removed = @"removed";
@@ -79,6 +81,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 // Should never be used.
 - (id) init
 {
+	PXDebugLog(@"PXEvent must be intialized with a type");
 	[self release];
 	return nil;
 }
