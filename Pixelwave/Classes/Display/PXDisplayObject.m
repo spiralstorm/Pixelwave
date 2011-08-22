@@ -163,6 +163,10 @@ static unsigned _pxDisplayObjectCount = 0;
 	{
 		PXEngineRemoveFrameListener(self);
 	}
+	if ([self hasEventListenerOfType:PXEvent_Render])
+	{
+		PXEngineRemoveRenderListener(self);
+	}
 
 	[_name release];
 	_name = nil;
@@ -967,18 +971,27 @@ static unsigned _pxDisplayObjectCount = 0;
 #pragma mark Per frame event listeners
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
-	BOOL shouldAddEngineListener = NO;
+	char engineListenerToAdd = 0;
 
-	// If this is an ENTER_FRAME event, and I'm not already listening on the engine
-	// then add me
-	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
+	// 1 = enterFrame
+	// 2 = render
+	
+	if(!useCapture)
 	{
-		if (![self hasEventListenerOfType:type])
+		// If this is an ENTER_FRAME event, and I'm not already listening
+		// on the engine then add me
+		if ([type isEqualToString:PXEvent_EnterFrame])
 		{
-			shouldAddEngineListener = YES;
+			if(![self hasEventListenerOfType:type])
+				engineListenerToAdd = 1;
+		}
+		else if ([type isEqualToString:PXEvent_Render])
+		{
+			if(![self hasEventListenerOfType:type])
+				engineListenerToAdd = 2;
 		}
 	}
-
+	
 	BOOL added = [super addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
 
 	if (!added)
@@ -986,15 +999,25 @@ static unsigned _pxDisplayObjectCount = 0;
 		return NO;
 	}
 
-	if (shouldAddEngineListener)
+	if (engineListenerToAdd > 0)
 	{
 		if (!PXEngineIsInitialized())
 		{
-			PXThrow(PXException, @"Can't add enterFrame event before a PXView is created.");
+			PXThrow(PXException, @"Can't add a broadcast event listener before a PXView is created.");
 			return NO;
 		}
 
-		PXEngineAddFrameListener(self);
+		switch (engineListenerToAdd) {
+			case 1:
+				PXEngineAddFrameListener(self);
+				break;
+			case 2:
+				PXEngineAddRenderListener(self);
+				break;
+			default:
+				break;
+		}
+		
 	}
 
 	return YES;
@@ -1009,13 +1032,23 @@ static unsigned _pxDisplayObjectCount = 0;
 		return NO;
 	}
 
-	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
+	if(!useCapture)
 	{
-		// If nothing else needs to recieve enter frame events from the engine
-		// we can stop listening
-		if (![self hasEventListenerOfType:type])
+		if ([type isEqualToString:PXEvent_EnterFrame])
 		{
-			PXEngineRemoveFrameListener(self);
+			// If nothing else needs to recieve enter frame events from the engine
+			// we can stop listening
+			if (![self hasEventListenerOfType:type])
+			{
+				PXEngineRemoveFrameListener(self);
+			}
+		}
+		else if ([type isEqualToString:PXEvent_Render])
+		{
+			if (![self hasEventListenerOfType:type])
+			{
+				PXEngineRemoveRenderListener(self);
+			}
 		}
 	}
 
