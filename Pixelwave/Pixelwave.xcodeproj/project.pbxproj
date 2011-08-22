@@ -2678,6 +2678,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Pixelwave;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "ExternalFrameworks/FreeType/include//**";
 			};
 			name = Debug;
@@ -2708,6 +2709,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Pixelwave;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				USER_HEADER_SEARCH_PATHS = "ExternalFrameworks/FreeType/include//**";
 			};
 			name = Release;
