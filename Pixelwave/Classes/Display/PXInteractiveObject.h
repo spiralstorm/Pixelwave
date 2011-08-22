@@ -45,8 +45,12 @@
 	BOOL _touchEnabled;
 	BOOL _captureTouches;
 
+@protected
+	PXLinkedList *pxInteractiveObjectTouchList;
+	PXLinkedList *pxInteractiveObjectTouchUpHistoryList;
+
 	// For listening to tap events.
-@private
+/*@private
 	BOOL listenToTap;
 	BOOL addedListeners;
 
@@ -55,7 +59,7 @@
 	PXEventListener *pxIOOnTouchCancel;
 
 	PXLinkedList *touchList;
-	PXLinkedList *touchUpHistoryList;
+	PXLinkedList *touchUpHistoryList;*/
 }
 
 /**

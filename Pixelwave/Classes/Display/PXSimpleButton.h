@@ -54,7 +54,7 @@ typedef enum
 
 	_PXSimpleButtonVisibleState visibleState;
 
-	PXLinkedList *listOfTouches;
+	PXLinkedList *pxSimpleButtonTouchList;
 
 	BOOL enabled;
 	BOOL isPressed;

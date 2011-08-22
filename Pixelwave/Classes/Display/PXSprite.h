@@ -40,6 +40,7 @@
 #import "PXDisplayObjectContainer.h"
 
 @class PXGraphics;
+@class PXLinkedList;
 
 @interface PXSprite : PXDisplayObjectContainer
 {
