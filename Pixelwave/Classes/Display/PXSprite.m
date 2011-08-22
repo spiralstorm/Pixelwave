@@ -40,10 +40,13 @@
 #import "PXSprite.h"
 
 #import "PXGraphics.h"
+#import "PXRectangle.h"
+
+#include "PXDebug.h"
+#include "PXPrivateUtils.h"
 
 /**
- * A PXSprite is a concrete display object that can contain children and has a
- * graphics object.
+ * A PXSprite is a concrete display object that can contain children and has a graphics object.
  *
  * @see PXSimpleSprite
  * @see PXGraphics
@@ -71,12 +74,14 @@
 		_graphics = nil;
 	}
 
+	self.hitArea = nil;
+
 	[super dealloc];
 }
 
 - (PXGraphics *)graphics
 {
-	if (!_graphics)
+	if (_graphics == nil)
 	{
 		_graphics = [[PXGraphics alloc] init];
 		_renderMode = PXRenderMode_BatchAndManageStates;
@@ -85,14 +90,71 @@
 	return _graphics;
 }
 
+- (void) setHitArea:(id<NSObject>)_hitArea
+{
+	[_hitArea retain];
+	[hitArea release];
+	hitArea = nil;
+
+	hitAreaIsRect = NO;
+	PX_DISABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
+
+	if ([_hitArea isKindOfClass:[PXDisplayObject class]] == YES)
+	{
+		hitArea = [(PXDisplayObject *)_hitArea retain];
+		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
+	}
+	else if ([_hitArea isKindOfClass:[PXRectangle class]] == YES)
+	{
+		hitAreaIsRect = YES;
+		hitAreaRect = PXRectangleToCGRect((PXRectangle *)_hitArea);
+		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
+	}
+	else if (_hitArea != nil)
+	{
+		PXDebugLog(@"PXDisplayObject ERROR: hitTestState MUST be either a PXRectangle or PXDisplayObject\n");
+	}
+
+	[_hitArea release];
+}
+
+- (id<NSObject>) hitArea
+{
+	if (hitAreaIsRect == YES)
+		return PXRectangleFromCGRect(hitAreaRect);
+
+	return hitArea;
+}
+
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
 	*retBounds = CGRectZero;
-	[_graphics _measureLocalBounds:retBounds];
+
+	if (hitAreaIsRect)
+	{
+		*retBounds = hitAreaRect;
+	}
+	else if (hitArea)
+	{
+		[hitArea _measureGlobalBounds:retBounds];
+	}
+	else
+	{
+		[_graphics _measureLocalBounds:retBounds];
+	}
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
+	if (hitAreaIsRect == YES)
+	{
+		return CGRectContainsPoint(hitAreaRect, CGPointMake(x, y));
+	}
+	else if (hitArea != nil)
+	{
+		return [hitArea _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag];
+	}
+
 	return [_graphics _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag];
 }
 
