@@ -1,4 +1,3 @@
-
       _____                       ___                                            
      /\  _ `\  __                /\_ \                                           
      \ \ \L\ \/\_\   __  _    ___\//\ \    __  __  __    ___     __  __    ___   
@@ -20,7 +19,9 @@
      
      Copyright (c) 2011 Spiralstorm Games http://www.spiralstormgames.com
 
-Thank you for downloading Pixelwave!
+Getting Started
+================
 
-Everything you need to know to get started is online:
-http://www.pixelwave.org/docs
+The first place you should visit it the [Getting Started Guide](http://www.pixelwave.org/docs/Getting_Started_Guide)
+
+Everything you need to know about using Pixelwave is over at the [Documentation Center](http://www.pixelwave.org/docs)
