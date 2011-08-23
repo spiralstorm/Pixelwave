@@ -59,7 +59,13 @@
 @property (nonatomic, readonly) PXGraphics *graphics;
 
 /**
- * If defined, then hitArea is used as a replacement for the normal hit are defined by the sprite.
+ * Assigns another #PXDisplayObject or #PXRectangle as the hit area of the sprite. If the `hitArea`
+ * is `nil`, as by default, the contents of the sprite are used as the hit area.
+ *
+ * The `hitArea` of a sprite describes the area within which it can receive touch events. The value of `hitArea`
+ * can be a #PXDisplayObject _or_ a #PXRectangle. You can change the value of this property at any time, and it
+ * will take effect immediately. If the `hitArea` is a #PXDisplayObject it doesn't have to be visible or be on the
+ * the display list as only its shape is used for hit testing.
  */
 @property (nonatomic, retain) id<NSObject> hitArea;
 
