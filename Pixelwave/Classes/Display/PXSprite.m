@@ -86,7 +86,7 @@
 		_graphics = [[PXGraphics alloc] init];
 		_renderMode = PXRenderMode_BatchAndManageStates;
 	}
-	
+
 	return _graphics;
 }
 

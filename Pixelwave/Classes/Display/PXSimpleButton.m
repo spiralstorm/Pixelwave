@@ -193,7 +193,7 @@
 		self.upState = _upState;
 		self.hitTestState = _hitTestState;
 	}
-	
+
 	return self;
 }
 

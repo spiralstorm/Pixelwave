@@ -48,18 +48,6 @@
 @protected
 	PXLinkedList *pxInteractiveObjectTouchList;
 	PXLinkedList *pxInteractiveObjectTouchUpHistoryList;
-
-	// For listening to tap events.
-/*@private
-	BOOL listenToTap;
-	BOOL addedListeners;
-
-	PXEventListener *pxIOOnTouchDown;
-	PXEventListener *pxIOOnTouchUp;
-	PXEventListener *pxIOOnTouchCancel;
-
-	PXLinkedList *touchList;
-	PXLinkedList *touchUpHistoryList;*/
 }
 
 /**
