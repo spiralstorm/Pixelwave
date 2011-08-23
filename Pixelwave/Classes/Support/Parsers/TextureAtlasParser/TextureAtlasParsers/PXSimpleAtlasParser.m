@@ -118,7 +118,7 @@
 		return nil;
 	if (!names)
 		return nil;
-	if(!textureLoaders)
+	if (!textureLoaders)
 		return nil;
 
 	// Convert all the loaders to TextureData objects

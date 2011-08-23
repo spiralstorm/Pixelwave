@@ -130,7 +130,7 @@ _PXLLNode pxLinkedListBadNode;
  *
  *	NSObject *item = nil;
  *
- *	for(int i = 0; i < list.count; ++i)
+ *	for (int i = 0; i < list.count; ++i)
  *	{
  *		item = [list objectAtIndex:i];
  *		NSLog("Item %i = %@", i, item);

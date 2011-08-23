@@ -55,6 +55,13 @@ extern PXGLState pxGLStateInGL;
 
 extern GLuint pxGLBufferVertexColorState;
 
+typedef struct
+{
+	PXGLColoredTextureVertex *vertex;
+	GLfloat *pointSize;
+	GLuint vertexIndex;
+} PXGLElementBucket;
+
 void PXGLRendererInit( );
 void PXGLRendererDealloc( );
 
@@ -62,12 +69,6 @@ void PXGLSetDrawMode(GLenum mode);
 void PXGLSetBufferLastVertexColor(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
 void PXGLEnableColorArray( );
 void PXGLDisableColorArray( );
-
-//These would be a possible optimization, especially if we were adding more then
-//ten elements
-//void PXGLIncreaseVertexBufferSize(unsigned size);
-//void PXGLIncreaseIndexBufferSize(unsigned size);
-//void PXGLIncreasePointSizeBufferSize(unsigned size);
 
 // TODO Later: Change these to use PXArrayBuffer.
 unsigned PXGLGetCurrentVertexIndex( );
@@ -77,15 +78,24 @@ void PXGLSetCurrentIndex(unsigned index);
 unsigned PXGLGetCurrentPointSizeIndex( );
 void PXGLSetCurrentPointSizeIndex(unsigned index);
 
-PXGLColoredTextureVertex *PXGLNextVertex( );
+//PXGLColoredTextureVertex *PXGLNextVertex( );
 PXGLColoredTextureVertex *PXGLGetVertexAt(unsigned index);
 PXGLColoredTextureVertex *PXGLCurrentVertex( );
-GLushort *PXGLNextIndex( );
+PXGLColoredTextureVertex *PXGLAskForVertices(unsigned count);
+void PXGLUsedVertices(unsigned count);
+
 GLushort *PXGLGetIndexAt(unsigned index);
 GLushort *PXGLCurrentIndex( );
-GLfloat *PXGLNextPointSize( );
+GLushort *PXGLAskForIndices(unsigned count);
+void PXGLUsedIndices(unsigned count);
+
+//GLfloat *PXGLNextPointSize( );
 GLfloat *PXGLGetPointSizeAt(unsigned index);
 GLfloat *PXGLCurrentPointSize( );
+GLfloat *PXGLAskForPointSizes(unsigned count);
+void PXGLUsedPointSizes(unsigned count);
+
+PXGLElementBucket *PXGLGetElementBuckets(unsigned maxBucketVal);
 
 void PXGLRendererPreRender( );
 void PXGLRendererPostRender( );

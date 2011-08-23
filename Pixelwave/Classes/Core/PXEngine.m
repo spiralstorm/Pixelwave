@@ -65,8 +65,10 @@ PXObjectPool *pxEngineSharedObjectPool = nil;
 
 PXLinkedList *pxEngineCachedListeners = nil;			//Strongly referenced
 PXLinkedList *pxEngineFrameListeners = nil;				//Strongly referenced
+PXLinkedList *pxEngineRenderListeners = nil;			//Strongly referenced
 
 PXEvent *pxEngineEnterFrameEvent = nil;					//Strongly referenced
+PXEvent *pxEngineRenderEvent = nil;						//Strongly referenced
 
 bool pxEngineInitialized = false;
 bool pxEngineShouldClear = false;
@@ -91,6 +93,8 @@ float pxEngineLogicTimeAccum = 0.0f;
 // The size of the view in POINTS. Always in PORTRAIT
 CGSize pxEngineViewSize;
 PXColor4f pxEngineClearColor = {1.0f, 1.0f, 1.0f, 1.0f}; // Initialize to white
+
+BOOL pxStageWasInvalidated = NO;
 
 #ifdef PX_DEBUG_MODE
 float pxEngineTimeBetweenFrames = 0.0f;
@@ -225,11 +229,15 @@ void PXEngineDealloc()
 
 	[pxEngineEnterFrameEvent release];
 	pxEngineEnterFrameEvent = nil;
+	[pxEngineRenderEvent release];
+	pxEngineRenderEvent = nil;
 
 	[pxEngineCachedListeners release];
 	pxEngineCachedListeners = nil;
 	[pxEngineFrameListeners release];
 	pxEngineFrameListeners = nil;
+	[pxEngineRenderListeners release];
+	pxEngineRenderListeners = nil;
 
 	// Get rid of the render-to-texture buffer
 	if (pxEngineRTTFBO != 0)
@@ -405,18 +413,10 @@ PXColor4f PXEngineGetClearColor()
 	return pxEngineClearColor;
 }
 
-/*
-void PXEngineSetTimerInterval(float seconds)
+void PXEngineInvalidateStage()
 {
-	[pxEngine startAnimationWithInterval:1.0f / seconds];
+	pxStageWasInvalidated = YES;
 }
-
-void PXEngineSetTimerStep(float dt)
-{
-	pxEngineRenderDT = dt;
-	pxEngineRenderDTAccum = 0.0f;
-}
-*/
 
 #pragma mark Setting the Frame Rate
 
@@ -566,6 +566,64 @@ void PXEngineDispatchFrameEvents()
 	[pxEngineCachedListeners removeAllObjects];
 }
 
+#pragma mark Registering Render Event Listeners
+
+void PXEngineAddRenderListener(PXDisplayObject *displayObject)
+{
+	if (pxEngineRenderListeners == nil)
+	{
+		pxEngineRenderListeners = [[PXLinkedList alloc] init];
+		pxEngineRenderEvent = [[PXEvent alloc] initWithType:PXEvent_Render bubbles:NO cancelable:NO];
+	}
+	
+	[pxEngineRenderListeners addObject:displayObject];
+}
+
+void PXEngineRemoveRenderListener(PXDisplayObject *displayObject)
+{
+	if (pxEngineRenderListeners == nil)
+		return;
+	
+	[pxEngineRenderListeners removeObject:displayObject];
+	
+	// If that was the last listener, get rid of the list
+	// and the shared event object.
+	if (pxEngineRenderListeners.count == 0)
+	{
+		[pxEngineRenderListeners release];
+		pxEngineRenderListeners = nil;
+		
+		[pxEngineRenderEvent release];
+		pxEngineRenderEvent = nil;
+	}
+}
+
+void PXEngineDispatchRenderEvents()
+{
+	if (pxEngineRenderEvent == nil)
+		return;
+	
+	PXDisplayObject *child = nil;
+	
+	// Dispatch it on all listeners (listeners must be PXDisplayObjects, but
+	// aren't necessarily on the display list, don't have to have a non-nil
+	// 'parent').
+	PXLinkedListForEach(pxEngineRenderListeners, child)
+	{
+		[pxEngineCachedListeners addObject:child];
+	}
+	
+	PXLinkedListForEach(pxEngineCachedListeners, child)
+	{
+		// The enterFrame event doesn't follow the usual event flow
+		// (capture, target, bubble), even though it's dispatched
+		// into the display list in some cases.
+		[child _dispatchEventNoFlow:pxEngineRenderEvent];
+	}
+	
+	[pxEngineCachedListeners removeAllObjects];
+}
+
 /**
  * The main rendering function. This renders the entire display list, starting
  * at the stage, to the screen.
@@ -606,7 +664,8 @@ void PXEngineRender()
 	//glPushMatrix();
 
 #ifdef PX_DEBUG_MODE
-	if (PXDebugIsEnabled(PXDebugSetting_HalveStage))
+	bool pushedMatrixForHalveStage = PXDebugIsEnabled(PXDebugSetting_HalveStage);
+	if (pushedMatrixForHalveStage)
 	{
 		/*
 		glPushMatrix();
@@ -623,7 +682,7 @@ void PXEngineRender()
 
 #ifdef PX_DEBUG_MODE
 	// Draw a magenta border around the smaller stage
-	if (PXDebugIsEnabled(PXDebugSetting_HalveStage))
+	if (pushedMatrixForHalveStage)
 	{
 		PXGLVertex vertices[4];
 
@@ -805,7 +864,16 @@ void PXEngineRenderPhase()
 				start = [NSDate timeIntervalSinceReferenceDate];
 			}
 #endif
+			// We only dispatch render events if [stage invalidate]
+			// was called.
+			if (pxStageWasInvalidated)
+			{
+				PXEngineDispatchRenderEvents();
 
+				// This flag must be reset *after* the event is dispatched.
+				// This is the behavior exhibited by Flash.
+				pxStageWasInvalidated = NO;
+			}
 			PXEngineRender(); //Render
 			pxEngineRenderTimeAccum -= pxEngineRenderDT;
 

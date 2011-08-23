@@ -138,15 +138,9 @@ static unsigned _pxDisplayObjectCount = 0;
 		PXGLMatrixIdentity(&_matrix);
 		PXGLColorTransformIdentity(&_colorTransform);
 		
-		//transform = [[PXTransform alloc] initWithDisplayObject:self];
-		
 		// Properties
 		_parent = nil;
 
-		//When using init with format it makes a nsmutablestring that doesn't get released,
-		//so we must release the string in order to not leak memory.
-		//_name = [NSString stringWithFormat:@"instance%i", _displayObjectCount];
-		//[_name retain];
 		_name = [[NSString alloc] initWithFormat:@"instance%u", _pxDisplayObjectCount];
 		++_pxDisplayObjectCount;
 
@@ -164,17 +158,18 @@ static unsigned _pxDisplayObjectCount = 0;
 
 - (void) dealloc
 {
-	//Remove all frame listeners I registered with the engine
+	// Remove all frame listeners I registered with the engine
 	if ([self hasEventListenerOfType:PXEvent_EnterFrame])
 	{
 		PXEngineRemoveFrameListener(self);
 	}
+	if ([self hasEventListenerOfType:PXEvent_Render])
+	{
+		PXEngineRemoveRenderListener(self);
+	}
 
 	[_name release];
 	_name = nil;
-
-	//[transform release];
-	//transform = nil;
 
 	_impRenderGL = 0;
 
@@ -835,9 +830,6 @@ static unsigned _pxDisplayObjectCount = 0;
 	PXRectangle *rect1 = [self boundsWithCoordinateSpace:stage];
 	PXRectangle *rect2 = [obj boundsWithCoordinateSpace:stage];
 
-	//PXRectangle *rect1 = [self getBounds:_root];
-	//PXRectangle *rect2 = [obj getBounds:_root];
-
 	return [rect1 intersectsWithRect:rect2];
 }
 
@@ -976,18 +968,27 @@ static unsigned _pxDisplayObjectCount = 0;
 #pragma mark Per frame event listeners
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
-	BOOL shouldAddEngineListener = NO;
+	char engineListenerToAdd = 0;
 
-	// If this is an ENTER_FRAME event, and I'm not already listening on the engine
-	// then add me
-	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
+	// 1 = enterFrame
+	// 2 = render
+	
+	if (!useCapture)
 	{
-		if (![self hasEventListenerOfType:type])
+		// If this is an ENTER_FRAME event, and I'm not already listening
+		// on the engine then add me
+		if ([type isEqualToString:PXEvent_EnterFrame])
 		{
-			shouldAddEngineListener = YES;
+			if (![self hasEventListenerOfType:type])
+				engineListenerToAdd = 1;
+		}
+		else if ([type isEqualToString:PXEvent_Render])
+		{
+			if (![self hasEventListenerOfType:type])
+				engineListenerToAdd = 2;
 		}
 	}
-
+	
 	BOOL added = [super addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
 
 	if (!added)
@@ -995,15 +996,26 @@ static unsigned _pxDisplayObjectCount = 0;
 		return NO;
 	}
 
-	if (shouldAddEngineListener)
+	if (engineListenerToAdd > 0)
 	{
 		if (!PXEngineIsInitialized())
 		{
-			PXThrow(PXException, @"Can't add enterFrame event before a PXView is created.");
+			PXThrow(PXException, @"Can't add a broadcast event listener before a PXView is created.");
 			return NO;
 		}
 
-		PXEngineAddFrameListener(self);
+		switch (engineListenerToAdd)
+		{
+			case 1:
+				PXEngineAddFrameListener(self);
+				break;
+			case 2:
+				PXEngineAddRenderListener(self);
+				break;
+			default:
+				break;
+		}
+		
 	}
 
 	return YES;
@@ -1018,13 +1030,23 @@ static unsigned _pxDisplayObjectCount = 0;
 		return NO;
 	}
 
-	if ([type isEqualToString:PXEvent_EnterFrame] && !useCapture)
+	if (!useCapture)
 	{
-		// If nothing else needs to recieve enter frame events from the engine
-		// we can stop listening
-		if (![self hasEventListenerOfType:type])
+		if ([type isEqualToString:PXEvent_EnterFrame])
 		{
-			PXEngineRemoveFrameListener(self);
+			// If nothing else needs to recieve enter frame events from the engine
+			// we can stop listening
+			if (![self hasEventListenerOfType:type])
+			{
+				PXEngineRemoveFrameListener(self);
+			}
+		}
+		else if ([type isEqualToString:PXEvent_Render])
+		{
+			if (![self hasEventListenerOfType:type])
+			{
+				PXEngineRemoveRenderListener(self);
+			}
 		}
 	}
 

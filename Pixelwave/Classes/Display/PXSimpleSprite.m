@@ -49,9 +49,12 @@
 + (PXSimpleSprite *)simpleSpriteWithChild:(PXDisplayObject *)child
 {
 	PXSimpleSprite *simpleSprite = [[PXSimpleSprite alloc] init];
-	if(child){
+
+	if (child)
+	{
 		[simpleSprite addChild:child];
 	}
+
 	return [simpleSprite autorelease];
 }
 
