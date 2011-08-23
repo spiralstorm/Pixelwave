@@ -49,17 +49,6 @@
 #import "PXPoint.h"
 #import "PXLinkedList.h"
 
-// We give these methods names that hopefully won't be used by the user. If the
-// user defines these and overrides them then we will not get proper interaction
-// of events and tap will fail.
-/*@interface PXInteractiveObject(Private)
-- (BOOL) pxInteractiveObjectAddListeners;
-- (void) pxInteractiveObjectRemoveListeners;
-- (void) pxInteractiveObjectOnTouchDown:(PXTouchEvent *)event;
-- (void) pxInteractiveObjectOnTouchUp:(PXTouchEvent *)event;
-- (void) pxInteractiveObjectOnTouchCancel:(PXTouchEvent *)event;
-@end*/
-
 /**
  * A PXInteractiveObject is the abstract base class for all PXDisplayObjects
  * that can recieve user interaction events.
