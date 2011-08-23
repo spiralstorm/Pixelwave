@@ -866,9 +866,10 @@ void PXEngineRenderPhase()
 #endif
 			// We only dispatch render events if [stage invalidate]
 			// was called.
-			if(pxStageWasInvalidated)
+			if (pxStageWasInvalidated)
 			{
 				PXEngineDispatchRenderEvents();
+
 				// This flag must be reset *after* the event is dispatched.
 				// This is the behavior exhibited by Flash.
 				pxStageWasInvalidated = NO;

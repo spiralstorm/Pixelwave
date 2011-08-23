@@ -54,15 +54,14 @@ typedef enum
 
 	_PXSimpleButtonVisibleState visibleState;
 
-	PXLinkedList *listOfTouches;
-	
+	PXLinkedList *pxSimpleButtonTouchList;
+
 	BOOL enabled;
-	
 	BOOL isPressed;
-	
 	BOOL hitAreaIsRect;
+
 	CGRect hitAreaRect;
-	
+
 	float autoInflateAmount;
 }
 

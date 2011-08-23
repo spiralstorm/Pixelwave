@@ -40,16 +40,27 @@
 #import "PXDisplayObjectContainer.h"
 
 @class PXGraphics;
+@class PXLinkedList;
 
 @interface PXSprite : PXDisplayObjectContainer
 {
 @public
 	PXGraphics *_graphics;
+
+@protected
+	BOOL hitAreaIsRect;
+	PXDisplayObject *hitArea;
+	CGRect hitAreaRect;
 }
 
 /**
  * The graphics object that belongs to the sprite where vector drawing is done.
  */
 @property (nonatomic, readonly) PXGraphics *graphics;
+
+/**
+ * If defined, then hitArea is used as a replacement for the normal hit are defined by the sprite.
+ */
+@property (nonatomic, retain) id<NSObject> hitArea;
 
 @end

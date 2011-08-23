@@ -830,9 +830,6 @@ static unsigned _pxDisplayObjectCount = 0;
 	PXRectangle *rect1 = [self boundsWithCoordinateSpace:stage];
 	PXRectangle *rect2 = [obj boundsWithCoordinateSpace:stage];
 
-	//PXRectangle *rect1 = [self getBounds:_root];
-	//PXRectangle *rect2 = [obj getBounds:_root];
-
 	return [rect1 intersectsWithRect:rect2];
 }
 
@@ -976,18 +973,18 @@ static unsigned _pxDisplayObjectCount = 0;
 	// 1 = enterFrame
 	// 2 = render
 	
-	if(!useCapture)
+	if (!useCapture)
 	{
 		// If this is an ENTER_FRAME event, and I'm not already listening
 		// on the engine then add me
 		if ([type isEqualToString:PXEvent_EnterFrame])
 		{
-			if(![self hasEventListenerOfType:type])
+			if (![self hasEventListenerOfType:type])
 				engineListenerToAdd = 1;
 		}
 		else if ([type isEqualToString:PXEvent_Render])
 		{
-			if(![self hasEventListenerOfType:type])
+			if (![self hasEventListenerOfType:type])
 				engineListenerToAdd = 2;
 		}
 	}
@@ -1007,7 +1004,8 @@ static unsigned _pxDisplayObjectCount = 0;
 			return NO;
 		}
 
-		switch (engineListenerToAdd) {
+		switch (engineListenerToAdd)
+		{
 			case 1:
 				PXEngineAddFrameListener(self);
 				break;
@@ -1032,7 +1030,7 @@ static unsigned _pxDisplayObjectCount = 0;
 		return NO;
 	}
 
-	if(!useCapture)
+	if (!useCapture)
 	{
 		if ([type isEqualToString:PXEvent_EnterFrame])
 		{

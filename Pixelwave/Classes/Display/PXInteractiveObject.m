@@ -49,17 +49,6 @@
 #import "PXPoint.h"
 #import "PXLinkedList.h"
 
-// We give these methods names that hopefully won't be used by the user. If the
-// user defines these and overrides them then we will not get proper interaction
-// of events and tap will fail.
-@interface PXInteractiveObject(Private)
-- (BOOL) pxInteractiveObjectAddListeners;
-- (void) pxInteractiveObjectRemoveListeners;
-- (void) pxInteractiveObjectOnTouchDown:(PXTouchEvent *)event;
-- (void) pxInteractiveObjectOnTouchUp:(PXTouchEvent *)event;
-- (void) pxInteractiveObjectOnTouchCancel:(PXTouchEvent *)event;
-@end
-
 /**
  * A PXInteractiveObject is the abstract base class for all PXDisplayObjects
  * that can recieve user interaction events.
@@ -80,17 +69,9 @@
 
 		_captureTouches = [PXStage mainStage].defaultCaptureTouchesValue;
 
-		// So, what is all of this for? We manually add tap
-		// events rather then the engine handeling them.
-
-		// Grab the listener and retain it. They are autoreleased, thus at the
-		// end of this function w/o a retain they would evaporate.
-		pxIOOnTouchDown   = [PXListener(pxInteractiveObjectOnTouchDown:)   retain];
-		pxIOOnTouchUp     = [PXListener(pxInteractiveObjectOnTouchUp:)     retain];
-		pxIOOnTouchCancel = [PXListener(pxInteractiveObjectOnTouchCancel:) retain];
-
-		// We have not added the listeners yet, just gotten pointers to them.
-		addedListeners = NO;
+		// Lists to track information for the tap events.
+		pxInteractiveObjectTouchList = [[PXLinkedList alloc] init];
+		pxInteractiveObjectTouchUpHistoryList = [[PXLinkedList alloc] init];
 	}
 
 	return self;
@@ -98,250 +79,125 @@
 
 - (void) dealloc
 {
-	[self pxInteractiveObjectRemoveListeners];
+	// Release the lists holding that kept track of the touch information.
+	[pxInteractiveObjectTouchList release];
+	pxInteractiveObjectTouchList = nil;
 
-	[pxIOOnTouchDown release];
-	pxIOOnTouchDown = nil;
-	[pxIOOnTouchUp release];
-	pxIOOnTouchUp = nil;
-	[pxIOOnTouchCancel release];
-	pxIOOnTouchCancel = nil;
+	[pxInteractiveObjectTouchUpHistoryList release];
+	pxInteractiveObjectTouchUpHistoryList = nil;
 
 	[super dealloc];
 }
 
-- (BOOL) pxInteractiveObjectAddListeners
+- (BOOL) dispatchEvent:(PXEvent *)event
 {
-	// If the listeners were already added, we don't need to add them again.
-	// Return YES because the check for this is actaully just wondering if they
-	// were added ever, not just now.
-	if (addedListeners == YES)
-		return YES;
+	// Why do we make these variables here? Well, these variables keep track of
+	// information required for us to know wether a tap event has occured. If we
+	// create them within the 'if' statement, then it will not be possible for
+	// us to contain all of the event dispatching code within a singular place.
+	BOOL sendTap = NO;
+	unsigned int tapCount = 1;
+	PXPoint *touchPosition = nil;
 
-	addedListeners = YES;
-
-	// add the listeners
-	BOOL addedDown   = [super addEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown useCapture:NO priority:0];
-	// We add these at a high priority so that the isInside method
-	// can query the hit area before any of the other up/cancel listeners
-	// get a change to change it.
-	BOOL addedUp     = [super addEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp useCapture:NO priority:10000];
-	BOOL addedCancel = [super addEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel useCapture:NO priority:10000];
-	BOOL addedAll = addedDown && addedUp && addedCancel;
-
-	// If any of them failed to add, then we will have to remove any we added
-	// and inform them that it failed.
-	if (addedAll == NO)
+	// We override this method to check for tap events, so if this is not a
+	// touch event of any type then we just don't care about it.
+	if ([event isKindOfClass:[PXTouchEvent class]])
 	{
-		addedListeners = NO;
+		PXTouchEvent *touchEvent = (PXTouchEvent *)event;
+		NSString *eventType = touchEvent.type;
 
-		if (addedDown)
-			[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown];
-		if (addedUp)
-			[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp];
-		if (addedCancel)
-			[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel];
-	}
+		// We store the fact that it is an up event so we only have to do this
+		// check once. We need to know in two places if it is an up event, and
+		// hence this test should only be done once.
+		BOOL isUpEvent = [eventType isEqualToString:PXTouchEvent_TouchUp];
 
-	// If they added correctly, we need to make our lists that store information
-	// required to keep track of the taps.
-	if (addedAll == YES)
-	{
-		if (touchList == NULL)
+		if (isUpEvent == NO && [eventType isEqualToString:PXTouchEvent_TouchDown])
 		{
-			touchList = [[PXLinkedList alloc] init];
+			[pxInteractiveObjectTouchList addObject:touchEvent.nativeTouch];
 		}
-		if (touchUpHistoryList == NULL)
+		else if (isUpEvent == YES || [eventType isEqualToString:PXTouchEvent_TouchCancel])
 		{
-			touchUpHistoryList = [[PXLinkedList alloc] init];
-		}
-	}
+			// Remove the touch from our storage list.
+			[pxInteractiveObjectTouchList removeObject:touchEvent.nativeTouch];
 
-	return addedAll;
-}
-- (void) pxInteractiveObjectRemoveListeners
-{
-	// Do not need to remove the listeners if they weren't added.
-	if (addedListeners == NO)
-		return;
+			touchEvent->_tapCount = 0;
 
-	addedListeners = NO;
+			// Only handle the up event if it was within our bounds. If we are
+			// the main stage, then the touch is always within our bounds (even
+			// though the position test will actually fail).
+			if (isUpEvent == YES && (self == [PXStage mainStage] || touchEvent.insideTarget == YES))
+			{
+				// We guarantee at least one tap at this point, so we can set
+				// the variable. We are going to manually update this because we
+				// are manually handeling taps.
+				sendTap = YES;
 
-	// Remove the listeners
-	[super removeEventListenerOfType:PXTouchEvent_TouchDown   listener:pxIOOnTouchDown];
-	[super removeEventListenerOfType:PXTouchEvent_TouchUp     listener:pxIOOnTouchUp];
-	[super removeEventListenerOfType:PXTouchEvent_TouchCancel listener:pxIOOnTouchCancel];
+				PXPoint *oldPosition;
+				float distance;
 
-	// Release the lists that keep track of the events to check for taps.
-	[touchList release];
-	touchList = nil;
-	[touchUpHistoryList release];
-	touchUpHistoryList = nil;
-}
+				touchPosition = touchEvent.stagePosition;
 
-- (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
-{
-	BOOL properlyAdded = [super addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
+				// Go through each of the previous taps and compare our distance
+				// to them. If we are within the epsilon value then we have
+				// tapped more than once!
+				for (PXTouchEvent *checkEvent in pxInteractiveObjectTouchUpHistoryList)
+				{
+					oldPosition = checkEvent.stagePosition;
+					distance = [PXPoint distanceBetweenPointA:oldPosition pointB:touchPosition];
 
-	// If the event wasn't properly added, then give up, there is nothing we can
-	// do.
-	if (properlyAdded == NO)
-		return NO;
+					// Compare the distance to the epsilon value
+					if (distance < PXEngineTouchRadius)
+					{
+						// Incrase the tap count.
+						tapCount = checkEvent.tapCount + 1;
 
-	// We only care about tap events.
-	BOOL isTapEvent = isTapEvent = [type isEqualToString:PXTouchEvent_Tap];
+						// We no longer need this tap in our history, so we can
+						// just remove it.
+						[pxInteractiveObjectTouchUpHistoryList removeObject:checkEvent];
 
-	if (isTapEvent == NO)
-		return YES;
+						break;
+					}
+				}
 
-	// If it is a double tap or tap event, then we need to add our own listeners
-	// so we can convert up events into tap events if needed.
-	
-	// If we have not added the listeners, add them!
-	properlyAdded = [self pxInteractiveObjectAddListeners];
-	if (properlyAdded == NO)
-	{
-		[super removeEventListenerOfType:type listener:listener useCapture:useCapture];
-	}
+				// Manually update the tap count for the event.
+				touchEvent->_tapCount = tapCount;
 
-	// If we added the listeners, and everything was properly added then we
-	// can confirm the users want to listen to a tap or double tap event.
-	// Note:	addedListeners is rechecked, as the previous if-statement
-	//			could have reset it back to NO
-	if (addedListeners == YES && properlyAdded == YES)
-	{
-		if (isTapEvent == YES)
-			listenToTap = YES;
-	}
-
-	// Return to them the overall result
-	return properlyAdded;
-}
-
-- (BOOL) removeEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture
-{
-	BOOL properlyRemoved = [super removeEventListenerOfType:type listener:listener useCapture:useCapture];
-
-	// If the event wasn't properly removed, then give up, there is nothing we
-	// can do.
-	if (properlyRemoved == NO)
-		return NO;
-
-	// We only care about tap events.
-	BOOL isTapEvent = [type isEqualToString:PXTouchEvent_Tap];
-
-	if (isTapEvent == NO)
-		return YES;
-
-	// We do not want to remove our own listeners unless NO one is listening to
-	// any form of tap event. This if-statement is the first test for that.
-	// NOTE:	This is why we remove the real event first.
-	if ([self hasEventListenerOfType:PXTouchEvent_Tap] == NO)
-	{
-		listenToTap = NO;
-
-		[self pxInteractiveObjectRemoveListeners];
-	}
-
-	// Return to them the overall result
-	return properlyRemoved;
-}
-
-// A workaround to the fact that the original removeAllEventListeners
-// is a bit broken.
-// TODO: Once it's fixed this method should be deleted.
-- (void) removeAllEventListeners
-{
-	[self pxInteractiveObjectRemoveListeners];
-	
-	[super removeAllEventListeners];
-}
-
-- (void) pxInteractiveObjectOnTouchDown:(PXTouchEvent *)event
-{
-	// Only add the touch if we are the target of it, this way we do not add it
-	// on weird phases.
-	if (event.eventPhase == PXEventPhase_Target)
-	{
-		[touchList addObject:event.nativeTouch];
-	}
-}
-- (void) pxInteractiveObjectOnTouchUp:(PXTouchEvent *)event
-{
-	// If we do not have the touch in our list, then we don't care about it, nor
-	// do we know how we recieved it anyway.
-	if ([touchList containsObject:event.nativeTouch] == NO)
-		return;
-
-	// Cancel the touch, this will remove it from our list.
-	[self pxInteractiveObjectOnTouchCancel:event];
-
-	// Only handle the up event if it was within our bounds. If we are the main
-	// stage, then the touch is always within our bounds (even though the
-	// position test will actually fail).
-	if (self != [PXStage mainStage] && event.insideTarget == NO)
-		return;
-
-	// We guarantee at least one tap at this point, so we can set the variable.
-	// We are going to manually update this because we are manually handeling
-	// taps.
-	UITouch *touch = event.nativeTouch;
-	unsigned tapCount = 1;
-
-	PXPoint *oldPosition;
-	float distance;
-
-	PXPoint *touchPosition = event.stagePosition;
-
-	// Go through each of the previous taps and compare our distance to them. If
-	// we are within the epsilon value then we have tapped more than once!
-	for (PXTouchEvent *checkEvent in touchUpHistoryList)
-	{
-		oldPosition = checkEvent.stagePosition;
-		distance = [PXPoint distanceBetweenPointA:oldPosition pointB:touchPosition];
-
-		// Compare the distance to the epsilon value
-		if (distance < PXEngineTouchRadius)
-		{
-			// Incrase the tap count.
-			tapCount = checkEvent.tapCount + 1;
-
-			// We no longer need this tap in our history, so we can just remove
-			// it.
-			[touchUpHistoryList removeObject:checkEvent];
-
-			break;
+				// Add it to the history list, then remove it if more than the
+				// appropriate quantity of time has passed.
+				[pxInteractiveObjectTouchUpHistoryList addObject:touchEvent];
+				[pxInteractiveObjectTouchUpHistoryList performSelector:@selector(removeObject:) withObject:touchEvent afterDelay:PXEngineTapDuration];
+			}
 		}
 	}
 
-	PXTouchEvent *sendEvent;
+	// Retain ourselves prior to dispatching an event.
+	[self retain];
 
-	// Send a tap event out if we are listening to it.
-	if (listenToTap == YES)
+	BOOL didDispatch = [super dispatchEvent:event];
+
+	// Only send a tap event if our main event has been dispatched properly, and
+	// if we actually want to send one.
+	if (didDispatch == YES && sendTap == YES)
 	{
-		sendEvent = [[PXTouchEvent alloc] initWithType:PXTouchEvent_Tap
-										   nativeTouch:touch
-												stageX:touchPosition.x
-												stageY:touchPosition.y
-											  tapCount:tapCount];
+		UITouch *touch = ((PXTouchEvent *)event).nativeTouch;
 
-		sendEvent->_target = self;
-		[self dispatchEvent:sendEvent];
-		[sendEvent release];
+		// Make the tap event
+		PXTouchEvent *tapEvent = [[PXTouchEvent alloc] initWithType:PXTouchEvent_Tap
+														 nativeTouch:touch
+															  stageX:touchPosition.x
+															  stageY:touchPosition.y
+															tapCount:tapCount];
+
+		// Target of course is ourself
+		tapEvent->_target = self;
+		[self dispatchEvent:tapEvent];
+		[tapEvent release];
 	}
 
-	// Manually update the tap count for the event.
-	event->_tapCount = tapCount;
+	// Release ourselves after dispatching the event
+	[self release];
 
-	// Add it to the history list, then remove it if more than the t
-	[touchUpHistoryList addObject:event];
-	[touchUpHistoryList performSelector:@selector(removeObject:) withObject:event afterDelay:PXEngineTapDuration];
-}
-- (void) pxInteractiveObjectOnTouchCancel:(PXTouchEvent *)event
-{
-	// Remove the touch from the list -> if this is a real cancel event, then it
-	// will never get added to the history.
-	[touchList removeObject:event.nativeTouch];
+	return didDispatch;
 }
 
 @end

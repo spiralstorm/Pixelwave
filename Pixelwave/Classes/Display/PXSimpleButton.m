@@ -171,40 +171,40 @@
 - (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState hitTestState:(id<NSObject>)_hitTestState
 {
 	self = [super init];
-	
+
 	if (self)
 	{
 		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
-		
+
 		autoInflateAmount = 60.0f;
-		
+
 		downState = nil;
 		upState = nil;
 		hitTestState = nil;
-		
+
 		enabled = YES;
-		
+
 		visibleState = _PXSimpleButtonVisibleState_Up;
-		
-		listOfTouches = [[PXLinkedList alloc] init];
-		
+
+		pxSimpleButtonTouchList = [[PXLinkedList alloc] init];
+
 		// Don't set any states until after the listeners are made.
 		self.downState = _downState;
 		self.upState = _upState;
 		self.hitTestState = _hitTestState;
 	}
-	
+
 	return self;
 }
 
 - (void) dealloc
 {
-	[listOfTouches release];
-	
+	[pxSimpleButtonTouchList release];
+
 	self.downState = nil;
 	self.upState = nil;
 	self.hitTestState = nil;
-	
+
 	[super dealloc];
 }
 
@@ -224,7 +224,7 @@
  *
  * The #PXRectangle object created for the #hitTestState is sized to match the #upState
  * display object if one is provided, or the size of the #downState display object otherswise.
- * 
+ *
  * Because the #hitTestState will be a #PXRectangle object it will be
  * automatically expanded when the button is pressed as specified by #autoInflateAmount.
  *
@@ -233,14 +233,13 @@
  *
  * @see PXRectangle;
  */
-- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState
-	hitRectWithPadding:(float)hitRectPadding
+- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState hitRectWithPadding:(float)hitRectPadding
 {	
 	// Create a rectangle of the size of the 'upState' or the 'downState' if the
 	// 'upState' is not provided.
 
 	hitAreaIsRect = YES;
-	
+
 	PXRectangle *bounds = nil;
 	PXDisplayObject *checkState = (_upState == nil) ? _downState : _upState;
 
@@ -261,11 +260,11 @@
 
 	hitAreaIsRect = NO;
 
-	if ([newState isKindOfClass:[PXDisplayObject class]])
+	if ([newState isKindOfClass:[PXDisplayObject class]] == YES)
 	{
 		hitTestState = [(PXDisplayObject *)newState retain];
 	}
-	else if ([newState isKindOfClass:[PXRectangle class]])
+	else if ([newState isKindOfClass:[PXRectangle class]] == YES)
 	{
 		hitAreaIsRect = YES;
 		hitAreaRect = PXRectangleToCGRect((PXRectangle *)newState);
@@ -281,78 +280,76 @@
 - (id<NSObject>) hitTestState
 {
 	if (hitAreaIsRect)
-	{
 		return PXRectangleFromCGRect(hitAreaRect);
-	}
-	else
-	{
-		return hitTestState;
-	}
+
+	return hitTestState;
 }
 
 - (BOOL) dispatchEvent:(PXEvent *)event
 {
 	[self retain];
-	BOOL dispatched = [super dispatchEvent:event];
-	
-	if (!dispatched)
-		return NO;
-	
-	// It's important to do this logic afterwards so that we're not changing
-	// this hit area BEFORE a touch up event, which will cause tap to
-	// not fire if the touch was in the buffer zone.
-	if ([event isKindOfClass:[PXTouchEvent class]])
+
+	BOOL didDispatch = [super dispatchEvent:event];
+
+	if (didDispatch == YES)
 	{
-		PXTouchEvent *touchEvent = (PXTouchEvent *)event;
-		NSString *eventType = touchEvent.type;
-		
-		if ([eventType isEqualToString:PXTouchEvent_TouchDown])
+		// It's important to do this logic afterwards so that we're not changing
+		// this hit area BEFORE a touch up event, which will cause tap to not fire
+		// if the touch was in the buffer zone.
+		if ([event isKindOfClass:[PXTouchEvent class]])
 		{
-			[listOfTouches addObject:touchEvent.nativeTouch];
-			
-			visibleState = _PXSimpleButtonVisibleState_Down;
-			
-			isPressed = YES;
-		}
-		else if ([eventType isEqualToString:PXTouchEvent_TouchMove])
-		{
-			// Checking the auto expand rect is automatically done
-			if (touchEvent.insideTarget == YES)
+			PXTouchEvent *touchEvent = (PXTouchEvent *)event;
+			NSString *eventType = touchEvent.type;
+
+			if ([eventType isEqualToString:PXTouchEvent_TouchDown])
 			{
+				[pxSimpleButtonTouchList addObject:touchEvent.nativeTouch];
+
 				visibleState = _PXSimpleButtonVisibleState_Down;
+
+				isPressed = YES;
 			}
-			else
+			else if ([eventType isEqualToString:PXTouchEvent_TouchMove])
 			{
-				visibleState = _PXSimpleButtonVisibleState_Up;
+				// Checking the auto expand rect is automatically done
+				if (touchEvent.insideTarget == YES)
+				{
+					visibleState = _PXSimpleButtonVisibleState_Down;
+				}
+				else
+				{
+					visibleState = _PXSimpleButtonVisibleState_Up;
+				}
 			}
-		}
-		else if ([eventType isEqualToString:PXTouchEvent_TouchUp] ||
-				 [eventType isEqualToString:PXTouchEvent_TouchCancel])
-		{
-			[listOfTouches removeObject:touchEvent.nativeTouch];
-			
-			if ([listOfTouches count] == 0)
+			else if ([eventType isEqualToString:PXTouchEvent_TouchUp] ||
+					 [eventType isEqualToString:PXTouchEvent_TouchCancel])
 			{
-				visibleState = _PXSimpleButtonVisibleState_Up;
+				[pxSimpleButtonTouchList removeObject:touchEvent.nativeTouch];
+
+				if ([pxSimpleButtonTouchList count] == 0)
+				{
+					visibleState = _PXSimpleButtonVisibleState_Up;
+				}
+
+				isPressed = NO;
 			}
-			
-			isPressed = NO;
 		}
 	}
+
 	[self release];
-	
-	return dispatched;
+
+	return didDispatch;
 }
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
 	*retBounds = CGRectZero;
 
-	if (hitAreaIsRect)
+	if (hitAreaIsRect == YES)
 	{
 		*retBounds = [self currentHitAreaRect];
 	}
-	else if (hitTestState)
+	else if (hitTestState != nil)
 	{
 		// Ask the hit test for the GLOBAL bounds, because it needs to take
 		// any children it may have into affect.
@@ -362,11 +359,11 @@
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
-	if (hitAreaIsRect)
+	if (hitAreaIsRect == YES)
 	{
 		return CGRectContainsPoint([self currentHitAreaRect], CGPointMake(x, y));
 	}
-	else if (hitTestState)
+	else if (hitTestState != nil)
 	{
 		return [hitTestState _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag];
 	}
@@ -376,7 +373,7 @@
 
 - (CGRect) currentHitAreaRect
 {
-	if (isPressed)
+	if (isPressed == YES)
 	{
 		float amount = -autoInflateAmount;
 
@@ -405,7 +402,7 @@
 			break;
 	}
 
-	if (visibleStateDisp)
+	if (visibleStateDisp != nil)
 	{
 		PXEngineRenderDisplayObject(visibleStateDisp, YES, NO);
 	}
