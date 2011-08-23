@@ -1,8 +1,26 @@
+Version 0.13.0 (Aug 23, 2011)
+==============
+
+New
+---
+- Added support for the `PXEvent_Render` event.
+- Added `[PXStage invalidate]` method which lets the engine know it should invoke a `render` event.
+- Added the `[PXSprite hitArea]` property, based on the same one in AS3.
+
+Changed
+-------
+- Turned on the `skipInstall` property for Xcode projects. This helps when creating an ad hoc executable with Xcode 4.
+- Made `tap` event dispatching slightly more efficient.
+
+Fixed
+-----
+- Graphics bug involving rendering gl point sprites.
+
 Version 0.12.0 (Aug 12, 2011)
 ==============
 
 New
-----
+---
 - PXSimpleButton has been improved a bit:
 	- The hitTestState can now be either a PXDisplayObject _or_ a PXRectangle (was just PXDisplayObject).
 	- When the hitTestState is a PXRectangle the hit area is automatically inflated when the button is pressed for a smoother user experience (similar to buttons in UIKit).
@@ -19,7 +37,7 @@ Version 0.11.0 (Aug. 7, 2011)
 ==============
 
 New
-----
+---
 - PXTexture display object now supports specifying extra inner padding and a content rotation offset.
 - Added an official Pixelwave texture atlas which supports some common file formats (TexturePacker and Zwoptex), and is extendable.
 - Embedded the TouchJSON library in Pixelwave. Used for parsing texture atlas JSON files.
@@ -39,7 +57,7 @@ New
 - In PixelKit, the Box2DTouchPicker now dispatches events when a pick starts and ends, allowing the user to cancel certain ones.
 
 Changed
---------
+-------
 - Renamed the <PXEventDispatcherProtocol> to <PXEventDispatcher>. This seems to better match the way Apple does things (with the NSObject class the the <NSObject> protocol).
 - Renamed the method [PXEvent initWithType:doesBubble:isCancelable:] to [PXEvent initWithType:bubbles:cancelable:] (better following naming conventions).
 - The touch system has been redesigned to be more user friendly:
@@ -73,7 +91,7 @@ Version 0.10.1 (Apr. 7, 2011)
 ==============
 
 New
-----
+---
 - Revamped the way OpenGL is wrapped by Pixelwave (This is an internal change):
 	- Prior to _renderGL the 'gl state' is reset to the default - thus you do not need to enable/disable anything you aren't using prior to rendering.
 	- PXDisplayObject now has _glState which is a preset to define your glEnable's and glClientStateEnable's prior to each render call.
@@ -95,7 +113,7 @@ Version 0.10.0 (Mar. 8, 2011)
 ==============
 
 New
-----
+---
 - Sounds, textures, and fonts can now be loaded from file or from a URL. Sound, TextureData, and Font objects can also be created from raw bytes (NSData).
 - Added ability to modify data at load-time through PXSoundModifier and PXTextureModifier. Can be used to convert pixel formats, make a sound mono, etc. Very powerful!
 - Added a regex library, based on the Java regex lib. New classes are PXRegexMatcher and PXRegexPattern. Built on top of the C based TRE library.
@@ -112,7 +130,7 @@ New
 - Added a new sample project (CustomFont) that shows how to load custom fonts in the Angelcode format. It also shows how to use the new automatic orientation system.
 
 Changed
---------
+-------
 - The internal loading code has been overhauled and is now much more flexible. The same powerful external interface remains though some method names have been changed.
 With the new system, loaders only load data, and the actual parsing is offloaded to the appropriate PXParser object.
 Both parsing and loading can be done on a separate thread. 'newing' such as 'newFont', 'newSound' and 'newTextureData' has to be done on the main thread.
@@ -138,7 +156,7 @@ Version 0.9.2 (Feb. 2, 2011)
 =============
 
 New
-----
+---
 - Added [warmUp] method to SoundMixer, to initialize the sound engine explicitly.
 - Added [objectsUnderPoint] method to PXDisplayObjectContainer, to grab a list of objects that contain the given point.
 - Added [addObjectsFromList] method to PXLinkedList, to add all elements from one list to another.
@@ -159,7 +177,7 @@ Version 0.9.1 (Dec. 31, 2010)
 =============
 
 New
-----
+---
 - Added PixelKit framework.
 - Added PixelKit option to 'Blank Project' Xcode template.
 - Added Box2D support and 'Box2D project' Xcode template.
