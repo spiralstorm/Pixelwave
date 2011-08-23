@@ -1,20 +1,25 @@
 Version 0.12.0 (Aug 12, 2011)
 ==============
-NEW:
+
+New
+----
 - PXSimpleButton has been improved a bit:
 	- The hitTestState can now be either a PXDisplayObject _or_ a PXRectangle (was just PXDisplayObject).
 	- When the hitTestState is a PXRectangle the hit area is automatically inflated when the button is pressed for a smoother user experience (similar to buttons in UIKit).
 	- The amount of inflation can be controlled via a new property in PXSimpleButton named autoInflateAmount.
 - General improvement of API documentation.
 
-CHANGED
+Changed
+-------
 - Moved over to using appledoc 2.x for API documentation.
 - Improved the documentation generation tool.
 
 
 Version 0.11.0 (Aug. 7, 2011)
 ==============
-NEW:
+
+New
+----
 - PXTexture display object now supports specifying extra inner padding and a content rotation offset.
 - Added an official Pixelwave texture atlas which supports some common file formats (TexturePacker and Zwoptex), and is extendable.
 - Embedded the TouchJSON library in Pixelwave. Used for parsing texture atlas JSON files.
@@ -28,12 +33,13 @@ NEW:
 - When loading a texture and its size needs to be expanded, Pixelwave will now automatically extrude the edges of the image (for smoother antialiasing). This can be turned off.
 - PXTextureData now has a method to draw the contents of another texture data directly.
 - The main stage object can now be accessed statically with the new [PXStage mainStage] method.
-- PXView can now be made translucent by setting its opaque property to NO and making sure that its color quality is 'high'
+- PXView can now be made translucent by setting its opaque property to NO and making sure that its color quality is 'high'.
 - Added a sample project to show usage of a texture atlas.
 - Re-skinned the Newton's cradle sample. It now uses a texture atlas as well.
 - In PixelKit, the Box2DTouchPicker now dispatches events when a pick starts and ends, allowing the user to cancel certain ones.
 
-CHANGED:
+Changed
+--------
 - Renamed the <PXEventDispatcherProtocol> to <PXEventDispatcher>. This seems to better match the way Apple does things (with the NSObject class the the <NSObject> protocol).
 - Renamed the method [PXEvent initWithType:doesBubble:isCancelable:] to [PXEvent initWithType:bubbles:cancelable:] (better following naming conventions).
 - The touch system has been redesigned to be more user friendly:
@@ -54,7 +60,8 @@ CHANGED:
 - All public methods now use only NSArray objects for lists (as opposed to PXLinkedList).
 - Removed all (of 1) deprecated methods.
 
-FIXED:
+Fixed
+-----
 - General clean up including fixing several memory leaks, reorganizing code, and doing performance enhancements.
 - Now the '-all_load' linked flag (which is required by some frameworks) won't prevent Pixelwave from compiling.
 - Fixed a bug with PXDebug.halveStage not being applied to touches.
@@ -64,26 +71,32 @@ FIXED:
 
 Version 0.10.1 (Apr. 7, 2011)
 ==============
-NEW:
+
+New
+----
 - Revamped the way OpenGL is wrapped by Pixelwave (This is an internal change):
 	- Prior to _renderGL the 'gl state' is reset to the default - thus you do not need to enable/disable anything you aren't using prior to rendering.
 	- PXDisplayObject now has _glState which is a preset to define your glEnable's and glClientStateEnable's prior to each render call.
 
-CHANGED:
-- Changed NSObject* parameters and return-types to id where ever possible. (Thanks Bekenn)
-- Removed the project version from the source comment-block headers (It got a bit annoying changing them every time…)
+Changed
+--------
+- Changed NSObject* parameters and return-types to id where ever possible. (Thanks Bekenn).
+- Removed the project version from the source comment-block headers (It got a bit annoying changing them every time).
 
-FIXED:
-- Implemented fix for removing the 'white' flash upon load of the app. (Thanks Bekenn)
-- Implemented the (missing) "doubleTap" event (PX_TOUCH_EVENT_DOUBLE_TAP). (Thanks Alex)
-- Fixed Box2D bug described in: http://www.box2d.org/forum/viewtopic.php?f=4&t=5269 (Thanks sumiguchi)
-- Fixed the touch cancel bug. (Thanks Bekenn)
-- Fixed touch positions being calculated incorrectly for iOS 3.x (Thanks makzan)
+Fixed
+-----
+- Implemented fix for removing the 'white' flash upon load of the app (Thanks Bekenn).
+- Implemented the (missing) "doubleTap" event (PX_TOUCH_EVENT_DOUBLE_TAP) (Thanks Alex).
+- Fixed Box2D bug described in: http://www.box2d.org/forum/viewtopic.php?f=4&t=5269 (Thanks sumiguchi).
+- Fixed the touch cancel bug (Thanks Bekenn).
+- Fixed touch positions being calculated incorrectly for iOS 3.x (Thanks makzan).
 
 Version 0.10.0 (Mar. 8, 2011)
 ==============
-NEW:
-- Sounds, textures, and fonts can now be loaded from file or from a URL. Sound, TextureData, and Font objects can also be created from raw bytes (NSData)
+
+New
+----
+- Sounds, textures, and fonts can now be loaded from file or from a URL. Sound, TextureData, and Font objects can also be created from raw bytes (NSData).
 - Added ability to modify data at load-time through PXSoundModifier and PXTextureModifier. Can be used to convert pixel formats, make a sound mono, etc. Very powerful!
 - Added a regex library, based on the Java regex lib. New classes are PXRegexMatcher and PXRegexPattern. Built on top of the C based TRE library.
 - Added support for loading custom fonts in the Angelcode format (.fnt). This is the new suggested way to build and load fonts in Pixelwave.
@@ -98,56 +111,64 @@ NEW:
 - Added support for automatic orientation detection. If you want Pixelwave to automatically rotate your app to match the device's orientation set stage.autoOrients = YES.
 - Added a new sample project (CustomFont) that shows how to load custom fonts in the Angelcode format. It also shows how to use the new automatic orientation system.
 
-CHANGED:
+Changed
+--------
 - The internal loading code has been overhauled and is now much more flexible. The same powerful external interface remains though some method names have been changed.
 With the new system, loaders only load data, and the actual parsing is offloaded to the appropriate PXParser object.
-Both parsing and loading can be done on a separate thread. 'newing' such as 'newFont', 'newSound' and 'newTextureData'
-has to be done on the main thread.
+Both parsing and loading can be done on a separate thread. 'newing' such as 'newFont', 'newSound' and 'newTextureData' has to be done on the main thread.
+
 - Updated the existing sample projects to work with the new loading method names.
 - If you want a texture font (which almost all cases you do), then you must now supply the PXFontLoader with a PXTextureFontOptions object. The size to load, and character sets are now stored there.
 - Added kerning capabilities (only supported with some fonts).
-- Deleted autoresizesSurface property from PXView. Default behavior is always YES
-- Renamed [PXDisplayObject getBoundsWith...] to [PXDisplayObject boundsWith...] (Objective-C-afied)
-- Renamed [PXDisplayObject getRectWith...] to [PXDisplayObject rectWith] (Objective-C-afied)
-- Added dates to changelog entries
+- Deleted autoresizesSurface property from PXView. Default behavior is always YES.
+- Renamed [PXDisplayObject getBoundsWith...] to [PXDisplayObject boundsWith...] (Objective-C-afied).
+- Renamed [PXDisplayObject getRectWith...] to [PXDisplayObject rectWith] (Objective-C-afied).
+- Added dates to changelog entries.
 
-FIXED:
+Fixed
+-----
 - Made PXTextField a PXInteractiveObject. It can now be touched and interacted with directly.
 - Now PXTextField will tell you the correct width and height if asking for it prior to rendering.
-- Typo of 'measureLocalBound' it should have been 'measureLocalBounds'
-- PXDebug.halveStage now draws the magenta border above everything (was under)
+- Typo of 'measureLocalBound' it should have been 'measureLocalBounds'.
+- PXDebug.halveStage now draws the magenta border above everything (was under).
 - Fixed 'multiplyUp' recognized in getBoundsWithCoordinateSpace of DisplayObject (Thanks to Bekenn!).
-- Fixed internal representation of EAGL layer, to position the bottom-left hand corner of the OpenGL context as (0,0)
+- Fixed internal representation of EAGL layer, to position the bottom-left hand corner of the OpenGL context as (0,0).
 
 Version 0.9.2 (Feb. 2, 2011)
 =============
-NEW:
-- Added [warmUp] method to SoundMixer, to initialize the sound engine explicitly
+
+New
+----
+- Added [warmUp] method to SoundMixer, to initialize the sound engine explicitly.
 - Added [objectsUnderPoint] method to PXDisplayObjectContainer, to grab a list of objects that contain the given point.
 - Added [addObjectsFromList] method to PXLinkedList, to add all elements from one list to another.
 
-FIXED:
-- SystemFontRenderer wasn't taking screen's scaleFactor into account (broken in 0.9.1)
-- Sound system now correctly handles audio session interruptions for OpenAL + AVAudioPlayer
-- SoundEngine now pauses/resumes correctly during an audio session interruption
+Fixed
+-----
+- SystemFontRenderer wasn't taking screen's scaleFactor into account (broken in 0.9.1).
+- Sound system now correctly handles audio session interruptions for OpenAL + AVAudioPlayer.
+- SoundEngine now pauses/resumes correctly during an audio session interruption.
 - Fixed a bug in DisplayObject where ENTER_FRAME_EVENT string was being compared with == instead of [isEqualToString:]
 - Fixed a memory leak when a sound channel could not be created because too many sounds were playing.  Now if you try to play a sound and it can not happen it returns nil instead.
-- Fixed a bug where [TextureData drawDisplayObject:] sometimes clipped off the rendering area
+- Fixed a bug where [TextureData drawDisplayObject:] sometimes clipped off the rendering area.
 - Fixed bug where PXDisplayObject.root returned the stage instead of the root (Thanks to makzan!).
-- Render to texture works with content scale factor properly. Fixed other TextureData.draw bugs
-- Renamed [PXDisplayObject _measureLocalBound] to [_measureLocalBounds] (was a typo)
+- Render to texture works with content scale factor properly. Fixed other TextureData.draw bugs.
+- Renamed [PXDisplayObject _measureLocalBound] to [_measureLocalBounds] (was a typo).
 
 Version 0.9.1 (Dec. 31, 2010)
 =============
-NEW:
-- Added PixelKit framework
-- Added PixelKit option to 'Blank Project' Xcode template
-- Added Box2D support and 'Box2D project' Xcode template
 
-FIXED:
-- Fixed several template issues
-- Fixed HelloWorld sample, so it doesn't crash on iPad
+New
+----
+- Added PixelKit framework.
+- Added PixelKit option to 'Blank Project' Xcode template.
+- Added Box2D support and 'Box2D project' Xcode template.
+
+Fixed
+-----
+- Fixed several template issues.
+- Fixed HelloWorld sample, so it doesn't crash on iPad.
 
 Version 0.9.0 (Dec. 25, 2010)
 =============
-- Initial beta release
+- Initial beta release.
