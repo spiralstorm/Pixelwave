@@ -77,31 +77,30 @@ typedef enum
 @property (nonatomic, retain) PXDisplayObject *upState;
 /**
  * A PXDisplayObject or PXRectangle that specifies the hit area for the button.
- * If `nil` is specified then no interaction can exist on this
- * button. If neither a PXDisplayObject nor PXRectangle are specified, a debug
- * message will be printed and it will be treated as though `nil`
- * were passed instead.
+ * If `nil` is specified then no interaction can exist on this button. If
+ * neither a PXDisplayObject nor PXRectangle are specified, a debug message will
+ * be printed and it will be treated as though `nil` were passed instead.
  *
  * @warning: The hit test state will never be rendered. It is only used to
  * represent the button's touchable area.
- *
  */
 @property (nonatomic, retain) id<NSObject> hitTestState;
 
 /// @name Setting the button's hit area
 
 /**
- * The amount of padding (in points) to apply to the rectangular
- * hit area when the button is pressed down.
+ * The amount of padding (in points) to apply to the rectangular hit area when
+ * the button is pressed down.
  * 
- * To turn off automatic inflation of the hit area simply set this value to 0. A negative value will
- * deflate the hit area when the button is pressed instead.
+ * To turn off automatic inflation of the hit area simply set this value to 0. A
+ * negative value will deflate the hit area when the button is pressed instead.
  *
  * _Default:_ 60.0
  *
- * @warning The bounds of the button's hit area will only be inflated
- * if the #hitTestState of the button is an object of type #PXRectangle.
- * If #hitTestState is a #PXDisplayObject instead, this value will simply be ignored.
+ * @warning The bounds of the button's hit area will only be inflated if the
+ * #hitTestState of the button is an object of type #PXRectangle. If
+ * #hitTestState is a #PXDisplayObject instead, this value will simply be
+ * ignored.
  */
 @property (nonatomic, assign) float autoInflateAmount;
 
