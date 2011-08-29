@@ -123,7 +123,7 @@
 		if (!realClass)
 		{
 			[self release];
-			return self;
+			return nil;
 		}
 
 		// Make the new parser.
