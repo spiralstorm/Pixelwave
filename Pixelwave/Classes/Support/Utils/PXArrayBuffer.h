@@ -47,9 +47,9 @@
 //#define PX_ARRAY_BUFFER_MAX_CHECKPOINTS 4
 
 #define PXArrayBufferForEach(_array_, _obj_) \
-	unsigned PX_UNIQUE_VAR(_index_); \
-	unsigned PX_UNIQUE_VAR(_count_) = 0; \
-	unsigned PX_UNIQUE_VAR(_size_) = 0; \
+	unsigned int PX_UNIQUE_VAR(_index_); \
+	unsigned int PX_UNIQUE_VAR(_count_) = 0; \
+	unsigned int PX_UNIQUE_VAR(_size_) = 0; \
 	uint8_t *PX_UNIQUE_VAR(_bytes_) = NULL;\
 \
 	if (_array_) \
@@ -64,9 +64,9 @@
 		 ++PX_UNIQUE_VAR(_index_), (PX_UNIQUE_VAR(_bytes_)) += (PX_UNIQUE_VAR(_size_)), (_obj_) = (void *)(PX_UNIQUE_VAR(_bytes_)))
 
 #define PXArrayBufferPtrForEach(_array_, _obj_) \
-	unsigned PX_UNIQUE_VAR(_index_); \
-	unsigned PX_UNIQUE_VAR(_count_) = 0; \
-	unsigned PX_UNIQUE_VAR(_size_) = 0; \
+	unsigned int PX_UNIQUE_VAR(_index_); \
+	unsigned int PX_UNIQUE_VAR(_count_) = 0; \
+	unsigned int PX_UNIQUE_VAR(_size_) = 0; \
 	uint8_t *PX_UNIQUE_VAR(_bytes_) = NULL;\
 \
 	if (_array_) \

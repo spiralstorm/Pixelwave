@@ -53,9 +53,9 @@
 
 @interface PXTextureAtlas(Private)
 - (id) initWithData:(NSData *)data
-	   scaleFactor:(float)scaleFactor
-		  modifier:(id<PXTextureModifier>)modifier
-			origin:(NSString *)origin;
+		scaleFactor:(float)scaleFactor
+		   modifier:(id<PXTextureModifier>)modifier
+			 origin:(NSString *)origin;
 @end
 
 /**
@@ -219,7 +219,7 @@
 
 	[self release];
 
-	if (!parser)
+	if (parser == nil)
 	{
 		return nil;
 	}
@@ -320,7 +320,8 @@
 - (void) removeFrame:(NSString *)name
 {
 	PXAtlasFrame *frame = (PXAtlasFrame *)[frames objectForKey:name];
-	if (!frame)
+
+	if (frame == nil)
 		return;
 	
 	[frames removeObjectForKey:name];
@@ -422,7 +423,8 @@
 - (PXTexture *)textureForFrame:(NSString *)name
 {
 	PXAtlasFrame *frame = [self frameWithName:name];
-	if (!frame)
+
+	if (frame == nil)
 		return nil;
 	
 	PXTexture *texture = [PXTexture texture];
@@ -445,10 +447,11 @@
 - (void) setFrame:(NSString *)name toTexture:(PXTexture *)texture
 {
 	PXAtlasFrame *frame = [self frameWithName:name];
-	if (!frame)
-		return;
-	
-	[frame setToTexture:texture];
+
+	if (frame != nil)
+	{
+		[frame setToTexture:texture];
+	}
 }
 
 // Static
@@ -482,9 +485,12 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 {
 	int indexA = [((NSNumber *)[frameA objectForKey:@"index"]) intValue];
 	int indexB = [((NSNumber *)[frameB objectForKey:@"index"]) intValue];
-	
-	if (indexA > indexB) return 1;
-	if (indexA < indexB) return -1;
+
+	if (indexA > indexB)
+		return 1;
+	if (indexA < indexB)
+		return -1;
+
 	return 0;
 }
 
@@ -504,7 +510,8 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
  */
 - (NSArray *)framesWithNames:(NSArray *)names
 {
-	if (!names) return nil;
+	if (names == nil)
+		return nil;
 	
 	NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:[names count]];
 	
@@ -513,9 +520,11 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 	for (NSString *name in names)
 	{
 		frame = [self frameWithName:name];
-		if (!frame) continue;
-		
-		[array addObject:frame];
+
+		if (frame != nil)
+		{
+			[array addObject:frame];
+		}
 	}
 	
 	return [array autorelease];
@@ -544,12 +553,14 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 		matcher.input = frameName;
 		matched = [matcher next];
 		
-		if (matched == NO) continue;
+		if (matched == NO)
+			continue;
 		
 		frame = [self frameWithName:frameName];
 		
 		// Just to be extra cautious:
-		if (frame == nil) continue;
+		if (frame == nil)
+			continue;
 		
 		[array addObject:frame];
 	}
@@ -608,11 +619,14 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 	for (frameName in frames)
 	{
 		// Find the location of the index string, if any.
-		if (prefix)
+		if (prefix != nil)
 		{
 			range = [frameName rangeOfString:prefix options:(NSCaseInsensitiveSearch)];
-			if (range.location == NSNotFound) continue;
-			if (range.location != 0) continue;
+
+			if (range.location == NSNotFound)
+				continue;
+			if (range.location != 0)
+				continue;
 			
 			numberStartIndex = range.location + range.length;
 		}
@@ -623,11 +637,14 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 		
 		frameNameLength = [frameName length];
 		
-		if (suffix)
+		if (suffix != nil)
 		{
 			range = [frameName rangeOfString:suffix options:(NSCaseInsensitiveSearch | NSBackwardsSearch)];
-			if (range.location == NSNotFound) continue;
-			if (range.location + range.length != frameNameLength) continue;
+
+			if (range.location == NSNotFound)
+				continue;
+			if (range.location + range.length != frameNameLength)
+				continue;
 			
 			numberEndIndex = range.location;
 		}
@@ -660,7 +677,8 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 		
 		frame = [self frameWithName:frameName];
 		
-		if (!frame) continue;
+		if (frame == nil)
+			continue;
 		
 		// Found the frame. We wrap the frame inside a dictionary, along with its index.
 		// Then we add it to a list, which will be sorter at the end.

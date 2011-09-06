@@ -245,7 +245,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 		//Loop on each listener and see if it has a higher priority
 
 		int index = 0;
-		int len = [listenersArray count];
+		int count = [listenersArray count];
 
 		PXEventListener *cListener = nil;
 		PXLinkedListForEach(listenersArray, cListener)
@@ -261,7 +261,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 		// Looks like all the items have a higher or = priority, just add at the
 		// end
-		if (index == len)
+		if (index == count)
 		{
 			[listenersArray addObject:listener];
 		}
