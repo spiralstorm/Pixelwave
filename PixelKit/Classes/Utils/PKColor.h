@@ -40,7 +40,7 @@
 #ifndef _PK_COLOR_H_
 #define _PK_COLOR_H_
 
-#import "PXPrivateUtils.h"
+#import "PXHeaderUtils.h"
 #import "PKInterpolater.h"
 
 #ifdef __cplusplus

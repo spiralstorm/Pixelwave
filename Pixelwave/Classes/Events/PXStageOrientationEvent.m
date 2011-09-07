@@ -72,8 +72,8 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
  * @param afterOrientation The new orientation of the stage.
  */
 - (id) initWithType:(NSString *)type
-		 bubbles:(BOOL)bubbles
-	   cancelable:(BOOL)cancelable
+			bubbles:(BOOL)bubbles
+		 cancelable:(BOOL)cancelable
   beforeOrientation:(PXStageOrientation)_beforeOrientation
    afterOrientation:(PXStageOrientation)_afterOrientation
 {
