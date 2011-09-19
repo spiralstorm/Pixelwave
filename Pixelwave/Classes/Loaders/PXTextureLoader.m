@@ -312,10 +312,10 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 - (NSString *)updatePath:(NSString *)path
 {
 	// If no file extension was provided, try to find one
-	path = [PXTextureLoader resolvePathForImageFile:path];
+	NSString *resolvedPath = [PXTextureLoader resolvePathForImageFile:path];
 	
-	if (!path)
-		return nil;
+	if (resolvedPath)
+		return path = resolvedPath;
 
 	float scaleFactor = 0.0f;
 	path = [PXLoader pathForRetinaVersionOfFile:path retScale:&scaleFactor];
@@ -353,7 +353,8 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 + (NSString *)resolvePathForImageFile:(NSString *)fileName
 {
 	// If the provided file exists, no need to look further
-	if ([PXLoader fileExistsAtPath:fileName]) return fileName;
+	if ([PXLoader fileExistsAtPath:fileName])
+		return fileName;
 	
 	// Otherwise, try to see if there's a different sibling file with the
 	// same name but a different extension that we can read.

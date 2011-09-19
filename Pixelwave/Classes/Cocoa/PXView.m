@@ -518,7 +518,7 @@
 }
 - (PXDisplayObject *)root
 {
-	return PXEngineGetRoot( );
+	return PXEngineGetRoot();
 }
 
 #pragma mark  EAGL
