@@ -91,9 +91,9 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 
 - (BOOL) _parseWithModifier:(id<PXTextureModifier>)modifier
 {
-	////////////////////
-	// Parse the JSON //
-	////////////////////
+	/////////////////////
+	// Parse the PList //
+	/////////////////////
 	
 	NSDictionary *dict = [PXZwopAtlasParser dictionaryFromData:data];
 	
@@ -122,16 +122,18 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 	
 	NSString *imagePath = nil;
 	
-	// Limitations due to current JSON file not storing the image name:
+	// Limitations due to current PList file not storing the image name:
 	{
-		// Since the current JSON file format doesn't tell us the name of the image
-		// file, we can't load it unless the atlas was loaded from the hard-drive
+		// Since the current PList file format doesn't tell us the name of the
+		// image file, we can't load it unless the atlas was loaded from the
+		// hard-drive
 		if (!origin)
 			return NO;
 		
-		// Since the current JSON file doesn't tell us the name of the image,
-		// we have to assume that it's the same as the atlas file name. But since
-		// we don't know the extension we have to try all the possible ones.
+		// Since the current PList file doesn't tell us the name of the image,
+		// we have to assume that it's the same as the atlas file name. But
+		// since we don't know the extension we have to try all the possible
+		// ones.
 		imagePath = [PXTextureLoader resolvePathForImageFile:[origin stringByDeletingPathExtension]];		
 		if (!imagePath)
 			return NO;
@@ -203,16 +205,6 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 		frame.origin.y *= invScaleFactor;
 		frame.size.width *= invScaleFactor;
 		frame.size.height *= invScaleFactor;
-
-		// When an image is rotated, TexturePacker doesn't rotate the clip
-		// coordinates. That means we have to do it.
-		if (rotated)
-		{
-			float tmp = frame.size.width;
-			
-			frame.size.width = frame.size.height;
-			frame.size.height = tmp;
-		}
 
 		// Register the name
 		cFrame = [self _addFrameWithName:frameName];
