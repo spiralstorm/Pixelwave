@@ -658,6 +658,8 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PixelKit_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PixelKit;
@@ -676,6 +678,8 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PixelKit_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PixelKit;

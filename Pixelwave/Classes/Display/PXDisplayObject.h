@@ -342,4 +342,3 @@ typedef enum
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag;
 - (void) _measureLocalBounds:(CGRect *)retBounds;
 @end
-	

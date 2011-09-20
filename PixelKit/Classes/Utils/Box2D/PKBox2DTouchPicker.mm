@@ -93,7 +93,7 @@ public:
 @property (nonatomic, readonly) b2MouseJoint *joint;
 @property (nonatomic, readonly) b2Fixture *fixture;
 
-@property (nonatomic) b2Vec2 position;
+@property (nonatomic, assign) b2Vec2 position;
 
 - (id) initWithWorld:(b2World *)physicsWorld fixture:(b2Fixture *)fixture nativeTouch:(UITouch *)nativeTouch;
 
@@ -342,9 +342,10 @@ public:
 	BOOL defaultPrevented = [pickerEvent isDefaultPrevented];
 	
 	[pickerEvent release];
-	
+
 	// We gave the user a chance to ignore this pick. If they did, exit.
-	if(defaultPrevented){
+	if (defaultPrevented)
+	{
 		return;
 	}
 
@@ -353,7 +354,7 @@ public:
 													  fixture:fixture
 												  nativeTouch:event.nativeTouch];
 
-	touch.position = pos;
+	[touch setPosition:pos];
 	
 	[touches addObject:touch];
 	[touch release];
@@ -372,7 +373,7 @@ public:
 			PXPoint *localPos = [self globalToLocal:event.stagePosition];
 						
 			b2Vec2 pos = b2Vec2(localPos.x, localPos.y);
-			touch.position = pos;
+			[touch setPosition:pos];
 			break;
 		}
 	}
