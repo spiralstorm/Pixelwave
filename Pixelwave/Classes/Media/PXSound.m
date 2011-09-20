@@ -126,8 +126,7 @@
 
 	if (self)
 	{
-		PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data
-																modifier:modifier];
+		PXSoundParser *soundParser = [[PXSoundParser alloc] initWithData:data modifier:modifier];
 		PXSound *newSound = [soundParser newSound];
 
 		[soundParser release];
