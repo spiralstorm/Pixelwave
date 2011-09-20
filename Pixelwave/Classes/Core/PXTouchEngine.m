@@ -15,9 +15,10 @@
 #pragma mark Variables
 #pragma mark -
 
-PXLinkedList *pxTouchEngineTouchEvents = nil;					//Strongly referenced
-PXLinkedList *pxTouchEngineRemoveFromSavedTouchEvents = nil;	//Strongly referenced
-PXLinkedList *pxTouchEngineRemoveFromCaptureTouchEvents = nil;	//Strongly referenced
+PXLinkedList *pxTouchEngineTouchEvents = nil;
+PXLinkedList *pxTouchEngineRemoveFromSavedTouchEvents = nil;
+PXLinkedList *pxTouchEngineRemoveFromCaptureTouchEvents = nil;
+PXLinkedList *pxTouchEngineTouchList = nil;
 
 // A dictionary which holds the associations between a UITouch and the object
 // which captured it.
@@ -46,6 +47,7 @@ void PXTouchEngineInit()
 	pxTouchEngineTouchEvents = [[PXLinkedList alloc] init];
 	pxTouchEngineRemoveFromSavedTouchEvents = [[PXLinkedList alloc] init];
 	pxTouchEngineRemoveFromCaptureTouchEvents = [[PXLinkedList alloc] init];
+	pxTouchEngineTouchList = [[PXLinkedList alloc] init];
 }
 
 void PXTouchEngineDealloc()
@@ -57,6 +59,9 @@ void PXTouchEngineDealloc()
 
 	[pxTouchEngineTouchEvents release];
 	pxTouchEngineTouchEvents = nil;
+
+	[pxTouchEngineTouchList release];
+	pxTouchEngineTouchList = nil;
 
 	CFRelease(pxEngineTouchCapturingObjects);
 	pxEngineTouchCapturingObjects = NULL;
@@ -557,7 +562,7 @@ id<PXEventDispatcher> PXTouchEngineGetTouchCapturingObject(UITouch *nativeTouch)
 {
 	if (nativeTouch == nil)
 		return nil;
-	
+
 	return (id<PXEventDispatcher>)CFDictionaryGetValue(pxEngineTouchCapturingObjects, nativeTouch);
 }
 
@@ -565,31 +570,21 @@ id<PXEventDispatcher> PXTouchEngineGetTouchCapturingObject(UITouch *nativeTouch)
 UITouch *PXTouchEngineGetFirstTouch()
 {
 	// No touches could exist.
-	if (pxTouchEngineTouchEvents == nil || [pxTouchEngineTouchEvents count] <= 0)
+	if (pxTouchEngineTouchEvents == nil || [pxTouchEngineTouchList count] <= 0)
 		return nil;
 
-	// Find the event
-	PXTouchEvent *event = (PXTouchEvent *)[pxTouchEngineTouchEvents objectAtIndex:0];
-
-	// Return to them the native touch
-	return event.nativeTouch;
+	return [pxTouchEngineTouchList objectAtIndex:0];
 }
 
 // Returns all NATIVE touches in our list
 PXLinkedList *PXTouchEngineGetAllTouches()
 {
-	if (pxTouchEngineTouchEvents == nil || [pxTouchEngineTouchEvents count] <= 0)
+	if (pxTouchEngineTouchEvents == nil || [pxTouchEngineTouchList count] <= 0)
 		return nil;
 
 	PXLinkedList *list = [[PXLinkedList alloc] init];
-	PXTouchEvent *event;
 
-	// Loop through the events and add them if the native touch exists.
-	for (event in pxTouchEngineTouchEvents)
-	{
-		if (event.nativeTouch != nil)
-			[list addObject:event.nativeTouch];
-	}
+	[list addObjectsFromList:pxTouchEngineTouchList];
 
 	return [list autorelease];
 }
@@ -657,6 +652,7 @@ void PXTouchEngineInvokeTouch(UITouch *touch, CGPoint *pos, NSString *type)
 
 void PXTouchEngineInvokeTouchDown(UITouch *touch, CGPoint *pos)
 {
+	[pxTouchEngineTouchList addObject:touch];
 	PXTouchEngineInvokeTouch(touch, pos, PXTouchEvent_TouchDown);
 }
 void PXTouchEngineInvokeTouchMove(UITouch *touch, CGPoint *pos)
@@ -665,9 +661,11 @@ void PXTouchEngineInvokeTouchMove(UITouch *touch, CGPoint *pos)
 }
 void PXTouchEngineInvokeTouchUp(UITouch *touch, CGPoint *pos)
 {
+	[pxTouchEngineTouchList removeObject:touch];
 	PXTouchEngineInvokeTouch(touch, pos, PXTouchEvent_TouchUp);
 }
 void PXTouchEngineInvokeTouchCancel(UITouch *touch, CGPoint *pos)
 {
+	[pxTouchEngineTouchList removeObject:touch];
 	PXTouchEngineInvokeTouch(touch, pos, PXTouchEvent_TouchCancel);
 }
