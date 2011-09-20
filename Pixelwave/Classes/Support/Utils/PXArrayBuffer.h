@@ -96,7 +96,7 @@ typedef struct
 	size_t _minSize;
 	size_t _elementSize;
 
-	unsigned count;
+	unsigned int count;
 } PXArrayBuffer;
 
 #pragma mark -
@@ -106,15 +106,17 @@ typedef struct
 PXInline PXArrayBuffer *PXArrayBufferCreate();// PX_ALWAYS_INLINE;
 PXInline void PXArrayBufferRelease(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
 
-PXInline unsigned PXArrayBufferCount(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
+PXInline unsigned int PXArrayBufferCount(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
 PXInline void *PXArrayBufferNext(PXArrayBuffer *buffer);// PX_ALWAYS_INLINE;
 PXInline void PXArrayBufferSetElementSize(PXArrayBuffer *buffer, size_t elementSize);// PX_ALWAYS_INLINE;
 
-PXInline void PXArrayBufferUpdateCount(PXArrayBuffer *buffer, unsigned count);
-PXInline void PXArrayBufferSetMinCount(PXArrayBuffer *buffer, unsigned count);
-PXInline void PXArrayBufferSetMaxCount(PXArrayBuffer *buffer, unsigned count);
+PXInline void PXArrayBufferUpdateCount(PXArrayBuffer *buffer, unsigned int count);
+PXInline void PXArrayBufferSetMinCount(PXArrayBuffer *buffer, unsigned int count);
+PXInline void PXArrayBufferSetMaxCount(PXArrayBuffer *buffer, unsigned int count);
 
 PXInline void PXArrayBufferResize(PXArrayBuffer *buffer, size_t size);// PX_ALWAYS_INLINE;
+
+PXInline void *PXArrayBufferElementAt(PXArrayBuffer *buffer, unsigned int index);
 
 PXInline void PXArrayBufferListUpdate(PXArrayBuffer *buffer,
 									  void *userData,
@@ -170,7 +172,7 @@ PXInline void PXArrayBufferResize(PXArrayBuffer *buffer, size_t size)
 	buffer->_byteCount = size;
 	buffer->array = realloc(buffer->array, buffer->_byteCount);
 }
-PXInline unsigned PXArrayBufferCount(PXArrayBuffer *buffer)
+PXInline unsigned int PXArrayBufferCount(PXArrayBuffer *buffer)
 {
 	return buffer->count;
 }
@@ -205,7 +207,7 @@ PXInline void PXArrayBufferSetElementSize(PXArrayBuffer *buffer, size_t elementS
 	buffer->_elementSize = elementSize;
 }
 
-PXInline void PXArrayBufferUpdateCount(PXArrayBuffer *buffer, unsigned count)
+PXInline void PXArrayBufferUpdateCount(PXArrayBuffer *buffer, unsigned int count)
 {
 	assert(buffer);
 
@@ -220,7 +222,7 @@ PXInline void PXArrayBufferUpdateCount(PXArrayBuffer *buffer, unsigned count)
 		PXArrayBufferResize(buffer, newSize);
 	}
 }
-PXInline void PXArrayBufferSetMinCount(PXArrayBuffer *buffer, unsigned count)
+PXInline void PXArrayBufferSetMinCount(PXArrayBuffer *buffer, unsigned int count)
 {
 	assert(buffer);
 
@@ -229,7 +231,7 @@ PXInline void PXArrayBufferSetMinCount(PXArrayBuffer *buffer, unsigned count)
 	if (buffer->_minSize > buffer->_byteCount)
 		PXArrayBufferResize(buffer, buffer->_minSize);
 }
-PXInline void PXArrayBufferSetMaxCount(PXArrayBuffer *buffer, unsigned count)
+PXInline void PXArrayBufferSetMaxCount(PXArrayBuffer *buffer, unsigned int count)
 {
 	assert(buffer);
 
@@ -237,6 +239,18 @@ PXInline void PXArrayBufferSetMaxCount(PXArrayBuffer *buffer, unsigned count)
 
 	if (byteSize > buffer->_byteCount)
 		PXArrayBufferResize(buffer, byteSize);
+}
+
+PXInline void *PXArrayBufferElementAt(PXArrayBuffer *buffer, unsigned int index)
+{
+	assert(buffer);
+
+	unsigned int count = PXArrayBufferCount(buffer);
+
+	if (count == 0 || index >= count)
+		return NULL;
+
+	return buffer->array + (index * buffer->_elementSize);
 }
 
 PXInline void PXArrayBufferListUpdate(PXArrayBuffer *buffer,
@@ -251,7 +265,7 @@ PXInline void PXArrayBufferListUpdate(PXArrayBuffer *buffer,
 	uint8_t *alive = bytes;
 	void *element = bytes;
 
-	unsigned aliveCount = 0;
+	unsigned int aliveCount = 0;
 	// This loop goes through each particle in it's current order. If it needs
 	// to be deleted, the particle is skipped and the alive pointer is not
 	// incremented. If the alive pointer is not equal to the current pointer,
