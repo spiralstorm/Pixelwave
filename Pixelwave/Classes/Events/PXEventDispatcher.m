@@ -366,7 +366,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 	NSEnumerator *enumerator;
 	NSString *key;
-	PXGenericObject obj;
+	id obj;
 
 	enumerator = [eventListeners keyEnumerator];
 	while (key = [enumerator nextObject])
@@ -568,7 +568,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * them with the given event object. Assumes that the event has already been
  * re-set.
  */
-- (void) _invokeEvent:(PXEvent *)event withCurrentTarget:(PXGenericObject)currentTarget eventPhase:(char)phase
+- (void) _invokeEvent:(PXEvent *)event withCurrentTarget:(id)currentTarget eventPhase:(char)phase
 {
 	/* No reason to dispatch events if there are no event listeners */
 	if (!eventListeners)

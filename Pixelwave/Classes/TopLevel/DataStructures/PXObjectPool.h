@@ -52,7 +52,7 @@
  * with the default consructor.
  */
 //-- ScriptIgnore
-- (PXGenericObject) objectPool:(PXObjectPool *)objectPool newObjectForType:(Class)type;
+- (id) objectPool:(PXObjectPool *)objectPool newObjectForType:(Class)type;
 @end
 
 @interface PXObjectPool : NSObject
@@ -70,9 +70,9 @@
 @property(nonatomic, retain) id<PXObjectPoolDelegate> delegate;
 
 //-- ScriptName: newObject
-- (PXGenericObject) newObjectUsingClass:(Class)typeClass;
+- (id) newObjectUsingClass:(Class)typeClass;
 //-- ScriptName: releaseObject
-- (void) releaseObject:(PXGenericObject)object;
+- (void) releaseObject:(id)object;
 
 //-- ScriptName: clean
 - (void) purgeCachedData;

@@ -61,7 +61,11 @@ typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
  * @param methodSignature a valid method signature
  * @see [PXEventDispatcher addEventListenerOfType:listener:]
  */
+#if __has_feature(objc_arc)
+#define PXListener(_selector_) [[PXEventListener alloc] initWithTarget:self selector:@selector(_selector_)]
+#else
 #define PXListener(_selector_) [[[PXEventListener alloc] initWithTarget:self selector:@selector(_selector_)] autorelease]
+#endif
 
 // Utility macros
 #define _PXEventListenerInvoke(_listener_, _event_) _listener_->_listenerRef(_listener_->_target, _listener_->_selector, _event_)
@@ -70,18 +74,18 @@ typedef void (*PXEventListenerFuncRef)(id, SEL, PXEvent *);
 @interface PXEventListener : NSObject
 {
 @public
-	PXGenericObject _target;
+	id _target;
 	SEL _selector;
 	PXEventListenerFuncRef _listenerRef;
 	int _priority;
 }
 
 //-- ScriptName: EventListener
-- (id) initWithTarget:(PXGenericObject)target
+- (id) initWithTarget:(id)target
 			 selector:(SEL)selector;
 
 //-- ScriptName: make
-+ (PXEventListener *)eventListenerWithTarget:(PXGenericObject)target
++ (PXEventListener *)eventListenerWithTarget:(id)target
 									selector:(SEL)selector;
 
 @end

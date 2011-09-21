@@ -1,9 +1,9 @@
 //
 //  AppDelegate_iPhone.h
-//  ___PROJECTNAME___
+//  arc
 //
-//  Created by ___FULLUSERNAME___ on ___DATE___.
-//  Copyright ___YEAR___ ___ORGANIZATIONNAME___. All rights reserved.
+//  Created by John Lattin on 9/21/11.
+//  Copyright 2011 Spiralstorm Games. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
