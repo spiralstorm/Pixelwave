@@ -90,7 +90,7 @@
         _PXLLNode *PX_UNIQUE_VAR(_node_) = nil; \
 		if (_list_) \
 		{ \
-			PX_UNIQUE_VAR(_len_) = (_list_)->_nodeCount - 1; \
+			PX_UNIQUE_VAR(_len_) = (_list_)->_nodeCount; \
 			PX_UNIQUE_VAR(_node_) = (_list_)->_tail; \
 		} \
         if (PX_UNIQUE_VAR(_node_)) (_obj_) = PX_UNIQUE_VAR(_node_)->data; \
