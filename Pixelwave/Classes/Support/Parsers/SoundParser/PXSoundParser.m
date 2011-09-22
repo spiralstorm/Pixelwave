@@ -72,6 +72,11 @@
 	return nil;
 }
 
+- (id) initWithData:(NSData *)_data modifier:(id<PXSoundModifier>)_modifier
+{
+	return [self initWithData:_data modifier:_modifier origin:nil];
+}
+
 /**
  * Makes a new sound parser given data, and parses it into information needed
  * to play the sound. This version also stores the origin, in case you

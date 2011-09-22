@@ -67,6 +67,8 @@
 @property (nonatomic, readonly) float contentScaleFactor;
 
 //-- ScriptIgnore
+- (id) initWithData:(NSData *)data options:(PXFontOptions *)options;
+//-- ScriptIgnore
 - (id) initWithData:(NSData *)data options:(PXFontOptions *)options origin:(NSString *)origin;
 //-- ScriptName: FontParser
 //-- ScriptArg[0]: required
