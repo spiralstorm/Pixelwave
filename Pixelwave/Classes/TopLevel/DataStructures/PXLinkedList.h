@@ -106,7 +106,11 @@ typedef struct _sPXLLNode
 	struct _sPXLLNode *next;
 	struct _sPXLLNode *prev;
 
-	PXGenericObject data;
+#if __has_feature(objc_arc)
+	__unsafe_unretained id data;
+#else
+	id data;
+#endif
 } _PXLLNode;
 
 @interface PXLinkedList : NSObject<NSFastEnumeration, NSCopying, NSCoding, PXPooledObject>
@@ -130,13 +134,13 @@ typedef struct _sPXLLNode
  *
  * _**Complexity:** O(1)_
  */
-@property (nonatomic, readonly) PXGenericObject firstObject;
+@property (nonatomic, readonly) id firstObject;
 /**
  * The last object in the list.
  *
  * _**Complexity:** O(1)_
  */
-@property (nonatomic, readonly) PXGenericObject lastObject;
+@property (nonatomic, readonly) id lastObject;
 /**
  * `YES` if the list does not retain its elements; otherwise
  * `NO`.  Default value is `NO`, as it is advised to keep
@@ -157,19 +161,19 @@ typedef struct _sPXLLNode
 
 // Adding, +1 retain
 //-- ScriptName: push
-- (void) addObject:(PXGenericObject)object;
-//- (void) insertObjectAtFront:(PXGenericObject)object;
-//- (void) insertObject:(PXGenericObject)object beforeObject:(PXGenericObject)objectToAddBefore;
+- (void) addObject:(id)object;
+//- (void) insertObjectAtFront:(id)object;
+//- (void) insertObject:(id)object beforeObject:(id)objectToAddBefore;
 //-- ScriptName: pushAt
-- (void) insertObject:(PXGenericObject)object atIndex:(int)index;
+- (void) insertObject:(id)object atIndex:(int)index;
 //-- ScriptName: pushAllFrom
 - (void) addObjectsFromList:(PXLinkedList *)otherList;
 //-- ScriptName: setIndex
-- (void) setIndex:(int)index ofObject:(PXGenericObject)object;
+- (void) setIndex:(int)index ofObject:(id)object;
 
 // Removing, -1 retain
 //-- ScriptName: pop
-- (void) removeObject:(PXGenericObject)object;
+- (void) removeObject:(id)object;
 //-- ScriptName: popAt
 - (void) removeObjectAtIndex:(int)index;
 //-- ScriptName: popLast
@@ -183,24 +187,24 @@ typedef struct _sPXLLNode
 
 // Swapping
 //-- ScriptName: swap
-- (void) swapObject:(PXGenericObject)object1 withObject:(id)object2;
+- (void) swapObject:(id)object1 withObject:(id)object2;
 //-- ScriptName: swapAt
 - (void) swapObjectAtIndex:(int)index1 withObjectAtIndex:(int)index2;
 
 // Querying
 //-- ScriptName: objectAt
-- (PXGenericObject) objectAtIndex:(int)index;
+- (id) objectAtIndex:(int)index;
 //-- ScriptName: contains
-- (BOOL) containsObject:(PXGenericObject)object;
+- (BOOL) containsObject:(id)object;
 //-- ScriptName: indexOf
-- (int) indexOfObject:(PXGenericObject)object;
+- (int) indexOfObject:(id)object;
 
 ///////////////
 // Exporting //
 ///////////////
 
 //-- ScriptIgnore
-- (PXGenericObject *)cArray;
+- (id *)cArray;
 //-- ScriptName: clone
 - (id) copy;
 

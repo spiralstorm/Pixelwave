@@ -45,11 +45,6 @@
 	return self;
 }
 
-- (void) dealloc
-{
-	[super dealloc];
-}
-
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
 	// Set the bounds to your local bounds, ex:

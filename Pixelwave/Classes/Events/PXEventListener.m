@@ -53,7 +53,7 @@
 
 /**
  */
-- (id) initWithTarget:(PXGenericObject)target selector:(SEL)selector
+- (id) initWithTarget:(id)target selector:(SEL)selector
 {
 	// Check params
 	if (!target)
@@ -102,7 +102,7 @@
 	[super dealloc];
 }
 
-+ (PXEventListener *)eventListenerWithTarget:(PXGenericObject)target
++ (PXEventListener *)eventListenerWithTarget:(id)target
 									selector:(SEL)selector
 {
 	return [[[PXEventListener alloc] initWithTarget:target

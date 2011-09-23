@@ -248,6 +248,6 @@
 
 // Actually calls the listener functions for each registered listener.
 - (void) _invokeEvent:(PXEvent *)event
-	withCurrentTarget:(PXGenericObject)currentTarget
+	withCurrentTarget:(id)currentTarget
 		   eventPhase:(char)phase;
 @end

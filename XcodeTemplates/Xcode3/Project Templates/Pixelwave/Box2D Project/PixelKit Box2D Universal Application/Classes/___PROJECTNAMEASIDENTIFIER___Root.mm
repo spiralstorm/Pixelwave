@@ -68,7 +68,9 @@
 	// ^ Comment out the previous line to disable object picking
 
 	[self addChild:layer];
+#if (__has_feature(objc_arc) == 0)
 	[layer release];
+#endif
 
 	////////////////////////
 	// Populate the world //
@@ -96,7 +98,9 @@
 		contactListener = NULL;
 	}
 
+#if (__has_feature(objc_arc) == 0)
 	[super dealloc];
+#endif
 }
 
 //////////////////////////
@@ -114,7 +118,7 @@
 	//// Create bounds /////
 
 	PXRectangle *bounds = [PXRectangle rectangleWithX:0.0f y:0.0f width:stageWidth height:stageHeight];
-	
+
 	[Box2DUtils staticBorderInWorld:physicsWorld
 							   rect:bounds
 						  thickness:10.0f];

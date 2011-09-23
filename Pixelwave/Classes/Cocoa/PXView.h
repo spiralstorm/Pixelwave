@@ -118,7 +118,7 @@ typedef enum
 //-- ScriptArg[2]: PX_VIEW_DEFAULT_COLOR_QUALITY
 - (id) initWithFrame:(CGRect)frame contentScaleFactor:(float)scale colorQuality:(PXViewColorQuality)colorQuality;
 //-- ScriptName: setRoot
-- (void) setRoot:(PXDisplayObject *)root;
+//- (void) setRoot:(PXDisplayObject *)root;
 
 - (UIImage *)screenshot;
 

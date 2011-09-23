@@ -79,7 +79,7 @@ typedef enum
 {
 @public
 	// The object on which dispatchEvent() was called.
-	PXGenericObject _target;
+	id _target;
 	NSString *_type;
 
 	// These 2 change throughout the event flow, depending on who the event is
@@ -87,7 +87,7 @@ typedef enum
 	// If not using display event flow, currentTarget = target. If using, then
 	// currentTarget is the current displayObject (ancestor of the target)
 	// processing the event
-	PXGenericObject _currentTarget;
+	id _currentTarget;
 	PXEventPhase _eventPhase;
 
 	_PXStopPropegationLevel _stopPropegationLevel;
@@ -118,11 +118,11 @@ typedef enum
 /**
  * The node in the event flow currently processing the event.
  */
-@property (nonatomic, readonly) PXGenericObject currentTarget;
+@property (nonatomic, readonly) id currentTarget;
 /**
  * The node representing the ultimate target of the event.
  */
-@property (nonatomic, readonly) PXGenericObject target;
+@property (nonatomic, readonly) id target;
 /**
  * A string representing the type of the event
  */
