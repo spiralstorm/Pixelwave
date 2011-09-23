@@ -59,8 +59,6 @@ typedef struct
 
 extern PXVersion pxVersion;
 
-#define PXGenericObject id
-
 ///////////////
 // Debugging //
 ///////////////

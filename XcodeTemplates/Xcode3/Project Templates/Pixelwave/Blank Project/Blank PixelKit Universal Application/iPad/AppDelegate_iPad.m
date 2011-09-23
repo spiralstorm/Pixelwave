@@ -25,7 +25,6 @@
 
 	// Create a new Pixelwave View
 	pixelView = [[PXView alloc] initWithFrame:window.frame];
-
 	// Set some basic settings
 	pixelView.stage.backgroundColor = 0x808080;
 	pixelView.stage.frameRate = 60;
@@ -35,25 +34,29 @@
 	// the new root of the main display list.
 	___PROJECTNAMEASIDENTIFIER___Root *root = [[___PROJECTNAMEASIDENTIFIER___Root alloc] init];
 	[pixelView setRoot:root];
+#if (__has_feature(objc_arc) == 0)
 	[root release];
+#endif
 
 	[root initializeAsRoot];
 
 	// Add the Pixelwave view to the main window.
 	[window addSubview:pixelView];
 
-    [self.window makeKeyAndVisible];
+	[self.window makeKeyAndVisible];
 
-    return YES;
+	return YES;
 }
 
+#if (__has_feature(objc_arc) == 0)
 - (void) dealloc
 {
-    [window release];
+	[window release];
 	[pixelView release];
 
-    [super dealloc];
+	[super dealloc];
 }
+#endif
 
 - (void) applicationWillResignActive:(UIApplication *)application
 {
@@ -97,9 +100,9 @@
 
 - (void) applicationWillTerminate:(UIApplication *)application
 {
-    // Called when the application is about to terminate.
+	// Called when the application is about to terminate.
 
-    // See also applicationDidEnterBackground:.
+	// See also applicationDidEnterBackground:.
 }
 
 #pragma mark -
@@ -107,7 +110,7 @@
 
 - (void) applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
-    // Free up as much memory as possible by purging cached data objects that
+	// Free up as much memory as possible by purging cached data objects that
 	// can be recreated (or reloaded from disk) later.
 }
 
