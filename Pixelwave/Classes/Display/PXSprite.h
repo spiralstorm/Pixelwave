@@ -69,4 +69,7 @@
  */
 @property (nonatomic, retain) id<NSObject> hitArea;
 
++ (PXSprite *)spriteWithChild:(PXDisplayObject *)child;
++ (PXSprite *)spriteWithChildren:(NSArray *)children;
+
 @end

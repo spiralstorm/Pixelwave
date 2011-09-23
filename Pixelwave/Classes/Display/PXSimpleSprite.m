@@ -46,16 +46,41 @@
  */
 @implementation PXSimpleSprite
 
+/**
+ * A utility method for quickly creating a #PXSimpleSprite containing
+ * the specified child object.
+ *
+ * @param child A display object to add to the created #PXSimpleSprite
+ * @return	An autoareleased PXSimpleSprite
+ */
 + (PXSimpleSprite *)simpleSpriteWithChild:(PXDisplayObject *)child
 {
-	PXSimpleSprite *simpleSprite = [[PXSimpleSprite alloc] init];
-
-	if (child)
-	{
-		[simpleSprite addChild:child];
+	PXSimpleSprite *sprite = [[PXSimpleSprite alloc] init];
+	if (child) {
+		[sprite addChild:child];
 	}
+	
+	return [sprite autorelease];
+}
 
-	return [simpleSprite autorelease];
+/**
+ * A utility method for quickly creating a #PXSimpleSprite containing
+ * the specified children objects.
+ *
+ * @param children A list of children to add to the created #PXSimpleSprite
+ * @return	An autoareleased PXSimpleSprite
+ */
++ (PXSimpleSprite *)simpleSpriteWithChildren:(NSArray *)children
+{
+	PXSimpleSprite *sprite = [[PXSimpleSprite alloc] init];
+	
+	for (NSObject *object in children) {
+		if ([object isKindOfClass:[PXDisplayObject class]]) {
+			[sprite addChild:(PXDisplayObject *)object];
+		}
+	}
+	
+	return [sprite autorelease];
 }
 
 @end

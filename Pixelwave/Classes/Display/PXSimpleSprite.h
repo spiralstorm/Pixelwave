@@ -43,13 +43,7 @@
 {
 }
 
-/**
- * Creates an autoreleased PXSimpleSprite containing the given display object.
- *
- * @param child A display object to add to the created PXSimpleSprite
- * 
- * @return	An autoareleased PXSimpleSprite
- */
 + (PXSimpleSprite *)simpleSpriteWithChild:(PXDisplayObject *)child;
++ (PXSimpleSprite *)simpleSpriteWithChildren:(NSArray *)children;
 
 @end
