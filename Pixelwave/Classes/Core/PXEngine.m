@@ -1008,7 +1008,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	}
 	//displayObject->_shouldRenderAABB = canBeUsedForTouches;
 
-	if (isRenderOn)
+	if (isRenderOn == true || useCustomHitArea == true)
 	{
 		// Reset the bounding box in gl so that when we draw it, it updates the
 		// bounding box to the drawn area. If custom or managed, then it resets
@@ -1017,33 +1017,36 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 		// a touchable area.
 		PXGLResetAABB(isCustomOrManaged);
 
-		// If it is custom or managed, then we need the real matrix to be inside
-		// gl, so when they use the gl draw commands, they draw in the correct
-		// spot. Note, this will push the ENTIRE matrix thus far, so we need to
-		// pop it immediately after incase a child of this custom or managed is
-		// also custom or managed.
-		if (isCustomOrManaged)
+		if (isRenderOn == true)
 		{
-			PXGLSyncTransforms();
+			// If it is custom or managed, then we need the real matrix to be
+			// inside gl, so when they use the gl draw commands, they draw in
+			// the correct spot. Note, this will push the ENTIRE matrix thus
+			// far, so we need to pop it immediately after incase a child of
+			// this custom or managed is also custom or managed.
+			if (isCustomOrManaged)
+			{
+				PXGLSyncTransforms();
+			}
+
+			PXGLResetStates(displayObject->_glState);
+			displayObject->_impRenderGL(displayObject, nil);
+
+			// Popping the matrix, please see the above comment.
+			if (isCustomOrManaged)
+			{
+				PXGLUnSyncTransforms();
+			}
+
+			// This is like popping the color transform of the display object.
+			// It resets the color to the previous color on the stack (that was
+			// set before they called 'color4f, or color4ub').
+			PXGLColor4ub(0xFF, 0xFF, 0xFF, 0xFF);
 		}
-
-		PXGLResetStates(displayObject->_glState);
-		displayObject->_impRenderGL(displayObject, nil);
-
-		// Popping the matrix, please see the above comment.
-		if (isCustomOrManaged)
-		{
-			PXGLUnSyncTransforms();
-		}
-
-		// This is like popping the color transform of the display object. It
-		// resets the color to the previous color on the stack (that was set
-		// before they called 'color4f, or color4ub').
-		PXGLColor4ub(0xFF, 0xFF, 0xFF, 0xFF);
 
 		// Grab the current AABB of the drawn display object (only itself, not
 		// it's children).
-		PXGLAABB *aabb = PXGLGetCurrentAABB( );
+		PXGLAABB *aabb = PXGLGetCurrentAABB();
 
 		/*
 		if (useCustomHitArea)
