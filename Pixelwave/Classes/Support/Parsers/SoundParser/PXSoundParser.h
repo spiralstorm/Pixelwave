@@ -67,6 +67,9 @@
  */
 @property (nonatomic, readonly) BOOL isModifiable;
 
+//-- ScriptIgnore
+- (id) initWithData:(NSData *)data modifier:(id<PXSoundModifier>)modifier;
+
 //-- ScriptName: SoundParser
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: nil

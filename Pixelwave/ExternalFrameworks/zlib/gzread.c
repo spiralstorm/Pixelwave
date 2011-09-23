@@ -167,12 +167,12 @@ local int gz_head(state)
                 gz_error(state, Z_DATA_ERROR, "unknown header flags set");
                 return -1;
             }
-            NEXT();                 /* modification time */
-            NEXT();
-            NEXT();
-            NEXT();
-            NEXT();                 /* extra flags */
-            NEXT();                 /* operating system */
+            int val = NEXT();                 /* modification time */
+            val = NEXT();
+            val = NEXT();
+            val = NEXT();
+            val = NEXT();                 /* extra flags */
+            val = NEXT();                 /* operating system */
             if (flags & 4) {        /* extra field */
                 len = (unsigned)NEXT();
                 len += (unsigned)NEXT() << 8;
@@ -187,8 +187,8 @@ local int gz_head(state)
                 while (NEXT() > 0)
                     ;
             if (flags & 2) {        /* header crc */
-                NEXT();
-                NEXT();
+                val = NEXT();
+                val = NEXT();
             }
             /* an unexpected end of file is not checked for here -- it will be
                noticed on the first request for uncompressed data */

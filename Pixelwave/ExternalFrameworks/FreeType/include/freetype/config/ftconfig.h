@@ -317,20 +317,39 @@ FT_BEGIN_HEADER
   FT_MulFix_arm( FT_Int32  a,
                  FT_Int32  b )
   {
-    register FT_Int32  t, t2;
+	  // PX_ASM_FIX
+	  signed int   s = 1;
+	  signed long  c;
+
+	  if (a < 0)
+	  {
+		  a = -a;
+		  s = -1;
+	  }
+
+	  if (b < 0)
+	  {
+		  b = -b;
+		  s = -s;
+	  }
+
+	  c = (signed long)(((signed long long)a * b + 0x8000L) >> 16);
+
+	  return (s > 0) ? c : -c;
+    /*register FT_Int32  t, t2;
 
 
     __asm__ __volatile__ (
-      "smull  %1, %2, %4, %3\n\t"   /* (lo=%1,hi=%2) = a*b */
-      "mov    %0, %2, asr #31\n\t"  /* %0  = (hi >> 31) */
-      "add    %0, %0, #0x8000\n\t"  /* %0 += 0x8000 */
-      "adds   %1, %1, %0\n\t"       /* %1 += %0 */
-      "adc    %2, %2, #0\n\t"       /* %2 += carry */
-      "mov    %0, %1, lsr #16\n\t"  /* %0  = %1 >> 16 */
-      "orr    %0, %2, lsl #16\n\t"  /* %0 |= %2 << 16 */
+      "smull  %1, %2, %4, %3\n\t"   // (lo=%1,hi=%2) = a*b
+      "mov    %0, %2, asr #31\n\t"  // %0  = (hi >> 31)
+      "add    %0, %0, #0x8000\n\t"  // %0 += 0x8000
+      "adds   %1, %1, %0\n\t"       // %1 += %0
+      "adc    %2, %2, #0\n\t"       // %2 += carry
+      "mov    %0, %1, lsr #16\n\t"  // %0  = %1 >> 16
+      "orr    %0, %2, lsl #16\n\t"  // %0 |= %2 << 16
       : "=r"(a), "=&r"(t2), "=&r"(t)
       : "r"(a), "r"(b) );
-    return a;
+    return a;*/
   }
 
 #endif /* __arm__ && !__thumb__ */
