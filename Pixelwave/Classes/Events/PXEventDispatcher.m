@@ -104,7 +104,16 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 - (id) init
 {
-	return [self initWithTarget:self];
+	self = [super init];
+	
+	if (self)
+	{
+		target = self;
+		eventListeners = nil;
+		dispatchEvents = YES;
+	}
+	
+	return self;
 }
 
 /**
@@ -114,13 +123,14 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  */
 - (id) initWithTarget:(id<PXEventDispatcher>)_target
 {
-	self = [super init];
+	// This is untraditional, but necessary. We want
+	// [init] to be the default initializer since that's
+	// what all the display objects override.
+	self = [self init];
 
 	if (self)
 	{
 		target = _target;
-		eventListeners = nil;
-		dispatchEvents = YES;
 	}
 
 	return self;
