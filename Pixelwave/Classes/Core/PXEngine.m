@@ -946,10 +946,11 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	bool isCustom = displayObject->_renderMode == PXRenderMode_Custom;
 	bool isCustomOrManaged = (displayObject->_renderMode == PXRenderMode_ManageStates) || isCustom;
 	bool isRenderOn = !(displayObject->_renderMode == PXRenderMode_Off);
+	bool forceHitTest = PX_IS_BIT_ENABLED(displayObject->_flags, _PXDisplayObjectFlags_forceAddToDisplayHitList);
 
 	if (isCustomOrManaged)
 	{
-		PXGLFlush( );
+		PXGLFlush();
 	}
 
 	if (transformationsEnabled)
@@ -1008,7 +1009,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	}
 	//displayObject->_shouldRenderAABB = canBeUsedForTouches;
 
-	if (isRenderOn == true || useCustomHitArea == true)
+	if (isRenderOn == true || forceHitTest == true)
 	{
 		// Reset the bounding box in gl so that when we draw it, it updates the
 		// bounding box to the drawn area. If custom or managed, then it resets
@@ -1121,7 +1122,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	// is, thus we need to upload every value of pixelwave back into gl.
 	if (isCustom)
 	{
-		PXGLSyncGLToPX( );
+		PXGLSyncGLToPX();
 	}
 
 	// If you have children, draw them too!
@@ -1147,13 +1148,13 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	// If we pushed a color transform, we need to pop it.
 	if (transformPushed)
 	{
-		PXGLPopColorTransform( );
+		PXGLPopColorTransform();
 	}
 
 	// If we pushed a matrix transform, we need to pop it.
 	if (matrixPushed)
 	{
-		PXGLPopMatrix( );
+		PXGLPopMatrix();
 	}
 }
 

@@ -98,17 +98,20 @@
 
 	hitAreaIsRect = NO;
 	PX_DISABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
+	PX_DISABLE_BIT(self->_flags, _PXDisplayObjectFlags_forceAddToDisplayHitList);
 
 	if ([_hitArea isKindOfClass:[PXDisplayObject class]] == YES)
 	{
 		hitArea = [(PXDisplayObject *)_hitArea retain];
 		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
+		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_forceAddToDisplayHitList);
 	}
 	else if ([_hitArea isKindOfClass:[PXRectangle class]] == YES)
 	{
 		hitAreaIsRect = YES;
 		hitAreaRect = PXRectangleToCGRect((PXRectangle *)_hitArea);
 		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
+		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_forceAddToDisplayHitList);
 	}
 	else if (_hitArea != nil)
 	{
