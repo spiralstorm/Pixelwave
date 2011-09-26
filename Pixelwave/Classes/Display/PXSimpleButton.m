@@ -48,6 +48,8 @@
 #include "PXPrivateUtils.h"
 #include "PXDebug.h"
 
+#include "PXTouchEngine.h"
+
 @interface PXSimpleButton(Private)
 - (CGRect) currentHitAreaRect;
 @end
@@ -289,6 +291,14 @@
 {
 	[self retain];
 
+	BOOL isTouchEvent = [event isKindOfClass:[PXTouchEvent class]];
+	
+	if (isTouchEvent && [event.type isEqualToString:PXTouchEvent_TouchCancel] == NO && enabled == NO)
+	{
+		[self release];
+		return NO;
+	}
+	
 	BOOL didDispatch = [super dispatchEvent:event];
 
 	if (didDispatch == YES)
@@ -296,7 +306,7 @@
 		// It's important to do this logic afterwards so that we're not changing
 		// this hit area BEFORE a touch up event, which will cause tap to not fire
 		// if the touch was in the buffer zone.
-		if ([event isKindOfClass:[PXTouchEvent class]])
+		if (isTouchEvent)
 		{
 			PXTouchEvent *touchEvent = (PXTouchEvent *)event;
 			NSString *eventType = touchEvent.type;
@@ -339,6 +349,17 @@
 	[self release];
 
 	return didDispatch;
+}
+
+- (void) setEnabled:(BOOL)value
+{
+	if (value == enabled) return;
+	
+	enabled = value;
+	
+	if (!enabled) {
+		PXTouchEngineRemoveAllTouchCapturesFromObject(self);
+	}
 }
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
