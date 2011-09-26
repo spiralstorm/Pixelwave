@@ -170,8 +170,6 @@
 	}
 }
 
-//////
-
 /**
  * A utility method for quickly creating a #PXSprite containing
  * the specified child object.
@@ -182,10 +180,12 @@
 + (PXSprite *)spriteWithChild:(PXDisplayObject *)child
 {
 	PXSprite *sprite = [[PXSprite alloc] init];
-	if (child) {
+
+	if (child)
+	{
 		[sprite addChild:child];
 	}
-	
+
 	return [sprite autorelease];
 }
 
@@ -199,13 +199,15 @@
 + (PXSprite *)spriteWithChildren:(NSArray *)children
 {
 	PXSprite *sprite = [[PXSprite alloc] init];
-	
-	for (NSObject *object in children) {
-		if ([object isKindOfClass:[PXDisplayObject class]]) {
+
+	for (NSObject *object in children)
+	{
+		if ([object isKindOfClass:[PXDisplayObject class]])
+		{
 			[sprite addChild:(PXDisplayObject *)object];
 		}
 	}
-	
+
 	return [sprite autorelease];
 }
 
