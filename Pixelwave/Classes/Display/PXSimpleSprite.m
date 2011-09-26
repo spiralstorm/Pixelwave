@@ -56,10 +56,12 @@
 + (PXSimpleSprite *)simpleSpriteWithChild:(PXDisplayObject *)child
 {
 	PXSimpleSprite *sprite = [[PXSimpleSprite alloc] init];
-	if (child) {
+
+	if (child)
+	{
 		[sprite addChild:child];
 	}
-	
+
 	return [sprite autorelease];
 }
 
@@ -73,13 +75,15 @@
 + (PXSimpleSprite *)simpleSpriteWithChildren:(NSArray *)children
 {
 	PXSimpleSprite *sprite = [[PXSimpleSprite alloc] init];
-	
-	for (NSObject *object in children) {
-		if ([object isKindOfClass:[PXDisplayObject class]]) {
+
+	for (NSObject *object in children)
+	{
+		if ([object isKindOfClass:[PXDisplayObject class]])
+		{
 			[sprite addChild:(PXDisplayObject *)object];
 		}
 	}
-	
+
 	return [sprite autorelease];
 }
 
