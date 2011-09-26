@@ -555,7 +555,7 @@ _PXLLNode pxLinkedListBadNode;
 
 	if (object == self)
 	{
-		PXThrow(PXArgumentException, @"A list cannot add itself to itself.. silly.");
+		PXThrow(PXArgumentException, @"A list cannot add itself to itself... silly.");
 		return;
 	}
 
