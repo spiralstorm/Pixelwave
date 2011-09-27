@@ -400,7 +400,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	width = fabsf(width);
 	float neg = (_scaleX < 0.0f ? -1.0f : 1.0f);
 
-	CGRect rect = CGRectMake(0, 0, 0, 0);
+	CGRect rect = CGRectZero;
 	[self _measureGlobalBounds:&rect];
 
 	float a = 0;
@@ -423,7 +423,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	height = fabsf(height);
 	float neg = (_scaleY < 0.0f ? -1.0f : 1.0f);
 
-	CGRect rect = CGRectMake(0, 0, 0, 0);
+	CGRect rect = CGRectZero;
 	[self _measureGlobalBounds:&rect];
 
 	float d = 0;

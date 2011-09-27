@@ -1171,7 +1171,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	}
 	
 	// Finish any rendering queued up to the main buffer
-	PXGLFlush( );
+	PXGLFlush();
 
 	////////////////////////////////////////
 	// Set up the texture rendering state //
@@ -1257,6 +1257,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	if (bShouldClip)
 	{
 		glEnable(GL_SCISSOR_TEST);
+
 		// Takes in coordinates in PIXELS
 		glScissor(clipRect->origin.x	* textureDataScaleFactor,	// in PIXELS
 				  clipRect->origin.y	* textureDataScaleFactor,	// in PIXELS
@@ -1265,8 +1266,8 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	}
 
 	// Set up the rendering (reset the matrix/stacks/ect)
-	
-	PXGLPreRender( );
+
+	PXGLPreRender();
 
 	if (matrix)
 	{
@@ -1284,12 +1285,12 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	if (clearTexture)
 	{
 		uint fillColor = textureData->_fillColor;
-		float div = 1/255.0f;
+		float div = 1 / 255.0f;
 
-		float a = (float)((fillColor >> 24) & 0xFF) * div;
-		float r = (float)((fillColor >> 16) & 0xFF) * div;
-		float g = (float)((fillColor >> 8) & 0xFF) * div;
-		float b = (float)((fillColor) & 0xFF) * div;
+		GLclampf a = (GLclampf)((fillColor >> 24) & 0xFF) * div;
+		GLclampf r = (GLclampf)((fillColor >> 16) & 0xFF) * div;
+		GLclampf g = (GLclampf)((fillColor >> 8) & 0xFF) * div;
+		GLclampf b = (GLclampf)((fillColor) & 0xFF) * div;
 
 		glClearColor(r, g, b, a);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -1310,12 +1311,12 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	////////////
 	// RENDER //
 	////////////
-	
+
 	PXEngineRenderDisplayObject(source, false, false);
-	
+
 	// Flush anything, render any queued up commands
-	PXGLPostRender( );
-	
+	PXGLPostRender();
+
 	////////////////////////////////////
 	// Restore screen rendering state //
 	////////////////////////////////////
