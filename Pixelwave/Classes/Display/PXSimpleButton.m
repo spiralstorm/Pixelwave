@@ -300,7 +300,8 @@
 		// if the touch was in the buffer zone.
 		if ([event isKindOfClass:[PXTouchEvent class]])
 		{
-			if (wasEnabled) {
+			if (wasEnabled)
+			{
 				PXTouchEvent *touchEvent = (PXTouchEvent *)event;
 				NSString *eventType = touchEvent.type;
 
@@ -348,20 +349,6 @@
 
 	return didDispatch;
 }
-
-/*
-- (void) setEnabled:(BOOL)value
-{
-	if (value == enabled) return;
-	
-	enabled = value;
-	
-	if (!enabled) {
-		[pxSimpleButtonTouchList removeAllObjects];
-		visibleState = _PXSimpleButtonVisibleState_Up;
-	}
-}
-*/
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
