@@ -48,6 +48,8 @@
 #include "PXPrivateUtils.h"
 #include "PXDebug.h"
 
+#include "PXTouchEngine.h"
+
 @interface PXSimpleButton(Private)
 - (CGRect) currentHitAreaRect;
 @end
@@ -288,6 +290,8 @@
 - (BOOL) dispatchEvent:(PXEvent *)event
 {
 	[self retain];
+	
+	BOOL wasEnabled = enabled;
 
 	BOOL didDispatch = [super dispatchEvent:event];
 
@@ -298,40 +302,46 @@
 		// if the touch was in the buffer zone.
 		if ([event isKindOfClass:[PXTouchEvent class]])
 		{
-			PXTouchEvent *touchEvent = (PXTouchEvent *)event;
-			NSString *eventType = touchEvent.type;
+			if (wasEnabled) {
+				PXTouchEvent *touchEvent = (PXTouchEvent *)event;
+				NSString *eventType = touchEvent.type;
 
-			if ([eventType isEqualToString:PXTouchEvent_TouchDown])
-			{
-				[pxSimpleButtonTouchList addObject:touchEvent.nativeTouch];
-
-				visibleState = _PXSimpleButtonVisibleState_Down;
-
-				isPressed = YES;
-			}
-			else if ([eventType isEqualToString:PXTouchEvent_TouchMove])
-			{
-				// Checking the auto expand rect is automatically done
-				if (touchEvent.insideTarget == YES)
+				if ([eventType isEqualToString:PXTouchEvent_TouchDown])
 				{
+					[pxSimpleButtonTouchList addObject:touchEvent.nativeTouch];
+
 					visibleState = _PXSimpleButtonVisibleState_Down;
+
+					isPressed = YES;
 				}
-				else
+				else if ([eventType isEqualToString:PXTouchEvent_TouchMove])
 				{
-					visibleState = _PXSimpleButtonVisibleState_Up;
+					// Checking the auto expand rect is automatically done
+					if (touchEvent.insideTarget == YES)
+					{
+						visibleState = _PXSimpleButtonVisibleState_Down;
+					}
+					else
+					{
+						visibleState = _PXSimpleButtonVisibleState_Up;
+					}
+				}
+				else if ([eventType isEqualToString:PXTouchEvent_TouchUp] ||
+						 [eventType isEqualToString:PXTouchEvent_TouchCancel])
+				{
+					[pxSimpleButtonTouchList removeObject:touchEvent.nativeTouch];
+
+					if ([pxSimpleButtonTouchList count] == 0)
+					{
+						visibleState = _PXSimpleButtonVisibleState_Up;
+					}
+
+					isPressed = NO;
 				}
 			}
-			else if ([eventType isEqualToString:PXTouchEvent_TouchUp] ||
-					 [eventType isEqualToString:PXTouchEvent_TouchCancel])
+			else
 			{
-				[pxSimpleButtonTouchList removeObject:touchEvent.nativeTouch];
-
-				if ([pxSimpleButtonTouchList count] == 0)
-				{
-					visibleState = _PXSimpleButtonVisibleState_Up;
-				}
-
-				isPressed = NO;
+				visibleState = _PXSimpleButtonVisibleState_Up;
 			}
 		}
 	}
@@ -340,6 +350,20 @@
 
 	return didDispatch;
 }
+
+/*
+- (void) setEnabled:(BOOL)value
+{
+	if (value == enabled) return;
+	
+	enabled = value;
+	
+	if (!enabled) {
+		[pxSimpleButtonTouchList removeAllObjects];
+		visibleState = _PXSimpleButtonVisibleState_Up;
+	}
+}
+*/
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
