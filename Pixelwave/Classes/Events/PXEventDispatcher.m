@@ -198,34 +198,26 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 		PXThrowNilParam(type);
 		return NO;
 	}
+
 	if (!listener)
 	{
 		PXThrowNilParam(listener);
 		return NO;
 	}
 
-	// Event priority must be >= zero... Could be negative in Flash player, but
-	// decided against it here for optimization purposes (so the default zero
-	// priority listeners can always be added to the end of the list)
-	if (priority < 0)
-	{
-		PXThrow(PXArgumentException, @"Parameter priority must be >= 0");
-		return NO;
-	}
-
 	if (!eventListeners)
 	{
-		//Initialize the dictionary
+		// Initialize the dictionary
 		eventListeners = [[NSMutableDictionary alloc] init];
 	}
 
-	//The capture phase events are stored in a different array
+	// The capture phase events are stored in a different array
 	if (useCapture)
 	{
 		type = PX_GET_EVENT_CAPTURE_KEY(type);
 	}
 
-	//Get the array of event listeners. If it doesn't exist, create it
+	// Get the array of event listeners. If it doesn't exist, create it
 	PXLinkedList *listenersArray = [eventListeners valueForKey:type];
 	if (!listenersArray)
 	{
@@ -254,8 +246,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	{
 		//Loop on each listener and see if it has a higher priority
 
-		int index = 0;
-		int count = [listenersArray count];
+		unsigned int index = 0;
+		unsigned int count = [listenersArray count];
 
 		PXEventListener *cListener = nil;
 		PXLinkedListForEach(listenersArray, cListener)
