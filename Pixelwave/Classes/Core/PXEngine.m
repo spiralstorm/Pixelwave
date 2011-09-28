@@ -1498,7 +1498,7 @@ float _PXEngineDBGGetTimeWaiting()
 	{
 		displayLinkSupported = NO;
 
-#ifdef __IPHONE_3_1
+#if PX_USE_DISPLAY_LINK && defined __IPHONE_3_1
 		NSString *reqSysVer = @"3.1";
 		NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
 		if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
