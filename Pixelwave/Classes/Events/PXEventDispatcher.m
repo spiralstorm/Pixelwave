@@ -483,7 +483,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 // Prepares an event for dispatching
 //- (PXEvent *)_prepEvent:(PXEvent *)event
-- (void)_prepEvent:(PXEvent *)event
+- (void) _prepEvent:(PXEvent *)event
 {
 	// Set the defaults for dispatching events without any flow (ie just one
 	// phase).  PXDisplayObject takes care of display list event flow

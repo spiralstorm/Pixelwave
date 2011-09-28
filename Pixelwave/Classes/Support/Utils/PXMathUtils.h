@@ -134,10 +134,12 @@ void PXMathSeedRandomWithValue(unsigned value);
 
 float PXMathLog(float val, float base);
 
-float PXMathLerpf(float start, float end, float percent);
 float PXMathContentRoundf(float val);
 int32_t PXMathNextPowerOfTwo(int32_t val);
 int64_t PXMathNextPowerOfTwo64(int64_t val);
+
+PXInline int PXMathLerp(int start, int end, float percent) PXAlwaysInline;
+PXInline float PXMathLerpf(float start, float end, float percent) PXAlwaysInline;
 
 PXInline PXMathRange PXMathRangeMake(float min, float max) PXAlwaysInline;
 
@@ -176,6 +178,19 @@ bool PXMathIsPointInTriangle(PXMathPoint *point, PXMathTriangle *triangle);
 #pragma mark -
 #pragma mark Implementations
 #pragma mark -
+
+//(start * (1.0f - percent)) + (end * percent);
+#define _PX_MATH_LERP(_start_, _end_, _percent_) _start_ + ((_end_ - _start_) * _percent_)
+
+PXInline int PXMathLerp(int start, int end, float percent)
+{
+	return _PX_MATH_LERP(start, end, percent);
+}
+
+PXInline float PXMathLerpf(float start, float end, float percent)
+{
+	return _PX_MATH_LERP(start, end, percent);
+}
 
 PXInline PXMathRange PXMathRangeMake(float min, float max)
 {

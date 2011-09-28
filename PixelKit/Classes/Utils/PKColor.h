@@ -41,7 +41,8 @@
 #define _PK_COLOR_H_
 
 #import "PXHeaderUtils.h"
-#import "PKInterpolater.h"
+
+#include "PXMathUtils.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -207,10 +208,10 @@ PXInline void PKColorInterpolate(void *retVal, void *from, void *to, float perce
 	PKColor *colorFrom = (PKColor *)from;
 	PKColor *colorTo   = (PKColor *)to;
 
-	*colorRet = PKColorMakeRGBA(PK_INTERPOLATE(colorFrom->asRGBA.r, colorTo->asRGBA.r, percent),
-								PK_INTERPOLATE(colorFrom->asRGBA.g, colorTo->asRGBA.g, percent),
-								PK_INTERPOLATE(colorFrom->asRGBA.b, colorTo->asRGBA.b, percent),
-								PK_INTERPOLATE(colorFrom->asRGBA.a, colorTo->asRGBA.a, percent));
+	*colorRet = PKColorMakeRGBA(PXMathLerp(colorFrom->asRGBA.r, colorTo->asRGBA.r, percent),
+								PXMathLerp(colorFrom->asRGBA.g, colorTo->asRGBA.g, percent),
+								PXMathLerp(colorFrom->asRGBA.b, colorTo->asRGBA.b, percent),
+								PXMathLerp(colorFrom->asRGBA.a, colorTo->asRGBA.a, percent));
 }
 
 #ifdef __cplusplus
