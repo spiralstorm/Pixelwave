@@ -265,6 +265,7 @@ BOOL pxTextureDataExpandEdges = YES;
  * @param fillColor A hex value indicating the default color of the texture data's pixels.
  * For texture datas without an alpha channel, use the format 0xRRGGBB. For
  * texture datas with an alpha channel, use the format 0xAARRGGBB.
+ * @param contentScaleFactor The scale factor used when converting dimensions from points to pixels.  See Apple's documentation for UIView.
  *
  * @see drawDisplayObject:
  * @see drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
