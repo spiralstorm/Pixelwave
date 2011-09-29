@@ -223,6 +223,14 @@ BOOL pxTextureDataExpandEdges = YES;
 	return [self initWithWidth:width height:height transparency:NO fillColor:0xFFFFFF contentScaleFactor:1.0f];
 }
 
+/**
+ * Initializes a PXTextureData object with the given width and height values in
+ * pixels.
+ * This method has the same effect as calling #initWithWidth:height:transparency:fillColor:contentScaleFactor:
+ # with a content scale factor of 1.0f.
+ *
+ * @see initWithWidth:height:transparency:fillColor:contentScaleFactor:
+ */
 - (id) initWithWidth:(unsigned)width
 			  height:(unsigned)height
 		transparency:(BOOL)transparency
@@ -255,8 +263,8 @@ BOOL pxTextureDataExpandEdges = YES;
  * @param transparency A boolean value indicating if the PXTextureData object should have an
  * alpha channel.
  * @param fillColor A hex value indicating the default color of the texture data's pixels.
- * For texture datas with an alpha channel, use the format 0xRRGGBB. For
- * texture datas without an alpha channel use the format 0xAARRGGBB.
+ * For texture datas without an alpha channel, use the format 0xRRGGBB. For
+ * texture datas with an alpha channel, use the format 0xAARRGGBB.
  *
  * @see drawDisplayObject:
  * @see drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
