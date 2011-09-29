@@ -72,6 +72,7 @@ void PXEngineDispatchTouchEvents( );
 void PXEngineDispatchFrameEvents( );
 void PXEngineDispatchRenderEvents( );
 void PXEngineRender( );
+void PXEngineDispatchPostRenderEvents( );
 
 //////////////////////////////////
 // Dealing with the native view //
@@ -138,6 +139,8 @@ void PXEngineAddFrameListener(PXDisplayObject *displayObject);
 void PXEngineRemoveFrameListener(PXDisplayObject *displayObject);
 void PXEngineAddRenderListener(PXDisplayObject *displayObject);
 void PXEngineRemoveRenderListener(PXDisplayObject *displayObject);
+void PXEngineAddPostRenderListener(PXDisplayObject *displayObject);
+void PXEngineRemovePostRenderListener(PXDisplayObject *displayObject);
 
 ///////////////
 // Rendering //
