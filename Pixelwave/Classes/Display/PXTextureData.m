@@ -227,9 +227,9 @@ BOOL pxTextureDataExpandEdges = YES;
 
 /**
  * Initializes a PXTextureData object with the given width and height values in
- * pixels.
- * This method has the same effect as calling #initWithWidth:height:transparency:fillColor:contentScaleFactor:
- # with a content scale factor of 1.0f.
+ * pixels. This method has the same effect as calling
+ * #initWithWidth:height:transparency:fillColor:contentScaleFactor: with a
+ * content scale factor of 1.0f.
  *
  * @see initWithWidth:height:transparency:fillColor:contentScaleFactor:
  */
