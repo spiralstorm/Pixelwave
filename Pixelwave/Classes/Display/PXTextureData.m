@@ -87,6 +87,8 @@ BOOL pxTextureDataExpandEdges = YES;
 @synthesize glTextureName = _glName;
 @synthesize pixelFormat;
 @synthesize contentScaleFactor = _contentScaleFactor;
+@synthesize glTextureWidth = textureWidth;
+@synthesize glTextureHeight = textureHeight;
 
 - (id) init
 {
