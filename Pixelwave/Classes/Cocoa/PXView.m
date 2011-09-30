@@ -323,7 +323,6 @@
 	// Create the EAGL Context, using ES 1.1
 	[eaglContext release];
 	eaglContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1];
-	[eaglContext renderbufferStorage:kEAGLRenderingAPIOpenGLES1 fromDrawable:eaglLayer];
 	if (eaglContext == nil)
 		return NO;
 
