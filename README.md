@@ -1,6 +1,6 @@
 What exactly is Pixelave?
 =========================
-Pixelwave is a framework for iOS that makes developing 2D games and other interactive applications simple. It provides an intuitive Objective-C API which is greatly inspired by ActionScript3.0. It lets you avoid writing low-level code without giving up the power of using OpenGL and OpenAL. Under the hood Pixelwave packs a punch when it comes to rendering performance and optimizations. The framework also includes PixelKit, a collection useful utilities for game developers.
+Pixelwave is a framework for iOS that makes developing 2D games and other interactive applications simple. It provides an intuitive Objective-C API which is greatly inspired by the ActionScript 3.0 API. It lets you avoid writing low-level code without giving up the power of using OpenGL and OpenAL. Under the hood Pixelwave packs a punch when it comes to rendering performance and optimizations. The framework also includes PixelKit, a collection of useful utilities for game developers.
 
 Pixelwave works on every iOS device ever made: iPhone, iPod Touch, and iPad.
 
