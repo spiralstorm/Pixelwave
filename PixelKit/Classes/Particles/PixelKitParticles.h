@@ -45,6 +45,7 @@
 #import "PKParticle.h"
 #import "PKParticleEmitter.h"
 #import "PKParticleEffect.h"
+#import "PKParticleEffectLoader.h"
 
 // Particles
 
@@ -94,10 +95,6 @@
 #import "PKSharedDisplayObjectRenderer.h"
 #import "PKRenderToTextureRenderer.h"
 #import "PKLineRenderer.h"
-
-// Loaders
-
-#import "PKParticleEffectLoader.h"
 
 // Particle designer
 
