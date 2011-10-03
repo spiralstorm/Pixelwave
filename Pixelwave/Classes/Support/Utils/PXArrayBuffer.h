@@ -114,6 +114,8 @@ PXInline void PXArrayBufferUpdateCount(PXArrayBuffer *buffer, unsigned int count
 PXInline void PXArrayBufferSetMinCount(PXArrayBuffer *buffer, unsigned int count);
 PXInline void PXArrayBufferSetMaxCount(PXArrayBuffer *buffer, unsigned int count);
 
+PXInline void PXArrayBufferShiftLeft(PXArrayBuffer *buffer, unsigned int count);
+
 PXInline void PXArrayBufferResize(PXArrayBuffer *buffer, size_t size);// PX_ALWAYS_INLINE;
 
 PXInline void *PXArrayBufferElementAt(PXArrayBuffer *buffer, unsigned int index);
@@ -239,6 +241,33 @@ PXInline void PXArrayBufferSetMaxCount(PXArrayBuffer *buffer, unsigned int count
 
 	if (byteSize > buffer->_byteCount)
 		PXArrayBufferResize(buffer, byteSize);
+}
+
+PXInline void PXArrayBufferShiftLeft(PXArrayBuffer *buffer, unsigned int count)
+{
+	assert(buffer);
+
+	if (count == 0)
+		return;
+
+	unsigned int oldCount = PXArrayBufferCount(buffer);
+
+	if (count >= oldCount)
+	{
+		PXArrayBufferUpdateCount(buffer, 0);
+		return;
+	}
+
+	size_t elementSize = buffer->_elementSize;
+
+	uint8_t *bytes = (uint8_t *)(buffer->array);
+	uint8_t *bytesOffset = bytes + (count * elementSize);
+
+	unsigned int newCount = oldCount - count;
+
+	memmove(bytes, bytesOffset, elementSize * newCount);
+
+	PXArrayBufferUpdateCount(buffer, newCount);
 }
 
 PXInline void *PXArrayBufferElementAt(PXArrayBuffer *buffer, unsigned int index)
