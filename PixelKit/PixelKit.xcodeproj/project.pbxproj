@@ -262,6 +262,7 @@
 			isa = PBXGroup;
 			children = (
 				2DFFF76812CD2820009AA3C3 /* Box2D */,
+				2DFA00F5143A4C3E00307EA5 /* Particles */,
 				2DC35AB412CBC4BF00B2F195 /* Utils */,
 			);
 			path = Classes;
@@ -295,6 +296,13 @@
 				2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */,
 			);
 			path = Box2D;
+			sourceTree = "<group>";
+		};
+		2DFA00F5143A4C3E00307EA5 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Particles;
 			sourceTree = "<group>";
 		};
 		2DFFF76812CD2820009AA3C3 /* Box2D */ = {

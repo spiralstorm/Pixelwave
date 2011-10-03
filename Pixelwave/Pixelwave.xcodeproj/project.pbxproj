@@ -106,6 +106,10 @@
 		2DD9E9AD10EBFDE400710F4E /* PXMathUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DD9E9AA10EBFDE400710F4E /* PXMathUtils.h */; };
 		2DD9E9AE10EBFDE400710F4E /* PXColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD9E9AB10EBFDE400710F4E /* PXColorUtils.m */; };
 		2DD9E9AF10EBFDE400710F4E /* PXColorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DD9E9AC10EBFDE400710F4E /* PXColorUtils.h */; };
+		2DFA00E9143A4B4900307EA5 /* TBXML.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA00E5143A4B4900307EA5 /* TBXML.h */; };
+		2DFA00EA143A4B4900307EA5 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA00E6143A4B4900307EA5 /* TBXML.m */; };
+		2DFA00EB143A4B4900307EA5 /* TBXMLNSDataAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA00E7143A4B4900307EA5 /* TBXMLNSDataAdditions.h */; };
+		2DFA00EC143A4B4900307EA5 /* TBXMLNSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA00E8143A4B4900307EA5 /* TBXMLNSDataAdditions.m */; };
 		5230170013706DC8000FE6D6 /* PXZwopAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */; };
 		5230170113706DC8000FE6D6 /* PXZwopAtlasParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 523016FF13706DC8000FE6D6 /* PXZwopAtlasParser.m */; };
 		5231F498124D5756002B8A27 /* PXFontRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5231F492124D5756002B8A27 /* PXFontRenderer.h */; };
@@ -603,6 +607,10 @@
 		2DD9E9AA10EBFDE400710F4E /* PXMathUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXMathUtils.h; sourceTree = "<group>"; };
 		2DD9E9AB10EBFDE400710F4E /* PXColorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXColorUtils.m; sourceTree = "<group>"; };
 		2DD9E9AC10EBFDE400710F4E /* PXColorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXColorUtils.h; sourceTree = "<group>"; };
+		2DFA00E5143A4B4900307EA5 /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
+		2DFA00E6143A4B4900307EA5 /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXML.m; sourceTree = "<group>"; };
+		2DFA00E7143A4B4900307EA5 /* TBXMLNSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXMLNSDataAdditions.h; sourceTree = "<group>"; };
+		2DFA00E8143A4B4900307EA5 /* TBXMLNSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXMLNSDataAdditions.m; sourceTree = "<group>"; };
 		523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXZwopAtlasParser.h; sourceTree = "<group>"; };
 		523016FF13706DC8000FE6D6 /* PXZwopAtlasParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXZwopAtlasParser.m; sourceTree = "<group>"; };
 		5231F492124D5756002B8A27 /* PXFontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXFontRenderer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1353,6 +1361,17 @@
 			path = Modifiers;
 			sourceTree = "<group>";
 		};
+		2DFA00E4143A4B4900307EA5 /* TBXML */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA00E5143A4B4900307EA5 /* TBXML.h */,
+				2DFA00E6143A4B4900307EA5 /* TBXML.m */,
+				2DFA00E7143A4B4900307EA5 /* TBXMLNSDataAdditions.h */,
+				2DFA00E8143A4B4900307EA5 /* TBXMLNSDataAdditions.m */,
+			);
+			path = TBXML;
+			sourceTree = "<group>";
+		};
 		32C88DFF0371C24200C91783 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1959,11 +1978,12 @@
 		52C63BD711E504EE0010A572 /* ExternalFrameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5256C7CA1305A23F0001A379 /* TRE */,
 				5231F4BB124D5950002B8A27 /* FreeType */,
 				52C63BDB11E505380010A572 /* libpng */,
-				52C63BDA11E505310010A572 /* zlib */,
+				2DFA00E4143A4B4900307EA5 /* TBXML */,
 				2D0E8DCF1354042600A42B3D /* TouchJSON */,
+				5256C7CA1305A23F0001A379 /* TRE */,
+				52C63BDA11E505310010A572 /* zlib */,
 			);
 			path = ExternalFrameworks;
 			sourceTree = "<group>";
@@ -2401,6 +2421,8 @@
 				5286DBED13E0CFCA00E5971F /* JSONRepresentation.h in Headers */,
 				52D7FF4A13E8617200FABF6C /* PXTouchEngine.h in Headers */,
 				52D7FF4D13E8623C00FABF6C /* PXEnginePrivate.h in Headers */,
+				2DFA00E9143A4B4900307EA5 /* TBXML.h in Headers */,
+				2DFA00EB143A4B4900307EA5 /* TBXMLNSDataAdditions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2642,6 +2664,8 @@
 				5286DBEC13E0CFCA00E5971F /* CJSONSerializer.m in Sources */,
 				52D7FF4B13E8617200FABF6C /* PXTouchEngine.m in Sources */,
 				52D7FF7513E865E600FABF6C /* PXEnginePrivate.m in Sources */,
+				2DFA00EA143A4B4900307EA5 /* TBXML.m in Sources */,
+				2DFA00EC143A4B4900307EA5 /* TBXMLNSDataAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
