@@ -1,3 +1,28 @@
+Version 0.13.1 (Oct 3, 2011)
+==============
+
+New
+---
+- Added several utility methods to PXTextureAtlas for quickly grabbing frames.
+- Small utility creation methods to PXSprite and PXSimpleSprite.
+
+Changed
+-------
+- Pixelwave + templates are ARC compatible.
+- More access provided to the internal gl attributes of a PXTextureData.
+
+Fixed
+-----
+- Minor bug fixes.
+- Minor cleanup, inconsistency fixes and improved clarity.
+- Fixed Zwoptex parser to properly handle rotated images.
+- Texture loader loads retina images more accurately (bug #14).
+- Fixed issue #13 involving grabbing the first touch on a display object.
+- Pixelwave compiles correctly with the latest compilers and Xcode version.
+- Fixed PXLinkedListForEachReverse (issue #16). Credit: Bekenn.
+- Issue with sprite hit test not working properly in some cases.
+- Implemented the PXSimpleButton.enabled property.
+
 Version 0.13.0 (Aug 23, 2011)
 ==============
 
