@@ -34,7 +34,7 @@
 	<key>--project-name</key>
 	<string>Pixelwave API</string>
 	<key>--project-version</key>
-	<string>1.3</string>
+	<string>1.3.1</string>
 	<key>--repeat-first-par</key>
 	<false/>
 	<key>--search-undocumented-doc</key>
