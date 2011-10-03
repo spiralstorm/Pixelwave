@@ -78,6 +78,7 @@ typedef enum
 	_PXDisplayObjectFlags_isContainer				= 0x04,
 	_PXDisplayObjectFlags_isInteractive				= 0x08,
 	_PXDisplayObjectFlags_useCustomHitArea			= 0x10,
+	_PXDisplayObjectFlags_forceAddToDisplayHitList	= 0x20,
 } _PXDisplayObjectFlags;
 
 @interface PXDisplayObject : PXEventDispatcher
@@ -342,4 +343,3 @@ typedef enum
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag;
 - (void) _measureLocalBounds:(CGRect *)retBounds;
 @end
-	

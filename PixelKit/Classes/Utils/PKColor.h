@@ -40,8 +40,9 @@
 #ifndef _PK_COLOR_H_
 #define _PK_COLOR_H_
 
-#import "PXPrivateUtils.h"
-#import "PKInterpolater.h"
+#import "PXHeaderUtils.h"
+
+#include "PXMathUtils.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -53,7 +54,17 @@ typedef struct
 	unsigned char g;
 	unsigned char b;
 	unsigned char a;
+} PKRGBABE;
+
+typedef struct
+{
+	unsigned char a;
+	unsigned char b;
+	unsigned char g;
+	unsigned char r;
 } PKRGBA;
+
+typedef PKRGBA PKRGBALE;
 
 typedef struct
 {
@@ -61,7 +72,17 @@ typedef struct
 	unsigned char r;
 	unsigned char g;
 	unsigned char b;
+} PKARGBBE;
+
+typedef struct
+{
+	unsigned char b;
+	unsigned char g;
+	unsigned char r;
+	unsigned char a;
 } PKARGB;
+
+typedef PKARGB PKARGBLE;
 
 typedef union
 {
@@ -72,11 +93,22 @@ typedef union
 	unsigned asUInt;
 } PKColor;
 
+typedef PKColor PKColorLE;
+
+typedef union
+{
+	PKRGBABE asRGBA;
+	PKARGBBE asARGB;
+	
+	int asInt;
+	unsigned asUInt;
+} PKColorBE;
+
 #pragma mark -
 #pragma mark Declerations
 #pragma mark -
 
-PXInline PKColor PKColorMake(unsigned hex);
+PXInline PKColor PKColorMake(unsigned int hex);
 PXInline PKColor PKColorMakeRGBA(unsigned char red,
 								 unsigned char green,
 								 unsigned char blue,
@@ -88,13 +120,17 @@ PXInline PKColor PKColorMakeARGB(unsigned char alpha,
 
 PXInline PKColor PKColorRGBAToARGB(PKColor color);
 PXInline PKColor PKColorARGBToRGBA(PKColor color);
+
+PXInline PKColorBE PKColorLEtoBE(PKColorLE color);
+PXInline PKColorLE PKColorBEtoLE(PKColorBE color);
+
 PXInline void PKColorInterpolate(void *retVal, void *from, void *to, float percent);
 
 #pragma mark -
 #pragma mark Implementations
 #pragma mark -
 
-PXInline PKColor PKColorMake(unsigned hex)
+PXInline PKColor PKColorMake(unsigned int hex)
 {
 	PKColor retVal;
 
@@ -137,6 +173,30 @@ PXInline PKColor PKColorARGBToRGBA(PKColor color)
 	return PKColorMakeARGB(color.asRGBA.a, color.asRGBA.r, color.asRGBA.g, color.asRGBA.b);
 }
 
+PXInline PKColorBE PKColorLEtoBE(PKColorLE le)
+{
+	PKColorBE be;
+
+	be.asRGBA.r = le.asRGBA.r;
+	be.asRGBA.g = le.asRGBA.g;
+	be.asRGBA.b = le.asRGBA.b;
+	be.asRGBA.a = le.asRGBA.a;
+
+	return be;
+}
+
+PXInline PKColorLE PKColorBEtoLE(PKColorBE be)
+{
+	PKColorLE le;
+
+	le.asRGBA.r = be.asRGBA.r;
+	le.asRGBA.g = be.asRGBA.g;
+	le.asRGBA.b = be.asRGBA.b;
+	le.asRGBA.a = be.asRGBA.a;
+
+	return le;
+}
+
 PXInline void PKColorInterpolate(void *retVal, void *from, void *to, float percent)
 {
 	// Must have a return, a from and a to value
@@ -148,10 +208,10 @@ PXInline void PKColorInterpolate(void *retVal, void *from, void *to, float perce
 	PKColor *colorFrom = (PKColor *)from;
 	PKColor *colorTo   = (PKColor *)to;
 
-	*colorRet = PKColorMakeRGBA(PK_INTERPOLATE(colorFrom->asRGBA.r, colorTo->asRGBA.r, percent),
-								PK_INTERPOLATE(colorFrom->asRGBA.g, colorTo->asRGBA.g, percent),
-								PK_INTERPOLATE(colorFrom->asRGBA.b, colorTo->asRGBA.b, percent),
-								PK_INTERPOLATE(colorFrom->asRGBA.a, colorTo->asRGBA.a, percent));
+	*colorRet = PKColorMakeRGBA(PXMathLerp(colorFrom->asRGBA.r, colorTo->asRGBA.r, percent),
+								PXMathLerp(colorFrom->asRGBA.g, colorTo->asRGBA.g, percent),
+								PXMathLerp(colorFrom->asRGBA.b, colorTo->asRGBA.b, percent),
+								PXMathLerp(colorFrom->asRGBA.a, colorTo->asRGBA.a, percent));
 }
 
 #ifdef __cplusplus

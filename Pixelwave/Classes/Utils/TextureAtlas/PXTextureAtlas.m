@@ -48,11 +48,14 @@
 
 #import "PXTextureAtlasParser.h"
 
+#import "PXRegexPattern.h"
+#import "PXRegexMatcher.h"
+
 @interface PXTextureAtlas(Private)
 - (id) initWithData:(NSData *)data
-	   scaleFactor:(float)scaleFactor
-		  modifier:(id<PXTextureModifier>)modifier
-			origin:(NSString *)origin;
+		scaleFactor:(float)scaleFactor
+		   modifier:(id<PXTextureModifier>)modifier
+			 origin:(NSString *)origin;
 @end
 
 /**
@@ -216,7 +219,7 @@
 
 	[self release];
 
-	if (!parser)
+	if (parser == nil)
 	{
 		return nil;
 	}
@@ -317,7 +320,8 @@
 - (void) removeFrame:(NSString *)name
 {
 	PXAtlasFrame *frame = (PXAtlasFrame *)[frames objectForKey:name];
-	if (!frame)
+
+	if (frame == nil)
 		return;
 	
 	[frames removeObjectForKey:name];
@@ -419,7 +423,8 @@
 - (PXTexture *)textureForFrame:(NSString *)name
 {
 	PXAtlasFrame *frame = [self frameWithName:name];
-	if (!frame)
+
+	if (frame == nil)
 		return nil;
 	
 	PXTexture *texture = [PXTexture texture];
@@ -442,10 +447,11 @@
 - (void) setFrame:(NSString *)name toTexture:(PXTexture *)texture
 {
 	PXAtlasFrame *frame = [self frameWithName:name];
-	if (!frame)
-		return;
-	
-	[frame setToTexture:texture];
+
+	if (frame != nil)
+	{
+		[frame setToTexture:texture];
+	}
 }
 
 // Static
@@ -470,6 +476,237 @@
 + (PXTextureAtlas *)textureAtlasWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier
 {
 	return [[[PXTextureAtlas alloc] initWithContentsOfFile:path modifier:modifier] autorelease];
+}
+
+@end
+
+// Used in the sequentialFramesWithPrefix:suffix:inRange method
+NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *context)
+{
+	int indexA = [((NSNumber *)[frameA objectForKey:@"index"]) intValue];
+	int indexB = [((NSNumber *)[frameB objectForKey:@"index"]) intValue];
+
+	if (indexA > indexB)
+		return 1;
+	if (indexA < indexB)
+		return -1;
+
+	return 0;
+}
+
+@implementation PXTextureAtlas (Utils)
+
+/**
+ * Returns the frames with the given names. If a frame
+ * doesn't exist for any of the given names, those names
+ * are simply ignored.
+ *
+ * @param names An NSArray object containing the names of the
+ * frames requested.
+ *
+ * @return An NSArray containing the frame objects matching the
+ * given names. The frames in the returned array are in the same
+ * order as the names provided.
+ */
+- (NSArray *)framesWithNames:(NSArray *)names
+{
+	if (names == nil)
+		return nil;
+	
+	NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:[names count]];
+	
+	PXAtlasFrame *frame;
+	
+	for (NSString *name in names)
+	{
+		frame = [self frameWithName:name];
+
+		if (frame != nil)
+		{
+			[array addObject:frame];
+		}
+	}
+	
+	return [array autorelease];
+}
+
+/**
+ * Finds and returns all frames whose names match
+ * the given regex pattern.
+ *
+ * @param pattern The regex pattern to match against the
+ * names of all frames in this atlas.
+ *
+ * @return An NSArray containing all frames whithin the
+ * atlas whose names match the given regex pattern.
+ */
+- (NSArray *)framesWithPattern:(PXRegexPattern *)pattern
+{
+	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern];
+	BOOL matched;
+	
+	NSMutableArray *array = [[NSMutableArray alloc] init];
+	PXAtlasFrame *frame;
+	
+	for (NSString *frameName in frames)
+	{
+		matcher.input = frameName;
+		matched = [matcher next];
+		
+		if (matched == NO)
+			continue;
+		
+		frame = [self frameWithName:frameName];
+		
+		// Just to be extra cautious:
+		if (frame == nil)
+			continue;
+		
+		[array addObject:frame];
+	}
+	
+	return [array autorelease];
+}
+
+- (NSArray *)sequentialFramesWithPrefix:(NSString *)prefix suffix:(NSString *)suffix
+{
+	return [self sequentialFramesWithPrefix:prefix suffix:suffix inRange:NSMakeRange(NSNotFound, 0)];
+}
+
+/**
+ * Finds all frames with the given prefix and suffix in their name,
+ * assuming the value between them is numerical.
+ *
+ * The returned list of frames is sorted according to the
+ * numerical value between the `prefix` and `suffix`. If
+ * the numerical value has any leading zeros they are safely ignored;
+ * only the underlying integer value is used when sorting the list. Note
+ * that this method assumes the numerical value is always an integer.
+ *
+ * @param prefix The string to the left of the numerical value in the
+ * frame's name.
+ * @param suffix The string to the right of the numerical value in the
+ * frame's name
+ * @param range The range of numerical values to include in the returned list.
+ * If you'd like all numerical values to be considered just pass `{NSNotFound, 0}`
+ * for this parameter.
+ *
+ * @return An NSArray containing #PXAtlasFrame objects matching the `prefix`
+ * and `suffix` provided. The list is sorted according to the numerical value
+ * between the `prefix` and `suffix`. If no frame's name matches the pattern,
+ * an empty list is returned.
+ */
+- (NSArray *)sequentialFramesWithPrefix:(NSString *)prefix suffix:(NSString *)suffix inRange:(NSRange)inRange
+{
+	BOOL checkRange = (inRange.location != NSNotFound);
+	
+	NSString *frameName;
+	PXAtlasFrame *frame;
+	
+	NSRange range;
+	
+	int numberStartIndex, numberEndIndex;
+	int frameNameLength;
+	
+	NSString *numberString;
+	int frameIndex;
+	
+	// For keeping the results
+	NSDictionary *dictionary;
+	NSNumber *frameIndexNumber;
+	NSMutableArray *arrayOfDicts = [[NSMutableArray alloc] init];
+	
+	for (frameName in frames)
+	{
+		// Find the location of the index string, if any.
+		if (prefix != nil)
+		{
+			range = [frameName rangeOfString:prefix options:(NSCaseInsensitiveSearch)];
+
+			if (range.location == NSNotFound)
+				continue;
+			if (range.location != 0)
+				continue;
+			
+			numberStartIndex = range.location + range.length;
+		}
+		else
+		{
+			numberStartIndex = 0;
+		}
+		
+		frameNameLength = [frameName length];
+		
+		if (suffix != nil)
+		{
+			range = [frameName rangeOfString:suffix options:(NSCaseInsensitiveSearch | NSBackwardsSearch)];
+
+			if (range.location == NSNotFound)
+				continue;
+			if (range.location + range.length != frameNameLength)
+				continue;
+			
+			numberEndIndex = range.location;
+		}
+		else
+		{
+			numberEndIndex = frameNameLength;
+		}
+		
+		// Get the index string given its location
+		
+		range.location = numberStartIndex;
+		range.length = numberEndIndex - numberStartIndex;
+		numberString = [frameName substringWithRange:range];
+		
+		// Convert the string to a number we can use
+		
+		frameIndex = [numberString intValue];
+		
+		if (frameIndex == 0 && ([numberString isEqualToString:@"0"] == NO || [numberString isEqualToString:@"-0"] == NO))
+		{
+			// Invalid number
+			continue;
+		}
+		
+		// Check if the index is in range (inclusive)
+		if (checkRange && (frameIndex < inRange.location || frameIndex  > (inRange.location + inRange.length)))
+		{
+			continue;
+		}
+		
+		frame = [self frameWithName:frameName];
+		
+		if (frame == nil)
+			continue;
+		
+		// Found the frame. We wrap the frame inside a dictionary, along with its index.
+		// Then we add it to a list, which will be sorter at the end.
+		
+		frameIndexNumber = [[NSNumber alloc] initWithInt:frameIndex];
+		dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:frame, @"frame", frameIndexNumber, @"index", nil];
+		
+		[arrayOfDicts addObject:dictionary];
+		
+		[frameIndexNumber release];
+		[dictionary release];
+	}
+	
+	// Sort the frame wrappers.
+	[arrayOfDicts sortUsingFunction:pxAtlasFrameSorter context:nil];
+	
+	// Extract all the frames out of the sorted array of dictionaries
+	NSMutableArray *array = [[NSMutableArray alloc] init];
+	
+	for (dictionary in arrayOfDicts)
+	{
+		//NSLog(@"%@", [dictionary objectForKey:@"index"]);
+		[array addObject:[dictionary objectForKey:@"frame"]];
+	}
+	
+	[arrayOfDicts release];
+	
+	return [array autorelease];
 }
 
 @end

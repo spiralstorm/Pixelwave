@@ -114,7 +114,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
  *
  * @see releaseObject:
  */
-- (PXGenericObject) newObjectUsingClass:(Class)typeClass
+- (id) newObjectUsingClass:(Class)typeClass
 {
 	if (!pools)
 	{
@@ -129,7 +129,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
 		[list release];
 	}
 
-	PXGenericObject retObject = nil;
+	id retObject = nil;
 
 	if (list.count > 0)
 	{
@@ -182,7 +182,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
  * 
  */
 // Releases the object
-- (void) releaseObject:(PXGenericObject)object
+- (void) releaseObject:(id)object
 {
 	if (!pools)
 		return;

@@ -48,6 +48,8 @@
 #include "PXPrivateUtils.h"
 #include "PXDebug.h"
 
+#include "PXTouchEngine.h"
+
 @interface PXSimpleButton(Private)
 - (CGRect) currentHitAreaRect;
 @end
@@ -129,6 +131,48 @@
 @synthesize enabled;
 @synthesize autoInflateAmount;
 
+- (id) init
+{
+	return [self initWithUpState:nil downState:nil hitTestState:nil];
+}
+
+- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState
+{
+	return [self initWithUpState:_upState downState:_downState hitRectWithPadding:0.0f];
+}
+
+/**
+ * Initializes a button with specified `up` state and
+ * `down` state, and a #PXRectangle for the `hitTest` state.
+ *
+ * The #PXRectangle object created for the #hitTestState is sized to match the #upState
+ * display object if one is provided, or the size of the #downState display object otherswise.
+ *
+ * Because the #hitTestState will be a #PXRectangle object it will be
+ * automatically expanded when the button is pressed as specified by #autoInflateAmount.
+ *
+ * @param upState A PXDisplayObject that specifies the visual up state for the button.
+ * @param downState A PXDisplayObject that specifies the visual down state for the button.
+ *
+ * @see PXRectangle;
+ */
+- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState hitRectWithPadding:(float)hitRectPadding
+{	
+	// Create a rectangle of the size of the 'upState' or the 'downState' if the
+	// 'upState' is not provided.
+
+	PXRectangle *bounds = nil;
+	PXDisplayObject *checkState = (_upState == nil) ? _downState : _upState;
+
+	if (checkState != nil)
+	{
+		bounds = [checkState boundsWithCoordinateSpace:checkState];
+		[bounds inflateWithX:hitRectPadding y:hitRectPadding];
+	}
+
+	return [self initWithUpState:_upState downState:_downState hitTestState:bounds];
+}
+
 /**
  * Initializes a button with specified up, down and hit test states.
  *
@@ -208,50 +252,6 @@
 	[super dealloc];
 }
 
-- (id) init
-{
-	return [self initWithUpState:nil downState:nil hitTestState:nil];
-}
-
-- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState
-{
-	return [self initWithUpState:_upState downState:_downState hitRectWithPadding:0.0f];
-}
-
-/**
- * Initializes a button with specified `up` state and
- * `down` state, and a #PXRectangle for the `hitTest` state.
- *
- * The #PXRectangle object created for the #hitTestState is sized to match the #upState
- * display object if one is provided, or the size of the #downState display object otherswise.
- *
- * Because the #hitTestState will be a #PXRectangle object it will be
- * automatically expanded when the button is pressed as specified by #autoInflateAmount.
- *
- * @param upState A PXDisplayObject that specifies the visual up state for the button.
- * @param downState A PXDisplayObject that specifies the visual down state for the button.
- *
- * @see PXRectangle;
- */
-- (id) initWithUpState:(PXDisplayObject *)_upState downState:(PXDisplayObject *)_downState hitRectWithPadding:(float)hitRectPadding
-{	
-	// Create a rectangle of the size of the 'upState' or the 'downState' if the
-	// 'upState' is not provided.
-
-	hitAreaIsRect = YES;
-
-	PXRectangle *bounds = nil;
-	PXDisplayObject *checkState = (_upState == nil) ? _downState : _upState;
-
-	if (checkState)
-	{
-		bounds = [checkState boundsWithCoordinateSpace:checkState];
-		[bounds inflateWithX:hitRectPadding y:hitRectPadding];
-	}
-
-	return [self initWithUpState:_upState downState:_downState hitTestState:bounds];
-}
-
 - (void) setHitTestState:(id<NSObject>)newState
 {	
 	[newState retain];
@@ -288,6 +288,8 @@
 - (BOOL) dispatchEvent:(PXEvent *)event
 {
 	[self retain];
+	
+	BOOL wasEnabled = enabled;
 
 	BOOL didDispatch = [super dispatchEvent:event];
 
@@ -298,40 +300,47 @@
 		// if the touch was in the buffer zone.
 		if ([event isKindOfClass:[PXTouchEvent class]])
 		{
-			PXTouchEvent *touchEvent = (PXTouchEvent *)event;
-			NSString *eventType = touchEvent.type;
-
-			if ([eventType isEqualToString:PXTouchEvent_TouchDown])
+			if (wasEnabled)
 			{
-				[pxSimpleButtonTouchList addObject:touchEvent.nativeTouch];
+				PXTouchEvent *touchEvent = (PXTouchEvent *)event;
+				NSString *eventType = touchEvent.type;
 
-				visibleState = _PXSimpleButtonVisibleState_Down;
-
-				isPressed = YES;
-			}
-			else if ([eventType isEqualToString:PXTouchEvent_TouchMove])
-			{
-				// Checking the auto expand rect is automatically done
-				if (touchEvent.insideTarget == YES)
+				if ([eventType isEqualToString:PXTouchEvent_TouchDown])
 				{
+					[pxSimpleButtonTouchList addObject:touchEvent.nativeTouch];
+
 					visibleState = _PXSimpleButtonVisibleState_Down;
+
+					isPressed = YES;
 				}
-				else
+				else if ([eventType isEqualToString:PXTouchEvent_TouchMove])
 				{
-					visibleState = _PXSimpleButtonVisibleState_Up;
+					// Checking the auto expand rect is automatically done
+					if (touchEvent.insideTarget == YES)
+					{
+						visibleState = _PXSimpleButtonVisibleState_Down;
+					}
+					else
+					{
+						visibleState = _PXSimpleButtonVisibleState_Up;
+					}
+				}
+				else if ([eventType isEqualToString:PXTouchEvent_TouchUp] ||
+						 [eventType isEqualToString:PXTouchEvent_TouchCancel])
+				{
+					[pxSimpleButtonTouchList removeObject:touchEvent.nativeTouch];
+
+					if ([pxSimpleButtonTouchList count] == 0)
+					{
+						visibleState = _PXSimpleButtonVisibleState_Up;
+					}
+
+					isPressed = NO;
 				}
 			}
-			else if ([eventType isEqualToString:PXTouchEvent_TouchUp] ||
-					 [eventType isEqualToString:PXTouchEvent_TouchCancel])
+			else
 			{
-				[pxSimpleButtonTouchList removeObject:touchEvent.nativeTouch];
-
-				if ([pxSimpleButtonTouchList count] == 0)
-				{
-					visibleState = _PXSimpleButtonVisibleState_Up;
-				}
-
-				isPressed = NO;
+				visibleState = _PXSimpleButtonVisibleState_Up;
 			}
 		}
 	}

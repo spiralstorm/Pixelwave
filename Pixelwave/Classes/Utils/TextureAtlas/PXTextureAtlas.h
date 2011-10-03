@@ -144,3 +144,13 @@
 + (PXTextureAtlas *)textureAtlas;
 + (PXTextureAtlas *)textureAtlasWithContentsOfFile:(NSString *)path modifier:(id<PXTextureModifier>)modifier;
 @end
+
+@class PXRegexPattern;
+
+@interface PXTextureAtlas (Utils)
+- (NSArray *)framesWithNames:(NSArray *)names;
+- (NSArray *)framesWithPattern:(PXRegexPattern *)pattern;
+- (NSArray *)sequentialFramesWithPrefix:(NSString *)prefix suffix:(NSString *)suffix;
+- (NSArray *)sequentialFramesWithPrefix:(NSString *)prefix suffix:(NSString *)suffix inRange:(NSRange)range;
+// TODO: Add a [sequentialFramesWithPattern:range:] which will sort the list with all the groups in the pattern.
+@end

@@ -98,17 +98,20 @@
 
 	hitAreaIsRect = NO;
 	PX_DISABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
+	PX_DISABLE_BIT(self->_flags, _PXDisplayObjectFlags_forceAddToDisplayHitList);
 
 	if ([_hitArea isKindOfClass:[PXDisplayObject class]] == YES)
 	{
 		hitArea = [(PXDisplayObject *)_hitArea retain];
 		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
+		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_forceAddToDisplayHitList);
 	}
 	else if ([_hitArea isKindOfClass:[PXRectangle class]] == YES)
 	{
 		hitAreaIsRect = YES;
 		hitAreaRect = PXRectangleToCGRect((PXRectangle *)_hitArea);
 		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_useCustomHitArea);
+		PX_ENABLE_BIT(self->_flags, _PXDisplayObjectFlags_forceAddToDisplayHitList);
 	}
 	else if (_hitArea != nil)
 	{
@@ -165,6 +168,47 @@
 	{
 		[_graphics _renderGL];
 	}
+}
+
+/**
+ * A utility method for quickly creating a #PXSprite containing
+ * the specified child object.
+ *
+ * @param child A display object to add to the created #PXSprite
+ * @return	An autoareleased PXSimpleSprite
+ */
++ (PXSprite *)spriteWithChild:(PXDisplayObject *)child
+{
+	PXSprite *sprite = [[PXSprite alloc] init];
+
+	if (child)
+	{
+		[sprite addChild:child];
+	}
+
+	return [sprite autorelease];
+}
+
+/**
+ * A utility method for quickly creating a #PXSprite containing
+ * the specified children objects.
+ *
+ * @param children A list of children to add to the created #PXSprite
+ * @return	An autoareleased PXSimpleSprite
+ */
++ (PXSprite *)spriteWithChildren:(NSArray *)children
+{
+	PXSprite *sprite = [[PXSprite alloc] init];
+
+	for (NSObject *object in children)
+	{
+		if ([object isKindOfClass:[PXDisplayObject class]])
+		{
+			[sprite addChild:(PXDisplayObject *)object];
+		}
+	}
+
+	return [sprite autorelease];
 }
 
 @end

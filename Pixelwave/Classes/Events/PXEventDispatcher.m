@@ -104,7 +104,16 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 - (id) init
 {
-	return [self initWithTarget:self];
+	self = [super init];
+	
+	if (self)
+	{
+		target = self;
+		eventListeners = nil;
+		dispatchEvents = YES;
+	}
+	
+	return self;
 }
 
 /**
@@ -114,13 +123,14 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  */
 - (id) initWithTarget:(id<PXEventDispatcher>)_target
 {
-	self = [super init];
+	// This is untraditional, but necessary. We want
+	// [init] to be the default initializer since that's
+	// what all the display objects override.
+	self = [self init];
 
 	if (self)
 	{
 		target = _target;
-		eventListeners = nil;
-		dispatchEvents = YES;
 	}
 
 	return self;
@@ -188,34 +198,26 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 		PXThrowNilParam(type);
 		return NO;
 	}
+
 	if (!listener)
 	{
 		PXThrowNilParam(listener);
 		return NO;
 	}
 
-	// Event priority must be >= zero... Could be negative in Flash player, but
-	// decided against it here for optimization purposes (so the default zero
-	// priority listeners can always be added to the end of the list)
-	if (priority < 0)
-	{
-		PXThrow(PXArgumentException, @"Parameter priority must be >= 0");
-		return NO;
-	}
-
 	if (!eventListeners)
 	{
-		//Initialize the dictionary
+		// Initialize the dictionary
 		eventListeners = [[NSMutableDictionary alloc] init];
 	}
 
-	//The capture phase events are stored in a different array
+	// The capture phase events are stored in a different array
 	if (useCapture)
 	{
 		type = PX_GET_EVENT_CAPTURE_KEY(type);
 	}
 
-	//Get the array of event listeners. If it doesn't exist, create it
+	// Get the array of event listeners. If it doesn't exist, create it
 	PXLinkedList *listenersArray = [eventListeners valueForKey:type];
 	if (!listenersArray)
 	{
@@ -244,8 +246,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	{
 		//Loop on each listener and see if it has a higher priority
 
-		int index = 0;
-		int len = [listenersArray count];
+		unsigned int index = 0;
+		unsigned int count = [listenersArray count];
 
 		PXEventListener *cListener = nil;
 		PXLinkedListForEach(listenersArray, cListener)
@@ -261,7 +263,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 		// Looks like all the items have a higher or = priority, just add at the
 		// end
-		if (index == len)
+		if (index == count)
 		{
 			[listenersArray addObject:listener];
 		}
@@ -366,7 +368,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 	NSEnumerator *enumerator;
 	NSString *key;
-	PXGenericObject obj;
+	id obj;
 
 	enumerator = [eventListeners keyEnumerator];
 	while (key = [enumerator nextObject])
@@ -473,7 +475,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 // Prepares an event for dispatching
 //- (PXEvent *)_prepEvent:(PXEvent *)event
-- (void)_prepEvent:(PXEvent *)event
+- (void) _prepEvent:(PXEvent *)event
 {
 	// Set the defaults for dispatching events without any flow (ie just one
 	// phase).  PXDisplayObject takes care of display list event flow
@@ -568,7 +570,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * them with the given event object. Assumes that the event has already been
  * re-set.
  */
-- (void) _invokeEvent:(PXEvent *)event withCurrentTarget:(PXGenericObject)currentTarget eventPhase:(char)phase
+- (void) _invokeEvent:(PXEvent *)event withCurrentTarget:(id)currentTarget eventPhase:(char)phase
 {
 	/* No reason to dispatch events if there are no event listeners */
 	if (!eventListeners)

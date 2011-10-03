@@ -106,8 +106,7 @@ NSMutableDictionary *pxFonts = nil;
 
 	if (self)
 	{
-		PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data
-																 options:options];
+		PXFontParser *fontParser = [[PXFontParser alloc] initWithData:data options:options];
 		PXFont *newFont = [fontParser newFont];
 
 		[fontParser release];

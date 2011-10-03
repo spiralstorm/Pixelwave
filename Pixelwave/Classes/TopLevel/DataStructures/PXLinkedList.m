@@ -56,10 +56,10 @@ void PXLinkedListReturnPooledNode(_PXLLNode *node);
 void PXLinkedListShrinkPoolNodes(int newSize);
 
 @interface PXLinkedList(Private)
-- (void) addObject:(PXGenericObject)object beforeNode:(_PXLLNode *)nodeToAddBefore;
+- (void) addObject:(id)object beforeNode:(_PXLLNode *)nodeToAddBefore;
 - (void) removeNode:(_PXLLNode *)node;
 - (_PXLLNode *)getNodeByIndex:(int)index;
-- (_PXLLNode *)getNodeByObject:(PXGenericObject)object;
+- (_PXLLNode *)getNodeByObject:(id)object;
 - (void) swapNode:(_PXLLNode *)node1 withNode:(_PXLLNode *)node2;
 @end
 
@@ -348,7 +348,7 @@ _PXLLNode pxLinkedListBadNode;
 	return 0;
 }
 
-- (_PXLLNode *)getNodeByObject:(PXGenericObject)object
+- (_PXLLNode *)getNodeByObject:(id)object
 {
 	_PXLLNode *node;
 	unsigned index;
@@ -389,7 +389,7 @@ _PXLLNode pxLinkedListBadNode;
  *	PXPoint *foundObject = (PXPoint *)[list objectAtIndex:0];
  *	// foundObject == add1
  */
-- (PXGenericObject) objectAtIndex:(int)indexOfObject
+- (id) objectAtIndex:(int)indexOfObject
 {
 	if (indexOfObject < 0 || indexOfObject >= _nodeCount)
 	{
@@ -435,7 +435,7 @@ _PXLLNode pxLinkedListBadNode;
  *	BOOL doesContain = [list containsObject:add1];
  *	// doesContain == YES
  */
-- (BOOL) containsObject:(PXGenericObject)object
+- (BOOL) containsObject:(id)object
 {
 	if (!object)
 	{
@@ -475,7 +475,7 @@ _PXLLNode pxLinkedListBadNode;
  *	int index = [list indexOfObject:add1];
  *	// index == 0
  */
-- (int) indexOfObject:(PXGenericObject)object
+- (int) indexOfObject:(id)object
 {
 	if (!object)
 	{
@@ -494,7 +494,7 @@ _PXLLNode pxLinkedListBadNode;
 	return -1;
 }
 
-- (PXGenericObject) firstObject
+- (id) firstObject
 {
 	if (!_head)
 		return nil;
@@ -502,7 +502,7 @@ _PXLLNode pxLinkedListBadNode;
 	return _head->data;
 }
 
-- (PXGenericObject) lastObject
+- (id) lastObject
 {
 	if (!_tail)
 		return nil;
@@ -546,7 +546,7 @@ _PXLLNode pxLinkedListBadNode;
  *
  * @see PXPoint
  */
-- (void) addObject:(PXGenericObject)object
+- (void) addObject:(id)object
 {
 	if (!object)
 	{
@@ -555,7 +555,7 @@ _PXLLNode pxLinkedListBadNode;
 
 	if (object == self)
 	{
-		PXThrow(PXArgumentException, @"A list cannot add itself to itself.. silly.");
+		PXThrow(PXArgumentException, @"A list cannot add itself to itself... silly.");
 		return;
 	}
 
@@ -600,13 +600,13 @@ _PXLLNode pxLinkedListBadNode;
  */
 
 /*
-- (void) insertObjectAtFront:(PXGenericObject)object
+- (void) insertObjectAtFront:(id)object
 {
 	[self addObject:object beforeNode:_head];
 }
 */
 
-/*- (void) insertObject:(PXGenericObject)object beforeObject:(PXGenericObject)objectToAddBefore
+/*- (void) insertObject:(id)object beforeObject:(id)objectToAddBefore
    {
         PX_LL_START_CHILD_LOOP
         {
@@ -660,7 +660,7 @@ _PXLLNode pxLinkedListBadNode;
  *	// add1 has a retain count of 1, and an index of 1
  *	// add2 has a retain count of 1, and an index of 0
  */
-- (void) insertObject:(PXGenericObject)object atIndex:(int)indexOfObject
+- (void) insertObject:(id)object atIndex:(int)indexOfObject
 {
 	if (!object)
 	{
@@ -705,7 +705,7 @@ _PXLLNode pxLinkedListBadNode;
 /*
  * Internal
  */
-- (void) addObject:(PXGenericObject)object beforeNode:(_PXLLNode *)nodeToAddBefore
+- (void) addObject:(id)object beforeNode:(_PXLLNode *)nodeToAddBefore
 {
 	//head and tail must both be null or both be non-null
 	NSAssert((_head && _tail) || (!_head && !_tail), @"");
@@ -901,7 +901,7 @@ _PXLLNode pxLinkedListBadNode;
  *
  * @see PXPoint
  */
-- (void) setIndex:(int)newIndexOfObject ofObject:(PXGenericObject)object
+- (void) setIndex:(int)newIndexOfObject ofObject:(id)object
 {
 	if (!object)
 		return;
@@ -975,7 +975,7 @@ _PXLLNode pxLinkedListBadNode;
  *
  * @see [PXLinkedList containsObject:]
  */
-- (void) removeObject:(PXGenericObject)object
+- (void) removeObject:(id)object
 {
 	//Find the object and remove it
 	if (!object)
@@ -1371,7 +1371,7 @@ _PXLLNode pxLinkedListBadNode;
  *	// add1 has a retain count of 2, and an index of 1
  *	// add2 has a retain count of 2, and an index of 0
  */
-- (void) swapObject:(PXGenericObject)object1 withObject:(PXGenericObject)object2
+- (void) swapObject:(id)object1 withObject:(id)object2
 {
 	if (object1 == object2)
 		return;
@@ -1439,7 +1439,7 @@ _PXLLNode pxLinkedListBadNode;
 	if (node1 == node2)
 		return;
 
-	PXGenericObject data1 = node1->data;
+	id data1 = node1->data;
 	node1->data = node2->data;
 	node2->data = data1;
 }
@@ -1528,16 +1528,16 @@ _PXLLNode pxLinkedListBadNode;
  *
  * @see [PXLinkedList count]
  */
-- (PXGenericObject *)cArray
+- (id *)cArray
 {
 	if (_nodeCount == 0)
 		return NULL;
 
-	PXGenericObject *cArray = malloc(sizeof(PXGenericObject) * _nodeCount);
+	id *cArray = malloc(sizeof(id) * _nodeCount);
 
 	_PXLLNode *node;
 	unsigned index;
-	PXGenericObject *currentObject;
+	id *currentObject;
 	for (index = 0, node = _head, currentObject = cArray; index < _nodeCount; ++index, node = node->next, ++currentObject)
 	{
 		*currentObject = node->data;

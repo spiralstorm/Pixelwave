@@ -10,8 +10,18 @@
 
 int main (int argc, char *argv[])
 {
-    NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    int retVal = UIApplicationMain(argc, argv, nil, nil);
-    [pool release];
-    return retVal;
+	int retVal = 0;
+
+#if __has_feature(objc_arc)
+	@autoreleasepool
+	{
+		retVal = UIApplicationMain(argc, argv, nil, nil);
+	}
+#else
+	NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
+	retVal = UIApplicationMain(argc, argv, nil, nil);
+	[pool release];
+#endif
+
+	return retVal;
 }

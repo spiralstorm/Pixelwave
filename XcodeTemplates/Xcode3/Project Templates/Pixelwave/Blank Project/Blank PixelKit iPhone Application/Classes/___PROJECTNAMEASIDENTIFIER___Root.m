@@ -15,11 +15,4 @@
 	// Entry point for the App. A good place to start.
 }
 
-- (void) dealloc
-{
-	// Cleaning up: Release retained objects, remove event listeners, etc.
-
-	[super dealloc];
-}
-
 @end

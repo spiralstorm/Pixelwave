@@ -51,7 +51,7 @@
 #define PX_GRAPHICS_DEFAULT_PRECISION 0.25f
 
 //LineGroup class used to store vertices
-#define PX_GRAPHICS_GROUP_MAX_POINTS 100
+#define PX_GRAPHICS_GROUP_MAX_POINTS 120
 typedef enum
 {
 	PXGraphicsGroup_Lines = 1,
@@ -65,6 +65,7 @@ typedef enum
 	float lineRadius;
 	GLubyte r, g, b, a;
 
+	// TODO: Convert to PXArrayBuffer so we don't waste space.
 	PXGLVertex *verts;
 
 	unsigned vertsCount;
@@ -177,7 +178,7 @@ typedef enum
 
 @end
 
-//Main Graphics Class
+// Main Graphics Class
 
 @implementation PXGraphics
 
@@ -346,7 +347,9 @@ typedef enum
 	currentX = currentY = 0;
 }
 
-//Utility functions///
+#pragma mark -
+#pragma mark Utility Functions
+#pragma mark -
 
 - (void) drawRectWithX:(float)rx y:(float)ry width:(float)rwidth height:(float)rheight
 {
@@ -446,9 +449,9 @@ typedef enum
 	}
 }
 
-//////////////////////
-
-////////////////////
+#pragma mark -
+#pragma mark Override Functions
+#pragma mark -
 
 - (void) _renderGL
 {

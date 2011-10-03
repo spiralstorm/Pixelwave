@@ -132,11 +132,6 @@ float PXMathPointDistanceToLine(PXMathPoint *point, PXMathLine *line)
 	return PXMathPointDist(pointOnLine, *point);
 }
 
-float PXMathLerpf(float start, float end, float percent)
-{
-	return (start * (1.0f - percent)) + (end * percent);
-}
-
 float PXMathContentRoundf(float val)
 {
 	float contentScaleFactor = PXEngineGetContentScaleFactor();

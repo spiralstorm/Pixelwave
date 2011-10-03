@@ -107,7 +107,9 @@ typedef enum
 /// @see Controlling user interaction
 
 /**
- * Whether the button is enabled (pressable).
+ * Whether the button will change its state when pressed/released.
+ * To disable touch events from being triggered on the button,
+ * make sure to set #touchEnabled to `NO`.
  * **Default:** `YES`.
  */
 @property (nonatomic, assign) BOOL enabled;

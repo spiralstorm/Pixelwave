@@ -82,10 +82,13 @@ BOOL pxTextureDataExpandEdges = YES;
  */
 @implementation PXTextureData
 
-@synthesize width = _contentWidth, height = _contentHeight;
+@synthesize width = _contentWidth;
+@synthesize height = _contentHeight;
 @synthesize glTextureName = _glName;
 @synthesize pixelFormat;
 @synthesize contentScaleFactor = _contentScaleFactor;
+@synthesize glTextureWidth = textureWidth;
+@synthesize glTextureHeight = textureHeight;
 
 - (id) init
 {
@@ -123,7 +126,7 @@ BOOL pxTextureDataExpandEdges = YES;
 
 	if (self)
 	{
-		if (![self _makeGLName])
+		if ([self _makeGLName] == NO)
 		{
 			[self release];
 			return nil;
@@ -222,6 +225,14 @@ BOOL pxTextureDataExpandEdges = YES;
 	return [self initWithWidth:width height:height transparency:NO fillColor:0xFFFFFF contentScaleFactor:1.0f];
 }
 
+/**
+ * Initializes a PXTextureData object with the given width and height values in
+ * pixels. This method has the same effect as calling
+ * #initWithWidth:height:transparency:fillColor:contentScaleFactor: with a
+ * content scale factor of 1.0f.
+ *
+ * @see initWithWidth:height:transparency:fillColor:contentScaleFactor:
+ */
 - (id) initWithWidth:(unsigned)width
 			  height:(unsigned)height
 		transparency:(BOOL)transparency
@@ -254,8 +265,9 @@ BOOL pxTextureDataExpandEdges = YES;
  * @param transparency A boolean value indicating if the PXTextureData object should have an
  * alpha channel.
  * @param fillColor A hex value indicating the default color of the texture data's pixels.
- * For texture datas with an alpha channel, use the format 0xRRGGBB. For
- * texture datas without an alpha channel use the format 0xAARRGGBB.
+ * For texture datas without an alpha channel, use the format 0xRRGGBB. For
+ * texture datas with an alpha channel, use the format 0xAARRGGBB.
+ * @param contentScaleFactor The scale factor used when converting dimensions from points to pixels.  See Apple's documentation for UIView.
  *
  * @see drawDisplayObject:
  * @see drawDisplayObject:matrix:colorTransform:clipRect:smoothing:clearTexture:
@@ -407,7 +419,7 @@ BOOL pxTextureDataExpandEdges = YES;
 
 	// Create a texture with a single channel
 
-	if (![self _init])
+	if ([self _init] == nil)
 		return nil;
 
 	if (contentWidth <= 0 || contentHeight <= 0)
@@ -623,8 +635,6 @@ BOOL pxTextureDataExpandEdges = YES;
 	PXEngineRenderToTexture(self, source, matPtr, ctPtr, rectPtr, smoothing, clearTexture);
 }
 
-///////
-
 - (PXRectangle *)rect
 {
 	return [PXRectangle rectangleWithX:0.0f y:0.0f
@@ -650,8 +660,6 @@ BOOL pxTextureDataExpandEdges = YES;
 {
 	return pxTextureDataExpandEdges;
 }
-
-//////
 
 /**
  * A utility method for quickly loading an image from file and placing it into
@@ -751,7 +759,7 @@ BOOL pxTextureDataExpandEdges = YES;
 	{
 		// Add init code here if needed
 	}
-	//}	
+
 	return self;
 }
 
@@ -783,8 +791,6 @@ BOOL pxTextureDataExpandEdges = YES;
 	
 	return imageRef;
 }
-
-///////////////
 
 + (PXTextureData *)textureDataWithUIImage:(UIImage *)image
 {

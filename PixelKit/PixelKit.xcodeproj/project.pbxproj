@@ -97,7 +97,6 @@
 		2DFFF81312CD2821009AA3C3 /* b2WeldJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DFFF7C012CD2820009AA3C3 /* b2WeldJoint.cpp */; };
 		2DFFF81412CD2821009AA3C3 /* b2WeldJoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFFF7C112CD2820009AA3C3 /* b2WeldJoint.h */; };
 		5297FE121337B82B009856BE /* PKColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5297FE091337B82B009856BE /* PKColor.h */; };
-		52E83E2A13D779B400BF26BC /* PKInterpolater.h in Headers */ = {isa = PBXBuildFile; fileRef = 52E83E2913D779B400BF26BC /* PKInterpolater.h */; };
 		9002411C111E04C700764A57 /* PixelKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9002411B111E04C700764A57 /* PixelKit.h */; };
 		AA747D9F0F9514B9006C5449 /* PixelKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* PixelKit_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
@@ -212,7 +211,6 @@
 		2DFFF7C012CD2820009AA3C3 /* b2WeldJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2WeldJoint.cpp; sourceTree = "<group>"; };
 		2DFFF7C112CD2820009AA3C3 /* b2WeldJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2WeldJoint.h; sourceTree = "<group>"; };
 		5297FE091337B82B009856BE /* PKColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKColor.h; sourceTree = "<group>"; };
-		52E83E2913D779B400BF26BC /* PKInterpolater.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKInterpolater.h; sourceTree = "<group>"; };
 		9002411B111E04C700764A57 /* PixelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKit.h; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* PixelKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKit_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -280,7 +278,6 @@
 		2DC35AB412CBC4BF00B2F195 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				52E83E2913D779B400BF26BC /* PKInterpolater.h */,
 				5297FE091337B82B009856BE /* PKColor.h */,
 				2DC35AB512CBC4BF00B2F195 /* Box2D */,
 			);
@@ -509,7 +506,6 @@
 				2DFFF81412CD2821009AA3C3 /* b2WeldJoint.h in Headers */,
 				2D0D876B12CD41BC00A887AF /* PKBox2DTouchPicker.h in Headers */,
 				5297FE121337B82B009856BE /* PKColor.h in Headers */,
-				52E83E2A13D779B400BF26BC /* PKInterpolater.h in Headers */,
 				2DF9AF5913E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -541,7 +537,7 @@
 		0867D690FE84028FC02AAC07 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0410;
+				LastUpgradeCheck = 0420;
 			};
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "PixelKit" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -649,11 +645,14 @@
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				COPY_PHASE_STRIP = NO;
 				DSTROOT = /tmp/PixelKit.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PixelKit_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PixelKit;
@@ -669,9 +668,12 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				DSTROOT = /tmp/PixelKit.dst;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PixelKit_Prefix.pch;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_MISSING_NEWLINE = YES;
 				INSTALL_PATH = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = PixelKit;
@@ -690,7 +692,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = _DEBUG;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
@@ -710,7 +712,7 @@
 				COMPRESS_PNG_FILES = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_THUMB_SUPPORT = NO;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;

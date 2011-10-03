@@ -139,8 +139,7 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 	// (glBlendFuncSeparateOES != NULL) before calling it. Otherwise,
 	// glBlendFunc could just be used.
 	//
-	// glBlendFuncSeparateOES(pxGLDefaultState.blendSource, pxGLDefaultState.blendDestination,
-	//					   GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	//glBlendFuncSeparateOES(pxGLDefaultState.blendSource, pxGLDefaultState.blendDestination, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 	
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);

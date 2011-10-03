@@ -105,6 +105,11 @@
 	return [self initWithData:nil options:_options origin:systemFont];
 }
 
+- (id) initWithData:(NSData *)_data options:(PXFontOptions *)_options
+{
+	return [self initWithData:_data options:_options origin:nil];
+}
+
 /**
  * Makes a new font parser that parses the given data and allows you to create
  * a new font. This version also stores the origin, in case you need/want it.

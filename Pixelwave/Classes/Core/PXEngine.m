@@ -946,10 +946,11 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	bool isCustom = displayObject->_renderMode == PXRenderMode_Custom;
 	bool isCustomOrManaged = (displayObject->_renderMode == PXRenderMode_ManageStates) || isCustom;
 	bool isRenderOn = !(displayObject->_renderMode == PXRenderMode_Off);
+	bool forceHitTest = PX_IS_BIT_ENABLED(displayObject->_flags, _PXDisplayObjectFlags_forceAddToDisplayHitList);
 
 	if (isCustomOrManaged)
 	{
-		PXGLFlush( );
+		PXGLFlush();
 	}
 
 	if (transformationsEnabled)
@@ -1008,7 +1009,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	}
 	//displayObject->_shouldRenderAABB = canBeUsedForTouches;
 
-	if (isRenderOn)
+	if (isRenderOn == true || forceHitTest == true)
 	{
 		// Reset the bounding box in gl so that when we draw it, it updates the
 		// bounding box to the drawn area. If custom or managed, then it resets
@@ -1017,33 +1018,36 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 		// a touchable area.
 		PXGLResetAABB(isCustomOrManaged);
 
-		// If it is custom or managed, then we need the real matrix to be inside
-		// gl, so when they use the gl draw commands, they draw in the correct
-		// spot. Note, this will push the ENTIRE matrix thus far, so we need to
-		// pop it immediately after incase a child of this custom or managed is
-		// also custom or managed.
-		if (isCustomOrManaged)
+		if (isRenderOn == true)
 		{
-			PXGLSyncTransforms();
+			// If it is custom or managed, then we need the real matrix to be
+			// inside gl, so when they use the gl draw commands, they draw in
+			// the correct spot. Note, this will push the ENTIRE matrix thus
+			// far, so we need to pop it immediately after incase a child of
+			// this custom or managed is also custom or managed.
+			if (isCustomOrManaged)
+			{
+				PXGLSyncTransforms();
+			}
+
+			PXGLResetStates(displayObject->_glState);
+			displayObject->_impRenderGL(displayObject, nil);
+
+			// Popping the matrix, please see the above comment.
+			if (isCustomOrManaged)
+			{
+				PXGLUnSyncTransforms();
+			}
+
+			// This is like popping the color transform of the display object.
+			// It resets the color to the previous color on the stack (that was
+			// set before they called 'color4f, or color4ub').
+			PXGLColor4ub(0xFF, 0xFF, 0xFF, 0xFF);
 		}
-
-		PXGLResetStates(displayObject->_glState);
-		displayObject->_impRenderGL(displayObject, nil);
-
-		// Popping the matrix, please see the above comment.
-		if (isCustomOrManaged)
-		{
-			PXGLUnSyncTransforms();
-		}
-
-		// This is like popping the color transform of the display object. It
-		// resets the color to the previous color on the stack (that was set
-		// before they called 'color4f, or color4ub').
-		PXGLColor4ub(0xFF, 0xFF, 0xFF, 0xFF);
 
 		// Grab the current AABB of the drawn display object (only itself, not
 		// it's children).
-		PXGLAABB *aabb = PXGLGetCurrentAABB( );
+		PXGLAABB *aabb = PXGLGetCurrentAABB();
 
 		/*
 		if (useCustomHitArea)
@@ -1118,7 +1122,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	// is, thus we need to upload every value of pixelwave back into gl.
 	if (isCustom)
 	{
-		PXGLSyncGLToPX( );
+		PXGLSyncGLToPX();
 	}
 
 	// If you have children, draw them too!
@@ -1144,13 +1148,13 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	// If we pushed a color transform, we need to pop it.
 	if (transformPushed)
 	{
-		PXGLPopColorTransform( );
+		PXGLPopColorTransform();
 	}
 
 	// If we pushed a matrix transform, we need to pop it.
 	if (matrixPushed)
 	{
-		PXGLPopMatrix( );
+		PXGLPopMatrix();
 	}
 }
 
@@ -1167,7 +1171,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	}
 	
 	// Finish any rendering queued up to the main buffer
-	PXGLFlush( );
+	PXGLFlush();
 
 	////////////////////////////////////////
 	// Set up the texture rendering state //
@@ -1253,6 +1257,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	if (bShouldClip)
 	{
 		glEnable(GL_SCISSOR_TEST);
+
 		// Takes in coordinates in PIXELS
 		glScissor(clipRect->origin.x	* textureDataScaleFactor,	// in PIXELS
 				  clipRect->origin.y	* textureDataScaleFactor,	// in PIXELS
@@ -1261,8 +1266,8 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	}
 
 	// Set up the rendering (reset the matrix/stacks/ect)
-	
-	PXGLPreRender( );
+
+	PXGLPreRender();
 
 	if (matrix)
 	{
@@ -1280,12 +1285,12 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	if (clearTexture)
 	{
 		uint fillColor = textureData->_fillColor;
-		float div = 1/255.0f;
+		float div = 1 / 255.0f;
 
-		float a = (float)((fillColor >> 24) & 0xFF) * div;
-		float r = (float)((fillColor >> 16) & 0xFF) * div;
-		float g = (float)((fillColor >> 8) & 0xFF) * div;
-		float b = (float)((fillColor) & 0xFF) * div;
+		GLclampf a = (GLclampf)((fillColor >> 24) & 0xFF) * div;
+		GLclampf r = (GLclampf)((fillColor >> 16) & 0xFF) * div;
+		GLclampf g = (GLclampf)((fillColor >> 8) & 0xFF) * div;
+		GLclampf b = (GLclampf)((fillColor) & 0xFF) * div;
 
 		glClearColor(r, g, b, a);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -1306,12 +1311,12 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	////////////
 	// RENDER //
 	////////////
-	
+
 	PXEngineRenderDisplayObject(source, false, false);
-	
+
 	// Flush anything, render any queued up commands
-	PXGLPostRender( );
-	
+	PXGLPostRender();
+
 	////////////////////////////////////
 	// Restore screen rendering state //
 	////////////////////////////////////

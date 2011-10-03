@@ -74,8 +74,8 @@
 	// åPixel format in memory
 	PXTextureDataPixelFormat pixelFormat;
 	// Actual texture size (Must be a power of 2)
-	unsigned textureWidth;
-	unsigned textureHeight;
+	GLsizei textureWidth;
+	GLsizei textureHeight;
 }
 
 /**
@@ -121,6 +121,26 @@
  * to modify properties of the texture data object in OpenGL.
  */
 @property (nonatomic, readonly) GLuint glTextureName;
+
+/**
+ * The width of the underlying OpenGL texture object.  Note that this is the
+ * "power-of-two" width; for the width in pixels of the image, use the #width
+ * property.
+ *
+ * @see width
+ * @see glTextureHeight
+ */
+@property (nonatomic, readonly) GLsizei glTextureWidth;
+
+/**
+ * The height of the underlying OpenGL texture object.  Note that this is the
+ * "power-of-two" height; for the height in pixels of the image, use the #height
+ * property.
+ *
+ * @see height
+ * @see glTextureWidth
+ */
+@property (nonatomic, readonly) GLsizei glTextureHeight;
 
 /**
  * The pixel format of the data.
