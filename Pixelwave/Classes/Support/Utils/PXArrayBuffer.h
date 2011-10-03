@@ -279,7 +279,7 @@ PXInline void *PXArrayBufferElementAt(PXArrayBuffer *buffer, unsigned int index)
 	if (count == 0 || index >= count)
 		return NULL;
 
-	return buffer->array + (index * buffer->_elementSize);
+	return (void *)((uint8_t *)(buffer->array) + (index * buffer->_elementSize));
 }
 
 PXInline void PXArrayBufferListUpdate(PXArrayBuffer *buffer,

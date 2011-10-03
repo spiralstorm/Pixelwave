@@ -1,3 +1,11 @@
+Version 0.13.2 (Oct 3, 2011)
+==============
+
+Fixed
+-----
+- Important issue with point rendering
+- Casting issue with feature introduced in v0.13.1
+
 Version 0.13.1 (Oct 3, 2011)
 ==============
 

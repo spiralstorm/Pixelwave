@@ -86,8 +86,9 @@ typedef struct
 _PXGLRect pxGLRectClip;
 PXGLAABB pxGLAABB;
 
-GLfloat pxGLPointSize = 0;
-GLfloat pxGLLineWidth = 0;
+GLfloat pxGLPointSize = 0.0f;
+GLfloat pxGLHalfPointSize = 0.0f;
+GLfloat pxGLLineWidth = 0.0f;
 
 GLuint pxGLTexture = 0;
 GLuint pxGLFramebuffer = 0;
@@ -262,6 +263,7 @@ void PXGLSyncPXToGL( )
 	{
 		changed = true;
 		pxGLPointSize = fVals[0];
+		pxGLHalfPointSize = pxGLPointSize * 0.5f;
 	}
 
 	//Check color type, reason for doing this is that we don't want anyone to
@@ -843,6 +845,7 @@ void PXGLPointSize(GLfloat size)
 	// have the buffer use the current gl state rather then the chagned one.
 	PXGLFlushBuffer( );
 	pxGLPointSize = size;
+	pxGLHalfPointSize = pxGLPointSize * 0.5f;
 
 	// Lets actually change the gl state.
 	glPointSize(size);
@@ -1207,6 +1210,8 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 	else
 		pointSize = NULL;
 
+//	GLfloat halfPointSize;
+
 	for (GLsizei index = 0; index < count; ++index, ++point)
 	{
 		PXGLDefineVertex(point,
@@ -1236,14 +1241,26 @@ void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count)
 		}
 		if (isPointSizeArray)
 		{
+		//	halfPointSize = *pointSize * 0.5f;
+
 			++pointSize;
 
 			pointSizes = currentPointSize + pointSizeStride;
 			currentPointSize = pointSizes;
-		}
 
-		// Lets figure out the bounding box
-		PXGLAABBExpandv(&aabb, nX, nY);
+		//	PXGLAABBExpandv(&aabb, nX - halfPointSize, nY - halfPointSize);
+		//	PXGLAABBExpandv(&aabb, nX + halfPointSize, nY + halfPointSize);
+		}
+		/*else if (mode == GL_POINTS)
+		{
+			PXGLAABBExpandv(&aabb, nX - pxGLHalfPointSize, nY - pxGLHalfPointSize);
+			PXGLAABBExpandv(&aabb, nX + pxGLHalfPointSize, nY + pxGLHalfPointSize);
+		}
+		else
+		{*/
+			// Lets figure out the bounding box
+			PXGLAABBExpandv(&aabb, nX, nY);
+		//}
 	}
 
 	if (isStrip)
@@ -1392,11 +1409,14 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	else
 		pointSize = NULL;
 
+//	GLfloat halfPointSize;
+
 	// These values are used for creating a bounding box for the object drawn.
 
 	PXGLAABB aabb = PXGLAABBReset;
 
-	int nX, nY;
+	int nX;
+	int nY;
 
 	const GLushort *curIndex;
 	GLsizei counter;
@@ -1479,8 +1499,23 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 			nX = bucket->vertex->x;
 			nY = bucket->vertex->y;
 
-			// Lets figure out the bounding box
-			PXGLAABBExpandv(&aabb, nX, nY);
+			/*if (isPointSizeArray)
+			{
+				halfPointSize = *(bucket->pointSize) * 0.5f;
+
+				PXGLAABBExpandv(&aabb, nX - halfPointSize, nY - halfPointSize);
+				PXGLAABBExpandv(&aabb, nX + halfPointSize, nY + halfPointSize);
+			}
+			else if (mode == GL_POINTS)
+			{
+				PXGLAABBExpandv(&aabb, nX - pxGLHalfPointSize, nY - pxGLHalfPointSize);
+				PXGLAABBExpandv(&aabb, nX + pxGLHalfPointSize, nY + pxGLHalfPointSize);
+			}
+			else
+			{*/
+				// Lets figure out the bounding box
+				PXGLAABBExpandv(&aabb, nX, nY);
+			//}
 		}
 
 		*index = bucket->vertexIndex;
@@ -1933,8 +1968,10 @@ PXInline_c void PXGLSetupEnables()
 	{
 		breakBatch = true;
 
-		//if (!PX_IS_BIT_ENABLED_IN_BOTH(pxGLClientState, pxGLClientStateInGL, PX_GL_COLOR_ARRAY))
-		if (!PX_IS_BIT_ENABLED_IN_BOTH(pxGLState.clientState, pxGLStateInGL.clientState, PX_GL_COLOR_ARRAY))
+		// TODO: Generate a more intelligent check for this
+		if (PX_IS_BIT_ENABLED_IN_BOTH(pxGLState.clientState, pxGLStateInGL.clientState, PX_GL_COLOR_ARRAY) == false &&
+			PX_IS_BIT_ENABLED_IN_BOTH(pxGLState.clientState, pxGLStateInGL.clientState, GL_VERTEX_ARRAY) == true &&
+			PX_IS_BIT_ENABLED_IN_BOTH(pxGLState.clientState, pxGLStateInGL.clientState, GL_TEXTURE_COORD_ARRAY) == true)
 		{
 			breakBatch = false;
 		}
