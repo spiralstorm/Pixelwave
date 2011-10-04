@@ -65,22 +65,22 @@
 - (id) initWithContentsOfURL:(NSURL *)url;
 - (id) initWithData:(NSData *)data;
 
-- (PKParticleEmitter *)newEmitter;
-- (id<PKParticleRenderer>)newRenderer;
-
-- (PKParticleEmitter *)emitter;
-- (id<PKParticleRenderer>)renderer;
-
 - (void) addInitializer:(id<PKParticleInitializer>)initializer;
 - (void) addAction:(id<PKParticleAction>)action;
 
+- (PKParticleEmitter *)spawnEmitter;
+- (id<PKParticleRenderer>)spawnRenderer;
+- (id<PKParticleRenderer>)spawnRendererContainingEmitter:(PKParticleEmitter **)outEmitterPtr;
+@end
+
+@interface PKParticleEffect (UtilityMethods)
 + (PKParticleEffect *)particleEffectWithContentsOfFile:(NSString *)path;
 + (PKParticleEffect *)particleEffectWithContentsOfURL:(NSURL *)url;
 + (PKParticleEffect *)particleEffectWithData:(NSData *)data;
-
 @end
 
-@interface PKParticleEffect(Private)
-- (PKParticleEmitter *)newEmptyEmitter;
-- (id <PKParticleFlow>)newEmptyFlow;
+@interface PKParticleEffect(Override)
+- (PKParticleEmitter *)_newEmitter;
+- (id<PKParticleRenderer>)_newRenderer;
+- (id<PKParticleFlow>)_newFlow;
 @end

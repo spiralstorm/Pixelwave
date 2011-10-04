@@ -47,10 +47,10 @@
  * PixelKit, all renderers extend from #PXDisplayObject, and can therefore be
  * added directly to the display list.
  */
-@protocol PKParticleRenderer <NSObject, PKParticleEmitterDelegate>
-- (void) addEmitter:(PKParticleEmitter *)emitter;
-- (void) removeEmitter:(PKParticleEmitter *)emitter;
-- (void) removeAllEmitters;
+@protocol PKParticleRenderer <PKParticleEmitterDelegate, NSObject>
+- (void)addEmitter:(PKParticleEmitter *)emitter;
+- (void)removeEmitter:(PKParticleEmitter *)emitter;
+- (void)removeAllEmitters;
 - (PXLinkedList *)emitters;
-- (BOOL) isCapableOfRenderingGraphicOfType:(Class)graphicType;
+- (BOOL)isCapableOfRenderingGraphicOfType:(Class)graphicType;
 @end

@@ -42,6 +42,7 @@
 #import "PKParticleEmitter.h"
 #import "PKParticleInitializer.h"
 #import "PKParticleAction.h"
+#import "PKParticleRenderer.h"
 #import "PKParticleEffectLoader.h"
 #import "PKParticleEffectParser.h"
 
@@ -127,11 +128,14 @@
 	[self.actions addObject:action];
 }
 
-- (PKParticleEmitter *)newEmitter
-{
-	PKParticleEmitter *emitter = [self newEmptyEmitter];
 
-	emitter.flow = [self newEmptyFlow];
+- (PKParticleEmitter *)spawnEmitter
+{
+	PKParticleEmitter *emitter = [self _newEmitter];
+	id<PKParticleFlow> flow = [self _newFlow];
+	
+	emitter.flow = flow;
+	[flow release];
 
 	if (particleFactory)
 	{
@@ -151,32 +155,42 @@
 	return emitter;
 }
 
+- (id<PKParticleRenderer>)spawnRenderer
+{
+	return [[self _newRenderer] autorelease];
+}
+- (id<PKParticleRenderer>)spawnRendererContainingEmitter:(PKParticleEmitter **)outEmitterPtr
+{
+	id<PKParticleRenderer> renderer = [self _newRenderer];
+	PKParticleEmitter *emitter = [self spawnEmitter];
+	[renderer addEmitter:emitter];
+	
+	if (outEmitterPtr)
+		*outEmitterPtr = emitter;
+	
+	[(id<NSObject>)renderer autorelease];
+	
+	return renderer;
+}
+
 // Overridable
 
-- (id <PKParticleFlow>)newEmptyFlow
-{
-	return [[PKSteadyFlow alloc] initWithRate:128.0f];
-}
-
-- (PKParticleEmitter *)newEmptyEmitter
-{
-	return [[PKParticleEmitter alloc] init];
-}
-
-- (id<PKParticleRenderer>) newRenderer
+- (id <PKParticleFlow>)_newFlow
 {
 	return nil;
 }
 
-- (PKParticleEmitter *)emitter
+- (PKParticleEmitter *)_newEmitter
 {
-	return [[self newEmitter] autorelease];
+	return [[PKParticleEmitter alloc] init];
 }
 
-- (id<PKParticleRenderer>)renderer
+- (id<PKParticleRenderer>)_newRenderer
 {
-	return (id<PKParticleRenderer>)[((id<NSObject>)[self newRenderer]) autorelease];
+	return nil;
 }
+
+//////
 
 + (PKParticleEffect *)particleEffectWithContentsOfFile:(NSString *)path
 {

@@ -75,18 +75,7 @@
 	[super dealloc];
 }
 
-/*- (PKParticleEmitter *)newEmitter
-{
-	PKParticleEmitter *emitter = [[PKParticleEmitter alloc] init];
-
-	PKParticleCreator *factory = [[PKParticleCreator alloc] initWithParticleType:[PKDesignerParticle class]];
-	emitter.particleFactory = factory;
-	[factory release];
-
-	return emitter;
-}*/
-
-- (id <PKParticleFlow>)newEmptyFlow
+- (id <PKParticleFlow>)_newFlow
 {
 	PKDesignerFlow *flow = [[PKDesignerFlow alloc] init];
 	flow.rate = rate;
@@ -96,7 +85,7 @@
 	return flow;
 }
 
-- (PKParticleEmitter *)newEmptyEmitter
+- (PKParticleEmitter *)_newEmitter
 {
 	PKParticleEmitter *emitter = [[PKParticleEmitter alloc] init];
 
@@ -106,7 +95,7 @@
 	return emitter;
 }
 
-- (id<PKParticleRenderer>)newRenderer
+- (id<PKParticleRenderer>)_newRenderer
 {
 	return [[PKQuadRenderer alloc] init];
 }
