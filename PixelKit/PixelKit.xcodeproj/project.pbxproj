@@ -60,8 +60,8 @@
 		2DFA019E143A4DAD00307EA5 /* PKBlendInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0184143A4DAD00307EA5 /* PKBlendInitializer.m */; };
 		2DFA019F143A4DAD00307EA5 /* PKRotationInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0185143A4DAD00307EA5 /* PKRotationInitializer.h */; };
 		2DFA01A0143A4DAD00307EA5 /* PKRotationInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0186143A4DAD00307EA5 /* PKRotationInitializer.m */; };
-		2DFA01A1143A4DAD00307EA5 /* PKRotationalVelocityInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0187143A4DAD00307EA5 /* PKRotationalVelocityInitializer.h */; };
-		2DFA01A2143A4DAD00307EA5 /* PKRotationalVelocityInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0188143A4DAD00307EA5 /* PKRotationalVelocityInitializer.m */; };
+		2DFA01A1143A4DAD00307EA5 /* PKAngularSpeedInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0187143A4DAD00307EA5 /* PKAngularSpeedInitializer.h */; };
+		2DFA01A2143A4DAD00307EA5 /* PKAngularSpeedInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0188143A4DAD00307EA5 /* PKAngularSpeedInitializer.m */; };
 		2DFA01B2143A4DDC00307EA5 /* PKParticleRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01A3143A4DDB00307EA5 /* PKParticleRenderer.h */; };
 		2DFA01B3143A4DDC00307EA5 /* PKParticleRendererBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01A4143A4DDB00307EA5 /* PKParticleRendererBase.h */; };
 		2DFA01B4143A4DDC00307EA5 /* PKParticleRendererBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01A5143A4DDB00307EA5 /* PKParticleRendererBase.m */; };
@@ -310,8 +310,8 @@
 		2DFA0184143A4DAD00307EA5 /* PKBlendInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKBlendInitializer.m; sourceTree = "<group>"; };
 		2DFA0185143A4DAD00307EA5 /* PKRotationInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRotationInitializer.h; sourceTree = "<group>"; };
 		2DFA0186143A4DAD00307EA5 /* PKRotationInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKRotationInitializer.m; sourceTree = "<group>"; };
-		2DFA0187143A4DAD00307EA5 /* PKRotationalVelocityInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRotationalVelocityInitializer.h; sourceTree = "<group>"; };
-		2DFA0188143A4DAD00307EA5 /* PKRotationalVelocityInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKRotationalVelocityInitializer.m; sourceTree = "<group>"; };
+		2DFA0187143A4DAD00307EA5 /* PKAngularSpeedInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKAngularSpeedInitializer.h; sourceTree = "<group>"; };
+		2DFA0188143A4DAD00307EA5 /* PKAngularSpeedInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKAngularSpeedInitializer.m; sourceTree = "<group>"; };
 		2DFA01A3143A4DDB00307EA5 /* PKParticleRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleRenderer.h; sourceTree = "<group>"; };
 		2DFA01A4143A4DDB00307EA5 /* PKParticleRendererBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleRendererBase.h; sourceTree = "<group>"; };
 		2DFA01A5143A4DDB00307EA5 /* PKParticleRendererBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleRendererBase.m; sourceTree = "<group>"; };
@@ -649,8 +649,8 @@
 				2DFA0184143A4DAD00307EA5 /* PKBlendInitializer.m */,
 				2DFA0185143A4DAD00307EA5 /* PKRotationInitializer.h */,
 				2DFA0186143A4DAD00307EA5 /* PKRotationInitializer.m */,
-				2DFA0187143A4DAD00307EA5 /* PKRotationalVelocityInitializer.h */,
-				2DFA0188143A4DAD00307EA5 /* PKRotationalVelocityInitializer.m */,
+				2DFA0187143A4DAD00307EA5 /* PKAngularSpeedInitializer.h */,
+				2DFA0188143A4DAD00307EA5 /* PKAngularSpeedInitializer.m */,
 			);
 			path = Initializers;
 			sourceTree = "<group>";
@@ -1054,7 +1054,7 @@
 				2DFA019B143A4DAD00307EA5 /* PKScaleInitializer.h in Headers */,
 				2DFA019D143A4DAD00307EA5 /* PKBlendInitializer.h in Headers */,
 				2DFA019F143A4DAD00307EA5 /* PKRotationInitializer.h in Headers */,
-				2DFA01A1143A4DAD00307EA5 /* PKRotationalVelocityInitializer.h in Headers */,
+				2DFA01A1143A4DAD00307EA5 /* PKAngularSpeedInitializer.h in Headers */,
 				2DFA01B2143A4DDC00307EA5 /* PKParticleRenderer.h in Headers */,
 				2DFA01B3143A4DDC00307EA5 /* PKParticleRendererBase.h in Headers */,
 				2DFA01B5143A4DDC00307EA5 /* PKDisplayObjectRenderer.h in Headers */,
@@ -1238,7 +1238,7 @@
 				2DFA019C143A4DAD00307EA5 /* PKScaleInitializer.m in Sources */,
 				2DFA019E143A4DAD00307EA5 /* PKBlendInitializer.m in Sources */,
 				2DFA01A0143A4DAD00307EA5 /* PKRotationInitializer.m in Sources */,
-				2DFA01A2143A4DAD00307EA5 /* PKRotationalVelocityInitializer.m in Sources */,
+				2DFA01A2143A4DAD00307EA5 /* PKAngularSpeedInitializer.m in Sources */,
 				2DFA01B4143A4DDC00307EA5 /* PKParticleRendererBase.m in Sources */,
 				2DFA01B6143A4DDC00307EA5 /* PKDisplayObjectRenderer.m in Sources */,
 				2DFA01B8143A4DDC00307EA5 /* PKPointRenderer.m in Sources */,

@@ -70,7 +70,7 @@
 #import "PKScaleInitializer.h"
 #import "PKBlendInitializer.h"
 #import "PKRotationInitializer.h"
-#import "PKRotationalVelocityInitializer.h"
+#import "PKAngularSpeedInitializer.h"
 
 // Actions
 

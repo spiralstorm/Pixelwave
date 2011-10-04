@@ -61,6 +61,10 @@
 @property (nonatomic, readonly) PXLinkedList *initializers;
 @property (nonatomic, readonly) PXLinkedList *actions;
 
+- (id) initWithContentsOfFile:(NSString *)path;
+- (id) initWithContentsOfURL:(NSURL *)url;
+- (id) initWithData:(NSData *)data;
+
 - (PKParticleEmitter *)newEmitter;
 - (id<PKParticleRenderer>)newRenderer;
 
@@ -72,6 +76,7 @@
 
 + (PKParticleEffect *)particleEffectWithContentsOfFile:(NSString *)path;
 + (PKParticleEffect *)particleEffectWithContentsOfURL:(NSURL *)url;
++ (PKParticleEffect *)particleEffectWithData:(NSData *)data;
 
 @end
 

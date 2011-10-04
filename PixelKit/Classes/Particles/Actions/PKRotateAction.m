@@ -45,7 +45,7 @@
 
 - (void) updateParticle:(PKParticle *)particle emitter:(PKParticleEmitter *)emitter deltaTime:(float)dt
 {
-	particle->rotation += particle->rotationalVelocity * dt;
+	particle->rotation += particle->angularSpeed * dt;
 }
 
 + (PKRotateAction *)rotateAction

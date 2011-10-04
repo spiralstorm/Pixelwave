@@ -80,7 +80,7 @@
 	scaleY = 1.0f;
 
 	rotation = 0.0f;
-	rotationalVelocity = 0.0f;
+	angularSpeed = 0.0f;
 
 	blendSource = GL_SRC_ALPHA;
 	blendDestination = GL_ONE_MINUS_SRC_ALPHA;

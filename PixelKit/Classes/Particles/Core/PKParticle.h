@@ -65,8 +65,7 @@
 	float scaleY;
 
 	float rotation;
-	// TODO: Rename to angularSpeed (velocity implies a vector according to wikipedia)
-	float rotationalVelocity;
+	float angularSpeed;
 
 	unsigned short blendSource;
 	unsigned short blendDestination;

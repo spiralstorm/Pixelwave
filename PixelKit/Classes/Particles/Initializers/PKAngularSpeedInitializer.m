@@ -37,19 +37,51 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#import "PKParticleInitializerBase.h"
-#import "PKRange.h"
+#import "PKAngularSpeedInitializer.h"
 
-@interface PKRotationalVelocityInitializer : PKParticleInitializerBase
+#import "PKParticle.h"
+
+#include "PXMathUtils.h"
+
+@implementation PKAngularSpeedInitializer
+
+@synthesize range;
+
+- (id) init
 {
-@protected
-	PKRange range;
+	return [self initWithRange:PKRangeMake(0.0f, 0.0f)];
 }
 
-@property (nonatomic, assign) PKRange range;
+- (id) initWithRange:(PKRange)_range
+{
+	self = [super init];
 
-- (id) initWithRange:(PKRange)range;
+	if (self)
+	{
+		self.range = _range;
+	}
 
-+ (PKRotationalVelocityInitializer *)rotationalVelocityInitializerWithRange:(PKRange)range;
+	return self;
+}
+
+- (void) setRange:(PKRange)_range
+{
+	range = PKRangeMake(PXMathToRad(_range.start), PXMathToRad(_range.end));
+}
+
+- (PKRange) range
+{
+	return PKRangeMake(PXMathToDeg(range.start), PXMathToDeg(range.end));
+}
+
+- (void) initializeParticle:(PKParticle *)particle emitter:(PKParticleEmitter *)emitter
+{
+	particle->angularSpeed = PKRangeRandom(range);
+}
+
++ (PKAngularSpeedInitializer *)angularSpeedInitializerWithRange:(PKRange)range
+{
+	return [[[PKAngularSpeedInitializer alloc] initWithRange:range] autorelease];
+}
 
 @end

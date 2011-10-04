@@ -43,6 +43,7 @@
 #import "PKParticleInitializer.h"
 #import "PKParticleAction.h"
 #import "PKParticleEffectLoader.h"
+#import "PKParticleEffectParser.h"
 
 #import "PKSteadyFlow.h"
 
@@ -78,6 +79,28 @@
 		actions = [[PXLinkedList alloc] init];
 	}
 
+	return self;
+}
+
+- (id) initWithContentsOfFile:(NSString *)path
+{
+	[self release];
+	PKParticleEffectLoader *loader = [[PKParticleEffectLoader alloc] initWithContentsOfFile:path];
+	self = [loader newParticleEffect];
+	return self;
+}
+- (id) initWithContentsOfURL:(NSURL *)url
+{
+	[self release];
+	PKParticleEffectLoader *loader = [[PKParticleEffectLoader alloc] initWithContentsOfURL:url];
+	self = [loader newParticleEffect];
+	return self;
+}
+- (id) initWithData:(NSData *)data
+{
+	[self release];
+	PKParticleEffectParser *parser = [[PKParticleEffectParser alloc] initWithData:data origin:nil];
+	self = [parser newParticleEffect];
 	return self;
 }
 
@@ -157,19 +180,16 @@
 
 + (PKParticleEffect *)particleEffectWithContentsOfFile:(NSString *)path
 {
-	PKParticleEffectLoader *loader = [[PKParticleEffectLoader alloc] initWithContentsOfFile:path];
-	PKParticleEffect *effect = [loader newParticleEffect];
-	[loader release];
-	
-	return [effect autorelease];
+	return [[[PKParticleEffect alloc] initWithContentsOfFile:path] autorelease];
 }
 + (PKParticleEffect *)particleEffectWithContentsOfURL:(NSURL *)url
 {
-	PKParticleEffectLoader *loader = [[PKParticleEffectLoader alloc] initWithContentsOfURL:url];
-	PKParticleEffect *effect = [loader newParticleEffect];
-	[loader release];
-	
-	return [effect autorelease];
+	return [[[PKParticleEffect alloc] initWithContentsOfURL:url] autorelease];
+}
+
++ (PKParticleEffect *)particleEffectWithData:(NSData *)data
+{
+	return [[[PKParticleEffect alloc] initWithData:data] autorelease];
 }
 
 @end

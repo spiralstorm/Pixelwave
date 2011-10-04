@@ -132,7 +132,7 @@
 	designerParticle->endScaleX = PKRangeRandom(endScaleRange);
 	designerParticle->endScaleY = designerParticle->endScaleX;
 
-	designerParticle->rotationalVelocity = 0.0f;
+	designerParticle->angularSpeed = 0.0f;
 
 	// Set the values - Please see the class for more info as to what they are.
 	designerParticle->radialAcceleration = PKRangeRandom(radialAccelerationRange);
