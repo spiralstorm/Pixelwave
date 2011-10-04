@@ -62,7 +62,7 @@ void PXGLSyncTransforms();
 void PXGLUnSyncTransforms();
 
 void PXGLPreRender();
-void PXGLPostRender();
+void PXGLPostRender(bool resetCounter);
 void PXGLConsolidateBuffers();
 
 void PXGLResetStates(PXGLState desiredState);
