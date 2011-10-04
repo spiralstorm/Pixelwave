@@ -10,6 +10,10 @@
 
 #include "PXMathUtils.h"
 
+@interface FPSSprite(Private)
+- (void) onTouchDown:(PXTouchEvent *)event;
+@end
+
 @implementation FPSSprite
 
 - (id) init
@@ -110,8 +114,11 @@
 		tfFrameTime.y -= essentialSprite.y;
 
 		previousPosition = CGPointMake(essentialSprite.x, essentialSprite.y);
-		
-		[self performSelector:@selector(onTouchDown:) withObject:nil];
+
+		PXRectangle *bounds = [self boundsWithCoordinateSpace:self];
+		self.hitArea = bounds;
+
+		[self onTouchDown:nil];
 	}
 
 	return self;
@@ -204,8 +211,12 @@
 		tfRenderTime.text = [NSString stringWithFormat:@" %1.4f - %d", timeBetweenRendering, lroundf(1.0f / timeBetweenRendering)];
 		tfFPS.text        = [NSString stringWithFormat:@" %d", lroundf(1.0f / lastDeltaTime)];
 		tfCallCount.text  = [NSString stringWithFormat:@" %d", [PXDebug glCallCount]];
+
+		tfFrameTime.text  = [NSString stringWithFormat:@" %1.4f - %d", timeBetweenFrames, lroundf(1.0f / timeBetweenFrames)];
 	}
-	tfFrameTime.text  = [NSString stringWithFormat:@" %1.4f - %d", timeBetweenFrames, lroundf(1.0f / timeBetweenFrames)];
+	else
+		tfFrameTime.text  = [NSString stringWithFormat:@"%d", lroundf(1.0f / lastDeltaTime)];
+	
 }
 
 @end
