@@ -118,6 +118,16 @@ PXInline PKColor PKColorMakeARGB(unsigned char alpha,
 								 unsigned char green,
 								 unsigned char blue);
 
+PXInline PKColorBE PKColorBEMake(unsigned int hex);
+PXInline PKColorBE PKColorBEMakeRGBA(unsigned char red,
+									 unsigned char green,
+									 unsigned char blue,
+									 unsigned char alpha);
+PXInline PKColorBE PKColorBEMakeARGB(unsigned char alpha,
+									 unsigned char red,
+									 unsigned char green,
+									 unsigned char blue);
+
 PXInline PKColor PKColorRGBAToARGB(PKColor color);
 PXInline PKColor PKColorARGBToRGBA(PKColor color);
 
@@ -154,6 +164,45 @@ PXInline PKColor PKColorMakeRGBA(unsigned char red, unsigned char green, unsigne
 PXInline PKColor PKColorMakeARGB(unsigned char alpha, unsigned char red, unsigned char green, unsigned char blue)
 {
 	PKColor retVal;
+
+	retVal.asARGB.r = red;
+	retVal.asARGB.g = green;
+	retVal.asARGB.b = blue;
+	retVal.asARGB.a = alpha;
+
+	return retVal;
+}
+
+PXInline PKColorBE PKColorBEMake(unsigned int hex)
+{
+	PKColorBE retVal;
+
+	retVal.asUInt = hex;
+
+	return retVal;
+}
+
+PXInline PKColorBE PKColorBEMakeRGBA(unsigned char red,
+									 unsigned char green,
+									 unsigned char blue,
+									 unsigned char alpha)
+{
+	PKColorBE retVal;
+
+	retVal.asRGBA.r = red;
+	retVal.asRGBA.g = green;
+	retVal.asRGBA.b = blue;
+	retVal.asRGBA.a = alpha;
+
+	return retVal;
+}
+	
+PXInline PKColorBE PKColorBEMakeARGB(unsigned char alpha,
+									 unsigned char red,
+									 unsigned char green,
+									 unsigned char blue)
+{
+	PKColorBE retVal;
 
 	retVal.asARGB.r = red;
 	retVal.asARGB.g = green;
