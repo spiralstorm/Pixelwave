@@ -93,8 +93,6 @@
 #import "PKPointRenderer.h"
 #import "PKQuadRenderer.h"
 #import "PKSharedDisplayObjectRenderer.h"
-#import "PKRenderToTextureRenderer.h"
-#import "PKLineRenderer.h"
 
 // Particle designer
 
