@@ -56,8 +56,4 @@
 	float duration;
 }
 
-+ (PKDesignerParticleEffect *)designerParticleEffectWithContentsOfFile:(NSString *)path;
-+ (PKDesignerParticleEffect *)designerParticleEffectWithContentsOfURL:(NSURL *)url;
-+ (PKDesignerParticleEffect *)designerParticleEffectWithData:(NSData *)data;
-
 @end

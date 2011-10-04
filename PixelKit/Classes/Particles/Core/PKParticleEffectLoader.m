@@ -134,7 +134,7 @@
 
 + (PKParticleEffectLoader *)particleEffectLoaderWithContentsOfURL:(NSURL *)url
 {
-	return [[[PKParticleEffectLoader alloc] initWithURL:url] autorelease];
+	return [[[PKParticleEffectLoader alloc] initWithContentsOfURL:url] autorelease];
 }
 
 @end

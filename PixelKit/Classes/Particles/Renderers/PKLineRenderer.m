@@ -261,7 +261,7 @@ PXLinkedList *pkLineRendererPolygons = nil;
 	if (emitter == nil)
 		return;
 
-	NSMutableArray *polygons = [[PXLinkedList alloc] init];
+	NSMutableArray *polygons = [[NSMutableArray alloc] init];
 	[emitterToParticleStates setObject:polygons forKey:emitter.name];
 	[polygons release];
 

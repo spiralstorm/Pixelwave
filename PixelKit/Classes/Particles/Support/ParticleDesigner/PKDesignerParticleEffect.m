@@ -111,31 +111,4 @@
 	return [[PKQuadRenderer alloc] init];
 }
 
-+ (PKDesignerParticleEffect *)designerParticleEffectWithContentsOfFile:(NSString *)path
-{
-	PKParticleEffectLoader *loader = [[PKParticleEffectLoader alloc] initWithContentsOfFile:path];
-	PKParticleEffect *effect = [loader newParticleEffect];
-	[loader release];
-
-	return (PKDesignerParticleEffect *)[effect autorelease];
-}
-
-+ (PKDesignerParticleEffect *)designerParticleEffectWithContentsOfURL:(NSURL *)url
-{
-	PKParticleEffectLoader *loader = [[PKParticleEffectLoader alloc] initWithContentsOfURL:url];
-	PKParticleEffect *effect = [loader newParticleEffect];
-	[loader release];
-
-	return (PKDesignerParticleEffect *)[effect autorelease];
-}
-
-+ (PKDesignerParticleEffect *)designerParticleEffectWithData:(NSData *)data
-{
-	PKParticleEffectParser *parser = [[PKParticleEffectParser alloc] initWithData:data];
-	PKParticleEffect *effect = [parser newParticleEffect];
-	[parser release];
-
-	return (PKDesignerParticleEffect *)[effect autorelease];
-}
-
 @end
