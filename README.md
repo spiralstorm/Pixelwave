@@ -49,7 +49,7 @@ Pixelwave's features include:
 * Easy 3D and 2D sound playback
 * Physics engine integration
 * Simple performance monitoring
-* Particle simulation engine (coming very soon)
+* Particle simulation engine (alpha version, see particles-alpha branch)
 * Flexible tweening engine (in the works)
 * Resource manager (in the works)
 
