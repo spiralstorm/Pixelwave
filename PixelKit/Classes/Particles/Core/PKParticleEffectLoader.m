@@ -77,6 +77,7 @@
 {
 	return [self initWithContentsOfFile:path orURL:nil];
 }
+
 - (id) initWithContentsOfURL:(NSURL *)url
 {
 	return [self initWithContentsOfFile:nil orURL:url];

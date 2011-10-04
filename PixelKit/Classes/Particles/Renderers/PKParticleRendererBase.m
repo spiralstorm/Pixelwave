@@ -74,7 +74,7 @@
 		return;
 
 	[emitter retain];
-	
+
 	if (emitter.renderer != nil)
 	{
 		[emitter.renderer removeEmitter:emitter];
@@ -94,7 +94,7 @@
 			[self particleEmitter:emitter didCreateParticle:particle];
 		}
 	}
-	
+
 	[emitter release];
 }
 

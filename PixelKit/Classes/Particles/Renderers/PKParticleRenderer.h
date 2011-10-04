@@ -48,9 +48,9 @@
  * added directly to the display list.
  */
 @protocol PKParticleRenderer <PKParticleEmitterDelegate, NSObject>
-- (void)addEmitter:(PKParticleEmitter *)emitter;
-- (void)removeEmitter:(PKParticleEmitter *)emitter;
-- (void)removeAllEmitters;
+- (void) addEmitter:(PKParticleEmitter *)emitter;
+- (void) removeEmitter:(PKParticleEmitter *)emitter;
+- (void) removeAllEmitters;
 - (PXLinkedList *)emitters;
-- (BOOL)isCapableOfRenderingGraphicOfType:(Class)graphicType;
+- (BOOL) isCapableOfRenderingGraphicOfType:(Class)graphicType;
 @end

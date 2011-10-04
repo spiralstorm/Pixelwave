@@ -70,6 +70,10 @@
 @synthesize initializers;
 @synthesize actions;
 
+#pragma mark -
+#pragma mark Initialization
+#pragma mark -
+
 - (id) init
 {
 	self = [super init];
@@ -90,6 +94,7 @@
 	self = [loader newParticleEffect];
 	return self;
 }
+
 - (id) initWithContentsOfURL:(NSURL *)url
 {
 	[self release];
@@ -97,6 +102,7 @@
 	self = [loader newParticleEffect];
 	return self;
 }
+
 - (id) initWithData:(NSData *)data
 {
 	[self release];
@@ -118,6 +124,10 @@
 	[super dealloc];
 }
 
+#pragma mark -
+#pragma mark Addition
+#pragma mark -
+
 - (void) addInitializer:(id<PKParticleInitializer>) initializer
 {
 	[self.initializers addObject:initializer];
@@ -128,12 +138,15 @@
 	[self.actions addObject:action];
 }
 
+#pragma mark -
+#pragma mark Generation
+#pragma mark -
 
 - (PKParticleEmitter *)spawnEmitter
 {
 	PKParticleEmitter *emitter = [self _newEmitter];
 	id<PKParticleFlow> flow = [self _newFlow];
-	
+
 	emitter.flow = flow;
 	[flow release];
 
@@ -152,28 +165,31 @@
 		[emitter addAction:action];
 	}
 
-	return emitter;
+	return [emitter autorelease];
 }
 
 - (id<PKParticleRenderer>)spawnRenderer
 {
 	return [[self _newRenderer] autorelease];
 }
+
 - (id<PKParticleRenderer>)spawnRendererContainingEmitter:(PKParticleEmitter **)outEmitterPtr
 {
 	id<PKParticleRenderer> renderer = [self _newRenderer];
 	PKParticleEmitter *emitter = [self spawnEmitter];
 	[renderer addEmitter:emitter];
-	
+
 	if (outEmitterPtr)
 		*outEmitterPtr = emitter;
-	
+
 	[(id<NSObject>)renderer autorelease];
-	
+
 	return renderer;
 }
 
-// Overridable
+#pragma mark -
+#pragma mark Override Methods
+#pragma mark -
 
 - (id <PKParticleFlow>)_newFlow
 {
@@ -190,7 +206,9 @@
 	return nil;
 }
 
-//////
+#pragma mark -
+#pragma mark Static Methods
+#pragma mark -
 
 + (PKParticleEffect *)particleEffectWithContentsOfFile:(NSString *)path
 {
