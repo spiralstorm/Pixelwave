@@ -226,14 +226,12 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * Adds an initializer to the emitter's collection.
- * Inititalizers are executed on the emitter's particles
- * as they are created, in the order in which the initializers
- * were added.
+ * Adds an initializer to the emitter's collection. Inititalizers are executed
+ * on the emitter's particles as they are created, in the order in which the
+ * initializers were added.
  *
- * This method will fail if the emitter currently holds
- * any living particles. It's advised to add all initializers
- * to an emitter before starting it.
+ * This method will fail if the emitter currently holds any living particles.
+ * It's advised to add all initializers to an emitter before starting it.
  *
  * @param initializer the initializer to add.
  *
@@ -281,8 +279,7 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 /**
  * Removes an initializer to the emitter's collection.
  *
- * This method will fail if the emitter currently holds
- * any living particles.
+ * This method will fail if the emitter currently holds any living particles.
  *
  * @param initializer the initializer to remove.
  *
@@ -310,11 +307,10 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * Removes all the initializers from the emitter's
- * collection.
+ * Removes all the initializers from the emitter's collection.
  *
- * If the emitter contains any living particles this method
- * will fail. To completely stop the emitter use the #stop method.
+ * If the emitter contains any living particles this method will fail. To
+ * completely stop the emitter use the #stop method.
  */
 - (void) removeAllInitializers
 {
@@ -346,8 +342,7 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * Checks if any of the initializers in the emitter
- * are of the given type.
+ * Checks if any of the initializers in the emitter are of the given type.
  *
  * @see PKParticleInitializer
  */
@@ -363,9 +358,8 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * Adds an action to the emitter's collection.
- * Actions are executed on the emitter's particles
- * every frame in the order in which they were added.
+ * Adds an action to the emitter's collection. Actions are executed on the
+ * emitter's particles every frame in the order in which they were added.
  *
  * @param action the action to add.
  *
@@ -407,8 +401,7 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * Removes all the actions from the emitter's
- * collection.
+ * Removes all the actions from the emitter's collection.
  */
 - (void) removeAllActions
 {
@@ -434,8 +427,7 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * Checks if any of the action in the emitter
- * are of the given type.
+ * Checks if any of the action in the emitter are of the given type.
  *
  * @see PKParticleAction
  */
@@ -451,13 +443,11 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * Starts the emitter's internal timer, causing
- * is to update itself automatically until #stop
- * or #paused are called.
+ * Starts the emitter's internal timer, causing is to update itself
+ * automatically until #stop or #paused are called.
  *
- * When the emitter updates itself, calling
- * #updateWithDeltaTime: explicitly isn't
- * necessary.
+ * When the emitter updates itself, calling #updateWithDeltaTime: explicitly
+ * isn't necessary.
  */
 - (void) start
 {
@@ -485,8 +475,7 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * Paused the emitter, causing all the
- * particles to freeze in place, and all
+ * Paused the emitter, causing all the particles to freeze in place, and all
  * particle emitting to stop.
  *
  * To resume, call the #resume method.
@@ -502,8 +491,7 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * Stops the emitter, destroying all of its
- * living particles.
+ * Stops the emitter, destroying all of its living particles.
  */
 - (void) stop
 {
@@ -553,8 +541,8 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * This is equivelant to running #runAheadWithDuration:frameRate
- * with a frameRate of 10.
+ * This is equivelant to running #runAheadWithDuration:frameRate with a
+ * frameRate of 10.
  *
  * @see #runAheadWithDuration:frameRate
  */
@@ -566,14 +554,14 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 /**
  * Fast forwards the emitter the specified amount of time.
  *
- * This is useful when it's necessary for a particle effect to start out
- * as if it's been running for a few seconds.
- * Note that this method actually simulates all the particles forward one
- * frame at a time, so it could get slow for longer durations / higher frame rates.
+ * This is useful when it's necessary for a particle effect to start out as if
+ * it's been running for a few seconds. Note that this method actually simulates
+ * all the particles forward one frame at a time, so it could get slow for
+ * longer durations / higher frame rates.
  *
  * @param duration The amount of time, in seconds, to fast forward the emitter
- * @param frameRate The framerate at which to simulate the emitter while
- * fast forwarding.
+ * @param frameRate The framerate at which to simulate the emitter while fast
+ * forwarding.
  */
 - (void) runAheadWithDuration:(float)duration frameRate:(float)frameRate
 {
@@ -683,12 +671,12 @@ void PKParticleUpdateFunction(PXArrayBuffer *buffer, void *element, void *userDa
 }
 
 /**
- * The emitter's main loop. This method updates all of the particles in the emitter
- * and creates / removes particles if necessary.
+ * The emitter's main loop. This method updates all of the particles in the
+ * emitter and creates / removes particles if necessary.
  *
- * You should only call this method if you'd like to run your own
- * simulation loop. If you prefer to let the emitter update itself
- * you should use the #start, #pause, and #resume methods.
+ * You should only call this method if you'd like to run your own simulation
+ * loop. If you prefer to let the emitter update itself you should use the
+ * #start, #pause, and #resume methods.
  *
  * @see #start
  * @see #pause

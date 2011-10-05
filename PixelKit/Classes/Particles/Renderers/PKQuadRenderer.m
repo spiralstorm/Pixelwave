@@ -94,8 +94,6 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 				   blendDestination:(unsigned short)blendDestination;
 @end
 
-//#define PKQuadRendererCustom
-
 @implementation PKQuadRenderer
 
 - (id) init
@@ -109,12 +107,8 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 
 	if (self)
 	{
-#ifdef PKQuadRendererCustom
-		_renderMode = PXRenderMode_Custom;
-#else
 		// Color array will always be on
 		_PXGLStateEnableClientState(&_glState, GL_COLOR_ARRAY);
-#endif
 
 		vertices = NULL;
 
@@ -212,16 +206,9 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 
 	CGSize halfSize = CGSizeZero;
 
-#ifdef PKQuadRendererCustom
-	glEnableClientState(GL_COLOR_ARRAY);
-	glVertexPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.position.x));
-	glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.r));
-	glTexCoordPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.s));
-#else
 	PXGLVertexPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.position.x));
 	PXGLColorPointer(4, GL_UNSIGNED_BYTE, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.r));
 	PXGLTexCoordPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.s));
-#endif
 
 	PXLinkedListForEach(emitters, emitter)
 	{
@@ -299,32 +286,6 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 						blendSource:(unsigned short)blendSource
 				   blendDestination:(unsigned short)blendDestination
 {
-#ifdef PKQuadRendererCustom
-	glBlendFunc(blendSource, blendDestination);
-
-	if (textureData == nil)
-	{
-		glDisable(GL_TEXTURE_2D);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	}
-	else
-	{
-		glEnable(GL_TEXTURE_2D);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-
-		// Bind the texture, and update the smoothing value.
-		glBindTexture(GL_TEXTURE_2D, textureData->_glName);
-		if (smoothingType != textureData->_smoothingType)
-		{
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, smoothingType);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, smoothingType);
-			textureData->_smoothingType = smoothingType;
-		}
-	}
-
-	// Draw the quads!
-	glDrawArrays(GL_TRIANGLE_STRIP, 1, drawCount);
-#else
 	// Set the blend function
 	PXGLBlendFunc(blendSource, blendDestination);
 
@@ -350,7 +311,6 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 
 	// Draw the quads!
 	PXGLDrawArrays(GL_TRIANGLE_STRIP, 1, drawCount);
-#endif
 }
 
 - (BOOL) isCapableOfRenderingGraphicOfType:(Class)graphicType
