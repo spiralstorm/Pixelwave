@@ -44,7 +44,7 @@
 #import "PKPListParticleEffectParser.h"
 
 @interface PKParticleEffectLoader(Private)
-- (id) initWithContentsOfFile:(NSString *)path orURL:(NSURL *)url;
+- (id) initWithContentsOfFile:(NSString *)path orURL:(NSURL *)url premultiplyAlpha:(BOOL)premultiply;
 @end
 
 /**
@@ -75,15 +75,25 @@
 
 - (id) initWithContentsOfFile:(NSString *)path
 {
-	return [self initWithContentsOfFile:path orURL:nil];
+	return [self initWithContentsOfFile:path orURL:nil premultiplyAlpha:YES];
+}
+
+- (id) initWithContentsOfFile:(NSString *)path premultiplyAlpha:(BOOL)premultiply
+{
+	return [self initWithContentsOfFile:path orURL:nil premultiplyAlpha:premultiply];
 }
 
 - (id) initWithContentsOfURL:(NSURL *)url
 {
-	return [self initWithContentsOfFile:nil orURL:url];
+	return [self initWithContentsOfFile:nil orURL:url premultiplyAlpha:YES];
 }
 
-- (id) initWithContentsOfFile:(NSString *)path orURL:(NSURL *)url
+- (id) initWithContentsOfURL:(NSURL *)url premultiplyAlpha:(BOOL)premultiply
+{
+	return [self initWithContentsOfFile:nil orURL:url premultiplyAlpha:premultiply];
+}
+
+- (id) initWithContentsOfFile:(NSString *)path orURL:(NSURL *)url premultiplyAlpha:(BOOL)premultiply
 {
 	self = [super _initWithContentsOfFile:path orURL:url];
 
@@ -101,7 +111,7 @@
 		}
 
 		// Make a new texture parser
-		effectParser = [[PKParticleEffectParser alloc] initWithData:data origin:origin];
+		effectParser = [[PKParticleEffectParser alloc] initWithData:data origin:origin premultiplyAlpha:premultiply];
 
 		// If this is nil, then we couldn't load the data
 		if (effectParser == nil)
@@ -133,9 +143,19 @@
 	return [[[PKParticleEffectLoader alloc] initWithContentsOfFile:path] autorelease];
 }
 
++ (PKParticleEffectLoader *)particleEffectLoaderWithContentsOfFile:(NSString *)path premultiplyAlpha:(BOOL)premultiply
+{
+	return [[[PKParticleEffectLoader alloc] initWithContentsOfFile:path premultiplyAlpha:premultiply] autorelease];
+}
+
 + (PKParticleEffectLoader *)particleEffectLoaderWithContentsOfURL:(NSURL *)url
 {
 	return [[[PKParticleEffectLoader alloc] initWithContentsOfURL:url] autorelease];
+}
+
++ (PKParticleEffectLoader *)particleEffectLoaderWithContentsOfURL:(NSURL *)url premultiplyAlpha:(BOOL)premultiply
+{
+	return [[[PKParticleEffectLoader alloc] initWithContentsOfURL:url premultiplyAlpha:premultiply] autorelease];
 }
 
 @end

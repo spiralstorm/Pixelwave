@@ -62,8 +62,11 @@
 @property (nonatomic, readonly) PXLinkedList *actions;
 
 - (id) initWithContentsOfFile:(NSString *)path;
+- (id) initWithContentsOfFile:(NSString *)path premultiplyAlpha:(BOOL)premultiply;
 - (id) initWithContentsOfURL:(NSURL *)url;
+- (id) initWithContentsOfURL:(NSURL *)url premultiplyAlpha:(BOOL)premultiply;
 - (id) initWithData:(NSData *)data;
+- (id) initWithData:(NSData *)data premultiplyAlpha:(BOOL)premultiply;
 
 - (void) addInitializer:(id<PKParticleInitializer>)initializer;
 - (void) addAction:(id<PKParticleAction>)action;
@@ -75,8 +78,11 @@
 
 @interface PKParticleEffect (UtilityMethods)
 + (PKParticleEffect *)particleEffectWithContentsOfFile:(NSString *)path;
++ (PKParticleEffect *)particleEffectWithContentsOfFile:(NSString *)path premultiplyAlpha:(BOOL)premultiply;
 + (PKParticleEffect *)particleEffectWithContentsOfURL:(NSURL *)url;
++ (PKParticleEffect *)particleEffectWithContentsOfURL:(NSURL *)url premultiplyAlpha:(BOOL)premultiply;
 + (PKParticleEffect *)particleEffectWithData:(NSData *)data;
++ (PKParticleEffect *)particleEffectWithData:(NSData *)data premultiplyAlpha:(BOOL)premultiply;
 @end
 
 @interface PKParticleEffect(Override)

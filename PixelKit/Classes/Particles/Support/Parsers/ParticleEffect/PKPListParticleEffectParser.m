@@ -116,7 +116,8 @@
 		// Grab the values. For information as to what they mean, please look at
 		// the struct.
 		PXTextureData *textureData = [PKParticleEffectParser _newTextureDataFromTextureString:[dictionary objectForKey:@"textureImageData"]
-																					   orPath:[dictionary objectForKey:@"textureFileName"]];
+																					   orPath:[dictionary objectForKey:@"textureFileName"]
+																			 premultiplyAlpha:premultiply];
 		PKDesignerParticleEmitterLoadedDataSetTextureData(designerData, textureData);
 		[textureData release];
 

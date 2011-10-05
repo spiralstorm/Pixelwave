@@ -110,6 +110,8 @@
 		2DFA00EA143A4B4900307EA5 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA00E6143A4B4900307EA5 /* TBXML.m */; };
 		2DFA00EB143A4B4900307EA5 /* TBXMLNSDataAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA00E7143A4B4900307EA5 /* TBXMLNSDataAdditions.h */; };
 		2DFA00EC143A4B4900307EA5 /* TBXMLNSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA00E8143A4B4900307EA5 /* TBXMLNSDataAdditions.m */; };
+		521FC507143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.h in Headers */ = {isa = PBXBuildFile; fileRef = 521FC505143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.h */; };
+		521FC508143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.m in Sources */ = {isa = PBXBuildFile; fileRef = 521FC506143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.m */; };
 		5230170013706DC8000FE6D6 /* PXZwopAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */; };
 		5230170113706DC8000FE6D6 /* PXZwopAtlasParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 523016FF13706DC8000FE6D6 /* PXZwopAtlasParser.m */; };
 		5231F498124D5756002B8A27 /* PXFontRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5231F492124D5756002B8A27 /* PXFontRenderer.h */; };
@@ -611,6 +613,8 @@
 		2DFA00E6143A4B4900307EA5 /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXML.m; sourceTree = "<group>"; };
 		2DFA00E7143A4B4900307EA5 /* TBXMLNSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXMLNSDataAdditions.h; sourceTree = "<group>"; };
 		2DFA00E8143A4B4900307EA5 /* TBXMLNSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXMLNSDataAdditions.m; sourceTree = "<group>"; };
+		521FC505143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureModifierPremultiplyAlpha.h; sourceTree = "<group>"; };
+		521FC506143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureModifierPremultiplyAlpha.m; sourceTree = "<group>"; };
 		523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXZwopAtlasParser.h; sourceTree = "<group>"; };
 		523016FF13706DC8000FE6D6 /* PXZwopAtlasParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXZwopAtlasParser.m; sourceTree = "<group>"; };
 		5231F492124D5756002B8A27 /* PXFontRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXFontRenderer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1897,6 +1901,8 @@
 				526CAA05136B697C001F481A /* PXTextureModifier4444.m */,
 				526CAA0E136B6AEC001F481A /* PXTextureModifier8888.h */,
 				526CAA0F136B6AEC001F481A /* PXTextureModifier8888.m */,
+				521FC505143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.h */,
+				521FC506143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.m */,
 			);
 			path = TextureModifiers;
 			sourceTree = "<group>";
@@ -2423,6 +2429,7 @@
 				52D7FF4D13E8623C00FABF6C /* PXEnginePrivate.h in Headers */,
 				2DFA00E9143A4B4900307EA5 /* TBXML.h in Headers */,
 				2DFA00EB143A4B4900307EA5 /* TBXMLNSDataAdditions.h in Headers */,
+				521FC507143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2666,6 +2673,7 @@
 				52D7FF7513E865E600FABF6C /* PXEnginePrivate.m in Sources */,
 				2DFA00EA143A4B4900307EA5 /* TBXML.m in Sources */,
 				2DFA00EC143A4B4900307EA5 /* TBXMLNSDataAdditions.m in Sources */,
+				521FC508143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

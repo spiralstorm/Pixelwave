@@ -47,14 +47,16 @@
 {
 @protected
 	void *loadedData;
+
+	BOOL premultiply;
 }
 
-- (id) initWithData:(NSData *)data origin:(NSString *)origin;
+- (id) initWithData:(NSData *)data origin:(NSString *)origin premultiplyAlpha:(BOOL)premultiply;
 
 - (PKParticleEffect *)newParticleEffect;
 @end
 
 @interface PKParticleEffectParser(PrivateButPublic)
 - (void) _setLoadedData:(void *)data;
-+ (PXTextureData *)_newTextureDataFromTextureString:(NSString *)textureString orPath:(NSString *)path;
++ (PXTextureData *)_newTextureDataFromTextureString:(NSString *)textureString orPath:(NSString *)path premultiplyAlpha:(BOOL)_premultiply;
 @end

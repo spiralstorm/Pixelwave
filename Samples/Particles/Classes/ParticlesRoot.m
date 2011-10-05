@@ -82,11 +82,11 @@
 	// Set up the background
 
 	PXTextureAtlas *atlas = [PXTextureAtlas textureAtlasWithContentsOfFile:@"Assets.json" modifier:nil];	
-	PXTexture *bg = [atlas textureForFrame:@"Background.png"];
+/*	PXTexture *bg = [atlas textureForFrame:@"Background.png"];
 	[self addChild:bg];
 
 	bg.width  = self.stage.stageWidth;
-	bg.height = self.stage.stageHeight;
+	bg.height = self.stage.stageHeight;*/
 
 	sampleContainer = [[PXSimpleSprite alloc] init];
 	sampleContainer.touchChildren = NO;

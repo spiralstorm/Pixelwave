@@ -39,137 +39,6 @@
 
 #import "PXTextureFormatUtils.h"
 
-#define PXTF_ONE_6BIT 0.01587301f
-#define PXTF_ONE_5BIT 0.03225806f
-#define PXTF_ONE_4BIT 0.06666667f
-#define PXTF_ONE_RGB  0.00130718f
-
-#define PXTF_4444_R(_val_) ((_val_) >> 12)
-#define PXTF_4444_G(_val_) ((_val_) >> 8)
-#define PXTF_4444_B(_val_) ((_val_) >> 4)
-#define PXTF_4444_A(_val_) (_val_)
-
-#define PXTF_5551_R(_val_) ((_val_) >> 11)
-#define PXTF_5551_G(_val_) ((_val_) >> 6)
-#define PXTF_5551_B(_val_) ((_val_) >> 1)
-#define PXTF_5551_A(_val_) (_val_)
-
-#define PXTF_565_R(_val_) ((_val_) >> 11)
-#define PXTF_565_G(_val_) ((_val_) >> 5)
-#define PXTF_565_B(_val_) (_val_)
-
-#pragma mark -
-#pragma mark - Bit Changers
-#pragma mark -
-
-// 8 Bit
-PXInline uint8_t PX8BitTo6Bit(uint8_t val)
-{
-	return (val >> 2) & 0x3F;
-}
-PXInline uint8_t PX8BitTo5Bit(uint8_t val)
-{
-	return (val >> 3) & 0x1F;
-}
-PXInline uint8_t PX8BitTo4Bit(uint8_t val)
-{
-	return (val >> 4) & 0x0F;
-}
-PXInline uint8_t PX8BitTo1Bit(uint8_t val)
-{
-	return (val >> 7) & 0x01;
-}
-
-// 6 Bit
-PXInline uint8_t PX6BitTo8Bit(uint8_t val)
-{
-	return ((((float)(val & 0x3F)) * PXTF_ONE_6BIT) * 0xFF);
-}
-PXInline uint8_t PX6BitTo5Bit(uint8_t val)
-{
-	return ((val & 0x3F) >> 1) & 0x1F;
-}
-PXInline uint8_t PX6BitTo4Bit(uint8_t val)
-{
-	return ((val & 0x3F) >> 2) & 0x0F;
-}
-PXInline uint8_t PX6BitTo1Bit(uint8_t val)
-{
-	return ((val & 0x3F) >> 5) & 0x01;
-}
-
-// 5 Bit
-PXInline uint8_t PX5BitTo8Bit(uint8_t val)
-{
-	return ((((float)(val & 0x1F)) * PXTF_ONE_5BIT) * 0xFF);
-}
-PXInline uint8_t PX5BitTo6Bit(uint8_t val)
-{
-	return ((((float)(val & 0x1F)) * PXTF_ONE_5BIT) * 0x3F);
-}
-PXInline uint8_t PX5BitTo4Bit(uint8_t val)
-{
-	return ((val & 0x3F) >> 1) & 0x0F;
-}
-PXInline uint8_t PX5BitTo1Bit(uint8_t val)
-{
-	return ((val & 0x3F) >> 4) & 0x01;
-}
-
-// 4 Bit
-PXInline uint8_t PX4BitTo8Bit(uint8_t val)
-{
-	return ((((float)(val & 0x0F)) * PXTF_ONE_4BIT) * 0xFF);
-}
-PXInline uint8_t PX4BitTo6Bit(uint8_t val)
-{
-	return ((((float)(val & 0x0F)) * PXTF_ONE_4BIT) * 0x3F);
-}
-PXInline uint8_t PX4BitTo5Bit(uint8_t val)
-{
-	return ((((float)(val & 0x0F)) * PXTF_ONE_4BIT) * 0x1F);
-}
-PXInline uint8_t PX4BitTo1Bit(uint8_t val)
-{
-	return ((val & 0x0F) >> 3) & 0x01;
-}
-
-// 1 Bit
-PXInline uint8_t PX1BitTo8Bit(uint8_t val)
-{
-	return ((val & 0x01) * 0xFF);
-}
-PXInline uint8_t PX1BitTo6Bit(uint8_t val)
-{
-	return ((val & 0x01) * 0x3F);
-}
-PXInline uint8_t PX1BitTo5Bit(uint8_t val)
-{
-	return ((val & 0x01) * 0x1F);
-}
-PXInline uint8_t PX1BitTo4Bit(uint8_t val)
-{
-	return ((val & 0x01) * 0x0F);
-}
-
-// Color Bits
-PXInline uint8_t PX888BitsTo8Bit(uint8_t r, uint8_t g, uint8_t b)
-{
-	return ((float)((r + g + b) * PXTF_ONE_RGB)) * 0xFF;
-}
-PXInline uint8_t PX565BitsTo8Bit(uint8_t r, uint8_t g, uint8_t b)
-{
-	return ((float)(((r & 0x1F) + (g & 0x3F) + (b & 0x1F)) * PXTF_ONE_RGB)) * 0xFF;
-}
-PXInline uint8_t PX555BitsTo8Bit(uint8_t r, uint8_t g, uint8_t b)
-{
-	return ((float)(((r & 0x1F) + (g & 0x1F) + (b & 0x1F)) * PXTF_ONE_RGB)) * 0xFF;
-}
-PXInline uint8_t PX444BitsTo8Bit(uint8_t r, uint8_t g, uint8_t b)
-{
-	return ((float)(((r & 0x0F) + (g & 0x0F) + (b & 0x0F)) * PXTF_ONE_RGB)) * 0xFF;
-}
-
 #pragma mark -
 #pragma mark - Make
 #pragma mark -
@@ -235,23 +104,23 @@ PXInline_c PXTF_RGBA_8888 PXTF_RGBA_8888_From_RGB_888(PXTF_RGB_888 val)
 }
 PXInline_c PXTF_RGBA_8888 PXTF_RGBA_8888_From_RGBA_4444(PXTF_RGBA_4444 val)
 {
-	return PXTF_RGBA_8888_Make(PX4BitTo8Bit(PXTF_4444_R(val)),
-							   PX4BitTo8Bit(PXTF_4444_B(val)),
-							   PX4BitTo8Bit(PXTF_4444_G(val)),
-							   PX4BitTo8Bit(PXTF_4444_A(val)));
+	return PXTF_RGBA_8888_Make(_PX4BitTo8Bit(_PXTF_4444_R(val)),
+							   _PX4BitTo8Bit(_PXTF_4444_B(val)),
+							   _PX4BitTo8Bit(_PXTF_4444_G(val)),
+							   _PX4BitTo8Bit(_PXTF_4444_A(val)));
 }
 PXInline_c PXTF_RGBA_8888 PXTF_RGBA_8888_From_RGBA_5551(PXTF_RGBA_5551 val)
 {
-	return PXTF_RGBA_8888_Make(PX5BitTo8Bit(PXTF_5551_R(val)),
-							   PX5BitTo8Bit(PXTF_5551_G(val)),
-							   PX5BitTo8Bit(PXTF_5551_B(val)),
-							   PX5BitTo8Bit(PXTF_5551_A(val)));
+	return PXTF_RGBA_8888_Make(_PX5BitTo8Bit(_PXTF_5551_R(val)),
+							   _PX5BitTo8Bit(_PXTF_5551_G(val)),
+							   _PX5BitTo8Bit(_PXTF_5551_B(val)),
+							   _PX1BitTo8Bit(_PXTF_5551_A(val)));
 }
 PXInline_c PXTF_RGBA_8888 PXTF_RGBA_8888_From_RGB_565(PXTF_RGB_565 val)
 {
-	return PXTF_RGBA_8888_Make(PX5BitTo8Bit(PXTF_565_R(val)),
-							   PX6BitTo8Bit(PXTF_565_G(val)),
-							   PX5BitTo8Bit(PXTF_565_B(val)),
+	return PXTF_RGBA_8888_Make(_PX5BitTo8Bit(_PXTF_565_R(val)),
+							   _PX6BitTo8Bit(_PXTF_565_G(val)),
+							   _PX5BitTo8Bit(_PXTF_565_B(val)),
 							   0xFF);
 }
 PXInline_c PXTF_RGBA_8888 PXTF_RGBA_8888_From_LA_88(PXTF_LA_88 val)
@@ -280,21 +149,21 @@ PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_RGBA_8888(PXTF_RGBA_8888 val)
 }
 PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_RGBA_4444(PXTF_RGBA_4444 val)
 {
-	return PXTF_RGB_888_Make(PX4BitTo8Bit(PXTF_4444_R(val)),
-							 PX4BitTo8Bit(PXTF_4444_G(val)),
-							 PX4BitTo8Bit(PXTF_4444_B(val)));
+	return PXTF_RGB_888_Make(_PX4BitTo8Bit(_PXTF_4444_R(val)),
+							 _PX4BitTo8Bit(_PXTF_4444_G(val)),
+							 _PX4BitTo8Bit(_PXTF_4444_B(val)));
 }
 PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_RGBA_5551(PXTF_RGBA_5551 val)
 {
-	return PXTF_RGB_888_Make(PX5BitTo8Bit(PXTF_5551_R(val)),
-							 PX5BitTo8Bit(PXTF_5551_G(val)),
-							 PX5BitTo8Bit(PXTF_5551_B(val)));
+	return PXTF_RGB_888_Make(_PX5BitTo8Bit(_PXTF_5551_R(val)),
+							 _PX5BitTo8Bit(_PXTF_5551_G(val)),
+							 _PX5BitTo8Bit(_PXTF_5551_B(val)));
 }
 PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_RGB_565(PXTF_RGB_565 val)
 {
-	return PXTF_RGB_888_Make(PX5BitTo8Bit(PXTF_565_R(val)),
-							 PX6BitTo8Bit(PXTF_565_G(val)),
-							 PX5BitTo8Bit(PXTF_565_B(val)));
+	return PXTF_RGB_888_Make(_PX5BitTo8Bit(_PXTF_565_R(val)),
+							 _PX6BitTo8Bit(_PXTF_565_G(val)),
+							 _PX5BitTo8Bit(_PXTF_565_B(val)));
 }
 PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_LA_88(PXTF_LA_88 val)
 {
@@ -315,44 +184,44 @@ PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_L_8(PXTF_L_8 val)
 
 PXInline_c PXTF_RGBA_4444 PXTF_RGBA_4444_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
-	return PXTF_RGBA_4444_Make(PX8BitTo4Bit(val.red),
-							   PX8BitTo4Bit(val.green),
-							   PX8BitTo4Bit(val.blue),
-							   PX8BitTo4Bit(val.alpha));
+	return PXTF_RGBA_4444_Make(_PX8BitTo4Bit(val.red),
+							   _PX8BitTo4Bit(val.green),
+							   _PX8BitTo4Bit(val.blue),
+							   _PX8BitTo4Bit(val.alpha));
 }
 PXInline_c PXTF_RGBA_4444 PXTF_RGBA_4444_From_RGB_888(PXTF_RGB_888 val)
 {
-	return PXTF_RGBA_4444_Make(PX8BitTo4Bit(val.red),
-							   PX8BitTo4Bit(val.green),
-							   PX8BitTo4Bit(val.blue),
+	return PXTF_RGBA_4444_Make(_PX8BitTo4Bit(val.red),
+							   _PX8BitTo4Bit(val.green),
+							   _PX8BitTo4Bit(val.blue),
 							   0x0F);
 }
 PXInline_c PXTF_RGBA_4444 PXTF_RGBA_4444_From_RGBA_5551(PXTF_RGBA_5551 val)
 {
-	return PXTF_RGBA_4444_Make(PX5BitTo4Bit(PXTF_5551_R(val)),
-							   PX5BitTo4Bit(PXTF_5551_G(val)),
-							   PX5BitTo4Bit(PXTF_5551_B(val)),
-							   PX5BitTo4Bit(PXTF_5551_A(val)));
+	return PXTF_RGBA_4444_Make(_PX5BitTo4Bit(_PXTF_5551_R(val)),
+							   _PX5BitTo4Bit(_PXTF_5551_G(val)),
+							   _PX5BitTo4Bit(_PXTF_5551_B(val)),
+							   _PX5BitTo4Bit(_PXTF_5551_A(val)));
 }
 PXInline_c PXTF_RGBA_4444 PXTF_RGBA_4444_From_RGB_565(PXTF_RGB_565 val)
 {
-	return PXTF_RGBA_4444_Make(PX5BitTo4Bit(PXTF_565_R(val)),
-							   PX5BitTo4Bit(PXTF_565_G(val)),
-							   PX5BitTo4Bit(PXTF_565_B(val)),
+	return PXTF_RGBA_4444_Make(_PX5BitTo4Bit(_PXTF_565_R(val)),
+							   _PX5BitTo4Bit(_PXTF_565_G(val)),
+							   _PX5BitTo4Bit(_PXTF_565_B(val)),
 							   0x0F);
 }
 PXInline_c PXTF_RGBA_4444 PXTF_RGBA_4444_From_LA_88(PXTF_LA_88 val)
 {
-	uint8_t lum = PX8BitTo4Bit(val.luminance);
-	return PXTF_RGBA_4444_Make(lum, lum, lum, PX8BitTo4Bit(val.alpha));
+	uint8_t lum = _PX8BitTo4Bit(val.luminance);
+	return PXTF_RGBA_4444_Make(lum, lum, lum, _PX8BitTo4Bit(val.alpha));
 }
 PXInline_c PXTF_RGBA_4444 PXTF_RGBA_4444_From_A_8(PXTF_A_8 val)
 {
-	return PXTF_RGBA_4444_Make(0x0F, 0x0F, 0x0F, PX8BitTo4Bit(val));
+	return PXTF_RGBA_4444_Make(0x0F, 0x0F, 0x0F, _PX8BitTo4Bit(val));
 }
 PXInline_c PXTF_RGBA_4444 PXTF_RGBA_4444_From_L_8(PXTF_L_8 val)
 {
-	uint8_t lum = PX8BitTo4Bit(val);
+	uint8_t lum = _PX8BitTo4Bit(val);
 	return PXTF_RGBA_4444_Make(lum, lum, lum, 0x0F);
 }
 
@@ -362,44 +231,44 @@ PXInline_c PXTF_RGBA_4444 PXTF_RGBA_4444_From_L_8(PXTF_L_8 val)
 
 PXInline_c PXTF_RGBA_5551 PXTF_RGBA_5551_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
-	return PXTF_RGBA_5551_Make(PX8BitTo5Bit(val.red),
-							   PX8BitTo5Bit(val.green),
-							   PX8BitTo5Bit(val.blue),
-							   PX8BitTo1Bit(val.alpha));
+	return PXTF_RGBA_5551_Make(_PX8BitTo5Bit(val.red),
+							   _PX8BitTo5Bit(val.green),
+							   _PX8BitTo5Bit(val.blue),
+							   _PX8BitTo1Bit(val.alpha));
 }
 PXInline_c PXTF_RGBA_5551 PXTF_RGBA_5551_From_RGB_888(PXTF_RGB_888 val)
 {
-	return PXTF_RGBA_5551_Make(PX8BitTo5Bit(val.red),
-							   PX8BitTo5Bit(val.green),
-							   PX8BitTo5Bit(val.blue),
+	return PXTF_RGBA_5551_Make(_PX8BitTo5Bit(val.red),
+							   _PX8BitTo5Bit(val.green),
+							   _PX8BitTo5Bit(val.blue),
 							   0x01);
 }
 PXInline_c PXTF_RGBA_5551 PXTF_RGBA_5551_From_RGBA_4444(PXTF_RGBA_4444 val)
 {
-	return PXTF_RGBA_5551_Make(PX4BitTo5Bit(PXTF_4444_R(val)),
-							   PX4BitTo5Bit(PXTF_4444_G(val)),
-							   PX4BitTo5Bit(PXTF_4444_B(val)),
-							   PX4BitTo1Bit(PXTF_4444_A(val)));
+	return PXTF_RGBA_5551_Make(_PX4BitTo5Bit(_PXTF_4444_R(val)),
+							   _PX4BitTo5Bit(_PXTF_4444_G(val)),
+							   _PX4BitTo5Bit(_PXTF_4444_B(val)),
+							   _PX4BitTo1Bit(_PXTF_4444_A(val)));
 }
 PXInline_c PXTF_RGBA_5551 PXTF_RGBA_5551_From_RGB_565(PXTF_RGB_565 val)
 {
-	return PXTF_RGBA_5551_Make(PXTF_565_R(val),
-							   PX6BitTo5Bit(PXTF_565_G(val)),
-							   PXTF_565_B(val),
+	return PXTF_RGBA_5551_Make(_PXTF_565_R(val),
+							   _PX6BitTo5Bit(_PXTF_565_G(val)),
+							   _PXTF_565_B(val),
 							   0x01);
 }
 PXInline_c PXTF_RGBA_5551 PXTF_RGBA_5551_From_LA_88(PXTF_LA_88 val)
 {
-	uint8_t lum = PX8BitTo5Bit(val.luminance);
-	return PXTF_RGBA_5551_Make(lum, lum, lum, PX8BitTo5Bit(val.alpha));
+	uint8_t lum = _PX8BitTo5Bit(val.luminance);
+	return PXTF_RGBA_5551_Make(lum, lum, lum, _PX8BitTo5Bit(val.alpha));
 }
 PXInline_c PXTF_RGBA_5551 PXTF_RGBA_5551_From_A_8(PXTF_A_8 val)
 {
-	return PXTF_RGBA_5551_Make(0x1F, 0x1F, 0x1F, PX8BitTo5Bit(val));
+	return PXTF_RGBA_5551_Make(0x1F, 0x1F, 0x1F, _PX8BitTo5Bit(val));
 }
 PXInline_c PXTF_RGBA_5551 PXTF_RGBA_5551_From_L_8(PXTF_L_8 val)
 {
-	uint8_t lum = PX8BitTo5Bit(val);
+	uint8_t lum = _PX8BitTo5Bit(val);
 	return PXTF_RGBA_5551_Make(lum, lum, lum, 0x1F);
 }
 
@@ -409,42 +278,42 @@ PXInline_c PXTF_RGBA_5551 PXTF_RGBA_5551_From_L_8(PXTF_L_8 val)
 
 PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
-	return PXTF_RGB_565_Make(PX8BitTo5Bit(val.red),
-							 PX8BitTo6Bit(val.green),
-							 PX8BitTo5Bit(val.blue));
+	return PXTF_RGB_565_Make(_PX8BitTo5Bit(val.red),
+							 _PX8BitTo6Bit(val.green),
+							 _PX8BitTo5Bit(val.blue));
 }
 PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_RGB_888(PXTF_RGB_888 val)
 {
-	return PXTF_RGB_565_Make(PX8BitTo5Bit(val.red),
-							 PX8BitTo6Bit(val.green),
-							 PX8BitTo5Bit(val.blue));
+	return PXTF_RGB_565_Make(_PX8BitTo5Bit(val.red),
+							 _PX8BitTo6Bit(val.green),
+							 _PX8BitTo5Bit(val.blue));
 }
 PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_RGBA_4444(PXTF_RGBA_4444 val)
 {
-	return PXTF_RGB_565_Make(PX4BitTo5Bit(PXTF_4444_R(val)),
-							 PX4BitTo6Bit(PXTF_4444_G(val)),
-							 PX4BitTo5Bit(PXTF_4444_B(val)));
+	return PXTF_RGB_565_Make(_PX4BitTo5Bit(_PXTF_4444_R(val)),
+							 _PX4BitTo6Bit(_PXTF_4444_G(val)),
+							 _PX4BitTo5Bit(_PXTF_4444_B(val)));
 }
 PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_RGBA_5551(PXTF_RGBA_5551 val)
 {
-	return PXTF_RGB_565_Make(PXTF_5551_R(val),
-							 PX5BitTo6Bit(PXTF_5551_G(val)),
-							 PXTF_5551_B(val));
+	return PXTF_RGB_565_Make(_PXTF_5551_R(val),
+							 _PX5BitTo6Bit(_PXTF_5551_G(val)),
+							 _PXTF_5551_B(val));
 }
 PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_LA_88(PXTF_LA_88 val)
 {
-	uint8_t lum5 = PX8BitTo5Bit(val.luminance);
-	return PXTF_RGB_565_Make(lum5, PX8BitTo6Bit(val.luminance), lum5);
+	uint8_t lum5 = _PX8BitTo5Bit(val.luminance);
+	return PXTF_RGB_565_Make(lum5, _PX8BitTo6Bit(val.luminance), lum5);
 }
 PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_A_8(PXTF_A_8 val)
 {
-	uint8_t alph5 = PX8BitTo5Bit(val);
+	uint8_t alph5 = _PX8BitTo5Bit(val);
 	return PXTF_RGB_565_Make(alph5, alph5, alph5);
 }
 PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_L_8(PXTF_L_8 val)
 {
-	uint8_t lum5 = PX8BitTo5Bit(val);
-	return PXTF_RGB_565_Make(lum5, PX8BitTo6Bit(val), lum5);
+	uint8_t lum5 = _PX8BitTo5Bit(val);
+	return PXTF_RGB_565_Make(lum5, _PX8BitTo6Bit(val), lum5);
 }
 
 #pragma mark -
@@ -453,29 +322,29 @@ PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_L_8(PXTF_L_8 val)
 
 PXInline_c PXTF_LA_88 PXTF_LA_88_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
-	return PXTF_LA_88_Make(PX888BitsTo8Bit(val.red, val.green, val.blue),
+	return PXTF_LA_88_Make(_PX888BitsTo8Bit(val.red, val.green, val.blue),
 						   val.alpha);
 }
 PXInline_c PXTF_LA_88 PXTF_LA_88_From_RGB_888(PXTF_RGB_888 val)
 {
-	return PXTF_LA_88_Make(PX888BitsTo8Bit(val.red,
+	return PXTF_LA_88_Make(_PX888BitsTo8Bit(val.red,
 										   val.green,
 										   val.blue),
 						   0xFF);
 }
 PXInline_c PXTF_LA_88 PXTF_LA_88_From_RGBA_4444(PXTF_RGBA_4444 val)
 {
-	return PXTF_LA_88_Make(PX444BitsTo8Bit(PXTF_4444_R(val), PXTF_4444_G(val), PXTF_4444_B(val)),
-						   PX4BitTo8Bit(PXTF_4444_A(val)));
+	return PXTF_LA_88_Make(_PX444BitsTo8Bit(_PXTF_4444_R(val), _PXTF_4444_G(val), _PXTF_4444_B(val)),
+						   _PX4BitTo8Bit(_PXTF_4444_A(val)));
 }
 PXInline_c PXTF_LA_88 PXTF_LA_88_From_RGBA_5551(PXTF_RGBA_5551 val)
 {
-	return PXTF_LA_88_Make(PX555BitsTo8Bit(PXTF_5551_R(val), PXTF_5551_G(val), PXTF_5551_B(val)),
-						   PX1BitTo8Bit(PXTF_5551_A(val)));
+	return PXTF_LA_88_Make(_PX555BitsTo8Bit(_PXTF_5551_R(val), _PXTF_5551_G(val), _PXTF_5551_B(val)),
+						   _PX1BitTo8Bit(_PXTF_5551_A(val)));
 }
 PXInline_c PXTF_LA_88 PXTF_LA_88_From_RGB_565(PXTF_RGB_565 val)
 {
-	return PXTF_LA_88_Make(PX565BitsTo8Bit(PXTF_565_R(val), PXTF_565_G(val), PXTF_565_B(val)),
+	return PXTF_LA_88_Make(_PX565BitsTo8Bit(_PXTF_565_R(val), _PXTF_565_G(val), _PXTF_565_B(val)),
 						   0xFF);
 }
 PXInline_c PXTF_LA_88 PXTF_LA_88_From_A_8(PXTF_A_8 val)
@@ -501,11 +370,11 @@ PXInline_c PXTF_A_8 PXTF_A_8_From_RGB_888(PXTF_RGB_888 val)
 }
 PXInline_c PXTF_A_8 PXTF_A_8_From_RGBA_4444(PXTF_RGBA_4444 val)
 {
-	return PX4BitTo8Bit(PXTF_4444_A(val));
+	return _PX4BitTo8Bit(_PXTF_4444_A(val));
 }
 PXInline_c PXTF_A_8 PXTF_A_8_From_RGBA_5551(PXTF_RGBA_5551 val)
 {
-	return PX1BitTo8Bit(PXTF_5551_A(val));
+	return _PX1BitTo8Bit(_PXTF_5551_A(val));
 }
 PXInline_c PXTF_A_8 PXTF_A_8_From_RGB_565(PXTF_RGB_565 val)
 {
@@ -526,23 +395,23 @@ PXInline_c PXTF_A_8 PXTF_A_8_From_L_8(PXTF_L_8 val)
 
 PXInline_c PXTF_L_8 PXTF_L_8_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
-	return PX888BitsTo8Bit(val.red, val.green, val.blue);
+	return _PX888BitsTo8Bit(val.red, val.green, val.blue);
 }
 PXInline_c PXTF_L_8 PXTF_L_8_From_RGB_888(PXTF_RGB_888 val)
 {
-	return PX888BitsTo8Bit(val.red, val.green, val.blue);
+	return _PX888BitsTo8Bit(val.red, val.green, val.blue);
 }
 PXInline_c PXTF_L_8 PXTF_L_8_From_RGBA_4444(PXTF_RGBA_4444 val)
 {
-	return PX444BitsTo8Bit(PXTF_4444_R(val), PXTF_4444_G(val), PXTF_4444_B(val));
+	return _PX444BitsTo8Bit(_PXTF_4444_R(val), _PXTF_4444_G(val), _PXTF_4444_B(val));
 }
 PXInline_c PXTF_L_8 PXTF_L_8_From_RGBA_5551(PXTF_RGBA_5551 val)
 {
-	return PX555BitsTo8Bit(PXTF_5551_R(val), PXTF_5551_G(val), PXTF_5551_B(val));
+	return _PX555BitsTo8Bit(_PXTF_5551_R(val), _PXTF_5551_G(val), _PXTF_5551_B(val));
 }
 PXInline_c PXTF_L_8 PXTF_L_8_From_RGB_565(PXTF_RGB_565 val)
 {
-	return PX565BitsTo8Bit(PXTF_565_R(val), PXTF_565_G(val), PXTF_565_B(val));
+	return _PX565BitsTo8Bit(_PXTF_565_R(val), _PXTF_565_G(val), _PXTF_565_B(val));
 }
 PXInline_c PXTF_L_8 PXTF_L_8_From_LA_88(PXTF_LA_88 val)
 {

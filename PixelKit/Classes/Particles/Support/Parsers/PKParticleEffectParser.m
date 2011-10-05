@@ -48,8 +48,10 @@
 #include "PXMathUtils.h"
 #include "PXDebug.h"
 
+#import "PXTextureModifiers.h"
+
 @interface PKParticleEffectParser (Private)
-- (id) _initWithData:(NSData *)_data origin:(NSString *)_origin;
+- (id) _initWithData:(NSData *)_data origin:(NSString *)_origin premultiplyAlpha:(BOOL)premultiply;
 @end
 
 @implementation PKParticleEffectParser
@@ -62,7 +64,7 @@
     return nil;
 }
 
-- (id) initWithData:(NSData *)_data origin:(NSString *)_origin
+- (id) initWithData:(NSData *)_data origin:(NSString *)_origin premultiplyAlpha:(BOOL)_premultiply
 {
 	self = [super init];
 
@@ -81,7 +83,7 @@
 		}
 
 		// Make the new parser.
-		PKParticleEffectParser *newParser = [[realClass alloc] _initWithData:_data origin:_origin];
+		PKParticleEffectParser *newParser = [[realClass alloc] _initWithData:_data origin:_origin premultiplyAlpha:_premultiply];
 
 		// Release ourself, as we are going to become the real parser
 		[self release];
@@ -96,13 +98,15 @@
 	return self;
 }
 
-- (id) _initWithData:(NSData *)_data origin:(NSString *)_origin
+- (id) _initWithData:(NSData *)_data origin:(NSString *)_origin premultiplyAlpha:(BOOL)_premultiply
 {
 	// Set the data and origin
 	self = [super _initWithData:_data origin:_origin];
 
 	if (self)
 	{
+		premultiply = _premultiply;
+
 		// Parse the data. If we fail at parsing, give up - there is nothing
 		// else we can do.
 		if ([self _parse] == NO)
@@ -137,21 +141,29 @@
 	loadedData = _data;
 }
 
-+ (PXTextureData *)_newTextureDataFromTextureString:(NSString *)textureString orPath:(NSString *)path
++ (PXTextureData *)_newTextureDataFromTextureString:(NSString *)textureString orPath:(NSString *)path premultiplyAlpha:(BOOL)premultiply
 {
+	NSLog (@"premultiply = %@\n", (premultiply ? @"YES" : @"NO"));
 	PXTextureData *textureData = nil;
+
+	id <PXTextureModifier> modifier = nil;
+
+	if (premultiply == YES)
+	{
+		modifier = [PXTextureModifiers textureModifierToPremultiplyAlpha];
+	}
 
 	if (textureString)
 	{
 		// If the data exists, extract it
 		NSData *data = [TBXMLNSDataAdditions dataWithBase64EncodedString:textureString];
 		data = [TBXMLNSDataAdditions gzipInflate:data];
-		textureData = [[PXTextureData alloc] initWithData:data];
+		textureData = [[PXTextureData alloc] initWithData:data modifier:modifier];
 	}
 	else
 	{
 		// Otherwise find the file, and load it.
-		PXTextureLoader *texLoader = [[PXTextureLoader alloc] initWithContentsOfFile:path];
+		PXTextureLoader *texLoader = [[PXTextureLoader alloc] initWithContentsOfFile:path modifier:modifier];
 		textureData = [texLoader newTextureData];
 		[texLoader release];
 	}

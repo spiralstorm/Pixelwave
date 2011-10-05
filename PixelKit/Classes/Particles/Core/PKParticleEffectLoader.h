@@ -48,9 +48,14 @@
 	PKParticleEffectParser *effectParser;
 }
 
+- (id) initWithContentsOfFile:(NSString *)path premultiplyAlpha:(BOOL)premultiply;
+- (id) initWithContentsOfURL:(NSURL *)url premultiplyAlpha:(BOOL)premultiply;
+
 - (PKParticleEffect *)newParticleEffect;
 
 + (PKParticleEffectLoader *)particleEffectLoaderWithContentsOfFile:(NSString *)path;
++ (PKParticleEffectLoader *)particleEffectLoaderWithContentsOfFile:(NSString *)path premultiplyAlpha:(BOOL)premultiply;
 + (PKParticleEffectLoader *)particleEffectLoaderWithContentsOfURL:(NSURL *)url;
++ (PKParticleEffectLoader *)particleEffectLoaderWithContentsOfURL:(NSURL *)url premultiplyAlpha:(BOOL)premultiply;
 
 @end

@@ -114,7 +114,8 @@
 		if (element)
 		{
 			PXTextureData *textureData = [PKParticleEffectParser _newTextureDataFromTextureString:[TBXML valueOfAttributeNamed:@"data" forElement:element]
-																						   orPath:[TBXML valueOfAttributeNamed:@"name" forElement:element]];
+																						   orPath:[TBXML valueOfAttributeNamed:@"name" forElement:element]
+																				 premultiplyAlpha:premultiply];
 			PKDesignerParticleEmitterLoadedDataSetTextureData(designerData, textureData);
 			[textureData release];
 		}

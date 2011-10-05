@@ -89,24 +89,39 @@
 
 - (id) initWithContentsOfFile:(NSString *)path
 {
+	return [self initWithContentsOfFile:path premultiplyAlpha:YES];
+}
+
+- (id) initWithContentsOfFile:(NSString *)path premultiplyAlpha:(BOOL)premultiply
+{
 	[self release];
-	PKParticleEffectLoader *loader = [[PKParticleEffectLoader alloc] initWithContentsOfFile:path];
+	PKParticleEffectLoader *loader = [[PKParticleEffectLoader alloc] initWithContentsOfFile:path premultiplyAlpha:premultiply];
 	self = [loader newParticleEffect];
 	return self;
 }
 
 - (id) initWithContentsOfURL:(NSURL *)url
 {
+	return [self initWithContentsOfURL:url premultiplyAlpha:YES];
+}
+
+- (id) initWithContentsOfURL:(NSURL *)url premultiplyAlpha:(BOOL)premultiply
+{
 	[self release];
-	PKParticleEffectLoader *loader = [[PKParticleEffectLoader alloc] initWithContentsOfURL:url];
+	PKParticleEffectLoader *loader = [[PKParticleEffectLoader alloc] initWithContentsOfURL:url premultiplyAlpha:premultiply];
 	self = [loader newParticleEffect];
 	return self;
 }
 
 - (id) initWithData:(NSData *)data
 {
+	return [self initWithData:data premultiplyAlpha:YES];
+}
+
+- (id) initWithData:(NSData *)data premultiplyAlpha:(BOOL)premultiply
+{
 	[self release];
-	PKParticleEffectParser *parser = [[PKParticleEffectParser alloc] initWithData:data origin:nil];
+	PKParticleEffectParser *parser = [[PKParticleEffectParser alloc] initWithData:data origin:nil premultiplyAlpha:premultiply];
 	self = [parser newParticleEffect];
 	return self;
 }
@@ -214,14 +229,30 @@
 {
 	return [[[PKParticleEffect alloc] initWithContentsOfFile:path] autorelease];
 }
+
++ (PKParticleEffect *)particleEffectWithContentsOfFile:(NSString *)path premultiplyAlpha:(BOOL)premultiply
+{
+	return [[[PKParticleEffect alloc] initWithContentsOfFile:path premultiplyAlpha:premultiply] autorelease];
+}
+
 + (PKParticleEffect *)particleEffectWithContentsOfURL:(NSURL *)url
 {
 	return [[[PKParticleEffect alloc] initWithContentsOfURL:url] autorelease];
 }
 
++ (PKParticleEffect *)particleEffectWithContentsOfURL:(NSURL *)url premultiplyAlpha:(BOOL)premultiply
+{
+	return [[[PKParticleEffect alloc] initWithContentsOfURL:url premultiplyAlpha:premultiply] autorelease];
+}
+
 + (PKParticleEffect *)particleEffectWithData:(NSData *)data
 {
 	return [[[PKParticleEffect alloc] initWithData:data] autorelease];
+}
+
++ (PKParticleEffect *)particleEffectWithData:(NSData *)data premultiplyAlpha:(BOOL)premultiply
+{
+	return [[[PKParticleEffect alloc] initWithData:data premultiplyAlpha:premultiply] autorelease];
 }
 
 @end

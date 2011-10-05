@@ -54,6 +54,25 @@
 	} \
 }
 
+#define _PXTF_ONE_6BIT 0.01587301f
+#define _PXTF_ONE_5BIT 0.03225806f
+#define _PXTF_ONE_4BIT 0.06666667f
+#define _PXTF_ONE_RGB  0.00130718f
+
+#define _PXTF_4444_R(_val_) ((_val_) >> 12)
+#define _PXTF_4444_G(_val_) ((_val_) >> 8)
+#define _PXTF_4444_B(_val_) ((_val_) >> 4)
+#define _PXTF_4444_A(_val_) (_val_)
+
+#define _PXTF_5551_R(_val_) ((_val_) >> 11)
+#define _PXTF_5551_G(_val_) ((_val_) >> 6)
+#define _PXTF_5551_B(_val_) ((_val_) >> 1)
+#define _PXTF_5551_A(_val_) (_val_)
+
+#define _PXTF_565_R(_val_) ((_val_) >> 11)
+#define _PXTF_565_G(_val_) ((_val_) >> 5)
+#define _PXTF_565_B(_val_) (_val_)
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -200,6 +219,118 @@ PXInline_h PXTF_L_8 PXTF_L_8_From_RGBA_5551(PXTF_RGBA_5551 val);
 PXInline_h PXTF_L_8 PXTF_L_8_From_RGB_565(PXTF_RGB_565 val);
 PXInline_h PXTF_L_8 PXTF_L_8_From_LA_88(PXTF_LA_88 val);
 PXInline_h PXTF_L_8 PXTF_L_8_From_A_8(PXTF_A_8 val);
+
+#pragma mark -
+#pragma mark - Bit Changers
+#pragma mark -
+
+// 8 Bit
+PXInline uint8_t _PX8BitTo6Bit(uint8_t val)
+{
+	return (val >> 2) & 0x3F;
+}
+PXInline uint8_t _PX8BitTo5Bit(uint8_t val)
+{
+	return (val >> 3) & 0x1F;
+}
+PXInline uint8_t _PX8BitTo4Bit(uint8_t val)
+{
+	return (val >> 4) & 0x0F;
+}
+PXInline uint8_t _PX8BitTo1Bit(uint8_t val)
+{
+	return (val >> 7) & 0x01;
+}
+
+// 6 Bit
+PXInline uint8_t _PX6BitTo8Bit(uint8_t val)
+{
+	return ((((float)(val & 0x3F)) * _PXTF_ONE_6BIT) * 0xFF);
+}
+PXInline uint8_t _PX6BitTo5Bit(uint8_t val)
+{
+	return ((val & 0x3F) >> 1) & 0x1F;
+}
+PXInline uint8_t _PX6BitTo4Bit(uint8_t val)
+{
+	return ((val & 0x3F) >> 2) & 0x0F;
+}
+PXInline uint8_t _PX6BitTo1Bit(uint8_t val)
+{
+	return ((val & 0x3F) >> 5) & 0x01;
+}
+
+// 5 Bit
+PXInline uint8_t _PX5BitTo8Bit(uint8_t val)
+{
+	return ((((float)(val & 0x1F)) * _PXTF_ONE_5BIT) * 0xFF);
+}
+PXInline uint8_t _PX5BitTo6Bit(uint8_t val)
+{
+	return ((((float)(val & 0x1F)) * _PXTF_ONE_5BIT) * 0x3F);
+}
+PXInline uint8_t _PX5BitTo4Bit(uint8_t val)
+{
+	return ((val & 0x3F) >> 1) & 0x0F;
+}
+PXInline uint8_t _PX5BitTo1Bit(uint8_t val)
+{
+	return ((val & 0x3F) >> 4) & 0x01;
+}
+
+// 4 Bit
+PXInline uint8_t _PX4BitTo8Bit(uint8_t val)
+{
+	return ((((float)(val & 0x0F)) * _PXTF_ONE_4BIT) * 0xFF);
+}
+PXInline uint8_t _PX4BitTo6Bit(uint8_t val)
+{
+	return ((((float)(val & 0x0F)) * _PXTF_ONE_4BIT) * 0x3F);
+}
+PXInline uint8_t _PX4BitTo5Bit(uint8_t val)
+{
+	return ((((float)(val & 0x0F)) * _PXTF_ONE_4BIT) * 0x1F);
+}
+PXInline uint8_t _PX4BitTo1Bit(uint8_t val)
+{
+	return ((val & 0x0F) >> 3) & 0x01;
+}
+
+// 1 Bit
+PXInline uint8_t _PX1BitTo8Bit(uint8_t val)
+{
+	return ((val & 0x01) * 0xFF);
+}
+PXInline uint8_t _PX1BitTo6Bit(uint8_t val)
+{
+	return ((val & 0x01) * 0x3F);
+}
+PXInline uint8_t _PX1BitTo5Bit(uint8_t val)
+{
+	return ((val & 0x01) * 0x1F);
+}
+PXInline uint8_t _PX1BitTo4Bit(uint8_t val)
+{
+	return ((val & 0x01) * 0x0F);
+}
+
+// Color Bits
+PXInline uint8_t _PX888BitsTo8Bit(uint8_t r, uint8_t g, uint8_t b)
+{
+	return ((float)((r + g + b) * _PXTF_ONE_RGB)) * 0xFF;
+}
+PXInline uint8_t _PX565BitsTo8Bit(uint8_t r, uint8_t g, uint8_t b)
+{
+	return ((float)(((r & 0x1F) + (g & 0x3F) + (b & 0x1F)) * _PXTF_ONE_RGB)) * 0xFF;
+}
+PXInline uint8_t _PX555BitsTo8Bit(uint8_t r, uint8_t g, uint8_t b)
+{
+	return ((float)(((r & 0x1F) + (g & 0x1F) + (b & 0x1F)) * _PXTF_ONE_RGB)) * 0xFF;
+}
+PXInline uint8_t _PX444BitsTo8Bit(uint8_t r, uint8_t g, uint8_t b)
+{
+	return ((float)(((r & 0x0F) + (g & 0x0F) + (b & 0x0F)) * _PXTF_ONE_RGB)) * 0xFF;
+}
 
 #ifdef __cplusplus
 }
