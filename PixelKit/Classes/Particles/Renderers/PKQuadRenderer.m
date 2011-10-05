@@ -61,6 +61,7 @@ typedef struct
 	GLfloat s, t;
 } PKQuadParticleVertex;
 
+#ifdef PKQuadRendererUseStrip
 typedef struct
 {
 	PKQuadParticleVertex topLeft;
@@ -68,6 +69,15 @@ typedef struct
 	PKQuadParticleVertex topRight;
 	PKQuadParticleVertex bottomRight;
 } PKQuadParticleVertexQuad;
+#else
+typedef struct
+{
+	PKQuadParticleVertex bottomLeft;
+	PKQuadParticleVertex bottomRight;
+	PKQuadParticleVertex topLeft;
+	PKQuadParticleVertex topRight;
+} PKQuadParticleVertexQuad;
+#endif
 
 typedef struct
 {
@@ -87,11 +97,19 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 @interface PKQuadRenderer(Private)
 - (void) setCount:(unsigned int)count;
 
+#ifdef PKQuadRendererUseStrip
 - (void) drawCurrentWithTextureData:(PXTextureData *)textureData
 					  linkeVertices:(PKQuadParticleLinkedQuad * const)linkVertices
 						  drawCount:(unsigned int)drawCount
 						blendSource:(unsigned short)blendSource
 				   blendDestination:(unsigned short)blendDestination;
+#else
+- (void) drawCurrentWithTextureData:(PXTextureData *)textureData
+					  linkeVertices:(PKQuadParticleVertexQuad * const)linkVertices
+						  drawCount:(unsigned int)drawCount
+						blendSource:(unsigned short)blendSource
+				   blendDestination:(unsigned short)blendDestination;
+#endif
 @end
 
 @implementation PKQuadRenderer
@@ -107,6 +125,9 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 
 	if (self)
 	{
+#ifdef PKQuadRendererUseNormalGL
+		_renderMode = PXRenderMode_Custom;
+#endif
 		// Color array will always be on
 		_PXGLStateEnableClientState(&_glState, GL_COLOR_ARRAY);
 
@@ -147,23 +168,70 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 	if (maxCount == vertexCount)
 		return;
 
+#ifndef PKQuadRendererUseStrip
+	unsigned int indicesCount = maxCount * 6;
+#endif
+
 	if (maxCount == 0)
 	{
 		// If there are 0, we should free our memory.
 		if (vertices)
 			free(vertices);
 		vertices = NULL;
+
+#ifndef PKQuadRendererUseStrip
+		if (indices)
+			free(indices);
+		indices = NULL;
+#endif
 	}
 	else if (!vertices)
 	{
+#ifdef PKQuadRendererUseStrip
 		// If the vertices don't exist, then we need to allocate.
 		vertices = malloc(sizeof(PKQuadParticleLinkedQuad) * maxCount);
+#else
+		vertices = malloc(sizeof(PKQuadParticleVertexQuad) * maxCount);
+		indices = malloc(sizeof(GLushort) * indicesCount);
+#endif
 	}
 	else
 	{
+#ifdef PKQuadRendererUseStrip
 		// If they do, then we need to reallocate.
 		vertices = realloc(vertices, sizeof(PKQuadParticleLinkedQuad) * maxCount);
+#else
+		vertices = realloc(vertices, sizeof(PKQuadParticleVertexQuad) * maxCount);
+		indices = realloc(indices, sizeof(GLushort) * indicesCount);
+#endif
 	}
+
+#ifndef PKQuadRendererUseStrip
+	if (indices != NULL)
+	{
+		GLushort *indexPtr = indices;
+		unsigned int i4 = 0;
+
+		for (unsigned int index = 0; index < maxCount; ++index)
+		{
+			*indexPtr = i4 + 0; ++indexPtr;
+			*indexPtr = i4 + 1; ++indexPtr;
+			*indexPtr = i4 + 2; ++indexPtr;
+
+			*indexPtr = i4 + 1; ++indexPtr;
+			*indexPtr = i4 + 2; ++indexPtr;
+			*indexPtr = i4 + 3; ++indexPtr;
+
+			i4 += 4;
+		}
+
+		/*for (unsigned int index = 0; index < indicesCount; ++index)
+		{
+			NSLog (@"INDICES[%u] = %u\n", index, indices[index]);
+		}
+		NSLog (@"\n");*/
+	}
+#endif
 
 	// Set the variable.
 	vertexCount = maxCount;
@@ -196,8 +264,13 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 	PKParticle *particle;
 	PXArrayBuffer *particles;
 
+#ifdef PKQuadRendererUseStrip
 	PKQuadParticleLinkedQuad * const linkVertices = vertices;
 	PKQuadParticleLinkedQuad *currentVertex;
+#else
+	PKQuadParticleVertexQuad * const linkVertices = vertices;
+	PKQuadParticleVertexQuad *currentVertex;
+#endif
 
 	id graphic = nil;
 	PXTextureData *textureData = nil;
@@ -206,9 +279,27 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 
 	CGSize halfSize = CGSizeZero;
 
+#ifdef PKQuadRendererUseNormalGL
+#ifdef PKQuadRendererUseStrip
+	glVertexPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.position.x));
+	glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.r));
+	glTexCoordPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.s));
+#else
+	glVertexPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->bottomLeft.position.x));
+	glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(PKQuadParticleVertex), &(linkVertices->bottomLeft.r));
+	glTexCoordPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->bottomLeft.s));
+#endif
+#else
+#ifdef PKQuadRendererUseStrip
 	PXGLVertexPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.position.x));
 	PXGLColorPointer(4, GL_UNSIGNED_BYTE, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.r));
 	PXGLTexCoordPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->_topLetCopy.s));
+#else
+	PXGLVertexPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->bottomLeft.position.x));
+	PXGLColorPointer(4, GL_UNSIGNED_BYTE, sizeof(PKQuadParticleVertex), &(linkVertices->bottomLeft.r));
+	PXGLTexCoordPointer(2, GL_FLOAT, sizeof(PKQuadParticleVertex), &(linkVertices->bottomLeft.s));
+#endif
+#endif
 
 	PXLinkedListForEach(emitters, emitter)
 	{
@@ -248,7 +339,11 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 			{
 				if (drawCount > 0)
 				{
+#ifdef PKQuadRendererUseStrip
 					[self drawCurrentWithTextureData:textureData linkeVertices:linkVertices drawCount:(drawCount - 2) blendSource:blendSource blendDestination:blendDestination];
+#else
+					[self drawCurrentWithTextureData:textureData linkeVertices:linkVertices drawCount:drawCount blendSource:blendSource blendDestination:blendDestination];
+#endif
 				}
 
 				drawCount = 0;
@@ -268,24 +363,72 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 				halfSize = (textureData == nil) ? CGSizeMake(0.5f, 0.5f) : CGSizeMake(textureData.width * 0.5f, textureData.height * 0.5f);
 			}
 
+#ifdef PKQuadRendererUseStrip
 			*currentVertex = PKQuadParticleLinkedQuadMake(particle, halfSize);
+#else
+			*currentVertex = PKQuadParticleVertexQuadMake(particle, halfSize);
+#endif
 			++currentVertex;
 			drawCount += 6;
 		}
 
 		if (drawCount > 0)
 		{
+#ifdef PKQuadRendererUseStrip
 			[self drawCurrentWithTextureData:textureData linkeVertices:linkVertices drawCount:(drawCount - 2) blendSource:blendSource blendDestination:blendDestination];
+#else
+			[self drawCurrentWithTextureData:textureData linkeVertices:linkVertices drawCount:drawCount blendSource:blendSource blendDestination:blendDestination];
+#endif
 		}
 	}
 }
 
+#ifdef PKQuadRendererUseStrip
 - (void) drawCurrentWithTextureData:(PXTextureData *)textureData
 					  linkeVertices:(PKQuadParticleLinkedQuad * const)linkVertices
 						  drawCount:(unsigned int)drawCount
 						blendSource:(unsigned short)blendSource
 				   blendDestination:(unsigned short)blendDestination
+#else
+- (void) drawCurrentWithTextureData:(PXTextureData *)textureData
+					  linkeVertices:(PKQuadParticleVertexQuad * const)linkVertices
+						  drawCount:(unsigned int)drawCount
+						blendSource:(unsigned short)blendSource
+				   blendDestination:(unsigned short)blendDestination
+#endif
 {
+#ifdef PKQuadRendererUseNormalGL
+	// Set the blend function
+	glBlendFunc(blendSource, blendDestination);
+	glEnableClientState(GL_COLOR_ARRAY);
+
+	if (textureData == nil)
+	{
+		glDisable(GL_TEXTURE_2D);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	}
+	else
+	{
+		glEnable(GL_TEXTURE_2D);
+		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		
+		// Bind the texture, and update the smoothing value.
+		glBindTexture(GL_TEXTURE_2D, textureData->_glName);
+		if (smoothingType != textureData->_smoothingType)
+		{
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, smoothingType);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, smoothingType);
+			textureData->_smoothingType = smoothingType;
+		}
+	}
+
+#ifdef PKQuadRendererUseStrip
+	// Draw the quads!
+	glDrawArrays(GL_TRIANGLE_STRIP, 1, drawCount);
+#else
+	glDrawElements(GL_TRIANGLES, drawCount, GL_UNSIGNED_SHORT, indices);
+#endif
+#else
 	// Set the blend function
 	PXGLBlendFunc(blendSource, blendDestination);
 
@@ -309,8 +452,13 @@ PXInline PKQuadParticleLinkedQuad PKQuadParticleLinkedQuadMake(PKParticle *parti
 		}
 	}
 
+#ifdef PKQuadRendererUseStrip
 	// Draw the quads!
 	PXGLDrawArrays(GL_TRIANGLE_STRIP, 1, drawCount);
+#else
+	PXGLDrawElements(GL_TRIANGLES, drawCount, GL_UNSIGNED_SHORT, indices);
+#endif
+#endif
 }
 
 - (BOOL) isCapableOfRenderingGraphicOfType:(Class)graphicType

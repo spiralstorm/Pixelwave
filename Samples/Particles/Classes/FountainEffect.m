@@ -70,7 +70,8 @@
 
 - (id<PKParticleFlow>)_newFlow
 {
-	return [[PKSteadyFlow alloc] initWithRate:100.0f];
+//	return [[PKSteadyFlow alloc] initWithRate:100.0f];
+	return [[PKSteadyFlow alloc] initWithRate:10.0f];
 }
 
 - (id<PKParticleRenderer>)_newRenderer

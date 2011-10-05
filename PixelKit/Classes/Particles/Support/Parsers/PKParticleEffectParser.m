@@ -143,7 +143,6 @@
 
 + (PXTextureData *)_newTextureDataFromTextureString:(NSString *)textureString orPath:(NSString *)path premultiplyAlpha:(BOOL)premultiply
 {
-	NSLog (@"premultiply = %@\n", (premultiply ? @"YES" : @"NO"));
 	PXTextureData *textureData = nil;
 
 	id <PXTextureModifier> modifier = nil;

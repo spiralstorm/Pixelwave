@@ -39,6 +39,9 @@
 
 #import "PKParticleRendererBase.h"
 
+//#define PKQuadRendererUseNormalGL
+#define PKQuadRendererUseStrip
+
 // The graphic of any particle within this renderer MUST be a texture data.
 @interface PKQuadRenderer : PKParticleRendererBase
 {
@@ -48,6 +51,10 @@
 
 	// Either GL_LINEAR or GL_NEAREST
 	unsigned short smoothingType;
+
+#ifndef PKQuadRendererUseStrip
+	GLushort *indices;
+#endif
 }
 
 @property (nonatomic, assign) BOOL smoothing;

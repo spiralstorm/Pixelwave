@@ -68,7 +68,7 @@
 	self.stage.backgroundColor = 0x000000;
 
 	self.stage.frameRate = 60.0f;
-//	self.stage.renderFrameRate = 60.0f;
+	self.stage.renderFrameRate = 60.0f;
 
 	// Events
 
