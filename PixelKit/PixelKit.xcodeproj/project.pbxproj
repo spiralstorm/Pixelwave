@@ -9,11 +9,12 @@
 /* Begin PBXBuildFile section */
 		2D0D876B12CD41BC00A887AF /* PKBox2DTouchPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0D876912CD41BC00A887AF /* PKBox2DTouchPicker.h */; };
 		2D0D876C12CD41BC00A887AF /* PKBox2DTouchPicker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2D0D876A12CD41BC00A887AF /* PKBox2DTouchPicker.mm */; };
+		2D74AE73143F4D0400D7B84E /* PixelKitParticles.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D74AE72143F4D0400D7B84E /* PixelKitParticles.h */; };
+		2D74AE75143F4D2B00D7B84E /* PixelKitBox2DUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D74AE74143F4D2B00D7B84E /* PixelKitBox2DUtils.h */; };
 		2DC35AB812CBC4BF00B2F195 /* PKBox2DDebugLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC35AB612CBC4BF00B2F195 /* PKBox2DDebugLayer.h */; };
 		2DC35AB912CBC4BF00B2F195 /* PKBox2DDebugLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DC35AB712CBC4BF00B2F195 /* PKBox2DDebugLayer.mm */; };
 		2DF9AF5913E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DF9AF5713E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h */; };
 		2DF9AF5A13E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */; };
-		2DFA0130143A4D6C00307EA5 /* PixelKitParticles.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA012F143A4D6C00307EA5 /* PixelKitParticles.h */; };
 		2DFA0146143A4D8500307EA5 /* PKParticleFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0143143A4D8500307EA5 /* PKParticleFactory.h */; };
 		2DFA0147143A4D8500307EA5 /* PKParticleCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0144143A4D8500307EA5 /* PKParticleCreator.h */; };
 		2DFA0148143A4D8500307EA5 /* PKParticleCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0145143A4D8500307EA5 /* PKParticleCreator.m */; };
@@ -229,7 +230,6 @@
 		2DFFF81312CD2821009AA3C3 /* b2WeldJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DFFF7C012CD2820009AA3C3 /* b2WeldJoint.cpp */; };
 		2DFFF81412CD2821009AA3C3 /* b2WeldJoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFFF7C112CD2820009AA3C3 /* b2WeldJoint.h */; };
 		5297FE121337B82B009856BE /* PKColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5297FE091337B82B009856BE /* PKColor.h */; };
-		9002411C111E04C700764A57 /* PixelKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9002411B111E04C700764A57 /* PixelKit.h */; };
 		AA747D9F0F9514B9006C5449 /* PixelKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* PixelKit_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -255,11 +255,12 @@
 		17C52DAC10DC000C00A7001D /* Pixelwave.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pixelwave.xcodeproj; sourceTree = PIXELWAVE_SRC; };
 		2D0D876912CD41BC00A887AF /* PKBox2DTouchPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBox2DTouchPicker.h; sourceTree = "<group>"; };
 		2D0D876A12CD41BC00A887AF /* PKBox2DTouchPicker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = PKBox2DTouchPicker.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2D74AE72143F4D0400D7B84E /* PixelKitParticles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKitParticles.h; sourceTree = "<group>"; };
+		2D74AE74143F4D2B00D7B84E /* PixelKitBox2DUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKitBox2DUtils.h; sourceTree = "<group>"; };
 		2DC35AB612CBC4BF00B2F195 /* PKBox2DDebugLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBox2DDebugLayer.h; sourceTree = "<group>"; };
 		2DC35AB712CBC4BF00B2F195 /* PKBox2DDebugLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PKBox2DDebugLayer.mm; sourceTree = "<group>"; };
 		2DF9AF5713E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PKBox2DTouchPickerEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = PKBox2DTouchPickerEvent.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2DFA012F143A4D6C00307EA5 /* PixelKitParticles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKitParticles.h; sourceTree = "<group>"; };
 		2DFA0143143A4D8500307EA5 /* PKParticleFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleFactory.h; sourceTree = "<group>"; };
 		2DFA0144143A4D8500307EA5 /* PKParticleCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleCreator.h; sourceTree = "<group>"; };
 		2DFA0145143A4D8500307EA5 /* PKParticleCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleCreator.m; sourceTree = "<group>"; };
@@ -475,7 +476,6 @@
 		2DFFF7C012CD2820009AA3C3 /* b2WeldJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2WeldJoint.cpp; sourceTree = "<group>"; };
 		2DFFF7C112CD2820009AA3C3 /* b2WeldJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2WeldJoint.h; sourceTree = "<group>"; };
 		5297FE091337B82B009856BE /* PKColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKColor.h; sourceTree = "<group>"; };
-		9002411B111E04C700764A57 /* PixelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKit.h; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* PixelKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKit_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libPixelKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPixelKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -535,7 +535,8 @@
 		2D7BB8F110EAB88B00BF87C1 /* Include */ = {
 			isa = PBXGroup;
 			children = (
-				9002411B111E04C700764A57 /* PixelKit.h */,
+				2D74AE72143F4D0400D7B84E /* PixelKitParticles.h */,
+				2D74AE74143F4D2B00D7B84E /* PixelKitBox2DUtils.h */,
 			);
 			path = Include;
 			sourceTree = "<group>";
@@ -568,7 +569,6 @@
 		2DFA00F5143A4C3E00307EA5 /* Particles */ = {
 			isa = PBXGroup;
 			children = (
-				2DFA012F143A4D6C00307EA5 /* PixelKitParticles.h */,
 				2DFA0129143A4D6000307EA5 /* Core */,
 				2DFA012C143A4D6000307EA5 /* Particles */,
 				2DFA012A143A4D6000307EA5 /* Flows */,
@@ -968,7 +968,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA747D9F0F9514B9006C5449 /* PixelKit_Prefix.pch in Headers */,
-				9002411C111E04C700764A57 /* PixelKit.h in Headers */,
 				2DC35AB812CBC4BF00B2F195 /* PKBox2DDebugLayer.h in Headers */,
 				2DFFF7C212CD2820009AA3C3 /* Box2D.h in Headers */,
 				2DFFF7C412CD2820009AA3C3 /* b2BroadPhase.h in Headers */,
@@ -1015,7 +1014,6 @@
 				2D0D876B12CD41BC00A887AF /* PKBox2DTouchPicker.h in Headers */,
 				5297FE121337B82B009856BE /* PKColor.h in Headers */,
 				2DF9AF5913E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h in Headers */,
-				2DFA0130143A4D6C00307EA5 /* PixelKitParticles.h in Headers */,
 				2DFA0146143A4D8500307EA5 /* PKParticleFactory.h in Headers */,
 				2DFA0147143A4D8500307EA5 /* PKParticleCreator.h in Headers */,
 				2DFA0151143A4D9A00307EA5 /* PKParticle.h in Headers */,
@@ -1087,6 +1085,8 @@
 				2DFA0264143A4F4200307EA5 /* PKDiscSectorZone.h in Headers */,
 				2DFA0266143A4F4200307EA5 /* PKDisplayObjectZone.h in Headers */,
 				2DFA0269143A4F4B00307EA5 /* PKRange.h in Headers */,
+				2D74AE73143F4D0400D7B84E /* PixelKitParticles.h in Headers */,
+				2D74AE75143F4D2B00D7B84E /* PixelKitBox2DUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

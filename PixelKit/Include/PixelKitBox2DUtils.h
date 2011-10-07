@@ -37,81 +37,13 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#ifndef _PARTICLE_ENGINE_H_
-#define _PARTICLE_ENGINE_H_
+#ifndef _PIXEL_KIT_BOX2D_UTILS_H_
+#define _PIXEL_KIT_BOX2D_UTILS_H_
 
-// Core
+#include "Box2D.h"
 
-#import "PKParticle.h"
-#import "PKParticleEmitter.h"
-#import "PKParticleEffect.h"
-#import "PKParticleEffectLoader.h"
-
-// Particles
-
-#import "PKParticleCreator.h"
-
-// Flows
-
-#import "PKSteadyFlow.h"
-#import "PKBlastFlow.h"
-#import "PKTimePeriodFlow.h"
-#import "PKPulseFlow.h"
-
-// Initializers
-
-#import "PKSharedGraphicInitializer.h"
-#import "PKGraphicInstanceInitializer.h"
-#import "PKLifetimeInitializer.h"
-#import "PKPositionInitializer.h"
-#import "PKVelocityInitializer.h"
-#import "PKColorInitializer.h"
-#import "PKAlphaInitializer.h"
-#import "PKScaleInitializer.h"
-#import "PKBlendInitializer.h"
-#import "PKRotationInitializer.h"
-#import "PKAngularSpeedInitializer.h"
-
-// Actions
-
-#import "PKMoveAction.h"
-#import "PKAgeAction.h"
-#import "PKAccelerateAction.h"
-#import "PKFadeAction.h"
-#import "PKColorChangeAction.h"
-#import "PKScaleAction.h"
-#import "PKSpeedLimitAction.h"
-#import "PKRotateToDirectionAction.h"
-#import "PKRotateAction.h"
-#import "PKDestroyAction.h"
-#import "PKLinearDragAction.h"
-#import "PKRandomDriftAction.h"
-
-// Renderers
-
-#import "PKDisplayObjectRenderer.h"
-#import "PKPointRenderer.h"
-#import "PKQuadRenderer.h"
-#import "PKSharedDisplayObjectRenderer.h"
-
-// Particle designer
-
-#import "PKDesignerParticle.h"
-#import "PKDesignerFlow.h"
-#import "PKDesignerInitializer.h"
-#import "PKDesignerAction.h"
-
-// Utils
-
-#import "PKRange.h"
-
-#import "PKMultiZone.h"
-#import "PKPointZone.h"
-#import "PKRectangleZone.h"
-#import "PKDiscZone.h"
-#import "PKDiscSectorZone.h"
-#import "PKElipticalDiscZone.h"
-#import "PKLineZone.h"
-#import "PKDisplayObjectZone.h"
+#import "PKBox2DDebugLayer.h"
+#import "PKBox2DTouchPicker.h"
+#import "PKBox2DTouchPickerEvent.h"
 
 #endif
