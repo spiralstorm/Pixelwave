@@ -530,7 +530,7 @@
 
 - (void) _swapBuffers
 {
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
+//	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
 
 	if ([eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES] == NO)
 	{

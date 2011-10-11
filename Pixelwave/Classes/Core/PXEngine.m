@@ -43,6 +43,8 @@
 
 #include "PXTouchEngine.h"
 
+#import "PXLinkedList.h"
+
 @interface PXEngine : NSObject
 {
 @private
@@ -453,6 +455,7 @@ void PXEngineSetLogicFrameRate(float fps)
 
 	PXEngineUpdateMainLoopInterval();
 }
+
 float PXEngineGetLogicFrameRate()
 {
 	if (PXMathIsZero(pxEngineLogicDT))
@@ -481,6 +484,7 @@ void PXEngineSetRenderFrameRate(float fps)
 
 	PXEngineUpdateMainLoopInterval();
 }
+
 float PXEngineGetRenderFrameRate()
 {
 	if (PXMathIsZero(pxEngineRenderDT))
@@ -497,6 +501,7 @@ void PXEngineSetRunning(bool val)
 	pxEngineIsRunning = val;
 	PXEngineUpdateMainLoopInterval();
 }
+
 bool PXEngineGetRunning()
 {
 	return pxEngineIsRunning;
@@ -858,6 +863,7 @@ void PXEngineRenderPhase()
 				pxStageWasInvalidated = NO;
 			}
 			PXEngineRender(); //Render
+
 			pxEngineRenderTimeAccum -= pxEngineRenderDT;
 
 #ifdef PX_DEBUG_MODE
@@ -867,7 +873,10 @@ void PXEngineRenderPhase()
 				pxEngineTimeBetweenRendering = end - start;
 			}
 #endif
-
+			// Don't include swap buffer in render timings, it results in
+			// inconsistant time thus useless info.
+			// Result:	logicTime + renderTime = frameTime != time from start of
+			//			frameA to start of frameB.
 			[pxEngineView _swapBuffers];
 		}
 	}
