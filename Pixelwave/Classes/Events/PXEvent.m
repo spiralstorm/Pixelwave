@@ -260,9 +260,9 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  *
  * @param type A string representing the type of the event
  */
-- (PXEvent *)eventWithType:(NSString *)type
++ (id)eventWithType:(NSString *)type
 {
-	return [[[PXEvent alloc] initWithType:type] autorelease];
+	return [[[self alloc] initWithType:type] autorelease];
 }
 
 /**
@@ -274,9 +274,9 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  * flow.
  * @param cancelable Whether the behavior described by the event can be canceled by the user.
  */
-- (PXEvent *)eventWithType:(NSString *)type bubbles:(BOOL) bubbles cancelable:(BOOL) cancelable
++ (id)eventWithType:(NSString *)type bubbles:(BOOL) bubbles cancelable:(BOOL) cancelable
 {
-	return [[[PXEvent alloc] initWithType:type bubbles:bubbles cancelable:cancelable] autorelease];
+	return [[[self alloc] initWithType:type bubbles:bubbles cancelable:cancelable] autorelease];
 }
 
 @end
