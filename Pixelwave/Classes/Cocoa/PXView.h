@@ -74,10 +74,10 @@ typedef enum
 	// TODO: Move the framebuffer and renderbuffer creation to PXGL ?
 @public
 	GLuint _pxViewFramebuffer; // the main frame buffer
+
 @private
 	EAGLContext *eaglContext;
 	GLuint renderbufferName;
-//	CGSize size;
 	
 	PXViewColorQuality colorQuality;
 	

@@ -80,14 +80,12 @@
  * surface which acts as the root of the entire engine.
  *
  * Although the view's render area may be set to any value, it is highly
- * recommended to set the view's `frame` to be the same size as the
- * screen.
+ * recommended to set the view's `frame` to be the same size as the screen.
  *
  * Once instantiated, a #PXView starts up all of the engine's subsytems and
- * initializes the display list, providing a default #stage and
- * #root display object. To change the application's root object
- * use the #root property.
- * 
+ * initializes the display list, providing a default #stage and #root display
+ * object. To change the application's root object use the #root property.
+ *
  * @warning Only one #PXView should exist for the duration of your app.
  */
 @implementation PXView
@@ -105,9 +103,9 @@
 
 /**
  * @param frame The size of the newly created view.
- * @param colorQuality The quality to use for the underlying OpenGL rendering surface. This
- * value must be one of the possible values defined in PXViewColorQuality.
- * The default value is PXViewColorQuality_Medium.
+ * @param colorQuality The quality to use for the underlying OpenGL rendering
+ * surface. This value must be one of the possible values defined in
+ * PXViewColorQuality. The default value is PXViewColorQuality_Medium.
  */
 - (id) initWithFrame:(CGRect)frame colorQuality:(PXViewColorQuality)_colorQuality
 {
@@ -118,9 +116,9 @@
 
 /**
  * @param frame The size of the newly created view.
- * @param contentScaleFactor The multiplier value by which the contents of the view should be scaled.
- * This value usually corresponds to the contentScaleFactor of the device.
- * Pass 0.0 to use the default	value.
+ * @param contentScaleFactor The multiplier value by which the contents of the
+ * view should be scaled. This value usually corresponds to the
+ * contentScaleFactor of the device. Pass 0.0 to use the default value.
  */
 - (id) initWithFrame:(CGRect)frame contentScaleFactor:(float)_contentScaleFactor
 {
@@ -131,12 +129,12 @@
 
 /**
  * @param frame The size of the newly created view.
- * @param contentScaleFactor The multiplier value by which the contents of the view should be scaled.
- * This value usually corresponds to the contentScaleFactor of the device.
- * Pass 0.0 to use the default	value.
- * @param colorQuality The quality to use for the underlying OpenGL rendering surface. This
- * value must be one of the possible values defined in PXViewColorQuality.
- * The default value is PXViewColorQuality_Medium.
+ * @param contentScaleFactor The multiplier value by which the contents of the
+ * view should be scaled. This value usually corresponds to the
+ * contentScaleFactor of the device. Pass 0.0 to use the default value.
+ * @param colorQuality The quality to use for the underlying OpenGL rendering
+ * surface. This value must be one of the possible values defined in
+ * PXViewColorQuality. The default value is PXViewColorQuality_Medium.
  *
  * @see PXViewColorQuality
  */
@@ -173,8 +171,7 @@
 
 	if (self)
 	{
-		if (![self setupWithScaleFactor:PXEngineGetMainScreenScale()
-						   colorQuality:PX_VIEW_DEFAULT_COLOR_QUALITY])
+		if ([self setupWithScaleFactor:PXEngineGetMainScreenScale() colorQuality:PX_VIEW_DEFAULT_COLOR_QUALITY] == NO)
 		{
 			[self release];
 			return nil;
@@ -200,8 +197,7 @@
 }
 
 // This is the real initializer, since there are many init... functions
-- (BOOL) setupWithScaleFactor:(float)_contentScaleFactor
-				 colorQuality:(PXViewColorQuality)_colorQuality
+- (BOOL) setupWithScaleFactor:(float)_contentScaleFactor colorQuality:(PXViewColorQuality)_colorQuality
 {
 	if (PXEngineIsInitialized())
 	{
@@ -216,49 +212,7 @@
 	/////////////////
 
 	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
-
 	eaglLayer.opaque = YES;
-
-	// This is for setting up the retina display coordinates
-//	if (contentScaleFactorSupported)
-	/*{
-		// Grab the content scale factor
-		float contentScaleFactor = self.contentScaleFactor;
-
-		CGPoint eAnchor;
-		CGPoint ePos;
-		CGRect eBounds;
-		CGRect eFrame;
-		float yOffset;
-
-		// Set the anchor to 0,0
-		eAnchor = eaglLayer.anchorPoint;
-		eAnchor.x = 0.0f;
-		eAnchor.y = 0.0f;
-		eaglLayer.anchorPoint = eAnchor;
-
-		// Grab the frame and set its position to 0,0
-		eFrame = eaglLayer.frame;
-		eFrame.origin.x = 0.0f;
-		eFrame.origin.y = 0.0f;
-		eaglLayer.frame = eFrame;
-
-		// Set the bounds
-		eBounds = eaglLayer.bounds;
-		// Save the original height
-		yOffset = eBounds.size.height;
-		eBounds.size.width  *= contentScaleFactor;
-		eBounds.size.height *= contentScaleFactor;
-		eaglLayer.bounds = eBounds;
-
-		// Calculate how much the height has changed, this is our offset
-		yOffset = eBounds.size.height - yOffset;
-
-		// Change the position to represet the offset.
-		ePos = eaglLayer.position;
-		ePos.y -= yOffset;
-		eaglLayer.position = ePos;
-	}*/
 
 	// Set the drawable properties
 
@@ -282,10 +236,9 @@
 			break;
 	}
 
-	// Since the simulator doesn't seem to support dithering...
-	// If dithering is on always use RGBA8 to simulate the effect
-	if (surfaceDither && surfaceColorFormat == kEAGLColorFormatRGB565 &&
-		[[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"])
+	// Since the simulator doesn't seem to support dithering... If dithering is
+	// on always use RGBA8 to simulate the effect
+	if (surfaceDither == YES && surfaceColorFormat == kEAGLColorFormatRGB565 && [[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"])
 	{
 		surfaceColorFormat = kEAGLColorFormatRGBA8;
 	}
@@ -317,7 +270,8 @@
 	if (eaglContext == nil)
 		return NO;
 
-	[EAGLContext setCurrentContext:eaglContext];
+	if ([EAGLContext setCurrentContext:eaglContext] == NO)
+		return NO;
 
 	// Set up the OpenGL frame buffers
 	if ([self createSurface] == NO)
@@ -328,7 +282,7 @@
 	///////////////
 	
 	// Now the OpenGL is set up, we can change the dithering if needed
-	if (!surfaceDither)
+	if (surfaceDither == NO)
 	{
 		glDisable(GL_DITHER);
 	}
@@ -357,39 +311,7 @@
 												 name:UIDeviceOrientationDidChangeNotification
 											   object:nil];
 
-	[self performSelector:@selector(printInfo:) withObject:eaglLayer];
-
 	return YES;
-}
-
-- (void) printInfo:(CAEAGLLayer *)eaglLayer
-{
-	UIWindow *window = self.window;
-	CGPoint windowCenter = window.center;
-	CGPoint selfCenter = self.center;
-	CGPoint eaglAnchor = eaglLayer.anchorPoint;
-	CGRect windowBounds = window.bounds;
-	CGRect selfBounds = self.bounds;
-	CGRect eaglBounds = eaglLayer.bounds;
-
-	CGRect windowFrame = window.frame;
-	CGRect selfFrame = self.frame;
-	CGRect eaglFrame = eaglLayer.frame;
-
-#define PXViewPrintPoint(_name_, _point_) NSLog(@"%@ = (%f, %f)\n", _name_, _point_.x, _point_.y)
-#define PXViewPrintRect(_name_, _rect_) NSLog(@"%@ = (%f, %f, %f, %f)\n", _name_, _rect_.origin.x, _rect_.origin.y, _rect_.size.width, _rect_.size.height)
-
-	PXViewPrintPoint(@"window center", windowCenter);
-	PXViewPrintPoint(@"self center", selfCenter);
-	PXViewPrintPoint(@"eagl center", eaglAnchor);
-
-	PXViewPrintRect(@"window bounds", windowBounds);
-	PXViewPrintRect(@"self bounds", selfBounds);
-	PXViewPrintRect(@"eagl bounds", eaglBounds);
-
-	PXViewPrintRect(@"window frame", windowFrame);
-	PXViewPrintRect(@"self frame", selfFrame);
-	PXViewPrintRect(@"eagl frame", eaglFrame);
 }
 
 #pragma mark -
@@ -397,7 +319,8 @@
 - (void) updateOrientation
 {
 	PXStage *_stage = self.stage;
-	if (!_stage.autoOrients)
+
+	if (_stage.autoOrients == NO)
 	{
 		return;
 	}
@@ -435,7 +358,7 @@
 										beforeOrientation:beforeOrientation
 										 afterOrientation:afterOrientation];
 
-	if (event)
+	if (event != nil)
 	{
 		event->_target = _stage;
 	}
@@ -444,7 +367,7 @@
 
 	[event release];
 
-	if (success)
+	if (success == YES)
 	{
 		_stage.orientation = afterOrientation;
 
@@ -454,7 +377,7 @@
 											beforeOrientation:beforeOrientation
 											 afterOrientation:afterOrientation];
 
-		if (event)
+		if (event != nil)
 		{
 			event->_target = _stage;
 		}
@@ -477,6 +400,7 @@
 
 #pragma mark -
 #pragma mark Properties
+#pragma mark -
 
 - (void) setContentScaleFactor:(float)_contentScaleFactor
 {
@@ -488,6 +412,7 @@
 	}
 #endif
 }
+
 - (float) contentScaleFactor
 {
 #ifdef __IPHONE_4_0
@@ -504,7 +429,7 @@
 
 	PXColor4f clearColor = PXEngineGetClearColor();
 
-	if (self.opaque)
+	if (self.opaque == YES)
 	{
 		clearColor.a = 1.0f;
 	}
@@ -532,7 +457,7 @@
 
 - (void) setRoot:(PXDisplayObject *)root
 {
-	if (!root)
+	if (root == nil)
 	{
 		PXThrowNilParam(root);
 		return;
@@ -540,12 +465,15 @@
 
 	PXEngineSetRoot(root);
 }
+
 - (PXDisplayObject *)root
 {
 	return PXEngineGetRoot();
 }
 
-#pragma mark  EAGL
+#pragma mark -
+#pragma mark EAGL
+#pragma mark -
 
 + (Class) layerClass
 {
@@ -554,6 +482,9 @@
 
 - (BOOL) createSurface
 {
+	if (_pxViewFramebuffer != 0 || renderbufferName != 0)
+		return NO;
+
 	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
 
 	glGenFramebuffersOES(1, &_pxViewFramebuffer);
@@ -565,79 +496,14 @@
 
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _pxViewFramebuffer);
 
-	[eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:eaglLayer];
-
-	/*GLint width;
-	GLint height;
-
-	glGenRenderbuffersOES(1, &renderbufferName);
-
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
-    [eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:eaglLayer];
-	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &width);
-    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &height);
-
-	NSLog (@"gl pixels = (%d, %d)\n", width, height);
-
-    if (glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
+	if ([eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:eaglLayer] == NO)
 	{
-		NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-        return NO;
-    }*/
-
-    return YES;
-
-	/*CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
-//	CGSize newSize;
-	GLuint oldRenderbuffer;
-	GLuint oldFramebuffer;
-
-//	if (![EAGLContext setCurrentContext:eaglContext])
-//		return NO;
-
-	//newSize = [eaglLayer bounds].size;
-
-	//eaglLayer.bounds = CGRectMake(eaglLayer.bounds.origin.x,
-	//							  eaglLayer.bounds.origin.y,
-	//							  newSize.width,
-	//							  newSize.height);
-//
-//	newSize.width = roundf(newSize.width);
-//	newSize.height = roundf(newSize.height);
-
-	glGetIntegerv(GL_RENDERBUFFER_BINDING_OES, (GLint *) &oldRenderbuffer);
-	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint *) &oldFramebuffer);
-
-	//Create a renderBuffer, assign it to the eaglLayer so that everything rendered to it will show up on the UIView
-	glGenRenderbuffersOES(1, &renderbufferName);
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
-
-	if (![eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:eaglLayer])
-	{
+		glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, 0);
 		glDeleteRenderbuffersOES(1, &renderbufferName);
-		glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, oldRenderbuffer);
 		return NO;
 	}
 
-	// Create a frame buffer and assign to it the previously created render
-	// buffer. Once assigned, all of the drawing done on the frame buffer will
-	// go to the renderBuffer, which will in turn go to the UIView.
-	// Instead of a renderBuffer, a texture can be used as the target:
-	// eg: glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, texture, 0);
-
-	glGenFramebuffersOES(1, &_pxViewFramebuffer);
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _pxViewFramebuffer);
-	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, renderbufferName);
-
-//	size = newSize;
-	if (!hasBeenCurrent)
-	{
-		hasBeenCurrent = YES;
-	}
-
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, oldRenderbuffer);
-
-	return YES;*/
+    return YES;
 }
 
 - (void) destroySurface
@@ -647,30 +513,34 @@
 	if (oldContext != eaglContext)
 		[EAGLContext setCurrentContext:eaglContext];
 
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, 0);
+	glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, 0);
+
 	glDeleteRenderbuffersOES(1, &renderbufferName);
 	renderbufferName = 0;
 
 	glDeleteFramebuffersOES(1, &_pxViewFramebuffer);
 	_pxViewFramebuffer = 0;
 
-	[EAGLContext setCurrentContext:nil];
-
 	if (oldContext != eaglContext)
 		[EAGLContext setCurrentContext:oldContext];
+	else
+		[EAGLContext setCurrentContext:nil];
 }
 
-// This also checks the current OpenGL error and logs an error if needed
 - (void) _swapBuffers
 {
-	// Wave
-//	[EAGLContext setCurrentContext:eaglContext];
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
-	[eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
+
+	if ([eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES] == NO)
+	{
+		PXDebugLog(@"PXView unable to swap buffers.");
+	}
 }
 
 - (void) _setCurrentContext
 {
-	if (![EAGLContext setCurrentContext:eaglContext])
+	if ([EAGLContext setCurrentContext:eaglContext] == NO)
 	{
 		printf("Failed to set current context %p in %s\n", eaglContext, __FUNCTION__);
 	}
@@ -683,49 +553,41 @@
 
 - (void) _clearCurrentContext
 {
-	if (![EAGLContext setCurrentContext:nil])
+	if ([EAGLContext setCurrentContext:nil] == NO)
+	{
 		printf("Failed to clear current context in %s\n", __FUNCTION__);
+	}
 }
 
-#pragma mark UI View
+#pragma mark -
+#pragma mark UIView
+#pragma mark -
 
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer
 {
 	// Allocate color buffer backing based on the current layer size
-    glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
-    [eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer];
-
-	int backingWidth;
-	int backingHeight;
-
-	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
-	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
-
-	NSLog (@"glSize = (%d, %d)\n", backingWidth, backingHeight);
-	
-    if (glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
+	if ([eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer] == NO)
 	{
-		NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
-        return NO;
-    }
-    
-    return YES;
+		PXDebugLog(@"PXView failed to attach a render buffer to the eagl layer.");
+		return NO;
+	}
+
+	if (glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
+	{
+		PXDebugLog(@"PXView failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
+		return NO;
+	}
+
+	return YES;
 }
 
 - (void) layoutSubviews
 {
-	[self resizeFromLayer:(CAEAGLLayer*)self.layer];
-
-	/*CGRect bounds = [self bounds];
-
-	if (autoresize && ((roundf(bounds.size.width) != size.width) || (roundf(bounds.size.height) != size.height)))
+	if (autoresize == YES)
 	{
-		[self destroySurface];
-#if __DEBUG__
-		REPORT_ERROR(@"Resizing surface from %fx%f to %fx%f", _size.width, _size.height, roundf(bounds.size.width), roundf(bounds.size.height));
-#endif
-		[self createSurface];
-	}*/
+		[self resizeFromLayer:(CAEAGLLayer*)self.layer];
+	}
 }
 
 - (void) setAutoresizesEAGLSurface:(BOOL)autoresizesEAGLSurface;
@@ -740,8 +602,9 @@
 	[super encodeWithCoder:encoder];
 }
 
+#pragma mark -
 #pragma mark Touch Handling
-//These methods get called automatically on every UIView
+#pragma mark -
 
 - (void) touchHandeler:(NSSet *)touches function:(void(*)(UITouch *touch, CGPoint *pos))function
 {
@@ -757,6 +620,8 @@
 		function(touch, &touchLocation);
 	}
 }
+
+// These methods get called automatically on every UIView
 
 - (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)e
 {
@@ -783,10 +648,12 @@
 	[self touchesCanceled:touches];
 }
 
+#pragma mark -
 #pragma mark Misc
+#pragma mark -
 
-// Invoked by super when the view is about to be added/removed.
-// We use it to immediately render the display list.
+// Invoked by super when the view is about to be added/removed. We use it to
+// immediately render the display list.
 -(void) willMoveToSuperview:(UIView *)newSuperview
 {
 	// Do a quick render when being added to a window/superview. If it is nil,
@@ -795,10 +662,13 @@
 	if (newSuperview)
 	{
 		PXEngineRender();
+		[self _swapBuffers];
 	}
 }
 
+#pragma mark -
 #pragma mark Utility
+#pragma mark -
 
 /**
  * A screen grab of the current state of the main display list, as a UIImage.

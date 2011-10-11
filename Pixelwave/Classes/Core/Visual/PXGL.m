@@ -2229,8 +2229,6 @@ PXInline GLuint PXSizeOfGLEnum(GLenum type)
 //		to an off-the-screen surface
 void PXGLSetViewSize(unsigned width, unsigned height, float scaleFactor, bool orientationEnabled)
 {
-	printf("scale factor = %f, size = (%u, %u)\n", scaleFactor, width, height);
-
 	pxGLScaleFactor = scaleFactor;
 	pxGLOne_ScaleFactor = 1.0f / pxGLScaleFactor;
 	pxGLWidthInPoints  = width;
