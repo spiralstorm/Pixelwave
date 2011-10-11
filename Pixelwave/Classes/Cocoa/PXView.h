@@ -77,7 +77,7 @@ typedef enum
 @private
 	EAGLContext *eaglContext;
 	GLuint renderbufferName;
-	CGSize size;
+//	CGSize size;
 	
 	PXViewColorQuality colorQuality;
 	

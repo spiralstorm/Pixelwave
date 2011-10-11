@@ -80,7 +80,6 @@ void PXEngineRender( );
 PXView *PXEngineGetView( );
 float PXEngineGetViewWidth( );
 float PXEngineGetViewHeight( );
-void PXEngineUpdateViewSize();
 
 void PXEngineSetMultiTouchEnabled(BOOL enabled);
 	

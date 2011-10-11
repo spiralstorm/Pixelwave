@@ -140,7 +140,8 @@
  *
  * @see PXViewColorQuality
  */
-- (id) initWithFrame:(CGRect)frame contentScaleFactor:(float)_contentScaleFactor
+- (id) initWithFrame:(CGRect)frame
+  contentScaleFactor:(float)_contentScaleFactor
 		colorQuality:(PXViewColorQuality)_colorQuality
 {
 	self = [super initWithFrame:frame];
@@ -198,21 +199,6 @@
 	[super dealloc];
 }
 
-- (void) setFrame:(CGRect)_frame
-{
-	[super setFrame:_frame];
-
-//	float screenWidth  = [UIScreen mainScreen].bounds.size.width;
-//	float screenHeight = [UIScreen mainScreen].bounds.size.height;
-
-//	_frame = self.frame;
-
-//	_frameWidthScale  = screenWidth  / _frame.size.width;
-//	_frameHeightScale = screenHeight / _frame.size.height;
-
-	PXEngineUpdateViewSize();
-}
-
 // This is the real initializer, since there are many init... functions
 - (BOOL) setupWithScaleFactor:(float)_contentScaleFactor
 				 colorQuality:(PXViewColorQuality)_colorQuality
@@ -223,17 +209,6 @@
 		return NO;
 	}
 
-	contentScaleFactorSupported = NO;
-#ifdef __IPHONE_4_0
-	NSString *reqSysVer = @"4.0";
-	NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
-	if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
-	{
-		contentScaleFactorSupported = YES;
-		self.contentScaleFactor = _contentScaleFactor;
-	}
-#endif
-
 	colorQuality = _colorQuality;
 
 	/////////////////
@@ -242,9 +217,11 @@
 
 	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
 
+	eaglLayer.opaque = YES;
+
 	// This is for setting up the retina display coordinates
 //	if (contentScaleFactorSupported)
-	{
+	/*{
 		// Grab the content scale factor
 		float contentScaleFactor = self.contentScaleFactor;
 
@@ -281,14 +258,14 @@
 		ePos = eaglLayer.position;
 		ePos.y -= yOffset;
 		eaglLayer.position = ePos;
-	}
+	}*/
 
 	// Set the drawable properties
 
 	NSNumber *surfaceRetainedBacking = [NSNumber numberWithBool:NO];
 	NSString *surfaceColorFormat = kEAGLColorFormatRGBA8;
 	BOOL surfaceDither = NO;
-	
+
 	switch (_colorQuality)
 	{
 		case PXViewColorQuality_Low:
@@ -318,7 +295,21 @@
 										surfaceColorFormat,		kEAGLDrawablePropertyColorFormat,
 										nil];
 
-	[eaglLayer setDrawableProperties: drawableProperties];
+	[eaglLayer setDrawableProperties:drawableProperties];
+
+	contentScaleFactorSupported = NO;
+
+#ifdef __IPHONE_4_0
+	NSString *reqSysVer = @"4.0";
+	NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
+	if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
+	{
+		contentScaleFactorSupported = YES;
+		super.contentScaleFactor = _contentScaleFactor;
+
+		[self setNeedsLayout];
+	}
+#endif
 
 	// Create the EAGL Context, using ES 1.1
 	[eaglContext release];
@@ -326,10 +317,12 @@
 	if (eaglContext == nil)
 		return NO;
 
+	[EAGLContext setCurrentContext:eaglContext];
+
 	// Set up the OpenGL frame buffers
-	if (![self createSurface])
+	if ([self createSurface] == NO)
 		return NO;
-	
+
 	///////////////
 	// Dithering //
 	///////////////
@@ -364,7 +357,39 @@
 												 name:UIDeviceOrientationDidChangeNotification
 											   object:nil];
 
+	[self performSelector:@selector(printInfo:) withObject:eaglLayer];
+
 	return YES;
+}
+
+- (void) printInfo:(CAEAGLLayer *)eaglLayer
+{
+	UIWindow *window = self.window;
+	CGPoint windowCenter = window.center;
+	CGPoint selfCenter = self.center;
+	CGPoint eaglAnchor = eaglLayer.anchorPoint;
+	CGRect windowBounds = window.bounds;
+	CGRect selfBounds = self.bounds;
+	CGRect eaglBounds = eaglLayer.bounds;
+
+	CGRect windowFrame = window.frame;
+	CGRect selfFrame = self.frame;
+	CGRect eaglFrame = eaglLayer.frame;
+
+#define PXViewPrintPoint(_name_, _point_) NSLog(@"%@ = (%f, %f)\n", _name_, _point_.x, _point_.y)
+#define PXViewPrintRect(_name_, _rect_) NSLog(@"%@ = (%f, %f, %f, %f)\n", _name_, _rect_.origin.x, _rect_.origin.y, _rect_.size.width, _rect_.size.height)
+
+	PXViewPrintPoint(@"window center", windowCenter);
+	PXViewPrintPoint(@"self center", selfCenter);
+	PXViewPrintPoint(@"eagl center", eaglAnchor);
+
+	PXViewPrintRect(@"window bounds", windowBounds);
+	PXViewPrintRect(@"self bounds", selfBounds);
+	PXViewPrintRect(@"eagl bounds", eaglBounds);
+
+	PXViewPrintRect(@"window frame", windowFrame);
+	PXViewPrintRect(@"self frame", selfFrame);
+	PXViewPrintRect(@"eagl frame", eaglFrame);
 }
 
 #pragma mark -
@@ -405,8 +430,8 @@
 	PXStageOrientationEvent *event;
 
 	event = [[PXStageOrientationEvent alloc] initWithType:PXStageOrientationEvent_OrientationChanging
-											   bubbles:YES
-											 cancelable:YES
+												  bubbles:YES
+											   cancelable:YES
 										beforeOrientation:beforeOrientation
 										 afterOrientation:afterOrientation];
 
@@ -424,8 +449,8 @@
 		_stage.orientation = afterOrientation;
 
 		event = [[PXStageOrientationEvent alloc] initWithType:PXStageOrientationEvent_OrientationChange
-												   bubbles:YES
-												 cancelable:NO
+													  bubbles:YES
+												   cancelable:NO
 											beforeOrientation:beforeOrientation
 											 afterOrientation:afterOrientation];
 
@@ -530,22 +555,55 @@
 - (BOOL) createSurface
 {
 	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
-	CGSize newSize;
+
+	glGenFramebuffersOES(1, &_pxViewFramebuffer);
+	glGenRenderbuffersOES(1, &renderbufferName);
+
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _pxViewFramebuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
+	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, renderbufferName);
+
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _pxViewFramebuffer);
+
+	[eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:eaglLayer];
+
+	/*GLint width;
+	GLint height;
+
+	glGenRenderbuffersOES(1, &renderbufferName);
+
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
+    [eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:eaglLayer];
+	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &width);
+    glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &height);
+
+	NSLog (@"gl pixels = (%d, %d)\n", width, height);
+
+    if (glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
+	{
+		NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
+        return NO;
+    }*/
+
+    return YES;
+
+	/*CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
+//	CGSize newSize;
 	GLuint oldRenderbuffer;
 	GLuint oldFramebuffer;
 
-	if (![EAGLContext setCurrentContext:eaglContext])
-		return NO;
+//	if (![EAGLContext setCurrentContext:eaglContext])
+//		return NO;
 
-	newSize = [eaglLayer bounds].size;
+	//newSize = [eaglLayer bounds].size;
 
-	eaglLayer.bounds = CGRectMake(eaglLayer.bounds.origin.x,
-								  eaglLayer.bounds.origin.y,
-								  newSize.width,
-								  newSize.height);
-
-	newSize.width = roundf(newSize.width);
-	newSize.height = roundf(newSize.height);
+	//eaglLayer.bounds = CGRectMake(eaglLayer.bounds.origin.x,
+	//							  eaglLayer.bounds.origin.y,
+	//							  newSize.width,
+	//							  newSize.height);
+//
+//	newSize.width = roundf(newSize.width);
+//	newSize.height = roundf(newSize.height);
 
 	glGetIntegerv(GL_RENDERBUFFER_BINDING_OES, (GLint *) &oldRenderbuffer);
 	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, (GLint *) &oldFramebuffer);
@@ -571,7 +629,7 @@
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _pxViewFramebuffer);
 	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, renderbufferName);
 
-	size = newSize;
+//	size = newSize;
 	if (!hasBeenCurrent)
 	{
 		hasBeenCurrent = YES;
@@ -579,7 +637,7 @@
 
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, oldRenderbuffer);
 
-	return YES;
+	return YES;*/
 }
 
 - (void) destroySurface
@@ -605,7 +663,7 @@
 - (void) _swapBuffers
 {
 	// Wave
-	[EAGLContext setCurrentContext:eaglContext];
+//	[EAGLContext setCurrentContext:eaglContext];
 	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
 	[eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES];
 }
@@ -631,9 +689,34 @@
 
 #pragma mark UI View
 
+- (BOOL) resizeFromLayer:(CAEAGLLayer *)layer
+{
+	// Allocate color buffer backing based on the current layer size
+    glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
+    [eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer];
+
+	int backingWidth;
+	int backingHeight;
+
+	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
+	glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
+
+	NSLog (@"glSize = (%d, %d)\n", backingWidth, backingHeight);
+	
+    if (glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES) != GL_FRAMEBUFFER_COMPLETE_OES)
+	{
+		NSLog(@"Failed to make complete framebuffer object %x", glCheckFramebufferStatusOES(GL_FRAMEBUFFER_OES));
+        return NO;
+    }
+    
+    return YES;
+}
+
 - (void) layoutSubviews
 {
-	CGRect bounds = [self bounds];
+	[self resizeFromLayer:(CAEAGLLayer*)self.layer];
+
+	/*CGRect bounds = [self bounds];
 
 	if (autoresize && ((roundf(bounds.size.width) != size.width) || (roundf(bounds.size.height) != size.height)))
 	{
@@ -642,7 +725,7 @@
 		REPORT_ERROR(@"Resizing surface from %fx%f to %fx%f", _size.width, _size.height, roundf(bounds.size.width), roundf(bounds.size.height));
 #endif
 		[self createSurface];
-	}
+	}*/
 }
 
 - (void) setAutoresizesEAGLSurface:(BOOL)autoresizesEAGLSurface;

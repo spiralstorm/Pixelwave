@@ -162,14 +162,14 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 	pxGLStateInGL = pxGLDefaultState;
 
 	// Lets load the matrix identity, and color transform identity
-	PXGLLoadIdentity( );
-	PXGLLoadColorTransformIdentity( );
+	PXGLLoadIdentity();
+	PXGLLoadColorTransformIdentity();
 
 	// Lets intialize the renderer
-	PXGLRendererInit( );
+	PXGLRendererInit();
 
 	// and sync up with gl
-	PXGLSyncPXToGL( );
+	PXGLSyncPXToGL();
 
 	// Lets initialize the color to white
 	pxGLRed   = 0xFF;
@@ -2229,6 +2229,8 @@ PXInline GLuint PXSizeOfGLEnum(GLenum type)
 //		to an off-the-screen surface
 void PXGLSetViewSize(unsigned width, unsigned height, float scaleFactor, bool orientationEnabled)
 {
+	printf("scale factor = %f, size = (%u, %u)\n", scaleFactor, width, height);
+
 	pxGLScaleFactor = scaleFactor;
 	pxGLOne_ScaleFactor = 1.0f / pxGLScaleFactor;
 	pxGLWidthInPoints  = width;
@@ -2240,7 +2242,7 @@ void PXGLSetViewSize(unsigned width, unsigned height, float scaleFactor, bool or
 			   pxGLWidthInPoints  * pxGLScaleFactor,	// width
 			   pxGLHeightInPoints * pxGLScaleFactor);	// height
 	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity( );
+	glLoadIdentity();
 
 	// in POINTS
 	glOrthof(0,						// xMin

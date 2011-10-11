@@ -143,17 +143,17 @@ void PXEngineInit(PXView *view)
 	// Timer //
 	///////////
 
-	pxEngine = [PXEngine new];
+	pxEngine = [[PXEngine alloc] init];
 	pxEngineView = view;
-	
+
 	// view.bounds are measured in PIXELS by Cocoa
 	pxEngineViewSize = view.bounds.size;
-	
+
 	// pxEngineViewSize should be in POINTS, convert:
 	float contentScaleFactor = pxEngineView.contentScaleFactor;
-	float one_contentScaleFactor = 1.0f / contentScaleFactor;
-	pxEngineViewSize.width  *= one_contentScaleFactor;
-	pxEngineViewSize.height *= one_contentScaleFactor;
+//	float one_contentScaleFactor = 1.0f / contentScaleFactor;
+//	pxEngineViewSize.width  *= one_contentScaleFactor;
+//	pxEngineViewSize.height *= one_contentScaleFactor;
 
 	//////////////////////
 	// Rendering System //
@@ -302,22 +302,6 @@ float PXEngineGetViewWidth( )
 float PXEngineGetViewHeight( )
 {
 	return pxEngineViewSize.height;
-}
-
-// TODO Later: This does not work properly, it may not be needed.
-void PXEngineUpdateViewSize()
-{
-	return;
-
-	//pxEngineViewSize = pxEngineView.bounds.size;
-
-	//float contentScaleFactor = pxEngineView.contentScaleFactor;
-	//float one_contentScaleFactor = 1.0f / contentScaleFactor;
-
-	//pxEngineViewSize.width  *= one_contentScaleFactor;
-	//pxEngineViewSize.height *= one_contentScaleFactor;
-
-	//PXGLSetViewSize(pxEngineViewSize.width, pxEngineViewSize.height, contentScaleFactor);
 }
 
 void PXEngineConvertPointToStageOrientation(float *x, float *y)
@@ -803,8 +787,6 @@ void PXEngineRender()
 	}
 #endif
 	 */
-
-	[pxEngineView _swapBuffers];
 }
 
 /*
@@ -856,6 +838,8 @@ void PXEngineRenderPhase()
 		pxEngineRenderTimeAccum += pxEngineMainDT;
 		if (pxEngineRenderTimeAccum >= pxEngineRenderDT)
 		{
+		//	[pxEngineView _setCurrentContext];
+
 #ifdef PX_DEBUG_MODE
 			NSTimeInterval start = 0;
 
@@ -864,14 +848,13 @@ void PXEngineRenderPhase()
 				start = [NSDate timeIntervalSinceReferenceDate];
 			}
 #endif
-			// We only dispatch render events if [stage invalidate]
-			// was called.
+			// We only dispatch render events if [stage invalidate] was called.
 			if (pxStageWasInvalidated)
 			{
 				PXEngineDispatchRenderEvents();
 
-				// This flag must be reset *after* the event is dispatched.
-				// This is the behavior exhibited by Flash.
+				// This flag must be reset *after* the event is dispatched. This
+				// is the behavior exhibited by Flash.
 				pxStageWasInvalidated = NO;
 			}
 			PXEngineRender(); //Render
@@ -884,6 +867,8 @@ void PXEngineRenderPhase()
 				pxEngineTimeBetweenRendering = end - start;
 			}
 #endif
+
+			[pxEngineView _swapBuffers];
 		}
 	}
 }
@@ -906,6 +891,7 @@ void PXEngineOnFrame()
 #pragma mark -
 #pragma mark RENDER
 #pragma mark -
+
 void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transformationsEnabled, bool canBeUsedForTouches)
 {
 	//////////////////////
