@@ -748,19 +748,13 @@
 	if (function == NULL)
 		return;
 
-	CGPoint p;
-
-	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
-	CGPoint pos = eaglLayer.position;
+	CGPoint touchLocation;
 
 	for (UITouch *touch in touches)
 	{
-		p = [touch locationInView:self];
+		touchLocation = [touch locationInView:self];
 
-		p.x += pos.x;
-		p.y += pos.y;
-
-		function(touch, &p);
+		function(touch, &touchLocation);
 	}
 }
 
