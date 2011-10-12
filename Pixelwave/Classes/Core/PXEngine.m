@@ -864,6 +864,11 @@ void PXEngineRenderPhase()
 			}
 			PXEngineRender(); //Render
 
+			// DO NOT glFlush or glFinish.
+			//	- glFinish will yield in much slower times
+			//	- glFlush will yield inconsistant times - swap will take care of
+			//		this.
+
 			pxEngineRenderTimeAccum -= pxEngineRenderDT;
 
 #ifdef PX_DEBUG_MODE
