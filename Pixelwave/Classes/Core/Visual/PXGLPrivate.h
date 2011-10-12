@@ -68,7 +68,7 @@ void PXGLConsolidateBuffers();
 void PXGLResetStates(PXGLState desiredState);
 
 void PXGLClipRect(GLint x, GLint y, GLint width, GLint height);
-PXGLAABB *PXGLGetCurrentAABB( );
+PXGLAABB *PXGLGetCurrentAABB();
 void PXGLResetAABB(bool setToClipRect);
 bool PXGLIsAABBVisible(PXGLAABB *aabb);
 

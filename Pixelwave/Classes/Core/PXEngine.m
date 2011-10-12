@@ -272,7 +272,7 @@ void PXEngineDealloc()
 	pxEngineInitialized = false;
 }
 
-PXDisplayObject **PXEngineNextBufferObject( )
+PXDisplayObject **PXEngineNextBufferObject()
 {
 	// Check to see if our size (you could also think of this as the current
 	// index for our purposes) is at the end of the array.  If so, then we need
@@ -292,16 +292,16 @@ PXDisplayObject **PXEngineNextBufferObject( )
 	return cur;
 }
 
-PXView *PXEngineGetView( )
+PXView *PXEngineGetView()
 {
 	return pxEngineView;
 }
-float PXEngineGetViewWidth( )
+float PXEngineGetViewWidth()
 {
 	return pxEngineViewSize.width;
 }
 
-float PXEngineGetViewHeight( )
+float PXEngineGetViewHeight()
 {
 	return pxEngineViewSize.height;
 }
@@ -314,7 +314,7 @@ void PXEngineConvertPointToStageOrientation(float *x, float *y)
 	}
 }
 
-PXStage *PXEngineGetStage( )
+PXStage *PXEngineGetStage()
 {
 	return pxEngineStage;
 }
@@ -368,12 +368,12 @@ void PXEngineSetRoot(PXDisplayObject *root)
 	[root release];
 }
 
-PXDisplayObject *PXEngineGetRoot( )
+PXDisplayObject *PXEngineGetRoot()
 {
 	return pxEngineRoot;
 }
 
-BOOL PXEngineIsInitialized( )
+BOOL PXEngineIsInitialized()
 {
 	return pxEngineInitialized;
 }
@@ -385,7 +385,7 @@ void PXEngineSetClearScreen(BOOL clear)
 	pxEngineShouldClear = clear;
 }
 
-BOOL PXEngineShouldClearScreen( )
+BOOL PXEngineShouldClearScreen()
 {
 	return pxEngineShouldClear;
 }
@@ -970,7 +970,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 			!PXMathIsOne(doScaleY) ||
 		    !PXMathIsZero(doRotation))
 		{
-			PXGLPushMatrix( );
+			PXGLPushMatrix();
 			PXGLMultMatrix(&displayObject->_matrix);
 
 			matrixPushed = true;
@@ -988,7 +988,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 			colorTransform.blueMultiplier  = doColorTransform->blueMultiplier;
 			colorTransform.alphaMultiplier = doAlpha;
 
-			PXGLPushColorTransform( );
+			PXGLPushColorTransform();
 			PXGLSetColorTransform(&colorTransform);
 
 			transformPushed = true;
@@ -1565,7 +1565,7 @@ float _PXEngineDBGGetTimeWaiting()
 #endif
 
 //	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		PXEngineOnFrame( );
+		PXEngineOnFrame();
 //	[pool release];
 }
 

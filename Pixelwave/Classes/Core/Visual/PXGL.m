@@ -202,9 +202,9 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
  * This method frees any of the memory we were using, and releases the render
  * to texture.. texture.
  */
-void PXGLDealloc( )
+void PXGLDealloc()
 {
-	PXGLRendererDealloc( );
+	PXGLRendererDealloc();
 
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, 0);
 	glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, 0);
@@ -220,9 +220,9 @@ void PXGLDealloc( )
  * This method flushes the buffer, it is a method in pxgl so that the engine
  * can use it also rather then just pxgl.
  */
-void PXGLFlush( )
+void PXGLFlush()
 {
-	PXGLFlushBuffer( );
+	PXGLFlushBuffer();
 }
 
 /*
@@ -231,13 +231,13 @@ void PXGLFlush( )
  * @return - The texture id for the render to texture buffer.
  */
 /*
-GLuint PXGLGetTextureBuffer( )
+GLuint PXGLGetTextureBuffer()
 {
 	return pxGLRTTFBO;
 }
 */
 
-void PXGLSyncPXToGL( )
+void PXGLSyncPXToGL()
 {
 	GLushort changed = false;
 	GLshort bVal = 0;
@@ -347,7 +347,7 @@ void PXGLSyncPXToGL( )
 
 	//If any of our values have changed, then we should flush the buffer
 	if (changed)
-		PXGLFlushBuffer( );
+		PXGLFlushBuffer();
 }
 
 /*
@@ -387,7 +387,7 @@ void PXGLSyncClientState(GLenum array)
  * we are using GL_TEXTURE_2D, then we will turn that on in GL.  This does both
  * client and server states.
  */
-void PXGLSyncGLToPX( )
+void PXGLSyncGLToPX()
 {
 	// Lets make sure vertex array is on... we do wish to draw stuff after all.
 	glEnableClientState(GL_VERTEX_ARRAY);
@@ -409,7 +409,7 @@ void PXGLSyncGLToPX( )
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFramebuffer);
 
 	//and enable the color array.
-	PXGLEnableColorArray( );
+	PXGLEnableColorArray();
 	glEnableClientState(GL_COLOR_ARRAY);
 
 	if (PX_IS_BIT_ENABLED(pxGLStateInGL.state, PX_GL_SHADE_MODEL_FLAT))
@@ -420,8 +420,8 @@ void PXGLSyncGLToPX( )
 
 void PXGLSyncTransforms()
 {
-	glPushMatrix( );
-	PXGLLoadMatrixToGL( );
+	glPushMatrix();
+	PXGLLoadMatrixToGL();
 
 	glColor4ub(pxGLRed, pxGLGreen, pxGLBlue, pxGLAlpha);
 }
@@ -437,27 +437,27 @@ void PXGLUnSyncTransforms()
 /*
  * This method prepairs both PXGL and GL for rendering.
  */
-void PXGLPreRender( )
+void PXGLPreRender()
 {
 	//Lets reset the color transform, and matrix stacks... so they are reaady to
 	//be used by another render cycle.
-	PXGLResetColorTransformStack( );
-	PXGLResetMatrixStack( );
+	PXGLResetColorTransformStack();
+	PXGLResetMatrixStack();
 
-	glPushMatrix( );
-	glLoadIdentity( );
+	glPushMatrix();
+	glLoadIdentity();
 	//glTranslatef(100.0f, -0.0f, 0.0f);
-	PXGLRendererPreRender( );
+	PXGLRendererPreRender();
 }
 
 /*
  * This method finishes both PXGL and GL rendering cycle (flushing the buffer,
  * etc.).
  */
-void PXGLPostRender( )
+void PXGLPostRender()
 {
-	PXGLRendererPostRender( );
-	glPopMatrix( );
+	PXGLRendererPostRender();
+	glPopMatrix();
 
 #ifdef PX_DEBUG_MODE
 	if (PXDebugIsEnabled(PXDebugSetting_CountGLCalls))
@@ -472,9 +472,9 @@ void PXGLPostRender( )
  * reasonable sizes if they are overly large and the data they are containing
  * is small.
  */
-void PXGLConsolidateBuffers( )
+void PXGLConsolidateBuffers()
 {
-	PXGLConsolidateBuffer( );
+	PXGLConsolidateBuffer();
 }
 
 GLfloat PXGLGetContentScaleFactor()
@@ -485,7 +485,7 @@ GLfloat PXGLGetOneOverContentScaleFactor()
 {
 	return pxGLOne_ScaleFactor;
 }
-GLuint PXGLDBGGetRenderCallCount( )
+GLuint PXGLDBGGetRenderCallCount()
 {
 #ifdef PX_DEBUG_MODE
 	if (PXDebugIsEnabled(PXDebugSetting_CountGLCalls))
@@ -517,7 +517,7 @@ void PXGLBindFramebuffer(GLenum target, GLuint framebuffer)
 	if (target != GL_FRAMEBUFFER_OES || pxGLFramebuffer == framebuffer)
 		return;
 
-	PXGLFlushBuffer( );
+	PXGLFlushBuffer();
 
 	pxGLFramebuffer = framebuffer;
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFramebuffer);
@@ -550,7 +550,7 @@ void PXGLClipRect(GLint x, GLint y, GLint width, GLint height)
  * @return PXGLAABB * - A pointer to the axis-aligned bounding box that
  * represents the object that was most recently drawn.
  */
-PXGLAABB *PXGLGetCurrentAABB( )
+PXGLAABB *PXGLGetCurrentAABB()
 {
 	return &pxGLAABB;
 }
@@ -608,7 +608,7 @@ bool PXGLIsAABBVisible(PXGLAABB *aabb)
  *
  * @return GLuint - The currently bound texture to gl.
  */
-GLuint PXGLBoundTexture( )
+GLuint PXGLBoundTexture()
 {
 	return pxGLTexture;
 }
@@ -632,7 +632,7 @@ void PXGLBindTexture(GLenum target, GLuint texture)
 	if (target != GL_TEXTURE_2D || pxGLTexture == texture)
 		return;
 
-	PXGLFlushBuffer( );
+	PXGLFlushBuffer();
 	pxGLTexture = texture;
 	glBindTexture(target, texture);
 }
@@ -803,7 +803,7 @@ void PXGLDisableClientState(GLenum array)
 void PXGLTexParameteri(GLenum target, GLenum pname, GLint param)
 {
 	// If the value has changed, we need to flush the buffer before changing it.
-	PXGLFlushBuffer( );
+	PXGLFlushBuffer();
 
 	// then update gl.
 	glTexParameteri(target, pname, param);
@@ -834,7 +834,7 @@ void PXGLLineWidth(GLfloat width)
 
 	//Lets flush the buffer, as we do not know what is yet to come, and need to
 	//have the buffer use the current gl state rather then the chagned one.
-	PXGLFlushBuffer( );
+	PXGLFlushBuffer();
 	pxGLLineWidth = width;
 
 	//Lets actually change the gl state.
@@ -864,7 +864,7 @@ void PXGLPointSize(GLfloat size)
 
 	// Lets flush the buffer, as we do not know what is yet to come, and need to
 	// have the buffer use the current gl state rather then the chagned one.
-	PXGLFlushBuffer( );
+	PXGLFlushBuffer();
 	pxGLPointSize = size;
 	pxGLHalfPointSize = pxGLPointSize * 0.5f;
 
@@ -1592,7 +1592,7 @@ void PXGLBlendFunc(GLenum sfactor, GLenum dfactor)
  * PXGLPopMatrix pops the current matrix stack, replacing the current matrix
  * with the one below it on the stack.
  */
-void PXGLPopMatrix( )
+void PXGLPopMatrix()
 {
 	//PXDebugLog(@"PXGLPopMatrix has failed: There is no matrix to pop.");
 	assert(pxGLCurrentMatrixIndex);
@@ -1605,7 +1605,7 @@ void PXGLPopMatrix( )
  * current matrix. That is, after a PXGLPushMatrix call, the matrix on top of
  * the stack is identical to the one below it.
  */
-void PXGLPushMatrix( )
+void PXGLPushMatrix()
 {
 	assert(pxGLCurrentMatrixIndex < PX_GL_MATRIX_STACK_SIZE - 1);
 
@@ -1623,7 +1623,7 @@ void PXGLPushMatrix( )
 /*
  * PXGLLoadIdentity replaces the current matrix with the identity matrix.
  */
-void PXGLLoadIdentity( )
+void PXGLLoadIdentity()
 {
 	PXGLMatrixIdentity(pxGLCurrentMatrix);
 }
@@ -1708,17 +1708,17 @@ void PXGLAABBMult(PXGLAABB *aabb)
  * PXGLResetMatrixStack resets the matrix stack back to the first matrix, and
  * sets it to the identity.
  */
-void PXGLResetMatrixStack( )
+void PXGLResetMatrixStack()
 {
 	pxGLCurrentMatrixIndex = 0;
 	pxGLCurrentMatrix = pxGLMatrices;
-	PXGLLoadIdentity( );
+	PXGLLoadIdentity();
 }
 
 /*
  * This method loads our matrix into gl.
  */
-void PXGLLoadMatrixToGL( )
+void PXGLLoadMatrixToGL()
 {
 	pxGLMatrix[0] = pxGLCurrentMatrix->a;
 	pxGLMatrix[1] = pxGLCurrentMatrix->b;
@@ -1734,7 +1734,7 @@ void PXGLLoadMatrixToGL( )
  * PXGLPopColorTransform pops the color transform stack, replacing the current
  * color transform with the one below it on the stack.
  */
-void PXGLPopColorTransform( )
+void PXGLPopColorTransform()
 {
 	assert(pxGLCurrentColorIndex);
 
@@ -1762,7 +1762,7 @@ void PXGLPopColorTransform( )
  * duplicating the current transform. That is, after a PXGLPushMatrix call, the
  * transform on top of the stack is identical to the one below it.
  */
-void PXGLPushColorTransform( )
+void PXGLPushColorTransform()
 {
 	//PXDebugLog(@"PXGLPushColor has failed: Reached color transform capacity.");
 	assert(pxGLCurrentColorIndex < PX_GL_COLOR_STACK_SIZE - 1);
@@ -1813,7 +1813,7 @@ void PXGLSetColorTransform(PXGLColorTransform *transform)
  * PXGLLoadColorTransformIdentity sets the current color's transform to the
  * identity (multiplied by the parent if one exists).
  */
-void PXGLLoadColorTransformIdentity( )
+void PXGLLoadColorTransformIdentity()
 {
 	if (pxGLCurrentColorIndex != 0)
 	{
@@ -1837,11 +1837,11 @@ void PXGLLoadColorTransformIdentity( )
  * PXGLResetColorTransformStack resets the transform stack back to the first
  * transform, and sets it to the identity.
  */
-void PXGLResetColorTransformStack( )
+void PXGLResetColorTransformStack()
 {
 	pxGLCurrentColorIndex = 0;
 	pxGLCurrentColor = pxGLColors;
-	PXGLLoadColorTransformIdentity( );
+	PXGLLoadColorTransformIdentity();
 	PXGLColor4ub(0xFF, 0xFF, 0xFF, 0xFF);
 }
 
@@ -2011,7 +2011,7 @@ PXInline_c void PXGLSetupEnables()
 
 	if (breakBatch)
 	{
-		PXGLFlushBuffer( );
+		PXGLFlushBuffer();
 
 #define PXGLCompareAndSetClientState(_px_state_, _gl_state_) \
 { \
