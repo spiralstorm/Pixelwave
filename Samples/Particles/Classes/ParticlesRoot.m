@@ -63,6 +63,8 @@
 
 @implementation ParticlesRoot
 
+static const BOOL particlesRenderToTexture = NO;
+
 - (void) initializeAsRoot
 {
 	self.stage.backgroundColor = 0x000000;
@@ -79,9 +81,11 @@
 	[self.stage addEventListenerOfType:PXTouchEvent_TouchUp listener:PXListener(onTouchUp:)];
 	[self.stage addEventListenerOfType:PXTouchEvent_TouchCancel listener:PXListener(onTouchCancel:)];
 
+	CGSize stageSize = CGSizeMake(self.stage.stageWidth, self.stage.stageHeight);
+
 	// Set up the background
 
-	PXTextureAtlas *atlas = [PXTextureAtlas textureAtlasWithContentsOfFile:@"Assets.json" modifier:nil];	
+	PXTextureAtlas *atlas = [PXTextureAtlas textureAtlasWithContentsOfFile:@"Assets.json" modifier:nil];
 /*	PXTexture *bg = [atlas textureForFrame:@"Background.png"];
 	[self addChild:bg];
 
@@ -91,7 +95,23 @@
 	sampleContainer = [[PXSimpleSprite alloc] init];
 	sampleContainer.touchChildren = NO;
 	sampleContainer.touchEnabled = NO;
-	[self addChild:sampleContainer];
+
+	if (particlesRenderToTexture == NO)
+	{
+		[self addChild:sampleContainer];
+	}
+	else
+	{
+		float contentScale = self.stage.nativeView.contentScaleFactor;
+		rttTextureData = [[PXTextureData alloc] initWithWidth:stageSize.width  * contentScale
+													   height:stageSize.height * contentScale
+												 transparency:NO fillColor:0x000000
+										   contentScaleFactor:contentScale];
+
+		PXTexture *rtt = [[PXTexture alloc] initWithTextureData:rttTextureData];
+		[self addChild:rtt];
+		[rtt release];
+	}
 
 	// Arrows
 	PXTexture *btnUpTexture;
@@ -104,13 +124,13 @@
 	[btnDownTexture setAnchorWithX:0.5f y:0.5f];
 
 	btnNext = [PXSimpleButton simpleButtonWithUpState:btnUpTexture downState:btnDownTexture hitRectWithPadding:10.0f];
-	btnNext.x = self.stage.stageWidth - 40.0f;
-	btnNext.y = self.stage.stageHeight * 0.5f;
+	btnNext.x = stageSize.width  - 40.0f;
+	btnNext.y = stageSize.height *  0.5f;
 	[btnNext addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onNextTap)];
 
 	btnPrev = [PXSimpleButton simpleButtonWithUpState:btnUpTexture downState:btnDownTexture hitRectWithPadding:10.0f];
 	btnPrev.x = 40.0f;
-	btnPrev.y = self.stage.stageHeight * 0.5f;
+	btnPrev.y = stageSize.height * 0.5f;
 	btnPrev.scaleX = -1.0f;
 	[btnPrev addEventListenerOfType:PXTouchEvent_Tap listener:PXListener(onPrevTap)];
 
@@ -120,8 +140,8 @@
 
 	// Notification box
 	notificationBox = [[[NotificationBox alloc] init] autorelease];
-	notificationBox.x = self.stage.stageWidth  * 0.5f;
-	notificationBox.y = self.stage.stageHeight * 0.5f;
+	notificationBox.x = stageSize.width  * 0.5f;
+	notificationBox.y = stageSize.height * 0.5f;
 	notificationBox.touchEnabled = NO;
 	notificationBox.touchChildren = NO;
 
@@ -141,7 +161,7 @@
 	fpsSprite = [[FPSSprite alloc] init];
 	[self addChild:fpsSprite];
 	[fpsSprite release];
-	fpsSprite.label = @"new count  :";
+	fpsSprite.label = @"Count";
 
 	fpsSprite.x = 16.0f;
 	fpsSprite.y = 16.0f;
@@ -156,6 +176,9 @@
 
 	[sampleContainer release];
 	sampleContainer = nil;
+
+	[rttTextureData release];
+	rttTextureData = nil;
 
 	[super dealloc];
 }
@@ -262,6 +285,11 @@
 
 - (void) onFrame
 {
+	if (particlesRenderToTexture == YES)
+	{
+		[rttTextureData drawDisplayObject:sampleContainer matrix:nil colorTransform:nil clipRect:nil smoothing:YES clearTexture:YES];
+	}
+
 	fpsSprite.text = [NSString stringWithFormat:@" %u", sample.particleCount];
 }
 

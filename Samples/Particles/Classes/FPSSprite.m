@@ -8,13 +8,21 @@
 
 #import "FPSSprite.h"
 
+#include "PXPrivateUtils.h"
 #include "PXMathUtils.h"
+
+static const unsigned int fpsSpriteTextFieldLength = 6;
 
 @interface FPSSprite(Private)
 - (void) onTouchDown:(PXTouchEvent *)event;
+
+- (NSString *)formatString:(NSString *)string desiredLength:(NSUInteger)desiredLength shiftLeft:(BOOL)shiftLeft;
+- (NSString *)formatString:(NSString *)string desiredLength:(NSUInteger)desiredLength shiftLeft:(BOOL)shiftLeft appendCharacter:(NSString *)singleCharacter;
 @end
 
 @implementation FPSSprite
+
+@synthesize displayMode;
 
 - (id) init
 {
@@ -34,14 +42,20 @@
 		essentialSprite = [[PXSprite alloc] init];
 		[self addChild:essentialSprite];
 
+		nonEssentialSprite.touchEnabled = NO;
+		nonEssentialSprite.touchChildren = NO;
+		essentialSprite.touchEnabled = NO;
+		essentialSprite.touchChildren = NO;
+
 #define ADD_TEXT_FIELD(_textField_,_sprite_) \
 { \
 	_textField_ = [[PXTextField alloc] initWithFont:@"defaultFont"]; \
 	[_sprite_ addChild:_textField_]; \
 	[_textField_ release]; \
-	_textField_.textColor = 0xFFFFFF;\
-	_textField_.fontSize = 10.0f;\
-	_textField_.smoothing = YES;\
+	_textField_.textColor = 0xFFFFFF; \
+	_textField_.fontSize = 10.0f; \
+	_textField_.smoothing = YES; \
+	_textField_.touchEnabled = NO; \
 }
 #define ADD_LABEL_AND_TEXT_FIELD(_label_, _textField_, _spriteLabel_, _spriteField_) \
 { \
@@ -52,31 +66,31 @@
 		ADD_LABEL_AND_TEXT_FIELD(lblLogicTime, tfLogicTime, nonEssentialSprite, nonEssentialSprite);
 		ADD_LABEL_AND_TEXT_FIELD(lblRenderTime, tfRenderTime, nonEssentialSprite, nonEssentialSprite);
 
-		ADD_LABEL_AND_TEXT_FIELD(lblFrameTime, tfFrameTime, nonEssentialSprite, essentialSprite);
-
 		ADD_TEXT_FIELD(lblBar, nonEssentialSprite);
 
-		ADD_LABEL_AND_TEXT_FIELD(lblFPS, tfFPS, nonEssentialSprite, nonEssentialSprite);
+		ADD_LABEL_AND_TEXT_FIELD(lblFPS, tfFPS, nonEssentialSprite, essentialSprite);
 		ADD_LABEL_AND_TEXT_FIELD(lblCallCount, tfCallCount, nonEssentialSprite, nonEssentialSprite);
 		ADD_LABEL_AND_TEXT_FIELD(lblCustom, tfCustom, nonEssentialSprite, nonEssentialSprite);
 
-		lblLogicTime.text  = @"Logic  Time:";
-		lblRenderTime.text = @"Render Time:";
-		lblFrameTime.text  = @"Frame  Time:";
-		lblBar.text        = @"-------------------------";
-		lblFPS.text        = @"FPS        :";
-		lblCallCount.text  = @"GL Calls   :";
-		lblCustom.text     = @"Custom     :";
+		lblLogicTime.text  = @"Logic    :";
+		lblRenderTime.text = @"Render   :";
+		lblBar.text        = @"----------";
+		lblFPS.text        = @"FPS      :";
+		lblCallCount.text  = @"GL Calls :";
+		lblCustom.text     = @"Custom   :";
+
+		lblBar.text = [self formatString:lblBar.text desiredLength:(fpsSpriteTextFieldLength + [lblLogicTime.text length]) shiftLeft:NO appendCharacter:@"-"];
 
 		float x = 0.0f;
 		float y = 0.0f;
-		
+
 #define SET_POSITION_FOR_TEXT_FIELD(_textField_) \
 { \
 	_textField_.x = x; \
 	_textField_.y = y; \
 	y += _textField_.height + 2; \
 }
+		
 #define SET_POSITION_FOR_LABEL_AND_TEXT_FIELD(_label, _textField_) \
 { \
 	_label.x = x; \
@@ -88,14 +102,12 @@
 		SET_POSITION_FOR_LABEL_AND_TEXT_FIELD(lblLogicTime, tfLogicTime);
 		SET_POSITION_FOR_LABEL_AND_TEXT_FIELD(lblRenderTime, tfRenderTime);
 
-		SET_POSITION_FOR_LABEL_AND_TEXT_FIELD(lblFrameTime, tfFrameTime);
-
 		SET_POSITION_FOR_TEXT_FIELD(lblBar);
 		SET_POSITION_FOR_LABEL_AND_TEXT_FIELD(lblFPS, tfFPS);
 		SET_POSITION_FOR_LABEL_AND_TEXT_FIELD(lblCallCount, tfCallCount);
 		SET_POSITION_FOR_LABEL_AND_TEXT_FIELD(lblCustom, tfCustom);
 
-		float buffer = 5.0f;
+		const float buffer = 5.0f;
 		CGRect rect = CGRectMake(-buffer, -buffer, self.width + (buffer * 2.0f), self.height + (buffer * 2.0f));
 		[nonEssentialSprite.graphics beginFill:0x000000 alpha:0.7f];
 		[nonEssentialSprite.graphics drawRectWithX:rect.origin.x y:rect.origin.y width:rect.size.width height:rect.size.height];
@@ -108,17 +120,20 @@
 
 		lastTime = PXGetTimerSec();
 
-		essentialSprite.x = tfFrameTime.x;
-		essentialSprite.y = tfFrameTime.y;
-		tfFrameTime.x -= essentialSprite.x;
-		tfFrameTime.y -= essentialSprite.y;
+		essentialSprite.x = tfFPS.x;
+		essentialSprite.y = tfFPS.y;
+		tfFPS.x -= essentialSprite.x;
+		tfFPS.y -= essentialSprite.y;
 
 		previousPosition = CGPointMake(essentialSprite.x, essentialSprite.y);
 
 		PXRectangle *bounds = [self boundsWithCoordinateSpace:self];
 		self.hitArea = bounds;
 
-		[self onTouchDown:nil];
+		lastDeltaTime = 1.0f / [PXStage mainStage].frameRate;
+	//	[self onTouchDown:nil];
+
+		self.displayMode = FPSSpriteDisplayMode_Render;
 	}
 
 	return self;
@@ -135,9 +150,71 @@
 	[super dealloc];
 }
 
+- (void) setDisplayMode:(FPSSpriteDisplayMode)value
+{
+	displayMode = value;
+
+	if (PX_IS_BIT_ENABLED(displayMode, FPSSpriteDisplayMode_Render) == YES)
+	{
+		self.visible = YES;
+	}
+	else
+	{
+		self.visible = NO;
+	}
+}
+
+- (NSString *)formatString:(NSString *)string desiredLength:(NSUInteger)desiredLength shiftLeft:(BOOL)shiftLeft
+{
+	return [self formatString:string desiredLength:desiredLength shiftLeft:shiftLeft appendCharacter:nil];
+}
+
+- (NSString *)formatString:(NSString *)string desiredLength:(NSUInteger)desiredLength shiftLeft:(BOOL)shiftLeft appendCharacter:(NSString *)singleCharacter
+{
+	if (singleCharacter == nil || [singleCharacter length] == 0)
+	{
+		singleCharacter = @" ";
+	}
+	else if ([singleCharacter length] > 1)
+	{
+		singleCharacter = [string substringWithRange:NSMakeRange(0, 1)];
+	}
+
+	NSUInteger recievedLength = [string length];
+
+	if (recievedLength < desiredLength)
+	{
+		NSUInteger delta = desiredLength - recievedLength;
+		NSUInteger index;
+
+		// This is really silly, fix it when there is time.
+		for (index = 0; index < delta; ++index)
+		{
+			if (shiftLeft == YES)
+			{
+				string = [NSString stringWithFormat:@"%@%@", string, singleCharacter];
+			}
+			else
+			{
+				string = [NSString stringWithFormat:@"%@%@", singleCharacter, string];
+			}
+		}
+	}
+	else if (recievedLength > desiredLength)
+	{
+		string = [string substringWithRange:NSMakeRange(0, desiredLength)];
+	}
+
+	return string;
+}
+
 - (void) setLabel:(NSString *)label
 {
-	lblCustom.text = label;
+	NSUInteger desiredLength = [lblLogicTime.text length] - 1;
+
+	label = [self formatString:label desiredLength:desiredLength shiftLeft:YES];
+
+	lblCustom.text = [NSString stringWithFormat:@"%@:", label];
 }
 
 - (NSString *)label
@@ -147,7 +224,7 @@
 
 - (void) setText:(NSString *)text
 {
-	tfCustom.text = text;
+	tfCustom.text = [self formatString:text desiredLength:fpsSpriteTextFieldLength shiftLeft:NO];
 }
 
 - (NSString *)text
@@ -157,23 +234,10 @@
 
 - (float) updateTime:(float)time1 time2:(float)time2
 {
-	/*float fps1 = 1.0f / time1;
-	float fps2 = 1.0f / time2;
+	const float smooth = 0.975f;
+	float oneMinusSmooth = 1.0f - smooth;
 
-	float deltaVal = 30.0f;
-	if (fps1 > 30.0f || fps2 > 30.0f)
-	{
-		deltaVal = fmaxf(fps1, fps2) * 0.5f;
-	}
-
-	if (PXMathIsNearlyEqual(fps1, fps2, deltaVal))
-	{*/
-		float smooth = 0.975f;
-		float oneMinusSmooth = 1.0f - smooth;
-		return (time1 * smooth) + (time2 * oneMinusSmooth);
-	//}
-
-	//return time2;
+	return (time1 * smooth) + (time2 * oneMinusSmooth);
 }
 
 - (void) onTouchDown:(PXTouchEvent *)event
@@ -193,30 +257,60 @@
 	}
 }
 
+- (NSString *)percentString:(float)percent
+{
+	if (percent > 99.9f)
+		percent = 99.9f;
+
+	NSString *string = [NSString stringWithFormat:@"%2.1f%%", percent];
+
+	string = [self formatString:string desiredLength:fpsSpriteTextFieldLength shiftLeft:NO];
+
+	return string;
+}
+
 - (void) onFrame:(PXEvent *)event
 {
 	double newTime = PXGetTimerSec();
 	float deltaTime = newTime - lastTime;
 	lastTime = newTime;
 
-	timeBetweenLogic     = [self updateTime:timeBetweenLogic time2:[PXDebug timeBetweenLogic]];
-	timeBetweenRendering = [self updateTime:timeBetweenRendering time2:[PXDebug timeBetweenRendering]];
-	timeBetweenFrames    = [self updateTime:timeBetweenFrames time2:[PXDebug timeBetweenFrames]];
+	timeBetweenLogic = [self updateTime:timeBetweenLogic time2:[PXDebug timeBetweenLogic]];
 
 	lastDeltaTime = [self updateTime:lastDeltaTime time2:deltaTime];
 
-	if ([self containsChild:nonEssentialSprite])
-	{
-		tfLogicTime.text  = [NSString stringWithFormat:@" %1.4f - %d", timeBetweenLogic, lroundf(1.0f / timeBetweenLogic)];
-		tfRenderTime.text = [NSString stringWithFormat:@" %1.4f - %d", timeBetweenRendering, lroundf(1.0f / timeBetweenRendering)];
-		tfFPS.text        = [NSString stringWithFormat:@" %d", lroundf(1.0f / lastDeltaTime)];
-		tfCallCount.text  = [NSString stringWithFormat:@" %d", [PXDebug glCallCount]];
+	float fps = 1.0f / lastDeltaTime;
 
-		tfFrameTime.text  = [NSString stringWithFormat:@" %1.4f - %d", timeBetweenFrames, lroundf(1.0f / timeBetweenFrames)];
+	if (fps > 99.99f)
+		fps = 99.99f;
+
+	if (PX_IS_BIT_ENABLED(displayMode, FPSSpriteDisplayMode_Render) == YES)
+	{
+		if ([self containsChild:nonEssentialSprite])
+		{
+			int logicPercent = lroundf((timeBetweenLogic / lastDeltaTime) * 1000.0f);
+			int renderPercent = 1000 - logicPercent;
+			NSString *fpsString = [NSString stringWithFormat:@"%2.2f", fps];
+			NSString *callCountString = [NSString stringWithFormat:@"%d", [PXDebug glCallCount]];
+
+			tfLogicTime.text  = [self percentString:logicPercent / 10.0f];
+			tfRenderTime.text = [self percentString:renderPercent / 10.0f];
+			tfFPS.text        = [self formatString:fpsString desiredLength:fpsSpriteTextFieldLength shiftLeft:NO];
+			tfCallCount.text  = [self formatString:callCountString desiredLength:fpsSpriteTextFieldLength shiftLeft:NO];
+		}
+		else
+			tfFPS.text        = [NSString stringWithFormat:@"%d", lroundf(fps)];
 	}
-	else
-		tfFrameTime.text  = [NSString stringWithFormat:@"%d", lroundf(1.0f / lastDeltaTime)];
-	
+
+	if (PX_IS_BIT_ENABLED(displayMode, FPSSpriteDisplayMode_Print) == YES)
+	{
+		if (++frameCount == 15)
+		{
+			frameCount = 0;
+
+			PXDebugLog(@"fps = %2.2f\n", fps);
+		}
+	}
 }
 
 @end

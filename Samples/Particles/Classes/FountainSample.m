@@ -52,10 +52,10 @@
 	FountainEffect *effect = [[[FountainEffect alloc] init] autorelease];
 
 	id<PKParticleRenderer> renderer = [effect spawnRenderer];
-	PKParticleEmitter *emitter = [effect spawnEmitter];
-	
-	[renderer addEmitter:emitter];
 	[self addRenderer:renderer];
+
+	PKParticleEmitter *emitter = [effect spawnEmitter];
+	[renderer addEmitter:emitter];
 
 	emitter.x = halfStageSize.width;
 	emitter.y = halfStageSize.height * 0.2f;

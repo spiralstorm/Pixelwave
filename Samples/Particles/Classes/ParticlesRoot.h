@@ -51,10 +51,12 @@
 	Sample *sample;
 	NSArray *samples;
 	int currentSample;
-	
+
 	PXSimpleSprite *sampleContainer;
 	FPSSprite *fpsSprite;
-	
+
+	PXTextureData *rttTextureData;
+
 	PXSimpleButton *btnNext;
 	PXSimpleButton *btnPrev;
 	PXSimpleSprite *buttonsContainer;

@@ -8,9 +8,18 @@
 
 #import "Pixelwave.h"
 
+typedef enum
+{
+	FPSSpriteDisplayMode_Print  = 0x01,
+	FPSSpriteDisplayMode_Render = 0x02,
+	FPSSpriteDisplayMode_PrintAndRender = 0x03
+} FPSSpriteDisplayMode;
+
 @interface FPSSprite : PXSprite
 {
 @protected
+	FPSSpriteDisplayMode displayMode;
+
 	PXSprite *essentialSprite;
 	PXSprite *nonEssentialSprite;
 
@@ -18,27 +27,27 @@
 
 	PXTextField *lblLogicTime;
 	PXTextField *lblRenderTime;
-	PXTextField *lblFrameTime;
 	PXTextField *lblFPS;
 	PXTextField *lblCallCount;
 	PXTextField *lblCustom;
 
 	PXTextField *tfLogicTime;
 	PXTextField *tfRenderTime;
-	PXTextField *tfFrameTime;
 	PXTextField *tfFPS;
 	PXTextField *tfCallCount;
 	PXTextField *tfCustom;
 
 	float timeBetweenLogic;
-	float timeBetweenRendering;
-	float timeBetweenFrames;
 
 	float lastDeltaTime;
 	double lastTime;
 
 	CGPoint previousPosition;
+
+	unsigned int frameCount;
 }
+
+@property (nonatomic, assign) FPSSpriteDisplayMode displayMode;
 
 @property (nonatomic, copy) NSString *label;
 @property (nonatomic, copy) NSString *text;
