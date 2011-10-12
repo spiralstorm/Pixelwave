@@ -186,7 +186,7 @@
 	[[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 
 	EAGLContext *oldContext = [EAGLContext currentContext];
-	
+
 	if (oldContext != eaglContext)
 		[EAGLContext setCurrentContext:eaglContext];
 
@@ -486,54 +486,6 @@
 {
 	return [CAEAGLLayer class];
 }
-
-/*- (BOOL) createSurface
-{
-	if (_pxViewFramebuffer != 0 || renderbufferName != 0)
-		return NO;
-
-	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[self layer];
-
-	glGenFramebuffersOES(1, &_pxViewFramebuffer);
-	glGenRenderbuffersOES(1, &renderbufferName);
-
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _pxViewFramebuffer);
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
-	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, renderbufferName);
-
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, _pxViewFramebuffer);
-
-	if ([eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:eaglLayer] == NO)
-	{
-		glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, 0);
-		glDeleteRenderbuffersOES(1, &renderbufferName);
-		return NO;
-	}
-
-    return YES;
-}
-
-- (void) destroySurface
-{
-	EAGLContext *oldContext = [EAGLContext currentContext];
-
-	if (oldContext != eaglContext)
-		[EAGLContext setCurrentContext:eaglContext];
-
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, 0);
-	glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, 0);
-
-	glDeleteRenderbuffersOES(1, &renderbufferName);
-	renderbufferName = 0;
-
-	glDeleteFramebuffersOES(1, &_pxViewFramebuffer);
-	_pxViewFramebuffer = 0;
-
-	if (oldContext != eaglContext)
-		[EAGLContext setCurrentContext:oldContext];
-	else
-		[EAGLContext setCurrentContext:nil];
-}*/
 
 - (void) _swapBuffers
 {
