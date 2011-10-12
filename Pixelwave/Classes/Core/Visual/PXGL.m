@@ -49,6 +49,9 @@
 #import "PXGLUtils.h"
 #include "PXGLStatePrivate.h"
 
+GLuint pxGLFrameBuffer = 0;
+GLuint pxGLRenderBuffer = 0;
+
 #define PX_GL_MATRIX_STACK_SIZE 16
 #define PX_GL_COLOR_STACK_SIZE 16
 
@@ -119,6 +122,15 @@ GLubyte pxGLAlpha = 0xFF;
  */
 void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 {
+	glGenFramebuffersOES(1, &pxGLFrameBuffer);
+	glGenRenderbuffersOES(1, &pxGLRenderBuffer);
+
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, pxGLRenderBuffer);
+	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, pxGLRenderBuffer);
+
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
+
 	PXGLClipRect(0, 0, width, height);
 
 	pxGLPointSizePointer.pointer = NULL;
@@ -184,6 +196,24 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 
 	// then reset the aabb
 	PXGLResetAABB(false);
+}
+
+/*
+ * This method frees any of the memory we were using, and releases the render
+ * to texture.. texture.
+ */
+void PXGLDealloc( )
+{
+	PXGLRendererDealloc( );
+
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, 0);
+	glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, 0);
+
+	glDeleteRenderbuffersOES(1, &pxGLRenderBuffer);
+	pxGLRenderBuffer = 0;
+
+	glDeleteFramebuffersOES(1, &pxGLFrameBuffer);
+	pxGLFrameBuffer = 0;
 }
 
 /*
@@ -402,15 +432,6 @@ void PXGLUnSyncTransforms()
 
 	// Pops the matrix which was pushed in sync transforms above.
 	glPopMatrix();
-}
-
-/*
- * This method frees any of the memory we were using, and releases the render
- * to texture.. texture.
- */
-void PXGLDealloc( )
-{
-	PXGLRendererDealloc( );
 }
 
 /*

@@ -71,13 +71,8 @@ typedef enum
 
 @interface PXView : UIView <NSCoding>
 {
-	// TODO: Move the framebuffer and renderbuffer creation to PXGL ?
-@public
-	GLuint _pxViewFramebuffer; // the main frame buffer
-
 @private
 	EAGLContext *eaglContext;
-	GLuint renderbufferName;
 	
 	PXViewColorQuality colorQuality;
 	

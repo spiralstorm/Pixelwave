@@ -83,4 +83,7 @@ void PXGLSetViewSize(unsigned width, unsigned height, float scaleFactor, bool or
 }
 #endif
 
+PXExtern GLuint pxGLFrameBuffer;
+PXExtern GLuint pxGLRenderBuffer;
+
 #endif

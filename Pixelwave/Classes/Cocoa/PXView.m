@@ -59,10 +59,9 @@
 
 @interface PXView(Private)
 - (void) updateOrientation;
-- (BOOL) setupWithScaleFactor:(float)contentScaleFactor
-				 colorQuality:(PXViewColorQuality)colorQuality;
-- (BOOL) createSurface;
-- (void) destroySurface;
+- (BOOL) setupWithScaleFactor:(float)contentScaleFactor colorQuality:(PXViewColorQuality)colorQuality;
+//- (BOOL) createSurface;
+//- (void) destroySurface;
 
 - (void) touchHandeler:(NSSet *)touches function:(void(*)(UITouch *touch, CGPoint *pos))function;
 @end
@@ -186,9 +185,19 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self];
 	[[UIDevice currentDevice] endGeneratingDeviceOrientationNotifications];
 
+	EAGLContext *oldContext = [EAGLContext currentContext];
+	
+	if (oldContext != eaglContext)
+		[EAGLContext setCurrentContext:eaglContext];
+
 	PXEngineDealloc();
 
-	[self destroySurface];
+	if (oldContext != eaglContext)
+		[EAGLContext setCurrentContext:oldContext];
+	else
+		[EAGLContext setCurrentContext:nil];
+
+//	[self destroySurface];
 
 	[eaglContext release];
 	eaglContext = nil;
@@ -274,24 +283,22 @@
 		return NO;
 
 	// Set up the OpenGL frame buffers
-	if ([self createSurface] == NO)
-		return NO;
-
-	///////////////
-	// Dithering //
-	///////////////
-	
-	// Now the OpenGL is set up, we can change the dithering if needed
-	if (surfaceDither == NO)
-	{
-		glDisable(GL_DITHER);
-	}
+//	if ([self createSurface] == NO)
+//		return NO;
 
 	///////////////////////////
 	// Initialize the engine //
 	///////////////////////////
 
 	PXEngineInit(self);
+
+	[eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:eaglLayer];
+
+	// Now the OpenGL is set up, we can change the dithering if needed
+	if (surfaceDither == NO)
+	{
+		glDisable(GL_DITHER);
+	}
 
 	PXStage *stage = PXEngineGetStage();
 
@@ -480,7 +487,7 @@
 	return [CAEAGLLayer class];
 }
 
-- (BOOL) createSurface
+/*- (BOOL) createSurface
 {
 	if (_pxViewFramebuffer != 0 || renderbufferName != 0)
 		return NO;
@@ -526,7 +533,7 @@
 		[EAGLContext setCurrentContext:oldContext];
 	else
 		[EAGLContext setCurrentContext:nil];
-}
+}*/
 
 - (void) _swapBuffers
 {
@@ -566,7 +573,7 @@
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer
 {
 	// Allocate color buffer backing based on the current layer size
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
+	//glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
 	if ([eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer] == NO)
 	{
 		PXDebugLog(@"PXView failed to attach a render buffer to the eagl layer.");
