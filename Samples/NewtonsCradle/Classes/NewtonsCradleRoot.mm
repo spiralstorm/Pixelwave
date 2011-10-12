@@ -42,7 +42,7 @@
 #import "Globals.h"
 
 #import "Box2D.h"
-#import "PKBox2DDebugLayer.h"
+#import "PixelKitBox2DUtils.h"
 
 #import "PXMathUtils.h"
 #import "Box2DUtils.h"
