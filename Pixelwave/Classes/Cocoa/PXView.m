@@ -60,8 +60,6 @@
 @interface PXView(Private)
 - (void) updateOrientation;
 - (BOOL) setupWithScaleFactor:(float)contentScaleFactor colorQuality:(PXViewColorQuality)colorQuality;
-//- (BOOL) createSurface;
-//- (void) destroySurface;
 
 - (void) touchHandeler:(NSSet *)touches function:(void(*)(UITouch *touch, CGPoint *pos))function;
 @end
@@ -197,8 +195,6 @@
 	else
 		[EAGLContext setCurrentContext:nil];
 
-//	[self destroySurface];
-
 	[eaglContext release];
 	eaglContext = nil;
 
@@ -281,10 +277,6 @@
 
 	if ([EAGLContext setCurrentContext:eaglContext] == NO)
 		return NO;
-
-	// Set up the OpenGL frame buffers
-//	if ([self createSurface] == NO)
-//		return NO;
 
 	///////////////////////////
 	// Initialize the engine //
@@ -489,8 +481,6 @@
 
 - (void) _swapBuffers
 {
-//	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
-
 	if ([eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES] == NO)
 	{
 		PXDebugLog(@"PXView unable to swap buffers.");
@@ -524,8 +514,6 @@
 
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer
 {
-	// Allocate color buffer backing based on the current layer size
-	//glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbufferName);
 	if ([eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:layer] == NO)
 	{
 		PXDebugLog(@"PXView failed to attach a render buffer to the eagl layer.");
