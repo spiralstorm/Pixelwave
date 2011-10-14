@@ -121,6 +121,8 @@ static unsigned _pxDisplayObjectCount = 0;
 
 	if (self)
 	{
+		_impRenderGL = (void (*)(id, SEL))[self methodForSelector:@selector(_renderGL)];
+
 		userData = NULL;
 
 		_flags = 0;
@@ -134,23 +136,24 @@ static unsigned _pxDisplayObjectCount = 0;
 		_scaleX = 1.0f;
 		_scaleY = 1.0f;
 		_rotation = 0.0f;
-		
+
 		PXGLMatrixIdentity(&_matrix);
 		PXGLColorTransformIdentity(&_colorTransform);
-		
+
 		// Properties
 		_parent = nil;
 
-		_name = [[NSString alloc] initWithFormat:@"instance%u", _pxDisplayObjectCount];
-		++_pxDisplayObjectCount;
+		NSString *name = [[NSString alloc] initWithFormat:@"instance%u", _pxDisplayObjectCount++];
+		self.name = name;
+		[name release];
 
 		_next = nil;
 		_prev = nil;
 
-		_impRenderGL = (void (*)(id, SEL))[self methodForSelector : @selector(_renderGL)];
-
-		_aabb.xMin = 0; _aabb.xMax = 0;
-		_aabb.yMin = 0; _aabb.yMax = 0;
+		_aabb.xMin = 0;
+		_aabb.xMax = 0;
+		_aabb.yMin = 0;
+		_aabb.yMax = 0;
 	}
 
 	return self;
@@ -163,15 +166,18 @@ static unsigned _pxDisplayObjectCount = 0;
 	{
 		PXEngineRemoveFrameListener(self);
 	}
+
 	if ([self hasEventListenerOfType:PXEvent_Render])
 	{
 		PXEngineRemoveRenderListener(self);
 	}
 
+	// Have to manually do this because setName forces name to be a value - it
+	// can not be null.
 	[_name release];
 	_name = nil;
 
-	_impRenderGL = 0;
+	_impRenderGL = NULL;
 
 	[super dealloc];
 }
@@ -202,6 +208,7 @@ static unsigned _pxDisplayObjectCount = 0;
 		PX_DISABLE_BIT(_flags, _PXDisplayObjectFlags_visible);
 	}
 }
+
 - (BOOL) visible
 {
 	return PX_IS_BIT_ENABLED(_flags, _PXDisplayObjectFlags_visible);
@@ -216,6 +223,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	
 	return nil;
 }
+
 - (PXDisplayObject *)root
 {
 	if (self == PXEngineGetRoot())
@@ -266,6 +274,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	angle = PXMathToDeg(angle);
 	_rotation = angle * mult;
 }
+
 - (void) _setColorTransform:(PXGLColorTransform *)ct
 {
 	_colorTransform = *ct;
@@ -478,6 +487,7 @@ static unsigned _pxDisplayObjectCount = 0;
 		return 0.0f;
 	return point.x;
 }
+
 - (float) touchY
 {
 	PXPoint *point = [self touchPosition];
@@ -485,6 +495,7 @@ static unsigned _pxDisplayObjectCount = 0;
 		return 0.0f;
 	return point.y;
 }
+
 - (PXPoint *)touchPosition
 {
 	return [self positionOfTouch:PXTouchEngineGetFirstTouch()];

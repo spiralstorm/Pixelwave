@@ -90,7 +90,9 @@
 
 	if (self)
 	{
-		_childrenHead = nil; _childrenTail = nil;
+		_childrenHead = nil;
+		_childrenTail = nil;
+
 		_numChildren = 0;
 		PX_ENABLE_BIT(_flags, _PXDisplayObjectFlags_isContainer);
 
@@ -114,11 +116,11 @@
 	// Remove all of my children
 	[self removeAllChildren];
 
-	_impPreChildRenderGL = 0;
-	_impPostChildRenderGL = 0;
+	_impPreChildRenderGL = NULL;
+	_impPostChildRenderGL = NULL;
 
-	_impAddChildBefore = 0;
-	_impRemoveChild = 0;
+	_impAddChildBefore = NULL;
+	_impRemoveChild = NULL;
 
 	[super dealloc];
 }
