@@ -143,9 +143,9 @@ static unsigned _pxDisplayObjectCount = 0;
 		// Properties
 		_parent = nil;
 
-		NSString *name = [[NSString alloc] initWithFormat:@"instance%u", _pxDisplayObjectCount++];
-		self.name = name;
-		[name release];
+		// Can not do self.name = as PXStage handles this differently, and would
+		// break for a generic use.
+		_name = [[NSString alloc] initWithFormat:@"instance%u", _pxDisplayObjectCount++];
 
 		_next = nil;
 		_prev = nil;
