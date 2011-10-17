@@ -822,11 +822,15 @@ void PXGLTexParameteri(GLenum target, GLenum pname, GLint param)
  * stop redundant gl calls.
  *
  * @param GLfloat width - Specifies the width of rasterized lines. The initial
- * value is 1.
+ * value is 1.  If 0 is specified, the width is set to one pixel (independent
+ * of scale factor).
  */
 void PXGLLineWidth(GLfloat width)
 {
-	width *= pxGLScaleFactor;
+	if (width == 0.0f)
+		width = 1.0f / pxGLScaleFactor;
+	else
+		width *= pxGLScaleFactor;
 
 	// If the line width is already equal to the width given, then we do not
 	// need to set it in gl.
