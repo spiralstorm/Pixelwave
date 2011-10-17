@@ -215,9 +215,12 @@ typedef enum
 /**
  * Represents the display object's local space and color transformation.
  *
+ * Note that this returns a copy of the object's transform property; modifying
+ * the returned object will have no effect on the display object.
+ *
  * @see PXTransform
  */
-@property (nonatomic, assign) PXTransform *transform;
+@property (nonatomic, copy) PXTransform *transform;
 
 /**
  * A non-unique name. #name may never be `nil`. If a name isn't assigned, one
