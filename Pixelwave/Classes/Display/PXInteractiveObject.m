@@ -94,7 +94,7 @@
 	// Why do we make these variables here? Well, these variables keep track of
 	// information required for us to know wether a tap event has occured. If we
 	// create them within the 'if' statement, then it will not be possible for
-	// us to contain all of the event dispatching code within a singular place.
+	// us to contain all of the event dispatching code within a single place.
 	BOOL sendTap = NO;
 	unsigned int tapCount = 1;
 	PXPoint *touchPosition = nil;

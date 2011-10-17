@@ -40,7 +40,7 @@
 #ifndef _PX_ENGINE_UTILS_H_
 #define _PX_ENGINE_UTILS_H_
 
-#include "PXGL.h"
+#include "PXGLUtils.h"
 
 @class PXDisplayObject;
 @class PXLinkedList;

@@ -60,27 +60,26 @@ extern "C" {
 //////////////
 
 void PXEngineInit(PXView *view);
-void PXEngineDealloc( );
-BOOL PXEngineIsInitialized( );
+void PXEngineDealloc();
+BOOL PXEngineIsInitialized();
 
 ///////////////
 // Main loop //
 ///////////////
 
 // IN ORDER
-void PXEngineDispatchTouchEvents( );
-void PXEngineDispatchFrameEvents( );
-void PXEngineDispatchRenderEvents( );
-void PXEngineRender( );
+void PXEngineDispatchTouchEvents();
+void PXEngineDispatchFrameEvents();
+void PXEngineDispatchRenderEvents();
+void PXEngineRender();
 
 //////////////////////////////////
 // Dealing with the native view //
 //////////////////////////////////
 
-PXView *PXEngineGetView( );
-float PXEngineGetViewWidth( );
-float PXEngineGetViewHeight( );
-void PXEngineUpdateViewSize();
+PXView *PXEngineGetView();
+float PXEngineGetViewWidth();
+float PXEngineGetViewHeight();
 
 void PXEngineSetMultiTouchEnabled(BOOL enabled);
 	
@@ -106,7 +105,7 @@ void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pi
 ///////////////////////////////////
 	
 void PXEngineConvertPointToStageOrientation(float *x, float *y);
-PXStage *PXEngineGetStage( );
+PXStage *PXEngineGetStage();
 
 void PXEngineSetClearScreen(BOOL clear);
 BOOL PXEngineShouldClearScreen();
@@ -114,7 +113,7 @@ void PXEngineSetClearColor(PXColor4f color);
 PXColor4f PXEngineGetClearColor();
 
 void PXEngineSetRoot(PXDisplayObject *root);
-PXDisplayObject *PXEngineGetRoot( );
+PXDisplayObject *PXEngineGetRoot();
 
 void PXEngineInvalidateStage();
 

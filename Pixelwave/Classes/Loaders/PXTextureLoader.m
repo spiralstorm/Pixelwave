@@ -315,7 +315,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 	NSString *resolvedPath = [PXTextureLoader resolvePathForImageFile:path];
 	
 	if (resolvedPath)
-		return path = resolvedPath;
+		path = resolvedPath;
 
 	float scaleFactor = 0.0f;
 	path = [PXLoader pathForRetinaVersionOfFile:path retScale:&scaleFactor];
