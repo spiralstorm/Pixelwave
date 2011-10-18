@@ -348,37 +348,30 @@
 		unsigned texHeight = _data->size.height;
 		unsigned contentWidth  = contentSize.width;
 		unsigned contentHeight = contentSize.height;
+
 		if (((texWidth != contentWidth) || (texHeight != contentHeight)) &&
 			_data->bytes && _data->byteCount > 0)
 		{
-			unsigned bytesPerPixel = 1;
+			unsigned bytesPerPixel;
+
 			switch (_data->pixelFormat)
 			{
 				case PXTextureDataPixelFormat_RGBA8888:
 					bytesPerPixel = 4;
 					break;
-				case PXTextureDataPixelFormat_RGBA4444:
-					bytesPerPixel = 2;
-					break;
-				case PXTextureDataPixelFormat_RGBA5551:
-					bytesPerPixel = 2;
-					break;
-				case PXTextureDataPixelFormat_RGB565:
-					bytesPerPixel = 2;
-					break;
 				case PXTextureDataPixelFormat_RGB888:
 					bytesPerPixel = 3;
 					break;
-				case PXTextureDataPixelFormat_L8:
-					bytesPerPixel = 1;
-					break;
-				case PXTextureDataPixelFormat_A8:
-					bytesPerPixel = 1;
-					break;
+				case PXTextureDataPixelFormat_RGBA4444:
+				case PXTextureDataPixelFormat_RGBA5551:
+				case PXTextureDataPixelFormat_RGB565:
 				case PXTextureDataPixelFormat_LA88:
 					bytesPerPixel = 2;
 					break;
+				case PXTextureDataPixelFormat_L8:
+				case PXTextureDataPixelFormat_A8:
 				default:
+					bytesPerPixel = 1;
 					break;
 			}
 
@@ -389,30 +382,31 @@
 			if (texWidth != contentWidth)
 			{
 				// If the widths are not equal, copy a column
-				unsigned count = (texWidth - contentWidth) + 1;
-				unsigned bytesAcross = texWidth * bytesPerPixel;
-				
+				unsigned int count = (texWidth - contentWidth) + 1;
+				unsigned int bytesAcross = texWidth * bytesPerPixel;
+
 				copyPtr = _data->bytes + ((contentWidth - 1) * bytesPerPixel);
 				bytePtr = copyPtr + bytesPerPixel;
-				
-				for (unsigned index = 1; index < count; ++index)
+
+				for (unsigned int index = 1; index < count; ++index)
 				{
 					PXStridedMemcpy(bytePtr, copyPtr, bytesPerPixel, contentHeight, bytesAcross, bytesAcross);
 					bytePtr += bytesPerPixel;
 				}
 			}
+
 			// Copy the bottom
 			if (texHeight != contentHeight)
 			{
 				// If the heights are not equal, copy a row
-				unsigned count = (texHeight - contentHeight) + 1;
-				unsigned bytesDown = texWidth * bytesPerPixel;
+				unsigned int count = (texHeight - contentHeight) + 1;
+				unsigned int bytesDown = texWidth * bytesPerPixel;
 
 				copyPtr = _data->bytes + ((contentHeight - 1) * bytesDown);
 				bytePtr = copyPtr + bytesDown;
 
 				size_t copySize = bytesPerPixel * texWidth;
-				for (unsigned index = 1; index < count; ++index)
+				for (unsigned int index = 1; index < count; ++index)
 				{
 					memcpy(bytePtr, copyPtr, copySize);
 					bytePtr += bytesDown;
