@@ -1,4 +1,4 @@
-What exactly is Pixelave?
+What exactly is Pixelwave?
 =========================
 Pixelwave is a framework for iOS that makes developing 2D games and other interactive applications simple. It provides an intuitive Objective-C API which is greatly inspired by the ActionScript 3.0 API. It lets you avoid writing low-level code without giving up the power of using OpenGL and OpenAL. Under the hood Pixelwave packs a punch when it comes to rendering performance and optimizations. The framework also includes PixelKit, a collection of useful utilities for game developers.
 
@@ -49,7 +49,7 @@ Pixelwave's features include:
 * Easy 3D and 2D sound playback
 * Physics engine integration
 * Simple performance monitoring
-* Particle simulation engine (coming very soon)
+* Particle simulation engine (alpha version, see particles-alpha branch)
 * Flexible tweening engine (in the works)
 * Resource manager (in the works)
 

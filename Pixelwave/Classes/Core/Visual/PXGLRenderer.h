@@ -62,46 +62,46 @@ typedef struct
 	GLuint vertexIndex;
 } PXGLElementBucket;
 
-void PXGLRendererInit( );
-void PXGLRendererDealloc( );
+void PXGLRendererInit();
+void PXGLRendererDealloc();
 
 void PXGLSetDrawMode(GLenum mode);
 void PXGLSetBufferLastVertexColor(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
-void PXGLEnableColorArray( );
-void PXGLDisableColorArray( );
+void PXGLEnableColorArray();
+void PXGLDisableColorArray();
 
 // TODO Later: Change these to use PXArrayBuffer.
-unsigned PXGLGetCurrentVertexIndex( );
+unsigned PXGLGetCurrentVertexIndex();
 void PXGLSetCurrentVertexIndex(unsigned index);
-unsigned PXGLGetCurrentIndex( );
+unsigned PXGLGetCurrentIndex();
 void PXGLSetCurrentIndex(unsigned index);
-unsigned PXGLGetCurrentPointSizeIndex( );
+unsigned PXGLGetCurrentPointSizeIndex();
 void PXGLSetCurrentPointSizeIndex(unsigned index);
 
-//PXGLColoredTextureVertex *PXGLNextVertex( );
+//PXGLColoredTextureVertex *PXGLNextVertex();
 PXGLColoredTextureVertex *PXGLGetVertexAt(unsigned index);
-PXGLColoredTextureVertex *PXGLCurrentVertex( );
+PXGLColoredTextureVertex *PXGLCurrentVertex();
 PXGLColoredTextureVertex *PXGLAskForVertices(unsigned count);
 void PXGLUsedVertices(unsigned count);
 
 GLushort *PXGLGetIndexAt(unsigned index);
-GLushort *PXGLCurrentIndex( );
+GLushort *PXGLCurrentIndex();
 GLushort *PXGLAskForIndices(unsigned count);
 void PXGLUsedIndices(unsigned count);
 
-//GLfloat *PXGLNextPointSize( );
+//GLfloat *PXGLNextPointSize();
 GLfloat *PXGLGetPointSizeAt(unsigned index);
-GLfloat *PXGLCurrentPointSize( );
+GLfloat *PXGLCurrentPointSize();
 GLfloat *PXGLAskForPointSizes(unsigned count);
 void PXGLUsedPointSizes(unsigned count);
 
 PXGLElementBucket *PXGLGetElementBuckets(unsigned maxBucketVal);
 
-void PXGLRendererPreRender( );
-void PXGLRendererPostRender( );
-void PXGLConsolidateBuffer( );
+void PXGLRendererPreRender();
+void PXGLRendererPostRender();
+void PXGLConsolidateBuffer();
 
-void PXGLFlushBuffer( );
+void PXGLFlushBuffer();
 
 PXInline_h void PXGLSetupEnables();
 PXInline_h int PXGLGetDrawCountThenResetIt();

@@ -68,7 +68,7 @@ void PXGLConsolidateBuffers();
 void PXGLResetStates(PXGLState desiredState);
 
 void PXGLClipRect(GLint x, GLint y, GLint width, GLint height);
-PXGLAABB *PXGLGetCurrentAABB( );
+PXGLAABB *PXGLGetCurrentAABB();
 void PXGLResetAABB(bool setToClipRect);
 bool PXGLIsAABBVisible(PXGLAABB *aabb);
 
@@ -82,5 +82,8 @@ void PXGLSetViewSize(unsigned width, unsigned height, float scaleFactor, bool or
 #ifdef __cplusplus
 }
 #endif
+
+PXExtern GLuint pxGLFrameBuffer;
+PXExtern GLuint pxGLRenderBuffer;
 
 #endif

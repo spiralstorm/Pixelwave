@@ -49,6 +49,9 @@
 #import "PXGLUtils.h"
 #include "PXGLStatePrivate.h"
 
+GLuint pxGLFrameBuffer = 0;
+GLuint pxGLRenderBuffer = 0;
+
 #define PX_GL_MATRIX_STACK_SIZE 16
 #define PX_GL_COLOR_STACK_SIZE 16
 
@@ -119,6 +122,15 @@ GLubyte pxGLAlpha = 0xFF;
  */
 void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 {
+	glGenFramebuffersOES(1, &pxGLFrameBuffer);
+	glGenRenderbuffersOES(1, &pxGLRenderBuffer);
+
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, pxGLRenderBuffer);
+	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, pxGLRenderBuffer);
+
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
+
 	PXGLClipRect(0, 0, width, height);
 
 	pxGLPointSizePointer.pointer = NULL;
@@ -187,6 +199,24 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 }
 
 /*
+ * This method frees any of the memory we were using, and releases the render
+ * to texture.. texture.
+ */
+void PXGLDealloc()
+{
+	PXGLRendererDealloc();
+
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, 0);
+	glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, 0);
+
+	glDeleteRenderbuffersOES(1, &pxGLRenderBuffer);
+	pxGLRenderBuffer = 0;
+
+	glDeleteFramebuffersOES(1, &pxGLFrameBuffer);
+	pxGLFrameBuffer = 0;
+}
+
+/*
  * This method flushes the buffer, it is a method in pxgl so that the engine
  * can use it also rather then just pxgl.
  */
@@ -249,7 +279,7 @@ void PXGLSyncPXToGL()
 		changed = true; pxGLAlpha = bVal;
 	}
 
-	//Check line width
+	// Check line width
 	glGetFloatv(GL_LINE_WIDTH, fVals);
 	if (pxGLLineWidth != fVals[0])
 	{
@@ -257,7 +287,7 @@ void PXGLSyncPXToGL()
 		pxGLLineWidth = fVals[0];
 	}
 
-	//Check point size
+	// Check point size
 	glGetFloatv(GL_POINT_SIZE, fVals);
 	if (pxGLPointSize != fVals[0])
 	{
@@ -266,18 +296,18 @@ void PXGLSyncPXToGL()
 		pxGLHalfPointSize = pxGLPointSize * 0.5f;
 	}
 
-	//Check color type, reason for doing this is that we don't want anyone to
-	//start batching with the wrong type.
+	// Check color type, reason for doing this is that we don't want anyone to
+	// start batching with the wrong type.
 	if (!changed)
 	{
-		//Keep this in the if statement so we might not have to do it.
+		// Keep this in the if statement so we might not have to do it.
 		glGetIntegerv(GL_COLOR_ARRAY_TYPE, &nVal);
 		if (pxGLColorPointer.type != nVal)
 			changed = true;
 	}
 
-	//Check color type, reason for doing this is that we don't want anyone to
-	//start batching with the wrong type.
+	// Check color type, reason for doing this is that we don't want anyone to
+	// start batching with the wrong type.
 	if (!changed)
 	{
 		//Keep this in the if statement so we might not have to do it.
@@ -286,27 +316,27 @@ void PXGLSyncPXToGL()
 			changed = true;
 	}
 
-	//Check color type, reason for doing this is that we don't want anyone to
-	//start batching with the wrong type.
+	// Check color type, reason for doing this is that we don't want anyone to
+	// start batching with the wrong type.
 	if (!changed)
 	{
-		//Keep this in the if statement so we might not have to do it.
+		// Keep this in the if statement so we might not have to do it.
 		glGetIntegerv(GL_TEXTURE_COORD_ARRAY_TYPE, &nVal);
 		if (pxGLTexCoordPointer.type != nVal)
 			changed = true;
 	}
 
-	//Check color type, reason for doing this is that we don't want anyone to
-	//start batching with the wrong type.
+	// Check color type, reason for doing this is that we don't want anyone to
+	// start batching with the wrong type.
 	if (!changed)
 	{
-		//Keep this in the if statement so we might not have to do it.
+		// Keep this in the if statement so we might not have to do it.
 		glGetIntegerv(GL_POINT_SIZE_ARRAY_TYPE_OES, &nVal);
 		if (pxGLPointSizePointer.type != nVal)
 			changed = true;
 	}
 
-	//We need to check the texture parameters now...
+	// We need to check the texture parameters now...
 
 	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &nVal);
 	if (pxGLFramebuffer != nVal)
@@ -315,7 +345,7 @@ void PXGLSyncPXToGL()
 		changed = true;
 	}
 
-	//If any of our values have changed, then we should flush the buffer
+	// If any of our values have changed, then we should flush the buffer
 	if (changed)
 		PXGLFlushBuffer();
 }
@@ -378,7 +408,7 @@ void PXGLSyncGLToPX()
 
 	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFramebuffer);
 
-	//and enable the color array.
+	// and enable the color array.
 	PXGLEnableColorArray();
 	glEnableClientState(GL_COLOR_ARRAY);
 
@@ -405,21 +435,12 @@ void PXGLUnSyncTransforms()
 }
 
 /*
- * This method frees any of the memory we were using, and releases the render
- * to texture.. texture.
- */
-void PXGLDealloc()
-{
-	PXGLRendererDealloc();
-}
-
-/*
  * This method prepairs both PXGL and GL for rendering.
  */
 void PXGLPreRender()
 {
-	//Lets reset the color transform, and matrix stacks... so they are reaady to
-	//be used by another render cycle.
+	// Lets reset the color transform, and matrix stacks... so they are reaady
+	// to be used by another render cycle.
 	PXGLResetColorTransformStack();
 	PXGLResetMatrixStack();
 
@@ -778,9 +799,10 @@ void PXGLDisableClientState(GLenum array)
  * parameter specified as pname.  target defines the target texture, which must
  * be GL_TEXTURE_2D.
  *
- * @param GLenum target Specifies the target texture, which must be GL_TEXTURE_2D.
- * @param GLenum pname Specifies the symbolic name of a single-valued texture parameter. Which
- * can be one of the following: GL_TEXTURE_MIN_FILTER,
+ * @param GLenum target Specifies the target texture, which must be
+ * GL_TEXTURE_2D.
+ * @param GLenum pname Specifies the symbolic name of a single-valued texture
+ * parameter. Which can be one of the following: GL_TEXTURE_MIN_FILTER,
  * GL_TEXTURE_MAG_FILTER, GL_TEXTURE_WRAP_S, or GL_TEXTURE_WRAP_T.
  * @param GLint param Specifies the value of pname.
  */
@@ -805,23 +827,27 @@ void PXGLTexParameteri(GLenum target, GLenum pname, GLint param)
  * stop redundant gl calls.
  *
  * @param GLfloat width - Specifies the width of rasterized lines. The initial
- * value is 1.
+ * value is 1.  If 0 is specified, the width is set to one pixel (independent
+ * of scale factor).
  */
 void PXGLLineWidth(GLfloat width)
 {
-	width *= pxGLScaleFactor;
+	if (width == 0.0f)
+		width = 1.0f / pxGLScaleFactor;
+	else
+		width *= pxGLScaleFactor;
 
 	// If the line width is already equal to the width given, then we do not
 	// need to set it in gl.
 	if (pxGLLineWidth == width)
 		return;
 
-	//Lets flush the buffer, as we do not know what is yet to come, and need to
-	//have the buffer use the current gl state rather then the chagned one.
+	// Lets flush the buffer, as we do not know what is yet to come, and need to
+	// have the buffer use the current gl state rather then the chagned one.
 	PXGLFlushBuffer();
 	pxGLLineWidth = width;
 
-	//Lets actually change the gl state.
+	// Lets actually change the gl state.
 	glLineWidth(width);
 }
 
@@ -878,8 +904,8 @@ void PXGLPointSize(GLfloat size)
 void PXGLColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer)
 {
 	assert(type == GL_UNSIGNED_BYTE);
-	//We actually store this because we need to manipulate the data, such as
-	//batching and transforming.
+	// We actually store this because we need to manipulate the data, such as
+	// batching and transforming.
 
 	if (stride == 0)
 		stride = sizeof(GLubyte) * size;
@@ -911,8 +937,8 @@ void PXGLColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *poi
 void PXGLPointSizePointer(GLenum type, GLsizei stride, const GLvoid *pointer)
 {
 	assert(type == GL_FLOAT);
-	//We actually store this because we need to manipulate the data, such as
-	//batching and transforming.
+	// We actually store this because we need to manipulate the data, such as
+	// batching and transforming.
 
 	if (stride == 0)
 		stride = sizeof(GLfloat);
@@ -1541,11 +1567,11 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 
 	// Updates the points and colors based upon the parents rotation and
 	// position and yours, also updates bounding box of the display object!
-	// pointer, start , end
+	// pointer, start, end
 
 	// Check to see if the bounding area is within the screen area, if not then
-	// we don't need to draw it.  To resolve this, lets set the index back to
-	// the old one, this way it negates us adding more on.
+	// we don't need to draw it. To resolve this, lets set the index back to the
+	// old one, this way it negates us adding more on.
 	if (!_PXGLRectContainsAABB(&pxGLRectClip, &aabb))
 	{
 		PXGLSetCurrentIndex(oldIndex);
@@ -1640,8 +1666,8 @@ void PXGLScale(GLfloat x, GLfloat y)
 }
 
 /*
- * PXGLRotate produces a rotation matrix of angle degrees.  The current matrix
- * is multiplied by the rotation matrix with the product replacing the current
+ * PXGLRotate produces a rotation matrix of angle degrees. The current matrix is
+ * multiplied by the rotation matrix with the product replacing the current
  * matrix.
  *
  * @param GLfloat angle - Specifies the angle of rotation, in degrees.
@@ -1729,12 +1755,12 @@ void PXGLPopColorTransform()
 	GLubyte blue  = (float)0xFF * pxGLCurrentColor->blueMultiplier;
 	GLubyte alpha = (float)0xFF * pxGLCurrentColor->alphaMultiplier;
 
-	//If popping the transform leaves the colors the same as they were, then we
-	//don't need to go any further.
+	// If popping the transform leaves the colors the same as they were, then we
+	// don't need to go any further.
 	if (red == pxGLRed && green == pxGLGreen && blue == pxGLBlue && alpha == pxGLAlpha)
 		return;
 
-	//Set the current color
+	// Set the current color
 	pxGLRed   = red;
 	pxGLGreen = green;
 	pxGLBlue  = blue;

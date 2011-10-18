@@ -116,23 +116,21 @@ typedef enum
 }
 
 /**
- * A value defined and kept by the user. This is a useful pointer for anyone
- * who wants to associate a display object with something else.
+ * A value defined and kept by the user. This is a useful pointer for anyone who
+ * wants to associate a display object with something else.
  *
  * **Default:** `NULL`
  * 
  * @warning If you free/delete/release the object pointed to by userData,
- * remember to set userData to `NULL` to avoid
- * memory access bugs, headaches, frustration, and possibly suicidal
- * thoughts. Don't say we didn't warn you.
+ * remember to set userData to `NULL` to avoid memory access bugs, headaches,
+ * frustration, and possibly suicidal thoughts. Don't say we didn't warn you.
  */
 @property (nonatomic) void *userData;
 
 /**
- * A value between 0 and 1 representing the display object's transparency.
- * an `alpha` value of `1` will make the object
- * fully opaque while a value of `0` will make the object completely
- * transparent.
+ * A value between 0 and 1 representing the display object's transparency. An
+ * `alpha` value of `1` will make the object fully opaque while a value of `0`
+ * will make the object completely transparent.
  *
  * **Default:** 1.0f
  */
@@ -145,27 +143,25 @@ typedef enum
  */
 @property (nonatomic) float rotation;
 /**
- * A scaling value along the horizontal axis.
- * A value between 0 and 1 will squeeze the display object, while a value
- * greater than 1 will stretch it out.
+ * A scaling value along the horizontal axis. A value between 0 and 1 will
+ * squeeze the display object, while a value greater than 1 will stretch it out.
  * 
  * A negative value flips the object.
  *
- * Note that modifying the #scaleX property may change the value of
- * the #width and #height properties and vice-versa
+ * Note that modifying the #scaleX property may change the value of the #width
+ * and #height properties and vice-versa
  *
  * **Default:** 1.0f
  */
 @property (nonatomic) float scaleX;
 /**
- * A scaling value along the vertical axis.
- * A value between 0 and 1 will squeeze the display object, while a value
- * greater than 1 will stretch it out.
+ * A scaling value along the vertical axis. A value between 0 and 1 will squeeze
+ * the display object, while a value greater than 1 will stretch it out.
  * 
  * A negative value flips the object.
  *
- * Note that modifying the #scaleY property may change the value of
- * the #width and #height properties and vice-versa
+ * Note that modifying the #scaleY property may change the value of the #width
+ * and #height properties and vice-versa
  *
  * **Default:** 1.0f
  */
@@ -219,14 +215,16 @@ typedef enum
 /**
  * Represents the display object's local space and color transformation.
  *
+ * Note that this returns a copy of the object's transform property; modifying
+ * the returned object will have no effect on the display object.
+ *
  * @see PXTransform
  */
-@property (nonatomic, assign) PXTransform *transform;
+@property (nonatomic, copy) PXTransform *transform;
 
 /**
- * A non-unique name.
- * #name may never be `nil`. If a name isn't assigned,
- * one will be automatically generated.
+ * A non-unique name. #name may never be `nil`. If a name isn't assigned, one
+ * will be automatically generated.
  *
  * @throws #PXArgumentException if a nil value is set.
  *
@@ -235,36 +233,33 @@ typedef enum
 @property (nonatomic, copy) NSString *name;
 
 /**
- * The display object's container, or `nil` if the display object is
- * not on a display list.
+ * The display object's container, or `nil` if the display object is not on a
+ * display list.
  */
 @property (nonatomic, readonly) PXDisplayObjectContainer *parent;
 
 /**
- * The global root display object.
- * Will equal `nil` if the display object isn't part of a
- * display list descending from the root display object.
+ * The global root display object. Will equal `nil` if the display object isn't
+ * part of a display list descending from the root display object.
  */
 @property (nonatomic, readonly) PXDisplayObject *root;
 
 /**
- * The global stage display object.
- * Will equal `nil` if the display object isn't part of the main
- * display list.
+ * The global stage display object. Will equal `nil` if the display object isn't
+ * part of the main display list.
  *
- * If a display object isn't on the main display list it can't	be rendered to
+ * If a display object isn't on the main display list it can't be rendered to
  * the screen.
  */
 @property (nonatomic, readonly) PXStage *stage;
 
 /**
- * Represents both the #scaleX and #scaleY properties.
- * Setting this property will set the values of #scaleX and
- * #scaleY to the given value.
+ * Represents both the #scaleX and #scaleY properties. Setting this property
+ * will set the values of #scaleX and #scaleY to the given value.
  *
- * If the #scaleX</code> and #scaleY properties are equal,
- * this property will be equal to their value. If their values differ, this
- * property will be equal to `1.0`.
+ * If the #scaleX</code> and #scaleY properties are equal, this property will be
+ * equal to their value. If their values differ, this property will be equal to
+ * `1.0`.
  *
  * @see scaleX
  * @see scaleY

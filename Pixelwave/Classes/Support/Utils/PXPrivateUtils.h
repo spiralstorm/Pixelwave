@@ -113,7 +113,7 @@ void *PXStridedMemcpy(void *dest, void *src, size_t size, size_t len, size_t des
 		return memcpy(dest, src, totalBytes);
 	}
 
-	unsigned index;
+	size_t index;
 	unsigned char *destData;
 	unsigned char *srcData;
 
