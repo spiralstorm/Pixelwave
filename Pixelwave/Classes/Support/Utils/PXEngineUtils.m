@@ -48,6 +48,8 @@
 #import "PXObjectPool.h"
 #import "PXLinkedList.h"
 
+#import "PXExceptionUtils.h"
+
 PXDisplayObject* PXUtilsFindCommonAncestor(PXDisplayObject* obj1, PXDisplayObject* obj2)
 {
 	// Create an array containing obj1 and all its ancestors.
@@ -151,7 +153,8 @@ CGPoint PXUtilsGlobalToLocal(PXDisplayObject *displayObject, CGPoint point)
 
 	PXGLMatrix matrix;
 	PXGLMatrixIdentity(&matrix);
-	PXUtilsDisplayObjectMultiplyUp(PXEngineGetStage(), displayObject, &matrix);
+	if (!PXUtilsDisplayObjectMultiplyUp(PXEngineGetStage(), displayObject, &matrix))
+		PXThrow(PXArgumentException, @"Parameter displayObject must be on the stage.");
 
 	point = PXGLMatrixConvertPoint(&matrix, point);
 
@@ -168,7 +171,8 @@ CGPoint PXUtilsLocalToGlobal(PXDisplayObject *displayObject, CGPoint point)
 
 	PXGLMatrix matrix;
 	PXGLMatrixIdentity(&matrix);
-	PXUtilsDisplayObjectMultiplyDown(PXEngineGetStage(), displayObject, &matrix);
+	if (!PXUtilsDisplayObjectMultiplyDown(PXEngineGetStage(), displayObject, &matrix))
+		PXThrow(PXArgumentException, @"Parameter displayObject must be on the stage.");
 
 	point = PXGLMatrixConvertPoint(&matrix, point);
 	//PX_GL_CONVERT_POINT_TO_MATRIX(matrix, point.x, point.y);
