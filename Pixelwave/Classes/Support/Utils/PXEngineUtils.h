@@ -50,9 +50,10 @@
 extern "C" {
 #endif
 
-void PXUtilsDisplayObjectMultiplyUp(PXDisplayObject *displayObject, PXGLMatrix *matrix);
-bool PXUtilsDisplayObjectMultiplyDownContinue(PXDisplayObject *targetCoordinateSpace, PXDisplayObject *displayObject, PXGLMatrix *matrix);
-void PXUtilsDisplayObjectMultiplyDown(PXDisplayObject *displayObject, PXGLMatrix *matrix);
+PXDisplayObject* PXUtilsFindCommonAncestor(PXDisplayObject* obj1, PXDisplayObject* obj2);
+
+bool PXUtilsDisplayObjectMultiplyUp(PXDisplayObject *rootCoordinateSpace, PXDisplayObject *displayObject, PXGLMatrix *matrix);
+bool PXUtilsDisplayObjectMultiplyDown(PXDisplayObject *rootCoordinateSpace, PXDisplayObject *displayObject, PXGLMatrix *matrix);
 
 CGPoint PXUtilsGlobalToLocal(PXDisplayObject *displayObject, CGPoint point);
 CGPoint PXUtilsLocalToGlobal(PXDisplayObject *displayObject, CGPoint point);

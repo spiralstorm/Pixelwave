@@ -685,27 +685,27 @@ static unsigned _pxDisplayObjectCount = 0;
  */
 - (PXRectangle *)boundsWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace
 {
+	if (targetCoordinateSpace == nil)
+		return nil;
+
 	CGRect bounds;
 	[self _measureGlobalBounds:&bounds];
 
-	PXGLMatrix matrix;
-	PXGLMatrixIdentity(&matrix);
-
 	if (targetCoordinateSpace != self)
 	{
-		PXUtilsDisplayObjectMultiplyDown(self, &matrix);
-		//[self multDown:&matrix];
+		PXDisplayObject* root = PXUtilsFindCommonAncestor(self, targetCoordinateSpace);
+
+		PXGLMatrix matrix;
+		PXGLMatrixIdentity(&matrix);
+		PXUtilsDisplayObjectMultiplyDown(root, self, &matrix);
 
 		PXGLMatrix m2;
 		PXGLMatrixIdentity(&m2);
-		PXUtilsDisplayObjectMultiplyUp(targetCoordinateSpace, &m2);
-		//[targetCoordinateSpace multUp:&m2];
-
+		PXUtilsDisplayObjectMultiplyUp(root, targetCoordinateSpace, &m2);
 		PXGLMatrixMult(&matrix, &m2, &matrix);
-	}
 
-	bounds = PXGLMatrixConvertRect(&matrix, bounds);
-	//PX_GL_CONVERT_RECT_TO_MATRIX(matrix, bounds);
+		bounds = PXGLMatrixConvertRect(&matrix, bounds);
+	}
 
  	return [[[PXRectangle alloc] initWithX:bounds.origin.x y:bounds.origin.y width:bounds.size.width height:bounds.size.height] autorelease];
 }
