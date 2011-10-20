@@ -163,7 +163,7 @@ PXDisplayObject *PXTouchEngineFindTouchTarget(float x, float y)
 			parentTouchEnabled = parent->_touchEnabled;
 
 			// If the parent allows its chidren to recieve touch events
-			if (parent->_touchChildren)
+			if (parentTouchEnabled && parent->_touchChildren)
 			{
 				// If the target can't recieve touch events, but the parent can,
 				// the parent becomes the current valid target, and we keep
