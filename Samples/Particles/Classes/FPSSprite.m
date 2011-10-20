@@ -184,19 +184,34 @@ static const unsigned int fpsSpriteTextFieldLength = 6;
 
 	if (recievedLength < desiredLength)
 	{
-		NSUInteger delta = desiredLength - recievedLength;
-		NSUInteger index;
-
-		// This is really silly, fix it when there is time.
-		for (index = 0; index < delta; ++index)
+		// This should work, but it doesn't :-(
+		if ([singleCharacter isEqualToString:@" "] && NO)
 		{
 			if (shiftLeft == YES)
 			{
-				string = [NSString stringWithFormat:@"%@%@", string, singleCharacter];
+				string = [NSString stringWithFormat:@"%-*@", desiredLength, string];
 			}
 			else
 			{
-				string = [NSString stringWithFormat:@"%@%@", singleCharacter, string];
+				string = [NSString stringWithFormat:@"%*@", desiredLength, string];
+			}
+		}
+		else
+		{
+			NSUInteger delta = desiredLength - recievedLength;
+			NSUInteger index;
+
+			// This is really silly, fix it when there is time.
+			for (index = 0; index < delta; ++index)
+			{
+				if (shiftLeft == YES)
+				{
+					string = [NSString stringWithFormat:@"%@%@", string, singleCharacter];
+				}
+				else
+				{
+					string = [NSString stringWithFormat:@"%@%@", singleCharacter, string];
+				}
 			}
 		}
 	}
