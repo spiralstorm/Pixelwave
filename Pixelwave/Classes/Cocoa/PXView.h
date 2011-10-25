@@ -103,6 +103,8 @@ typedef enum
  */
 @property (nonatomic, readonly) PXViewColorQuality colorQuality;
 
+@property (nonatomic, readonly) BOOL contentScaleFactorSupported;
+
 //-- ScriptIgnore
 - (id) initWithFrame:(CGRect)frame contentScaleFactor:(float)scale;
 //-- ScriptIgnore

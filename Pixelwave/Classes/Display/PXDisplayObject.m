@@ -65,7 +65,7 @@
 #include "PXSettings.h"
 
 // Used for naming instances
-static unsigned _pxDisplayObjectCount = 0;
+static unsigned int _pxDisplayObjectCount = 0;
 
 /**
  * The base class for all elements drawn to the stage.
@@ -630,8 +630,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	}
 #endif
 
-	point.x = touchPoint.x;
-	point.y = touchPoint.y;
+	[point setX:touchPoint.x y:touchPoint.y];
 
 	PXPoint *globalPoint = [self globalToLocal:point];
 	[pool releaseObject:point];
@@ -641,8 +640,7 @@ static unsigned _pxDisplayObjectCount = 0;
 
 #pragma mark Flash Methods
 /**
- * Finds the bounding box of this display object in the target coordinate
- * space.
+ * Finds the bounding box of this display object in the target coordinate space.
  *
  * @param targetCoordinateSpace The coordinate space for the bounds
  *
@@ -688,7 +686,7 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  *	bounds = [shape1 boundsWithCoordinateSpace:self];
  *	NSLog (@"shape1 in root = %@\n", [bounds description]);
- *	// bounds = (x=50.0f, y=-25.0f, w=100.0f, h=200.0f)
+ *	// bounds = (x=50.0f, y=25.0f, w=100.0f, h=200.0f)
  */
 - (PXRectangle *)boundsWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace
 {
@@ -807,8 +805,8 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * @param obj The object for testing.
  *
- * @return `YES` if the bounding box of the given object is within the
- * bounding box of this object.
+ * @return `YES` if the bounding box of the given object is within the bounding
+ * box of this object.
  *
  * **Example:**
  *	PXTexture *tex1 = [PXTexture textureWithContentsOfFile:@"image.png"];
@@ -845,14 +843,14 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 /**
- * Tests if the given horizontal and vertical coordinate are within the
- * bounding box of this display object.
+ * Tests if the given horizontal and vertical coordinate are within the bounding
+ * box of this display object.
  *
  * @param x The horizontal coordinate (in stage coordinates) for testing.
  * @param y The vertical coordinate (in stage coordinates) for testing.
  *
- * @return `YES` if point is contained within the bounding box of this
- * display object.
+ * @return `YES` if point is contained within the bounding box of this display
+ * object.
  *
  * **Example:**
  *	PXTexture *tex = [PXTexture textureWithContentsOfFile:@"image.png"];
@@ -884,8 +882,8 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * @param x The horizontal coordinate (in stage coordinates) for testing.
  * @param y The vertical coordinate (in stage coordinates) for testing.
- * @param shapeFlag If `YES` a detailed collision detection is done of the actual
- * object.  If `NO` just the bounding box is tested.
+ * @param shapeFlag If `YES` a detailed collision detection is done of the
+ * actual object. If `NO` just the bounding box is tested.
  *
  * @return `YES` if point is contained within the bounding box of this
  * display object.
@@ -960,13 +958,14 @@ static unsigned _pxDisplayObjectCount = 0;
 	return NO;
 }
 
-// Engine only function for testing hittest given stage coordinates,
-// WITHOUT recursion. This is almost identical to the public hittest function
-// just that there's no recursion.
+// Engine only function for testing hittest given stage coordinates, WITHOUT
+// recursion. This is almost identical to the public hittest function just that
+// there's no recursion.
 - (BOOL) _hitTestPointWithoutRecursionWithGlobalX:(float)x globalY:(float)y shapeFlag:(BOOL)shapeFlag
 {
 	CGPoint globalPoint = CGPointMake(x, y);
 	globalPoint = PXUtilsGlobalToLocal(self, globalPoint);
+
 	return [self _containsPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];
 }
 
@@ -977,6 +976,7 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 #pragma mark Per frame event listeners
+
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
 	char engineListenerToAdd = 0;

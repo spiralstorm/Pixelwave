@@ -50,7 +50,7 @@
 extern "C" {
 #endif
 
-PXDisplayObject* PXUtilsFindCommonAncestor(PXDisplayObject* obj1, PXDisplayObject* obj2);
+PXDisplayObject *PXUtilsFindCommonAncestor(PXDisplayObject *obj1, PXDisplayObject *obj2);
 
 bool PXUtilsDisplayObjectMultiplyUp(PXDisplayObject *rootCoordinateSpace, PXDisplayObject *displayObject, PXGLMatrix *matrix);
 bool PXUtilsDisplayObjectMultiplyDown(PXDisplayObject *rootCoordinateSpace, PXDisplayObject *displayObject, PXGLMatrix *matrix);

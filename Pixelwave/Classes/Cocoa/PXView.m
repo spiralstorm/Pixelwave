@@ -88,6 +88,7 @@
 @implementation PXView
 
 @synthesize colorQuality;
+@synthesize contentScaleFactorSupported;
 
 /**
  * @param frame The size of the newly created view.
