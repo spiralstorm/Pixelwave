@@ -143,7 +143,7 @@ GLuint PXGLBufferIndexID  = 0;
 /*
  * This method initializes the buffer arrays.
  */
-void PXGLRendererInit( )
+void PXGLRendererInit()
 {
 	//Set the size to 0, set the max size to the minimum allowed size, and
 	//allocate some memory.
@@ -177,7 +177,7 @@ void PXGLRendererInit( )
 /*
  * This method frees the memory used by the buffers.
  */
-void PXGLRendererDealloc( )
+void PXGLRendererDealloc()
 {
 	//If the buffer arrays exist, we should free their memory.
 
@@ -268,7 +268,7 @@ void PXGLSetBufferLastVertexColor(GLubyte red, GLubyte green, GLubyte blue, GLub
 /*
  * This method enables the color array if it is not enabeled already.
  */
-void PXGLEnableColorArray( )
+void PXGLEnableColorArray()
 {
 	//Check to see if the color array is enabled, if it is then we can just
 	//return as our job is done.
@@ -283,7 +283,7 @@ void PXGLEnableColorArray( )
 /*
  * This method disables the color array if it is not disabled already.
  */
-void PXGLDisableColorArray( )
+void PXGLDisableColorArray()
 {
 	//Check to see if the color array is not enabled, if that is the case then
 	//we can just return as our job is done.
@@ -300,7 +300,7 @@ void PXGLDisableColorArray( )
  *
  * @return - the current size that the vertex buffer is at.
  */
-unsigned PXGLGetCurrentVertexIndex( )
+unsigned PXGLGetCurrentVertexIndex()
 {
 	return pxGLVertexBuffer.size;
 }
@@ -326,7 +326,7 @@ void PXGLSetCurrentVertexIndex(unsigned index)
  *
  * @return - the current size that the index buffer is at.
  */
-unsigned PXGLGetCurrentIndex( )
+unsigned PXGLGetCurrentIndex()
 {
 	return pxGLIndexBuffer.size;
 }
@@ -353,7 +353,7 @@ void PXGLSetCurrentIndex(unsigned index)
  *
  * @return - the current size that the point size buffer is at.
  */
-unsigned PXGLGetCurrentPointSizeIndex( )
+unsigned PXGLGetCurrentPointSizeIndex()
 {
 	return pxGLPointSizeBuffer.size;
 }
@@ -393,7 +393,7 @@ PXGLColoredTextureVertex *PXGLGetVertexAt(unsigned index)
  *
  * @return - A pointer to the current vertex.
  */
-PXGLColoredTextureVertex *PXGLCurrentVertex( )
+PXGLColoredTextureVertex *PXGLCurrentVertex()
 {
 	assert(pxGLVertexBuffer.size != 0);
 
@@ -439,7 +439,7 @@ GLushort *PXGLGetIndexAt(unsigned index)
  *
  * @return - A pointer to the current index.
  */
-GLushort *PXGLCurrentIndex( )
+GLushort *PXGLCurrentIndex()
 {
 	assert(pxGLIndexBuffer.size != 0);
 
@@ -484,7 +484,7 @@ GLfloat *PXGLGetPointSizeAt(unsigned index)
  *
  * @return - A pointer to the current point size.
  */
-GLfloat *PXGLCurrentPointSize( )
+GLfloat *PXGLCurrentPointSize()
 {
 	assert(pxGLPointSizeBuffer.size != 0);
 
@@ -543,13 +543,13 @@ void PXGLRendererPreRender()
  * This method flushes the buffer, incase anything is left in it at the end of
  * a render cycle.
  */
-void PXGLRendererPostRender( )
+void PXGLRendererPostRender()
 {
 	assert(pxGLVertexBuffer.array);
 
 	//PXGLSetupEnables();
 	// If the array isn't empty, then we need to draw what is left inside it.
-	PXGLFlushBuffer( );
+	PXGLFlushBuffer();
 }
 
 /*
@@ -654,7 +654,7 @@ PXInline void PXGLDraw()
  * buffer status is right now, and calls the appropriate methods in gl to
  * display them.
  */
-void PXGLFlushBufferToGL( )
+void PXGLFlushBufferToGL()
 {
 	// Check to see if the color array is enabled, or if we are going to use a
 	// color array anyway, if so... lets turn it on!
@@ -662,11 +662,11 @@ void PXGLFlushBufferToGL( )
 		PX_IS_BIT_ENABLED(pxGLStateInGL.clientState, PX_GL_COLOR_ARRAY))
 		//PX_IS_BIT_ENABLED(pxGLClientStateInGL, PX_GL_COLOR_ARRAY))
 	{
-		PXGLEnableColorArray( );
+		PXGLEnableColorArray();
 	}
 	else
 	{
-		PXGLDisableColorArray( );
+		PXGLDisableColorArray();
 		glColor4ub(pxGLBufferLastVertexRed,
 				   pxGLBufferLastVertexGreen,
 				   pxGLBufferLastVertexBlue,
@@ -730,7 +730,7 @@ void PXGLFlushBufferToGL( )
 		glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(PXGLColoredTextureVertex), &(pxGLVertexBuffer.array->r));
 	
 	// Have to call draw here because we are using stack memory
-	PXGLDraw( );
+	PXGLDraw();
 #else
 	// If we are textured,, and color array is turned on, then we don't need to
 	// manipulate the array.. we can just pass it to gl.
@@ -741,7 +741,7 @@ void PXGLFlushBufferToGL( )
 		glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(PXGLColoredTextureVertex), &(pxGLVertexBuffer.array->r));
 
 		// Have to call draw here because we are using stack memory
-		PXGLDraw( );
+		PXGLDraw();
 	}
 	// If we are textured, but not using a color array, then we are going to
 	// store the data into a textured vertex struct.  This means we need to copy
@@ -773,7 +773,7 @@ void PXGLFlushBufferToGL( )
 		glTexCoordPointer(2, GL_FLOAT, sizeof(PXGLTextureVertex), &(vertices->s));
 
 		// Have to call draw here because we are using stack memory
-		PXGLDraw( );
+		PXGLDraw();
 	}
 	// If the color array is turned on, but it isn't textured, then lets copy
 	// the values into a colored vertex array prior to sending it to gl.
@@ -800,7 +800,7 @@ void PXGLFlushBufferToGL( )
 		glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(PXGLColorVertex), &(vertices->r));
 
 		//Have to call draw here because we are using stack memory
-		PXGLDraw( );
+		PXGLDraw();
 	}
 	//If the vertices aren't colored, and aren't textured, then lets just draw
 	//the vertices.  Before sending the array to GL, lets copy it over.
@@ -823,7 +823,7 @@ void PXGLFlushBufferToGL( )
 		glVertexPointer(2, GL_FLOAT, sizeof(PXGLVertex), &(vertices->x));
 
 		//Have to call draw here because we are using stack memory
-		PXGLDraw( );
+		PXGLDraw();
 	}
 #endif // PX_GL_RENDERER_SEND_CORRECTED_SIZE
 
@@ -837,7 +837,7 @@ void PXGLFlushBufferToGL( )
 /*
  * This method flushes the buffer, if the buffer is empty then nothing occurs.
  */
-void PXGLFlushBuffer( )
+void PXGLFlushBuffer()
 {
 	//If the buffer is empty, lets just return.
 	if (pxGLVertexBuffer.size == 0)
@@ -852,7 +852,7 @@ void PXGLFlushBuffer( )
 		return;
 
 	//Flush the buffer to gl
-	PXGLFlushBufferToGL( );
+	PXGLFlushBufferToGL();
 
 	//If the max size is less then the current size, lets set the max size to
 	//the current size... then reset the size to 0.

@@ -43,6 +43,8 @@
 
 #include "PXTouchEngine.h"
 
+#import "PXLinkedList.h"
+
 @interface PXEngine : NSObject
 {
 @private
@@ -145,17 +147,17 @@ void PXEngineInit(PXView *view)
 	// Timer //
 	///////////
 
-	pxEngine = [PXEngine new];
+	pxEngine = [[PXEngine alloc] init];
 	pxEngineView = view;
-	
+
 	// view.bounds are measured in PIXELS by Cocoa
 	pxEngineViewSize = view.bounds.size;
-	
+
 	// pxEngineViewSize should be in POINTS, convert:
 	float contentScaleFactor = pxEngineView.contentScaleFactor;
-	float one_contentScaleFactor = 1.0f / contentScaleFactor;
-	pxEngineViewSize.width  *= one_contentScaleFactor;
-	pxEngineViewSize.height *= one_contentScaleFactor;
+//	float one_contentScaleFactor = 1.0f / contentScaleFactor;
+//	pxEngineViewSize.width  *= one_contentScaleFactor;
+//	pxEngineViewSize.height *= one_contentScaleFactor;
 
 	//////////////////////
 	// Rendering System //
@@ -276,7 +278,7 @@ void PXEngineDealloc()
 	pxEngineInitialized = false;
 }
 
-PXDisplayObject **PXEngineNextBufferObject( )
+PXDisplayObject **PXEngineNextBufferObject()
 {
 	// Check to see if our size (you could also think of this as the current
 	// index for our purposes) is at the end of the array.  If so, then we need
@@ -296,34 +298,18 @@ PXDisplayObject **PXEngineNextBufferObject( )
 	return cur;
 }
 
-PXView *PXEngineGetView( )
+PXView *PXEngineGetView()
 {
 	return pxEngineView;
 }
-float PXEngineGetViewWidth( )
+float PXEngineGetViewWidth()
 {
 	return pxEngineViewSize.width;
 }
 
-float PXEngineGetViewHeight( )
+float PXEngineGetViewHeight()
 {
 	return pxEngineViewSize.height;
-}
-
-// TODO Later: This does not work properly, it may not be needed.
-void PXEngineUpdateViewSize()
-{
-	return;
-
-	//pxEngineViewSize = pxEngineView.bounds.size;
-
-	//float contentScaleFactor = pxEngineView.contentScaleFactor;
-	//float one_contentScaleFactor = 1.0f / contentScaleFactor;
-
-	//pxEngineViewSize.width  *= one_contentScaleFactor;
-	//pxEngineViewSize.height *= one_contentScaleFactor;
-
-	//PXGLSetViewSize(pxEngineViewSize.width, pxEngineViewSize.height, contentScaleFactor);
 }
 
 void PXEngineConvertPointToStageOrientation(float *x, float *y)
@@ -334,7 +320,7 @@ void PXEngineConvertPointToStageOrientation(float *x, float *y)
 	}
 }
 
-PXStage *PXEngineGetStage( )
+PXStage *PXEngineGetStage()
 {
 	return pxEngineStage;
 }
@@ -388,12 +374,12 @@ void PXEngineSetRoot(PXDisplayObject *root)
 	[root release];
 }
 
-PXDisplayObject *PXEngineGetRoot( )
+PXDisplayObject *PXEngineGetRoot()
 {
 	return pxEngineRoot;
 }
 
-BOOL PXEngineIsInitialized( )
+BOOL PXEngineIsInitialized()
 {
 	return pxEngineInitialized;
 }
@@ -405,7 +391,7 @@ void PXEngineSetClearScreen(BOOL clear)
 	pxEngineShouldClear = clear;
 }
 
-BOOL PXEngineShouldClearScreen( )
+BOOL PXEngineShouldClearScreen()
 {
 	return pxEngineShouldClear;
 }
@@ -475,6 +461,7 @@ void PXEngineSetLogicFrameRate(float fps)
 
 	PXEngineUpdateMainLoopInterval();
 }
+
 float PXEngineGetLogicFrameRate()
 {
 	if (PXMathIsZero(pxEngineLogicDT))
@@ -503,6 +490,7 @@ void PXEngineSetRenderFrameRate(float fps)
 
 	PXEngineUpdateMainLoopInterval();
 }
+
 float PXEngineGetRenderFrameRate()
 {
 	if (PXMathIsZero(pxEngineRenderDT))
@@ -519,6 +507,7 @@ void PXEngineSetRunning(bool val)
 	pxEngineIsRunning = val;
 	PXEngineUpdateMainLoopInterval();
 }
+
 bool PXEngineGetRunning()
 {
 	return pxEngineIsRunning;
@@ -922,6 +911,8 @@ void PXEngineRenderPhase()
 		pxEngineRenderTimeAccum += pxEngineMainDT;
 		if (pxEngineRenderTimeAccum >= pxEngineRenderDT)
 		{
+		//	[pxEngineView _setCurrentContext];
+
 #ifdef PX_DEBUG_MODE
 			NSTimeInterval start = 0;
 
@@ -930,17 +921,22 @@ void PXEngineRenderPhase()
 				start = [NSDate timeIntervalSinceReferenceDate];
 			}
 #endif
-			// We only dispatch render events if [stage invalidate]
-			// was called.
+			// We only dispatch render events if [stage invalidate] was called.
 			if (pxStageWasInvalidated)
 			{
 				PXEngineDispatchRenderEvents();
 
-				// This flag must be reset *after* the event is dispatched.
-				// This is the behavior exhibited by Flash.
+				// This flag must be reset *after* the event is dispatched. This
+				// is the behavior exhibited by Flash.
 				pxStageWasInvalidated = NO;
 			}
 			PXEngineRender(); //Render
+
+			// DO NOT glFlush or glFinish.
+			//	- glFinish will yield in much slower times
+			//	- glFlush will yield inconsistant times - swap will take care of
+			//		this.
+
 			pxEngineRenderTimeAccum -= pxEngineRenderDT;
 
 #ifdef PX_DEBUG_MODE
@@ -950,6 +946,11 @@ void PXEngineRenderPhase()
 				pxEngineTimeBetweenRendering = end - start;
 			}
 #endif
+			// Don't include swap buffer in render timings, it results in
+			// inconsistant time thus useless info.
+			// Result:	logicTime + renderTime = frameTime != time from start of
+			//			frameA to start of frameB.
+			[pxEngineView _swapBuffers];
 		}
 	}
 }
@@ -972,6 +973,7 @@ void PXEngineOnFrame()
 #pragma mark -
 #pragma mark RENDER
 #pragma mark -
+
 void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transformationsEnabled, bool canBeUsedForTouches)
 {
 	//////////////////////
@@ -1036,7 +1038,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 			!PXMathIsOne(doScaleY) ||
 		    !PXMathIsZero(doRotation))
 		{
-			PXGLPushMatrix( );
+			PXGLPushMatrix();
 			PXGLMultMatrix(&displayObject->_matrix);
 
 			matrixPushed = true;
@@ -1054,7 +1056,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 			colorTransform.blueMultiplier  = doColorTransform->blueMultiplier;
 			colorTransform.alphaMultiplier = doAlpha;
 
-			PXGLPushColorTransform( );
+			PXGLPushColorTransform();
 			PXGLSetColorTransform(&colorTransform);
 
 			transformPushed = true;
@@ -1403,7 +1405,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	}
 
 	// Switch back to main buffer
-	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineView->_pxViewFramebuffer);
+	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
 }
 
 #pragma mark Extracting Pixel Data
@@ -1453,7 +1455,7 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 	PXGLSetViewSize(pxEngineViewSize.width, pxEngineViewSize.height, pxEngineView.contentScaleFactor, true);
 
 	// Bind the screen buffer back
-	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineView->_pxViewFramebuffer);
+	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
 }
 
 /**
@@ -1631,7 +1633,7 @@ float _PXEngineDBGGetTimeWaiting()
 #endif
 
 //	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
-		PXEngineOnFrame( );
+		PXEngineOnFrame();
 //	[pool release];
 }
 

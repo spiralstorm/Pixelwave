@@ -71,13 +71,8 @@ typedef enum
 
 @interface PXView : UIView <NSCoding>
 {
-	// TODO: Move the framebuffer and renderbuffer creation to PXGL ?
-@public
-	GLuint _pxViewFramebuffer; // the main frame buffer
 @private
 	EAGLContext *eaglContext;
-	GLuint renderbufferName;
-	CGSize size;
 	
 	PXViewColorQuality colorQuality;
 	
@@ -107,6 +102,8 @@ typedef enum
  * @see PXViewColorQuality
  */
 @property (nonatomic, readonly) PXViewColorQuality colorQuality;
+
+@property (nonatomic, readonly) BOOL contentScaleFactorSupported;
 
 //-- ScriptIgnore
 - (id) initWithFrame:(CGRect)frame contentScaleFactor:(float)scale;

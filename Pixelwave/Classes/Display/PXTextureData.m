@@ -63,10 +63,10 @@ BOOL pxTextureDataExpandEdges = YES;
 
 /**
  * Represents a texture in GPU memory. To draw the image represented by a
- * PXTextureData object to the screen, a PXTexture display object must be
- * linked to it and added to the main display list. One PXTextureData object
- * can be linked by many PXTexture objects, allowing for the same image to
- * be rendered multiple times per frame without taking up extra memory.
+ * PXTextureData object to the screen, a PXTexture display object must be linked
+ * to it and added to the main display list. One PXTextureData object can be
+ * linked by many PXTexture objects, allowing for the same image to be rendered
+ * multiple times per frame without taking up extra memory.
  *
  * A PXTextureData object can be created with the contents of an external image
  * file via the PXTextureLoader class. Additionaly, a PXTextureData can be
@@ -248,8 +248,8 @@ BOOL pxTextureDataExpandEdges = YES;
 /**
  * Initializes a PXTextureData object with the given width and height values in
  * pixels.
- * To modify the contents of the image you can use the
- * #drawDisplayObject: method.
+ * To modify the contents of the image you can use the #drawDisplayObject:
+ * method.
  *
  * **Example:**
  *	// Create two texture data objects 512 x 512 pixels in size and a blue fill.
@@ -293,9 +293,9 @@ BOOL pxTextureDataExpandEdges = YES;
 		GLint glFormat;
 		GLubyte *data = 0;
 
-		unsigned pixelsCount = powerOfTwoWidth * powerOfTwoHeight;
-		unsigned index;
-		
+		unsigned int pixelsCount = powerOfTwoWidth * powerOfTwoHeight;
+		unsigned int index;
+
 		if (transparency)
 		{
 			glFormat = GL_RGBA;
@@ -314,6 +314,7 @@ BOOL pxTextureDataExpandEdges = YES;
 
 			PXColor4 *pixels = (PXColor4 *)data;
 			PXColor4 *pixel;
+
 			for (index = 0, pixel = pixels; index < pixelsCount; ++index, ++pixel)
 			{
 				*pixel = col;
@@ -337,6 +338,7 @@ BOOL pxTextureDataExpandEdges = YES;
 
 			PXColor3 *pixels = (PXColor3 *)data;
 			PXColor3 *pixel;
+
 			for (index = 0, pixel = pixels; index < pixelsCount; ++index, ++pixel)
 			{
 				*pixel = col;
@@ -346,7 +348,7 @@ BOOL pxTextureDataExpandEdges = YES;
 		GLuint boundTex = PXGLBoundTexture();
 		PXGLBindTexture(GL_TEXTURE_2D, _glName);
 
-		glTexImage2D( GL_TEXTURE_2D,
+		glTexImage2D(GL_TEXTURE_2D,
 					 0,
 					 glFormat,
 					 powerOfTwoWidth,
@@ -354,10 +356,10 @@ BOOL pxTextureDataExpandEdges = YES;
 					 0,
 					 glFormat,
 					 GL_UNSIGNED_BYTE,
-					 data );
+					 data);
 
 		free(data);
-		data = 0;
+		data = NULL;
 
 		// Bring back the previously bound texture
 		PXGLBindTexture(GL_TEXTURE_2D, boundTex);
@@ -412,6 +414,7 @@ BOOL pxTextureDataExpandEdges = YES;
 	{
 		PXThrowNilParam(string);
 	}
+
 	if (!font)
 	{
 		PXThrowNilParam(font);
@@ -467,7 +470,7 @@ BOOL pxTextureDataExpandEdges = YES;
 	UIGraphicsPopContext();
 
 	GLuint boundTex = PXGLBoundTexture();
-	
+
     PXGLBindTexture(GL_TEXTURE_2D, _glName);
 	{
 		GLuint internalFormat = GL_ALPHA;
@@ -512,23 +515,24 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- * Renders the source TextureData onto this TextureData.
- * To modify the transformation with which the source is drawn onto the texture you can pass custom `matrix` and `colorTransform` objects, or `nil` for the default transformations.
+ * Renders the source TextureData onto this TextureData. To modify the
+ * transformation with which the source is drawn onto the texture you can pass
+ * custom `matrix` and `colorTransform` objects, or `nil` for the default
+ * transformations.
  *
  * @param source A PXTextureData to draw onto this PXTextureData.
  * @param matrix A PXMatrix object representing the transformation with which
- * `source` will be rendered. Pass `nil` to use the
- * default (identity) matrix.
- * @param colorTransform A PXColorTransform object representing the color transformation with
- * which `source` will be rendered. Pass `nil` to use
- * the default transformation.
+ * `source` will be rendered. Pass `nil` to use the default (identity) matrix.
+ * @param colorTransform A PXColorTransform object representing the color
+ * transformation with which `source` will be rendered. Pass `nil` to use the
+ * default transformation.
  * @param clipRect A PXRectangle object defining the area of the `source` object
- * to draw. Pass `nil` to use the entire area of
- * `source`.
- * @param smoothing A boolean value indicating if a TextureData object should be smoothed
- * when rotated or scaled. Only applies when drawing a TextureData object.
- * @param clearTexture A boolean value indicating if the TextureData should be cleared before
- * being drawn onto. Pass `NO` for this value as an optimization
+ * to draw. Pass `nil` to use the entire area of `source`.
+ * @param smoothing A boolean value indicating if a TextureData object should be
+ * smoothed when rotated or scaled. Only applies when drawing a TextureData
+ * object.
+ * @param clearTexture A boolean value indicating if the TextureData should be
+ * cleared before being drawn onto. Pass `NO` for this value as an optimization
  * if the entire surface of the PXTextureData will be drawn into.
  */
 - (void) drawTextureData:(PXTextureData *)source
@@ -539,14 +543,14 @@ BOOL pxTextureDataExpandEdges = YES;
 			clearTexture:(BOOL)clearTexture
 {
 	PXTexture *texture = [[PXTexture alloc] initWithTextureData:source];
-	
+
 	[self drawDisplayObject:texture
 					 matrix:matrix
 			 colorTransform:colorTransform
 				   clipRect:clipRect
 				  smoothing:smoothing
 			   clearTexture:clearTexture];
-	
+
 	[texture release];
 }
 
@@ -562,27 +566,25 @@ BOOL pxTextureDataExpandEdges = YES;
 }
 
 /**
- * Renders the given display object onto the TextureData.
- * The transformation of
- * the source display object is ignored during the render process. To modify
- * the transformation with which the source is drawn onto the texture you can
- * pass custom `matrix` and `colorTransform` objects, or
- * `nil` for the default transformations.
+ * Renders the given display object onto the TextureData. The transformation of
+ * the source display object is ignored during the render process. To modify the
+ * transformation with which the source is drawn onto the texture you can pass
+ * custom `matrix` and `colorTransform` objects, or `nil` for the default
+ * transformations.
  *
  * @param source A PXDisplayObject to draw onto this PXTextureData.
  * @param matrix A PXMatrix object representing the transformation with which
- * `source` will be rendered. Pass `nil` to use the
+ * `source` will be rendered. Pass `nil` to use the default transformation.
+ * @param colorTransform A PXColorTransform object representing the color
+ * transformation with which `source` will be rendered. Pass `nil` to use the
  * default transformation.
- * @param colorTransform A PXColorTransform object representing the color transformation with
- * which `source` will be rendered. Pass `nil` to use
- * the default transformation.
  * @param clipRect A PXRectangle object defining the area of the `source` object
- * to draw. Pass `nil` to use the entire area of
- * `source`.
- * @param smoothing A boolean value indicating if a TextureData object should be smoothed
- * when rotated or scaled. Only applies when drawing a TextureData object.
- * @param clearTexture A boolean value indicating if the TextureData should be cleared before
- * being drawn onto. Pass `NO` for this value as an optimization
+ * to draw. Pass `nil` to use the entire area of `source`.
+ * @param smoothing A boolean value indicating if a TextureData object should be
+ * smoothed when rotated or scaled. Only applies when drawing a TextureData
+ * object.
+ * @param clearTexture A boolean value indicating if the TextureData should be
+ * cleared before being drawn onto. Pass `NO` for this value as an optimization
  * if the entire surface of the PXTextureData will be drawn into.
  */
 - (void) drawDisplayObject:(PXDisplayObject *)source
@@ -614,6 +616,7 @@ BOOL pxTextureDataExpandEdges = YES;
 	}
 
 	PXGLColorTransform ct;
+
 	if (colorTransform)
 	{
 		ct.redMultiplier   = colorTransform.redMultiplier;
@@ -656,17 +659,18 @@ BOOL pxTextureDataExpandEdges = YES;
 {
 	pxTextureDataExpandEdges = expandEdges;
 }
+
 + (BOOL) expandEdges
 {
 	return pxTextureDataExpandEdges;
 }
 
 /**
- * A utility method for quickly loading an image from file and placing it into
- * a PXTextureData object.
+ * A utility method for quickly loading an image from file and placing it into a
+ * PXTextureData object.
  *
- * @param filePath The path of the image to load. The path can point to a file in the
- * application bundle or the application's sandox on the hard-drive.
+ * @param filePath The path of the image to load. The path can point to a file
+ * in the application bundle or the application's sandox on the hard-drive.
  *
  * @return The resulting, `autoreleased`, PXTextureData object.
  */

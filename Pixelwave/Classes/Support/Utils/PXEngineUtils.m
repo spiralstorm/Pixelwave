@@ -50,57 +50,65 @@
 
 #import "PXExceptionUtils.h"
 
-PXDisplayObject* PXUtilsFindCommonAncestor(PXDisplayObject* obj1, PXDisplayObject* obj2)
+PXDisplayObject *PXUtilsFindCommonAncestor(PXDisplayObject *obj1, PXDisplayObject *obj2)
 {
+	if (obj1 == nil || obj2 == nil)
+		return nil;
+
+	unsigned int index;
+
+	PXDisplayObject *root;
+
 	// Create an array containing obj1 and all its ancestors.
-	NSUInteger objectCount = 0;
-	PXDisplayObject* root = obj1;
+	unsigned int object1Count = 0;
+	root = obj1;
+
 	while (root != nil)
 	{
-		++objectCount;
+		++object1Count;
 		root = root->_parent;
 	}
-	NSMutableArray* obj1Ancestors = [[NSMutableArray alloc] initWithCapacity: objectCount];
 
-	root = obj1;
-	while (root != nil)
+	PXDisplayObject *obj1Ancestors[object1Count];
+	PXDisplayObject **curObj1Ancestor;
+
+	for (index = 0, root = obj1, curObj1Ancestor = obj1Ancestors; index < object1Count; ++index, root = root->_parent, ++curObj1Ancestor)
 	{
-		[obj1Ancestors addObject: root];
-		root = root->_parent;
+		*curObj1Ancestor = root;
 	}
 
 	// Do the same for obj2.
-	objectCount = 0;
+	unsigned int object2Count = 0;
 	root = obj2;
 	while (root != nil)
 	{
-		++objectCount;
-		root = root->_parent;
-	}
-	NSMutableArray* obj2Ancestors = [[NSMutableArray alloc] initWithCapacity: objectCount];
-	
-	root = obj2;
-	while (root != nil)
-	{
-		[obj2Ancestors addObject: root];
+		++object2Count;
 		root = root->_parent;
 	}
 
-	// Compare the elements of the arrays in reverse order until one is found that
-	// doesn't match.  At this point, root is nil, so no need to worry about disjoint
-	// sets.  In order to avoid fragmenting memory for callers, reverseObjectEnumerator
-	// is not used.
-	for (NSUInteger index1 = [obj1Ancestors count], index2 = [obj2Ancestors count]; (index1-- > 0) && (index2-- > 0); )
+	PXDisplayObject *obj2Ancestors[object2Count];
+	PXDisplayObject **curObj2Ancestor;
+
+	for (index = 0, root = obj2, curObj2Ancestor = obj2Ancestors; index < object2Count; ++index, root = root->_parent, ++curObj2Ancestor)
 	{
-		id test = [obj1Ancestors objectAtIndex: index1];
-		if (test != [obj2Ancestors objectAtIndex: index2])
+		*curObj2Ancestor = root;
+	}
+
+	unsigned int minCount = MIN(object1Count, object2Count);
+	root = nil;
+
+	// Compare the elements of the arrays in reverse order until one is found
+	// that doesn't match. At this point, root is nil, so no need to worry about
+	// disjoint sets.
+	for (index = 0, curObj1Ancestor = obj1Ancestors + (object1Count - 1), curObj2Ancestor = obj2Ancestors + (object2Count - 1);
+		 index < minCount;
+		 ++index, --curObj1Ancestor, --curObj2Ancestor)
+	{
+		if (*curObj1Ancestor != *curObj2Ancestor)
 			break;
 
-		root = test;
+		root = *curObj1Ancestor;
 	}
-
-	[obj1Ancestors release];
-	[obj2Ancestors release];
 
 	// Return the last element that matched.  
 	return root;

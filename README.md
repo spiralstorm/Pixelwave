@@ -15,7 +15,7 @@ Official site: http://www.pixelwave.org
         \ \_\   \ \_\/\_/\_\\ \____\/\____\\ \___^___ /\ \__/|\_\\ \___/ \ \____\
          \/_/    \/_/\//\/_/ \/____/\/____/ \/__//__ /  \/__/\/_/ \/__/   \/____/
            
-            v0.13.1   www.pixelwave.org + www.spiralstormgames.com
+            v0.13.2   www.pixelwave.org + www.spiralstormgames.com
                                 ~;   
                                ,/|\.           
                              ,/  |\ \.                 Core Team: Oz Michaeli
@@ -49,7 +49,7 @@ Pixelwave's features include:
 * Easy 3D and 2D sound playback
 * Physics engine integration
 * Simple performance monitoring
-* Particle simulation engine (coming very soon)
+* Particle simulation engine (alpha version, see particles-alpha branch)
 * Flexible tweening engine (in the works)
 * Resource manager (in the works)
 

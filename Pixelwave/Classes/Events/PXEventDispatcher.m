@@ -77,24 +77,24 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  */
 
 /**
- * The base class for all classes that dispatch events.
- * The event dispatcher allows individual methods to be associated with any
- * event.
+ * The base class for all classes that dispatch events. The event dispatcher
+ * allows individual methods to be associated with any event.
  *
- * Event types are represented as NSString objects and methods are
- * wrapped in PXEventListener objects, while information about events is passed
- * along in PXEvent objects.
+ * Event types are represented as NSString objects and methods are wrapped in
+ * PXEventListener objects, while information about events is passed along in
+ * PXEvent objects.
  *
  * The PXEventDispatcher is the base class for all display objects.
  *
  * the PXEventDispatcher class maybe subclassed by any user class in order to
- * provide event dispatching behavior for that class. If a user class is
- * unable to subclass PXEventDispatcher because it is already subclassing a
- * different class, it may implement the PXEventDispatcher protocol.
+ * provide event dispatching behavior for that class. If a user class is unable
+ * to subclass PXEventDispatcher because it is already subclassing a different
+ * class, it may implement the PXEventDispatcher protocol.
  * 
- * In order to implement the methods of the protocol, a private PXEventDispatcher
- * ivar should be created, to which all of the protocol method calls should be
- * forwarded.See the #PXEventDispatcher protocol for more information.
+ * In order to implement the methods of the protocol, a private
+ * PXEventDispatcher ivar should be created, to which all of the protocol method
+ * calls should be forwarded. See the #PXEventDispatcher protocol for more
+ * information.
  *
  * @see PXEventDispatcher
  */
@@ -105,14 +105,13 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 - (id) init
 {
 	self = [super init];
-	
+
 	if (self)
 	{
 		target = self;
-		eventListeners = nil;
 		dispatchEvents = YES;
 	}
-	
+
 	return self;
 }
 
@@ -123,9 +122,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  */
 - (id) initWithTarget:(id<PXEventDispatcher>)_target
 {
-	// This is untraditional, but necessary. We want
-	// [init] to be the default initializer since that's
-	// what all the display objects override.
+	// This is untraditional, but necessary. We want [init] to be the default
+	// initializer since that's what all the display objects override.
 	self = [self init];
 
 	if (self)
@@ -138,7 +136,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 - (void) dealloc
 {
-	//Remove all my event listeners
+	// Remove all my event listeners
 	if (eventListeners)
 	{
 		[eventListeners release];
@@ -154,8 +152,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * Adds an event listener.
  *
  * **Example:**
- * In this example the method `onTouch:` is assigned as a
- * listener to the stage's `touchDown` event.
+ * In this example the method `onTouch:` is assigned as a listener to the
+ * stage's `touchDown` event.
  * 
  *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:)];
  *	//...
@@ -176,8 +174,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  * Adds an event listener.
  *
  * **Example:**
- * In this example the method `onTouch:` is assigned as a
- * listener to the stage's `touchDown` event.
+ * In this example the method `onTouch:` is assigned as a listener to the
+ * stage's `touchDown` event.
  * 
  *	[self.stage addEventListenerForType:PXTouchEvent_TouchDown listener:PXListener(onTouchDown:) useCapture:NO priority:0];
  *	//...
@@ -229,7 +227,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	// If there is already an identical listener (ie with the exact same
 	// function), don't do anything.  Similar behavior seen (but not officially
 	// documented) in the Flash player
-	// if ([self getSimilarListener:listener inArr:listenersArray] != nil)
+	//if ([self getSimilarListener:listener inArr:listenersArray] != nil)
 	if (PXGetSimilarListener(listener, listenersArray))
 	{
 		return NO;
@@ -244,7 +242,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	}
 	else
 	{
-		//Loop on each listener and see if it has a higher priority
+		// Loop on each listener and see if it has a higher priority
 
 		unsigned int index = 0;
 		unsigned int count = [listenersArray count];
@@ -348,9 +346,10 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	return YES;
 }
 
-// TODO: Change this up so that individual removeEventListener methods are called.
-// This way subclasses won't have to override this method to know when private event
-// listeners are removed when this method is called.
+// TODO:	Change this up so that individual removeEventListener methods are
+//			called. This way subclasses won't have to override this method to
+//			know when private event listeners are removed when this method is
+//			called.
 /**
  * Removes all of the event listeners.
  */
@@ -415,13 +414,11 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 #pragma mark Querying
 
 /**
- * Returns `YES` if this event dispatcher has a listener of the
- * type.
+ * Returns `YES` if this event dispatcher has a listener of the type.
  *
  * @param type The type.
  *
- * @return Returns `YES` if this event dispatcher has a listener of the
- * type.
+ * @return Returns `YES` if this event dispatcher has a listener of the type.
  */
 - (BOOL) hasEventListenerOfType:(NSString *)type
 {
@@ -446,9 +443,9 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 }
 
 /**
- * This method returns `YES` if an event listener is triggered
- * during any phase of the event flow when an event of the specified type is
- * dispatched to this EventDispatcher object or any of its descendants.
+ * This method returns `YES` if an event listener is triggered during any phase
+ * of the event flow when an event of the specified type is dispatched to this
+ * EventDispatcher object or any of its descendants.
  *
  * Essentially, checks the entire flow path of the event, were it to dispatch
  * right now, and sees if any node along the path has an event listener. This
@@ -456,9 +453,9 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
  *
  * @param type The type
  *
- * @return This method returns `YES` if an event listener is triggered
- * during any phase of the event flow when an event of the specified type
- * is dispatched to this EventDispatcher object or any of its descendants.
+ * @return This method returns `YES` if an event listener is triggered during
+ * any phase of the event flow when an event of the specified type is dispatched
+ * to this EventDispatcher object or any of its descendants.
  */
 - (BOOL) willTriggerEventOfType:(NSString *)type
 {
@@ -565,14 +562,13 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 #pragma mark Private functions
 
 /*
- * This actually dispatches the event listeners
- * Loops through all of the listeners for the given type of event and invokes
- * them with the given event object. Assumes that the event has already been
- * re-set.
+ * This actually dispatches the event listeners. Loops through all of the
+ * listeners for the given type of event and invokes them with the given event
+ * object. Assumes that the event has already been re-set.
  */
 - (void) _invokeEvent:(PXEvent *)event withCurrentTarget:(id)currentTarget eventPhase:(char)phase
 {
-	/* No reason to dispatch events if there are no event listeners */
+	// No reason to dispatch events if there are no event listeners
 	if (!eventListeners)
 		return;            // YES;
 

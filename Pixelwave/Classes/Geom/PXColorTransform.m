@@ -68,7 +68,10 @@
  */
 @implementation PXColorTransform
 
-@synthesize redMultiplier, greenMultiplier, blueMultiplier, alphaMultiplier;
+@synthesize redMultiplier;
+@synthesize greenMultiplier;
+@synthesize blueMultiplier;
+@synthesize alphaMultiplier;
 
 - (id) init
 {
@@ -82,9 +85,12 @@
  * Initializes the color transform with the multipliers specified.
  *
  * @param redMultiplier The red multiplier value ranging between 0.0f and 1.0f.
- * @param greenMultiplier The green multiplier value ranging between 0.0f and 1.0f.
- * @param blueMultiplier The blue multiplier value ranging between 0.0f and 1.0f.
- * @param alphaMultiplier The alpha multiplier value ranging between 0.0f and 1.0f.
+ * @param greenMultiplier The green multiplier value ranging between 0.0f and
+ * 1.0f.
+ * @param blueMultiplier The blue multiplier value ranging between 0.0f and
+ * 1.0f.
+ * @param alphaMultiplier The alpha multiplier value ranging between 0.0f and
+ * 1.0f.
  */
 - (id) initWithRedMult:(float)r greenMult:(float)g blueMult:(float)b alphaMult:(float)a
 {
@@ -146,8 +152,8 @@
 }
 
 /**
- * Accepts color values ranging from 0 to 255 (a simgle byte) and sets the
- * color multipliers by converting them to percent values.
+ * Accepts color values ranging from 0 to 255 (a simgle byte) and sets the color
+ * multipliers by converting them to percent values.
  *
  * @param red The red multiplier value ranging between 0 and 255.
  * @param green The green multiplier value ranging between 0 and 255.
@@ -170,9 +176,12 @@
  * Creates a color transform with the multipliers specified.
  *
  * @param redMultiplier The red multiplier value ranging between 0.0f and 1.0f.
- * @param greenMultiplier The green multiplier value ranging between 0.0f and 1.0f.
- * @param blueMultiplier The blue multiplier value ranging between 0.0f and 1.0f.
- * @param alphaMultiplier The alpha multiplier value ranging between 0.0f and 1.0f.
+ * @param greenMultiplier The green multiplier value ranging between 0.0f and
+ * 1.0f.
+ * @param blueMultiplier The blue multiplier value ranging between 0.0f and
+ * 1.0f.
+ * @param alphaMultiplier The alpha multiplier value ranging between 0.0f and
+ * 1.0f.
  *
  * @return The created color transform.
  */

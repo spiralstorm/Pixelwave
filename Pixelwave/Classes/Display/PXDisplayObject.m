@@ -65,7 +65,7 @@
 #include "PXSettings.h"
 
 // Used for naming instances
-static unsigned _pxDisplayObjectCount = 0;
+static unsigned int _pxDisplayObjectCount = 0;
 
 /**
  * The base class for all elements drawn to the stage.
@@ -121,6 +121,8 @@ static unsigned _pxDisplayObjectCount = 0;
 
 	if (self)
 	{
+		_impRenderGL = (void (*)(id, SEL))[self methodForSelector:@selector(_renderGL)];
+
 		userData = NULL;
 
 		_flags = 0;
@@ -134,23 +136,24 @@ static unsigned _pxDisplayObjectCount = 0;
 		_scaleX = 1.0f;
 		_scaleY = 1.0f;
 		_rotation = 0.0f;
-		
+
 		PXGLMatrixIdentity(&_matrix);
 		PXGLColorTransformIdentity(&_colorTransform);
-		
+
 		// Properties
 		_parent = nil;
 
-		_name = [[NSString alloc] initWithFormat:@"instance%u", _pxDisplayObjectCount];
-		++_pxDisplayObjectCount;
+		// Can not do self.name = as PXStage handles this differently, and would
+		// break for a generic use.
+		_name = [[NSString alloc] initWithFormat:@"instance%u", _pxDisplayObjectCount++];
 
 		_next = nil;
 		_prev = nil;
 
-		_impRenderGL = (void (*)(id, SEL))[self methodForSelector : @selector(_renderGL)];
-
-		_aabb.xMin = 0; _aabb.xMax = 0;
-		_aabb.yMin = 0; _aabb.yMax = 0;
+		_aabb.xMin = 0;
+		_aabb.xMax = 0;
+		_aabb.yMin = 0;
+		_aabb.yMax = 0;
 	}
 
 	return self;
@@ -163,6 +166,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	{
 		PXEngineRemoveFrameListener(self);
 	}
+
 	if ([self hasEventListenerOfType:PXEvent_Render])
 	{
 		PXEngineRemoveRenderListener(self);
@@ -172,10 +176,12 @@ static unsigned _pxDisplayObjectCount = 0;
 		PXEngineRemovePostRenderListener(self);
 	}
 
+	// Have to manually do this because setName forces name to be a value - it
+	// can not be null.
 	[_name release];
 	_name = nil;
 
-	_impRenderGL = 0;
+	_impRenderGL = NULL;
 
 	[super dealloc];
 }
@@ -206,6 +212,7 @@ static unsigned _pxDisplayObjectCount = 0;
 		PX_DISABLE_BIT(_flags, _PXDisplayObjectFlags_visible);
 	}
 }
+
 - (BOOL) visible
 {
 	return PX_IS_BIT_ENABLED(_flags, _PXDisplayObjectFlags_visible);
@@ -220,6 +227,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	
 	return nil;
 }
+
 - (PXDisplayObject *)root
 {
 	if (self == PXEngineGetRoot())
@@ -270,6 +278,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	angle = PXMathToDeg(angle);
 	_rotation = angle * mult;
 }
+
 - (void) _setColorTransform:(PXGLColorTransform *)ct
 {
 	_colorTransform = *ct;
@@ -482,6 +491,7 @@ static unsigned _pxDisplayObjectCount = 0;
 		return 0.0f;
 	return point.x;
 }
+
 - (float) touchY
 {
 	PXPoint *point = [self touchPosition];
@@ -489,6 +499,7 @@ static unsigned _pxDisplayObjectCount = 0;
 		return 0.0f;
 	return point.y;
 }
+
 - (PXPoint *)touchPosition
 {
 	return [self positionOfTouch:PXTouchEngineGetFirstTouch()];
@@ -623,8 +634,7 @@ static unsigned _pxDisplayObjectCount = 0;
 	}
 #endif
 
-	point.x = touchPoint.x;
-	point.y = touchPoint.y;
+	[point setX:touchPoint.x y:touchPoint.y];
 
 	PXPoint *globalPoint = [self globalToLocal:point];
 	[pool releaseObject:point];
@@ -634,8 +644,7 @@ static unsigned _pxDisplayObjectCount = 0;
 
 #pragma mark Flash Methods
 /**
- * Finds the bounding box of this display object in the target coordinate
- * space.
+ * Finds the bounding box of this display object in the target coordinate space.
  *
  * @param targetCoordinateSpace The coordinate space for the bounds
  *
@@ -681,7 +690,7 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  *	bounds = [shape1 boundsWithCoordinateSpace:self];
  *	NSLog (@"shape1 in root = %@\n", [bounds description]);
- *	// bounds = (x=50.0f, y=-25.0f, w=100.0f, h=200.0f)
+ *	// bounds = (x=50.0f, y=25.0f, w=100.0f, h=200.0f)
  */
 - (PXRectangle *)boundsWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace
 {
@@ -800,8 +809,8 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * @param obj The object for testing.
  *
- * @return `YES` if the bounding box of the given object is within the
- * bounding box of this object.
+ * @return `YES` if the bounding box of the given object is within the bounding
+ * box of this object.
  *
  * **Example:**
  *	PXTexture *tex1 = [PXTexture textureWithContentsOfFile:@"image.png"];
@@ -838,14 +847,14 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 /**
- * Tests if the given horizontal and vertical coordinate are within the
- * bounding box of this display object.
+ * Tests if the given horizontal and vertical coordinate are within the bounding
+ * box of this display object.
  *
  * @param x The horizontal coordinate (in stage coordinates) for testing.
  * @param y The vertical coordinate (in stage coordinates) for testing.
  *
- * @return `YES` if point is contained within the bounding box of this
- * display object.
+ * @return `YES` if point is contained within the bounding box of this display
+ * object.
  *
  * **Example:**
  *	PXTexture *tex = [PXTexture textureWithContentsOfFile:@"image.png"];
@@ -877,8 +886,8 @@ static unsigned _pxDisplayObjectCount = 0;
  *
  * @param x The horizontal coordinate (in stage coordinates) for testing.
  * @param y The vertical coordinate (in stage coordinates) for testing.
- * @param shapeFlag If `YES` a detailed collision detection is done of the actual
- * object.  If `NO` just the bounding box is tested.
+ * @param shapeFlag If `YES` a detailed collision detection is done of the
+ * actual object. If `NO` just the bounding box is tested.
  *
  * @return `YES` if point is contained within the bounding box of this
  * display object.
@@ -953,13 +962,14 @@ static unsigned _pxDisplayObjectCount = 0;
 	return NO;
 }
 
-// Engine only function for testing hittest given stage coordinates,
-// WITHOUT recursion. This is almost identical to the public hittest function
-// just that there's no recursion.
+// Engine only function for testing hittest given stage coordinates, WITHOUT
+// recursion. This is almost identical to the public hittest function just that
+// there's no recursion.
 - (BOOL) _hitTestPointWithoutRecursionWithGlobalX:(float)x globalY:(float)y shapeFlag:(BOOL)shapeFlag
 {
 	CGPoint globalPoint = CGPointMake(x, y);
 	globalPoint = PXUtilsGlobalToLocal(self, globalPoint);
+
 	return [self _containsPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];
 }
 
@@ -970,6 +980,7 @@ static unsigned _pxDisplayObjectCount = 0;
 }
 
 #pragma mark Per frame event listeners
+
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
 	char engineListenerToAdd = 0;
