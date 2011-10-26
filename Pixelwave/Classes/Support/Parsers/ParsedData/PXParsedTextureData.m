@@ -52,6 +52,7 @@ PXInline_c PXParsedTextureData *PXParsedTextureDataCreatev(unsigned byteCount, P
 	if (textureInfo)
 	{
 		textureInfo->pixelFormat = pixelFormat;
+		textureInfo->premultiplied = NO;
 
 		textureInfo->size = size;
 		textureInfo->byteCount = byteCount;
