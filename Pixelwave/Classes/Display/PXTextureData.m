@@ -369,7 +369,8 @@ BOOL pxTextureDataExpandEdges = YES;
 							usingContentWidth:width
 								contentHeight:height
 						   contentScaleFactor:contentScaleFactor
-									   format:glFormat];
+									   format:glFormat
+								premultiplied:NO];
 	}
 
 	return self;
@@ -483,10 +484,11 @@ BOOL pxTextureDataExpandEdges = YES;
 
 	[self _setInternalPropertiesWithWidth:texWidth
 								   height:texHeight
-							usingContentWidth:contentWidth
+						usingContentWidth:contentWidth
 							contentHeight:contentHeight
-						contentScaleFactor:1.0f
-									format:PXTextureDataPixelFormat_A8];
+					   contentScaleFactor:1.0f
+								   format:PXTextureDataPixelFormat_A8
+							premultiplied:NO];
 
 	return self;
 }
@@ -497,6 +499,7 @@ BOOL pxTextureDataExpandEdges = YES;
 						   contentHeight:(unsigned)contHeight
 					  contentScaleFactor:(float)contScaleFactor
 								  format:(PXTextureDataPixelFormat)pixFormat
+						   premultiplied:(BOOL)premultiplied
 {
 	textureWidth = texWidth;
 	textureHeight = texHeight;
@@ -504,6 +507,7 @@ BOOL pxTextureDataExpandEdges = YES;
 	_contentHeight = contHeight;
 	_contentScaleFactor = contScaleFactor;
 	pixelFormat = pixFormat;
+	_premultiplied = premultiplied;
 
 	float _maxS, _maxT;
 

@@ -54,6 +54,7 @@ typedef struct
 	unsigned byteCount;
 
 	PXTextureDataPixelFormat pixelFormat;
+	BOOL premultiplied;
 
 	CGSize size;
 } PXParsedTextureData;
