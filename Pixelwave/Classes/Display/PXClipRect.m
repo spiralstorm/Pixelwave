@@ -63,6 +63,11 @@
 	return self;
 }
 
+- (id) initWithClipRect:(PXClipRect *)clipRect
+{
+	return [self initWithX: clipRect->x y: clipRect->y width: clipRect->width height: clipRect->height rotation: clipRect->_contentRotation];
+}
+
 - (void) dealloc
 {
 	if (_vertices)
@@ -223,32 +228,31 @@
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	PXClipRect *newRect = [[PXClipRect allocWithZone:zone] initWithX:x
-																   y:y
-															   width:width
-															  height:height
-															rotation:_contentRotation];
-	
-	return newRect;
+	return [[[self class] allocWithZone:zone] initWithClipRect: self];
 }
 
 #pragma mark Utility
 
-+ (PXClipRect *)clipRectWithX:(float)x y:(float)y
-						width:(float)width height:(float)height
++ (id)clipRectWithX:(float)x y:(float)y
+			  width:(float)width height:(float)height
 {
-	return [[[PXClipRect alloc] initWithX:x y:y
-								 width:width height:height
-								 rotation:0.0f] autorelease];
+	return [[[self alloc] initWithX:x y:y
+							  width:width height:height
+						   rotation:0.0f] autorelease];
 }
 
-+ (PXClipRect *)clipRectWithX:(float)x y:(float)y
-						width:(float)width height:(float)height
-					 rotation:(float)rotation
++ (id)clipRectWithX:(float)x y:(float)y
+			  width:(float)width height:(float)height
+		   rotation:(float)rotation
 {
-	return [[[PXClipRect alloc] initWithX:x y:y
-								 width:width height:height
-								 rotation:rotation] autorelease];
+	return [[[self alloc] initWithX:x y:y
+							  width:width height:height
+						   rotation:rotation] autorelease];
+}
+
++ (id)clipRectWithClipRect:(PXClipRect *)clipRect
+{
+	return [[[self alloc] initWithClipRect: clipRect] autorelease];
 }
 
 @end

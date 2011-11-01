@@ -42,7 +42,7 @@
 #import "PXPoint.h"
 #import "PXEngine.h"
 #import "PXTouchEngine.h"
-#import "PXTouchEngine.h"
+#import "PXExceptionUtils.h"
 
 #include "PXPrivateUtils.h"
 
@@ -68,8 +68,14 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 @synthesize nativeTouch = _nativeTouch;
 @synthesize tapCount = _tapCount;
 
+- (id) initWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable
+{
+	PXThrow(PXException, @"PXTouchEvent must not be initialized via initWithType:bubbles:cancelable:");
+}
+
 /**
  * Creates a touch event.
+ * This is the default initializer.
  *
  * @param type A string representing the type of the event.
  * @param nativeTouch The touch object used for keeping track of what finger started the
@@ -101,6 +107,35 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 	return self;
 }
 
+- (id) initWithEvent:(PXEvent *)event
+{
+	if ([event isKindOfClass: [PXTouchEvent class]])
+	{
+		PXTouchEvent *touchEvent = (PXTouchEvent *)event;
+		self = [self initWithType:touchEvent->_type
+					  nativeTouch:touchEvent->_nativeTouch
+						   stageX:touchEvent->_stageX
+						   stageY:touchEvent->_stageY
+						 tapCount:touchEvent->_tapCount];
+		if (self != nil)
+		{
+			_currentTarget = touchEvent->_currentTarget;
+			_target = touchEvent->_target;
+			_eventPhase = touchEvent->_eventPhase;
+
+			_defaultPrevented = touchEvent->_defaultPrevented;
+			_stopPropagationLevel = touchEvent->_stopPropagationLevel;
+
+			_bubbles = touchEvent->_bubbles;
+			_cancelable = touchEvent->_cancelable;
+		}
+	}
+	else
+		self = [super initWithEvent: event];
+
+	return self;
+}
+
 - (void) dealloc
 {
 	[self setNativeTouch:nil];
@@ -109,22 +144,6 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 }
 
 #pragma mark NSObject overrides
-
-- (id) copyWithZone:(NSZone *)zone
-{
-	PXEvent *event = [[[self class] allocWithZone:zone] initWithType:_type nativeTouch:_nativeTouch stageX:_stageX stageY:_stageY tapCount:_tapCount];
-	event->_currentTarget = _currentTarget;
-	event->_target = _target;
-	event->_eventPhase = _eventPhase;
-
-	event->_defaultPrevented = _defaultPrevented;
-	event->_stopPropegationLevel = _stopPropegationLevel;
-
-	event->_bubbles = _bubbles;
-	event->_cancelable = _cancelable;
-
-	return event;
-}
 
 - (NSString *)description
 {

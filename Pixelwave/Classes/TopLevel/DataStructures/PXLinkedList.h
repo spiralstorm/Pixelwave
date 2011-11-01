@@ -158,6 +158,7 @@ typedef struct _sPXLLNode
 //-- ScriptArg[0]: PX_LINKED_LISTS_USE_POOLED_NODES
 //-- ScriptArg[1]: NO
 - (id) initWithWeakReferences:(BOOL)weakReferences usePooledNodes:(BOOL)pooledNodes;
+- (id) initWithLinkedList:(PXLinkedList *)linkedList;
 
 // Adding, +1 retain
 //-- ScriptName: push
@@ -216,12 +217,13 @@ typedef struct _sPXLLNode
 + (void) cleanNodesPool;
 
 //-- ScriptIgnore
-+ (PXLinkedList *)linkedListWithPooledNodes:(BOOL)pooledNodes;
++ (id)linkedListWithPooledNodes:(BOOL)pooledNodes;
 //-- ScriptIgnore
-+ (PXLinkedList *)linkedWithWeakReferences:(BOOL)weakReferences;
++ (id)linkedWithWeakReferences:(BOOL)weakReferences;
 //-- ScriptName: make
 //-- ScriptArg[0]: PX_LINKED_LISTS_USE_POOLED_NODES
 //-- ScriptArg[1]: NO
-+ (PXLinkedList *)linkedListWithWeakReferences:(BOOL)weakReferences usePooledNodes:(BOOL)pooledNodes;
++ (id)linkedListWithWeakReferences:(BOOL)weakReferences usePooledNodes:(BOOL)pooledNodes;
++ (id)linkedListWithLinkedList:(PXLinkedList *)linkedList;
 
 @end

@@ -89,6 +89,8 @@
 //-- ScriptArg[5]: 0.0f
 - (id) initWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
 
+- (id) initWithMatrix: (PXMatrix*)matrix;
+
 //-- ScriptName: set
 //-- ScriptArg[0]: 1.0f
 //-- ScriptArg[1]: 0.0f
@@ -130,9 +132,11 @@
 //-- ScriptArg[3]: 1.0f
 //-- ScriptArg[4]: 0.0f
 //-- ScriptArg[5]: 0.0f
-+ (PXMatrix *)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
++ (id)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty;
 
 //-- ScriptName: MatrixIdentity
-+ (PXMatrix *)identityMatrix;
++ (id)identityMatrix;
+
++ (id)matrixWithMatrix: (PXMatrix *)matrix;
 
 @end

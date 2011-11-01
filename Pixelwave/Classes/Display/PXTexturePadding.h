@@ -92,14 +92,17 @@ extern "C" {
 			bottom:(float)bottom
 			  left:(float)left;
 
+- (id) initWithTexturePadding:(PXTexturePadding *)padding;
+
 - (void) setTop:(float)top
 		  right:(float)right
 		 bottom:(float)bottom
 		   left:(float)left;
 
-+ (PXTexturePadding *)texturePaddingWithTop:(float)top
-									  right:(float)right
-									 bottom:(float)bottom
-									   left:(float)left;
++ (id)texturePaddingWithTop:(float)top
+					  right:(float)right
+					 bottom:(float)bottom
+					   left:(float)left;
++ (id)texturePaddingWithPadding:(PXTexturePadding *)padding;
 
 @end

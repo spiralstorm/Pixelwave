@@ -79,6 +79,7 @@
 /**
  * Creates a new rectangle with `topLeft` corner at (#x,
  * #y) and size of (#width, #height).
+ * This is th designated initializer.
  *
  * @param x The horizontal coordinate of the `topLeft` corner.
  * @param y The vertical coordinate of the `topLeft` corner.
@@ -101,14 +102,16 @@
 	return self;
 }
 
+- (id) initWithRectangle:(PXRectangle *)rectangle
+{
+	return [self initWithX: rectangle->x y: rectangle->y width: rectangle->width height: rectangle->height];
+}
+
 #pragma mark NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	return [[[self class] allocWithZone:zone] initWithX:x
-												   y:y
-											   width:width
-											  height:height];
+	return [[[self class] allocWithZone:zone] initWithRectangle: self];
 }
 
 - (NSString *)description
@@ -579,9 +582,14 @@
  *	PXRectangle *rect = [PXRectangle rectangleWithX:-5 y:7 width:10 height:4];
  *	// Top-left will be (-5, 7) size will be (10, 4).
  */
-+ (PXRectangle *)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height
++ (id)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-	return [[[PXRectangle alloc] initWithX:x y:y width:width height:height] autorelease];
+	return [[[self alloc] initWithX:x y:y width:width height:height] autorelease];
+}
+
++ (id)rectangleWithRectangle:(PXRectangle *)rectangle
+{
+	return [[[self alloc] initWithRectangle: rectangle] autorelease];
 }
 
 @end

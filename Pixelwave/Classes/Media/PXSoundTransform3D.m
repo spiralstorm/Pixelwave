@@ -71,6 +71,7 @@
 /**
  * Creates a new 3D sound transform with the given `volume` and
  * `pitch`.
+ * This is the designated initializer.
  *
  * @param volume The amplitude of the sound.
  * @param pitch The frequency of the sound.
@@ -100,25 +101,31 @@
 	return self;
 }
 
-#pragma mark NSObject overrides
-
-- (id) copyWithZone:(NSZone *)zone
+- (id) initWithSoundTransform: (PXSoundTransform *)transform
 {
-	PXSoundTransform3D *copy = [[[self class] allocWithZone:zone] initWithVolume:volume pitch:pitch];
+	self = [super initWithSoundTransform: transform];
+	if (self != nil)
+	{
+		if ([transform isKindOfClass: [PXSoundTransform3D class]])
+		{
+			PXSoundTransform3D *transform3D = (PXSoundTransform3D *)transform;
+			x = transform3D->x;
+			y = transform3D->y;
+			z = transform3D->z;
 
-	copy.x = x;
-	copy.y = y;
-	copy.z = z;
+			velocityX = transform3D->velocityX;
+			velocityY = transform3D->velocityY;
+			velocityZ = transform3D->velocityZ;
 
-	copy.velocityX = velocityX;
-	copy.velocityY = velocityY;
-	copy.velocityZ = velocityZ;
+			referenceDistance = transform3D->referenceDistance;
+			logarithmicExponent = transform3D->logarithmicExponent;
+		}
+	}
 
-	copy.referenceDistance  = referenceDistance;
-	copy.logarithmicExponent = logarithmicExponent;
-
-	return copy;
+	return self;
 }
+
+#pragma mark NSObject overrides
 
 - (NSString *)description
 {
@@ -220,9 +227,9 @@
  *
  * @see PXSoundChannel, PXSoundMixer, PXSoundListener
  */
-+ (PXSoundTransform3D *)soundTransform3DWithVolume:(float)volume pitch:(float)pitch
++ (id)soundTransform3DWithVolume:(float)volume pitch:(float)pitch
 {
-	return [[[PXSoundTransform3D alloc] initWithVolume:volume pitch:pitch] autorelease];
+	return [self soundTransformWithVolume:volume pitch:pitch];
 }
 
 @end

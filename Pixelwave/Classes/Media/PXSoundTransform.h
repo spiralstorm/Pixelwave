@@ -63,10 +63,12 @@
 //-- ScriptArg[0]: 1.0f
 //-- ScriptArg[1]: 1.0f
 - (id) initWithVolume:(float)volume pitch:(float)pitch;
+- (id) initWithSoundTransform: (PXSoundTransform *)transform;
 
 //-- ScriptName: make
 //-- ScriptArg[0]: 1.0f
 //-- ScriptArg[1]: 1.0f
-+ (PXSoundTransform *)soundTransformWithVolume:(float)volume pitch:(float)pitch;
++ (id)soundTransformWithVolume:(float)volume pitch:(float)pitch;
++ (id)soundTransformWithSoundTransform:(PXSoundTransform *)transform;
 
 @end
