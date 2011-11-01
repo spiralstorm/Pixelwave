@@ -1100,7 +1100,7 @@ static unsigned int _pxDisplayObjectCount = 0;
  * This is where the actual event flow happens, with capture/bubble phases and all that
  *
  * Event flow notes: (From testing the Flash Player)
- * - Changing the order of the display list while an event is dispatched shouldn't affect its bubble/capture propegation.
+ * - Changing the order of the display list while an event is dispatched shouldn't affect its bubble/capture propagation.
  * The event flow uses the display list structure as it existed when the function was called.
 */
 
@@ -1166,7 +1166,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	}
 
 	// Start going through the phases
-	BOOL propegationStopped = NO;
+	BOOL propagationStopped = NO;
 
 	/////////////////////////////////////
 	// Invoke with the 'capture' phase //
@@ -1176,9 +1176,9 @@ static unsigned int _pxDisplayObjectCount = 0;
 	{
 		[node _invokeEvent:event withCurrentTarget:node eventPhase:PXEventPhase_Capture];
 
-		if (event->_stopPropegationLevel > 0)
+		if (event->_stopPropagationLevel > 0)
 		{
-			propegationStopped = YES;
+			propagationStopped = YES;
 			break;
 		}
 	}
@@ -1187,17 +1187,17 @@ static unsigned int _pxDisplayObjectCount = 0;
 	// Invoke with the 'target' phase //
 	////////////////////////////////////
 	
-	if (!propegationStopped)
+	if (!propagationStopped)
 	{
 		[self _invokeEvent:event withCurrentTarget:self eventPhase:PXEventPhase_Target];
-		propegationStopped = event->_stopPropegationLevel > 0;
+		propagationStopped = event->_stopPropagationLevel > 0;
 	}
 
 	//////////////////////////////////////
 	// Invoke with the 'bubbling' phase //
 	//////////////////////////////////////
 	
-	if (event.bubbles && !propegationStopped)
+	if (event.bubbles && !propagationStopped)
 	{
 		
 		/* It's been tested and This is not TRUE (that's why it's commented
@@ -1224,9 +1224,9 @@ static unsigned int _pxDisplayObjectCount = 0;
 			//node = (PXDisplayObject *)object;
 
 			[node _invokeEvent:event withCurrentTarget:node eventPhase:PXEventPhase_Bubbling];
-			if (event->_stopPropegationLevel > 0)
+			if (event->_stopPropagationLevel > 0)
 			{
-				propegationStopped = YES;
+				propagationStopped = YES;
 				break;
 			}
 		}
@@ -1272,7 +1272,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 
 #pragma mark Private public Functions
 
-- (void) _dispatchAndPropegateEvent:(PXEvent *)event
+- (void) _dispatchAndPropagateEvent:(PXEvent *)event
 {
 	[self dispatchEvent:event];
 }

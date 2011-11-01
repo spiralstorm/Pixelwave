@@ -104,6 +104,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 /**
  * Makes a new event with the given properties. These properties may not change
  * after the event object is created.
+ * This is th designated initializer.
  *
  * @param type A string representing the type of the event
  * @param bubbles Whether the event should participate in the bubbling phase of the event
@@ -136,10 +137,26 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 		_currentTarget = nil;
 
 		_defaultPrevented = NO;
-		_stopPropegationLevel = _PXStopPropegationLevel_KeepGoing;
+		_stopPropagationLevel = _PXStopPropagationLevel_KeepGoing;
 
 		_isBeingDispatched = NO;
 		//_isBroadcastEvent = NO;
+	}
+
+	return self;
+}
+
+- (id) initWithEvent:(PXEvent *)event
+{
+	self = [self initWithType: event->_type bubbles: event->_bubbles cancelable: event->_cancelable];
+	if (self != nil)
+	{
+		_currentTarget = event->_currentTarget;
+		_target = event->_target;
+		_eventPhase = event->_eventPhase;
+		
+		_defaultPrevented = event->_defaultPrevented;
+		_stopPropagationLevel = event->_stopPropagationLevel;
 	}
 
 	return self;
@@ -156,15 +173,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	PXEvent *e = [[[self class] allocWithZone:zone] initWithType:_type bubbles:_bubbles cancelable:_cancelable];
-	e->_currentTarget = _currentTarget;
-	e->_target = _target;
-	e->_eventPhase = _eventPhase;
-
-	e->_defaultPrevented = _defaultPrevented;
-	e->_stopPropegationLevel = _stopPropegationLevel;
-
-	return e;
+	return [[[self class] allocWithZone:zone] initWithEvent: self];
 }
 
 // toString()
@@ -191,7 +200,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 	_currentTarget = nil;
 
 	_defaultPrevented = NO;
-	_stopPropegationLevel = _PXStopPropegationLevel_KeepGoing;
+	_stopPropagationLevel = _PXStopPropagationLevel_KeepGoing;
 
 	_isBeingDispatched = NO;
 }
@@ -218,15 +227,15 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 
 /**
  * Prevents the event from being dispatched any further in the event flow.
- * @see stopImmediatePropegation
+ * @see stopImmediatePropagation
  */
 // Only relevant for the display list flow
 - (void) stopPropagation
 {
-	// If stopImmediatePropegation was called, this will have no effect
-	if (_stopPropegationLevel == _PXStopPropegationLevel_KeepGoing)
+	// If stopImmediatePropagation was called, this will have no effect
+	if (_stopPropagationLevel == _PXStopPropagationLevel_KeepGoing)
 	{
-		_stopPropegationLevel = _PXStopPropegationLevel_StopAfter;
+		_stopPropagationLevel = _PXStopPropagationLevel_StopAfter;
 	}
 }
 
@@ -235,12 +244,12 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
  * dispatching for all remaining event listeners registered to listen for this
  * event.
  *
- * @see stopPropegation
+ * @see stopPropagation
  */
 // Always relevant
 - (void) stopImmediatePropagation
 {
-	_stopPropegationLevel = _PXStopPropegationLevel_StopNow;
+	_stopPropagationLevel = _PXStopPropagationLevel_StopNow;
 }
 
 /**
@@ -263,6 +272,11 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 + (id)eventWithType:(NSString *)type
 {
 	return [[[self alloc] initWithType:type] autorelease];
+}
+
++ (id)eventWithEvent:(PXEvent *)event
+{
+	return [[[self alloc] initWithEvent: event] autorelease];
 }
 
 /**

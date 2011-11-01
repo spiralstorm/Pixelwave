@@ -247,7 +247,7 @@
 											bubbles:NO
 										  cancelable:NO];
 			
-			[child _dispatchAndPropegateEvent:e];
+			[child _dispatchAndPropagateEvent:e];
 			// Note child is not guaranteed to be in the display list, or even
 			// exist at this point
 			
@@ -409,7 +409,7 @@
 									   bubbles:NO
 									 cancelable:NO];
 
-			[child _dispatchAndPropegateEvent:event];
+			[child _dispatchAndPropagateEvent:event];
 
 			[event release];
 		}
@@ -1085,11 +1085,11 @@
 // Tell all of my children they were added to the stage
 // Overriden
 //- (void) _dispatchAddedToStage
-- (void) _dispatchAndPropegateEvent:(PXEvent *)event
+- (void) _dispatchAndPropagateEvent:(PXEvent *)event
 {
 	// Dispatch my event
 	//[super _dispatchAddedToStage];
-	[super _dispatchAndPropegateEvent:event];
+	[super _dispatchAndPropagateEvent:event];
 	
 	// If I have no children, don't bother
 	if (_numChildren <= 0)
@@ -1113,9 +1113,9 @@
 	for (; child;)
 	{
 		//[child _dispatchAddedToStage];
-		// Propegate the event down to the child
+		// Propagate the event down to the child
 		eCopy = [event copy];
-		[child _dispatchAndPropegateEvent:eCopy];
+		[child _dispatchAndPropagateEvent:eCopy];
 		[eCopy release];
 		eCopy = nil;
 		

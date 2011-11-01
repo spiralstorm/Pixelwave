@@ -65,12 +65,17 @@
 	return self;
 }
 
+- (id) initWithTexturePadding:(PXTexturePadding *)padding
+{
+	return [self initWithTop:padding->_padding.top
+					   right:padding->_padding.right
+					  bottom:padding->_padding.bottom
+						left:padding->_padding.left];
+}
+
 - (id) copyWithZone:(NSZone *)zone
 {
-	return [[PXTexturePadding allocWithZone:zone] initWithTop:_padding.top
-														right:_padding.right
-													   bottom:_padding.bottom
-														 left:_padding.left];
+	return [[[self class] allocWithZone:zone] initWithTexturePadding: self];
 }
 
 #pragma mark -
@@ -119,9 +124,14 @@
 #pragma mark static methods
 #pragma mark -
 
-+ (PXTexturePadding *)texturePaddingWithTop:(float)top right:(float)right bottom:(float)bottom left:(float)left
++ (id)texturePaddingWithTop:(float)top right:(float)right bottom:(float)bottom left:(float)left
 {
-	return [[[PXTexturePadding alloc] initWithTop:top right:right bottom:bottom left:left] autorelease];
+	return [[[self alloc] initWithTop:top right:right bottom:bottom left:left] autorelease];
+}
+
++ (id)texturePaddingWithPadding:(PXTexturePadding *)padding;
+{
+	return [[[self alloc] initWithTexturePadding:padding] autorelease];
 }
 
 @end

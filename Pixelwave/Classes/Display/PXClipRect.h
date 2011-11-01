@@ -108,7 +108,10 @@
 // When making a version of this method without rotation, the compiler freaks
 // out because it can't tell the difference between it and the similarly named
 // method in PXRectangle.
+// This is the designated initializer.
 - (id) initWithX:(float)x y:(float)y width:(float)width height:(float)height rotation:(float)rotation;
+
+- (id) initWithClipRect:(PXClipRect *)clipRect;
 
 - (void) setX:(float)x
 			y:(float)y
@@ -117,8 +120,9 @@
 	 rotation:(float)rotation;
 
 // Utility
-+ (PXClipRect *)clipRectWithX:(float)x y:(float)y width:(float)width height:(float)height;
-+ (PXClipRect *)clipRectWithX:(float)x y:(float)y width:(float)width height:(float)height rotation:(float)rotation;
++ (id)clipRectWithX:(float)x y:(float)y width:(float)width height:(float)height;
++ (id)clipRectWithX:(float)x y:(float)y width:(float)width height:(float)height rotation:(float)rotation;
++ (id)clipRectWithClipRect:(PXClipRect *)clipRect;
 
 @end
 

@@ -68,6 +68,7 @@
 
 /**
  * Creates a new matrix with values of (a, b, c, d, tx, ty).
+ * This is the designated initializer.
  *
  * @param a The value that affects the positioning of pixels along the x-axis when
  * scaling or rotating.
@@ -98,11 +99,16 @@
 	return self;
 }
 
+- (id) initWithMatrix: (PXMatrix*)matrix
+{
+	return [self initWithA: matrix->a b: matrix->b c: matrix->c d: matrix->d tx: matrix->tx ty: matrix->ty];
+}
+
 #pragma mark NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	return [[[self class] allocWithZone:zone] initWithA:a b:b c:c d:d tx:tx ty:ty];
+	return [[[self class] allocWithZone:zone] initWithMatrix: self];
 }
 
 - (NSString *)description
@@ -400,9 +406,9 @@
  *	PXMatrix *matrix = [PXMatrix matrixWithA:0.866025f b:0.5f c:0.5f d:0.866025f tx:-4.0f ty:2.5f];
  *	// matrix will be (a=0.866025f, b=0.5f, c=0.5f, d=0.866025f, tx=-4.0f, ty=2.5f)
  */
-+ (PXMatrix *)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
++ (id)matrixWithA:(float)a b:(float)b c:(float)c d:(float)d tx:(float)tx ty:(float)ty
 {
-	return [[[PXMatrix alloc] initWithA:a b:b c:c d:d tx:tx ty:ty] autorelease];
+	return [[[self alloc] initWithA:a b:b c:c d:d tx:tx ty:ty] autorelease];
 }
 
 /**
@@ -412,9 +418,14 @@
  *	PXMatrix *matrix = [PXMatrix identityMatrix];
  *	// matrix will be (a=1.0f, b=0.0f, c=0.0f, d=1.0f, tx=0.0f, ty=0.0f)
  */
-+ (PXMatrix *)identityMatrix
++ (id)identityMatrix
 {
-	return [[[PXMatrix alloc] init] autorelease];
+	return [[[self alloc] init] autorelease];
+}
+
++ (id)matrixWithMatrix: (PXMatrix *)matrix
+{
+	return [[[self alloc] initWithMatrix: matrix] autorelease];
 }
 
 @end

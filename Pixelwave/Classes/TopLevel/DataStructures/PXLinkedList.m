@@ -190,6 +190,7 @@ _PXLLNode pxLinkedListBadNode;
 /**
  * Creates a new linked list that uses pooled nodes if specified and only
  * retains added objects if #weakReferences is set to NO.
+ * This is the designated initializer.
  *
  * @param weakReferences `YES` if the list should not retain added elements;
  * `NO` if it should. Setting this to `YES` is only
@@ -215,6 +216,17 @@ _PXLLNode pxLinkedListBadNode;
 
 		_keepStrongReference = !weakReferences;
 		_pooledNodes = pooledNodes;
+	}
+
+	return self;
+}
+
+- (id) initWithLinkedList:(PXLinkedList *)linkedList
+{
+	self = [self initWithWeakReferences: !linkedList->_keepStrongReference usePooledNodes: linkedList->_pooledNodes];
+	if (self != nil)
+	{
+		[self addObjectsFromList:linkedList];
 	}
 
 	return self;
@@ -1561,12 +1573,7 @@ _PXLLNode pxLinkedListBadNode;
 }
 - (id) copyWithZone:(NSZone *)zone
 {
-	PXLinkedList *list = [[[self class] allocWithZone:zone] initWithWeakReferences:!_keepStrongReference
-																	usePooledNodes:_pooledNodes];
-
-	[list addObjectsFromList:self];
-
-	return list;
+	return [[[self class] allocWithZone:zone] initWithLinkedList:self];
 }
 
 #pragma mark Pooling
@@ -1594,9 +1601,9 @@ _PXLLNode pxLinkedListBadNode;
  *	list = [PXLinkedList linkedListWithPooledNodes:NO];
  *	// list will not use pooled nodes
  */
-+ (PXLinkedList *)linkedListWithPooledNodes:(BOOL)pooledNodes
++ (id)linkedListWithPooledNodes:(BOOL)pooledNodes
 {
-	return [[[PXLinkedList alloc] initWithPooledNodes:pooledNodes] autorelease];
+	return [[[self alloc] initWithPooledNodes:pooledNodes] autorelease];
 }
 
 /**
@@ -1613,9 +1620,9 @@ _PXLLNode pxLinkedListBadNode;
  *	PXLinkedList *list = [PXLinkedList linkedWithWeakReferences:YES];
  *	// list will use weak references (will not retain objects added to it)
  */
-+ (PXLinkedList *)linkedWithWeakReferences:(BOOL)weakReferences
++ (id)linkedWithWeakReferences:(BOOL)weakReferences
 {
-	return [[[PXLinkedList alloc] initWithWeakReferences:weakReferences] autorelease];
+	return [[[self alloc] initWithWeakReferences:weakReferences] autorelease];
 }
 
 /**
@@ -1634,9 +1641,14 @@ _PXLLNode pxLinkedListBadNode;
  *	PXLinkedList *list = [PXLinkedList linkedWithWeakReferences:YES usePooledNodes:YES];
  *	// list will use weak references (will not retain objects added to it) and will use pooled nodes.
  */
-+ (PXLinkedList *)linkedListWithWeakReferences:(BOOL)weakReferences usePooledNodes:(BOOL)pooledNodes
++ (id)linkedListWithWeakReferences:(BOOL)weakReferences usePooledNodes:(BOOL)pooledNodes
 {
-	return [[[PXLinkedList alloc] initWithWeakReferences:weakReferences usePooledNodes:pooledNodes] autorelease];
+	return [[[self alloc] initWithWeakReferences:weakReferences usePooledNodes:pooledNodes] autorelease];
+}
+
++ (id)linkedListWithLinkedList:(PXLinkedList *)linkedList;
+{
+	return [[[self alloc] initWithLinkedList: linkedList] autorelease];
 }
 
 @end
