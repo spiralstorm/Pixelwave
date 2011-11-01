@@ -80,7 +80,7 @@
 /**
  * The texture data that this texture represents.
  */
-@property (nonatomic, assign) PXTextureData *textureData;
+@property (nonatomic, retain) PXTextureData *textureData;
 /**
  * The clip area of the texture data that this texture is representing. To
  * show the entire image, set this property to nil.

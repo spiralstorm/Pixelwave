@@ -88,15 +88,15 @@
  * A point with the values of the `width` and `height`
  * properties.
  */
-@property (nonatomic, assign) PXPoint *size;
+@property (nonatomic, copy) PXPoint *size;
 /**
  * A point with the values of the rectangle's bottom-right corner cordinates.
  */
-@property (nonatomic, assign) PXPoint *bottomRight;
+@property (nonatomic, copy) PXPoint *bottomRight;
 /**
  * A point with the values of the rectangle's top-left corner cordinates.
  */
-@property (nonatomic, assign) PXPoint *topLeft;
+@property (nonatomic, copy) PXPoint *topLeft;
 
 //-- ScriptName: Rectangle
 //-- ScriptArg[0]: 0.0f
