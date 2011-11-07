@@ -1150,10 +1150,11 @@
 	CGRect _bounds = CGRectZero;
 	[self _measureLocalBounds:&_bounds];
 
-//	float xMin = _bounds.origin.x;
-//	float xMax = abs(xMin) + _bounds.size.width;
-//	float yMin = _bounds.origin.y;
-//	float yMax = abs(yMin) + _bounds.size.height;
+	if (CGRectIsEmpty(_bounds))
+	{
+		_bounds.origin.x = _bounds.origin.y = INFINITY;
+		_bounds.size.width = _bounds.size.height = -INFINITY;
+	}
 
 	float xMin = _bounds.origin.x;
 	float xMax = xMin + _bounds.size.width;
@@ -1173,16 +1174,6 @@
 		if ((_yMax) < (_y)) (_yMax) = (_y); \
 	}
 
-	float rectX = 0.0f;
-	float rectY = 0.0f;
-	float rectW = 0.0f;
-	float rectH = 0.0f;
-
-	float x1; float y1;
-	float x2; float y2;
-	float x3; float y3;
-	float x4; float y4;
-
 	PXDisplayObject *loopChild;
 	unsigned loopIndex;
 
@@ -1196,15 +1187,15 @@
 			continue;
 		}
 
-		rectX = _bounds.origin.x;
-		rectY = _bounds.origin.y;
-		rectW = _bounds.size.width;
-		rectH = _bounds.size.height;
+		float rectX = _bounds.origin.x;
+		float rectY = _bounds.origin.y;
+		float rectW = _bounds.size.width;
+		float rectH = _bounds.size.height;
 
-		x1 = rectX;			y1 = rectY;
-		x2 = rectX;			y2 = rectY + rectH;
-		x3 = rectX + rectW;	y3 = rectY;
-		x4 = rectX + rectW;	y4 = rectY + rectH;
+		float x1 = rectX,			y1 = rectY;
+		float x2 = rectX,			y2 = rectY + rectH;
+		float x3 = rectX + rectW,	y3 = rectY;
+		float x4 = rectX + rectW,	y4 = rectY + rectH;
 
 		PXGLMatrixConvert4Pointsv(&(loopChild->_matrix),
 								  &x1, &y1,
@@ -1222,6 +1213,9 @@
 	retBounds->origin.y = yMin;
 	retBounds->size.width  = xMax - xMin;
 	retBounds->size.height = yMax - yMin;
+
+	if (CGRectIsEmpty(*retBounds))
+		*retBounds = CGRectZero;
 }
 
 - (BOOL) _hitTestPointWithLocalX:(float)x

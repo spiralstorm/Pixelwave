@@ -534,7 +534,7 @@
 }
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
-	// Validate to get the correcdt bounds.
+	// Validate to get the correct bounds.
 	[self validate];
 
 	if (renderer)
