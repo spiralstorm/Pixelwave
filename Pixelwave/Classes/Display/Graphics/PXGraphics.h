@@ -1,0 +1,131 @@
+/*
+ *  _____                       ___                                            
+ * /\  _ `\  __                /\_ \                                           
+ * \ \ \L\ \/\_\   __  _    ___\//\ \    __  __  __    ___     __  __    ___   
+ *  \ \  __/\/\ \ /\ \/ \  / __`\\ \ \  /\ \/\ \/\ \  / __`\  /\ \/\ \  / __`\ 
+ *   \ \ \/  \ \ \\/>  </ /\  __/ \_\ \_\ \ \_/ \_/ \/\ \L\ \_\ \ \_/ |/\  __/ 
+ *    \ \_\   \ \_\/\_/\_\\ \____\/\____\\ \___^___ /\ \__/|\_\\ \___/ \ \____\
+ *     \/_/    \/_/\//\/_/ \/____/\/____/ \/__//__ /  \/__/\/_/ \/__/   \/____/
+ *       
+ *           www.pixelwave.org + www.spiralstormgames.com
+ *                            ~;   
+ *                           ,/|\.           
+ *                         ,/  |\ \.                 Core Team: Oz Michaeli
+ *                       ,/    | |  \                           John Lattin
+ *                     ,/      | |   |
+ *                   ,/        |/    |
+ *                 ./__________|----'  .
+ *            ,(   ___.....-,~-''-----/   ,(            ,~            ,(        
+ * _.-~-.,.-'`  `_.\,.',.-'`  )_.-~-./.-'`  `_._,.',.-'`  )_.-~-.,.-'`  `_._._,.
+ * 
+ * Copyright (c) 2011 Spiralstorm Games http://www.spiralstormgames.com
+ * 
+ * This software is provided 'as-is', without any express or implied
+ * warranty. In no event will the authors be held liable for any damages
+ * arising from the use of this software.
+ * 
+ * Permission is granted to anyone to use this software for any purpose,
+ * including commercial applications, and to alter it and redistribute it
+ * freely, subject to the following restrictions:
+ *
+ * 1. The origin of this software must not be misrepresented; you must not
+ *    claim that you wrote the original software. If you use this software
+ *    in a product, an acknowledgment in the product documentation would be
+ *    appreciated but is not required.
+ * 2. Altered source versions must be plainly marked as such, and must not be
+ *    misrepresented as being the original software.
+ * 3. This notice may not be removed or altered from any source distribution.
+ */
+
+#include "PXGraphicsUtilTypes.h"
+
+@class PXTextureData;
+@class PXMatrix;
+
+@interface PXGraphics : NSObject
+{
+@protected
+	void *vGraphicsUtil;
+}
+
+#pragma mark -
+#pragma mark Fill
+#pragma mark -
+
+- (void) beginFill:(unsigned int)color;
+- (void) beginFill:(unsigned int)color alpha:(float)alpha;
+
+- (void) beginFillWithTextureData:(PXTextureData *)textureData;
+- (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix;
+- (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat;
+- (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth;
+
+- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios;
+- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix;
+- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod;
+- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod;
+- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio;
+
+- (void) endFill;
+
+#pragma mark -
+#pragma mark Lines
+#pragma mark -
+
+- (void) lineStyle;
+- (void) lineStyleWithThickness:(float)thickness;
+- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color;
+- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha;
+- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting;
+- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode;
+- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps;
+- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints;
+- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit;
+
+- (void) lineStyleWithTextureData:(PXTextureData *)textureData;
+- (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix;
+- (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat;
+- (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth;
+
+- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios;
+- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix;
+- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod;
+- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod;
+- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio;
+
+#pragma mark -
+#pragma mark Draw
+#pragma mark -
+
+- (void) moveToX:(float)x y:(float)y;
+- (void) lineToX:(float)x y:(float)y;
+- (void) curveToControlX:(float)controlX controlY:(float)controlY anchorX:(float)anchorX anchorY:(float)anchorY;
+
+// Need to be of type PXGraphicsData
+- (void) drawGraphicsData:(NSArray *)graphicsData;
+
+// The commands describe how to read the data
+- (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data;
+- (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data winding:(PXGraphicsPathWinding)winding;
+
+- (void) clear;
+
+#pragma mark -
+#pragma mark Utility
+#pragma mark -
+
+- (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height;
+- (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth;
+- (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth ellipseHeight:(float)ellipseHeight;
+- (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius;
+- (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height;
+
+@end
+
+@interface PXGraphics(PrivateButPublic)
+- (void) _measureLocalBounds:(CGRect *)retBounds;
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y;
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag;
+
+- (void) _renderGL;
+@end

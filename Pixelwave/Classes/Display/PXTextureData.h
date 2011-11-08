@@ -71,7 +71,7 @@
 	// Either GLL_REPEAT or GL_CLAMP_TO_EDGE
 	unsigned short _wrapType;
 @private
-	// åPixel format in memory
+	// Pixel format in memory
 	PXTextureDataPixelFormat pixelFormat;
 	// Actual texture size (Must be a power of 2)
 	GLsizei textureWidth;

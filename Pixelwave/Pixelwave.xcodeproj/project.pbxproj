@@ -76,8 +76,6 @@
 		2DAF67C511C58E2800A66884 /* PXDisplayObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAF67AF11C58E2800A66884 /* PXDisplayObject.m */; };
 		2DAF67C611C58E2800A66884 /* PXDisplayObjectContainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DAF67B011C58E2800A66884 /* PXDisplayObjectContainer.h */; };
 		2DAF67C711C58E2800A66884 /* PXDisplayObjectContainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAF67B111C58E2800A66884 /* PXDisplayObjectContainer.m */; };
-		2DAF67C811C58E2800A66884 /* PXGraphics.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DAF67B211C58E2800A66884 /* PXGraphics.h */; };
-		2DAF67C911C58E2800A66884 /* PXGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAF67B311C58E2800A66884 /* PXGraphics.m */; };
 		2DAF67CA11C58E2800A66884 /* PXInteractiveObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DAF67B411C58E2800A66884 /* PXInteractiveObject.h */; };
 		2DAF67CB11C58E2800A66884 /* PXInteractiveObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAF67B511C58E2800A66884 /* PXInteractiveObject.m */; };
 		2DAF67CC11C58E2800A66884 /* PXShape.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DAF67B611C58E2800A66884 /* PXShape.h */; };
@@ -389,6 +387,31 @@
 		5286DBEB13E0CFCA00E5971F /* CJSONSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBD613E0CFCA00E5971F /* CJSONSerializer.h */; };
 		5286DBEC13E0CFCA00E5971F /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBD713E0CFCA00E5971F /* CJSONSerializer.m */; };
 		5286DBED13E0CFCA00E5971F /* JSONRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBD813E0CFCA00E5971F /* JSONRepresentation.h */; };
+		52876F0F1469C3A900056E60 /* PXGraphicsUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 52876F0C1469C3A900056E60 /* PXGraphicsUtils.c */; };
+		52876F101469C3A900056E60 /* PXGraphicsUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F0D1469C3A900056E60 /* PXGraphicsUtils.h */; };
+		52876F111469C3A900056E60 /* PXGraphicsUtilTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F0E1469C3A900056E60 /* PXGraphicsUtilTypes.h */; };
+		52876F131469C82500056E60 /* libGLU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52876F121469C82500056E60 /* libGLU.a */; };
+		52876F151469C83500056E60 /* glu.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F141469C83500056E60 /* glu.h */; };
+		52876F181469CE6900056E60 /* PXGraphicsFillGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F161469CE6800056E60 /* PXGraphicsFillGenerator.h */; };
+		52876F191469CE6900056E60 /* PXGraphicsFillGenerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 52876F171469CE6900056E60 /* PXGraphicsFillGenerator.c */; };
+		52876F1C1469CF2300056E60 /* PXGraphicsStrokeGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F1A1469CF2300056E60 /* PXGraphicsStrokeGenerator.h */; };
+		52876F1D1469CF2300056E60 /* PXGraphicsStrokeGenerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 52876F1B1469CF2300056E60 /* PXGraphicsStrokeGenerator.c */; };
+		52876F211469E42B00056E60 /* PXGraphics.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F1F1469E42B00056E60 /* PXGraphics.h */; };
+		52876F221469E42B00056E60 /* PXGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 52876F201469E42B00056E60 /* PXGraphics.m */; };
+		52876F251469E43B00056E60 /* PXGraphicsData.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F231469E43B00056E60 /* PXGraphicsData.h */; };
+		52876F291469E45A00056E60 /* PXGraphicsBitmapFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F271469E45A00056E60 /* PXGraphicsBitmapFill.h */; };
+		52876F2A1469E45A00056E60 /* PXGraphicsBitmapFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 52876F281469E45A00056E60 /* PXGraphicsBitmapFill.m */; };
+		52876F2D1469E4A300056E60 /* PXGraphicsEndFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F2B1469E4A200056E60 /* PXGraphicsEndFill.h */; };
+		52876F2E1469E4A300056E60 /* PXGraphicsEndFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 52876F2C1469E4A200056E60 /* PXGraphicsEndFill.m */; };
+		52876F311469E4C500056E60 /* PXGraphicsGradientFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F2F1469E4C400056E60 /* PXGraphicsGradientFill.h */; };
+		52876F321469E4C500056E60 /* PXGraphicsGradientFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 52876F301469E4C500056E60 /* PXGraphicsGradientFill.m */; };
+		52876F351469E4DE00056E60 /* PXGraphicsPath.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F331469E4DC00056E60 /* PXGraphicsPath.h */; };
+		52876F361469E4DE00056E60 /* PXGraphicsPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 52876F341469E4DD00056E60 /* PXGraphicsPath.m */; };
+		52876F391469E4FB00056E60 /* PXGraphicsSolidFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F371469E4FA00056E60 /* PXGraphicsSolidFill.h */; };
+		52876F3A1469E4FB00056E60 /* PXGraphicsSolidFill.m in Sources */ = {isa = PBXBuildFile; fileRef = 52876F381469E4FB00056E60 /* PXGraphicsSolidFill.m */; };
+		52876F3E1469E52000056E60 /* PXGraphicsStroke.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F3C1469E51E00056E60 /* PXGraphicsStroke.h */; };
+		52876F3F1469E52000056E60 /* PXGraphicsStroke.m in Sources */ = {isa = PBXBuildFile; fileRef = 52876F3D1469E51F00056E60 /* PXGraphicsStroke.m */; };
+		52876F421469E6F000056E60 /* PXGraphicsFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F401469E6EE00056E60 /* PXGraphicsFill.h */; };
 		5288459512B7DA44000F88E3 /* PXEngineUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5288459312B7DA44000F88E3 /* PXEngineUtils.h */; };
 		5288459612B7DA44000F88E3 /* PXEngineUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5288459412B7DA44000F88E3 /* PXEngineUtils.m */; };
 		528845F512B7E997000F88E3 /* PXPooledObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 528845F412B7E997000F88E3 /* PXPooledObject.h */; };
@@ -573,8 +596,6 @@
 		2DAF67AF11C58E2800A66884 /* PXDisplayObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXDisplayObject.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2DAF67B011C58E2800A66884 /* PXDisplayObjectContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXDisplayObjectContainer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2DAF67B111C58E2800A66884 /* PXDisplayObjectContainer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXDisplayObjectContainer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		2DAF67B211C58E2800A66884 /* PXGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXGraphics.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		2DAF67B311C58E2800A66884 /* PXGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXGraphics.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2DAF67B411C58E2800A66884 /* PXInteractiveObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXInteractiveObject.h; sourceTree = "<group>"; };
 		2DAF67B511C58E2800A66884 /* PXInteractiveObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXInteractiveObject.m; sourceTree = "<group>"; };
 		2DAF67B611C58E2800A66884 /* PXShape.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXShape.h; sourceTree = "<group>"; };
@@ -886,6 +907,31 @@
 		5286DBD613E0CFCA00E5971F /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		5286DBD713E0CFCA00E5971F /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		5286DBD813E0CFCA00E5971F /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
+		52876F0C1469C3A900056E60 /* PXGraphicsUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGraphicsUtils.c; sourceTree = "<group>"; };
+		52876F0D1469C3A900056E60 /* PXGraphicsUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsUtils.h; sourceTree = "<group>"; };
+		52876F0E1469C3A900056E60 /* PXGraphicsUtilTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsUtilTypes.h; sourceTree = "<group>"; };
+		52876F121469C82500056E60 /* libGLU.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLU.a; path = ../../../../Downloads/Tesselation/TesselationTest/iGLU/libGLU.a; sourceTree = "<group>"; };
+		52876F141469C83500056E60 /* glu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = glu.h; path = ../../../../../../../../Downloads/Tesselation/TesselationTest/iGLU/include/glu.h; sourceTree = "<group>"; };
+		52876F161469CE6800056E60 /* PXGraphicsFillGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsFillGenerator.h; sourceTree = "<group>"; };
+		52876F171469CE6900056E60 /* PXGraphicsFillGenerator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGraphicsFillGenerator.c; sourceTree = "<group>"; };
+		52876F1A1469CF2300056E60 /* PXGraphicsStrokeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsStrokeGenerator.h; sourceTree = "<group>"; };
+		52876F1B1469CF2300056E60 /* PXGraphicsStrokeGenerator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGraphicsStrokeGenerator.c; sourceTree = "<group>"; };
+		52876F1F1469E42B00056E60 /* PXGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphics.h; sourceTree = "<group>"; };
+		52876F201469E42B00056E60 /* PXGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphics.m; sourceTree = "<group>"; };
+		52876F231469E43B00056E60 /* PXGraphicsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsData.h; sourceTree = "<group>"; };
+		52876F271469E45A00056E60 /* PXGraphicsBitmapFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsBitmapFill.h; sourceTree = "<group>"; };
+		52876F281469E45A00056E60 /* PXGraphicsBitmapFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphicsBitmapFill.m; sourceTree = "<group>"; };
+		52876F2B1469E4A200056E60 /* PXGraphicsEndFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsEndFill.h; sourceTree = "<group>"; };
+		52876F2C1469E4A200056E60 /* PXGraphicsEndFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphicsEndFill.m; sourceTree = "<group>"; };
+		52876F2F1469E4C400056E60 /* PXGraphicsGradientFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsGradientFill.h; sourceTree = "<group>"; };
+		52876F301469E4C500056E60 /* PXGraphicsGradientFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphicsGradientFill.m; sourceTree = "<group>"; };
+		52876F331469E4DC00056E60 /* PXGraphicsPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsPath.h; sourceTree = "<group>"; };
+		52876F341469E4DD00056E60 /* PXGraphicsPath.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphicsPath.m; sourceTree = "<group>"; };
+		52876F371469E4FA00056E60 /* PXGraphicsSolidFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsSolidFill.h; sourceTree = "<group>"; };
+		52876F381469E4FB00056E60 /* PXGraphicsSolidFill.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphicsSolidFill.m; sourceTree = "<group>"; };
+		52876F3C1469E51E00056E60 /* PXGraphicsStroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsStroke.h; sourceTree = "<group>"; };
+		52876F3D1469E51F00056E60 /* PXGraphicsStroke.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphicsStroke.m; sourceTree = "<group>"; };
+		52876F401469E6EE00056E60 /* PXGraphicsFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsFill.h; sourceTree = "<group>"; };
 		5288459312B7DA44000F88E3 /* PXEngineUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEngineUtils.h; sourceTree = "<group>"; };
 		5288459412B7DA44000F88E3 /* PXEngineUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEngineUtils.m; sourceTree = "<group>"; };
 		528845F412B7E997000F88E3 /* PXPooledObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXPooledObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1016,6 +1062,7 @@
 				52DAB9531278A946002894E7 /* AVFoundation.framework in Frameworks */,
 				52DAB9571278A94D002894E7 /* AudioToolbox.framework in Frameworks */,
 				52DAB95B1278A955002894E7 /* OpenAL.framework in Frameworks */,
+				52876F131469C82500056E60 /* libGLU.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1046,6 +1093,7 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				52876F121469C82500056E60 /* libGLU.a */,
 				1D776D081057F9EA00516B26 /* QuartzCore.framework */,
 				1D776D091057F9EA00516B26 /* OpenGLES.framework */,
 				1D776D0A1057F9EA00516B26 /* UIKit.framework */,
@@ -1125,14 +1173,13 @@
 		1DAD0F5F1056FAFA00A5AC03 /* Display */ = {
 			isa = PBXGroup;
 			children = (
+				52876F1E1469E42A00056E60 /* Graphics */,
 				2DAF67AE11C58E2800A66884 /* PXDisplayObject.h */,
 				2DAF67AF11C58E2800A66884 /* PXDisplayObject.m */,
 				2DAF67B411C58E2800A66884 /* PXInteractiveObject.h */,
 				2DAF67B511C58E2800A66884 /* PXInteractiveObject.m */,
 				2DAF67B011C58E2800A66884 /* PXDisplayObjectContainer.h */,
 				2DAF67B111C58E2800A66884 /* PXDisplayObjectContainer.m */,
-				2DAF67B211C58E2800A66884 /* PXGraphics.h */,
-				2DAF67B311C58E2800A66884 /* PXGraphics.m */,
 				2DAF67B611C58E2800A66884 /* PXShape.h */,
 				2DAF67B711C58E2800A66884 /* PXShape.m */,
 				2DAF67B811C58E2800A66884 /* PXSimpleButton.h */,
@@ -1178,6 +1225,7 @@
 		1DAD10631057093000A5AC03 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				52876F0B1469C37D00056E60 /* Graphics */,
 				5238EF1713607C5E00A12477 /* PXHeaderUtils.h */,
 				529CC94F12B9692D00A58B49 /* PXPrivateUtils.h */,
 				5265D1221337D78B00F8D483 /* PXCLinkedList.h */,
@@ -1934,6 +1982,44 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
+		52876F0B1469C37D00056E60 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				52876F141469C83500056E60 /* glu.h */,
+				52876F0E1469C3A900056E60 /* PXGraphicsUtilTypes.h */,
+				52876F0D1469C3A900056E60 /* PXGraphicsUtils.h */,
+				52876F0C1469C3A900056E60 /* PXGraphicsUtils.c */,
+				52876F161469CE6800056E60 /* PXGraphicsFillGenerator.h */,
+				52876F171469CE6900056E60 /* PXGraphicsFillGenerator.c */,
+				52876F1A1469CF2300056E60 /* PXGraphicsStrokeGenerator.h */,
+				52876F1B1469CF2300056E60 /* PXGraphicsStrokeGenerator.c */,
+			);
+			path = Graphics;
+			sourceTree = "<group>";
+		};
+		52876F1E1469E42A00056E60 /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				52876F1F1469E42B00056E60 /* PXGraphics.h */,
+				52876F201469E42B00056E60 /* PXGraphics.m */,
+				52876F231469E43B00056E60 /* PXGraphicsData.h */,
+				52876F331469E4DC00056E60 /* PXGraphicsPath.h */,
+				52876F341469E4DD00056E60 /* PXGraphicsPath.m */,
+				52876F3C1469E51E00056E60 /* PXGraphicsStroke.h */,
+				52876F3D1469E51F00056E60 /* PXGraphicsStroke.m */,
+				52876F401469E6EE00056E60 /* PXGraphicsFill.h */,
+				52876F371469E4FA00056E60 /* PXGraphicsSolidFill.h */,
+				52876F381469E4FB00056E60 /* PXGraphicsSolidFill.m */,
+				52876F271469E45A00056E60 /* PXGraphicsBitmapFill.h */,
+				52876F281469E45A00056E60 /* PXGraphicsBitmapFill.m */,
+				52876F2F1469E4C400056E60 /* PXGraphicsGradientFill.h */,
+				52876F301469E4C500056E60 /* PXGraphicsGradientFill.m */,
+				52876F2B1469E4A200056E60 /* PXGraphicsEndFill.h */,
+				52876F2C1469E4A200056E60 /* PXGraphicsEndFill.m */,
+			);
+			path = Graphics;
+			sourceTree = "<group>";
+		};
 		52AE696212DF649800A9A921 /* FontOptions */ = {
 			isa = PBXGroup;
 			children = (
@@ -2125,7 +2211,6 @@
 				2DAF67A211C58E1500A66884 /* PXTouchEvent.h in Headers */,
 				2DAF67C411C58E2800A66884 /* PXDisplayObject.h in Headers */,
 				2DAF67C611C58E2800A66884 /* PXDisplayObjectContainer.h in Headers */,
-				2DAF67C811C58E2800A66884 /* PXGraphics.h in Headers */,
 				2DAF67CA11C58E2800A66884 /* PXInteractiveObject.h in Headers */,
 				2DAF67CC11C58E2800A66884 /* PXShape.h in Headers */,
 				2DAF67CE11C58E2800A66884 /* PXSimpleButton.h in Headers */,
@@ -2401,6 +2486,20 @@
 				5286DBED13E0CFCA00E5971F /* JSONRepresentation.h in Headers */,
 				52D7FF4A13E8617200FABF6C /* PXTouchEngine.h in Headers */,
 				52D7FF4D13E8623C00FABF6C /* PXEnginePrivate.h in Headers */,
+				52876F101469C3A900056E60 /* PXGraphicsUtils.h in Headers */,
+				52876F111469C3A900056E60 /* PXGraphicsUtilTypes.h in Headers */,
+				52876F151469C83500056E60 /* glu.h in Headers */,
+				52876F181469CE6900056E60 /* PXGraphicsFillGenerator.h in Headers */,
+				52876F1C1469CF2300056E60 /* PXGraphicsStrokeGenerator.h in Headers */,
+				52876F211469E42B00056E60 /* PXGraphics.h in Headers */,
+				52876F251469E43B00056E60 /* PXGraphicsData.h in Headers */,
+				52876F291469E45A00056E60 /* PXGraphicsBitmapFill.h in Headers */,
+				52876F2D1469E4A300056E60 /* PXGraphicsEndFill.h in Headers */,
+				52876F311469E4C500056E60 /* PXGraphicsGradientFill.h in Headers */,
+				52876F351469E4DE00056E60 /* PXGraphicsPath.h in Headers */,
+				52876F391469E4FB00056E60 /* PXGraphicsSolidFill.h in Headers */,
+				52876F3E1469E52000056E60 /* PXGraphicsStroke.h in Headers */,
+				52876F421469E6F000056E60 /* PXGraphicsFill.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2481,7 +2580,6 @@
 				2DAF67A311C58E1500A66884 /* PXTouchEvent.m in Sources */,
 				2DAF67C511C58E2800A66884 /* PXDisplayObject.m in Sources */,
 				2DAF67C711C58E2800A66884 /* PXDisplayObjectContainer.m in Sources */,
-				2DAF67C911C58E2800A66884 /* PXGraphics.m in Sources */,
 				2DAF67CB11C58E2800A66884 /* PXInteractiveObject.m in Sources */,
 				2DAF67CD11C58E2800A66884 /* PXShape.m in Sources */,
 				2DAF67CF11C58E2800A66884 /* PXSimpleButton.m in Sources */,
@@ -2642,6 +2740,16 @@
 				5286DBEC13E0CFCA00E5971F /* CJSONSerializer.m in Sources */,
 				52D7FF4B13E8617200FABF6C /* PXTouchEngine.m in Sources */,
 				52D7FF7513E865E600FABF6C /* PXEnginePrivate.m in Sources */,
+				52876F0F1469C3A900056E60 /* PXGraphicsUtils.c in Sources */,
+				52876F191469CE6900056E60 /* PXGraphicsFillGenerator.c in Sources */,
+				52876F1D1469CF2300056E60 /* PXGraphicsStrokeGenerator.c in Sources */,
+				52876F221469E42B00056E60 /* PXGraphics.m in Sources */,
+				52876F2A1469E45A00056E60 /* PXGraphicsBitmapFill.m in Sources */,
+				52876F2E1469E4A300056E60 /* PXGraphicsEndFill.m in Sources */,
+				52876F321469E4C500056E60 /* PXGraphicsGradientFill.m in Sources */,
+				52876F361469E4DE00056E60 /* PXGraphicsPath.m in Sources */,
+				52876F3A1469E4FB00056E60 /* PXGraphicsSolidFill.m in Sources */,
+				52876F3F1469E52000056E60 /* PXGraphicsStroke.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2671,6 +2779,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/ExternalFrameworks\"",
 					"\"$(SRCROOT)/../../XcodeBuilds/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../../Downloads/Tesselation/TesselationTest/iGLU\"",
 				);
 				OTHER_CFLAGS = (
 					"-DFT2_BUILD_LIBRARY",
@@ -2705,6 +2814,7 @@
 					"\"$(SRCROOT)\"",
 					"\"$(SRCROOT)/ExternalFrameworks\"",
 					"\"$(SRCROOT)/../../XcodeBuilds/Debug-iphoneos\"",
+					"\"$(SRCROOT)/../../../../Downloads/Tesselation/TesselationTest/iGLU\"",
 				);
 				OTHER_CFLAGS = (
 					"-DFT2_BUILD_LIBRARY",
