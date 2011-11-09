@@ -37,12 +37,21 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#include "PXGraphicsUtilTypes.h"
+#include "inkTypes.h"
 
 #include <CoreGraphics/CGGeometry.h>
 
 @class PXTextureData;
 @class PXMatrix;
+
+typedef inkPathCommand PXPathCommand;
+typedef inkInterpolationMethod PXInterpolationMethod;
+typedef inkGradientType PXGradientType;
+typedef inkLineScaleMode PXLineScaleMode;
+typedef inkJointStyle PXJointStyle;
+typedef inkCapsStyle PXCapsStyle;
+typedef inkSpreadMethod PXSpreadMethod;
+typedef inkPathWinding PXGraphicsPathWinding;
 
 @interface PXGraphics : NSObject
 {
@@ -50,60 +59,22 @@
 	void *vGraphicsUtil;
 }
 
-#pragma mark -
-#pragma mark Fill
-#pragma mark -
-
-- (void) beginFill:(unsigned int)color;
 - (void) beginFill:(unsigned int)color alpha:(float)alpha;
-
-- (void) beginFillWithTextureData:(PXTextureData *)textureData;
-- (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix;
-- (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat;
 - (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth;
 
 // Colors must be of type 'NSNumber' that are unsigned integers
 // Alphas must be of type 'NSNumber' that are floats
 // Ratios must be of type 'NSNumber' that are floats
-- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios;
-- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix;
-- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod;
-- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod;
 - (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio;
 
 - (void) endFill;
 
-#pragma mark -
-#pragma mark Lines
-#pragma mark -
-
-- (void) lineStyle;
-- (void) lineStyleWithThickness:(float)thickness;
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color;
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha;
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting;
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode;
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps;
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints;
 - (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit;
-
-- (void) lineStyleWithTextureData:(PXTextureData *)textureData;
-- (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix;
-- (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat;
 - (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth;
-
 // Colors must be of type 'NSNumber' that are unsigned integers
 // Alphas must be of type 'NSNumber' that are floats
 // Ratios must be of type 'NSNumber' that are floats
-- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios;
-- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix;
-- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod;
-- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod;
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio;
-
-#pragma mark -
-#pragma mark Draw
-#pragma mark -
 
 - (void) moveToX:(float)x y:(float)y;
 - (void) lineToX:(float)x y:(float)y;
@@ -117,10 +88,6 @@
 - (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data winding:(PXGraphicsPathWinding)winding;
 
 - (void) clear;
-
-#pragma mark -
-#pragma mark Utility
-#pragma mark -
 
 - (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height;
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth;
