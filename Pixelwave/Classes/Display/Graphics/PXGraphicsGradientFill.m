@@ -22,6 +22,31 @@
 
 @synthesize focalPointRatio;
 
+- (id) init
+{
+	return [self initWithGradientType:PXGradientType_Linear colors:nil alphas:nil ratios:nil];
+}
+
+- (id) initWithGradientType:(PXGradientType)_type colors:(NSArray *)_colors alphas:(NSArray *)_alphas ratios:(NSArray *)_ratios
+{
+	return [self initWithGradientType:_type colors:_colors alphas:_alphas ratios:_ratios matrix:nil];
+}
+
+- (id) initWithGradientType:(PXGradientType)_type colors:(NSArray *)_colors alphas:(NSArray *)_alphas ratios:(NSArray *)_ratios matrix:(PXMatrix *)_matrix
+{
+	return [self initWithGradientType:_type colors:_colors alphas:_alphas ratios:_ratios matrix:_matrix spreadMethod:PXSpreadMethod_Pad];
+}
+
+- (id) initWithGradientType:(PXGradientType)_type colors:(NSArray *)_colors alphas:(NSArray *)_alphas ratios:(NSArray *)_ratios matrix:(PXMatrix *)_matrix spreadMethod:(PXSpreadMethod)_spreadMethod
+{
+	return [self initWithGradientType:_type colors:_colors alphas:_alphas ratios:_ratios matrix:_matrix spreadMethod:_spreadMethod interpolationMethod:PXInterpolationMethod_RGB];
+}
+
+- (id) initWithGradientType:(PXGradientType)_type colors:(NSArray *)_colors alphas:(NSArray *)_alphas ratios:(NSArray *)_ratios matrix:(PXMatrix *)_matrix spreadMethod:(PXSpreadMethod)_spreadMethod interpolationMethod:(PXInterpolationMethod)_interpolationMethod
+{
+	return [self initWithGradientType:_type colors:_colors alphas:_alphas ratios:_ratios matrix:_matrix spreadMethod:_spreadMethod interpolationMethod:_interpolationMethod focalPointRatio:0.0f];
+}
+
 - (id) initWithGradientType:(PXGradientType)_type colors:(NSArray *)_colors alphas:(NSArray *)_alphas ratios:(NSArray *)_ratios matrix:(PXMatrix *)_matrix spreadMethod:(PXSpreadMethod)_spreadMethod interpolationMethod:(PXInterpolationMethod)_interpolationMethod focalPointRatio:(float)_focalPointRatio
 {
 	self = [super init];
