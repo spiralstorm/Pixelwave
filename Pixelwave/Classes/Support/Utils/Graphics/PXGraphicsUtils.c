@@ -141,27 +141,3 @@ void PXGraphicsUtilsRasterize(_PXGraphics *graphics)
 {
 	// TODO: Implement
 }
-
-#pragma mark -
-#pragma mark Helper
-#pragma mark -
-
-void PXGraphicsUtilsDrawCircle(_PXGraphics *graphics, float x, float y, float radius)
-{
-	// TODO: Implement
-}
-
-void PXGraphicsUtilsDrawEllipse(_PXGraphics *graphics, float x, float y, float width, float height)
-{
-	// TODO: Implement
-}
-
-void PXGraphicsUtilsDrawRect(_PXGraphics *graphics, float x, float y, float width, float height)
-{
-	// TODO: Implement
-}
-
-void PXGraphicsUtilsDrawRoundRect(_PXGraphics *graphics, float x, float y, float width, float height, float ellipseWidth, float ellipseHeight)
-{
-	// TODO: Implement
-}
