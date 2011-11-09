@@ -8,9 +8,12 @@
 
 #include "PXTessellatorUtils.h"
 
+#include "glu.h"
+
 PXTessellator *PXTessellatorCreate()
 {
 	// TODO: Implement
+	// GLUtesselator
 	return NULL;
 }
 

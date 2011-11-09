@@ -41,4 +41,12 @@
 
 @property (nonatomic, assign) BOOL pixelHinting;
 
+- (id) initWithThickness:(float)thickness;
+- (id) initWithThickness:(float)thickness pixelHinting:(BOOL)pixelHinting;
+- (id) initWithThickness:(float)thickness pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode;
+- (id) initWithThickness:(float)thickness pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps;
+- (id) initWithThickness:(float)thickness pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints;
+- (id) initWithThickness:(float)thickness pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit;
+- (id) initWithThickness:(float)thickness pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit fill:(id<PXGraphicsFill>)fill;
+
 @end

@@ -11,6 +11,15 @@
 
 @interface PXGraphicsSolidFill : NSObject <PXGraphicsData, PXGraphicsFill>
 {
+@protected
+	unsigned int color;
+	float alpha;
 }
+
+@property (nonatomic, assign) unsigned int color;
+@property (nonatomic, assign) float alpha;
+
+- (id) initWithColor:(unsigned int)color;
+- (id) initWithColor:(unsigned int)color alpha:(float)alpha;
 
 @end

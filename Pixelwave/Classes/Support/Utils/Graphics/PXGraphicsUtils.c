@@ -8,11 +8,11 @@
 
 #include "PXGraphicsUtils.h"
 
-#include "glu.h"
+#include "PXTessellatorUtils.h"
 
-// TODO: Implement everything from the header
-
-static GLUtesselator *pxGraphicsUtilsSharedTesselator = NULL;
+// We use a shared tessellator because the 'rasterization' step, where
+// tessellation is done, should ONLY ever happen on the main thread.
+static PXTessellator *pxGraphicsUtilsSharedTesselator = NULL;
 
 _PXGraphics *_PXGraphicsCreate()
 {

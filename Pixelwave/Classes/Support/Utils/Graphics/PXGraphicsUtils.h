@@ -80,6 +80,8 @@ void PXGraphicsUtilsLineGradientStyle(_PXGraphics *graphics, PXGradientType type
 
 void PXGraphicsUtilsEndFill(_PXGraphics *graphics);
 
+// ONLY call this method on the main thread as it uses a non-thread safe shared
+// tessellator.
 void PXGraphicsUtilsRasterize(_PXGraphics *graphics);
 
 #pragma mark -

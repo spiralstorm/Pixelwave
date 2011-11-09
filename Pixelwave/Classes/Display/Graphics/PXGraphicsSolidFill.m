@@ -10,4 +10,30 @@
 
 @implementation PXGraphicsSolidFill
 
+@synthesize color;
+@synthesize alpha;
+
+- (id) init
+{
+	return [self initWithColor:0x000000];
+}
+
+- (id) initWithColor:(unsigned int)_color
+{
+	return [self initWithColor:_color alpha:1.0f];
+}
+
+- (id) initWithColor:(unsigned int)_color alpha:(float)_alpha
+{
+	self = [super init];
+
+	if (self)
+	{
+		self.color = _color;
+		self.alpha = _alpha;
+	}
+
+	return self;
+}
+
 @end

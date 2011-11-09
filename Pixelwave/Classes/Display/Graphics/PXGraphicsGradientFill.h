@@ -9,8 +9,38 @@
 #import "PXGraphicsData.h"
 #import "PXGraphicsFill.h"
 
+#include "PXGraphicsUtilTypes.h"
+
+@class PXMatrix;
+
 @interface PXGraphicsGradientFill : NSObject <PXGraphicsData, PXGraphicsFill>
 {
+@protected
+	NSArray *colors;
+	NSArray *alphas;
+	NSArray *ratios;
+
+	PXMatrix *matrix;
+
+	PXGradientType type;
+	PXSpreadMethod spreadMethod;
+	PXInterpolationMethod interpolationMethod;
+
+	float focalPointRatio;
 }
+
+@property (nonatomic, copy) NSArray *colors;
+@property (nonatomic, copy) NSArray *alphas;
+@property (nonatomic, copy) NSArray *ratios;
+
+@property (nonatomic, copy) PXMatrix *matrix;
+
+@property (nonatomic, assign) PXGradientType type;
+@property (nonatomic, assign) PXSpreadMethod spreadMethod;
+@property (nonatomic, assign) PXInterpolationMethod interpolationMethod;
+
+@property (nonatomic, assign) float focalPointRatio;
+
+- (id) initWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio;
 
 @end

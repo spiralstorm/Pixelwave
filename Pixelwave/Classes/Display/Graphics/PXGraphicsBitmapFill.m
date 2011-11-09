@@ -10,4 +10,53 @@
 
 @implementation PXGraphicsBitmapFill
 
+@synthesize textureData;
+@synthesize matrix;
+
+@synthesize repeat;
+@synthesize smooth;
+
+- (id) init
+{
+	return [self initWithTextureData:nil];
+}
+
+- (id) initWithTextureData:(PXTextureData *)_textureData
+{
+	return [self initWithTextureData:_textureData matrix:nil];
+}
+
+- (id) initWithTextureData:(PXTextureData *)_textureData matrix:(PXMatrix *)_matrix
+{
+	return [self initWithTextureData:_textureData matrix:_matrix repeat:YES];
+}
+
+- (id) initWithTextureData:(PXTextureData *)_textureData matrix:(PXMatrix *)_matrix repeat:(BOOL)_repeat
+{
+	return [self initWithTextureData:_textureData matrix:_matrix repeat:_repeat smooth:NO];
+}
+
+- (id) initWithTextureData:(PXTextureData *)_textureData matrix:(PXMatrix *)_matrix repeat:(BOOL)_repeat smooth:(BOOL)_smooth
+{
+	self = [super init];
+
+	if (self)
+	{
+		self.textureData = _textureData;
+		self.matrix = _matrix;
+		self.repeat = _repeat;
+		self.smooth = _smooth;
+	}
+
+	return self;
+}
+
+- (void) dealloc
+{
+	self.textureData = nil;
+	self.matrix = nil;
+
+	[super dealloc];
+}
+
 @end
