@@ -19,7 +19,7 @@
 		2D0E8CE91353F2C200A42B3D /* PXTextureAtlasParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8CE71353F2C200A42B3D /* PXTextureAtlasParser.m */; };
 		2D0E8D1E1353F8A900A42B3D /* PXTPAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0E8D1C1353F8A900A42B3D /* PXTPAtlasParser.h */; };
 		2D0E8D1F1353F8A900A42B3D /* PXTPAtlasParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0E8D1D1353F8A900A42B3D /* PXTPAtlasParser.m */; };
-		2D35BD7A11AD8E46005645F0 /* PXMathUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D35BD7911AD8E46005645F0 /* PXMathUtils.m */; };
+		2D35BD7A11AD8E46005645F0 /* PXMathUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 2D35BD7911AD8E46005645F0 /* PXMathUtils.c */; };
 		2D3783EB135A2AB600E223BD /* PXCGUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D3783E9135A2AB600E223BD /* PXCGUtils.h */; };
 		2D3783EC135A2AB600E223BD /* PXCGUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D3783EA135A2AB600E223BD /* PXCGUtils.m */; };
 		2D543D2F1360F48D004AA569 /* PXSimpleAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D543D2D1360F48D004AA569 /* PXSimpleAtlasParser.h */; };
@@ -102,7 +102,7 @@
 		2DD4EB42131BF52900B1AF28 /* PXTextureGlyph.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DD4EB40131BF52900B1AF28 /* PXTextureGlyph.h */; };
 		2DD4EB43131BF52900B1AF28 /* PXTextureGlyph.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD4EB41131BF52900B1AF28 /* PXTextureGlyph.m */; };
 		2DD9E9AD10EBFDE400710F4E /* PXMathUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DD9E9AA10EBFDE400710F4E /* PXMathUtils.h */; };
-		2DD9E9AE10EBFDE400710F4E /* PXColorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DD9E9AB10EBFDE400710F4E /* PXColorUtils.m */; };
+		2DD9E9AE10EBFDE400710F4E /* PXColorUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 2DD9E9AB10EBFDE400710F4E /* PXColorUtils.c */; };
 		2DD9E9AF10EBFDE400710F4E /* PXColorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DD9E9AC10EBFDE400710F4E /* PXColorUtils.h */; };
 		5230170013706DC8000FE6D6 /* PXZwopAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */; };
 		5230170113706DC8000FE6D6 /* PXZwopAtlasParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 523016FF13706DC8000FE6D6 /* PXZwopAtlasParser.m */; };
@@ -345,7 +345,6 @@
 		5256CACD130980980001A379 /* PXRegexMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5256CAC7130980980001A379 /* PXRegexMatcher.m */; };
 		5256CACE130980980001A379 /* PXRegexPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 5256CAC8130980980001A379 /* PXRegexPattern.h */; };
 		5256CACF130980980001A379 /* PXRegexPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 5256CAC9130980980001A379 /* PXRegexPattern.m */; };
-		5265D1231337D78B00F8D483 /* PXCLinkedList.h in Headers */ = {isa = PBXBuildFile; fileRef = 5265D1221337D78B00F8D483 /* PXCLinkedList.h */; };
 		526A73ED13046E250020FB2B /* PXSoundModifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 526A73DF13046E250020FB2B /* PXSoundModifier.h */; };
 		526A73F113046E250020FB2B /* PXTextureModifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 526A73E313046E250020FB2B /* PXTextureModifier.h */; };
 		526A73F313046E250020FB2B /* PXSoundModifierToMono.h in Headers */ = {isa = PBXBuildFile; fileRef = 526A73E613046E250020FB2B /* PXSoundModifierToMono.h */; };
@@ -412,6 +411,8 @@
 		52876F3E1469E52000056E60 /* PXGraphicsStroke.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F3C1469E51E00056E60 /* PXGraphicsStroke.h */; };
 		52876F3F1469E52000056E60 /* PXGraphicsStroke.m in Sources */ = {isa = PBXBuildFile; fileRef = 52876F3D1469E51F00056E60 /* PXGraphicsStroke.m */; };
 		52876F421469E6F000056E60 /* PXGraphicsFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F401469E6EE00056E60 /* PXGraphicsFill.h */; };
+		52876F4A146AE27900056E60 /* PXTessellatorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F48146AE27800056E60 /* PXTessellatorUtils.h */; };
+		52876F4B146AE27900056E60 /* PXTessellatorUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 52876F49146AE27900056E60 /* PXTessellatorUtils.c */; };
 		5288459512B7DA44000F88E3 /* PXEngineUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5288459312B7DA44000F88E3 /* PXEngineUtils.h */; };
 		5288459612B7DA44000F88E3 /* PXEngineUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5288459412B7DA44000F88E3 /* PXEngineUtils.m */; };
 		528845F512B7E997000F88E3 /* PXPooledObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 528845F412B7E997000F88E3 /* PXPooledObject.h */; };
@@ -425,7 +426,7 @@
 		529CF98712E0F9C8008F75B4 /* PXALDebugUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 529CF98512E0F9C8008F75B4 /* PXALDebugUtils.h */; };
 		529CF98812E0F9C8008F75B4 /* PXALDebugUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 529CF98612E0F9C8008F75B4 /* PXALDebugUtils.m */; };
 		52A97663131C083F00E20968 /* PXGLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A97661131C083F00E20968 /* PXGLUtils.h */; };
-		52A97664131C083F00E20968 /* PXGLUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A97662131C083F00E20968 /* PXGLUtils.m */; };
+		52A97664131C083F00E20968 /* PXGLUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A97662131C083F00E20968 /* PXGLUtils.c */; };
 		52ABD5F41254F20E00AB0756 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52ABD5F31254F20E00AB0756 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		52B3FA9F13660F6E00020E4C /* PXArrayBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B3FA9E13660F6E00020E4C /* PXArrayBuffer.h */; };
 		52BEF6D2130EDF5F001E710E /* PXParsedSoundData.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BEF6CE130EDF5F001E710E /* PXParsedSoundData.h */; };
@@ -539,7 +540,7 @@
 		2D0E8CE71353F2C200A42B3D /* PXTextureAtlasParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureAtlasParser.m; sourceTree = "<group>"; };
 		2D0E8D1C1353F8A900A42B3D /* PXTPAtlasParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTPAtlasParser.h; sourceTree = "<group>"; };
 		2D0E8D1D1353F8A900A42B3D /* PXTPAtlasParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTPAtlasParser.m; sourceTree = "<group>"; };
-		2D35BD7911AD8E46005645F0 /* PXMathUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXMathUtils.m; sourceTree = "<group>"; };
+		2D35BD7911AD8E46005645F0 /* PXMathUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXMathUtils.c; sourceTree = "<group>"; };
 		2D3783E9135A2AB600E223BD /* PXCGUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXCGUtils.h; sourceTree = "<group>"; };
 		2D3783EA135A2AB600E223BD /* PXCGUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXCGUtils.m; sourceTree = "<group>"; };
 		2D543D2D1360F48D004AA569 /* PXSimpleAtlasParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSimpleAtlasParser.h; sourceTree = "<group>"; };
@@ -622,7 +623,7 @@
 		2DD4EB40131BF52900B1AF28 /* PXTextureGlyph.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXTextureGlyph.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2DD4EB41131BF52900B1AF28 /* PXTextureGlyph.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureGlyph.m; sourceTree = "<group>"; };
 		2DD9E9AA10EBFDE400710F4E /* PXMathUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXMathUtils.h; sourceTree = "<group>"; };
-		2DD9E9AB10EBFDE400710F4E /* PXColorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXColorUtils.m; sourceTree = "<group>"; };
+		2DD9E9AB10EBFDE400710F4E /* PXColorUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXColorUtils.c; sourceTree = "<group>"; };
 		2DD9E9AC10EBFDE400710F4E /* PXColorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXColorUtils.h; sourceTree = "<group>"; };
 		523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXZwopAtlasParser.h; sourceTree = "<group>"; };
 		523016FF13706DC8000FE6D6 /* PXZwopAtlasParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXZwopAtlasParser.m; sourceTree = "<group>"; };
@@ -865,7 +866,6 @@
 		5256CAC7130980980001A379 /* PXRegexMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXRegexMatcher.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5256CAC8130980980001A379 /* PXRegexPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXRegexPattern.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5256CAC9130980980001A379 /* PXRegexPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXRegexPattern.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		5265D1221337D78B00F8D483 /* PXCLinkedList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXCLinkedList.h; sourceTree = "<group>"; };
 		526A73DF13046E250020FB2B /* PXSoundModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSoundModifier.h; sourceTree = "<group>"; };
 		526A73E313046E250020FB2B /* PXTextureModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureModifier.h; sourceTree = "<group>"; };
 		526A73E613046E250020FB2B /* PXSoundModifierToMono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSoundModifierToMono.h; sourceTree = "<group>"; };
@@ -932,6 +932,8 @@
 		52876F3C1469E51E00056E60 /* PXGraphicsStroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsStroke.h; sourceTree = "<group>"; };
 		52876F3D1469E51F00056E60 /* PXGraphicsStroke.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphicsStroke.m; sourceTree = "<group>"; };
 		52876F401469E6EE00056E60 /* PXGraphicsFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsFill.h; sourceTree = "<group>"; };
+		52876F48146AE27800056E60 /* PXTessellatorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTessellatorUtils.h; sourceTree = "<group>"; };
+		52876F49146AE27900056E60 /* PXTessellatorUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXTessellatorUtils.c; sourceTree = "<group>"; };
 		5288459312B7DA44000F88E3 /* PXEngineUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEngineUtils.h; sourceTree = "<group>"; };
 		5288459412B7DA44000F88E3 /* PXEngineUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEngineUtils.m; sourceTree = "<group>"; };
 		528845F412B7E997000F88E3 /* PXPooledObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXPooledObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -945,7 +947,7 @@
 		529CF98512E0F9C8008F75B4 /* PXALDebugUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXALDebugUtils.h; sourceTree = "<group>"; };
 		529CF98612E0F9C8008F75B4 /* PXALDebugUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXALDebugUtils.m; sourceTree = "<group>"; };
 		52A97661131C083F00E20968 /* PXGLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLUtils.h; sourceTree = "<group>"; };
-		52A97662131C083F00E20968 /* PXGLUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGLUtils.m; sourceTree = "<group>"; };
+		52A97662131C083F00E20968 /* PXGLUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGLUtils.c; sourceTree = "<group>"; };
 		52ABD5F31254F20E00AB0756 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		52B3FA9E13660F6E00020E4C /* PXArrayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXArrayBuffer.h; sourceTree = "<group>"; };
 		52BEF6CE130EDF5F001E710E /* PXParsedSoundData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXParsedSoundData.h; sourceTree = "<group>"; };
@@ -1228,7 +1230,6 @@
 				52876F0B1469C37D00056E60 /* Graphics */,
 				5238EF1713607C5E00A12477 /* PXHeaderUtils.h */,
 				529CC94F12B9692D00A58B49 /* PXPrivateUtils.h */,
-				5265D1221337D78B00F8D483 /* PXCLinkedList.h */,
 				52B3FA9E13660F6E00020E4C /* PXArrayBuffer.h */,
 				2D89805712BD61A1000F5464 /* PXExceptionUtils.h */,
 				5288459312B7DA44000F88E3 /* PXEngineUtils.h */,
@@ -1238,9 +1239,9 @@
 				5231F4AB124D57A7002B8A27 /* PXRectanglePacker.h */,
 				5231F4AC124D57A7002B8A27 /* PXRectanglePacker.m */,
 				2DD9E9AA10EBFDE400710F4E /* PXMathUtils.h */,
-				2D35BD7911AD8E46005645F0 /* PXMathUtils.m */,
+				2D35BD7911AD8E46005645F0 /* PXMathUtils.c */,
 				2DD9E9AC10EBFDE400710F4E /* PXColorUtils.h */,
-				2DD9E9AB10EBFDE400710F4E /* PXColorUtils.m */,
+				2DD9E9AB10EBFDE400710F4E /* PXColorUtils.c */,
 				529CF98512E0F9C8008F75B4 /* PXALDebugUtils.h */,
 				529CF98612E0F9C8008F75B4 /* PXALDebugUtils.m */,
 				52343367130AE8BB0083DA1A /* PXTextureFontFuserUtils.h */,
@@ -1248,7 +1249,7 @@
 				52343C94130DCB0A0083DA1A /* PXTextureFormatUtils.h */,
 				52343C95130DCB0A0083DA1A /* PXTextureFormatUtils.m */,
 				52A97661131C083F00E20968 /* PXGLUtils.h */,
-				52A97662131C083F00E20968 /* PXGLUtils.m */,
+				52A97662131C083F00E20968 /* PXGLUtils.c */,
 				2D7CF76D132706EB00A0F035 /* PXDebugUtils.h */,
 				2D7CF76E132706EB00A0F035 /* PXDebugUtils.m */,
 				2D3783E9135A2AB600E223BD /* PXCGUtils.h */,
@@ -1989,6 +1990,8 @@
 				52876F0E1469C3A900056E60 /* PXGraphicsUtilTypes.h */,
 				52876F0D1469C3A900056E60 /* PXGraphicsUtils.h */,
 				52876F0C1469C3A900056E60 /* PXGraphicsUtils.c */,
+				52876F48146AE27800056E60 /* PXTessellatorUtils.h */,
+				52876F49146AE27900056E60 /* PXTessellatorUtils.c */,
 				52876F161469CE6800056E60 /* PXGraphicsFillGenerator.h */,
 				52876F171469CE6900056E60 /* PXGraphicsFillGenerator.c */,
 				52876F1A1469CF2300056E60 /* PXGraphicsStrokeGenerator.h */,
@@ -2423,7 +2426,6 @@
 				2D7CF76F132706EB00A0F035 /* PXDebugUtils.h in Headers */,
 				5280DE331333FB1600B0F353 /* PXGLState.h in Headers */,
 				5280DEA5133407AF00B0F353 /* PXGLStatePrivate.h in Headers */,
-				5265D1231337D78B00F8D483 /* PXCLinkedList.h in Headers */,
 				2D877F6C1352A6A700212094 /* PXClipRect.h in Headers */,
 				2DABCBCA1352BA8300FB437A /* PXTextureAtlas.h in Headers */,
 				2DABCBCC1352BA8300FB437A /* PXAtlasFrame.h in Headers */,
@@ -2500,6 +2502,7 @@
 				52876F391469E4FB00056E60 /* PXGraphicsSolidFill.h in Headers */,
 				52876F3E1469E52000056E60 /* PXGraphicsStroke.h in Headers */,
 				52876F421469E6F000056E60 /* PXGraphicsFill.h in Headers */,
+				52876F4A146AE27900056E60 /* PXTessellatorUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2559,14 +2562,14 @@
 				1DAD0FD51056FFB800A5AC03 /* PXView.m in Sources */,
 				2D85D526107E58C900F46896 /* PXMath.m in Sources */,
 				17B659C610D7EC72004FE7B2 /* PXTopLevel.m in Sources */,
-				2DD9E9AE10EBFDE400710F4E /* PXColorUtils.m in Sources */,
+				2DD9E9AE10EBFDE400710F4E /* PXColorUtils.c in Sources */,
 				2D85D70010F2828000487214 /* PXLinkedList.m in Sources */,
 				2D749F5910F7916A00830235 /* PXException.m in Sources */,
 				2D749F6110F793F300830235 /* PXArgumentException.m in Sources */,
 				2D749F8210F7961800830235 /* PXRangeException.m in Sources */,
 				2D74A00310F79D3F00830235 /* PXTypeException.m in Sources */,
 				2D7A735C10F91CEE00752221 /* PXGLException.m in Sources */,
-				2D35BD7A11AD8E46005645F0 /* PXMathUtils.m in Sources */,
+				2D35BD7A11AD8E46005645F0 /* PXMathUtils.c in Sources */,
 				2D9F6C5311BEA0E900503D02 /* PXObjectPool.m in Sources */,
 				2DAF677A11C58DEA00A66884 /* PXEngine.m in Sources */,
 				2DAF678B11C58DF900A66884 /* PXColorTransform.m in Sources */,
@@ -2689,7 +2692,7 @@
 				52BEF6D5130EDF5F001E710E /* PXParsedTextureData.m in Sources */,
 				528E43B313145BBD003D24CC /* PXRegexUtils.m in Sources */,
 				2DD4EB43131BF52900B1AF28 /* PXTextureGlyph.m in Sources */,
-				52A97664131C083F00E20968 /* PXGLUtils.m in Sources */,
+				52A97664131C083F00E20968 /* PXGLUtils.c in Sources */,
 				2DBD51CF1325768000BF4977 /* PXSoundModifiers.m in Sources */,
 				2DBD51D7132577D700BF4977 /* PXTextureModifiers.m in Sources */,
 				523A4EB113258AD000C17A49 /* PXFontFuser.m in Sources */,
@@ -2750,6 +2753,7 @@
 				52876F361469E4DE00056E60 /* PXGraphicsPath.m in Sources */,
 				52876F3A1469E4FB00056E60 /* PXGraphicsSolidFill.m in Sources */,
 				52876F3F1469E52000056E60 /* PXGraphicsStroke.m in Sources */,
+				52876F4B146AE27900056E60 /* PXTessellatorUtils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

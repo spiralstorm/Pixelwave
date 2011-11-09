@@ -44,7 +44,7 @@
 extern "C" {
 #endif
 
-#import "PXHeaderUtils.h"
+#include "PXHeaderUtils.h"
 
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>

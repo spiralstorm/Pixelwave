@@ -40,7 +40,7 @@
 #ifndef _PX_COLOR_UTILS_H_
 #define _PX_COLOR_UTILS_H_
 
-#import "PXHeaderUtils.h"
+#include "PXHeaderUtils.h"
 
 #ifdef __cplusplus
 extern "C" {

@@ -44,7 +44,7 @@
 extern "C" {
 #endif
 
-#import "PXHeaderUtils.h"
+#include "PXHeaderUtils.h"
 
 #pragma mark -
 #pragma mark Macros
@@ -123,7 +123,7 @@ typedef struct
 #pragma mark Declerations
 #pragma mark -
 
-BOOL PXMathIsNan(float val);
+bool PXMathIsNan(float val);
 int PXMathSignbit(float val);
 
 float PXMathRandom();

@@ -39,6 +39,87 @@
 
 #import "PXGraphics.h"
 
+#import "PXTextureData.h"
+#import "PXMatrix.h"
+
+#include "PXGraphicsUtils.h"
+#include "PXDebug.h"
+
+typedef struct
+{
+	unsigned int *colors;
+	float *alphas;
+	unsigned int colorCount;
+
+	float *ratios;
+	unsigned int ratioCount;
+} PXGraphicsGradientInfo;
+
+static inline PXGraphicsGradientInfo PXGraphicsGradientInfoMake(NSArray *colors, NSArray *alphas, NSArray *ratios)
+{
+	PXGraphicsGradientInfo info;
+
+	memset(&info, 0, sizeof(PXGraphicsGradientInfo));
+
+	info.colorCount = [colors count];
+	unsigned int alphaCount = [alphas count];
+
+	if (info.colorCount != alphaCount)
+	{
+		PXDebugLog(@"PXGraphics Error: There must be equal quantity of colors and alphas.");
+
+		return info;
+	}
+
+	if (info.colorCount != 0)
+	{
+		info.colors = alloca(sizeof(unsigned int) * info.colorCount);
+		info.alphas = alloca(sizeof(float) * info.colorCount);
+
+		unsigned int *curColor = info.colors;
+		float *curAlpha = info.alphas;
+
+		for (NSNumber *color in colors)
+		{
+			*curColor = [color unsignedIntegerValue];
+			++curColor;
+		}
+
+		for (NSNumber *alpha in alphas)
+		{
+			*curAlpha = [alpha floatValue];
+			++curAlpha;
+		}
+	}
+
+	info.ratioCount = [ratios count];
+
+	if (info.ratioCount != 0)
+	{
+		info.ratios = alloca(sizeof(float) * info.ratioCount);
+
+		float *curRatio = info.ratios;
+
+		for (NSNumber *ratio in ratios)
+		{
+			*curRatio = [ratio floatValue];
+			++curRatio;
+		}
+	}
+
+	return info;
+}
+
+static inline PXGLMatrix PXGraphicsMakeGLMatrixFromMatrix(PXMatrix *matrix)
+{
+	if (matrix == nil)
+	{
+		return PXGLMatrixMake(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
+	}
+
+	return PXGLMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+}
+
 @implementation PXGraphics
 
 - (id) init
@@ -47,7 +128,13 @@
 
 	if (self)
 	{
-		//vGraphicsUtil = 
+		vGraphicsUtil = _PXGraphicsCreate();
+
+		if (vGraphicsUtil == nil)
+		{
+			[self release];
+			return nil;
+		}
 	}
 
 	return self;
@@ -55,10 +142,11 @@
 
 - (void) dealloc
 {
-	// TODO: Free vGraphicsUtil properly
+	_PXGraphicsDestroy(vGraphicsUtil);
 
 	[super dealloc];
 }
+
 #pragma mark -
 #pragma mark Fill
 #pragma mark -
@@ -70,7 +158,7 @@
 
 - (void) beginFill:(unsigned int)color alpha:(float)alpha
 {
-	// TODO: Implement
+	PXGraphicsUtilsBeginFill(vGraphicsUtil, color, alpha);
 }
 
 - (void) beginFillWithTextureData:(PXTextureData *)textureData
@@ -90,7 +178,12 @@
 
 - (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth
 {
-	// TODO: Implement
+	if (textureData == nil)
+		return;
+
+	PXGLMatrix glMatrix = PXGraphicsMakeGLMatrixFromMatrix(matrix);
+
+	PXGraphicsUtilsBeginBitmapFill(vGraphicsUtil, &glMatrix, textureData->_sPerPixel, textureData->_tPerPixel, repeat, smooth, textureData);
 }
 
 - (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios
@@ -115,12 +208,16 @@
 
 - (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
 {
-	// TODO: Implement
+	PXGraphicsGradientInfo gradientInfo = PXGraphicsGradientInfoMake(colors, alphas, ratios);
+
+	PXGLMatrix glMatrix = PXGraphicsMakeGLMatrixFromMatrix(matrix);
+
+	PXGraphicsUtilsBeginGradientFill(vGraphicsUtil, type, gradientInfo.colors, gradientInfo.alphas, gradientInfo.colorCount, gradientInfo.ratios, gradientInfo.ratioCount, &glMatrix, spreadMethod, interpolationMethod, focalPointRatio);
 }
 
 - (void) endFill
 {
-	// TODO: Implement
+	PXGraphicsUtilsEndFill(vGraphicsUtil);
 }
 
 #pragma mark -
@@ -169,7 +266,7 @@
 
 - (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit
 {
-	// TODO: Implement
+	PXGraphicsUtilsLineStyle(vGraphicsUtil, thickness, color, alpha, pixelHinting, scaleMode, caps, joints, miterLimit);
 }
 
 - (void) lineStyleWithTextureData:(PXTextureData *)textureData
@@ -189,7 +286,12 @@
 
 - (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth
 {
-	// TODO: Implemenet
+	if (textureData == nil)
+		return;
+
+	PXGLMatrix glMatrix = PXGraphicsMakeGLMatrixFromMatrix(matrix);
+
+	PXGraphicsUtilsLineBitmapStyle(vGraphicsUtil, &glMatrix, textureData->_sPerPixel, textureData->_tPerPixel, repeat, smooth, textureData);
 }
 
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios
@@ -199,7 +301,7 @@
 
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix
 {
-	[self lineStyleWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:matrix spreadMethod:PXSpreadPad];
+	[self lineStyleWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:matrix spreadMethod:PXSpreadMethod_Pad];
 }
 
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod
@@ -214,7 +316,11 @@
 
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
 {
-	// TODO: Implement
+	PXGraphicsGradientInfo gradientInfo = PXGraphicsGradientInfoMake(colors, alphas, ratios);
+
+	PXGLMatrix glMatrix = PXGraphicsMakeGLMatrixFromMatrix(matrix);
+
+	PXGraphicsUtilsLineGradientStyle(vGraphicsUtil, type, gradientInfo.colors, gradientInfo.alphas, gradientInfo.colorCount, gradientInfo.ratios, gradientInfo.ratioCount, &glMatrix, spreadMethod, interpolationMethod, focalPointRatio);
 }
 
 #pragma mark -
@@ -223,17 +329,17 @@
 
 - (void) moveToX:(float)x y:(float)y
 {
-	// TODO: Implement
+	PXGraphicsUtilsMoveTo(vGraphicsUtil, x, y);
 }
 
 - (void) lineToX:(float)x y:(float)y
 {
-	// TODO: Implement
+	PXGraphicsUtilsLineTo(vGraphicsUtil, x, y);
 }
 
 - (void) curveToControlX:(float)controlX controlY:(float)controlY anchorX:(float)anchorX anchorY:(float)anchorY
 {
-	// TODO: Implement
+	PXGraphicsUtilsCurveTo(vGraphicsUtil, controlX, controlY, anchorX, anchorY);
 }
 
 // Need to be of type PXGraphicsData
@@ -254,7 +360,7 @@
 
 - (void) clear
 {
-	// TODO: Implement
+	PXGraphicsUtilsClear(vGraphicsUtil);
 }
 
 #pragma mark -

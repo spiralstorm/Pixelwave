@@ -40,7 +40,7 @@ void PXGraphicsFillGeneratorDestroy(PXGraphicsFillGenerator *fill)
 	}
 }
 
-void PXGraphicsFillGeneratorMoveTo(PXGraphicsFillGenerator *fill, float x, float y);
+void PXGraphicsFillGeneratorMoveTo(PXGraphicsFillGenerator *fill, float x, float y)
 {
 }
 

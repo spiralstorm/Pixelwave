@@ -40,8 +40,7 @@
 #ifndef _PX_ARRAY_BUFFER_H_
 #define _PX_ARRAY_BUFFER_H_
 
-#import "PXHeaderUtils.h"
-
+#include "PXHeaderUtils.h"
 #include "PXMathUtils.h"
 
 //#define PX_ARRAY_BUFFER_MAX_CHECKPOINTS 4
@@ -176,7 +175,8 @@ PXInline void PXArrayBufferResize(PXArrayBuffer *buffer, size_t size)
 	assert(buffer);
 	assert(buffer->array);
 
-	size = MAX(size, buffer->_minSize);
+	// MAX
+	size = (size > buffer->_minSize) ? size : buffer->_minSize;
 
 	if (size == buffer->_byteCount)
 		return;

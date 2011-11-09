@@ -40,11 +40,9 @@
 #include "PXMathUtils.h"
 #include "PXEngine.h"
 
-#include <math.h>
-
 static const float pxMathUtilsOneOverMaxRand = 1.0f / ((float)RAND_MAX + 1);
 
-BOOL PXMathIsNan(float val)
+bool PXMathIsNan(float val)
 {
 	return isnan(val);
 }

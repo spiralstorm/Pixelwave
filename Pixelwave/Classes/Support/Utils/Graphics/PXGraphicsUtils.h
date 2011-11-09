@@ -36,7 +36,7 @@ typedef struct
 	PXArrayBuffer *renderGroups;
 } _PXGraphics;
 
-_PXGraphics *_PXGraphisCreate();
+_PXGraphics *_PXGraphicsCreate();
 void _PXGraphicsDestroy(_PXGraphics *graphics);
 
 _PXGraphicsRenderGroup *_PXGraphicsRenderGroupCreate();
@@ -72,7 +72,7 @@ void PXGraphicsUtilsBeginGradientFill(_PXGraphics *graphics, PXGradientType type
 
 void PXGraphicsUtilsLineStyle(_PXGraphics *graphics, float thickness, unsigned int color, float alpha, bool pixelHinting, PXLineScaleMode scaleMode, PXCapsStyle caps, PXJointStyle joints, float miterLimit);
 void PXGraphicsUtilsLineBitmapStyle(_PXGraphics *graphics, PXGLMatrix *matrix, float sPerPoint, float tPerPoint, bool repeat, bool smooth, void *userData);
-void PXGraphicsUtilsLineGradientStyle(_PXGraphics *graphics, PXGradientType type, unsigned int *colors, float *alphas, unsigned int colorCount, float *ratios, unsigned int ratioCount, PXGLMatrix *matrix, PXSpreadMethod spreadMethod, PXInterpolationMethod interpolationMEthod, float focalPointRatio);
+void PXGraphicsUtilsLineGradientStyle(_PXGraphics *graphics, PXGradientType type, unsigned int *colors, float *alphas, unsigned int colorCount, float *ratios, unsigned int ratioCount, PXGLMatrix *matrix, PXSpreadMethod spreadMethod, PXInterpolationMethod interpolationMethod, float focalPointRatio);
 
 #pragma mark -
 #pragma mark Ending

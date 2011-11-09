@@ -37,9 +37,9 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#import "PXGLUtils.h"
+#include "PXGLUtils.h"
 
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 #define PXGLAABBResetMin INT_MAX
 #define PXGLAABBResetMax INT_MIN

@@ -40,6 +40,14 @@
 #ifndef _PX_HEADER_UTILS_H_
 #define _PX_HEADER_UTILS_H_
 
+#include <stdlib.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <assert.h>
+#include <string.h>
+#include <math.h>
+
 #ifdef __cplusplus
 #define PXExtern extern "C"
 #else
