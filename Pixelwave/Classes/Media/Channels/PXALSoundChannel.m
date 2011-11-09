@@ -46,7 +46,7 @@
 
 #import "PXEvent.h"
 
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 #import "PXDebugUtils.h"
 
 @interface PXALSoundChannel(Private)

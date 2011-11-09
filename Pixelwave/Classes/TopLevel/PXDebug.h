@@ -89,7 +89,7 @@
 #ifndef _PX_DEBUG_H_
 #define _PX_DEBUG_H_
 
-#import "PXHeaderUtils.h"
+#include "PXHeaderUtils.h"
 
 #ifdef __cplusplus
 extern "C" {

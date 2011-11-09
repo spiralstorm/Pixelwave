@@ -49,7 +49,7 @@
 #include "PXEngine.h"
 #include "PXGL.h"
 
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 #include "PXPrivateUtils.h"
 
 #include <CoreGraphics/CoreGraphics.h>

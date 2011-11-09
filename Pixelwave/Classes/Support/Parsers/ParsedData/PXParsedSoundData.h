@@ -40,7 +40,7 @@
 #ifndef _PX_PARSED_SOUND_DATA_H_
 #define _PX_PARSED_SOUND_DATA_H_
 
-#import "PXHeaderUtils.h"
+#include "PXHeaderUtils.h"
 
 #ifdef __cplusplus
 extern "C" {

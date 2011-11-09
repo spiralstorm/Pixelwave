@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-#import "PXTessellatorUtils.h"
+#include "PXTessellatorUtils.h"
 
 PXTessellator *PXTessellatorCreate()
 {

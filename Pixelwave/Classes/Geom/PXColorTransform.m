@@ -40,7 +40,7 @@
 #import "PXColorTransform.h"
 #import "PXGLRenderer.h"
 
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 
 /**
  * A PXColorTransform object lets you adjust the values of each color channel

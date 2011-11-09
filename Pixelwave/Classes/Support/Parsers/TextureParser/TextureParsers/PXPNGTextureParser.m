@@ -49,7 +49,7 @@
 #import "PXExceptionUtils.h"
 
 #import "PXDebug.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 // 1 byte = 8 bits, 8 bits * 8 (header bytes) = 64 bits.
 typedef u_int64_t _PXPNGHeader;

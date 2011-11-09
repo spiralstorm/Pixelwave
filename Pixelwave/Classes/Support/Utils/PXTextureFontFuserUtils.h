@@ -41,7 +41,7 @@
 #define _PX_TEXTURE_FONT_FUSER_UTILS_H_
 
 #import "PXParsedTextureData.h"
-#import "PXHeaderUtils.h"
+#include "PXHeaderUtils.h"
 
 @class PXFont;
 @class PXTextureData;

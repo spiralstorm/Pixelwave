@@ -41,7 +41,7 @@
 
 #import "PXGL.h"
 #import "PXTextField.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 @implementation PXFontRenderer
 

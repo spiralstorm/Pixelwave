@@ -41,7 +41,7 @@
 #define _PX_DEBUG_UTILS_H_
 
 #import "PXDebug.h"
-#import "PXHeaderUtils.h"
+#include "PXHeaderUtils.h"
 
 #ifdef __cplusplus
 extern "C" {

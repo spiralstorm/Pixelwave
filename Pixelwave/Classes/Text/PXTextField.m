@@ -44,10 +44,10 @@
 #import "PXSystemFontRenderer.h"
 #import "PXTextureFontRenderer.h"
 
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 #import "PXGLRenderer.h"
 
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 #import "PXExceptionUtils.h"
 
 #import "PXSettings.h"

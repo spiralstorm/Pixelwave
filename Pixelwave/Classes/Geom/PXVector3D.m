@@ -39,7 +39,7 @@
 
 #import "PXVector3D.h"
 
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 /**
  * A vector (or point) in a three-dimensional coordinate system,

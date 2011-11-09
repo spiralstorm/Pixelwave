@@ -40,7 +40,7 @@
 #ifndef _PX_TEXTURE_FORMAT_UTILS_H_
 #define _PX_TEXTURE_FORMAT_UTILS_H_
 
-#import "PXHeaderUtils.h"
+#include "PXHeaderUtils.h"
 
 #define _PXTextureFormatPixelsCopyWithFunc(_read_, _write_, _count_, _TYPE_, _FUNC_) \
 { \

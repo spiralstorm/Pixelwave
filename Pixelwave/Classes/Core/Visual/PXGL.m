@@ -43,7 +43,7 @@
 #import "PXGLRenderer.h"
 #import "PXGLException.h"
 
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 #import "PXDebugUtils.h"
 
 #import "PXGLUtils.h"

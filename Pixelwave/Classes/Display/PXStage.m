@@ -37,16 +37,16 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#import "PXColorUtils.h"
-#include "PXEngine.h"
-#include "PXMathUtils.h"
 #import "PXView.h"
-
 #import "PXStage.h"
 
 #import "PXColorTransform.h"
 
 #import "PXExceptionUtils.h"
+
+#include "PXColorUtils.h"
+#include "PXEngine.h"
+#include "PXMathUtils.h"
 
 @interface PXStage (Private)
 - (void) onUnsettablePropertyAccess;

@@ -42,7 +42,7 @@
 #import "PXEngine.h"
 #import "PXTextField.h"
 
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 #import "PXExceptionUtils.h"
 #import "PXDebugUtils.h"

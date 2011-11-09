@@ -44,7 +44,7 @@
 #import "PXFreeTypeTextureFontFuser.h"
 #import "PXSystemTextureFontFuser.h"
 
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 
 // Dictionary that holds the keys for the parsers
 static NSMutableDictionary *pxFontFuserKeyFromParsers = nil;

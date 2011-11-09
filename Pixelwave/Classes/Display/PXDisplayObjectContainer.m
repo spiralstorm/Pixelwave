@@ -44,7 +44,7 @@
 #import "PXTouchEngine.h"
 #import "PXStage.h"
 
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 #import "PXExceptionUtils.h"
 #import "PXDebugUtils.h"
 

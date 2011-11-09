@@ -38,7 +38,10 @@
  */
 
 #include "PXMathUtils.h"
-#include "PXEngine.h"
+
+// Becaues we include PXEngine to calculate the scale factor, we can not make
+// PXMathUtils a .c file.
+#import "PXEngine.h"
 
 static const float pxMathUtilsOneOverMaxRand = 1.0f / ((float)RAND_MAX + 1);
 

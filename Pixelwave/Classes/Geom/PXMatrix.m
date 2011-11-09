@@ -39,7 +39,7 @@
 
 #import "PXMatrix.h"
 #import "PXPoint.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 /**
  * A PXMatrix object that represents a two-dimensional transformation matrix.

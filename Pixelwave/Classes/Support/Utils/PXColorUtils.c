@@ -45,7 +45,7 @@ PXInline_c void PXColorRGBToHex(unsigned r, unsigned g, unsigned b, int *hex)
 	(*hex) = (r << 16) + (g << 8) + b;
 }
 
-PXInline_c void PXColorHexToRGB( unsigned hex, PXColor3 *color)
+PXInline_c void PXColorHexToRGB(unsigned hex, PXColor3 *color)
 {
 	color->r = (hex & 0xff0000) >> 16;
 	color->g = (hex & 0x00ff00) >> 8;
@@ -59,7 +59,7 @@ PXInline_c void PXColorHexToRGBf(unsigned hex, PXColor3f *color)
 	color->b = PX_COLOR_BYTE_TO_FLOAT((hex & 0x0000ff));
 }
 
-PXInline_c void PXColorHexToARGB( unsigned hex, PXColor4 *color)
+PXInline_c void PXColorHexToARGB(unsigned hex, PXColor4 *color)
 {
 	color->a = ((hex & 0xff000000) >> 24);
 	color->r = ((hex & 0x00ff0000) >> 16);

@@ -41,7 +41,7 @@
 
 #import "PXVector3D.h"
 #import "PXMath.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 #import "PXAL.h"
 #import "PXEngine.h"
 #import "PXSoundEngine.h"

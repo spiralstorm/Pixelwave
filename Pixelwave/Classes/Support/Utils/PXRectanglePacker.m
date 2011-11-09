@@ -38,9 +38,9 @@
  */
 
 #import "PXRectanglePacker.h"
-#import "PXMathUtils.h"
 
-#import "PXPrivateUtils.h"
+#include "PXMathUtils.h"
+#include "PXPrivateUtils.h"
 
 typedef struct
 {

@@ -39,7 +39,7 @@
 
 #import "PXRegexPattern.h"
 
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 
 #import "PXRegexMatcher.h"
 

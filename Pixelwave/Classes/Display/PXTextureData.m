@@ -43,7 +43,7 @@
 #import "PXMatrix.h"
 #import "PXColorTransform.h"
 #import "PXStage.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 #import "PXExceptionUtils.h"
 #import "PXDebugUtils.h"

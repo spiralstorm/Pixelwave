@@ -40,7 +40,7 @@
 #import "PXTextureLoader.h"
 
 #import "PXEngine.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 #import "PXTextureData.h"
 #import "PXTextureParser.h"

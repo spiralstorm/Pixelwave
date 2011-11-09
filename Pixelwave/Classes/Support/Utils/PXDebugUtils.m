@@ -39,7 +39,7 @@
 
 #import "PXDebugUtils.h"
 
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 #import "PXAL.h"
 
 #include "PXSettings.h"

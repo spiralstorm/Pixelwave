@@ -38,7 +38,7 @@
  */
 
 #import "PXMath.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 /**
  * Contains static methods for computing random values.

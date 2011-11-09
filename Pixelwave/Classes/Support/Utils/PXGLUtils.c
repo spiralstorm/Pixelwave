@@ -41,6 +41,8 @@
 
 #include "PXMathUtils.h"
 
+#include <limits.h>
+
 #define PXGLAABBResetMin INT_MAX
 #define PXGLAABBResetMax INT_MIN
 
@@ -257,10 +259,10 @@ PXInline_c void PXGLColorVerticesFree(PXGLColorVertices *colorVertices)
 }*/
 PXInline_c void PXGLAABBUpdate(PXGLAABB *toBeUpdated, PXGLAABB *checkVals)
 {
-	*toBeUpdated = PXGLAABBMake(MIN(toBeUpdated->xMin, checkVals->xMin),
-								MIN(toBeUpdated->yMin, checkVals->yMin),
-								MAX(toBeUpdated->xMax, checkVals->xMax),
-								MAX(toBeUpdated->yMax, checkVals->yMax));
+	*toBeUpdated = PXGLAABBMake(PXMathMin(toBeUpdated->xMin, checkVals->xMin),
+								PXMathMin(toBeUpdated->yMin, checkVals->yMin),
+								PXMathMax(toBeUpdated->xMax, checkVals->xMax),
+								PXMathMax(toBeUpdated->yMax, checkVals->yMax));
 }
 PXInline_c void PXGLAABBExpand(PXGLAABB *aabb, CGPoint point)
 {
@@ -268,10 +270,10 @@ PXInline_c void PXGLAABBExpand(PXGLAABB *aabb, CGPoint point)
 }
 PXInline_c void PXGLAABBExpandv(PXGLAABB *aabb, GLint x, GLint y)
 {
-	*aabb = PXGLAABBMake(MIN(aabb->xMin, x),
-						 MIN(aabb->yMin, y),
-						 MAX(aabb->xMax, x),
-						 MAX(aabb->yMax, y));
+	*aabb = PXGLAABBMake(PXMathMin(aabb->xMin, x),
+						 PXMathMin(aabb->yMin, y),
+						 PXMathMax(aabb->xMax, x),
+						 PXMathMax(aabb->yMax, y));
 }
 PXInline_c void PXGLAABBInflate(PXGLAABB *aabb, CGPoint point)
 {
@@ -320,10 +322,10 @@ PXInline_c bool PXGLAABBIsEqual(PXGLAABB *aabb1, PXGLAABB *aabb2)
 //}
 PXInline_c void PXGLAABBfUpdate(PXGLAABBf *toBeUpdated, PXGLAABBf *checkVals)
 {
-	*toBeUpdated = PXGLAABBfMake(MIN(toBeUpdated->xMin, checkVals->xMin),
-								 MIN(toBeUpdated->yMin, checkVals->yMin),
-								 MAX(toBeUpdated->xMax, checkVals->xMax),
-								 MAX(toBeUpdated->yMax, checkVals->yMax));
+	*toBeUpdated = PXGLAABBfMake(PXMathMin(toBeUpdated->xMin, checkVals->xMin),
+								 PXMathMin(toBeUpdated->yMin, checkVals->yMin),
+								 PXMathMax(toBeUpdated->xMax, checkVals->xMax),
+								 PXMathMax(toBeUpdated->yMax, checkVals->yMax));
 }
 PXInline_c void PXGLAABBfExpand(PXGLAABBf *aabb, CGPoint point)
 {
@@ -331,10 +333,10 @@ PXInline_c void PXGLAABBfExpand(PXGLAABBf *aabb, CGPoint point)
 }
 PXInline_c void PXGLAABBfExpandv(PXGLAABBf *aabb, GLfloat x, GLfloat y)
 {
-	*aabb = PXGLAABBfMake(MIN(aabb->xMin, x),
-						  MIN(aabb->yMin, y),
-						  MAX(aabb->xMax, x),
-						  MAX(aabb->yMax, y));
+	*aabb = PXGLAABBfMake(PXMathMin(aabb->xMin, x),
+						  PXMathMin(aabb->yMin, y),
+						  PXMathMax(aabb->xMax, x),
+						  PXMathMax(aabb->yMax, y));
 }
 PXInline_c void PXGLAABBfInflate(PXGLAABBf *aabb, CGPoint point)
 {
@@ -538,8 +540,8 @@ PXInline_c bool _PXGLRectContainsAABB(_PXGLRect *rect, PXGLAABB *aabb)
 		aabb->xMin > rect->x + rect->width ||
 		aabb->yMin > rect->y + rect->height)
 	{
-		return NO;
+		return false;
 	}
 
-	return YES;
+	return true;
 }

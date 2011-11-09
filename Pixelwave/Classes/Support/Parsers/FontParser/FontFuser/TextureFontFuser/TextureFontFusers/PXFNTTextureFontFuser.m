@@ -55,7 +55,7 @@
 #import "PXTextureGlyph.h"
 #import "PXPoint.h"
 
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 
 typedef struct
 {

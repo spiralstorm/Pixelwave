@@ -44,7 +44,7 @@
 extern "C" {
 #endif
 
-#import "PXHeaderUtils.h"
+#include "PXHeaderUtils.h"
 
 PXInline_h BOOL PXRegexError(int error);
 

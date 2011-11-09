@@ -43,7 +43,7 @@
 #include "PXGLPrivate.h"
 
 #import "PXDebug.h"
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 #include "PXGLStatePrivate.h"
 
 #define PX_GL_RENDERER_MAX_VERTICES 0xFFFF

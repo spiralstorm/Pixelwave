@@ -38,7 +38,7 @@
  */
 
 #import "PXClipRect.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 @implementation PXClipRect
 

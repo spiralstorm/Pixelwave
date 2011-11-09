@@ -40,6 +40,8 @@
 #ifndef PX_ENGINE_H
 #define PX_ENGINE_H
 
+#import <Foundation/Foundation.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif

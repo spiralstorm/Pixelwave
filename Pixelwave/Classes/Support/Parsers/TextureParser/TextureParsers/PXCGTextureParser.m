@@ -44,7 +44,7 @@
 
 #import "PXDebug.h"
 #import "PXExceptionUtils.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 #define pxKMaxTextureSize         1024
 

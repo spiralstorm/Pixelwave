@@ -40,7 +40,7 @@
 #import "PXEvent.h"
 
 #import "PXExceptionUtils.h"
-#import "PXPrivateUtils.h"
+#include "PXPrivateUtils.h"
 
 #import "PXDebugUtils.h"
 

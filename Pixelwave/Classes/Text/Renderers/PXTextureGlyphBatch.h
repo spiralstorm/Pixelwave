@@ -39,7 +39,7 @@
 
 #import "PXPooledObject.h"
 #import "PXGL.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 @class PXTextureData;
 

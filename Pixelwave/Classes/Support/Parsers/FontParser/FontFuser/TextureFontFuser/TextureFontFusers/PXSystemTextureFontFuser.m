@@ -43,7 +43,7 @@
 
 #import "PXEngine.h"
 #import "PXRectanglePacker.h"
-#import "PXMathUtils.h"
+#include "PXMathUtils.h"
 
 #import "PXTextureModifier.h"
 
