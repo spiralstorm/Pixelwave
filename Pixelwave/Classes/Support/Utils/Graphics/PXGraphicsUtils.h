@@ -32,6 +32,13 @@ typedef struct
 
 typedef struct
 {
+	PXArrayBuffer *data;
+
+	PXPathCommand pathCommand;
+} _PXGraphicsCommand;
+
+typedef struct
+{
 	PXArrayBuffer *commandList;
 	PXArrayBuffer *renderGroups;
 } _PXGraphics;
@@ -43,6 +50,10 @@ _PXGraphicsRenderGroup *_PXGraphicsRenderGroupCreate();
 _PXGraphicsRenderGroup *_PXGraphicsRenderGroupCreatev(size_t vertexSize, GLenum drawMode);
 
 void _PXGraphicsRenderGroupDestroy(_PXGraphicsRenderGroup *group);
+
+_PXGraphicsCommand *_PXGraphicsCommandCreate();
+void _PXGraphicsCommandDestroy(_PXGraphicsCommand *command);
+void _PXGraphicsCommandAdd(_PXGraphicsCommand *command, PXPathCommand pathCommand, void *data);
 
 #pragma mark -
 #pragma mark Clearing
@@ -83,15 +94,6 @@ void PXGraphicsUtilsEndFill(_PXGraphics *graphics);
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
 void PXGraphicsUtilsRasterize(_PXGraphics *graphics);
-
-#pragma mark -
-#pragma mark Helper
-#pragma mark -
-
-void PXGraphicsUtilsDrawCircle(_PXGraphics *graphics, float x, float y, float radius);
-void PXGraphicsUtilsDrawEllipse(_PXGraphics *graphics, float x, float y, float width, float height);
-void PXGraphicsUtilsDrawRect(_PXGraphics *graphics, float x, float y, float width, float height);
-void PXGraphicsUtilsDrawRoundRect(_PXGraphics *graphics, float x, float y, float width, float height, float ellipseWidth, float ellipseHeight);
 
 #ifdef __cplusplus
 }

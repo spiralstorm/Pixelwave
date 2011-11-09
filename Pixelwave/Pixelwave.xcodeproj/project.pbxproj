@@ -413,6 +413,8 @@
 		52876F421469E6F000056E60 /* PXGraphicsFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F401469E6EE00056E60 /* PXGraphicsFill.h */; };
 		52876F4A146AE27900056E60 /* PXTessellatorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F48146AE27800056E60 /* PXTessellatorUtils.h */; };
 		52876F4B146AE27900056E60 /* PXTessellatorUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 52876F49146AE27900056E60 /* PXTessellatorUtils.c */; };
+		52876F4E146AF50B00056E60 /* PXGraphicsUtilsAddons.c in Headers */ = {isa = PBXBuildFile; fileRef = 52876F4C146AF50800056E60 /* PXGraphicsUtilsAddons.c */; };
+		52876F4F146AF50B00056E60 /* PXGraphicsUtilsAddons.h in Sources */ = {isa = PBXBuildFile; fileRef = 52876F4D146AF50A00056E60 /* PXGraphicsUtilsAddons.h */; };
 		5288459512B7DA44000F88E3 /* PXEngineUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5288459312B7DA44000F88E3 /* PXEngineUtils.h */; };
 		5288459612B7DA44000F88E3 /* PXEngineUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 5288459412B7DA44000F88E3 /* PXEngineUtils.m */; };
 		528845F512B7E997000F88E3 /* PXPooledObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 528845F412B7E997000F88E3 /* PXPooledObject.h */; };
@@ -934,6 +936,8 @@
 		52876F401469E6EE00056E60 /* PXGraphicsFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsFill.h; sourceTree = "<group>"; };
 		52876F48146AE27800056E60 /* PXTessellatorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTessellatorUtils.h; sourceTree = "<group>"; };
 		52876F49146AE27900056E60 /* PXTessellatorUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXTessellatorUtils.c; sourceTree = "<group>"; };
+		52876F4C146AF50800056E60 /* PXGraphicsUtilsAddons.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGraphicsUtilsAddons.c; sourceTree = "<group>"; };
+		52876F4D146AF50A00056E60 /* PXGraphicsUtilsAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsUtilsAddons.h; sourceTree = "<group>"; };
 		5288459312B7DA44000F88E3 /* PXEngineUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEngineUtils.h; sourceTree = "<group>"; };
 		5288459412B7DA44000F88E3 /* PXEngineUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEngineUtils.m; sourceTree = "<group>"; };
 		528845F412B7E997000F88E3 /* PXPooledObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXPooledObject.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -1987,11 +1991,13 @@
 			isa = PBXGroup;
 			children = (
 				52876F141469C83500056E60 /* glu.h */,
+				52876F48146AE27800056E60 /* PXTessellatorUtils.h */,
+				52876F49146AE27900056E60 /* PXTessellatorUtils.c */,
 				52876F0E1469C3A900056E60 /* PXGraphicsUtilTypes.h */,
 				52876F0D1469C3A900056E60 /* PXGraphicsUtils.h */,
 				52876F0C1469C3A900056E60 /* PXGraphicsUtils.c */,
-				52876F48146AE27800056E60 /* PXTessellatorUtils.h */,
-				52876F49146AE27900056E60 /* PXTessellatorUtils.c */,
+				52876F4D146AF50A00056E60 /* PXGraphicsUtilsAddons.h */,
+				52876F4C146AF50800056E60 /* PXGraphicsUtilsAddons.c */,
 				52876F161469CE6800056E60 /* PXGraphicsFillGenerator.h */,
 				52876F171469CE6900056E60 /* PXGraphicsFillGenerator.c */,
 				52876F1A1469CF2300056E60 /* PXGraphicsStrokeGenerator.h */,
@@ -2503,6 +2509,7 @@
 				52876F3E1469E52000056E60 /* PXGraphicsStroke.h in Headers */,
 				52876F421469E6F000056E60 /* PXGraphicsFill.h in Headers */,
 				52876F4A146AE27900056E60 /* PXTessellatorUtils.h in Headers */,
+				52876F4E146AF50B00056E60 /* PXGraphicsUtilsAddons.c in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2754,6 +2761,7 @@
 				52876F3A1469E4FB00056E60 /* PXGraphicsSolidFill.m in Sources */,
 				52876F3F1469E52000056E60 /* PXGraphicsStroke.m in Sources */,
 				52876F4B146AE27900056E60 /* PXTessellatorUtils.c in Sources */,
+				52876F4F146AF50B00056E60 /* PXGraphicsUtilsAddons.h in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

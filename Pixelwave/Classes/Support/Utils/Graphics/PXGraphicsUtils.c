@@ -40,7 +40,27 @@ _PXGraphicsRenderGroup *_PXGraphicsRenderGroupCreatev(size_t vertexSize, GLenum 
 	return NULL;
 }
 
-void _PXGraphicsRenderGroupDestroy(_PXGraphicsRenderGroup *group);
+void _PXGraphicsRenderGroupDestroy(_PXGraphicsRenderGroup *group)
+{
+	// TODO: Implement
+}
+
+_PXGraphicsCommand *_PXGraphicsCommandCreate()
+{
+	// TODO: Implement
+
+	return NULL;
+}
+
+void _PXGraphicsCommandDestroy(_PXGraphicsCommand *command)
+{
+	// TODO: Implement
+}
+
+void _PXGraphicsCommandAdd(_PXGraphicsCommand *command, PXPathCommand pathCommand, void *data)
+{
+	// TODO: Implement
+}
 
 #pragma mark -
 #pragma mark Clearing
