@@ -98,6 +98,11 @@ typedef struct
 	// start radius to the min radius.
 	float radiusVelocity;
 	float radiusVelocityVariance;
+
+	float rotationStart;
+	float rotationStartVariance;
+	float rotationEnd;
+	float rotationEndVariance;
 } PKDesignerParticleEmitterLoadedData;
 
 PXInline PKDesignerParticleEmitterLoadedData *PKDesignerParticleEmitterLoadedDataCreate();

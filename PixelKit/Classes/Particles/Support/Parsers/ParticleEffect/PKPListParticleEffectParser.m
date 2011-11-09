@@ -154,6 +154,11 @@
 		designerData->minRadius							= PKParticleEmitterFloatFromDictionary(dictionary, @"minRadius");
 		designerData->radiusVelocity					= PKParticleEmitterFloatFromDictionary(dictionary, @"rotatePerSecond");
 		designerData->radiusVelocityVariance			= PKParticleEmitterFloatFromDictionary(dictionary, @"rotatePerSecondVariance");
+
+		designerData->rotationStart						= PKParticleEmitterFloatFromDictionary(dictionary, @"rotationStart");
+		designerData->rotationStartVariance				= PKParticleEmitterFloatFromDictionary(dictionary, @"rotationStartVariance");
+		designerData->rotationEnd						= PKParticleEmitterFloatFromDictionary(dictionary, @"rotationEnd");
+		designerData->rotationEndVariance				= PKParticleEmitterFloatFromDictionary(dictionary, @"rotationEndVariance");
 	}
 
 	return designerData != nil;

@@ -157,6 +157,12 @@
 	designerParticle->angleVelocity = PKRangeRandom(radiusVelocityRange);
 	designerParticle->startX = designerParticle->x;
 	designerParticle->startY = designerParticle->y;
+
+	float endRotation = PKRangeRandom(rotationEndRange);
+	designerParticle->rotation = PKRangeRandom(rotationStartRange);
+
+	float diffRotation = endRotation - designerParticle->rotation;
+	designerParticle->angularSpeed = diffRotation / designerParticle->lifetime;
 }
 
 - (void) disposeParticle:(PKParticle *)particle emitter:(PKParticleEmitter *)emitter

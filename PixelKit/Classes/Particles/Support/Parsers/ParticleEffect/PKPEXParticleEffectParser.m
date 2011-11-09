@@ -153,6 +153,11 @@
 		designerData->minRadius							= [TBXMLParticleAdditions floatValue:particleXML fromChildElementNamed:@"minRadius" parentElement:rootXMLElement];
 		designerData->radiusVelocity					= [TBXMLParticleAdditions floatValue:particleXML fromChildElementNamed:@"rotatePerSecond" parentElement:rootXMLElement];
 		designerData->radiusVelocityVariance			= [TBXMLParticleAdditions floatValue:particleXML fromChildElementNamed:@"rotatePerSecondVariance" parentElement:rootXMLElement];
+
+		designerData->rotationStart						= [TBXMLParticleAdditions floatValue:particleXML fromChildElementNamed:@"rotationStart" parentElement:rootXMLElement];
+		designerData->rotationStartVariance				= [TBXMLParticleAdditions floatValue:particleXML fromChildElementNamed:@"rotationStartVariance" parentElement:rootXMLElement];
+		designerData->rotationEnd						= [TBXMLParticleAdditions floatValue:particleXML fromChildElementNamed:@"rotationEnd" parentElement:rootXMLElement];
+		designerData->rotationEndVariance				= [TBXMLParticleAdditions floatValue:particleXML fromChildElementNamed:@"rotationEndVariance" parentElement:rootXMLElement];
 	}
 
 	return designerData != nil;

@@ -135,6 +135,9 @@
 			designerInitializer.textureData = designerData->textureData;
 			designerInitializer->blendSource = designerData->blendSource;
 			designerInitializer->blendDestination = designerData->blendDestination;
+
+			designerInitializer->rotationStartRange = PKRangeMakeFromVariance(-(PXMathToRad(designerData->rotationStart)), -(PXMathToRad(designerData->rotationStartVariance)));
+			designerInitializer->rotationEndRange = PKRangeMakeFromVariance(-(PXMathToRad(designerData->rotationEnd)), -(PXMathToRad(designerData->rotationEndVariance)));
 		}
 
 		PKDesignerAction *action = [[PKDesignerAction alloc] init];

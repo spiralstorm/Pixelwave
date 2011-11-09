@@ -105,6 +105,9 @@
 
 	PKRange sRange;
 	PKRange tRange;
+
+	PKRange rotationStartRange;
+	PKRange rotationEndRange;
 }
 
 @property (nonatomic, retain) PXTextureData *textureData;

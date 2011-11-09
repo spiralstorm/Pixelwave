@@ -126,6 +126,8 @@
 	designerParticle->scaleX = PXMathLerpf(designerParticle->startScaleX, designerParticle->endScaleX, percent);
 	designerParticle->scaleY = PXMathLerpf(designerParticle->startScaleY, designerParticle->endScaleY, percent);
 
+	designerParticle->rotation += designerParticle->angularSpeed * dt;
+
 	// AGE
 	designerParticle->age += dt;
 	designerParticle->energy = 1.0f - (designerParticle->age / designerParticle->lifetime);
