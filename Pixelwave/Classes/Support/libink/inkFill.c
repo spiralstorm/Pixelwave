@@ -27,20 +27,20 @@ inkExtern inkSolidFill inkSolidFillMake(unsigned int color, float alpha)
 inkExtern inkBitmapFill inkBitmapFillMake(inkMatrix matrix, bool repeat, bool smooth)
 {
 	inkBitmapFill fill;
-	
+
 	fill.fillType = inkFillType_Bitmap;
 
 	fill.matrix = matrix;
 	fill.repeat = repeat;
 	fill.smooth = smooth;
-	
+
 	return fill;
 }
 
 inkExtern inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors, inkArray* alphas, inkArray* ratios, inkGradientType type, inkSpreadMethod spreadMethod, inkInterpolationMethod interpolationMethod, float focalPointRatio)
 {
 	inkGradientFill fill;
-	
+
 	fill.fillType = inkFillType_Gradient;
 
 	fill.colors = colors;
@@ -50,6 +50,6 @@ inkExtern inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors
 	fill.spreadMethod = spreadMethod;
 	fill.interpolationMethod = interpolationMethod;
 	fill.focalPointRatio = focalPointRatio;
-	
+
 	return fill;
 }

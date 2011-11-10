@@ -42,24 +42,16 @@
 #import "PXTextureData.h"
 #import "PXMatrix.h"
 
-#include "PXGraphicsUtils.h"
 #include "PXDebug.h"
 
-typedef struct
+#include "inkVectorGraphics.h"
+#include "inkVectorGraphicsUtils.h"
+
+static inline inkGradientFill PXGraphicsGradientInfoMake(NSArray *colors, NSArray *alphas, NSArray *ratios)
 {
-	unsigned int *colors;
-	float *alphas;
-	unsigned int colorCount;
+	inkGradientFill info;
 
-	float *ratios;
-	unsigned int ratioCount;
-} PXGraphicsGradientInfo;
-
-static inline PXGraphicsGradientInfo PXGraphicsGradientInfoMake(NSArray *colors, NSArray *alphas, NSArray *ratios)
-{
-	PXGraphicsGradientInfo info;
-
-	memset(&info, 0, sizeof(PXGraphicsGradientInfo));
+	memset(&info, 0, sizeof(inkGradientFill));
 
 	info.colorCount = [colors count];
 	unsigned int alphaCount = [alphas count];
@@ -110,14 +102,14 @@ static inline PXGraphicsGradientInfo PXGraphicsGradientInfoMake(NSArray *colors,
 	return info;
 }
 
-static inline PXGLMatrix PXGraphicsMakeGLMatrixFromMatrix(PXMatrix *matrix)
+static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 {
 	if (matrix == nil)
 	{
-		return PXGLMatrixMake(1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f);
+		return inkMatrixIdentity;
 	}
 
-	return PXGLMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
 }
 
 @implementation PXGraphics
@@ -151,29 +143,9 @@ static inline PXGLMatrix PXGraphicsMakeGLMatrixFromMatrix(PXMatrix *matrix)
 #pragma mark Fill
 #pragma mark -
 
-- (void) beginFill:(unsigned int)color
-{
-	[self beginFill:color alpha:1.0f];
-}
-
 - (void) beginFill:(unsigned int)color alpha:(float)alpha
 {
 	PXGraphicsUtilsBeginFill(vGraphicsUtil, color, alpha);
-}
-
-- (void) beginFillWithTextureData:(PXTextureData *)textureData
-{
-	[self beginFillWithTextureData:textureData matrix:nil];
-}
-
-- (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix
-{
-	[self beginFillWithTextureData:textureData matrix:matrix repeat:YES];
-}
-
-- (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat
-{
-	[self beginFillWithTextureData:textureData matrix:matrix repeat:repeat smooth:NO];
 }
 
 - (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth
@@ -184,26 +156,6 @@ static inline PXGLMatrix PXGraphicsMakeGLMatrixFromMatrix(PXMatrix *matrix)
 	PXGLMatrix glMatrix = PXGraphicsMakeGLMatrixFromMatrix(matrix);
 
 	PXGraphicsUtilsBeginBitmapFill(vGraphicsUtil, &glMatrix, textureData->_sPerPixel, textureData->_tPerPixel, repeat, smooth, textureData);
-}
-
-- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios
-{
-	[self beginFillWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:nil];
-}
-
-- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix
-{
-	[self beginFillWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:matrix spreadMethod:PXSpreadMethod_Pad];
-}
-
-- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod
-{
-	[self beginFillWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:matrix spreadMethod:spreadMethod interpolationMethod:PXInterpolationMethod_RGB];
-}
-
-- (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod
-{
-	[self beginFillWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:matrix spreadMethod:spreadMethod interpolationMethod:interpolationMethod focalPointRatio:0.0f];
 }
 
 - (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
@@ -224,94 +176,9 @@ static inline PXGLMatrix PXGraphicsMakeGLMatrixFromMatrix(PXMatrix *matrix)
 #pragma mark Lines
 #pragma mark -
 
-- (void) lineStyle
-{
-	[self lineStyleWithThickness:NAN];
-}
-
-- (void) lineStyleWithThickness:(float)thickness
-{
-	[self lineStyleWithThickness:thickness color:0x000000];
-}
-
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color
-{
-	[self lineStyleWithThickness:thickness color:color alpha:1.0f];
-}
-
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha
-{
-	[self lineStyleWithThickness:thickness color:color alpha:alpha pixelHinting:NO];
-}
-
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting
-{
-	[self lineStyleWithThickness:thickness color:color alpha:alpha pixelHinting:pixelHinting scaleMode:PXLineScaleMode_Normal];
-}
-
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode
-{
-	[self lineStyleWithThickness:thickness color:color alpha:alpha pixelHinting:pixelHinting scaleMode:scaleMode caps:PXCapsStyle_None];
-}
-
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps
-{
-	[self lineStyleWithThickness:thickness color:color alpha:alpha pixelHinting:pixelHinting scaleMode:scaleMode caps:caps joints:PXJointStyle_Round];
-}
-
-- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints
-{
-	[self lineStyleWithThickness:thickness color:color alpha:alpha pixelHinting:pixelHinting scaleMode:scaleMode caps:caps joints:joints miterLimit:3.0f];
-}
-
 - (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit
 {
 	PXGraphicsUtilsLineStyle(vGraphicsUtil, thickness, color, alpha, pixelHinting, scaleMode, caps, joints, miterLimit);
-}
-
-- (void) lineStyleWithTextureData:(PXTextureData *)textureData
-{
-	[self lineStyleWithTextureData:textureData matrix:nil];
-}
-
-- (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix
-{
-	[self lineStyleWithTextureData:textureData matrix:nil repeat:YES];
-}
-
-- (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat
-{
-	[self lineStyleWithTextureData:textureData matrix:nil repeat:repeat smooth:NO];
-}
-
-- (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth
-{
-	if (textureData == nil)
-		return;
-
-	PXGLMatrix glMatrix = PXGraphicsMakeGLMatrixFromMatrix(matrix);
-
-	PXGraphicsUtilsLineBitmapStyle(vGraphicsUtil, &glMatrix, textureData->_sPerPixel, textureData->_tPerPixel, repeat, smooth, textureData);
-}
-
-- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios
-{
-	[self lineStyleWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:nil];
-}
-
-- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix
-{
-	[self lineStyleWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:matrix spreadMethod:PXSpreadMethod_Pad];
-}
-
-- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod
-{
-	[self lineStyleWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:matrix spreadMethod:spreadMethod interpolationMethod:PXInterpolationMethod_RGB];
-}
-
-- (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod
-{
-	[self lineStyleWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:matrix spreadMethod:spreadMethod interpolationMethod:interpolationMethod focalPointRatio:0.0f];
 }
 
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
@@ -370,6 +237,7 @@ static inline PXGLMatrix PXGraphicsMakeGLMatrixFromMatrix(PXMatrix *matrix)
 - (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
 	// TODO: Implement
+	inkDra
 }
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth
