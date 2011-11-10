@@ -10,10 +10,11 @@
 
 ink_t* inkCreate()
 {
-	
+	// TODO: Implement
+	return NULL;
 }
 
 void inkDestroy(ink_t* graphics)
 {
-	
+	// TODO: Implement
 }

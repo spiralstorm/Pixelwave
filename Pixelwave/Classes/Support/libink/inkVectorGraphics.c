@@ -6,9 +6,9 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-#include "PXGraphicsUtils.h"
+#include "inkVectorGraphics.h"
 
-#include "PXTessellatorUtils.h"
+#include "inkTessellator.h"
 
 // We use a shared tessellator because the 'rasterization' step, where
 // tessellation is done, should ONLY ever happen on the main thread.

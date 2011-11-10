@@ -31,5 +31,3 @@
 #define inkNotUsed(_val_) ((void)(_val_))
 
 #endif
-
-#endif

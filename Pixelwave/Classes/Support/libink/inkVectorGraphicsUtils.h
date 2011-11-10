@@ -11,10 +11,11 @@
 
 #include "inkHeader.h"
 #include "ink_t.h"
+#include "inkGeometry.h"
 
-inkExtern void inkUtilsDrawCircle(ink_t* graphics, float x, float y, float radius);
-inkExtern void inkUtilsDrawEllipse(ink_t* graphics, float x, float y, float width, float height);
-inkExtern void inkUtilsDrawRect(ink_t* graphics, float x, float y, float width, float height);
-inkExtern void inkUtilsDrawRoundRect(ink_t* graphics, float x, float y, float width, float height, float ellipseWidth, float ellipseHeight);
+inkExtern void inkUtilsDrawCircle(ink_t* graphics, inkPoint position, float radius);
+inkExtern void inkUtilsDrawEllipse(ink_t* graphics, inkRect boundingRect);
+inkExtern void inkUtilsDrawRect(ink_t* graphics, inkRect rect);
+inkExtern void inkUtilsDrawRoundRect(ink_t* graphics, inkRect rect, inkSize ellipseSize);
 
 #endif

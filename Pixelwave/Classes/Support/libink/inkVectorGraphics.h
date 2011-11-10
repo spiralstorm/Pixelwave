@@ -12,29 +12,28 @@
 #include "inkHeader.h"
 #include "inkArray.h"
 #include "inkTypes.h"
+#include "ink_t.h"
+#include "inkFill.h"
+#include "inkStroke.h"
 
-inkExtern void PXGraphicsUtilsClear(ink_t* graphics);
+inkExtern void inkClear(ink_t* graphics);
 
-inkExtern void PXGraphicsUtilsMoveTo(ink_t* graphics, float x, float y);
-inkExtern void PXGraphicsUtilsLineTo(ink_t* graphics, float x, float y);
-inkExtern void PXGraphicsUtilsCurveTo(ink_t* graphics, float controlX, float controlY, float anchorX, float anchorY);
+inkExtern void inkMoveTo(ink_t* graphics, inkPoint position);
+inkExtern void inkLineTo(ink_t* graphics, inkPoint position);
+inkExtern void inkCurveTo(ink_t* graphics, inkPoint control, inkPoint anchor);
 
-inkExtern void PXGraphicsUtilsBeginFill(ink_t* graphics, unsigned int color, float alpha);
-inkExtern void PXGraphicsUtilsBeginBitmapFill(ink_t* graphics, PXGLMatrix *matrix, float sPerPoint, float tPerPoint, bool repeat, bool smooth, void *userData);
-inkExtern void PXGraphicsUtilsBeginGradientFill(ink_t* graphics, PXGradientType type, unsigned int *colors, float *alphas, unsigned int colorCount, float *ratios, unsigned int ratioCount, PXGLMatrix *matrix, PXSpreadMethod spreadMethod, PXInterpolationMethod interpolationMethod, float focalPointRatio);
+inkExtern void inkBeginFill(ink_t* graphics, inkSolidFill);
+inkExtern void inkBeginBitmapFill(ink_t* graphics, inkBitmapFill bitmapFill);
+inkExtern void inkBeginGradientFill(ink_t* graphics, inkGradientFill gradientFill);
 
-inkExtern void PXGraphicsUtilsLineStyle(ink_t* graphics, float thickness, unsigned int color, float alpha, bool pixelHinting, PXLineScaleMode scaleMode, PXCapsStyle caps, PXJointStyle joints, float miterLimit);
-inkExtern void PXGraphicsUtilsLineBitmapStyle(ink_t* graphics, PXGLMatrix *matrix, float sPerPoint, float tPerPoint, bool repeat, bool smooth, void *userData);
-inkExtern void PXGraphicsUtilsLineGradientStyle(ink_t* graphics, PXGradientType type, unsigned int *colors, float *alphas, unsigned int colorCount, float *ratios, unsigned int ratioCount, PXGLMatrix *matrix, PXSpreadMethod spreadMethod, PXInterpolationMethod interpolationMethod, float focalPointRatio);
+inkExtern void inkLineStyle(ink_t* graphics, inkStroke stroke, inkSolidFill solidFill);
+inkExtern void inkLineBitmapStyle(ink_t* graphics, inkBitmapFill bitmapFill);
+inkExtern void inkLineGradientStyle(ink_t* graphics, inkGradientFill gradientFill);
 
-inkExtern void PXGraphicsUtilsEndFill(ink_t* graphics);
+inkExtern void inkEndFill(ink_t* graphics);
 
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
-inkExtern void PXGraphicsUtilsRasterize(ink_t* graphics);
-
-#ifdef __cplusplus
-}
-#endif
+inkExtern void inkRasterize(ink_t* graphics);
 
 #endif

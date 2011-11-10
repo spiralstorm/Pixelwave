@@ -377,7 +377,6 @@
 		526DA3DA146B1CE800566FF2 /* inkArray.h in Headers */ = {isa = PBXBuildFile; fileRef = 526DA3D8146B1CE700566FF2 /* inkArray.h */; };
 		526DA3DB146B1CE800566FF2 /* inkArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 526DA3D9146B1CE800566FF2 /* inkArray.c */; };
 		526DA3DD146B223200566FF2 /* inkHeader.h in Headers */ = {isa = PBXBuildFile; fileRef = 526DA3DC146B223100566FF2 /* inkHeader.h */; };
-		526DA3E0146B278500566FF2 /* inkStructs.h in Headers */ = {isa = PBXBuildFile; fileRef = 526DA3DE146B278400566FF2 /* inkStructs.h */; };
 		526DA3E4146B2F3F00566FF2 /* ink_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 526DA3E2146B2F3E00566FF2 /* ink_t.h */; };
 		526DA3E5146B2F3F00566FF2 /* ink_t.c in Sources */ = {isa = PBXBuildFile; fileRef = 526DA3E3146B2F3F00566FF2 /* ink_t.c */; };
 		526DA3E8146B306100566FF2 /* inkRenderGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = 526DA3E6146B306000566FF2 /* inkRenderGroup.h */; };
@@ -386,8 +385,10 @@
 		526DA3ED146B326600566FF2 /* inkCommandGroup.c in Sources */ = {isa = PBXBuildFile; fileRef = 526DA3EB146B326500566FF2 /* inkCommandGroup.c */; };
 		526DA3F0146B354400566FF2 /* inkFill.h in Headers */ = {isa = PBXBuildFile; fileRef = 526DA3EE146B354300566FF2 /* inkFill.h */; };
 		526DA3F1146B354400566FF2 /* inkFill.c in Sources */ = {isa = PBXBuildFile; fileRef = 526DA3EF146B354300566FF2 /* inkFill.c */; };
-		526DA3F4146B369200566FF2 /* inkMatrix.h in Headers */ = {isa = PBXBuildFile; fileRef = 526DA3F2146B368F00566FF2 /* inkMatrix.h */; };
-		526DA3F5146B369200566FF2 /* inkMatrix.m in Sources */ = {isa = PBXBuildFile; fileRef = 526DA3F3146B369100566FF2 /* inkMatrix.m */; };
+		526DA3F4146B369200566FF2 /* inkGeometry.h in Headers */ = {isa = PBXBuildFile; fileRef = 526DA3F2146B368F00566FF2 /* inkGeometry.h */; };
+		526DA3F5146B369200566FF2 /* inkGeometry.m in Sources */ = {isa = PBXBuildFile; fileRef = 526DA3F3146B369100566FF2 /* inkGeometry.m */; };
+		526DA3F8146C271000566FF2 /* inkStroke.h in Headers */ = {isa = PBXBuildFile; fileRef = 526DA3F6146C270C00566FF2 /* inkStroke.h */; };
+		526DA3F9146C271000566FF2 /* inkStroke.c in Sources */ = {isa = PBXBuildFile; fileRef = 526DA3F7146C270E00566FF2 /* inkStroke.c */; };
 		5280DE331333FB1600B0F353 /* PXGLState.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280DE321333FB1600B0F353 /* PXGLState.h */; };
 		5280DEA5133407AF00B0F353 /* PXGLStatePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280DEA4133407AF00B0F353 /* PXGLStatePrivate.h */; };
 		52834A8A12F0C59B000227DD /* PXTextureFontOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 52834A8812F0C59B000227DD /* PXTextureFontOptions.h */; };
@@ -915,7 +916,6 @@
 		526DA3D8146B1CE700566FF2 /* inkArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkArray.h; sourceTree = "<group>"; };
 		526DA3D9146B1CE800566FF2 /* inkArray.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkArray.c; sourceTree = "<group>"; };
 		526DA3DC146B223100566FF2 /* inkHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkHeader.h; sourceTree = "<group>"; };
-		526DA3DE146B278400566FF2 /* inkStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkStructs.h; sourceTree = "<group>"; };
 		526DA3E2146B2F3E00566FF2 /* ink_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ink_t.h; sourceTree = "<group>"; };
 		526DA3E3146B2F3F00566FF2 /* ink_t.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ink_t.c; sourceTree = "<group>"; };
 		526DA3E6146B306000566FF2 /* inkRenderGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkRenderGroup.h; sourceTree = "<group>"; };
@@ -924,8 +924,10 @@
 		526DA3EB146B326500566FF2 /* inkCommandGroup.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkCommandGroup.c; sourceTree = "<group>"; };
 		526DA3EE146B354300566FF2 /* inkFill.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkFill.h; sourceTree = "<group>"; };
 		526DA3EF146B354300566FF2 /* inkFill.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkFill.c; sourceTree = "<group>"; };
-		526DA3F2146B368F00566FF2 /* inkMatrix.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkMatrix.h; sourceTree = "<group>"; };
-		526DA3F3146B369100566FF2 /* inkMatrix.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = inkMatrix.m; sourceTree = "<group>"; };
+		526DA3F2146B368F00566FF2 /* inkGeometry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkGeometry.h; sourceTree = "<group>"; };
+		526DA3F3146B369100566FF2 /* inkGeometry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = inkGeometry.m; sourceTree = "<group>"; };
+		526DA3F6146C270C00566FF2 /* inkStroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkStroke.h; sourceTree = "<group>"; };
+		526DA3F7146C270E00566FF2 /* inkStroke.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkStroke.c; sourceTree = "<group>"; };
 		5280DE321333FB1600B0F353 /* PXGLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLState.h; sourceTree = "<group>"; };
 		5280DEA4133407AF00B0F353 /* PXGLStatePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLStatePrivate.h; sourceTree = "<group>"; };
 		52834A8812F0C59B000227DD /* PXTextureFontOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureFontOptions.h; sourceTree = "<group>"; };
@@ -1972,15 +1974,16 @@
 				526DA3D2146B1A0A00566FF2 /* ink.h */,
 				526DA3DC146B223100566FF2 /* inkHeader.h */,
 				526DA3C4146B19FC00566FF2 /* inkTypes.h */,
-				526DA3DE146B278400566FF2 /* inkStructs.h */,
 				526DA3D8146B1CE700566FF2 /* inkArray.h */,
 				526DA3D9146B1CE800566FF2 /* inkArray.c */,
-				526DA3F2146B368F00566FF2 /* inkMatrix.h */,
-				526DA3F3146B369100566FF2 /* inkMatrix.m */,
+				526DA3F2146B368F00566FF2 /* inkGeometry.h */,
+				526DA3F3146B369100566FF2 /* inkGeometry.m */,
 				526DA3E2146B2F3E00566FF2 /* ink_t.h */,
 				526DA3E3146B2F3F00566FF2 /* ink_t.c */,
 				526DA3EE146B354300566FF2 /* inkFill.h */,
 				526DA3EF146B354300566FF2 /* inkFill.c */,
+				526DA3F6146C270C00566FF2 /* inkStroke.h */,
+				526DA3F7146C270E00566FF2 /* inkStroke.c */,
 				526DA3C6146B19FC00566FF2 /* inkTessellator.h */,
 				526DA3C5146B19FC00566FF2 /* inkTessellator.c */,
 				526DA3BD146B19FC00566FF2 /* inkFillGenerator.h */,
@@ -2558,12 +2561,12 @@
 				526DA3D5146B1A5300566FF2 /* glu.h in Headers */,
 				526DA3DA146B1CE800566FF2 /* inkArray.h in Headers */,
 				526DA3DD146B223200566FF2 /* inkHeader.h in Headers */,
-				526DA3E0146B278500566FF2 /* inkStructs.h in Headers */,
 				526DA3E4146B2F3F00566FF2 /* ink_t.h in Headers */,
 				526DA3E8146B306100566FF2 /* inkRenderGroup.h in Headers */,
 				526DA3EC146B326600566FF2 /* inkCommandGroup.h in Headers */,
 				526DA3F0146B354400566FF2 /* inkFill.h in Headers */,
-				526DA3F4146B369200566FF2 /* inkMatrix.h in Headers */,
+				526DA3F4146B369200566FF2 /* inkGeometry.h in Headers */,
+				526DA3F8146C271000566FF2 /* inkStroke.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2821,7 +2824,8 @@
 				526DA3E9146B306100566FF2 /* inkRenderGroup.c in Sources */,
 				526DA3ED146B326600566FF2 /* inkCommandGroup.c in Sources */,
 				526DA3F1146B354400566FF2 /* inkFill.c in Sources */,
-				526DA3F5146B369200566FF2 /* inkMatrix.m in Sources */,
+				526DA3F5146B369200566FF2 /* inkGeometry.m in Sources */,
+				526DA3F9146C271000566FF2 /* inkStroke.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

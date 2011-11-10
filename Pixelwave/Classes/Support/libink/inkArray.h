@@ -11,10 +11,6 @@
 
 #include "inkHeader.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 typedef struct
 {
 	void *bytes;
@@ -31,23 +27,19 @@ typedef struct
 } inkArray;
 
 // Make and destroy
-inkArray* inkArrayCreate(size_t elementSize);
-void inkArrayDestroy(inkArray* array);
+inkExtern inkArray* inkArrayCreate(size_t elementSize);
+inkExtern void inkArrayDestroy(inkArray* array);
 
 // Adjust size
-void* inkArrayPush(inkArray* array);
-void inkArrayPop();
-void inkArrayClear();
+inkExtern void* inkArrayPush(inkArray* array);
+inkExtern void inkArrayPop();
+inkExtern void inkArrayClear();
 
-void inkArrayRemoveFromLeft(inkArray* array, unsigned int count);
-void inkArrayRemoveFromRight(inkArray* array, unsigned int count);
+inkExtern void inkArrayRemoveFromLeft(inkArray* array, unsigned int count);
+inkExtern void inkArrayRemoveFromRight(inkArray* array, unsigned int count);
 
 // Inquiry
-unsigned int inkArrayCount(inkArray* array);
-void* inkArrayElementAt(inkArray* array, unsigned int index);
-
-#ifdef __cplusplus
-}
-#endif
+inkExtern unsigned int inkArrayCount(inkArray* array);
+inkExtern void* inkArrayElementAt(inkArray* array, unsigned int index);
 
 #endif

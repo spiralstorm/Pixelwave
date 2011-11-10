@@ -11,20 +11,12 @@
 
 #include "inkHeader.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 typedef struct
 {
 	void *gluTessellator;
 } inkTessellator;
 
-inkTessellator *inkTessellatorCreate();
-void inkTessellatorDestroy(inkTessellator *tessellator);
-
-#ifdef __cplusplus
-}
-#endif
+inkExtern inkTessellator *inkTessellatorCreate();
+inkExtern void inkTessellatorDestroy(inkTessellator *tessellator);
 
 #endif

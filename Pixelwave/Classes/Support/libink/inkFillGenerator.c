@@ -8,42 +8,51 @@
 
 #include "inkFillGenerator.h"
 
-inkFillGenerator *inkFillGeneratorCreate(size_t vertexSize)
+inkFillInfo *inkFillGeneratorCreate(size_t vertexSize, void *fill)
 {
 	if (vertexSize == 0)
 		return NULL;
 
-	inkFillGenerator *fill = malloc(sizeof(inkFillGenerator));
+	inkFillInfo *fillInfo = malloc(sizeof(inkFillInfo));
 
-	if (fill)
+	if (fillInfo)
 	{
-		fill->vertices = PXArrayBufferCreatev(vertexSize);
+		fillInfo->vertices = inkArrayCreate(vertexSize);
 
-		if (fill->vertices == NULL)
+		if (fillInfo->vertices == NULL)
 		{
-			inkFillGeneratorDestroy(fill);
+			inkFillGeneratorDestroy(fillInfo);
 			return NULL;
 		}
+
+		fillInfo->fill = fill;
 	}
 
-	return fill;
+	return fillInfo;
 }
 
-void inkFillGeneratorDestroy(inkFillGenerator *fill)
+void inkFillGeneratorDestroy(inkFillInfo *fillInfo)
 {
-	if (fill)
+	if (fillInfo)
 	{
 		// Does NULL check for me
-		PXArrayBufferRelease(fill->vertices);
+		inkArrayDestroy(fillInfo->vertices);
 
-		free(fill);
+		free(fillInfo);
 	}
 }
 
-void inkFillGeneratorMoveTo(inkFillGenerator *fill, float x, float y)
+void inkFillGeneratorMoveTo(inkFillInfo *fillInfo, inkPoint position)
 {
+	// TODO: Implement
 }
 
-void inkFillGeneratorLineTo(inkFillGenerator *fill, float x, float y)
+void inkFillGeneratorLineTo(inkFillInfo *fillInfo, inkPoint position)
 {
+	// TODO: Implement
+}
+
+void inkStrokeGeneratorEnd(inkFillInfo *fillInfo)
+{
+	// TODO: Implement
 }

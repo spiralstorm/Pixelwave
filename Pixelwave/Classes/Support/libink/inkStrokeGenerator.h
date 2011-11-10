@@ -12,31 +12,21 @@
 #include "inkHeader.h"
 #include "inkArray.h"
 #include "inkTypes.h"
-
-typedef struct
-{
-	inkLineScaleMode scaleMode;
-	inkCapsStyle caps;
-	inkJointStyle joints;
-
-	float miterLimit;
-	float thickness;
-} inkStroke;
+#include "inkStroke.h"
+#include "inkGeometry.h"
 
 typedef struct
 {
 	inkArray *vertices;
 
-	inkStroke stroke;
+	inkStroke *stroke;
 } inkStrokeInfo;
 
-inkExtern inkStroke inkStrokeMake(float thickness, unsigned int color, float alpha, bool pixelHinting, inkLineScaleMode scaleMode, inkCapsStyle caps, inkJointStyle joints, float miterLimit);
+inkExtern inkStrokeInfo *inkStrokeGeneratorCreate(size_t vertexSize, inkStroke *stroke);
+inkExtern void inkStrokeGeneratorDestroy(inkStrokeInfo *strokeInfo);
 
-inkExtern inkStrokeInfo *inkStrokeGeneratorCreate(size_t vertexSize, inkStroke stroke);
-inkExtern void inkStrokeGeneratorDestroy(inkStrokeInfo *stroke);
-
-inkExtern void inkStrokeGeneratorMoveTo(inkStrokeInfo *stroke, float x, float y);
-inkExtern void inkStrokeGeneratorLineTo(inkStrokeInfo *stroke, float x, float y);
-inkExtern void inkStrokeGeneratorEnd(inkStrokeInfo *stroke);
+inkExtern void inkStrokeGeneratorMoveTo(inkStrokeInfo *strokeInfo, inkPoint position);
+inkExtern void inkStrokeGeneratorLineTo(inkStrokeInfo *strokeInfo, inkPoint position);
+inkExtern void inkStrokeGeneratorEnd(inkStrokeInfo *strokeInfo);
 
 #endif

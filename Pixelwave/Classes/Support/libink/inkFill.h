@@ -10,10 +10,13 @@
 #define _INK_FILL_H_
 
 #include "inkHeader.h"
+#include "inkTypes.h"
+#include "inkGeometry.h"
+#include "inkArray.h"
 
 typedef struct
 {
-	inkFillType fillType; // MUST BE THE FIRST VARIABLE
+	inkFillType fillType; // Must be the first value
 
 	unsigned int color;
 	float alpha;
@@ -21,9 +24,9 @@ typedef struct
 
 typedef struct
 {
-	inkFillType fillType; // MUST BE THE FIRST VARIABLE
+	inkFillType fillType; // Must be the first value
 
-	inkMatrix *matrix;
+	inkMatrix matrix;
 
 	bool repeat;
 	bool smooth;
@@ -31,13 +34,13 @@ typedef struct
 
 typedef struct
 {
-	inkFillType fillType; // MUST BE THE FIRST VARIABLE
+	inkFillType fillType; // Must be the first value
 
 	inkArray* colors;
 	inkArray* alphas;
 	inkArray* ratios;
 
-	inkMatrix* matrix;
+	inkMatrix matrix;
 
 	inkGradientType type;
 	inkSpreadMethod spreadMethod;
@@ -45,5 +48,17 @@ typedef struct
 
 	float focalPointRatio;
 } inkGradientFill;
+
+#define _inkSolidFillDefault {inkFillType_Solid, 0, 1.0f}
+#define _inkBitmapFillDefault {inkFillType_Bitmap, _inkMatrixIdentity, true, false}
+#define _inkGradientFillDefault {inkFillType_Gradient, NULL, NULL, NULL, _inkMatrixIdentity, inkGradientType_Linear, inkSpreadMethod_Pad, inkInterpolationMethod_RGB, 0.0f}
+
+static inkExtern const inkSolidFill inkSolidFillDefault;
+static inkExtern const inkBitmapFill inkBitmapFillDefault;
+static inkExtern const inkGradientFill inkGradientFillDefault;
+
+inkExtern inkSolidFill inkSolidFillMake(unsigned int color, float alpha);
+inkExtern inkBitmapFill inkBitmapFillMake(inkMatrix matrix, bool repeat, bool smooth);
+inkExtern inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors, inkArray* alphas, inkArray* ratios, inkGradientType type, inkSpreadMethod spreadMethod, inkInterpolationMethod interpolationMethod, float focalPointRatio);
 
 #endif

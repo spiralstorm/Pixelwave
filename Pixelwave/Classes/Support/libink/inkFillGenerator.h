@@ -11,24 +11,21 @@
 
 #include "inkHeader.h"
 #include "inkArray.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include "inkGeometry.h"
+#include "inkFill.h"
 
 typedef struct
 {
 	inkArray *vertices;
-} inkFillGenerator;
 
-inkFillGenerator *inkFillGeneratorCreate(size_t vertexSize);
-void inkFillGeneratorDestroy(inkFillGenerator *fill);
+	void *fill;
+} inkFillInfo;
 
-void inkFillGeneratorMoveTo(inkFillGenerator *fill, float x, float y);
-void inkFillGeneratorLineTo(inkFillGenerator *fill, float x, float y);
+inkExtern inkFillInfo *inkFillGeneratorCreate(size_t vertexSize, void *fill);
+inkExtern void inkFillGeneratorDestroy(inkFillInfo *fillInfo);
 
-#ifdef __cplusplus
-}
-#endif
+inkExtern void inkFillGeneratorMoveTo(inkFillInfo *fillInfo, inkPoint position);
+inkExtern void inkFillGeneratorLineTo(inkFillInfo *fillInfo, inkPoint position);
+inkExtern void inkStrokeGeneratorEnd(inkFillInfo *fillInfo);
 
 #endif

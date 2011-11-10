@@ -8,50 +8,51 @@
 
 #include "inkStrokeGenerator.h"
 
-inkStrokeGenerator *inkStrokeGeneratorCreate(size_t vertexSize, PXLineScaleMode scaleMode, PXCapsStyle caps, PXJointStyle joints, float miterLimit, float thickness)
+inkStrokeInfo *inkStrokeGeneratorCreate(size_t vertexSize, inkStroke *stroke)
 {
 	if (vertexSize == 0)
 		return NULL;
 
-	inkStrokeGenerator *stroke = malloc(sizeof(inkStrokeGenerator));
+	inkStrokeInfo *strokeInfo = malloc(sizeof(inkStrokeInfo));
 
-	if (stroke)
+	if (strokeInfo)
 	{
-		stroke->vertices = PXArrayBufferCreatev(vertexSize);
+		strokeInfo->vertices = inkArrayCreate(vertexSize);
 
-		if (stroke->vertices == NULL)
+		if (strokeInfo->vertices == NULL)
 		{
-			inkStrokeGeneratorDestroy(stroke);
+			inkStrokeGeneratorDestroy(strokeInfo);
 			return NULL;
 		}
 
-		stroke->scaleMode = scaleMode;
-		stroke->caps = caps;
-		stroke->joints = joints;
-		stroke->miterLimit = miterLimit;
-		stroke->thickness = thickness;
+		strokeInfo->stroke = stroke;
 	}
 
-	return stroke;
+	return strokeInfo;
 }
 
-void inkStrokeGeneratorDestroy(inkStrokeGenerator *stroke)
+void inkStrokeGeneratorDestroy(inkStrokeInfo *strokeInfo)
 {
-	if (stroke)
+	if (strokeInfo)
 	{
 		// Does NULL check for me
-		PXArrayBufferRelease(stroke->vertices);
+		inkArrayDestroy(strokeInfo->vertices);
 
-		free(stroke);
+		free(strokeInfo);
 	}
 }
 
-void inkStrokeGeneratorMoveTo(inkStrokeGenerator *stroke, float x, float y)
+void inkStrokeGeneratorMoveTo(inkStrokeInfo *strokeInfo, inkPoint position)
 {
-	
+	// TODO: Implement
 }
 
-void inkStrokeGeneratorLineTo(inkStrokeGenerator *stroke, float x, float y)
+void inkStrokeGeneratorLineTo(inkStrokeInfo *strokeInfo, inkPoint position)
 {
-	
+	// TODO: Implement
+}
+
+void inkStrokeGeneratorEnd(inkStrokeInfo *strokeInfo)
+{
+	// TODO: Implement
 }
