@@ -1,13 +1,13 @@
 //
-//  ink_t.h
+//  inkCanvas.h
 //  ink
 //
 //  Created by John Lattin on 11/9/11.
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-#ifndef _INK_T_H_
-#define _INK_T_H_
+#ifndef _INK_CANVAS_H_
+#define _INK_CANVAS_H_
 
 #include "inkHeader.h"
 #include "inkArray.h"
@@ -16,9 +16,9 @@ typedef struct
 {
 	inkArray *commandList;
 	inkArray *renderGroups;
-} ink_t;
+} inkCanvas;
 
-inkExtern ink_t* inkCreate();
-inkExtern void inkDestroy(ink_t* graphics);
+inkExtern inkCanvas* inkCreate();
+inkExtern void inkDestroy(inkCanvas* canvas);
 
 #endif

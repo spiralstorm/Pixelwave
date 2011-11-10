@@ -12,28 +12,28 @@
 #include "inkHeader.h"
 #include "inkArray.h"
 #include "inkTypes.h"
-#include "ink_t.h"
+#include "inkCanvas.h"
 #include "inkFill.h"
 #include "inkStroke.h"
 
-inkExtern void inkClear(ink_t* graphics);
+inkExtern void inkClear(inkCanvas* canvas);
 
-inkExtern void inkMoveTo(ink_t* graphics, inkPoint position);
-inkExtern void inkLineTo(ink_t* graphics, inkPoint position);
-inkExtern void inkCurveTo(ink_t* graphics, inkPoint control, inkPoint anchor);
+inkExtern void inkMoveTo(inkCanvas* canvas, inkPoint position);
+inkExtern void inkLineTo(inkCanvas* canvas, inkPoint position);
+inkExtern void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor);
 
-inkExtern void inkBeginFill(ink_t* graphics, inkSolidFill);
-inkExtern void inkBeginBitmapFill(ink_t* graphics, inkBitmapFill bitmapFill);
-inkExtern void inkBeginGradientFill(ink_t* graphics, inkGradientFill gradientFill);
+inkExtern void inkBeginFill(inkCanvas* canvas, inkSolidFill);
+inkExtern void inkBeginBitmapFill(inkCanvas* canvas, inkBitmapFill bitmapFill);
+inkExtern void inkBeginGradientFill(inkCanvas* canvas, inkGradientFill gradientFill);
 
-inkExtern void inkLineStyle(ink_t* graphics, inkStroke stroke, inkSolidFill solidFill);
-inkExtern void inkLineBitmapStyle(ink_t* graphics, inkBitmapFill bitmapFill);
-inkExtern void inkLineGradientStyle(ink_t* graphics, inkGradientFill gradientFill);
+inkExtern void inkLineStyle(inkCanvas* canvas, inkStroke stroke, inkSolidFill solidFill);
+inkExtern void inkLineBitmapStyle(inkCanvas* canvas, inkBitmapFill bitmapFill);
+inkExtern void inkLineGradientStyle(inkCanvas* canvas, inkGradientFill gradientFill);
 
-inkExtern void inkEndFill(ink_t* graphics);
+inkExtern void inkEndFill(inkCanvas* canvas);
 
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
-inkExtern void inkRasterize(ink_t* graphics);
+inkExtern void inkRasterize(inkCanvas* canvas);
 
 #endif

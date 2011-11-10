@@ -185,6 +185,17 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	inkLineStyle(vGraphicsUtil, stroke, solidFill);
 }
 
+- (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)pxMatrix repeat:(BOOL)repeat smooth:(BOOL)smooth
+{
+	if (textureData == nil)
+		return;
+
+	inkMatrix matrix = PXGraphicsMakeMatrixFromPXMatrix(pxMatrix);
+	inkBitmapFill fill = inkBitmapFillMake(matrix, repeat, smooth);
+
+	inkBeginBitmapFill(vGraphicsUtil, fill);
+}
+
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
 {
 	inkGradientFill gradientInfo = PXGraphicsGradientInfoMake(type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);

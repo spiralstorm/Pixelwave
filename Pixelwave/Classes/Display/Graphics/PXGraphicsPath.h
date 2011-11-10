@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-#import "PXGraphicsData.h"
+/*#import "PXGraphicsData.h"
 
 #include "PXArrayBuffer.h"
 #include "PXGraphicsUtilTypes.h"
@@ -39,4 +39,4 @@
 - (void) wideMoveToX:(float)x y:(float)y;
 - (void) wideLineToX:(float)x y:(float)y;
 
-@end
+@end*/

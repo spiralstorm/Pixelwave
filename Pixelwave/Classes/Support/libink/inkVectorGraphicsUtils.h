@@ -10,12 +10,12 @@
 #define _INK_VECTOR_GRAPHICS_UTILS_H_
 
 #include "inkHeader.h"
-#include "ink_t.h"
+#include "inkCanvas.h"
 #include "inkGeometry.h"
 
-inkExtern void inkUtilsDrawCircle(ink_t* graphics, inkPoint position, float radius);
-inkExtern void inkUtilsDrawEllipse(ink_t* graphics, inkRect boundingRect);
-inkExtern void inkUtilsDrawRect(ink_t* graphics, inkRect rect);
-inkExtern void inkUtilsDrawRoundRect(ink_t* graphics, inkRect rect, inkSize ellipseSize);
+inkExtern void inkUtilsDrawCircle(inkCanvas* canvas, inkPoint position, float radius);
+inkExtern void inkUtilsDrawEllipse(inkCanvas* canvas, inkRect boundingRect);
+inkExtern void inkUtilsDrawRect(inkCanvas* canvas, inkRect rect);
+inkExtern void inkUtilsDrawRoundRect(inkCanvas* canvas, inkRect rect, inkSize ellipseSize);
 
 #endif

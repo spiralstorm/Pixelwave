@@ -8,22 +8,22 @@
 
 #include "inkVectorGraphicsUtils.h"
 
-void inkUtilsDrawCircle(ink_t* graphics, inkPoint position, float radius)
+void inkUtilsDrawCircle(inkCanvas* canvas, inkPoint position, float radius)
 {
 	// TODO: implement
 }
 
-void inkUtilsDrawEllipse(ink_t* graphics, inkRect boundingRect)
+void inkUtilsDrawEllipse(inkCanvas* canvas, inkRect boundingRect)
 {
 	// TODO: Implement
 }
 
-void inkUtilsDrawRect(ink_t* graphics, inkRect rect)
+void inkUtilsDrawRect(inkCanvas* canvas, inkRect rect)
 {
 	// TODO: Implement
 }
 
-void inkUtilsDrawRoundRect(ink_t* graphics, inkRect rect, inkSize ellipseSize)
+void inkUtilsDrawRoundRect(inkCanvas* canvas, inkRect rect, inkSize ellipseSize)
 {
 	// TODO: Implement
 }

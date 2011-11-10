@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-#import "PXGraphicsPath.h"
+/*#import "PXGraphicsPath.h"
 
 @implementation PXGraphicsPath
 
@@ -89,4 +89,4 @@
 	// TODO: Implement
 }
 
-@end
+@end*/

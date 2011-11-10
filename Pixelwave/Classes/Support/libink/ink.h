@@ -9,7 +9,7 @@
 #ifndef _INK_H_
 #define _INK_H_
 
-#include "ink_t.h"
+#include "inkCanvas.h"
 #include "inkTypes.h"
 #include "inkMatrix.h"
 #include "inkFillGenerator.h"

@@ -6,8 +6,8 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-#ifndef _INK_COMMAND_GROUP_H_
-#define _INK_COMMAND_GROUP_H_
+#ifndef _INK_COMMAND_H_
+#define _INK_COMMAND_H_
 
 #include "inkHeader.h"
 
