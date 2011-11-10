@@ -53,9 +53,9 @@ typedef struct
 #define _inkBitmapFillDefault {inkFillType_Bitmap, _inkMatrixIdentity, true, false}
 #define _inkGradientFillDefault {inkFillType_Gradient, NULL, NULL, NULL, _inkMatrixIdentity, inkGradientType_Linear, inkSpreadMethod_Pad, inkInterpolationMethod_RGB, 0.0f}
 
-static inkExtern const inkSolidFill inkSolidFillDefault;
-static inkExtern const inkBitmapFill inkBitmapFillDefault;
-static inkExtern const inkGradientFill inkGradientFillDefault;
+inkExtern const inkSolidFill inkSolidFillDefault;
+inkExtern const inkBitmapFill inkBitmapFillDefault;
+inkExtern const inkGradientFill inkGradientFillDefault;
 
 inkExtern inkSolidFill inkSolidFillMake(unsigned int color, float alpha);
 inkExtern inkBitmapFill inkBitmapFillMake(inkMatrix matrix, bool repeat, bool smooth);

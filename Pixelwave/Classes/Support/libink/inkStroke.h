@@ -22,6 +22,6 @@ typedef struct
 	float thickness;
 } inkStroke;
 
-inkExtern inkStroke inkStrokeMake(float thickness, unsigned int color, float alpha, bool pixelHinting, inkLineScaleMode scaleMode, inkCapsStyle caps, inkJointStyle joints, float miterLimit);
+inkExtern inkStroke inkStrokeMake(float thickness, bool pixelHinting, inkLineScaleMode scaleMode, inkCapsStyle caps, inkJointStyle joints, float miterLimit);
 
 #endif

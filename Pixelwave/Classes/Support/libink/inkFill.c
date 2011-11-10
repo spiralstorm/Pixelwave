@@ -8,9 +8,9 @@
 
 #include "inkFill.h"
 
-static const inkSolidFill inkSolidFillDefault = _inkSolidFillDefault;
-static const inkBitmapFill inkBitmapFillDefault = _inkBitmapFillDefault;
-static const inkGradientFill inkGradientFillDefault = _inkGradientFillDefault;
+const inkSolidFill inkSolidFillDefault = _inkSolidFillDefault;
+const inkBitmapFill inkBitmapFillDefault = _inkBitmapFillDefault;
+const inkGradientFill inkGradientFillDefault = _inkGradientFillDefault;
 
 inkExtern inkSolidFill inkSolidFillMake(unsigned int color, float alpha)
 {

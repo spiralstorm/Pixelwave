@@ -47,23 +47,35 @@
 #include "inkVectorGraphics.h"
 #include "inkVectorGraphicsUtils.h"
 
-static inline inkGradientFill PXGraphicsGradientInfoMake(NSArray *colors, NSArray *alphas, NSArray *ratios)
+static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
+{
+	if (matrix == nil)
+	{
+		return inkMatrixIdentity;
+	}
+
+	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+}
+
+static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NSArray *colors, NSArray *alphas, NSArray *ratios, PXMatrix *matrix, PXSpreadMethod spreadMethod, PXInterpolationMethod interpolationMethod, float focalPointRatio)
 {
 	inkGradientFill info;
 
 	memset(&info, 0, sizeof(inkGradientFill));
 
-	info.colorCount = [colors count];
+	// TODO: implement
+
+	/*unsigned int colorCount = [colors count];
 	unsigned int alphaCount = [alphas count];
 
-	if (info.colorCount != alphaCount)
+	if (colorCount != alphaCount)
 	{
 		PXDebugLog(@"PXGraphics Error: There must be equal quantity of colors and alphas.");
 
 		return info;
 	}
 
-	if (info.colorCount != 0)
+	if (colorCount != 0)
 	{
 		info.colors = alloca(sizeof(unsigned int) * info.colorCount);
 		info.alphas = alloca(sizeof(float) * info.colorCount);
@@ -97,19 +109,9 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(NSArray *colors, NSArra
 			*curRatio = [ratio floatValue];
 			++curRatio;
 		}
-	}
+	}*/
 
 	return info;
-}
-
-static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
-{
-	if (matrix == nil)
-	{
-		return inkMatrixIdentity;
-	}
-
-	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
 }
 
 @implementation PXGraphics
@@ -120,7 +122,7 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 
 	if (self)
 	{
-		vGraphicsUtil = _PXGraphicsCreate();
+		vGraphicsUtil = inkCreate();
 
 		if (vGraphicsUtil == nil)
 		{
@@ -134,7 +136,7 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 
 - (void) dealloc
 {
-	_PXGraphicsDestroy(vGraphicsUtil);
+	inkDestroy(vGraphicsUtil);
 
 	[super dealloc];
 }
@@ -145,31 +147,30 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 
 - (void) beginFill:(unsigned int)color alpha:(float)alpha
 {
-	PXGraphicsUtilsBeginFill(vGraphicsUtil, color, alpha);
+	inkBeginFill(vGraphicsUtil, inkSolidFillMake(color, alpha));
 }
 
-- (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth
+- (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)pxMatrix repeat:(BOOL)repeat smooth:(BOOL)smooth
 {
 	if (textureData == nil)
 		return;
 
-	PXGLMatrix glMatrix = PXGraphicsMakeGLMatrixFromMatrix(matrix);
+	inkMatrix matrix = PXGraphicsMakeMatrixFromPXMatrix(pxMatrix);
+	inkBitmapFill fill = inkBitmapFillMake(matrix, repeat, smooth);
 
-	PXGraphicsUtilsBeginBitmapFill(vGraphicsUtil, &glMatrix, textureData->_sPerPixel, textureData->_tPerPixel, repeat, smooth, textureData);
+	inkBeginBitmapFill(vGraphicsUtil, fill);
 }
 
 - (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
 {
-	PXGraphicsGradientInfo gradientInfo = PXGraphicsGradientInfoMake(colors, alphas, ratios);
+	inkGradientFill gradientInfo = PXGraphicsGradientInfoMake(type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
 
-	PXGLMatrix glMatrix = PXGraphicsMakeGLMatrixFromMatrix(matrix);
-
-	PXGraphicsUtilsBeginGradientFill(vGraphicsUtil, type, gradientInfo.colors, gradientInfo.alphas, gradientInfo.colorCount, gradientInfo.ratios, gradientInfo.ratioCount, &glMatrix, spreadMethod, interpolationMethod, focalPointRatio);
+	inkBeginGradientFill(vGraphicsUtil, gradientInfo);
 }
 
 - (void) endFill
 {
-	PXGraphicsUtilsEndFill(vGraphicsUtil);
+	inkEndFill(vGraphicsUtil);
 }
 
 #pragma mark -
@@ -178,16 +179,17 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 
 - (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit
 {
-	PXGraphicsUtilsLineStyle(vGraphicsUtil, thickness, color, alpha, pixelHinting, scaleMode, caps, joints, miterLimit);
+	inkStroke stroke = inkStrokeMake(thickness, pixelHinting, scaleMode, caps, joints, miterLimit);
+	inkSolidFill solidFill = inkSolidFillMake(color, alpha);
+
+	inkLineStyle(vGraphicsUtil, stroke, solidFill);
 }
 
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
 {
-	PXGraphicsGradientInfo gradientInfo = PXGraphicsGradientInfoMake(colors, alphas, ratios);
+	inkGradientFill gradientInfo = PXGraphicsGradientInfoMake(type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
 
-	PXGLMatrix glMatrix = PXGraphicsMakeGLMatrixFromMatrix(matrix);
-
-	PXGraphicsUtilsLineGradientStyle(vGraphicsUtil, type, gradientInfo.colors, gradientInfo.alphas, gradientInfo.colorCount, gradientInfo.ratios, gradientInfo.ratioCount, &glMatrix, spreadMethod, interpolationMethod, focalPointRatio);
+	inkLineGradientStyle(vGraphicsUtil, gradientInfo);
 }
 
 #pragma mark -
@@ -196,17 +198,17 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 
 - (void) moveToX:(float)x y:(float)y
 {
-	PXGraphicsUtilsMoveTo(vGraphicsUtil, x, y);
+	inkMoveTo(vGraphicsUtil, inkPointMake(x, y));
 }
 
 - (void) lineToX:(float)x y:(float)y
 {
-	PXGraphicsUtilsLineTo(vGraphicsUtil, x, y);
+	inkLineTo(vGraphicsUtil, inkPointMake(x, y));
 }
 
 - (void) curveToControlX:(float)controlX controlY:(float)controlY anchorX:(float)anchorX anchorY:(float)anchorY
 {
-	PXGraphicsUtilsCurveTo(vGraphicsUtil, controlX, controlY, anchorX, anchorY);
+	inkCurveTo(vGraphicsUtil, inkPointMake(controlX, controlY), inkPointMake(anchorX, anchorY));
 }
 
 // Need to be of type PXGraphicsData
@@ -217,7 +219,7 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 
 - (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data
 {
-	[self drawPathWithCommands:commands count:count data:data winding:PXGraphicsPathWinding_EvenOdd];
+	[self drawPathWithCommands:commands count:count data:data winding:inkPathWinding_EvenOdd];
 }
 
 - (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data winding:(PXGraphicsPathWinding)winding
@@ -227,7 +229,7 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 
 - (void) clear
 {
-	PXGraphicsUtilsClear(vGraphicsUtil);
+	inkClear(vGraphicsUtil);
 }
 
 #pragma mark -
@@ -236,8 +238,7 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 
 - (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-	// TODO: Implement
-	inkDra
+	inkUtilsDrawRect(vGraphicsUtil, inkRectMake(x, y, width, height));
 }
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth
@@ -247,17 +248,17 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth ellipseHeight:(float)ellipseHeight
 {
-	// TODO: Implement
+	inkUtilsDrawRoundRect(vGraphicsUtil, inkRectMake(x, y, width, height), inkSizeMake(ellipseWidth, ellipseHeight));
 }
 
 - (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius
 {
-	// TODO: Implement
+	inkUtilsDrawCircle(vGraphicsUtil, inkPointMake(x, y), radius);
 }
 
 - (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-	// TODO: Implement
+	inkUtilsDrawEllipse(vGraphicsUtil, inkRectMake(x, y, width, height));
 }
 
 #pragma mark -

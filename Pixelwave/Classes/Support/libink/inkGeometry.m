@@ -12,10 +12,10 @@
 #pragma mark Constants
 #pragma mark -
 
-static const inkPoint inkPointZero = _inkPointZero;
-static const inkSize inkSizeZero = _inkSizeZero;
-static const inkRect inkRectZero = _inkRectZero;
-static const inkMatrix inkMatrixIdentity = _inkMatrixIdentity;
+const inkPoint inkPointZero = _inkPointZero;
+const inkSize inkSizeZero = _inkSizeZero;
+const inkRect inkRectZero = _inkRectZero;
+const inkMatrix inkMatrixIdentity = _inkMatrixIdentity;
 
 #pragma mark -
 #pragma mark Point

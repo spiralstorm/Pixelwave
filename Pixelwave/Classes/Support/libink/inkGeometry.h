@@ -45,92 +45,96 @@ typedef struct
 #define _inkRectZero {0.0f, 0.0f}
 #define _inkMatrixIdentity {1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f}
 
-static inkExtern const inkPoint inkPointZero;
-static inkExtern const inkSize inkSizeZero;
-static inkExtern const inkRect inkRectZero;
-static inkExtern const inkMatrix inkMatrixIdentity;
+inkExtern const inkPoint inkPointZero;
+inkExtern const inkSize inkSizeZero;
+inkExtern const inkRect inkRectZero;
+inkExtern const inkMatrix inkMatrixIdentity;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #pragma mark -
 #pragma mark Point Declarations
 #pragma mark -
 
-inkExtern inkInline inkPoint inkPointMake(float x, float y);
-/*inkExtern inkPoint inkAddPoint(inkPoint pointA, inkPoint pointB);
-inkExtern inkPoint inkSubtractPoint(inkPoint pointA, inkPoint pointB);
+inkInline inkPoint inkPointMake(float x, float y);
+/*inkPoint inkAddPoint(inkPoint pointA, inkPoint pointB);
+inkPoint inkSubtractPoint(inkPoint pointA, inkPoint pointB);
 
-inkExtern bool inkPointIsEqual(inkPoint pointA, inkPoint pointB);
+bool inkPointIsEqual(inkPoint pointA, inkPoint pointB);
 
-inkExtern inkPoint inkPointNormalize(inkPoint point);
-inkExtern inkPoint inkPointNormalizeWithLength(inkPoint point, float length);
-inkExtern inkPoint inkPointOffset(inkPoint point, float dx, float dy);
+inkPoint inkPointNormalize(inkPoint point);
+inkPoint inkPointNormalizeWithLength(inkPoint point, float length);
+inkPoint inkPointOffset(inkPoint point, float dx, float dy);
 
-inkExtern float inkPointLength(inkPoint point);
+float inkPointLength(inkPoint point);
 
-inkExtern float inkPointDistance(inkPoint pointA, inkPoint pointB);
-inkExtern float inkPointAngle(inkPoint pointA, inkPoint pointB);
+float inkPointDistance(inkPoint pointA, inkPoint pointB);
+float inkPointAngle(inkPoint pointA, inkPoint pointB);
 
-inkExtern inkPoint inkPointInterpolation(inkPoint pointA, inkPoint pointB, float coefficient);
-inkExtern inkPoint inkPointPolar(float length, float angle);*/
+inkPoint inkPointInterpolation(inkPoint pointA, inkPoint pointB, float coefficient);
+inkPoint inkPointPolar(float length, float angle);*/
 
 #pragma mark -
 #pragma mark Size Declarations
 #pragma mark -
 
-inkExtern inkInline inkSize inkSizeMake(float width, float height);
+inkInline inkSize inkSizeMake(float width, float height);
 
-//inkExtern bool inkSizeIsEqual(inkSize sizeA, inkSize sizeB);
+//bool inkSizeIsEqual(inkSize sizeA, inkSize sizeB);
 
 #pragma mark -
 #pragma mark Rect Declarations
 #pragma mark -
 
-inkExtern inkInline inkRect inkRectMake(float x, float y, float width, float height);
+inkInline inkRect inkRectMake(float x, float y, float width, float height);
 
-/*inkExtern float inkRectTop(inkRect rect);
-inkExtern float inkRectBottom(inkRect rect);
-inkExtern float inkRectLeft(inkRect rect);
-inkExtern float inkRectRight(inkRect rect);
+/*float inkRectTop(inkRect rect);
+float inkRectBottom(inkRect rect);
+float inkRectLeft(inkRect rect);
+float inkRectRight(inkRect rect);
 
-inkExtern inkPoint inkRectBottomRight(inkRect rect);
-inkExtern inkPoint inkRectTopLeft(inkRect rect);
+inkPoint inkRectBottomRight(inkRect rect);
+inkPoint inkRectTopLeft(inkRect rect);
 
-inkExtern bool inkRectContains(inkRect rect, float x, float y);
-inkExtern bool inkRectContainsPoint(inkRect rect, inkPoint point);
-inkExtern bool inkRectContainsRect(inkRect rectA, inkRect rectB);
-inkExtern bool inkRectIsEmpty(inkRect rect);
+bool inkRectContains(inkRect rect, float x, float y);
+bool inkRectContainsPoint(inkRect rect, inkPoint point);
+bool inkRectContainsRect(inkRect rectA, inkRect rectB);
+bool inkRectIsEmpty(inkRect rect);
 
-inkExtern bool inkRectIntersects(inkRect rectA, inkRect rectB);
+bool inkRectIntersects(inkRect rectA, inkRect rectB);
 
-inkExtern inkRect inkRectInflate(inkRect rect, float dx, float dy);
-inkExtern inkRect inkRectInflateWithPoint(inkRect rect, inkPoint point);
-inkExtern inkRect inkRectOffset(float dx, float dy);
-inkExtern inkRect inkRectOffsetWithPoint(inkRect rect, inkPoint point);
+inkRect inkRectInflate(inkRect rect, float dx, float dy);
+inkRect inkRectInflateWithPoint(inkRect rect, inkPoint point);
+inkRect inkRectOffset(float dx, float dy);
+inkRect inkRectOffsetWithPoint(inkRect rect, inkPoint point);
 
-inkExtern inkRect inkRectIntersection(inkRect rectA, inkRect rectB);
-inkExtern inkRect inkRectUnion(inkRect rectA, inkRect rectB);*/
+inkRect inkRectIntersection(inkRect rectA, inkRect rectB);
+inkRect inkRectUnion(inkRect rectA, inkRect rectB);*/
 
 #pragma mark -
 #pragma mark Matrix Declaration
 #pragma mark -
 
-inkExtern inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, float tx, float ty);
+inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, float tx, float ty);
 
-/*inkExtern inkMatrix inkMatrixConcat(inkMatrix matrixA, inkMatrix matrixB);
-inkExtern inkMatrix inkMatrixInvert(inkMatrix matrix);
-inkExtern inkMatrix inkMatrixRotate(inkMatrix matrix, float angle);
-inkExtern inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy);
-inkExtern inkMatrix inkMatrixTranslate(inkMatrix matrix, float dx, float dy);
+/*inkMatrix inkMatrixConcat(inkMatrix matrixA, inkMatrix matrixB);
+inkMatrix inkMatrixInvert(inkMatrix matrix);
+inkMatrix inkMatrixRotate(inkMatrix matrix, float angle);
+inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy);
+inkMatrix inkMatrixTranslate(inkMatrix matrix, float dx, float dy);
 
-inkExtern inkMatrix inkMatrixCreateBox(inkMatrix matrix, float scaleX, float scaleY, float rotation, float tx, float ty);
+inkMatrix inkMatrixCreateBox(inkMatrix matrix, float scaleX, float scaleY, float rotation, float tx, float ty);
 
-inkExtern inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point);
-inkExtern inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);*/
+inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point);
+inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);*/
 
 #pragma mark -
 #pragma mark Point Implemenations
 #pragma mark -
 
-inkExtern inkInline inkPoint inkPointMake(float x, float y)
+inkInline inkPoint inkPointMake(float x, float y)
 {
 	inkPoint point;
 
@@ -144,7 +148,7 @@ inkExtern inkInline inkPoint inkPointMake(float x, float y)
 #pragma mark Size Implemenations
 #pragma mark -
 
-inkExtern inkInline inkSize inkSizeMake(float width, float height)
+inkInline inkSize inkSizeMake(float width, float height)
 {
 	inkSize size;
 
@@ -158,7 +162,7 @@ inkExtern inkInline inkSize inkSizeMake(float width, float height)
 #pragma mark Rect Implemenations
 #pragma mark -
 
-inkExtern inkInline inkRect inkRectMake(float x, float y, float width, float height)
+inkInline inkRect inkRectMake(float x, float y, float width, float height)
 {
 	inkRect rect;
 
@@ -172,7 +176,7 @@ inkExtern inkInline inkRect inkRectMake(float x, float y, float width, float hei
 #pragma mark Matrix Implemenations
 #pragma mark -
 
-inkExtern inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, float tx, float ty)
+inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, float tx, float ty)
 {
 	inkMatrix matrix;
 
@@ -185,5 +189,9 @@ inkExtern inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, 
 
 	return matrix;
 }
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

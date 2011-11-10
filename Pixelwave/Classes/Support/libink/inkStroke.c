@@ -8,3 +8,11 @@
 
 #include "inkStroke.h"
 
+inkExtern inkStroke inkStrokeMake(float thickness, bool pixelHinting, inkLineScaleMode scaleMode, inkCapsStyle caps, inkJointStyle joints, float miterLimit)
+{
+	inkStroke stroke;
+
+	// TODO: Implement
+
+	return stroke;
+}
