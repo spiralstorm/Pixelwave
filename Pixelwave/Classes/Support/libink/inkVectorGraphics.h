@@ -22,7 +22,7 @@ inkExtern void inkMoveTo(inkCanvas* canvas, inkPoint position);
 inkExtern void inkLineTo(inkCanvas* canvas, inkPoint position);
 inkExtern void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor);
 
-inkExtern void inkBeginFill(inkCanvas* canvas, inkSolidFill);
+inkExtern void inkBeginFill(inkCanvas* canvas, inkSolidFill solidFill);
 inkExtern void inkBeginBitmapFill(inkCanvas* canvas, inkBitmapFill bitmapFill);
 inkExtern void inkBeginGradientFill(inkCanvas* canvas, inkGradientFill gradientFill);
 
