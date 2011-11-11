@@ -44,7 +44,8 @@
 @class PXTextureData;
 @class PXMatrix;
 
-typedef inkPathCommand PXPathCommand;
+//typedef inkPathCommand PXPathCommand;
+typedef int PXPathCommand;
 typedef inkInterpolationMethod PXInterpolationMethod;
 typedef inkGradientType PXGradientType;
 typedef inkLineScaleMode PXLineScaleMode;

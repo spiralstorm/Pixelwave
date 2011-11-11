@@ -12,13 +12,23 @@
 #include "inkHeader.h"
 #include "inkArray.h"
 
+#include "inkTypes.h"
+
 typedef struct
 {
-	inkArray *commandList;
-	inkArray *renderGroups;
+	inkArray* commandList;
+	inkArray* renderGroups;
 } inkCanvas;
 
 inkExtern inkCanvas* inkCreate();
 inkExtern void inkDestroy(inkCanvas* canvas);
+
+inkExtern inkArray* inkRenderGroups(inkCanvas* canvas);
+
+inkExtern void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data);
+inkExtern void inkRemoveAllCommands(inkCanvas* canvas);
+
+inkExtern void inkAddRenderGroup(inkCanvas* canvas, inkArray* vertices, INKenum glMode);
+inkExtern void inkRemoveAllRenderGroups(inkCanvas* canvas);
 
 #endif

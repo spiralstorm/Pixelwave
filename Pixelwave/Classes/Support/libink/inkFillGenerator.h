@@ -16,16 +16,17 @@
 
 typedef struct
 {
-	inkArray *vertices;
+	// TODO: Change to render group instead
+	inkArray* vertices;
 
-	void *fill;
+	void* fill;
 } inkFillInfo;
 
-inkExtern inkFillInfo *inkFillGeneratorCreate(size_t vertexSize, void *fill);
-inkExtern void inkFillGeneratorDestroy(inkFillInfo *fillInfo);
+inkExtern inkFillInfo *inkFillGeneratorCreate(size_t vertexSize, void* fill);
+inkExtern void inkFillGeneratorDestroy(inkFillInfo* fillInfo);
 
-inkExtern void inkFillGeneratorMoveTo(inkFillInfo *fillInfo, inkPoint position);
-inkExtern void inkFillGeneratorLineTo(inkFillInfo *fillInfo, inkPoint position);
-inkExtern void inkStrokeGeneratorEnd(inkFillInfo *fillInfo);
+inkExtern void inkFillGeneratorMoveTo(inkFillInfo* fillInfo, inkPoint position);
+inkExtern void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position);
+inkExtern void inkFillGeneratorEnd(inkFillInfo* fillInfo);
 
 #endif

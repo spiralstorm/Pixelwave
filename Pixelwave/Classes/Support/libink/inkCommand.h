@@ -14,16 +14,40 @@
 #include "inkTypes.h"
 #include "inkArray.h"
 
+#include "inkGeometry.h"
+#include "inkFill.h"
+#include "inkStroke.h"
+
+typedef inkPoint inkMoveToCommand;
+typedef inkPoint inkLineToCommand;
+
 typedef struct
 {
-	inkArray *data;
-	
-	inkPathCommand pathCommand;
+	inkPoint control;
+	inkPoint anchor;
+} inkCurveToCommand;
+
+typedef inkSolidFill inkSolidFillCommand;
+typedef inkBitmapFill inkBitmapFillCommand;
+typedef inkGradientFill inkGradientFillCommand;
+
+typedef struct
+{
+	inkSolidFill fill;
+	inkStroke stroke;
+} inkLineStyleCommand;
+
+typedef inkBitmapFill inkLineBitmapCommand;
+typedef inkGradientFill inkLineGradientCommand;
+
+typedef struct
+{
+	void* data;
+
+	inkCommandType type;
 } inkCommand;
 
-inkExtern inkCommand *inkCommandCreate();
-inkExtern void inkCommandDestroy(inkCommand *command);
-
-inkExtern void inkCommandAdd(inkCommand *command, inkPathCommand pathCommand, void *data);
+inkExtern inkCommand* inkCommandCreate(inkCommandType type, void* data);
+inkExtern void inkCommandDestroy(inkCommand* command);
 
 #endif

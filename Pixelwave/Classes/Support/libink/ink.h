@@ -11,10 +11,11 @@
 
 #include "inkCanvas.h"
 #include "inkTypes.h"
-#include "inkMatrix.h"
+#include "inkGeometry.h"
 #include "inkFillGenerator.h"
 #include "inkStrokeGenerator.h"
 #include "inkVectorGraphics.h"
 #include "inkVectorGraphicsUtils.h"
+#include "inkRenderGroup.h"
 
 #endif

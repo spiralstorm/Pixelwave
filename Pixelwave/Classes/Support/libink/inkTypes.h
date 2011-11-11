@@ -9,18 +9,9 @@
 #ifndef _INK_TYPES_H_
 #define _INK_TYPES_H_
 
-typedef unsigned int INKenum;
+#define INKvertex PXGLColorVertex
 
-enum inkFillType;
-enum inkSpreadMethod;
-enum inkInterpolationMethod;
-enum inkGradientType;
-enum inkPathWinding;
-enum inkTriangleCulling;
-enum inkJointStyle;
-enum inkLineScaleMode;
-enum inkCapsStyle;
-enum inkPathCommand;
+typedef unsigned int INKenum;
 
 typedef enum
 {
@@ -85,12 +76,26 @@ typedef enum
 
 typedef enum
 {
+	inkCommandType_MoveTo = 0,
+	inkCommandType_LineTo,
+	inkCommandType_CurveTo,
+	inkCommandType_SolidFill,
+	inkCommandType_BitmapFill,
+	inkCommandType_GradientFill,
+	inkCommandType_LineStyle,
+	inkCommandType_LineBitmap,
+	inkCommandType_LineGradient,
+	inkCommandType_EndFill
+} inkCommandType;
+
+/*typedef enum
+{
 	inkPathCommand_NoOp = 0,
 	inkPathCommand_MoveTo,
 	inkPathCommand_LineTo,
 	inkPathCommand_CurveTo,
 	inkPathCommand_WideMoveTo,
 	inkPathCommand_WideLineTo
-} inkPathCommand;
+} inkPathCommand;*/
 
 #endif

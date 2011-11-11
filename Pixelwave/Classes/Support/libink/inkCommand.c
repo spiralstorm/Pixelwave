@@ -8,18 +8,67 @@
 
 #include "inkCommand.h"
 
-inkExtern inkCommand *inkCommandCreate()
+inkInline size_t inkCommandDataSizeFromType(inkCommandType type);
+
+inkCommand* inkCommandCreate(inkCommandType type, void* data)
 {
-	// TODO: implement
-	return NULL;
+	inkCommand* command = malloc(sizeof(inkCommand));
+
+	if (command != NULL)
+	{
+		size_t dataSize = inkCommandDataSizeFromType(type);
+
+		if (dataSize == 0)
+			command->data = NULL;
+		else
+			command->data = malloc(dataSize);
+
+		command->data = memcpy(command->data, data, dataSize);
+		command->type = type;
+	}
+
+	return command;
 }
 
-inkExtern void inkCommandDestroy(inkCommand *command)
+void inkCommandDestroy(inkCommand* command)
 {
-	// TODO: implement
+	if (command != NULL)
+	{
+		if (command->data)
+		{
+			free(command->data);
+		}
+
+		free(command);
+	}
 }
 
-inkExtern void inkCommandAdd(inkCommand *command, inkPathCommand pathCommand, void *data)
+inkInline size_t inkCommandDataSizeFromType(inkCommandType type)
 {
-	// TODO: implement
+	switch(type)
+	{
+		case inkCommandType_MoveTo:
+			return sizeof(inkMoveToCommand);
+		case inkCommandType_LineTo:
+			return sizeof(inkLineToCommand);
+		case inkCommandType_CurveTo:
+			return sizeof(inkCurveToCommand);
+		case inkCommandType_SolidFill:
+			return sizeof(inkSolidFillCommand);
+		case inkCommandType_BitmapFill:
+			return sizeof(inkBitmapFillCommand);
+		case inkCommandType_GradientFill:
+			return sizeof(inkGradientFillCommand);
+		case inkCommandType_LineStyle:
+			return sizeof(inkLineStyleCommand);
+		case inkCommandType_LineBitmap:
+			return sizeof(inkLineBitmapCommand);
+		case inkCommandType_LineGradient:
+			return sizeof(inkLineGradientCommand);
+		case inkCommandType_EndFill:
+		default:
+			break;
+	}
+
+	return 0;
 }

@@ -57,32 +57,32 @@ extern "C" {
 typedef struct
 {
 	GLfloat x, y;
-} PXGLVertex; //8 - bytes
+} PXGLVertex; // 8 - bytes
 
 typedef struct
 {
 	GLfloat x, y;
-	GLubyte r, g, b, a;    //12 - bytes
-} PXGLColorVertex;
+	GLubyte r, g, b, a;
+} PXGLColorVertex; // 12 - bytes
 
 typedef struct
 {
 	GLfloat x, y;
 	GLfloat s, t;
-} PXGLTextureVertex; //16 - bytes
+} PXGLTextureVertex; // 16 - bytes
 
 typedef struct
 {
 	GLfloat x, y;
 	GLubyte r, g, b, a;
 	GLfloat s, t;
-} PXGLColoredTextureVertex; //20 - bytes
+} PXGLColoredTextureVertex; // 20 - bytes
 
 typedef struct
 {
 	GLfloat a, b, c, d;
 	GLfloat tx, ty;
-} PXGLMatrix; //24 - bytes
+} PXGLMatrix; // 24 - bytes
 
 typedef struct
 {
@@ -97,16 +97,16 @@ typedef struct
 	GLint xMin;
 	GLint yMin;
 	GLint xMax;
-	GLint yMax; // 16 - bytes
-} PXGLAABB;
+	GLint yMax;
+} PXGLAABB; // 16 - bytes
 
 typedef struct
 {
 	GLfloat xMin;
 	GLfloat yMin;
 	GLfloat xMax;
-	GLfloat yMax; // 16 - bytes
-} PXGLAABBf;
+	GLfloat yMax;
+} PXGLAABBf; // 16 - bytes
 
 typedef struct
 {
@@ -122,7 +122,7 @@ typedef struct
 	GLint y;
 	GLint width;
 	GLint height;
-} _PXGLRect;
+} _PXGLRect; // 16 - bytes
 
 typedef PXGLColorVertices* PXGLColorVerticesRef;
 

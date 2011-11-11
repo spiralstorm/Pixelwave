@@ -8,7 +8,26 @@
 
 #include "inkFillGenerator.h"
 
-inkFillInfo *inkFillGeneratorCreate(size_t vertexSize, void *fill)
+// TODO: Remove this
+#include "PXGLUtils.h"
+
+void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
+{
+	if (fillInfo == NULL || fillInfo->vertices == NULL)
+		return;
+
+	INKvertex *vertex = (INKvertex*)(inkArrayPush(fillInfo->vertices));
+
+	vertex->x = position.x;
+	vertex->y = position.y;
+
+	vertex->r = 0;
+	vertex->g = 0;
+	vertex->b = 0;
+	vertex->a = 255;
+}
+
+inkFillInfo *inkFillGeneratorCreate(size_t vertexSize, void* fill)
 {
 	if (vertexSize == 0)
 		return NULL;
@@ -31,7 +50,7 @@ inkFillInfo *inkFillGeneratorCreate(size_t vertexSize, void *fill)
 	return fillInfo;
 }
 
-void inkFillGeneratorDestroy(inkFillInfo *fillInfo)
+void inkFillGeneratorDestroy(inkFillInfo* fillInfo)
 {
 	if (fillInfo)
 	{
@@ -42,17 +61,17 @@ void inkFillGeneratorDestroy(inkFillInfo *fillInfo)
 	}
 }
 
-void inkFillGeneratorMoveTo(inkFillInfo *fillInfo, inkPoint position)
+void inkFillGeneratorMoveTo(inkFillInfo* fillInfo, inkPoint position)
 {
-	// TODO: Implement
+	inkFillGeneratorAddVertex(fillInfo, position);
 }
 
-void inkFillGeneratorLineTo(inkFillInfo *fillInfo, inkPoint position)
+void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position)
 {
-	// TODO: Implement
+	inkFillGeneratorAddVertex(fillInfo, position);
 }
 
-void inkStrokeGeneratorEnd(inkFillInfo *fillInfo)
+void inkFillGeneratorEnd(inkFillInfo* fillInfo)
 {
 	// TODO: Implement
 }
