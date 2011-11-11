@@ -18,6 +18,7 @@ typedef struct
 {
 	void *gluTessellator;
 
+	inkArray *renderGroups; // Weak
 	inkRenderGroup *currentRenderGroup;
 	inkArray *combineVertices;
 } inkTessellator;
@@ -25,7 +26,7 @@ typedef struct
 inkExtern inkTessellator *inkTessellatorCreate();
 inkExtern void inkTessellatorDestroy(inkTessellator* tessellator);
 
-inkExtern void inkTessellatorBeginPolygon(inkTessellator* tessellator);
+inkExtern void inkTessellatorBeginPolygon(inkTessellator* tessellator, inkArray *renderGroups);
 inkExtern void inkTessellatorEndPolygon(inkTessellator* tessellator);
 inkExtern void inkTessellatorBeginContour(inkTessellator* tessellator);
 inkExtern void inkTessellatorEndContour(inkTessellator* tessellator);

@@ -61,6 +61,7 @@ inkTessellator *inkTessellatorCreate()
 			return NULL;
 		}
 
+		tessellator->currentRenderGroup = NULL;
 		inkTessellatorInitialize(tessellator);
 	}
 
@@ -97,11 +98,13 @@ inkInline void inkTessellatorInitialize(inkTessellator* tessellator)
 
 void inkTessellatorBeginCallback(GLenum type, inkTessellator* tessellator)
 {
-	if (tessellator == NULL)
+	if (tessellator == NULL || tessellator->renderGroups == NULL)
 		return;
 
-	inkRenderGroupDestroy(tessellator->currentRenderGroup);
-	tessellator->currentRenderGroup = inkRenderGroupCreate(sizeof(INKvertex), type);
+	//inkRenderGroupDestroy(tessellator->currentRenderGroup);
+	inkRenderGroup** renderGroupPtr = (inkRenderGroup**)inkArrayPush(tessellator->renderGroups);
+	*renderGroupPtr = inkRenderGroupCreate(sizeof(INKvertex), type);
+	tessellator->currentRenderGroup = *renderGroupPtr;
 }
 
 void inkTessellatorEndCallback(inkTessellator* tessellator)
@@ -180,10 +183,12 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 	*outData = vertex;
 }
 
-void inkTessellatorBeginPolygon(inkTessellator* tessellator)
+void inkTessellatorBeginPolygon(inkTessellator* tessellator, inkArray *renderGroups)
 {
-	if (tessellator == NULL || tessellator->gluTessellator == NULL)
+	if (tessellator == NULL || tessellator->gluTessellator == NULL || renderGroups == NULL)
 		return;
+
+	tessellator->renderGroups = renderGroups;
 
 	gluTessBeginPolygon(tessellator->gluTessellator, tessellator);
 }
@@ -235,7 +240,7 @@ void inkTessellatorExpandRenderGroup(inkTessellator* tessellator, inkRenderGroup
 
 	inkTessellatorEndContour(tessellator);
 
-	inkRenderGroup* tessellatedGroup = tessellator->currentRenderGroup;
+	/*inkRenderGroup* tessellatedGroup = tessellator->currentRenderGroup;
 
 	if (tessellatedGroup == NULL)
 		return;
@@ -250,5 +255,5 @@ void inkTessellatorExpandRenderGroup(inkTessellator* tessellator, inkRenderGroup
 	{
 		inkVertex = (INKvertex*)inkArrayPush(renderGroup->vertices);
 		*inkVertex = *loopVertex;
-	}
+	}*/
 }

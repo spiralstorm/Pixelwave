@@ -106,8 +106,9 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 	inkCommandType commandType;
 	inkFillInfo* fillGenerator = NULL;
 	inkTessellator *tessellator = inkSharedTesselator;
+	inkRenderGroup *currentRenderGroup;// = inkRenderGroupCreate(sizeof(INKvertex), 0);
 
-	inkTessellatorBeginPolygon(tessellator);
+	inkTessellatorBeginPolygon(tessellator, canvas->renderGroups);
 
 	inkArrayPtrForEach(commandList, command)
 	{
@@ -134,7 +135,8 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 			{
 				inkFillGeneratorDestroy(fillGenerator);
 				inkSolidFill* fill = (inkSolidFill*)(commandData);
-				fillGenerator = inkFillGeneratorCreate(sizeof(INKvertex), fill);
+				currentRenderGroup = inkPushRenderGroup(canvas);
+				fillGenerator = inkFillGeneratorCreate(currentRenderGroup, fill);
 			}
 				break;
 			case inkCommandType_BitmapFill:
@@ -149,7 +151,7 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 				break;
 			case inkCommandType_EndFill:
 				//inkAddRenderGroup(canvas, fillGenerator->vertices, GL_TRIANGLE_STRIP);
-				inkFillGeneratorEnd(fillGenerator, tessellator);
+				inkFillGeneratorEnd(fillGenerator, tessellator, currentRenderGroup);
 				break;
 			default:
 				break;

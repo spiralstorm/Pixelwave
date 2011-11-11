@@ -13,10 +13,15 @@
 
 void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
 {
-	if (fillInfo == NULL || fillInfo->vertices == NULL)
+	/*if (fillInfo == NULL || fillInfo->vertices == NULL)
 		return;
 
-	INKvertex *vertex = (INKvertex*)(inkArrayPush(fillInfo->vertices));
+	INKvertex *vertex = (INKvertex*)(inkArrayPush(fillInfo->vertices));*/
+
+	if (fillInfo == NULL || fillInfo->renderGroup == NULL || fillInfo->renderGroup->vertices == NULL)
+		return;
+
+	INKvertex *vertex = (INKvertex*)(inkArrayPush(fillInfo->renderGroup->vertices));
 
 	vertex->x = position.x;
 	vertex->y = position.y;
@@ -27,22 +32,23 @@ void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
 	vertex->a = 255;
 }
 
-inkFillInfo* inkFillGeneratorCreate(size_t vertexSize, void* fill)
+inkFillInfo* inkFillGeneratorCreate(inkRenderGroup *renderGroup, void* fill)
 {
-	if (vertexSize == 0)
+	if (renderGroup == NULL)
 		return NULL;
 
 	inkFillInfo *fillInfo = malloc(sizeof(inkFillInfo));
 
 	if (fillInfo)
 	{
-		fillInfo->vertices = inkArrayCreate(vertexSize);
+		fillInfo->renderGroup = renderGroup;
+		//fillInfo->vertices = inkArrayCreate(vertexSize);
 
-		if (fillInfo->vertices == NULL)
+		/*if (fillInfo->vertices == NULL)
 		{
 			inkFillGeneratorDestroy(fillInfo);
 			return NULL;
-		}
+		}*/
 
 		fillInfo->fill = fill;
 	}
@@ -55,7 +61,7 @@ void inkFillGeneratorDestroy(inkFillInfo* fillInfo)
 	if (fillInfo)
 	{
 		// Does NULL check for me so I don't have to.
-		inkArrayDestroy(fillInfo->vertices);
+	//	inkArrayDestroy(fillInfo->vertices);
 
 		free(fillInfo);
 	}
@@ -71,12 +77,10 @@ void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position)
 	inkFillGeneratorAddVertex(fillInfo, position);
 }
 
-void inkFillGeneratorEnd(inkFillInfo* fillInfo, inkTessellator* tessellator)
+void inkFillGeneratorEnd(inkFillInfo* fillInfo, inkTessellator* tessellator, inkRenderGroup* renderGroup)
 {
 	if (fillInfo == NULL || tessellator == NULL)
 		return;
-
-	inkRenderGroup *renderGroup = inkRenderGroupCreate(sizeof(INKvertex), 0);
 
 	inkTessellatorExpandRenderGroup(tessellator, renderGroup);
 	//inkRenderGroup *renderGroup = inkTessellatorMakeRenderGroup(fillInfo->vertices);
