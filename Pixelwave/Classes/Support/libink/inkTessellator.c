@@ -89,6 +89,9 @@ inkInline void inkTessellatorInitialize(inkTessellator* tessellator)
 
 	GLUtesselator* gluTessellator = tessellator->gluTessellator;
 
+	gluTessProperty(gluTessellator, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
+	//gluTessProperty(gluTessellator, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_NONZERO);
+
 	gluTessCallback(gluTessellator, GLU_TESS_BEGIN_DATA, inkTessellatorBeginCallback);
 	gluTessCallback(gluTessellator, GLU_TESS_END_DATA, inkTessellatorEndCallback);
 	gluTessCallback(gluTessellator, GLU_TESS_VERTEX_DATA, inkTessellatorVertexCallback);

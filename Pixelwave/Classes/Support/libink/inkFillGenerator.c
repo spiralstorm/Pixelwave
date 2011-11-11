@@ -26,10 +26,14 @@ void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
 	vertex->x = position.x;
 	vertex->y = position.y;
 
-	vertex->r = 0;
-	vertex->g = 0;
-	vertex->b = 0;
-	vertex->a = 255;
+	// TODO: Do a real check for the type
+	inkSolidFill *solidFill = (inkSolidFill *)fillInfo->fill;
+
+	// TODO: Use a real color checker instead
+	vertex->r = 0xFF & (solidFill->color >> 16);
+	vertex->g = 0xFF & (solidFill->color >> 8);
+	vertex->b = 0xFF & (solidFill->color);
+	vertex->a = 0xFF * solidFill->alpha;
 }
 
 inkFillInfo* inkFillGeneratorCreate(inkRenderGroup *renderGroup, void* fill)
