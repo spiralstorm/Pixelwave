@@ -13,12 +13,15 @@
 #include "inkArray.h"
 
 #include "inkTypes.h"
+#include "inkTessellator.h"
 
 typedef struct
 {
 	inkArray* commandList;
 	inkArray* renderGroups;
 } inkCanvas;
+
+inkExtern inkTessellator* inkSharedTesselator;
 
 inkExtern inkCanvas* inkCreate();
 inkExtern void inkDestroy(inkCanvas* canvas);
@@ -30,5 +33,8 @@ inkExtern void inkRemoveAllCommands(inkCanvas* canvas);
 
 inkExtern void inkAddRenderGroup(inkCanvas* canvas, inkArray* vertices, INKenum glMode);
 inkExtern void inkRemoveAllRenderGroups(inkCanvas* canvas);
+
+// Will be NULL unless a canvas has been created
+inkInline inkTessellator *inkGetTessellator();
 
 #endif

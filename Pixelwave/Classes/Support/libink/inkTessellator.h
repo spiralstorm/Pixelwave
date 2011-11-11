@@ -11,12 +11,25 @@
 
 #include "inkHeader.h"
 
+#include "inkArray.h"
+#include "inkRenderGroup.h"
+
 typedef struct
 {
 	void *gluTessellator;
+
+	inkRenderGroup *currentRenderGroup;
+	inkArray *combineVertices;
 } inkTessellator;
 
 inkExtern inkTessellator *inkTessellatorCreate();
-inkExtern void inkTessellatorDestroy(inkTessellator *tessellator);
+inkExtern void inkTessellatorDestroy(inkTessellator* tessellator);
+
+inkExtern void inkTessellatorBeginPolygon(inkTessellator* tessellator);
+inkExtern void inkTessellatorEndPolygon(inkTessellator* tessellator);
+inkExtern void inkTessellatorBeginContour(inkTessellator* tessellator);
+inkExtern void inkTessellatorEndContour(inkTessellator* tessellator);
+
+inkExtern void inkTessellatorExpandRenderGroup(inkTessellator* tessellator, inkRenderGroup* renderGroup);
 
 #endif

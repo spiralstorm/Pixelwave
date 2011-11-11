@@ -27,7 +27,11 @@
 #define inkInline static inline
 #define inkAlwaysInline  __attribute__((always_inline))
 
-#define inkUniqueVar(_name_) _name_ ## __LINE__
+#define inkUniqueVarConcat(_name_, _line_) _name_ ## _line_
+#define inkLikeName(_name_, _line_) inkUniqueVarConcat(_name_, _line_)
+#define inkUniqueVar(_name_) inkLikeName(_name_,__LINE__)
+
+//#define inkUniqueVar(_name_) _name_ ## __LINE__
 
 #define inkNotUsed(_val_) ((void)(_val_))
 

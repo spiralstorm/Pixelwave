@@ -54,7 +54,7 @@ void inkFillGeneratorDestroy(inkFillInfo* fillInfo)
 {
 	if (fillInfo)
 	{
-		// Does NULL check for me
+		// Does NULL check for me so I don't have to.
 		inkArrayDestroy(fillInfo->vertices);
 
 		free(fillInfo);
@@ -71,7 +71,13 @@ void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position)
 	inkFillGeneratorAddVertex(fillInfo, position);
 }
 
-void inkFillGeneratorEnd(inkFillInfo* fillInfo)
+void inkFillGeneratorEnd(inkFillInfo* fillInfo, inkTessellator* tessellator)
 {
-	// TODO: Implement
+	if (fillInfo == NULL || tessellator == NULL)
+		return;
+
+	inkRenderGroup *renderGroup = inkRenderGroupCreate(sizeof(INKvertex), 0);
+
+	inkTessellatorExpandRenderGroup(tessellator, renderGroup);
+	//inkRenderGroup *renderGroup = inkTessellatorMakeRenderGroup(fillInfo->vertices);
 }

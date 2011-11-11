@@ -8,7 +8,6 @@
 
 #include "inkVectorGraphics.h"
 
-#include "inkTessellator.h"
 #include "inkCommand.h"
 
 #include "inkFillGenerator.h"
@@ -16,10 +15,6 @@
 
 // TODO: Remove
 #include "PXGLUtils.h"
-
-// We use a shared tessellator because the 'rasterization' step, where
-// tessellation is done, should ONLY ever happen on the main thread.
-//static PXTessellator *pxGraphicsUtilsSharedTesselator = NULL;
 
 inkExtern void inkClear(inkCanvas* canvas)
 {
@@ -110,8 +105,9 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 	inkCommand* command;
 	inkCommandType commandType;
 	inkFillInfo* fillGenerator = NULL;
+	inkTessellator *tessellator = inkSharedTesselator;
 
-	printf("total command count = %u\n", inkArrayCount(commandList));
+	inkTessellatorBeginPolygon(tessellator);
 
 	inkArrayPtrForEach(commandList, command)
 	{
@@ -152,8 +148,8 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 			case inkCommandType_LineGradient:
 				break;
 			case inkCommandType_EndFill:
-				inkAddRenderGroup(canvas, fillGenerator->vertices, GL_TRIANGLE_STRIP);
-				inkFillGeneratorEnd(fillGenerator);
+				//inkAddRenderGroup(canvas, fillGenerator->vertices, GL_TRIANGLE_STRIP);
+				inkFillGeneratorEnd(fillGenerator, tessellator);
 				break;
 			default:
 				break;
@@ -161,4 +157,6 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 	}
 
 	inkFillGeneratorDestroy(fillGenerator);
+
+	inkTessellatorEndPolygon(tessellator);
 }

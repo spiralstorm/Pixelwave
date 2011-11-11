@@ -13,10 +13,12 @@
 #include "inkArray.h"
 #include "inkGeometry.h"
 #include "inkFill.h"
+#include "inkTessellator.h"
+#include "inkRenderGroup.h"
 
 typedef struct
 {
-	// TODO: Change to render group instead
+	// TODO: Change to render group instead?
 	inkArray* vertices;
 
 	void* fill;
@@ -27,6 +29,6 @@ inkExtern void inkFillGeneratorDestroy(inkFillInfo* fillInfo);
 
 inkExtern void inkFillGeneratorMoveTo(inkFillInfo* fillInfo, inkPoint position);
 inkExtern void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position);
-inkExtern void inkFillGeneratorEnd(inkFillInfo* fillInfo);
+inkExtern void inkFillGeneratorEnd(inkFillInfo* fillInfo, inkTessellator* tessellator);
 
 #endif

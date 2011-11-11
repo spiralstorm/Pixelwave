@@ -11,17 +11,33 @@
 // TODO: Remove this
 #include "PXGLUtils.h"
 
-/*inkExtern inkRenderGroup* inkRenderGroupCreate(size_t vertexSize, INKenum drawMode)
+inkRenderGroup* inkRenderGroupCreate(size_t vertexSize, INKenum glDrawMode)
 {
-	// TODO: Implement
-	return NULL;
-}*/
+	if (vertexSize == 0)
+		return NULL;
 
-inkExtern inkRenderGroup* inkRenderGroupCreate(inkArray *vertices, INKenum glDrawMode)
+	inkRenderGroup* renderGroup = malloc(sizeof(inkRenderGroup));
+
+	if (renderGroup != NULL)
+	{
+		renderGroup->glDrawMode = glDrawMode;
+		renderGroup->vertices = inkArrayCreate(vertexSize);
+
+		if (renderGroup->vertices == NULL)
+		{
+			inkRenderGroupDestroy(renderGroup);
+			return NULL;
+		}
+	}
+
+	return renderGroup;
+}
+
+inkRenderGroup* inkRenderGroupCreateWithVertices(inkArray *vertices, INKenum glDrawMode)
 {
 	inkRenderGroup* renderGroup = malloc(sizeof(inkRenderGroup));
 
-	if (renderGroup)
+	if (renderGroup != NULL)
 	{
 		renderGroup->glDrawMode = glDrawMode;
 		// TODO: Change this hack
@@ -57,7 +73,7 @@ inkExtern inkRenderGroup* inkRenderGroupCreate(inkArray *vertices, INKenum glDra
 	return renderGroup;
 }
 
-inkExtern void inkRenderGroupDestroy(inkRenderGroup *renderGroup)
+void inkRenderGroupDestroy(inkRenderGroup *renderGroup)
 {
 	if (renderGroup)
 	{

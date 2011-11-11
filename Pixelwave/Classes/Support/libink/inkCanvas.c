@@ -13,12 +13,21 @@
 
 #include <stdio.h>
 
+inkTessellator* inkSharedTesselator = NULL;
+unsigned int inkSharedTessellatorUseCount = 0;
+
 inkCanvas* inkCreate()
 {
 	inkCanvas *canvas = malloc(sizeof(inkCanvas));
 
 	if (canvas != NULL)
 	{
+		if (inkSharedTesselator == NULL)
+		{
+			inkSharedTesselator = inkTessellatorCreate();
+			++inkSharedTessellatorUseCount;
+		}
+
 		canvas->commandList = inkArrayCreate(sizeof(inkCommand*));
 		canvas->renderGroups = inkArrayCreate(sizeof(inkRenderGroup*));
 
@@ -36,6 +45,18 @@ void inkDestroy(inkCanvas* canvas)
 {
 	if (canvas != NULL)
 	{
+		if (inkSharedTesselator != NULL)
+		{
+			if (inkSharedTessellatorUseCount != 0)
+				--inkSharedTessellatorUseCount;
+
+			if (inkSharedTessellatorUseCount == 0)
+			{
+				inkTessellatorDestroy(inkSharedTesselator);
+				inkSharedTesselator = NULL;
+			}
+		}
+
 		inkRemoveAllCommands(canvas);
 		inkArrayDestroy(canvas->commandList);
 
@@ -62,10 +83,6 @@ void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)
 	inkCommand** command = (inkCommand**)inkArrayPush(canvas->commandList);
 
 	*command = inkCommandCreate(type, data);
-
-//	printf("adding command: %d\n", type);
-
-//	printf("total commands: %d\n", inkArrayCount(canvas->commandList));
 }
 
 void inkRemoveAllCommands(inkCanvas* canvas)
@@ -91,7 +108,7 @@ void inkAddRenderGroup(inkCanvas* canvas, inkArray* vertices, INKenum glMode)
 
 	inkRenderGroup** renderGroup = (inkRenderGroup**)inkArrayPush(canvas->renderGroups);
 
-	*renderGroup = inkRenderGroupCreate(vertices, glMode);
+	*renderGroup = inkRenderGroupCreateWithVertices(vertices, glMode);
 }
 
 void inkRemoveAllRenderGroups(inkCanvas* canvas)
@@ -108,4 +125,12 @@ void inkRemoveAllRenderGroups(inkCanvas* canvas)
 			inkRenderGroupDestroy(renderGroup);
 		}
 	}
+}
+
+// We use a shared tessellator because the 'rasterization' step, where
+// tessellation is done, should ONLY ever happen on the main thread
+
+inkInline inkTessellator *inkGetTessellator()
+{
+	return inkSharedTesselator;
 }
