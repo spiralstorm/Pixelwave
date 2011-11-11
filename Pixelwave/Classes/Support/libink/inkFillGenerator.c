@@ -27,7 +27,7 @@ void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
 	vertex->a = 255;
 }
 
-inkFillInfo *inkFillGeneratorCreate(size_t vertexSize, void* fill)
+inkFillInfo* inkFillGeneratorCreate(size_t vertexSize, void* fill)
 {
 	if (vertexSize == 0)
 		return NULL;

@@ -22,7 +22,7 @@ typedef struct
 	void* fill;
 } inkFillInfo;
 
-inkExtern inkFillInfo *inkFillGeneratorCreate(size_t vertexSize, void* fill);
+inkExtern inkFillInfo* inkFillGeneratorCreate(size_t vertexSize, void* fill);
 inkExtern void inkFillGeneratorDestroy(inkFillInfo* fillInfo);
 
 inkExtern void inkFillGeneratorMoveTo(inkFillInfo* fillInfo, inkPoint position);

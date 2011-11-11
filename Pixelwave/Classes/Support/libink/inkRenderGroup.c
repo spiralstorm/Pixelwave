@@ -17,12 +17,13 @@
 	return NULL;
 }*/
 
-inkExtern inkRenderGroup* inkRenderGroupCreate(inkArray *vertices, INKenum drawMode)
+inkExtern inkRenderGroup* inkRenderGroupCreate(inkArray *vertices, INKenum glDrawMode)
 {
 	inkRenderGroup* renderGroup = malloc(sizeof(inkRenderGroup));
 
 	if (renderGroup)
 	{
+		renderGroup->glDrawMode = glDrawMode;
 		// TODO: Change this hack
 		{
 			renderGroup->vertices = malloc(sizeof(inkArray));

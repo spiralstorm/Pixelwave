@@ -36,7 +36,7 @@ inkArray *inkArrayCreate(size_t elementSize)
 
 	if (array != NULL)
 	{
-		array->_elementSize = sizeof(elementSize);
+		array->_elementSize = elementSize;
 		array->_byteCount = array->_elementSize * inkArrayMinimumElementCount;
 		array->elements = malloc(array->_byteCount);
 
