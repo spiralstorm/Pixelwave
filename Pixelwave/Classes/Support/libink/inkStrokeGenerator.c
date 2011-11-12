@@ -8,7 +8,7 @@
 
 #include "inkStrokeGenerator.h"
 
-inkStrokeInfo *inkStrokeGeneratorCreate(size_t vertexSize, inkStroke *stroke)
+inkStrokeInfo *inkStrokeGeneratorCreate(size_t vertexSize, inkStroke* stroke)
 {
 	if (vertexSize == 0)
 		return NULL;
@@ -31,9 +31,9 @@ inkStrokeInfo *inkStrokeGeneratorCreate(size_t vertexSize, inkStroke *stroke)
 	return strokeInfo;
 }
 
-void inkStrokeGeneratorDestroy(inkStrokeInfo *strokeInfo)
+void inkStrokeGeneratorDestroy(inkStrokeInfo* strokeInfo)
 {
-	if (strokeInfo)
+	if (strokeInfo != NULL)
 	{
 		// Does NULL check for me
 		inkArrayDestroy(strokeInfo->vertices);
@@ -42,17 +42,17 @@ void inkStrokeGeneratorDestroy(inkStrokeInfo *strokeInfo)
 	}
 }
 
-void inkStrokeGeneratorMoveTo(inkStrokeInfo *strokeInfo, inkPoint position)
+void inkStrokeGeneratorMoveTo(inkStrokeInfo* strokeInfo, inkPoint position)
 {
 	// TODO: Implement
 }
 
-void inkStrokeGeneratorLineTo(inkStrokeInfo *strokeInfo, inkPoint position)
+void inkStrokeGeneratorLineTo(inkStrokeInfo* strokeInfo, inkPoint position)
 {
 	// TODO: Implement
 }
 
-void inkStrokeGeneratorEnd(inkStrokeInfo *strokeInfo)
+void inkStrokeGeneratorEnd(inkStrokeInfo* strokeInfo)
 {
 	// TODO: Implement
 }

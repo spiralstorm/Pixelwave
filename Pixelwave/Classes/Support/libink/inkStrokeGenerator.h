@@ -17,16 +17,16 @@
 
 typedef struct
 {
-	inkArray *vertices;
+	inkArray* vertices;
 
-	inkStroke *stroke;
+	inkStroke* stroke;
 } inkStrokeInfo;
 
-inkExtern inkStrokeInfo *inkStrokeGeneratorCreate(size_t vertexSize, inkStroke *stroke);
-inkExtern void inkStrokeGeneratorDestroy(inkStrokeInfo *strokeInfo);
+inkExtern inkStrokeInfo *inkStrokeGeneratorCreate(size_t vertexSize, inkStroke* stroke);
+inkExtern void inkStrokeGeneratorDestroy(inkStrokeInfo* strokeInfo);
 
-inkExtern void inkStrokeGeneratorMoveTo(inkStrokeInfo *strokeInfo, inkPoint position);
-inkExtern void inkStrokeGeneratorLineTo(inkStrokeInfo *strokeInfo, inkPoint position);
-inkExtern void inkStrokeGeneratorEnd(inkStrokeInfo *strokeInfo);
+inkExtern void inkStrokeGeneratorMoveTo(inkStrokeInfo* strokeInfo, inkPoint position);
+inkExtern void inkStrokeGeneratorLineTo(inkStrokeInfo* strokeInfo, inkPoint position);
+inkExtern void inkStrokeGeneratorEnd(inkStrokeInfo* strokeInfo);
 
 #endif

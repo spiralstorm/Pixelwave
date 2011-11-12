@@ -21,6 +21,9 @@ typedef struct
 	inkArray *renderGroups; // Weak
 	inkRenderGroup *currentRenderGroup;
 	inkArray *combineVertices;
+
+	bool contourBegan;
+	bool polygonBegan;
 } inkTessellator;
 
 inkExtern inkTessellator *inkTessellatorCreate();

@@ -62,6 +62,8 @@ inkTessellator *inkTessellatorCreate()
 		}
 
 		tessellator->currentRenderGroup = NULL;
+		tessellator->polygonBegan = false;
+		tessellator->contourBegan = false;
 		inkTessellatorInitialize(tessellator);
 	}
 
@@ -191,6 +193,12 @@ void inkTessellatorBeginPolygon(inkTessellator* tessellator, inkArray *renderGro
 	if (tessellator == NULL || tessellator->gluTessellator == NULL || renderGroups == NULL)
 		return;
 
+	if (tessellator->contourBegan == true)
+		inkTessellatorEndContour(tessellator);
+	if (tessellator->polygonBegan == true)
+		inkTessellatorEndPolygon(tessellator);
+	tessellator->polygonBegan = true;
+
 	tessellator->renderGroups = renderGroups;
 
 	gluTessBeginPolygon(tessellator->gluTessellator, tessellator);
@@ -199,6 +207,11 @@ void inkTessellatorBeginPolygon(inkTessellator* tessellator, inkArray *renderGro
 void inkTessellatorEndPolygon(inkTessellator* tessellator)
 {
 	if (tessellator == NULL || tessellator->gluTessellator == NULL)
+		return;
+
+	if (tessellator->contourBegan == true)
+		inkTessellatorEndContour(tessellator);
+	if (tessellator->polygonBegan == false)
 		return;
 
 	gluTessEndPolygon(tessellator->gluTessellator);
@@ -211,6 +224,10 @@ void inkTessellatorBeginContour(inkTessellator* tessellator)
 	if (tessellator == NULL || tessellator->gluTessellator == NULL)
 		return;
 
+	if (tessellator->contourBegan == true)
+		inkTessellatorEndContour(tessellator);
+	tessellator->contourBegan = true;
+
 	gluTessBeginContour(tessellator->gluTessellator);
 } 
 
@@ -218,6 +235,10 @@ void inkTessellatorEndContour(inkTessellator* tessellator)
 {
 	if (tessellator == NULL || tessellator->gluTessellator == NULL)
 		return;
+
+	if (tessellator->contourBegan == false)
+		return;
+	tessellator->contourBegan = false;
 
 	gluTessEndContour(tessellator->gluTessellator);
 }

@@ -16,18 +16,18 @@ void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
 	/*if (fillInfo == NULL || fillInfo->vertices == NULL)
 		return;
 
-	INKvertex *vertex = (INKvertex*)(inkArrayPush(fillInfo->vertices));*/
+	INKvertex* vertex = (INKvertex*)(inkArrayPush(fillInfo->vertices));*/
 
 	if (fillInfo == NULL || fillInfo->renderGroup == NULL || fillInfo->renderGroup->vertices == NULL)
 		return;
 
-	INKvertex *vertex = (INKvertex*)(inkArrayPush(fillInfo->renderGroup->vertices));
+	INKvertex* vertex = (INKvertex*)(inkArrayPush(fillInfo->renderGroup->vertices));
 
 	vertex->x = position.x;
 	vertex->y = position.y;
 
 	// TODO: Do a real check for the type
-	inkSolidFill *solidFill = (inkSolidFill *)fillInfo->fill;
+	inkSolidFill* solidFill = (inkSolidFill *)fillInfo->fill;
 
 	// TODO: Use a real color checker instead
 	vertex->r = 0xFF & (solidFill->color >> 16);
@@ -36,12 +36,12 @@ void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
 	vertex->a = 0xFF * solidFill->alpha;
 }
 
-inkFillInfo* inkFillGeneratorCreate(inkRenderGroup *renderGroup, void* fill)
+inkFillInfo* inkFillGeneratorCreate(inkRenderGroup *renderGroup, void* fill, inkTessellator* tessellator)
 {
 	if (renderGroup == NULL)
 		return NULL;
 
-	inkFillInfo *fillInfo = malloc(sizeof(inkFillInfo));
+	inkFillInfo* fillInfo = malloc(sizeof(inkFillInfo));
 
 	if (fillInfo)
 	{
@@ -73,7 +73,10 @@ void inkFillGeneratorDestroy(inkFillInfo* fillInfo)
 
 void inkFillGeneratorMoveTo(inkFillInfo* fillInfo, inkPoint position)
 {
-	inkFillGeneratorAddVertex(fillInfo, position);
+	if (fillInfo == NULL)
+		return;
+
+	fillInfo->cursor = position;
 }
 
 void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position)
@@ -81,10 +84,12 @@ void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position)
 	inkFillGeneratorAddVertex(fillInfo, position);
 }
 
-void inkFillGeneratorEnd(inkFillInfo* fillInfo, inkTessellator* tessellator, inkRenderGroup* renderGroup)
+void inkFillGeneratorEnd(inkFillInfo* fillInfo, inkRenderGroup* renderGroup)
 {
 	if (fillInfo == NULL || tessellator == NULL)
 		return;
+
+	inkFillGeneratorAddVertex(fillInfo, fillInfo->cursor);
 
 	inkTessellatorExpandRenderGroup(tessellator, renderGroup);
 	//inkRenderGroup *renderGroup = inkTessellatorMakeRenderGroup(fillInfo->vertices);
