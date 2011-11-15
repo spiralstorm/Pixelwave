@@ -133,7 +133,6 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 	inkCommandType commandType;
 	inkFillInfo* fillGenerator = NULL;
 	inkTessellator* tessellator = inkSharedTesselator;
-	//inkRenderGroup* currentRenderGroup;// = inkRenderGroupCreate(sizeof(INKvertex), 0);
 
 	inkArrayPtrForEach(commandList, command)
 	{
@@ -166,7 +165,7 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 
 				inkFillGeneratorDestroy(fillGenerator);
 				inkSolidFill* fill = (inkSolidFill*)(commandData);
-				//currentRenderGroup = inkPushRenderGroup(canvas);
+
 				fillGenerator = inkFillGeneratorCreate(fill, tessellator);
 			}
 				break;

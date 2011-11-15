@@ -74,7 +74,6 @@ void inkTessellatorDestroy(inkTessellator* tessellator)
 		if (tessellator->gluTessellator != NULL)
 			gluDeleteTess(tessellator->gluTessellator);
 
-		//inkRenderGroupDestroy(tessellator->currentRenderGroup);
 		inkArrayDestroy(tessellator->combineVertices);
 
 		free(tessellator);
@@ -103,7 +102,6 @@ void inkTessellatorBeginCallback(GLenum type, inkTessellator* tessellator)
 	if (tessellator == NULL || tessellator->renderGroups == NULL)
 		return;
 
-	//inkRenderGroupDestroy(tessellator->currentRenderGroup);
 	inkRenderGroup** renderGroupPtr = (inkRenderGroup**)inkArrayPush(tessellator->renderGroups);
 	*renderGroupPtr = inkRenderGroupCreate(type);
 	tessellator->currentRenderGroup = *renderGroupPtr;

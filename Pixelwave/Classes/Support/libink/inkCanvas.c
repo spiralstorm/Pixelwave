@@ -86,7 +86,8 @@ void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)
 	{
 		inkCommand** commandPtr = (inkCommand**)inkArrayPush(canvas->commandList);
 
-		*commandPtr = command;
+		if (commandPtr != NULL)
+			*commandPtr = command;
 	}
 }
 
@@ -129,7 +130,8 @@ inkRenderGroup* inkPushRenderGroup(inkCanvas* canvas)
 	{
 		inkRenderGroup** renderGroupPtr = (inkRenderGroup**)inkArrayPush(canvas->renderGroups);
 
-		*renderGroupPtr = renderGroup;
+		if (renderGroupPtr != NULL)
+			*renderGroupPtr = renderGroup;
 	}
 
 	return renderGroup;
@@ -143,7 +145,7 @@ void inkRemoveAllRenderGroups(inkCanvas* canvas)
 	if (canvas->renderGroups != NULL)
 	{
 		inkRenderGroup* renderGroup;
-		
+
 		inkArrayPtrForEach(canvas->renderGroups, renderGroup)
 		{
 			inkRenderGroupDestroy(renderGroup);

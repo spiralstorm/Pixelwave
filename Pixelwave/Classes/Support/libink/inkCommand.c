@@ -19,11 +19,15 @@ inkCommand* inkCommandCreate(inkCommandType type, void* data)
 		size_t dataSize = inkCommandDataSizeFromType(type);
 
 		if (dataSize == 0)
+		{
 			command->data = NULL;
+		}
 		else
+		{
 			command->data = malloc(dataSize);
+			memcpy(command->data, data, dataSize);
+		}
 
-		memcpy(command->data, data, dataSize);
 		command->type = type;
 	}
 
