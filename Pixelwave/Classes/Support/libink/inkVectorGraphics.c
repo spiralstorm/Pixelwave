@@ -13,9 +13,6 @@
 #include "inkFillGenerator.h"
 #include "inkStrokeGenerator.h"
 
-// TODO: Remove
-#include "PXGLUtils.h"
-
 inkExtern void inkClear(inkCanvas* canvas)
 {
 	if (canvas == NULL)
@@ -37,10 +34,40 @@ inkExtern void inkLineTo(inkCanvas* canvas, inkPoint position)
 
 inkExtern void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
 {
-	if (canvas == NULL)
+	inkCurveToCommand command = {control, anchor};
+
+	inkAddCommand(canvas, inkCommandType_CurveTo, &command);
+
+	/*if (canvas == NULL)
 		return;
 
-	// TODO: Implement
+	// TODO: Implement properly instead of just making lots of LineTos
+	const unsigned int percision = 100;
+
+	inkPoint nextPoint;
+	inkPoint previousPoint = inkPointMake(390.000000, 160.000000);
+
+	float tIncrement = 1.0f / (float)(percision - 1);
+	float t;
+	float oneMinusT;
+
+	float pWeight;
+	float cWeight;
+	float aWeight;
+
+	unsigned int index;
+
+	for (index = 0, t = 0.0f, oneMinusT = 1.0f; index < percision; ++index, t += tIncrement, oneMinusT -= tIncrement)
+	{
+		pWeight = oneMinusT * oneMinusT;
+		cWeight = 2 * t * oneMinusT;
+		aWeight = t * t;
+
+		nextPoint = inkPointMake((previousPoint.x * pWeight) + (control.x * cWeight) + (anchor.x * aWeight),
+								 (previousPoint.y * pWeight) + (control.y * cWeight) + (anchor.y * aWeight));
+
+		inkLineTo(canvas, nextPoint);
+	}*/
 }
 
 inkExtern void inkBeginFill(inkCanvas* canvas, inkSolidFill solidFill)
@@ -106,7 +133,7 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 	inkCommandType commandType;
 	inkFillInfo* fillGenerator = NULL;
 	inkTessellator* tessellator = inkSharedTesselator;
-	inkRenderGroup* currentRenderGroup;// = inkRenderGroupCreate(sizeof(INKvertex), 0);
+	//inkRenderGroup* currentRenderGroup;// = inkRenderGroupCreate(sizeof(INKvertex), 0);
 
 	inkArrayPtrForEach(commandList, command)
 	{
@@ -128,6 +155,10 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 			}
 				break;
 			case inkCommandType_CurveTo:
+			{
+				inkCurveToCommand* command = (inkCurveToCommand*)(commandData);
+				inkFillGeneratorCurveTo(fillGenerator, command->control, command->anchor);
+			}
 				break;
 			case inkCommandType_SolidFill:
 			{
@@ -135,8 +166,8 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 
 				inkFillGeneratorDestroy(fillGenerator);
 				inkSolidFill* fill = (inkSolidFill*)(commandData);
-				currentRenderGroup = inkPushRenderGroup(canvas);
-				fillGenerator = inkFillGeneratorCreate(currentRenderGroup, fill, tessellator);
+				//currentRenderGroup = inkPushRenderGroup(canvas);
+				fillGenerator = inkFillGeneratorCreate(fill, tessellator);
 			}
 				break;
 			case inkCommandType_BitmapFill:
@@ -150,8 +181,7 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 			case inkCommandType_LineGradient:
 				break;
 			case inkCommandType_EndFill:
-				//inkAddRenderGroup(canvas, fillGenerator->vertices, GL_TRIANGLE_STRIP);
-				inkFillGeneratorEnd(fillGenerator, currentRenderGroup);
+				inkFillGeneratorEnd(fillGenerator);
 				break;
 			default:
 				break;

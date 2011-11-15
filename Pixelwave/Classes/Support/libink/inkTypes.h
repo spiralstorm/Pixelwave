@@ -9,7 +9,12 @@
 #ifndef _INK_TYPES_H_
 #define _INK_TYPES_H_
 
-#define INKvertex PXGLColorVertex
+typedef struct
+{
+	float x, y;
+	unsigned char r, g, b, a;
+	float s, t;
+} INKvertex;
 
 typedef unsigned int INKenum;
 

@@ -15,8 +15,6 @@
 #include "inkRenderGroup.h"
 
 #include "inkTypes.h"
-// TODO: Remove
-#include "PXGLUtils.h"
 
 typedef struct
 {

@@ -24,17 +24,20 @@ typedef struct
 	inkTessellator* tessellator;
 
 	inkPoint cursor;
+	inkPoint previous;
 
-	inkRenderGroup* renderGroup;
+	inkArray* vertices;
+	//inkRenderGroup* renderGroup;
 
 	void* fill;
 } inkFillInfo;
 
-inkExtern inkFillInfo* inkFillGeneratorCreate(inkRenderGroup *renderGroup, void* fill, inkTessellator* tessellator);
+inkExtern inkFillInfo* inkFillGeneratorCreate(void* fill, inkTessellator* tessellator);
 inkExtern void inkFillGeneratorDestroy(inkFillInfo* fillInfo);
 
 inkExtern void inkFillGeneratorMoveTo(inkFillInfo* fillInfo, inkPoint position);
 inkExtern void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position);
-inkExtern void inkFillGeneratorEnd(inkFillInfo* fillInfo, inkRenderGroup* renderGroup);
+inkExtern void inkFillGeneratorCurveTo(inkFillInfo* fillInfo, inkPoint control, inkPoint anchor);
+inkExtern void inkFillGeneratorEnd(inkFillInfo* fillInfo);
 
 #endif

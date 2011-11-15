@@ -20,8 +20,8 @@ typedef struct
 	INKenum glDrawMode;
 } inkRenderGroup;
 
-inkExtern inkRenderGroup* inkRenderGroupCreate(size_t vertexSize, INKenum glDrawMode);
-inkExtern inkRenderGroup* inkRenderGroupCreateWithVertices(inkArray *vertices, INKenum glDrawMode);
+inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode);
+//inkExtern inkRenderGroup* inkRenderGroupCreateWithVertices(inkArray *vertices, INKenum glDrawMode);
 inkExtern void inkRenderGroupDestroy(inkRenderGroup *group);
 
 #endif

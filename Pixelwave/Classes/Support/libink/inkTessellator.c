@@ -105,7 +105,7 @@ void inkTessellatorBeginCallback(GLenum type, inkTessellator* tessellator)
 
 	//inkRenderGroupDestroy(tessellator->currentRenderGroup);
 	inkRenderGroup** renderGroupPtr = (inkRenderGroup**)inkArrayPush(tessellator->renderGroups);
-	*renderGroupPtr = inkRenderGroupCreate(sizeof(INKvertex), type);
+	*renderGroupPtr = inkRenderGroupCreate(type);
 	tessellator->currentRenderGroup = *renderGroupPtr;
 }
 
@@ -163,6 +163,8 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 
 	vertex->x = coords[0];
 	vertex->y = coords[1];
+
+	printf("combining, making (%f, %f)\n", vertex->x, vertex->y);
 
 	GLfloat w0 = weight[0];
 	GLfloat w1 = weight[1];

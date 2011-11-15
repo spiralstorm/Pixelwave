@@ -8,65 +8,19 @@
 
 #include "inkRenderGroup.h"
 
-// TODO: Remove this
-#include "PXGLUtils.h"
-
-inkRenderGroup* inkRenderGroupCreate(size_t vertexSize, INKenum glDrawMode)
+inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode)
 {
-	if (vertexSize == 0)
-		return NULL;
-
 	inkRenderGroup* renderGroup = malloc(sizeof(inkRenderGroup));
 
 	if (renderGroup != NULL)
 	{
 		renderGroup->glDrawMode = glDrawMode;
-		renderGroup->vertices = inkArrayCreate(vertexSize);
+		renderGroup->vertices = inkArrayCreate(sizeof(INKvertex));
 
 		if (renderGroup->vertices == NULL)
 		{
 			inkRenderGroupDestroy(renderGroup);
 			return NULL;
-		}
-	}
-
-	return renderGroup;
-}
-
-inkRenderGroup* inkRenderGroupCreateWithVertices(inkArray *vertices, INKenum glDrawMode)
-{
-	inkRenderGroup* renderGroup = malloc(sizeof(inkRenderGroup));
-
-	if (renderGroup != NULL)
-	{
-		renderGroup->glDrawMode = glDrawMode;
-		// TODO: Change this hack
-		{
-			renderGroup->vertices = malloc(sizeof(inkArray));
-
-			if (renderGroup->vertices == NULL)
-			{
-				inkRenderGroupDestroy(renderGroup);
-				return NULL;
-			}
-
-			renderGroup->vertices = memcpy(renderGroup->vertices, vertices, sizeof(inkArray));
-
-			if (renderGroup->vertices == NULL)
-			{
-				inkRenderGroupDestroy(renderGroup);
-				return NULL;
-			}
-
-			renderGroup->vertices->elements = malloc(vertices->_byteCount);
-
-			if (renderGroup->vertices->elements == NULL)
-			{
-				inkRenderGroupDestroy(renderGroup);
-				return NULL;
-			}
-
-			renderGroup->vertices->elements = memcpy(renderGroup->vertices->elements, vertices->elements, vertices->_byteCount);
 		}
 	}
 

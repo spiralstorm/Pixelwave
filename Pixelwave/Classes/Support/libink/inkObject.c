@@ -84,3 +84,11 @@ void inkObjectRelease(inkObject* object)
 		inkObjectDestroy(object);
 	}
 }
+
+unsigned short inkObjectRetainCount(inkObject* object)
+{
+	if (object == NULL)
+		return 0;
+
+	return object->retainCount;
+}

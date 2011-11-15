@@ -51,7 +51,7 @@ inkExtern const inkRect inkRectZero;
 inkExtern const inkMatrix inkMatrixIdentity;
 
 #ifdef __cplusplus
-extern "C" {
+//extern "C" {
 #endif
 
 #pragma mark -

@@ -22,9 +22,9 @@
 		inkUniqueVar(_bytes_) = (uint8_t *)((_array_)->elements); \
 	} \
 \
-	for (inkUniqueVar(_index_) = 0, (_obj_) = (void *)(inkUniqueVar(_bytes_)); \
+	for (inkUniqueVar(_index_) = 0, (_obj_) = (__typeof__(_obj_))(inkUniqueVar(_bytes_)); \
 		 inkUniqueVar(_index_) < inkUniqueVar(_count_); \
-		 ++inkUniqueVar(_index_), (inkUniqueVar(_bytes_)) += (inkUniqueVar(_size_)), (_obj_) = (void *)(inkUniqueVar(_bytes_)))
+		 ++inkUniqueVar(_index_), (inkUniqueVar(_bytes_)) += (inkUniqueVar(_size_)), (_obj_) = (__typeof__(_obj_))(inkUniqueVar(_bytes_)))
 
 #define inkArrayPtrForEach(_array_, _obj_) \
 	unsigned int inkUniqueVar(_index_); \
@@ -39,9 +39,9 @@
 		inkUniqueVar(_bytes_) = (uint8_t *)((_array_)->elements); \
 	} \
 \
-	for (inkUniqueVar(_index_) = 0, (_obj_) = *((void **)(inkUniqueVar(_bytes_))); \
+	for (inkUniqueVar(_index_) = 0, (_obj_) = *((__typeof__(&(_obj_)))(inkUniqueVar(_bytes_))); \
 		 inkUniqueVar(_index_) < inkUniqueVar(_count_); \
-		 ++inkUniqueVar(_index_), (inkUniqueVar(_bytes_)) += (inkUniqueVar(_size_)), (_obj_) = *((void **)(inkUniqueVar(_bytes_))))
+		 ++inkUniqueVar(_index_), (inkUniqueVar(_bytes_)) += (inkUniqueVar(_size_)), (_obj_) = *((__typeof__(&(_obj_)))(inkUniqueVar(_bytes_)))) 
 
 #include "inkHeader.h"
 

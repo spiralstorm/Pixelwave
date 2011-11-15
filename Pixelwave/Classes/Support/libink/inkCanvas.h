@@ -32,7 +32,7 @@ inkExtern inkArray* inkRenderGroups(inkCanvas* canvas);
 inkExtern void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data);
 inkExtern void inkRemoveAllCommands(inkCanvas* canvas);
 
-inkExtern void inkAddRenderGroup(inkCanvas* canvas, inkArray* vertices, INKenum glMode);
+//inkExtern void inkAddRenderGroup(inkCanvas* canvas, inkArray* vertices, INKenum glMode);
 inkExtern inkRenderGroup* inkPushRenderGroup(inkCanvas* canvas);
 inkExtern void inkRemoveAllRenderGroups(inkCanvas* canvas);
 

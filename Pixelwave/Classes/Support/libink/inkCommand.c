@@ -34,7 +34,7 @@ void inkCommandDestroy(inkCommand* command)
 {
 	if (command != NULL)
 	{
-		if (command->data)
+		if (command->data != NULL)
 		{
 			free(command->data);
 		}

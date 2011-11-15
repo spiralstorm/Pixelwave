@@ -13,9 +13,6 @@
 
 #include <stdio.h>
 
-// TODO: Remove this
-#include "PXGLUtils.h"
-
 inkTessellator* inkSharedTesselator = NULL;
 unsigned int inkSharedTessellatorUseCount = 0;
 
@@ -101,10 +98,12 @@ void inkRemoveAllCommands(inkCanvas* canvas)
 		{
 			inkCommandDestroy(command);
 		}
+
+		inkArrayClear(canvas->commandList);
 	}
 }
 
-void inkAddRenderGroup(inkCanvas* canvas, inkArray* vertices, INKenum glMode)
+/*void inkAddRenderGroup(inkCanvas* canvas, inkArray* vertices, INKenum glMode)
 {
 	if (canvas == NULL)
 		return;
@@ -112,7 +111,7 @@ void inkAddRenderGroup(inkCanvas* canvas, inkArray* vertices, INKenum glMode)
 	inkRenderGroup** renderGroup = (inkRenderGroup**)inkArrayPush(canvas->renderGroups);
 
 	*renderGroup = inkRenderGroupCreateWithVertices(vertices, glMode);
-}
+}*/
 
 inkRenderGroup* inkPushRenderGroup(inkCanvas* canvas)
 {
@@ -121,7 +120,7 @@ inkRenderGroup* inkPushRenderGroup(inkCanvas* canvas)
 
 	inkRenderGroup** renderGroup = (inkRenderGroup**)inkArrayPush(canvas->renderGroups);
 
-	*renderGroup = inkRenderGroupCreate(sizeof(INKvertex), 0);
+	*renderGroup = inkRenderGroupCreate(0);
 	return *renderGroup;
 }
 
@@ -138,6 +137,8 @@ void inkRemoveAllRenderGroups(inkCanvas* canvas)
 		{
 			inkRenderGroupDestroy(renderGroup);
 		}
+
+		inkArrayClear(canvas->renderGroups);
 	}
 }
 
