@@ -21,7 +21,7 @@ typedef struct
 	void *gluTessellator;
 
 	inkArray *renderGroups; // Weak
-	inkRenderGroup *currentRenderGroup;
+	inkRenderGroup *currentRenderGroup; // Weak
 	inkArray *combineVertices;
 
 	bool contourBegan;

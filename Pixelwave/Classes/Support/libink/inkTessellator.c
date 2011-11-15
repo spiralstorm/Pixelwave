@@ -69,13 +69,13 @@ inkTessellator *inkTessellatorCreate()
 
 void inkTessellatorDestroy(inkTessellator* tessellator)
 {
-	if (tessellator)
+	if (tessellator != NULL)
 	{
 		if (tessellator->gluTessellator != NULL)
 			gluDeleteTess(tessellator->gluTessellator);
 
-		inkRenderGroupDestroy(tessellator->currentRenderGroup);
-		inkArrayClear(tessellator->combineVertices);
+		//inkRenderGroupDestroy(tessellator->currentRenderGroup);
+		inkArrayDestroy(tessellator->combineVertices);
 
 		free(tessellator);
 	}
