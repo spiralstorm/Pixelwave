@@ -39,16 +39,16 @@
 
 #ifndef _PX_GL_PRIVATE_H_
 #define _PX_GL_PRIVATE_H_
-	
-#ifdef __cplusplus
-extern "C" {
-#endif
-	
+
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 
 #include "PXGLUtils.h"
 #include "PXGLState.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void PXGLInit(unsigned width, unsigned height, float scaleFactor);
 void PXGLDealloc();

@@ -40,10 +40,6 @@
 #ifndef _PX_GL_STATE_PRIVATE_H_
 #define _PX_GL_STATE_PRIVATE_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /*	              STATE					*
  * EF0000000000SLPT - 16 bits, 6 used	*
  * ----------------------------------	*
@@ -71,9 +67,5 @@ extern "C" {
 #define PX_GL_POINT_SIZE_ARRAY			0x0004
 #define PX_GL_TEXTURE_COORD_ARRAY		0x0002
 #define PX_GL_VERTEX_ARRAY				0x0001
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

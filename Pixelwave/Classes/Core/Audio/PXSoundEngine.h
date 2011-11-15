@@ -40,15 +40,15 @@
 #ifndef _PX_SOUND_ENGINE_H_
 #define _PX_SOUND_ENGINE_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #import "PXSoundMixer.h"
 
 @class PXSoundChannel;
 @class PXSoundListener;
 @class PXSoundTransform;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 void PXSoundEngineInit();
 void PXSoundEngineInitAL();

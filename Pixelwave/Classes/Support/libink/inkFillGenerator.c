@@ -13,11 +13,6 @@
 
 void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
 {
-	/*if (fillInfo == NULL || fillInfo->vertices == NULL)
-		return;
-
-	INKvertex* vertex = (INKvertex*)(inkArrayPush(fillInfo->vertices));*/
-
 	if (fillInfo == NULL || fillInfo->renderGroup == NULL || fillInfo->renderGroup->vertices == NULL)
 		return;
 
@@ -26,17 +21,35 @@ void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
 	vertex->x = position.x;
 	vertex->y = position.y;
 
-	// TODO: Do a real check for the type
-	inkSolidFill* solidFill = (inkSolidFill *)fillInfo->fill;
+	inkFillType fillType = *((inkFillType *)fillInfo->fill);
 
-	// TODO: Use a real color checker instead
-	vertex->r = 0xFF & (solidFill->color >> 16);
-	vertex->g = 0xFF & (solidFill->color >> 8);
-	vertex->b = 0xFF & (solidFill->color);
-	vertex->a = 0xFF * solidFill->alpha;
+	switch(fillType)
+	{
+		case inkFillType_Solid:
+		{
+			inkSolidFill* solidFill = (inkSolidFill *)fillInfo->fill;
+
+			// TODO: Use a real color checker instead
+			vertex->r = 0xFF & (solidFill->color >> 16);
+			vertex->g = 0xFF & (solidFill->color >> 8);
+			vertex->b = 0xFF & (solidFill->color);
+			vertex->a = 0xFF * solidFill->alpha;
+		}
+			break;
+		case inkFillType_Bitmap:
+			// TODO: Implement
+			break;
+		case inkFillType_Gradient:
+			// TODO: Implement
+			break;
+		default:
+			break;
+	}
+
+	inkTessellatorAddPoint(fillInfo->tessellator, vertex);
 }
 
-inkFillInfo* inkFillGeneratorCreate(inkRenderGroup *renderGroup, void* fill, inkTessellator* tessellator)
+inkFillInfo* inkFillGeneratorCreate(inkRenderGroup* renderGroup, void* fill, inkTessellator* tessellator)
 {
 	if (renderGroup == NULL)
 		return NULL;
@@ -55,6 +68,7 @@ inkFillInfo* inkFillGeneratorCreate(inkRenderGroup *renderGroup, void* fill, ink
 		}*/
 
 		fillInfo->fill = fill;
+		fillInfo->tessellator = tessellator;
 	}
 
 	return fillInfo;
@@ -76,7 +90,12 @@ void inkFillGeneratorMoveTo(inkFillInfo* fillInfo, inkPoint position)
 	if (fillInfo == NULL)
 		return;
 
+	printf("begin contour\n");
+	inkTessellatorBeginContour(fillInfo->tessellator);
+
 	fillInfo->cursor = position;
+
+	inkFillGeneratorAddVertex(fillInfo, fillInfo->cursor);
 }
 
 void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position)
@@ -86,11 +105,13 @@ void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position)
 
 void inkFillGeneratorEnd(inkFillInfo* fillInfo, inkRenderGroup* renderGroup)
 {
-	if (fillInfo == NULL || tessellator == NULL)
+	if (fillInfo == NULL || fillInfo->tessellator == NULL)
 		return;
 
-	inkFillGeneratorAddVertex(fillInfo, fillInfo->cursor);
+//	inkTessellator* tessellator = fillInfo->tessellator;
 
-	inkTessellatorExpandRenderGroup(tessellator, renderGroup);
+//	inkFillGeneratorAddVertex(fillInfo, fillInfo->cursor);
+
+//	inkTessellatorExpandRenderGroup(tessellator, renderGroup);
 	//inkRenderGroup *renderGroup = inkTessellatorMakeRenderGroup(fillInfo->vertices);
 }

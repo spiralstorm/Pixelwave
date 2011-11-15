@@ -14,6 +14,10 @@
 #include "inkArray.h"
 #include "inkRenderGroup.h"
 
+#include "inkTypes.h"
+// TODO: Remove
+#include "PXGLUtils.h"
+
 typedef struct
 {
 	void *gluTessellator;
@@ -34,6 +38,7 @@ inkExtern void inkTessellatorEndPolygon(inkTessellator* tessellator);
 inkExtern void inkTessellatorBeginContour(inkTessellator* tessellator);
 inkExtern void inkTessellatorEndContour(inkTessellator* tessellator);
 
-inkExtern void inkTessellatorExpandRenderGroup(inkTessellator* tessellator, inkRenderGroup* renderGroup);
+inkExtern void inkTessellatorAddPoint(inkTessellator* tessellator, INKvertex* vertex);
+//inkExtern void inkTessellatorExpandRenderGroup(inkTessellator* tessellator, inkRenderGroup* renderGroup);
 
 #endif

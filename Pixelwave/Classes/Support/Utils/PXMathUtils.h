@@ -40,11 +40,11 @@
 #ifndef _PX_MATH_UTILS_H_
 #define _PX_MATH_UTILS_H_
 
+#include "PXHeaderUtils.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "PXHeaderUtils.h"
 
 #pragma mark -
 #pragma mark Macros

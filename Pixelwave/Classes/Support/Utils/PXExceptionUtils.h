@@ -40,6 +40,8 @@
 #ifndef _PX_EXCEPTION_UTILS_H_
 #define _PX_EXCEPTION_UTILS_H_
 
+#import "PXTopLevel.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -47,8 +49,6 @@ extern "C" {
 ////////////////////
 // Error throwing //
 ////////////////////
-
-#import "PXTopLevel.h"
 
 #define PXThrow(_eClass_,_eMessage_) @throw [[[_eClass_ alloc] initWithReason : (_eMessage_)] autorelease]
 

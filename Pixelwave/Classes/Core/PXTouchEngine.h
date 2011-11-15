@@ -9,15 +9,15 @@
 #ifndef PX_TOUCH_ENGINE_H
 #define PX_TOUCH_ENGINE_H
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include <CoreGraphics/CGGeometry.h>
 
 @class PXLinkedList;
 @class UITouch;
 @protocol PXEventDispatcher;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 	
 void PXTouchEngineInit();
 void PXTouchEngineDealloc();

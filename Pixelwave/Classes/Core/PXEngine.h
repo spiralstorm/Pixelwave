@@ -42,10 +42,6 @@
 
 #import <Foundation/Foundation.h>
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "PXGL.h"
 #include "PXColorUtils.h"
 
@@ -56,6 +52,10 @@ extern "C" {
 @class PXStage;
 @class PXDisplayObject;
 @class PXTextureData;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 //////////////
 // Creation //

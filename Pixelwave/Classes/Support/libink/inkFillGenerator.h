@@ -25,7 +25,7 @@ typedef struct
 
 	inkPoint cursor;
 
-	inkRenderGroup *renderGroup;
+	inkRenderGroup* renderGroup;
 
 	void* fill;
 } inkFillInfo;

@@ -8,19 +8,26 @@
 
 #include "inkObject.h"
 
-inkObject* inkObjectCreate(void* holder, inkDestroyFunction destroyFunction)
+inkInline bool inkObjectInit(inkObject* object, void* holder, inkDestroyFunction destroyFunction, bool onStack)
 {
-	inkObject* object = malloc(sizeof(inkObject));
+	if (object == NULL)
+		return false;
 
-	if (object != NULL)
-	{
-		object->retainCount = 1;
-	}
+	memset(object, 0, sizeof(inkObject));
 
-	return object;
+	object->_onStack = onStack;
+
+	if (object->holder == NULL)
+		return false;
+
+	object->holder = holder;
+	object->destroyFunction = destroyFunction;
+	object->retainCount = 1;
+
+	return true;
 }
 
-void inkObjectDestroy(inkObject* object)
+inkInline void inkObjectDestroy(inkObject* object)
 {
 	if (object != NULL)
 	{
@@ -29,14 +36,40 @@ void inkObjectDestroy(inkObject* object)
 			object->destroyFunction(object->holder);
 		}
 
-		free(object);
+		if (object->_onStack == false)
+		{
+			free(object);
+		}
 	}
+}
+
+inkObject inkObjectMake(void* holder, inkDestroyFunction destroyFunction)
+{
+	inkObject object;
+
+	inkObjectInit(&object, holder, destroyFunction, true);
+
+	return object;
+}
+
+inkObject* inkObjectCreate(void* holder, inkDestroyFunction destroyFunction)
+{
+	inkObject* object = malloc(sizeof(inkObject));
+
+	if (inkObjectInit(object, holder, destroyFunction, false) == false)
+	{
+		inkObjectDestroy(object);
+	}
+
+	return object;
 }
 
 void inkObjectRetain(inkObject* object)
 {
 	if (object == NULL)
 		return;
+
+	++(object->retainCount);
 }
 
 void inkObjectRelease(inkObject* object)

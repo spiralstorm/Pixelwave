@@ -40,15 +40,15 @@
 #ifndef _PX_GL_UTILS_H_
 #define _PX_GL_UTILS_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "PXHeaderUtils.h"
 
 #include <OpenGLES/ES1/gl.h>
 #include <OpenGLES/ES1/glext.h>
 #include <CoreGraphics/CGGeometry.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #pragma mark -
 #pragma mark Structs

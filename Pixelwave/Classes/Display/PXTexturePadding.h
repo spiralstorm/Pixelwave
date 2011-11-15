@@ -40,6 +40,10 @@
 #ifndef _PX_TEXTURE_PADDING_H_
 #define _PX_TEXTURE_PADDING_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef struct
 {
 	float top;
@@ -48,12 +52,8 @@ typedef struct
 	float left;
 } _PXTexturePadding;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-	
-	_PXTexturePadding _PXTexturePaddingMake(float top, float right, float bottom, float left);
-	
+_PXTexturePadding _PXTexturePaddingMake(float top, float right, float bottom, float left);
+
 #ifdef __cplusplus
 }
 #endif

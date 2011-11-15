@@ -18,9 +18,12 @@ typedef struct
 	void* holder;
 	inkDestroyFunction destroyFunction;
 
-	unsigned int retainCount;
+	unsigned short retainCount;
+	// If the object is on the stack, not the holder
+	bool _onStack;
 } inkObject;
 
+inkExtern inkObject inkObjectMake(void* holder, inkDestroyFunction destroyFunction);
 inkExtern inkObject* inkObjectCreate(void* holder, inkDestroyFunction destroyFunction);
 
 inkExtern void inkObjectRetain(inkObject* object);

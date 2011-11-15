@@ -40,13 +40,13 @@
 #ifndef _PX_GL_H_
 #define _PX_GL_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 #include "PXGLUtils.h"
 #include "PXGLState.h"
 #include "PXHeaderUtils.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 GLfloat PXGLGetContentScaleFactor();
 GLfloat PXGLGetOneOverContentScaleFactor();

@@ -10,9 +10,6 @@
 
 #include "glu.h"
 
-// TODO: Remove
-#include "PXGLUtils.h"
-
 typedef struct
 {
 	double x;
@@ -147,6 +144,7 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 	INKvertex* v2 = vertexData[2];
 	INKvertex* v3 = vertexData[3];
 
+	// Can't merge if all points given are null.
 	if (v0 == NULL && v1 == NULL && v2 == NULL && v3 == NULL)
 		return;
 
@@ -154,6 +152,14 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 
 	if (vertex == NULL)
 		return;
+
+	// Need to temporarly store in floats so that way when you have part of a
+	// color, such as 255 * 0.33 and you add that to 255 * 0.67 it will still
+	// come out to 255
+	GLfloat r = 0.0f;
+	GLfloat g = 0.0f;
+	GLfloat b = 0.0f;
+	GLfloat a = 0.0f;
 
 	vertex->x = coords[0];
 	vertex->y = coords[1];
@@ -163,23 +169,37 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 	GLfloat w2 = weight[2];
 	GLfloat w3 = weight[3];
 
-#define inkTessellatorCombineVertexColor(_out_, _in_, _w_)\
+	// This macro will guarantee only adding vertex values that exist. It is
+	// faster to do this as a macro then in a loop, aka. this is the loop
+	// unrolled.
+#define inkTessellatorCombineVertexColor(_r_, _g_, _b_, _a_, _in_, _w_)\
 { \
 	if (_in_ != NULL) \
 	{ \
-		_out_->r += _in_->r * _w_; \
-		_out_->g += _in_->g * _w_; \
-		_out_->b += _in_->b * _w_; \
-		_out_->a += _in_->a * _w_; \
+		_r_ += _in_->r * _w_; \
+		_g_ += _in_->g * _w_; \
+		_b_ += _in_->b * _w_; \
+		_a_ += _in_->a * _w_; \
 	} \
 }
 
 	// Color will be 0 by default as inkArrayPush will memset's to 0.
-	inkTessellatorCombineVertexColor(vertex, v0, w0);
-	inkTessellatorCombineVertexColor(vertex, v1, w1);
-	inkTessellatorCombineVertexColor(vertex, v2, w2);
-	inkTessellatorCombineVertexColor(vertex, v3, w3);
+	inkTessellatorCombineVertexColor(r, g, b, a, v0, w0);
+	inkTessellatorCombineVertexColor(r, g, b, a, v1, w1);
+	inkTessellatorCombineVertexColor(r, g, b, a, v2, w2);
+	inkTessellatorCombineVertexColor(r, g, b, a, v3, w3);
 
+	// Rounding really shouldn't be needed as it should never exceed 255,
+	// however with floating point rounding errors it is possible to get
+	// slightly above 255 which would roll back around to 0 and thus fail.
+
+	vertex->r = lroundf(r);
+	vertex->g = lroundf(g);
+	vertex->b = lroundf(b);
+	vertex->a = lroundf(a);
+
+	// This would be ideal, however there are too many fail points for this to
+	// work correctly.
 	//vertex->r = (w0 * v0->r) + (w1 * v1->r) + (w2 * v2->r) + (w3 * v3->r);
 	//vertex->g = (w0 * v0->g) + (w1 * v1->g) + (w2 * v2->g) + (w3 * v3->g);
 	//vertex->b = (w0 * v0->b) + (w1 * v1->b) + (w2 * v2->b) + (w3 * v3->b);
@@ -195,6 +215,7 @@ void inkTessellatorBeginPolygon(inkTessellator* tessellator, inkArray *renderGro
 
 	if (tessellator->contourBegan == true)
 		inkTessellatorEndContour(tessellator);
+
 	if (tessellator->polygonBegan == true)
 		inkTessellatorEndPolygon(tessellator);
 	tessellator->polygonBegan = true;
@@ -211,8 +232,10 @@ void inkTessellatorEndPolygon(inkTessellator* tessellator)
 
 	if (tessellator->contourBegan == true)
 		inkTessellatorEndContour(tessellator);
+
 	if (tessellator->polygonBegan == false)
 		return;
+	tessellator->polygonBegan = false;
 
 	gluTessEndPolygon(tessellator->gluTessellator);
 
@@ -243,12 +266,21 @@ void inkTessellatorEndContour(inkTessellator* tessellator)
 	gluTessEndContour(tessellator->gluTessellator);
 }
 
-void inkTessellatorExpandRenderGroup(inkTessellator* tessellator, inkRenderGroup* renderGroup)
+void inkTessellatorAddPoint(inkTessellator* tessellator, INKvertex* vertex)
+{
+	if (tessellator == NULL || tessellator->gluTessellator == NULL || vertex == NULL)
+		return;
+
+	inkTessellatorGLUVertex gluVertex = inkTessellatorGLUVertexMake(vertex->x, vertex->y);
+
+	printf("gluVertex(%f, %f)\n", vertex->x, vertex->y);
+	gluTessVertex(tessellator->gluTessellator, (double*)(&gluVertex), vertex);
+}
+
+/*void inkTessellatorExpandRenderGroup(inkTessellator* tessellator, inkRenderGroup* renderGroup)
 {
 	if (tessellator == NULL || tessellator->gluTessellator == NULL || renderGroup == NULL)
 		return;
-
-	inkTessellatorBeginContour(tessellator);
 
 	inkArray* vertexArray = renderGroup->vertices;
 	INKvertex* inkVertex = NULL;
@@ -259,25 +291,7 @@ void inkTessellatorExpandRenderGroup(inkTessellator* tessellator, inkRenderGroup
 	{
 		gluVertex = inkTessellatorGLUVertexMake(inkVertex->x, inkVertex->y);
 
+		printf("gluVertex(%f, %f)\n", inkVertex->x, inkVertex->y);
 		gluTessVertex(gluTessellator, (double*)(&gluVertex), inkVertex);
 	}
-
-	inkTessellatorEndContour(tessellator);
-
-	/*inkRenderGroup* tessellatedGroup = tessellator->currentRenderGroup;
-
-	if (tessellatedGroup == NULL)
-		return;
-
-	INKvertex* loopVertex;
-
-	renderGroup->glDrawMode = tessellatedGroup->glDrawMode;
-
-	inkArrayClear(renderGroup->vertices);
-
-	inkArrayForEach(tessellatedGroup->vertices, loopVertex)
-	{
-		inkVertex = (INKvertex*)inkArrayPush(renderGroup->vertices);
-		*inkVertex = *loopVertex;
-	}*/
-}
+}*/
