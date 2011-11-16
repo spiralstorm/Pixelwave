@@ -13,8 +13,11 @@
 
 #include <stdio.h>
 
-inkTessellator* inkSharedTesselator = NULL;
-unsigned int inkSharedTessellatorUseCount = 0;
+inkTessellator* inkSharedFillTesselator = NULL;
+unsigned int inkSharedFillTessellatorUseCount = 0;
+
+inkTessellator* inkSharedStrokeTesselator = NULL;
+unsigned int inkSharedStrokeTessellatorUseCount = 0;
 
 inkCanvas* inkCreate()
 {
@@ -22,10 +25,15 @@ inkCanvas* inkCreate()
 
 	if (canvas != NULL)
 	{
-		if (inkSharedTesselator == NULL)
+		if (inkSharedFillTesselator == NULL)
 		{
-			inkSharedTesselator = inkTessellatorCreate();
-			++inkSharedTessellatorUseCount;
+			inkSharedFillTesselator = inkTessellatorCreate();
+			++inkSharedFillTessellatorUseCount;
+		}
+		if (inkSharedStrokeTesselator == NULL)
+		{
+			inkSharedStrokeTesselator = inkTessellatorCreate();
+			++inkSharedStrokeTessellatorUseCount;
 		}
 
 		canvas->commandList = inkArrayCreate(sizeof(inkCommand*));
@@ -45,15 +53,26 @@ void inkDestroy(inkCanvas* canvas)
 {
 	if (canvas != NULL)
 	{
-		if (inkSharedTesselator != NULL)
+		if (inkSharedFillTesselator != NULL)
 		{
-			if (inkSharedTessellatorUseCount != 0)
-				--inkSharedTessellatorUseCount;
+			if (inkSharedFillTessellatorUseCount != 0)
+				--inkSharedFillTessellatorUseCount;
 
-			if (inkSharedTessellatorUseCount == 0)
+			if (inkSharedFillTessellatorUseCount == 0)
 			{
-				inkTessellatorDestroy(inkSharedTesselator);
-				inkSharedTesselator = NULL;
+				inkTessellatorDestroy(inkSharedFillTesselator);
+				inkSharedFillTesselator = NULL;
+			}
+		}
+		if (inkSharedStrokeTesselator != NULL)
+		{
+			if (inkSharedStrokeTessellatorUseCount != 0)
+				--inkSharedStrokeTessellatorUseCount;
+			
+			if (inkSharedStrokeTessellatorUseCount == 0)
+			{
+				inkTessellatorDestroy(inkSharedStrokeTesselator);
+				inkSharedStrokeTesselator = NULL;
 			}
 		}
 
@@ -130,7 +149,12 @@ void inkRemoveAllRenderGroups(inkCanvas* canvas)
 // We use a shared tessellator because the 'rasterization' step, where
 // tessellation is done, should ONLY ever happen on the main thread
 
-inkInline inkTessellator *inkGetTessellator()
+inkTessellator* inkGetFillTessellator()
 {
-	return inkSharedTesselator;
+	return inkSharedFillTesselator;
+}
+
+inkTessellator* inkGetStrokeTessellator()
+{
+	return inkSharedStrokeTesselator;
 }

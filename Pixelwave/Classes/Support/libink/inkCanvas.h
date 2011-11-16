@@ -22,8 +22,6 @@ typedef struct
 	inkArray* renderGroups;
 } inkCanvas;
 
-inkExtern inkTessellator* inkSharedTesselator;
-
 inkExtern inkCanvas* inkCreate();
 inkExtern void inkDestroy(inkCanvas* canvas);
 
@@ -35,6 +33,7 @@ inkExtern void inkRemoveAllCommands(inkCanvas* canvas);
 inkExtern void inkRemoveAllRenderGroups(inkCanvas* canvas);
 
 // Will be NULL unless a canvas has been created
-inkInline inkTessellator *inkGetTessellator();
+inkExtern inkTessellator* inkGetFillTessellator();
+inkExtern inkTessellator* inkGetStrokeTessellator();
 
 #endif

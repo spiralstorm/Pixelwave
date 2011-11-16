@@ -445,6 +445,8 @@
 		52A22E48146DC623002B41BC /* inkObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E46146DC620002B41BC /* inkObject.h */; };
 		52A22E49146DC623002B41BC /* inkObject.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E47146DC621002B41BC /* inkObject.c */; };
 		52A22E4B147324E9002B41BC /* glu.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E4A147324E6002B41BC /* glu.h */; };
+		52A22E4E14745435002B41BC /* inkGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E4C1474542E002B41BC /* inkGenerator.h */; };
+		52A22E4F14745435002B41BC /* inkGenerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E4D14745431002B41BC /* inkGenerator.c */; };
 		52A97663131C083F00E20968 /* PXGLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A97661131C083F00E20968 /* PXGLUtils.h */; };
 		52A97664131C083F00E20968 /* PXGLUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A97662131C083F00E20968 /* PXGLUtils.c */; };
 		52ABD5F41254F20E00AB0756 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52ABD5F31254F20E00AB0756 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -986,6 +988,8 @@
 		52A22E46146DC620002B41BC /* inkObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkObject.h; sourceTree = "<group>"; };
 		52A22E47146DC621002B41BC /* inkObject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkObject.c; sourceTree = "<group>"; };
 		52A22E4A147324E6002B41BC /* glu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glu.h; sourceTree = "<group>"; };
+		52A22E4C1474542E002B41BC /* inkGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkGenerator.h; sourceTree = "<group>"; };
+		52A22E4D14745431002B41BC /* inkGenerator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkGenerator.c; sourceTree = "<group>"; };
 		52A97661131C083F00E20968 /* PXGLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLUtils.h; sourceTree = "<group>"; };
 		52A97662131C083F00E20968 /* PXGLUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGLUtils.c; sourceTree = "<group>"; };
 		52ABD5F31254F20E00AB0756 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -1992,6 +1996,8 @@
 				526DA3F7146C270E00566FF2 /* inkStroke.c */,
 				526DA3C6146B19FC00566FF2 /* inkTessellator.h */,
 				526DA3C5146B19FC00566FF2 /* inkTessellator.c */,
+				52A22E4C1474542E002B41BC /* inkGenerator.h */,
+				52A22E4D14745431002B41BC /* inkGenerator.c */,
 				526DA3BD146B19FC00566FF2 /* inkFillGenerator.h */,
 				526DA3D6146B1ABE00566FF2 /* inkFillGenerator.c */,
 				526DA3BF146B19FC00566FF2 /* inkStrokeGenerator.h */,
@@ -2574,6 +2580,7 @@
 				526DA3F8146C271000566FF2 /* inkStroke.h in Headers */,
 				52A22E48146DC623002B41BC /* inkObject.h in Headers */,
 				52A22E4B147324E9002B41BC /* glu.h in Headers */,
+				52A22E4E14745435002B41BC /* inkGenerator.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2834,6 +2841,7 @@
 				526DA3F5146B369200566FF2 /* inkGeometry.m in Sources */,
 				526DA3F9146C271000566FF2 /* inkStroke.c in Sources */,
 				52A22E49146DC623002B41BC /* inkObject.c in Sources */,
+				52A22E4F14745435002B41BC /* inkGenerator.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

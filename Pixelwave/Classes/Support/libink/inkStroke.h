@@ -20,6 +20,8 @@ typedef struct
 	
 	float miterLimit;
 	float thickness;
+
+	bool pixelHinting;
 } inkStroke;
 
 inkExtern inkStroke inkStrokeMake(float thickness, bool pixelHinting, inkLineScaleMode scaleMode, inkCapsStyle caps, inkJointStyle joints, float miterLimit);

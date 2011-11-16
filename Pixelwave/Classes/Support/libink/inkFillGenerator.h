@@ -14,28 +14,19 @@
 #include "inkGeometry.h"
 #include "inkFill.h"
 #include "inkTessellator.h"
-#include "inkRenderGroup.h"
+#include "inkGenerator.h"
 
 typedef struct
 {
-	inkTessellator* tessellator;
+	inkGenerator* generator; // Parent - must be first argument
+} inkFillGenerator;
 
-	inkPoint cursor;
-	inkPoint previous;
+inkExtern inkFillGenerator* inkFillGeneratorCreate(inkTessellator* tessellator, inkArray* renderGroups, void* fill);
+inkExtern void inkFillGeneratorDestroy(inkFillGenerator* generator);
 
-	inkArray* vertexGroupList;
-	inkArray* currentVertices;
-	//inkRenderGroup* renderGroup;
-
-	void* fill;
-} inkFillInfo;
-
-inkExtern inkFillInfo* inkFillGeneratorCreate(void* fill, inkTessellator* tessellator);
-inkExtern void inkFillGeneratorDestroy(inkFillInfo* fillInfo);
-
-inkExtern void inkFillGeneratorMoveTo(inkFillInfo* fillInfo, inkPoint position);
-inkExtern void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position);
-inkExtern void inkFillGeneratorCurveTo(inkFillInfo* fillInfo, inkPoint control, inkPoint anchor);
-inkExtern void inkFillGeneratorEnd(inkFillInfo* fillInfo);
+inkExtern void inkFillGeneratorMoveTo(inkFillGenerator* generator, inkPoint position);
+inkExtern void inkFillGeneratorLineTo(inkFillGenerator* generator, inkPoint position);
+inkExtern void inkFillGeneratorCurveTo(inkFillGenerator* generator, inkPoint control, inkPoint anchor);
+inkExtern void inkFillGeneratorEnd(inkFillGenerator* generator);
 
 #endif

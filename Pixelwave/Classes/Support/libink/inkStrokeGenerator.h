@@ -10,23 +10,28 @@
 #define _INK_STROKE_GENERATOR_H_
 
 #include "inkHeader.h"
-#include "inkArray.h"
-#include "inkTypes.h"
+
 #include "inkStroke.h"
 #include "inkGeometry.h"
 
+#include "inkTessellator.h"
+#include "inkGenerator.h"
+
 typedef struct
 {
-	inkArray* vertices;
+	inkGenerator* generator; // Parent - must be first argument
 
 	inkStroke* stroke;
-} inkStrokeInfo;
+} inkStrokeGenerator;
 
-inkExtern inkStrokeInfo *inkStrokeGeneratorCreate(size_t vertexSize, inkStroke* stroke);
-inkExtern void inkStrokeGeneratorDestroy(inkStrokeInfo* strokeInfo);
+inkExtern inkStrokeGenerator *inkStrokeGeneratorCreate(inkTessellator* tessellator, inkArray *renderGroups, inkStroke* stroke);
+inkExtern void inkStrokeGeneratorDestroy(inkStrokeGenerator* generator);
 
-inkExtern void inkStrokeGeneratorMoveTo(inkStrokeInfo* strokeInfo, inkPoint position);
-inkExtern void inkStrokeGeneratorLineTo(inkStrokeInfo* strokeInfo, inkPoint position);
-inkExtern void inkStrokeGeneratorEnd(inkStrokeInfo* strokeInfo);
+inkExtern void inkStrokeGeneratorSetFill(inkStrokeGenerator* generator, void* fill);
+
+inkExtern void inkStrokeGeneratorMoveTo(inkStrokeGenerator* generator, inkPoint position);
+inkExtern void inkStrokeGeneratorLineTo(inkStrokeGenerator* generator, inkPoint position);
+inkExtern void inkStrokeGeneratorCurveTo(inkStrokeGenerator* generator, inkPoint control, inkPoint anchor);
+inkExtern void inkStrokeGeneratorEnd(inkStrokeGenerator* generator);
 
 #endif

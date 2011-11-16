@@ -8,7 +8,76 @@
 
 #include "inkFillGenerator.h"
 
-void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
+inkFillGenerator* inkFillGeneratorCreate(inkTessellator* tessellator, inkArray* renderGroups, void* fill)
+{
+	inkFillGenerator* fillGenerator = malloc(sizeof(inkFillGenerator));
+
+	if (fillGenerator != NULL)
+	{
+		inkGenerator* generator = inkGeneratorCreate(tessellator, fill);
+
+		if (generator == NULL)
+		{
+			inkFillGeneratorDestroy(fillGenerator);
+			return NULL;
+		}
+
+		fillGenerator->generator = generator;
+
+		inkTessellatorBeginPolygon(tessellator, renderGroups);
+	}
+
+	return fillGenerator;
+}
+
+void inkFillGeneratorDestroy(inkFillGenerator* fillGenerator)
+{
+	if (fillGenerator != NULL)
+	{
+		if (fillGenerator->generator != NULL)
+		{
+			inkTessellatorEndPolygon(fillGenerator->generator->tessellator);
+
+			inkGeneratorDestroy(fillGenerator->generator);
+		}
+
+		free(fillGenerator);
+	}
+}
+
+void inkFillGeneratorMoveTo(inkFillGenerator* fillGenerator, inkPoint position)
+{
+	if (fillGenerator == NULL)
+		return;
+
+	inkGeneratorMoveTo(fillGenerator->generator, position, NULL);
+}
+
+void inkFillGeneratorLineTo(inkFillGenerator* fillGenerator, inkPoint position)
+{
+	if (fillGenerator == NULL)
+		return;
+
+	inkGeneratorLineTo(fillGenerator->generator, position);
+}
+
+void inkFillGeneratorCurveTo(inkFillGenerator* fillGenerator, inkPoint control, inkPoint anchor)
+{
+	if (fillGenerator == NULL)
+		return;
+
+	inkGeneratorCurveTo(fillGenerator->generator, control, anchor);
+}
+
+void inkFillGeneratorEnd(inkFillGenerator* fillGenerator)
+{
+	if (fillGenerator == NULL)
+		return;
+
+	inkGeneratorEnd(fillGenerator->generator);
+}
+
+/*void inkFillGeneratorAddVertex(inkFillInfo* fillInfo, inkPoint position)
 {
 	if (fillInfo == NULL || fillInfo->currentVertices == NULL)
 		return;
@@ -113,13 +182,11 @@ void inkFillGeneratorMoveTo(inkFillInfo* fillInfo, inkPoint position)
 	*verticesPtr = vertices;
 	fillInfo->currentVertices = vertices;
 
-//	printf("\nFG moveTo(%f, %f)\n", position.x, position.y);
 	inkTessellatorBeginContour(fillInfo->tessellator);
 
-	fillInfo->cursor = position;
 	fillInfo->previous = position;
 
-	inkFillGeneratorAddVertex(fillInfo, fillInfo->cursor);
+	inkFillGeneratorAddVertex(fillInfo, fillInfo->previous);
 }
 
 void inkFillGeneratorLineTo(inkFillInfo* fillInfo, inkPoint position)
@@ -182,4 +249,4 @@ void inkFillGeneratorEnd(inkFillInfo* fillInfo)
 	inkTessellatorEndContour(fillInfo->tessellator);
 
 	fillInfo->currentVertices = NULL;
-}
+}*/

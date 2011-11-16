@@ -12,7 +12,12 @@ inkStroke inkStrokeMake(float thickness, bool pixelHinting, inkLineScaleMode sca
 {
 	inkStroke stroke;
 
-	// TODO: Implement
+	stroke.thickness = thickness;
+	stroke.pixelHinting = pixelHinting;
+	stroke.scaleMode = scaleMode;
+	stroke.caps = caps;
+	stroke.joints = joints;
+	stroke.miterLimit = miterLimit;
 
 	return stroke;
 }

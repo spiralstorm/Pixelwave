@@ -8,51 +8,116 @@
 
 #include "inkStrokeGenerator.h"
 
-inkStrokeInfo *inkStrokeGeneratorCreate(size_t vertexSize, inkStroke* stroke)
+#include "inkTessellator.h"
+#include "glu.h"
+
+void inkStrokeGeneratorEndConvert(void* generator);
+
+inkStrokeGenerator* inkStrokeGeneratorCreate(inkTessellator* tessellator, inkArray *renderGroups, inkStroke* stroke)
 {
-	if (vertexSize == 0)
-		return NULL;
+	inkStrokeGenerator* strokeGenerator = malloc(sizeof(inkStrokeGenerator));
 
-	inkStrokeInfo *strokeInfo = malloc(sizeof(inkStrokeInfo));
-
-	if (strokeInfo)
+	if (strokeGenerator != NULL)
 	{
-		strokeInfo->vertices = inkArrayCreate(vertexSize);
+		inkGenerator* generator = inkGeneratorCreate(tessellator, NULL);
 
-		if (strokeInfo->vertices == NULL)
+		if (generator == NULL)
 		{
-			inkStrokeGeneratorDestroy(strokeInfo);
+			inkStrokeGeneratorDestroy(strokeGenerator);
 			return NULL;
 		}
 
-		strokeInfo->stroke = stroke;
-	}
+		strokeGenerator->generator = generator;
+		strokeGenerator->stroke = stroke;
 
-	return strokeInfo;
+		inkTessellatorBeginPolygon(tessellator, renderGroups);
+	}
+	
+	return strokeGenerator;
 }
 
-void inkStrokeGeneratorDestroy(inkStrokeInfo* strokeInfo)
+void inkStrokeGeneratorDestroy(inkStrokeGenerator* strokeGenerator)
 {
-	if (strokeInfo != NULL)
+	if (strokeGenerator != NULL)
 	{
-		// Does NULL check for me
-		inkArrayDestroy(strokeInfo->vertices);
+		if (strokeGenerator->generator != NULL)
+		{
+			inkTessellatorEndPolygon(strokeGenerator->generator->tessellator);
 
-		free(strokeInfo);
+			inkGeneratorDestroy(strokeGenerator->generator);
+		}
+
+		free(strokeGenerator);
 	}
 }
 
-void inkStrokeGeneratorMoveTo(inkStrokeInfo* strokeInfo, inkPoint position)
+void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill)
 {
-	// TODO: Implement
+	if (strokeGenerator == NULL || strokeGenerator->generator == NULL)
+		return;
+
+	strokeGenerator->generator->fill = fill;
 }
 
-void inkStrokeGeneratorLineTo(inkStrokeInfo* strokeInfo, inkPoint position)
+void inkStrokeGeneratorMoveTo(inkStrokeGenerator* strokeGenerator, inkPoint position)
 {
-	// TODO: Implement
+	if (strokeGenerator == NULL)
+		return;
+
+	inkGeneratorMoveTo(strokeGenerator->generator, position, inkStrokeGeneratorEndConvert);
 }
 
-void inkStrokeGeneratorEnd(inkStrokeInfo* strokeInfo)
+void inkStrokeGeneratorLineTo(inkStrokeGenerator* strokeGenerator, inkPoint position)
 {
-	// TODO: Implement
+	if (strokeGenerator == NULL)
+		return;
+
+	inkGeneratorLineTo(strokeGenerator->generator, position);
+}
+
+void inkStrokeGeneratorCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint control, inkPoint anchor)
+{
+	if (strokeGenerator == NULL)
+		return;
+
+	inkGeneratorCurveTo(strokeGenerator->generator, control, anchor);
+}
+
+void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
+{
+	if (strokeGenerator == NULL || strokeGenerator->generator == NULL || strokeGenerator->generator->currentVertices == NULL || strokeGenerator->generator->tessellator == NULL)
+		return;
+
+	inkGenerator* generator = strokeGenerator->generator;
+	inkTessellator* tessellator = generator->tessellator;
+
+	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
+
+	INKvertex *vertex;
+
+	inkArrayForEach(generator->currentVertices, vertex)
+	{
+		inkTessellatorVertex(vertex, tessellator);
+	}
+
+	inkTessellatorEnd(tessellator);
+
+	/*inkGenerator* generator = strokeGenerator->generator;
+
+	if (generator == NULL || generator->currentVertices == NULL)
+		return;
+
+	INKvertex *vertex;
+
+	inkArrayForEach(generator->currentVertices, vertex)
+	{
+		inkTessellatorAddPoint(generator->tessellator, vertex);
+	}
+
+	generator->currentVertices = NULL;*/
+}
+
+void inkStrokeGeneratorEndConvert(void* generator)
+{
+	inkStrokeGeneratorEnd((inkStrokeGenerator*)generator);
 }

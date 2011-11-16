@@ -164,6 +164,31 @@ void inkTessellatorSetWindingRule(inkTessellator* tessellator, inkWindingRule wi
 	}
 }
 
+void inkTessellatorBegin(INKenum type, inkTessellator* tessellator)
+{
+	inkTessellatorBeginCallback(type, tessellator);
+}
+
+void inkTessellatorEnd(inkTessellator* tessellator)
+{
+	inkTessellatorEndCallback(tessellator);
+}
+
+void inkTessellatorVertex(void* vertex, inkTessellator* tessellator)
+{
+	inkTessellatorVertexCallback(vertex, tessellator);
+}
+
+void inkTessellatorError(INKenum error, inkTessellator*tessellator)
+{
+	inkTessellatorErrorCallback(error, tessellator);
+}
+
+void inkTessellatorCombine(double coords[3], INKvertex* vertexData[4], float weight[4], INKvertex** outData, inkTessellator* tessellator)
+{
+	inkTessellatorCombineCallback(coords, vertexData, weight, outData, tessellator);
+}
+
 void inkTessellatorBeginCallback(GLenum type, inkTessellator* tessellator)
 {
 	if (tessellator == NULL || tessellator->renderGroups == NULL)

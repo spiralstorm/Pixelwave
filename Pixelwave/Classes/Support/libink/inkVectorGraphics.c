@@ -13,7 +13,7 @@
 #include "inkFillGenerator.h"
 #include "inkStrokeGenerator.h"
 
-inkExtern void inkClear(inkCanvas* canvas)
+void inkClear(inkCanvas* canvas)
 {
 	if (canvas == NULL)
 		return;
@@ -22,107 +22,76 @@ inkExtern void inkClear(inkCanvas* canvas)
 	inkArrayClear(canvas->renderGroups);
 }
 
-inkExtern void inkMoveTo(inkCanvas* canvas, inkPoint position)
+void inkMoveTo(inkCanvas* canvas, inkPoint position)
 {
-	inkAddCommand(canvas, inkCommandType_MoveTo, &position);
+	inkMoveToCommand command = position;
+	inkAddCommand(canvas, inkCommandType_MoveTo, &command);
 }
 
-inkExtern void inkLineTo(inkCanvas* canvas, inkPoint position)
+void inkLineTo(inkCanvas* canvas, inkPoint position)
 {
-	inkAddCommand(canvas, inkCommandType_LineTo, &position);
+	inkLineToCommand command = position;
+	inkAddCommand(canvas, inkCommandType_LineTo, &command);
 }
 
-inkExtern void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
+void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
 {
-	inkCurveToCommand command = {control, anchor};
+	inkCurveToCommand command;
+	command.control = control;
+	command.anchor = anchor;
 
 	inkAddCommand(canvas, inkCommandType_CurveTo, &command);
-
-	/*if (canvas == NULL)
-		return;
-
-	// TODO: Implement properly instead of just making lots of LineTos
-	const unsigned int percision = 100;
-
-	inkPoint nextPoint;
-	inkPoint previousPoint = inkPointMake(390.000000, 160.000000);
-
-	float tIncrement = 1.0f / (float)(percision - 1);
-	float t;
-	float oneMinusT;
-
-	float pWeight;
-	float cWeight;
-	float aWeight;
-
-	unsigned int index;
-
-	for (index = 0, t = 0.0f, oneMinusT = 1.0f; index < percision; ++index, t += tIncrement, oneMinusT -= tIncrement)
-	{
-		pWeight = oneMinusT * oneMinusT;
-		cWeight = 2 * t * oneMinusT;
-		aWeight = t * t;
-
-		nextPoint = inkPointMake((previousPoint.x * pWeight) + (control.x * cWeight) + (anchor.x * aWeight),
-								 (previousPoint.y * pWeight) + (control.y * cWeight) + (anchor.y * aWeight));
-
-		inkLineTo(canvas, nextPoint);
-	}*/
 }
 
-inkExtern void inkBeginFill(inkCanvas* canvas, inkSolidFill solidFill)
+void inkBeginFill(inkCanvas* canvas, inkSolidFill solidFill)
 {
-	inkAddCommand(canvas, inkCommandType_SolidFill, &solidFill);
+	inkSolidFillCommand command = solidFill;
+	inkAddCommand(canvas, inkCommandType_SolidFill, &command);
 }
 
-inkExtern void inkBeginBitmapFill(inkCanvas* canvas, inkBitmapFill bitmapFill)
+void inkBeginBitmapFill(inkCanvas* canvas, inkBitmapFill bitmapFill)
 {
-	if (canvas == NULL)
-		return;
-
-	// TODO: Implement
+	inkBitmapFillCommand command = bitmapFill;
+	inkAddCommand(canvas, inkCommandType_BitmapFill, &command);
 }
 
-inkExtern void inkBeginGradientFill(inkCanvas* canvas, inkGradientFill gradientFill)
+void inkBeginGradientFill(inkCanvas* canvas, inkGradientFill gradientFill)
 {
-	if (canvas == NULL)
-		return;
-
-	// TODO: Implement
+	inkGradientFillCommand command = gradientFill;
+	inkAddCommand(canvas, inkCommandType_GradientFill, &command);
 }
 
-inkExtern void inkLineStyle(inkCanvas* canvas, inkStroke stroke, inkSolidFill solidFill)
+void inkLineStyle(inkCanvas* canvas, inkStroke stroke, inkSolidFill solidFill)
 {
-	if (canvas == NULL)
-		return;
+	inkLineStyleCommand command;
+	command.fill = solidFill;
+	command.stroke = stroke;
 
-	// TODO: Implement
+	inkAddCommand(canvas, inkCommandType_LineStyle, &command);
 }
 
-inkExtern void inkLineBitmapStyle(inkCanvas* canvas, inkBitmapFill bitmapFill)
+void inkLineBitmapStyle(inkCanvas* canvas, inkBitmapFill bitmapFill)
 {
-	if (canvas == NULL)
-		return;
+	inkBitmapFillCommand command = bitmapFill;
 
-	// TODO: Implement
+	inkAddCommand(canvas, inkCommandType_LineStyle, &command);
 }
 
-inkExtern void inkLineGradientStyle(inkCanvas* canvas, inkGradientFill gradientFill)
+void inkLineGradientStyle(inkCanvas* canvas, inkGradientFill gradientFill)
 {
-	if (canvas == NULL)
-		return;
+	inkLineGradientCommand command = gradientFill;
 
-	// TODO: Implement
+	inkAddCommand(canvas, inkCommandType_LineStyle, &command);
 }
 
-inkExtern void inkEndFill(inkCanvas* canvas)
+void inkEndFill(inkCanvas* canvas)
 {
 	inkAddCommand(canvas, inkCommandType_EndFill, NULL);
 }
 
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
-inkExtern void inkRasterize(inkCanvas* canvas)
+void inkRasterize(inkCanvas* canvas)
 {
 	if (canvas == NULL)
 		return;
@@ -131,8 +100,11 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 	void* commandData;
 	inkCommand* command;
 	inkCommandType commandType;
-	inkFillInfo* fillGenerator = NULL;
-	inkTessellator* tessellator = inkSharedTesselator;
+	inkFillGenerator* fillGenerator = NULL;
+	inkStrokeGenerator* strokeGenerator = NULL;
+
+	inkTessellator* fillTessellator = inkGetFillTessellator();
+	inkTessellator* strokeTessellator = inkGetStrokeTessellator();
 
 	inkArrayPtrForEach(commandList, command)
 	{
@@ -143,52 +115,86 @@ inkExtern void inkRasterize(inkCanvas* canvas)
 		{
 			case inkCommandType_MoveTo:
 			{
-				inkPoint* point = (inkPoint*)(commandData);
+				inkMoveToCommand* point = (inkPoint*)(commandData);
+
 				inkFillGeneratorMoveTo(fillGenerator, *point);
+				inkStrokeGeneratorMoveTo(strokeGenerator, *point);
 			}
 				break;
 			case inkCommandType_LineTo:
 			{
-				inkPoint* point = (inkPoint*)(commandData);
+				inkLineToCommand* point = (inkPoint*)(commandData);
+
 				inkFillGeneratorLineTo(fillGenerator, *point);
+				inkStrokeGeneratorLineTo(strokeGenerator, *point);
 			}
 				break;
 			case inkCommandType_CurveTo:
 			{
 				inkCurveToCommand* command = (inkCurveToCommand*)(commandData);
+
 				inkFillGeneratorCurveTo(fillGenerator, command->control, command->anchor);
+				inkStrokeGeneratorCurveTo(strokeGenerator, command->control, command->anchor);
 			}
 				break;
 			case inkCommandType_SolidFill:
 			{
-				inkTessellatorBeginPolygon(tessellator, canvas->renderGroups);
+				inkFillGeneratorEnd(fillGenerator);
 
 				inkFillGeneratorDestroy(fillGenerator);
-				inkSolidFill* fill = (inkSolidFill*)(commandData);
+				inkSolidFillCommand* fill = (inkSolidFillCommand*)(commandData);
 
-				fillGenerator = inkFillGeneratorCreate(fill, tessellator);
+				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill);
 			}
 				break;
 			case inkCommandType_BitmapFill:
+			{
+				inkFillGeneratorEnd(fillGenerator);
+			}
 				break;
 			case inkCommandType_GradientFill:
+			{
+				inkFillGeneratorEnd(fillGenerator);
+			}
 				break;
 			case inkCommandType_LineStyle:
+			{
+				inkStrokeGeneratorEnd(strokeGenerator);
+
+				inkLineStyleCommand* command = (inkLineStyleCommand*)(commandData);
+
+				strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas->renderGroups, &(command->stroke));
+				inkStrokeGeneratorSetFill(strokeGenerator, &(command->fill));
+			}
 				break;
 			case inkCommandType_LineBitmap:
+			{
+				inkLineBitmapCommand* command = (inkLineBitmapCommand*)(commandData);
+
+				inkStrokeGeneratorSetFill(strokeGenerator, command);
+			}
 				break;
 			case inkCommandType_LineGradient:
+			{
+				inkLineGradientCommand* command = (inkLineGradientCommand*)(commandData);
+
+				inkStrokeGeneratorSetFill(strokeGenerator, command);
+			}
 				break;
 			case inkCommandType_EndFill:
 				inkFillGeneratorEnd(fillGenerator);
+			//	inkStrokeGeneratorEnd(strokeGenerator);
 				break;
 			default:
 				break;
 		}
 	}
 
-	inkTessellatorEndContour(tessellator);
-	inkTessellatorEndPolygon(tessellator);
+	inkFillGeneratorEnd(fillGenerator);
+	inkStrokeGeneratorEnd(strokeGenerator);
+
+	//inkTessellatorEndPolygon(tessellator);
 
 	inkFillGeneratorDestroy(fillGenerator);
+	inkStrokeGeneratorDestroy(strokeGenerator);
 }
