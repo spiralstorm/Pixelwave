@@ -12,17 +12,17 @@
 
 typedef struct
 {
-	double x;
-	double y;
-	double z;
+	GLdouble x;
+	GLdouble y;
+	GLdouble z;
 } inkTessellatorGLUVertex;
 
 inkInline inkTessellatorGLUVertex inkTessellatorGLUVertexMake(float x, float y)
 {
 	inkTessellatorGLUVertex vertex;
 
-	vertex.x = (double)x;
-	vertex.y = (double)y;
+	vertex.x = (GLdouble)x;
+	vertex.y = (GLdouble)y;
 	vertex.z = 0.0;
 
 	return vertex;
@@ -50,9 +50,9 @@ inkTessellator *inkTessellatorCreate()
 			return NULL;
 		}
 
-		tessellator->combineVertices = inkArrayCreate(sizeof(INKvertex));
+		tessellator->vertices = inkArrayCreate(sizeof(INKvertex));
 
-		if (tessellator->combineVertices == NULL)
+		if (tessellator->vertices == NULL)
 		{
 			inkTessellatorDestroy(tessellator);
 			return NULL;
@@ -74,7 +74,7 @@ void inkTessellatorDestroy(inkTessellator* tessellator)
 		if (tessellator->gluTessellator != NULL)
 			gluDeleteTess(tessellator->gluTessellator);
 
-		inkArrayDestroy(tessellator->combineVertices);
+		inkArrayDestroy(tessellator->vertices);
 
 		free(tessellator);
 	}
@@ -120,8 +120,12 @@ void inkTessellatorVertexCallback(GLvoid* vertex, inkTessellator* tessellator)
 	if (vertex == NULL || tessellator == NULL || tessellator->currentRenderGroup == NULL)
 		return;
 
-	INKvertex* currentVertex = (INKvertex *)inkArrayPush(tessellator->currentRenderGroup->vertices);
-	*currentVertex = *((INKvertex *)(vertex));
+	INKvertex* currentVertex = inkRenderGroupNextVertex(tessellator->currentRenderGroup);
+
+	if (currentVertex != NULL)
+	{
+		*currentVertex = *((INKvertex *)(vertex));
+	}
 }
 
 void inkTessellatorErrorCallback(GLenum error, inkTessellator* tessellator)
@@ -134,7 +138,7 @@ void inkTessellatorErrorCallback(GLenum error, inkTessellator* tessellator)
 
 void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4], GLfloat weight[4], INKvertex** outData, inkTessellator* tessellator)
 {
-	if (tessellator == NULL || tessellator->combineVertices == NULL || outData == NULL)
+	if (tessellator == NULL || tessellator->vertices == NULL || outData == NULL)
 		return;
 
 	INKvertex* v0 = vertexData[0];
@@ -146,7 +150,7 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 	if (v0 == NULL && v1 == NULL && v2 == NULL && v3 == NULL)
 		return;
 
-	INKvertex* vertex = inkArrayPush(tessellator->combineVertices);
+	INKvertex* vertex = (INKvertex*)inkArrayPush(tessellator->vertices);
 
 	if (vertex == NULL)
 		return;
@@ -161,8 +165,6 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 
 	vertex->x = coords[0];
 	vertex->y = coords[1];
-
-	printf("combining, making (%f, %f)\n", vertex->x, vertex->y);
 
 	GLfloat w0 = weight[0];
 	GLfloat w1 = weight[1];
@@ -239,7 +241,7 @@ void inkTessellatorEndPolygon(inkTessellator* tessellator)
 
 	gluTessEndPolygon(tessellator->gluTessellator);
 
-	inkArrayClear(tessellator->combineVertices);
+	inkArrayClear(tessellator->vertices);
 }
 
 void inkTessellatorBeginContour(inkTessellator* tessellator)
@@ -266,32 +268,14 @@ void inkTessellatorEndContour(inkTessellator* tessellator)
 	gluTessEndContour(tessellator->gluTessellator);
 }
 
-void inkTessellatorAddPoint(inkTessellator* tessellator, INKvertex* vertex)
+void inkTessellatorAddPoint(inkTessellator* tessellator, INKvertex *vertex)
 {
 	if (tessellator == NULL || tessellator->gluTessellator == NULL || vertex == NULL)
 		return;
 
 	inkTessellatorGLUVertex gluVertex = inkTessellatorGLUVertexMake(vertex->x, vertex->y);
 
-	printf("gluVertex(%f, %f)\n", vertex->x, vertex->y);
-	gluTessVertex(tessellator->gluTessellator, (double*)(&gluVertex), vertex);
+	//GLdouble v[] = {gluVertex.x, gluVertex.y, 0.0};
+	//gluTessVertex(tessellator->gluTessellator, v, vertex);
+	gluTessVertex(tessellator->gluTessellator, (GLdouble*)(&gluVertex), vertex);
 }
-
-/*void inkTessellatorExpandRenderGroup(inkTessellator* tessellator, inkRenderGroup* renderGroup)
-{
-	if (tessellator == NULL || tessellator->gluTessellator == NULL || renderGroup == NULL)
-		return;
-
-	inkArray* vertexArray = renderGroup->vertices;
-	INKvertex* inkVertex = NULL;
-	GLUtesselator* gluTessellator = tessellator->gluTessellator;
-	inkTessellatorGLUVertex gluVertex;
-
-	inkArrayForEach(vertexArray, inkVertex)
-	{
-		gluVertex = inkTessellatorGLUVertexMake(inkVertex->x, inkVertex->y);
-
-		printf("gluVertex(%f, %f)\n", inkVertex->x, inkVertex->y);
-		gluTessVertex(gluTessellator, (double*)(&gluVertex), inkVertex);
-	}
-}*/

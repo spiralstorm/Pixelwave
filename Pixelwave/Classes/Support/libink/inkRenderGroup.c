@@ -27,7 +27,7 @@ inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode)
 	return renderGroup;
 }
 
-void inkRenderGroupDestroy(inkRenderGroup *renderGroup)
+void inkRenderGroupDestroy(inkRenderGroup* renderGroup)
 {
 	if (renderGroup)
 	{
@@ -35,4 +35,12 @@ void inkRenderGroupDestroy(inkRenderGroup *renderGroup)
 
 		free(renderGroup);
 	}
+}
+
+INKvertex* inkRenderGroupNextVertex(inkRenderGroup* renderGroup)
+{
+	if (renderGroup == NULL || renderGroup->vertices == NULL)
+		return NULL;
+
+	return (INKvertex *)inkArrayPush(renderGroup->vertices);
 }

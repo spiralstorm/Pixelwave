@@ -18,9 +18,6 @@
 
 typedef struct
 {
-	// TODO: Change to render group instead?
-	//inkArray* vertices;
-
 	inkTessellator* tessellator;
 
 	inkPoint cursor;

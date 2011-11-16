@@ -22,7 +22,7 @@ typedef struct
 
 	inkArray *renderGroups; // Weak
 	inkRenderGroup *currentRenderGroup; // Weak
-	inkArray *combineVertices;
+	inkArray *vertices;
 
 	bool contourBegan;
 	bool polygonBegan;
@@ -36,7 +36,6 @@ inkExtern void inkTessellatorEndPolygon(inkTessellator* tessellator);
 inkExtern void inkTessellatorBeginContour(inkTessellator* tessellator);
 inkExtern void inkTessellatorEndContour(inkTessellator* tessellator);
 
-inkExtern void inkTessellatorAddPoint(inkTessellator* tessellator, INKvertex* vertex);
-//inkExtern void inkTessellatorExpandRenderGroup(inkTessellator* tessellator, inkRenderGroup* renderGroup);
+inkExtern void inkTessellatorAddPoint(inkTessellator* tessellator, INKvertex *vertex);
 
 #endif

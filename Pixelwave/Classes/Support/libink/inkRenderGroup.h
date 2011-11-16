@@ -24,4 +24,6 @@ inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode);
 //inkExtern inkRenderGroup* inkRenderGroupCreateWithVertices(inkArray *vertices, INKenum glDrawMode);
 inkExtern void inkRenderGroupDestroy(inkRenderGroup *group);
 
+inkExtern INKvertex *inkRenderGroupNextVertex(inkRenderGroup *group);
+
 #endif

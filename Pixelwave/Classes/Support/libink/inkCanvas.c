@@ -109,34 +109,6 @@ void inkRemoveAllCommands(inkCanvas* canvas)
 	}
 }
 
-/*void inkAddRenderGroup(inkCanvas* canvas, inkArray* vertices, INKenum glMode)
-{
-	if (canvas == NULL)
-		return;
-
-	inkRenderGroup** renderGroup = (inkRenderGroup**)inkArrayPush(canvas->renderGroups);
-
-	*renderGroup = inkRenderGroupCreateWithVertices(vertices, glMode);
-}*/
-
-inkRenderGroup* inkPushRenderGroup(inkCanvas* canvas)
-{
-	if (canvas == NULL)
-		return NULL;
-
-	inkRenderGroup* renderGroup = inkRenderGroupCreate(0);
-
-	if (renderGroup != NULL)
-	{
-		inkRenderGroup** renderGroupPtr = (inkRenderGroup**)inkArrayPush(canvas->renderGroups);
-
-		if (renderGroupPtr != NULL)
-			*renderGroupPtr = renderGroup;
-	}
-
-	return renderGroup;
-}
-
 void inkRemoveAllRenderGroups(inkCanvas* canvas)
 {
 	if (canvas == NULL)
