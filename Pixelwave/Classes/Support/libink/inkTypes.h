@@ -93,6 +93,15 @@ typedef enum
 	inkCommandType_EndFill
 } inkCommandType;
 
+typedef enum
+{
+	inkWindingRule_EvenOdd = 0,
+	inkWindingRule_NonZero,
+	inkWindingRule_Positive,
+	inkWindingRule_Negative,
+	inkWindingRule_AbsGeqTwo
+} inkWindingRule;
+
 /*typedef enum
 {
 	inkPathCommand_NoOp = 0,

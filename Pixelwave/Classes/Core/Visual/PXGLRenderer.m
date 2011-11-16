@@ -224,9 +224,9 @@ void PXGLRendererDealloc()
  */
 void PXGLSetDrawMode(GLenum mode)
 {
-	//Check to see if our mode has changed, or if we are equal to line loop or
-	//strip; if so, then we need to flush the buffer and change modes.
-	if (mode != pxGLDrawMode || mode == GL_LINE_LOOP || mode == GL_LINE_STRIP)
+	// Check to see if our mode has changed, or if we are equal to line loop or
+	// strip; if so, then we need to flush the buffer and change modes.
+	if (mode != pxGLDrawMode || mode == GL_LINE_LOOP || mode == GL_LINE_STRIP || mode == GL_TRIANGLE_FAN)
 	{
 		PXGLFlushBuffer();
 		pxGLDrawMode = mode;

@@ -23,7 +23,8 @@ typedef struct
 	inkPoint cursor;
 	inkPoint previous;
 
-	inkArray* vertices;
+	inkArray* vertexGroupList;
+	inkArray* currentVertices;
 	//inkRenderGroup* renderGroup;
 
 	void* fill;
