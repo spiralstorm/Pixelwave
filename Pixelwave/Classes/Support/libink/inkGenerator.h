@@ -30,7 +30,7 @@ typedef struct
 inkExtern inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill);
 inkExtern void inkGeneratorDestroy(inkGenerator* generator);
 
-inkExtern void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGeneratorEndFunction endFunction);
+inkExtern void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGeneratorEndFunction endFunction, void *userData);
 inkExtern void inkGeneratorLineTo(inkGenerator* generator, inkPoint position);
 inkExtern void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anchor);
 inkExtern void inkGeneratorEnd(inkGenerator* generator);

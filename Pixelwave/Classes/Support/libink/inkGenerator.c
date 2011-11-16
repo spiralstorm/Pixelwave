@@ -53,13 +53,13 @@ void inkGeneratorDestroy(inkGenerator* generator)
 	}
 }
 
-void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGeneratorEndFunction endFunction)
+void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGeneratorEndFunction endFunction, void *userData)
 {
 	if (generator == NULL || generator->vertexGroupList == NULL)
 		return;
 
 	if (endFunction != NULL)
-		endFunction(generator);
+		endFunction(userData);
 	else
 		inkGeneratorEnd(generator);
 

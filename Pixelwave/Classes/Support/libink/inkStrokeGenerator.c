@@ -64,7 +64,7 @@ void inkStrokeGeneratorMoveTo(inkStrokeGenerator* strokeGenerator, inkPoint posi
 	if (strokeGenerator == NULL)
 		return;
 
-	inkGeneratorMoveTo(strokeGenerator->generator, position, inkStrokeGeneratorEndConvert);
+	inkGeneratorMoveTo(strokeGenerator->generator, position, inkStrokeGeneratorEndConvert, strokeGenerator);
 }
 
 void inkStrokeGeneratorLineTo(inkStrokeGenerator* strokeGenerator, inkPoint position)
@@ -93,7 +93,7 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
 
-	INKvertex *vertex;
+	INKvertex* vertex;
 
 	inkArrayForEach(generator->currentVertices, vertex)
 	{

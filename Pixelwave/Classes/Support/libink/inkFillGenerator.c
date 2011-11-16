@@ -50,7 +50,7 @@ void inkFillGeneratorMoveTo(inkFillGenerator* fillGenerator, inkPoint position)
 	if (fillGenerator == NULL)
 		return;
 
-	inkGeneratorMoveTo(fillGenerator->generator, position, NULL);
+	inkGeneratorMoveTo(fillGenerator->generator, position, NULL, NULL);
 }
 
 void inkFillGeneratorLineTo(inkFillGenerator* fillGenerator, inkPoint position)

@@ -161,6 +161,7 @@ void inkRasterize(inkCanvas* canvas)
 			{
 				inkStrokeGeneratorEnd(strokeGenerator);
 
+				inkStrokeGeneratorDestroy(strokeGenerator);
 				inkLineStyleCommand* command = (inkLineStyleCommand*)(commandData);
 
 				strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas->renderGroups, &(command->stroke));
@@ -183,7 +184,7 @@ void inkRasterize(inkCanvas* canvas)
 				break;
 			case inkCommandType_EndFill:
 				inkFillGeneratorEnd(fillGenerator);
-			//	inkStrokeGeneratorEnd(strokeGenerator);
+				//inkStrokeGeneratorEnd(strokeGenerator);
 				break;
 			default:
 				break;
