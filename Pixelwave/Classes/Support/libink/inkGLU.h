@@ -10,10 +10,10 @@
 #define _INK_GLU_H_
 
 #ifdef QT_CORE_LIB
-#ifdef WIN32 || __WIN32 || __WIN32__
-#include <OpenGL/glu.h>
-#elseif defined(__MACOSX__) || defined(__MACOS__)
+#if WIN32 || __WIN32 || __WIN32__
 #include <GL/glu.h>
+#else
+#include <OpenGL/glu.h>
 #endif
 #else
 #include "glu.h"
