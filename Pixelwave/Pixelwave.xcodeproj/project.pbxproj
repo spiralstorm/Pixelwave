@@ -443,11 +443,40 @@
 		529CF98812E0F9C8008F75B4 /* PXALDebugUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 529CF98612E0F9C8008F75B4 /* PXALDebugUtils.m */; };
 		52A22E48146DC623002B41BC /* inkObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E46146DC620002B41BC /* inkObject.h */; };
 		52A22E49146DC623002B41BC /* inkObject.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E47146DC621002B41BC /* inkObject.c */; };
-		52A22E4B147324E9002B41BC /* glu.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E4A147324E6002B41BC /* glu.h */; };
 		52A22E4E14745435002B41BC /* inkGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E4C1474542E002B41BC /* inkGenerator.h */; };
 		52A22E4F14745435002B41BC /* inkGenerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E4D14745431002B41BC /* inkGenerator.c */; };
-		52A22E5114756B3D002B41BC /* libGLU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A22E5014756B3D002B41BC /* libGLU.a */; };
 		52A22E551475AAA2002B41BC /* inkGLU.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E541475AA9D002B41BC /* inkGLU.h */; };
+		52A22E7A1475C30B002B41BC /* glu.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E581475C30B002B41BC /* glu.h */; };
+		52A22E7B1475C30B002B41BC /* gluos.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E591475C30B002B41BC /* gluos.h */; };
+		52A22E7C1475C30B002B41BC /* dict-list.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E5C1475C30B002B41BC /* dict-list.h */; };
+		52A22E7D1475C30B002B41BC /* dict.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E5D1475C30B002B41BC /* dict.c */; };
+		52A22E7E1475C30B002B41BC /* dict.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E5E1475C30B002B41BC /* dict.h */; };
+		52A22E7F1475C30B002B41BC /* geom.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E5F1475C30B002B41BC /* geom.c */; };
+		52A22E801475C30B002B41BC /* geom.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E601475C30B002B41BC /* geom.h */; };
+		52A22E811475C30B002B41BC /* memalloc.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E611475C30B002B41BC /* memalloc.c */; };
+		52A22E821475C30B002B41BC /* memalloc.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E621475C30B002B41BC /* memalloc.h */; };
+		52A22E831475C30B002B41BC /* mesh.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E631475C30B002B41BC /* mesh.c */; };
+		52A22E841475C30B002B41BC /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E641475C30B002B41BC /* mesh.h */; };
+		52A22E851475C30B002B41BC /* normal.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E651475C30B002B41BC /* normal.c */; };
+		52A22E861475C30B002B41BC /* normal.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E661475C30B002B41BC /* normal.h */; };
+		52A22E871475C30B002B41BC /* priorityq-heap.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E671475C30B002B41BC /* priorityq-heap.c */; };
+		52A22E881475C30B002B41BC /* priorityq-heap.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E681475C30B002B41BC /* priorityq-heap.h */; };
+		52A22E891475C30B002B41BC /* priorityq-sort.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E691475C30B002B41BC /* priorityq-sort.h */; };
+		52A22E8A1475C30B002B41BC /* priorityq.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E6A1475C30B002B41BC /* priorityq.c */; };
+		52A22E8B1475C30B002B41BC /* priorityq.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E6B1475C30B002B41BC /* priorityq.h */; };
+		52A22E8C1475C30B002B41BC /* render.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E6C1475C30B002B41BC /* render.c */; };
+		52A22E8D1475C30B002B41BC /* render.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E6D1475C30B002B41BC /* render.h */; };
+		52A22E8E1475C30B002B41BC /* sweep.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E6E1475C30B002B41BC /* sweep.c */; };
+		52A22E8F1475C30B002B41BC /* sweep.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E6F1475C30B002B41BC /* sweep.h */; };
+		52A22E901475C30B002B41BC /* tess.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E701475C30B002B41BC /* tess.c */; };
+		52A22E911475C30B002B41BC /* tess.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E711475C30B002B41BC /* tess.h */; };
+		52A22E921475C30B002B41BC /* tessmono.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E721475C30B002B41BC /* tessmono.c */; };
+		52A22E931475C30B002B41BC /* tessmono.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E731475C30B002B41BC /* tessmono.h */; };
+		52A22E941475C30B002B41BC /* error.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E751475C30B002B41BC /* error.c */; };
+		52A22E951475C30B002B41BC /* glue.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E761475C30B002B41BC /* glue.c */; };
+		52A22E961475C30B002B41BC /* gluint.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E771475C30B002B41BC /* gluint.h */; };
+		52A22E971475C30B002B41BC /* project.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E781475C30B002B41BC /* project.c */; };
+		52A22E981475C30B002B41BC /* registry.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E791475C30B002B41BC /* registry.c */; };
 		52A97663131C083F00E20968 /* PXGLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A97661131C083F00E20968 /* PXGLUtils.h */; };
 		52A97664131C083F00E20968 /* PXGLUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A97662131C083F00E20968 /* PXGLUtils.c */; };
 		52ABD5F41254F20E00AB0756 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52ABD5F31254F20E00AB0756 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -987,11 +1016,41 @@
 		529CF98612E0F9C8008F75B4 /* PXALDebugUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXALDebugUtils.m; sourceTree = "<group>"; };
 		52A22E46146DC620002B41BC /* inkObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkObject.h; sourceTree = "<group>"; };
 		52A22E47146DC621002B41BC /* inkObject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkObject.c; sourceTree = "<group>"; };
-		52A22E4A147324E6002B41BC /* glu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glu.h; sourceTree = "<group>"; };
 		52A22E4C1474542E002B41BC /* inkGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkGenerator.h; sourceTree = "<group>"; };
 		52A22E4D14745431002B41BC /* inkGenerator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkGenerator.c; sourceTree = "<group>"; };
-		52A22E5014756B3D002B41BC /* libGLU.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLU.a; sourceTree = "<group>"; };
 		52A22E541475AA9D002B41BC /* inkGLU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkGLU.h; sourceTree = "<group>"; };
+		52A22E581475C30B002B41BC /* glu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glu.h; sourceTree = "<group>"; };
+		52A22E591475C30B002B41BC /* gluos.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gluos.h; sourceTree = "<group>"; };
+		52A22E5B1475C30B002B41BC /* alg-outline */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "alg-outline"; sourceTree = "<group>"; };
+		52A22E5C1475C30B002B41BC /* dict-list.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "dict-list.h"; sourceTree = "<group>"; };
+		52A22E5D1475C30B002B41BC /* dict.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dict.c; sourceTree = "<group>"; };
+		52A22E5E1475C30B002B41BC /* dict.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dict.h; sourceTree = "<group>"; };
+		52A22E5F1475C30B002B41BC /* geom.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = geom.c; sourceTree = "<group>"; };
+		52A22E601475C30B002B41BC /* geom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = geom.h; sourceTree = "<group>"; };
+		52A22E611475C30B002B41BC /* memalloc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = memalloc.c; sourceTree = "<group>"; };
+		52A22E621475C30B002B41BC /* memalloc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = memalloc.h; sourceTree = "<group>"; };
+		52A22E631475C30B002B41BC /* mesh.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mesh.c; sourceTree = "<group>"; };
+		52A22E641475C30B002B41BC /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
+		52A22E651475C30B002B41BC /* normal.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = normal.c; sourceTree = "<group>"; };
+		52A22E661475C30B002B41BC /* normal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = normal.h; sourceTree = "<group>"; };
+		52A22E671475C30B002B41BC /* priorityq-heap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = "priorityq-heap.c"; sourceTree = "<group>"; };
+		52A22E681475C30B002B41BC /* priorityq-heap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "priorityq-heap.h"; sourceTree = "<group>"; };
+		52A22E691475C30B002B41BC /* priorityq-sort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "priorityq-sort.h"; sourceTree = "<group>"; };
+		52A22E6A1475C30B002B41BC /* priorityq.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = priorityq.c; sourceTree = "<group>"; };
+		52A22E6B1475C30B002B41BC /* priorityq.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = priorityq.h; sourceTree = "<group>"; };
+		52A22E6C1475C30B002B41BC /* render.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = render.c; sourceTree = "<group>"; };
+		52A22E6D1475C30B002B41BC /* render.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = render.h; sourceTree = "<group>"; };
+		52A22E6E1475C30B002B41BC /* sweep.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sweep.c; sourceTree = "<group>"; };
+		52A22E6F1475C30B002B41BC /* sweep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sweep.h; sourceTree = "<group>"; };
+		52A22E701475C30B002B41BC /* tess.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tess.c; sourceTree = "<group>"; };
+		52A22E711475C30B002B41BC /* tess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tess.h; sourceTree = "<group>"; };
+		52A22E721475C30B002B41BC /* tessmono.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tessmono.c; sourceTree = "<group>"; };
+		52A22E731475C30B002B41BC /* tessmono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tessmono.h; sourceTree = "<group>"; };
+		52A22E751475C30B002B41BC /* error.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = error.c; sourceTree = "<group>"; };
+		52A22E761475C30B002B41BC /* glue.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glue.c; sourceTree = "<group>"; };
+		52A22E771475C30B002B41BC /* gluint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gluint.h; sourceTree = "<group>"; };
+		52A22E781475C30B002B41BC /* project.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = project.c; sourceTree = "<group>"; };
+		52A22E791475C30B002B41BC /* registry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = registry.c; sourceTree = "<group>"; };
 		52A97661131C083F00E20968 /* PXGLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLUtils.h; sourceTree = "<group>"; };
 		52A97662131C083F00E20968 /* PXGLUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGLUtils.c; sourceTree = "<group>"; };
 		52ABD5F31254F20E00AB0756 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -1110,7 +1169,6 @@
 				52DAB9531278A946002894E7 /* AVFoundation.framework in Frameworks */,
 				52DAB9571278A94D002894E7 /* AudioToolbox.framework in Frameworks */,
 				52DAB95B1278A955002894E7 /* OpenAL.framework in Frameworks */,
-				52A22E5114756B3D002B41BC /* libGLU.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1141,7 +1199,6 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				52A22E5014756B3D002B41BC /* libGLU.a */,
 				1D776D081057F9EA00516B26 /* QuartzCore.framework */,
 				1D776D091057F9EA00516B26 /* OpenGLES.framework */,
 				1D776D0A1057F9EA00516B26 /* UIKit.framework */,
@@ -1980,9 +2037,9 @@
 		526DA3BB146B19FC00566FF2 /* libink */ = {
 			isa = PBXGroup;
 			children = (
-				52A22E4A147324E6002B41BC /* glu.h */,
-				52A22E541475AA9D002B41BC /* inkGLU.h */,
+				52A22E561475C2F2002B41BC /* glu */,
 				526DA3D2146B1A0A00566FF2 /* ink.h */,
+				52A22E541475AA9D002B41BC /* inkGLU.h */,
 				526DA3DC146B223100566FF2 /* inkHeader.h */,
 				526DA3C4146B19FC00566FF2 /* inkTypes.h */,
 				52A22E46146DC620002B41BC /* inkObject.h */,
@@ -2090,6 +2147,70 @@
 				52876F2C1469E4A200056E60 /* PXGraphicsEndFill.m */,
 			);
 			path = Graphics;
+			sourceTree = "<group>";
+		};
+		52A22E561475C2F2002B41BC /* glu */ = {
+			isa = PBXGroup;
+			children = (
+				52A22E571475C30B002B41BC /* include */,
+				52A22E5A1475C30B002B41BC /* libtess */,
+				52A22E741475C30B002B41BC /* libutil */,
+			);
+			name = glu;
+			path = Classes/Support/glu;
+			sourceTree = SOURCE_ROOT;
+		};
+		52A22E571475C30B002B41BC /* include */ = {
+			isa = PBXGroup;
+			children = (
+				52A22E581475C30B002B41BC /* glu.h */,
+				52A22E591475C30B002B41BC /* gluos.h */,
+			);
+			path = include;
+			sourceTree = "<group>";
+		};
+		52A22E5A1475C30B002B41BC /* libtess */ = {
+			isa = PBXGroup;
+			children = (
+				52A22E5B1475C30B002B41BC /* alg-outline */,
+				52A22E5C1475C30B002B41BC /* dict-list.h */,
+				52A22E5D1475C30B002B41BC /* dict.c */,
+				52A22E5E1475C30B002B41BC /* dict.h */,
+				52A22E5F1475C30B002B41BC /* geom.c */,
+				52A22E601475C30B002B41BC /* geom.h */,
+				52A22E611475C30B002B41BC /* memalloc.c */,
+				52A22E621475C30B002B41BC /* memalloc.h */,
+				52A22E631475C30B002B41BC /* mesh.c */,
+				52A22E641475C30B002B41BC /* mesh.h */,
+				52A22E651475C30B002B41BC /* normal.c */,
+				52A22E661475C30B002B41BC /* normal.h */,
+				52A22E671475C30B002B41BC /* priorityq-heap.c */,
+				52A22E681475C30B002B41BC /* priorityq-heap.h */,
+				52A22E691475C30B002B41BC /* priorityq-sort.h */,
+				52A22E6A1475C30B002B41BC /* priorityq.c */,
+				52A22E6B1475C30B002B41BC /* priorityq.h */,
+				52A22E6C1475C30B002B41BC /* render.c */,
+				52A22E6D1475C30B002B41BC /* render.h */,
+				52A22E6E1475C30B002B41BC /* sweep.c */,
+				52A22E6F1475C30B002B41BC /* sweep.h */,
+				52A22E701475C30B002B41BC /* tess.c */,
+				52A22E711475C30B002B41BC /* tess.h */,
+				52A22E721475C30B002B41BC /* tessmono.c */,
+				52A22E731475C30B002B41BC /* tessmono.h */,
+			);
+			path = libtess;
+			sourceTree = "<group>";
+		};
+		52A22E741475C30B002B41BC /* libutil */ = {
+			isa = PBXGroup;
+			children = (
+				52A22E751475C30B002B41BC /* error.c */,
+				52A22E761475C30B002B41BC /* glue.c */,
+				52A22E771475C30B002B41BC /* gluint.h */,
+				52A22E781475C30B002B41BC /* project.c */,
+				52A22E791475C30B002B41BC /* registry.c */,
+			);
+			path = libutil;
 			sourceTree = "<group>";
 		};
 		52AE696212DF649800A9A921 /* FontOptions */ = {
@@ -2582,9 +2703,24 @@
 				526DA3F4146B369200566FF2 /* inkGeometry.h in Headers */,
 				526DA3F8146C271000566FF2 /* inkStroke.h in Headers */,
 				52A22E48146DC623002B41BC /* inkObject.h in Headers */,
-				52A22E4B147324E9002B41BC /* glu.h in Headers */,
 				52A22E4E14745435002B41BC /* inkGenerator.h in Headers */,
 				52A22E551475AAA2002B41BC /* inkGLU.h in Headers */,
+				52A22E7A1475C30B002B41BC /* glu.h in Headers */,
+				52A22E7B1475C30B002B41BC /* gluos.h in Headers */,
+				52A22E7C1475C30B002B41BC /* dict-list.h in Headers */,
+				52A22E7E1475C30B002B41BC /* dict.h in Headers */,
+				52A22E801475C30B002B41BC /* geom.h in Headers */,
+				52A22E821475C30B002B41BC /* memalloc.h in Headers */,
+				52A22E841475C30B002B41BC /* mesh.h in Headers */,
+				52A22E861475C30B002B41BC /* normal.h in Headers */,
+				52A22E881475C30B002B41BC /* priorityq-heap.h in Headers */,
+				52A22E891475C30B002B41BC /* priorityq-sort.h in Headers */,
+				52A22E8B1475C30B002B41BC /* priorityq.h in Headers */,
+				52A22E8D1475C30B002B41BC /* render.h in Headers */,
+				52A22E8F1475C30B002B41BC /* sweep.h in Headers */,
+				52A22E911475C30B002B41BC /* tess.h in Headers */,
+				52A22E931475C30B002B41BC /* tessmono.h in Headers */,
+				52A22E961475C30B002B41BC /* gluint.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2846,6 +2982,21 @@
 				526DA3F9146C271000566FF2 /* inkStroke.c in Sources */,
 				52A22E49146DC623002B41BC /* inkObject.c in Sources */,
 				52A22E4F14745435002B41BC /* inkGenerator.c in Sources */,
+				52A22E7D1475C30B002B41BC /* dict.c in Sources */,
+				52A22E7F1475C30B002B41BC /* geom.c in Sources */,
+				52A22E811475C30B002B41BC /* memalloc.c in Sources */,
+				52A22E831475C30B002B41BC /* mesh.c in Sources */,
+				52A22E851475C30B002B41BC /* normal.c in Sources */,
+				52A22E871475C30B002B41BC /* priorityq-heap.c in Sources */,
+				52A22E8A1475C30B002B41BC /* priorityq.c in Sources */,
+				52A22E8C1475C30B002B41BC /* render.c in Sources */,
+				52A22E8E1475C30B002B41BC /* sweep.c in Sources */,
+				52A22E901475C30B002B41BC /* tess.c in Sources */,
+				52A22E921475C30B002B41BC /* tessmono.c in Sources */,
+				52A22E941475C30B002B41BC /* error.c in Sources */,
+				52A22E951475C30B002B41BC /* glue.c in Sources */,
+				52A22E971475C30B002B41BC /* project.c in Sources */,
+				52A22E981475C30B002B41BC /* registry.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,7 +9,9 @@
 #ifndef _INK_GLU_H_
 #define _INK_GLU_H_
 
-#ifdef QT_CORE_LIB
+#include "glu.h"
+
+/*#ifdef QT_CORE_LIB
 #if WIN32 || __WIN32 || __WIN32__
 #include <GL/glu.h>
 #else
@@ -17,6 +19,6 @@
 #endif
 #else
 #include "glu.h"
-#endif
+#endif*/
 
 #endif

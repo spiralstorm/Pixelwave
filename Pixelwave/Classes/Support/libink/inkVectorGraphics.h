@@ -18,6 +18,8 @@
 
 inkExtern void inkClear(inkCanvas* canvas);
 
+// TODO: Make x and y counterparts that call into the real function
+
 inkExtern void inkMoveTo(inkCanvas* canvas, inkPoint position);
 inkExtern void inkLineTo(inkCanvas* canvas, inkPoint position);
 inkExtern void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor);
