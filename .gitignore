@@ -16,7 +16,6 @@ Thumbs.db
 *.so
 *.lo
 *.la
-*.a
 
 # Xcode files #
 ###############

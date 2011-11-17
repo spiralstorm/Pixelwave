@@ -1014,6 +1014,9 @@ void PXGLVertexPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *po
 
 void PXGLShadeModel(GLenum mode)
 {
+	// TODO: When using this function to turn shade mode to flat, it doesn't
+	// work.
+
 	// If you are asking for flat
 	if (mode == GL_FLAT)
 	{

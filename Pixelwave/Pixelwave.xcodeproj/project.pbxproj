@@ -413,7 +413,6 @@
 		5286DBEB13E0CFCA00E5971F /* CJSONSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBD613E0CFCA00E5971F /* CJSONSerializer.h */; };
 		5286DBEC13E0CFCA00E5971F /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 5286DBD713E0CFCA00E5971F /* CJSONSerializer.m */; };
 		5286DBED13E0CFCA00E5971F /* JSONRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 5286DBD813E0CFCA00E5971F /* JSONRepresentation.h */; };
-		52876F131469C82500056E60 /* libGLU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52876F121469C82500056E60 /* libGLU.a */; };
 		52876F211469E42B00056E60 /* PXGraphics.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F1F1469E42B00056E60 /* PXGraphics.h */; };
 		52876F221469E42B00056E60 /* PXGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 52876F201469E42B00056E60 /* PXGraphics.m */; };
 		52876F251469E43B00056E60 /* PXGraphicsData.h in Headers */ = {isa = PBXBuildFile; fileRef = 52876F231469E43B00056E60 /* PXGraphicsData.h */; };
@@ -447,6 +446,7 @@
 		52A22E4B147324E9002B41BC /* glu.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E4A147324E6002B41BC /* glu.h */; };
 		52A22E4E14745435002B41BC /* inkGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A22E4C1474542E002B41BC /* inkGenerator.h */; };
 		52A22E4F14745435002B41BC /* inkGenerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A22E4D14745431002B41BC /* inkGenerator.c */; };
+		52A22E5114756B3D002B41BC /* libGLU.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 52A22E5014756B3D002B41BC /* libGLU.a */; };
 		52A97663131C083F00E20968 /* PXGLUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 52A97661131C083F00E20968 /* PXGLUtils.h */; };
 		52A97664131C083F00E20968 /* PXGLUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A97662131C083F00E20968 /* PXGLUtils.c */; };
 		52ABD5F41254F20E00AB0756 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52ABD5F31254F20E00AB0756 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -956,7 +956,6 @@
 		5286DBD613E0CFCA00E5971F /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		5286DBD713E0CFCA00E5971F /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		5286DBD813E0CFCA00E5971F /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
-		52876F121469C82500056E60 /* libGLU.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libGLU.a; path = ../../../../Downloads/Tesselation/TesselationTest/iGLU/libGLU.a; sourceTree = "<group>"; };
 		52876F1F1469E42B00056E60 /* PXGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphics.h; sourceTree = "<group>"; };
 		52876F201469E42B00056E60 /* PXGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGraphics.m; sourceTree = "<group>"; };
 		52876F231469E43B00056E60 /* PXGraphicsData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsData.h; sourceTree = "<group>"; };
@@ -990,6 +989,7 @@
 		52A22E4A147324E6002B41BC /* glu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glu.h; sourceTree = "<group>"; };
 		52A22E4C1474542E002B41BC /* inkGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkGenerator.h; sourceTree = "<group>"; };
 		52A22E4D14745431002B41BC /* inkGenerator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkGenerator.c; sourceTree = "<group>"; };
+		52A22E5014756B3D002B41BC /* libGLU.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGLU.a; sourceTree = "<group>"; };
 		52A97661131C083F00E20968 /* PXGLUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLUtils.h; sourceTree = "<group>"; };
 		52A97662131C083F00E20968 /* PXGLUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGLUtils.c; sourceTree = "<group>"; };
 		52ABD5F31254F20E00AB0756 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
@@ -1108,7 +1108,7 @@
 				52DAB9531278A946002894E7 /* AVFoundation.framework in Frameworks */,
 				52DAB9571278A94D002894E7 /* AudioToolbox.framework in Frameworks */,
 				52DAB95B1278A955002894E7 /* OpenAL.framework in Frameworks */,
-				52876F131469C82500056E60 /* libGLU.a in Frameworks */,
+				52A22E5114756B3D002B41BC /* libGLU.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1139,7 +1139,7 @@
 		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				52876F121469C82500056E60 /* libGLU.a */,
+				52A22E5014756B3D002B41BC /* libGLU.a */,
 				1D776D081057F9EA00516B26 /* QuartzCore.framework */,
 				1D776D091057F9EA00516B26 /* OpenGLES.framework */,
 				1D776D0A1057F9EA00516B26 /* UIKit.framework */,
