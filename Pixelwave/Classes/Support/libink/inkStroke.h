@@ -24,11 +24,15 @@ typedef struct
 	bool pixelHinting;
 } inkStroke;
 
-#define inkStrokeMiterLimitDefault 3.0f
-#define inkStrokeThicknessDefault inkNan
-#define inkStrokePixelHintingDefault false
+#define _inkStrokeMiterLimitDefault 3.0f
+#define _inkStrokeThicknessDefault inkNan
+#define _inkStrokePixelHintingDefault false
 
-#define _inkStrokeDefault {inkLineScaleModeDefault, inkCapsStyleDefault, inkJointStyleDefault, inkStrokeMiterLimitDefault, inkStrokeThicknessDefault, inkStrokePixelHintingDefault}
+#define _inkStrokeDefault {_inkLineScaleModeDefault, _inkCapsStyleDefault, _inkJointStyleDefault, _inkStrokeMiterLimitDefault, _inkStrokeThicknessDefault, _inkStrokePixelHintingDefault}
+
+inkExtern const float inkStrokeMiterLimitDefault;
+inkExtern const float inkStrokeThicknessDefault;
+inkExtern const bool inkStrokePixelHintingDefault;
 
 inkExtern const inkStroke inkStrokeDefault;
 

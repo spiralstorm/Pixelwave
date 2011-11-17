@@ -481,6 +481,7 @@
 		52A97664131C083F00E20968 /* PXGLUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 52A97662131C083F00E20968 /* PXGLUtils.c */; };
 		52ABD5F41254F20E00AB0756 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 52ABD5F31254F20E00AB0756 /* CoreText.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		52B3FA9F13660F6E00020E4C /* PXArrayBuffer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52B3FA9E13660F6E00020E4C /* PXArrayBuffer.h */; };
+		52B43E341475CDC0004FD599 /* inkTypes.c in Sources */ = {isa = PBXBuildFile; fileRef = 52B43E331475CDBF004FD599 /* inkTypes.c */; };
 		52BEF6D2130EDF5F001E710E /* PXParsedSoundData.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BEF6CE130EDF5F001E710E /* PXParsedSoundData.h */; };
 		52BEF6D3130EDF5F001E710E /* PXParsedTextureData.h in Headers */ = {isa = PBXBuildFile; fileRef = 52BEF6CF130EDF5F001E710E /* PXParsedTextureData.h */; };
 		52BEF6D4130EDF5F001E710E /* PXParsedSoundData.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BEF6D0130EDF5F001E710E /* PXParsedSoundData.m */; };
@@ -1055,6 +1056,7 @@
 		52A97662131C083F00E20968 /* PXGLUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGLUtils.c; sourceTree = "<group>"; };
 		52ABD5F31254F20E00AB0756 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		52B3FA9E13660F6E00020E4C /* PXArrayBuffer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXArrayBuffer.h; sourceTree = "<group>"; };
+		52B43E331475CDBF004FD599 /* inkTypes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkTypes.c; sourceTree = "<group>"; };
 		52BEF6CE130EDF5F001E710E /* PXParsedSoundData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXParsedSoundData.h; sourceTree = "<group>"; };
 		52BEF6CF130EDF5F001E710E /* PXParsedTextureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXParsedTextureData.h; sourceTree = "<group>"; };
 		52BEF6D0130EDF5F001E710E /* PXParsedSoundData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXParsedSoundData.m; sourceTree = "<group>"; };
@@ -2042,6 +2044,7 @@
 				52A22E541475AA9D002B41BC /* inkGLU.h */,
 				526DA3DC146B223100566FF2 /* inkHeader.h */,
 				526DA3C4146B19FC00566FF2 /* inkTypes.h */,
+				52B43E331475CDBF004FD599 /* inkTypes.c */,
 				52A22E46146DC620002B41BC /* inkObject.h */,
 				52A22E47146DC621002B41BC /* inkObject.c */,
 				526DA3D8146B1CE700566FF2 /* inkArray.h */,
@@ -2997,6 +3000,7 @@
 				52A22E951475C30B002B41BC /* glue.c in Sources */,
 				52A22E971475C30B002B41BC /* project.c in Sources */,
 				52A22E981475C30B002B41BC /* registry.c in Sources */,
+				52B43E341475CDC0004FD599 /* inkTypes.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

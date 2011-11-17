@@ -9,6 +9,8 @@
 #ifndef _INK_TYPES_H_
 #define _INK_TYPES_H_
 
+#include "inkHeader.h"
+
 #if defined(__GNUC__)
 #define    inkNan          __builtin_nanf("0x7fc00000")
 #else
@@ -38,7 +40,8 @@ typedef enum
 	inkSpreadMethod_Repeat
 } inkSpreadMethod;
 
-#define inkSpreadMethodDefault inkSpreadMethod_Pad
+#define _inkSpreadMethodDefault inkSpreadMethod_Pad
+inkExtern const inkSpreadMethod inkSpreadMethodDefault;
 
 typedef enum
 {
@@ -46,7 +49,8 @@ typedef enum
 	inkInterpolationMethod_RGB
 } inkInterpolationMethod;
 
-#define inkInterpolationMethodDefault inkInterpolationMethod_RGB
+#define _inkInterpolationMethodDefault inkInterpolationMethod_RGB
+inkExtern const inkInterpolationMethod inkInterpolationMethodDefault;
 
 typedef enum
 {
@@ -54,7 +58,8 @@ typedef enum
 	inkGradientType_Radial
 } inkGradientType;
 
-#define inkGradientTypeDefault inkGradientType_Linear
+#define _inkGradientTypeDefault inkGradientType_Linear
+inkExtern const inkGradientType inkGradientTypeDefault;
 
 typedef enum
 {
@@ -62,7 +67,8 @@ typedef enum
 	inkPathWinding_NonZero
 } inkPathWinding;
 
-#define inkPathWindingDefault inkPathWinding_EvenOdd
+#define _inkPathWindingDefault inkPathWinding_EvenOdd
+inkExtern const inkPathWinding inkPathWindingDefault;
 
 typedef enum
 {
@@ -71,7 +77,8 @@ typedef enum
 	inkTriangleCulling_Posative
 } inkTriangleCulling;
 
-#define inkTriangleCullingDefault inkTriangleCulling_None
+#define _inkTriangleCullingDefault inkTriangleCulling_None
+inkExtern const inkTriangleCulling inkTriangleCullingDefault;
 
 typedef enum
 {
@@ -80,7 +87,8 @@ typedef enum
 	inkJointStyle_Round
 } inkJointStyle;
 
-#define inkJointStyleDefault inkJointStyle_Round
+#define _inkJointStyleDefault inkJointStyle_Round
+inkExtern const inkJointStyle inkJointStyleDefault;
 
 typedef enum
 {
@@ -90,7 +98,8 @@ typedef enum
 	inkLineScaleMode_Vertical
 } inkLineScaleMode;
 
-#define inkLineScaleModeDefault inkLineScaleMode_Horizontal
+#define _inkLineScaleModeDefault inkLineScaleMode_Horizontal
+inkExtern const inkLineScaleMode inkLineScaleModeDefault;
 
 typedef enum
 {
@@ -99,7 +108,8 @@ typedef enum
 	inkCapsStyle_Square
 } inkCapsStyle;
 
-#define inkCapsStyleDefault inkCapsStyle_Round
+#define _inkCapsStyleDefault inkCapsStyle_Round
+inkExtern const inkCapsStyle inkCapsStyleDefault;
 
 typedef enum
 {
