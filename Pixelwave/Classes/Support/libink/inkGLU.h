@@ -11,14 +11,4 @@
 
 #include "glu.h"
 
-/*#ifdef QT_CORE_LIB
-#if WIN32 || __WIN32 || __WIN32__
-#include <GL/glu.h>
-#else
-#include <OpenGL/glu.h>
-#endif
-#else
-#include "glu.h"
-#endif*/
-
 #endif

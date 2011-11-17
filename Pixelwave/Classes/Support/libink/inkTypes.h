@@ -9,6 +9,12 @@
 #ifndef _INK_TYPES_H_
 #define _INK_TYPES_H_
 
+#if defined(__GNUC__)
+#define    inkNan          __builtin_nanf("0x7fc00000")
+#else
+#define    inkNan          __nan( )
+#endif
+
 typedef struct
 {
 	float x, y;
@@ -32,11 +38,15 @@ typedef enum
 	inkSpreadMethod_Repeat
 } inkSpreadMethod;
 
+#define inkSpreadMethodDefault inkSpreadMethod_Pad
+
 typedef enum
 {
 	inkInterpolationMethod_LinearRGB = 0,
 	inkInterpolationMethod_RGB
 } inkInterpolationMethod;
+
+#define inkInterpolationMethodDefault inkInterpolationMethod_RGB
 
 typedef enum
 {
@@ -44,11 +54,15 @@ typedef enum
 	inkGradientType_Radial
 } inkGradientType;
 
+#define inkGradientTypeDefault inkGradientType_Linear
+
 typedef enum
 {
 	inkPathWinding_EvenOdd = 0,
 	inkPathWinding_NonZero
 } inkPathWinding;
+
+#define inkPathWindingDefault inkPathWinding_EvenOdd
 
 typedef enum
 {
@@ -57,12 +71,16 @@ typedef enum
 	inkTriangleCulling_Posative
 } inkTriangleCulling;
 
+#define inkTriangleCullingDefault inkTriangleCulling_None
+
 typedef enum
 {
 	inkJointStyle_Bevel = 0,
 	inkJointStyle_Miter,
 	inkJointStyle_Round
 } inkJointStyle;
+
+#define inkJointStyleDefault inkJointStyle_Round
 
 typedef enum
 {
@@ -72,12 +90,16 @@ typedef enum
 	inkLineScaleMode_Vertical
 } inkLineScaleMode;
 
+#define inkLineScaleModeDefault inkLineScaleMode_Horizontal
+
 typedef enum
 {
 	inkCapsStyle_None = 0,
 	inkCapsStyle_Round,
 	inkCapsStyle_Square
 } inkCapsStyle;
+
+#define inkCapsStyleDefault inkCapsStyle_Round
 
 typedef enum
 {

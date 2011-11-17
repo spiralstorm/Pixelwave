@@ -8,6 +8,8 @@
 
 #include "inkStroke.h"
 
+const inkStroke inkStrokeDefault = _inkStrokeDefault;
+
 inkStroke inkStrokeMake(float thickness, bool pixelHinting, inkLineScaleMode scaleMode, inkCapsStyle caps, inkJointStyle joints, float miterLimit)
 {
 	inkStroke stroke;

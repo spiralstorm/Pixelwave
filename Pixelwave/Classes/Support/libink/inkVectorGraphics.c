@@ -170,12 +170,16 @@ void inkRasterize(inkCanvas* canvas)
 			case inkCommandType_LineStyle:
 			{
 				inkStrokeGeneratorEnd(strokeGenerator);
-
 				inkStrokeGeneratorDestroy(strokeGenerator);
+				strokeGenerator = NULL;
+
 				inkLineStyleCommand* command = (inkLineStyleCommand*)(commandData);
 
-				strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas->renderGroups, &(command->stroke));
-				inkStrokeGeneratorSetFill(strokeGenerator, &(command->fill));
+				if (!isnan(command->stroke.thickness))
+				{
+					strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas->renderGroups, &(command->stroke));
+					inkStrokeGeneratorSetFill(strokeGenerator, &(command->fill));
+				}
 			}
 				break;
 			case inkCommandType_LineBitmap:
@@ -194,6 +198,8 @@ void inkRasterize(inkCanvas* canvas)
 				break;
 			case inkCommandType_EndFill:
 				inkFillGeneratorEnd(fillGenerator);
+				inkFillGeneratorDestroy(fillGenerator);
+				fillGenerator = NULL;
 				//inkStrokeGeneratorEnd(strokeGenerator);
 				break;
 			default:

@@ -24,6 +24,14 @@ typedef struct
 	bool pixelHinting;
 } inkStroke;
 
+#define inkStrokeMiterLimitDefault 3.0f
+#define inkStrokeThicknessDefault inkNan
+#define inkStrokePixelHintingDefault false
+
+#define _inkStrokeDefault {inkLineScaleModeDefault, inkCapsStyleDefault, inkJointStyleDefault, inkStrokeMiterLimitDefault, inkStrokeThicknessDefault, inkStrokePixelHintingDefault}
+
+inkExtern const inkStroke inkStrokeDefault;
+
 inkExtern inkStroke inkStrokeMake(float thickness, bool pixelHinting, inkLineScaleMode scaleMode, inkCapsStyle caps, inkJointStyle joints, float miterLimit);
 
 #endif
