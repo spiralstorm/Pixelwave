@@ -8,7 +8,7 @@
 
 #include "inkTessellator.h"
 
-#include "glu.h"
+#include "inkGLU.h"
 
 typedef struct
 {

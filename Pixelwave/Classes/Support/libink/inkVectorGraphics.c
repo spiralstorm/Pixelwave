@@ -150,11 +150,21 @@ void inkRasterize(inkCanvas* canvas)
 			case inkCommandType_BitmapFill:
 			{
 				inkFillGeneratorEnd(fillGenerator);
+
+				inkFillGeneratorDestroy(fillGenerator);
+				inkBitmapFillCommand* fill = (inkBitmapFillCommand*)(commandData);
+
+				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill);
 			}
 				break;
 			case inkCommandType_GradientFill:
 			{
 				inkFillGeneratorEnd(fillGenerator);
+
+				inkFillGeneratorDestroy(fillGenerator);
+				inkGradientFillCommand* fill = (inkGradientFillCommand*)(commandData);
+
+				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill);
 			}
 				break;
 			case inkCommandType_LineStyle:

@@ -9,7 +9,7 @@
 #include "inkStrokeGenerator.h"
 
 #include "inkTessellator.h"
-#include "glu.h"
+#include "inkGLU.h"
 
 void inkStrokeGeneratorEndConvert(void* generator);
 

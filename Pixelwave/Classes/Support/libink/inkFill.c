@@ -12,7 +12,19 @@ const inkSolidFill inkSolidFillDefault = _inkSolidFillDefault;
 const inkBitmapFill inkBitmapFillDefault = _inkBitmapFillDefault;
 const inkGradientFill inkGradientFillDefault = _inkGradientFillDefault;
 
-inkExtern inkSolidFill inkSolidFillMake(unsigned int color, float alpha)
+inkBitmapInfo inkBitmapInfoMake(unsigned int glTextureName, unsigned int textureWidth, unsigned int textureHeight)
+{
+	inkBitmapInfo info;
+
+	info.glTextureName = glTextureName;
+
+	info.one_textureWidth  = 1.0f / (float)textureWidth;
+	info.one_textureHeight = 1.0f / (float)textureHeight;
+
+	return info;
+}
+
+inkSolidFill inkSolidFillMake(unsigned int color, float alpha)
 {
 	inkSolidFill fill;
 
@@ -24,20 +36,21 @@ inkExtern inkSolidFill inkSolidFillMake(unsigned int color, float alpha)
 	return fill;
 }
 
-inkExtern inkBitmapFill inkBitmapFillMake(inkMatrix matrix, bool repeat, bool smooth)
+inkBitmapFill inkBitmapFillMake(inkMatrix matrix, inkBitmapInfo bitmapInfo, bool repeat, bool smooth)
 {
 	inkBitmapFill fill;
 
 	fill.fillType = inkFillType_Bitmap;
 
 	fill.matrix = matrix;
+	fill.bitmapInfo = bitmapInfo;
 	fill.repeat = repeat;
 	fill.smooth = smooth;
 
 	return fill;
 }
 
-inkExtern inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors, inkArray* alphas, inkArray* ratios, inkGradientType type, inkSpreadMethod spreadMethod, inkInterpolationMethod interpolationMethod, float focalPointRatio)
+inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors, inkArray* alphas, inkArray* ratios, inkGradientType type, inkSpreadMethod spreadMethod, inkInterpolationMethod interpolationMethod, float focalPointRatio)
 {
 	inkGradientFill fill;
 

@@ -156,7 +156,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 		return;
 
 	inkMatrix matrix = PXGraphicsMakeMatrixFromPXMatrix(pxMatrix);
-	inkBitmapFill fill = inkBitmapFillMake(matrix, repeat, smooth);
+	inkBitmapFill fill = inkBitmapFillMake(matrix, inkBitmapInfoMake(textureData.glTextureName, textureData.glTextureWidth, textureData.glTextureHeight), repeat, smooth);
 
 	inkBeginBitmapFill(vGraphicsUtil, fill);
 }
@@ -191,7 +191,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 		return;
 
 	inkMatrix matrix = PXGraphicsMakeMatrixFromPXMatrix(pxMatrix);
-	inkBitmapFill fill = inkBitmapFillMake(matrix, repeat, smooth);
+	inkBitmapFill fill = inkBitmapFillMake(matrix, inkBitmapInfoMake(textureData.glTextureName, textureData.glTextureWidth, textureData.glTextureHeight), repeat, smooth);
 
 	inkBeginBitmapFill(vGraphicsUtil, fill);
 }

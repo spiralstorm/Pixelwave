@@ -175,7 +175,13 @@ void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position)
 		}
 			break;
 		case inkFillType_Bitmap:
-			// TODO: Implement
+		{
+			inkBitmapFill* bitmapFill = (inkBitmapFill *)generator->fill;
+
+			// TODO: Use the matrix to calculate the real position.
+			vertex->s = position.x * bitmapFill->bitmapInfo.one_textureWidth;
+			vertex->t = position.y * bitmapFill->bitmapInfo.one_textureHeight;
+		}
 			break;
 		case inkFillType_Gradient:
 			// TODO: Implement
