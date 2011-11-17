@@ -17,6 +17,11 @@
 typedef struct
 {
 	inkFillType fillType; // Must be the first value
+} inkFill;
+
+typedef struct
+{
+	inkFillType fillType; // Must be the first value
 
 	unsigned int color;
 	float alpha;
@@ -27,6 +32,10 @@ typedef struct
 	inkFillType fillType; // Must be the first value
 
 	inkMatrix matrix;
+
+	unsigned int glTextureName;
+	unsigned int textureWidth;
+	unsigned int textureHeight;
 
 	bool repeat;
 	bool smooth;

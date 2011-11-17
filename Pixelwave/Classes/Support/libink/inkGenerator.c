@@ -159,7 +159,7 @@ void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position)
 	if (generator->fill == NULL)
 		return;
 
-	inkFillType fillType = *((inkFillType *)generator->fill);
+	inkFillType fillType = ((inkFill *)generator->fill)->fillType;
 
 	switch(fillType)
 	{

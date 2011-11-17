@@ -191,11 +191,11 @@ void inkRasterize(inkCanvas* canvas)
 		}
 	}
 
+	// Must be destroyed before we end the stroke generator
 	inkFillGeneratorEnd(fillGenerator);
-	inkStrokeGeneratorEnd(strokeGenerator);
-
-	//inkTessellatorEndPolygon(tessellator);
-
 	inkFillGeneratorDestroy(fillGenerator);
+
+	// Must be done after we destroy the fill generator.
+	inkStrokeGeneratorEnd(strokeGenerator);
 	inkStrokeGeneratorDestroy(strokeGenerator);
 }

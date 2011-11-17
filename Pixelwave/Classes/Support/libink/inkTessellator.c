@@ -322,7 +322,8 @@ void inkTessellatorBeginPolygon(inkTessellator* tessellator, inkArray *renderGro
 
 	if (tessellator->polygonBegan == true)
 		inkTessellatorEndPolygon(tessellator);
-	tessellator->polygonBegan = true;
+	else
+		tessellator->polygonBegan = true;
 
 	tessellator->renderGroups = renderGroups;
 
@@ -353,7 +354,8 @@ void inkTessellatorBeginContour(inkTessellator* tessellator)
 
 	if (tessellator->contourBegan == true)
 		inkTessellatorEndContour(tessellator);
-	tessellator->contourBegan = true;
+	else
+		tessellator->contourBegan = true;
 
 	gluTessBeginContour(tessellator->gluTessellator);
 } 

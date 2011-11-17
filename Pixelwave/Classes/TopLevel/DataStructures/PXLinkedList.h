@@ -65,7 +65,8 @@
 			PX_UNIQUE_VAR(_len_) = (_list_)->_nodeCount; \
 			PX_UNIQUE_VAR(_node_) = (_list_)->_head; \
 		} \
-        if (PX_UNIQUE_VAR(_node_)) (_obj_) = PX_UNIQUE_VAR(_node_)->data; \
+        if (PX_UNIQUE_VAR(_node_))\
+			(_obj_) = PX_UNIQUE_VAR(_node_)->data; \
 		\
         for (	int PX_UNIQUE_VAR(_i_) = 0; \
 				PX_UNIQUE_VAR(_i_) < PX_UNIQUE_VAR(_len_); \
@@ -93,8 +94,9 @@
 			PX_UNIQUE_VAR(_len_) = (_list_)->_nodeCount; \
 			PX_UNIQUE_VAR(_node_) = (_list_)->_tail; \
 		} \
-        if (PX_UNIQUE_VAR(_node_)) (_obj_) = PX_UNIQUE_VAR(_node_)->data; \
-		\
+        if (PX_UNIQUE_VAR(_node_)) \
+			(_obj_) = PX_UNIQUE_VAR(_node_)->data; \
+\
         for (	int PX_UNIQUE_VAR(_i_) = PX_UNIQUE_VAR(_len_) - 1; \
 				PX_UNIQUE_VAR(_i_) >= 0; \
 				--PX_UNIQUE_VAR(_i_), PX_UNIQUE_VAR(_node_) = PX_UNIQUE_VAR(_node_)->prev, _obj_ = (PX_UNIQUE_VAR(_node_) ? PX_UNIQUE_VAR(_node_)->data : 0))

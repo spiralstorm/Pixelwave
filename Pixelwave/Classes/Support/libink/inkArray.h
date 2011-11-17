@@ -22,6 +22,7 @@
 		inkUniqueVar(_bytes_) = (uint8_t *)((_array_)->elements); \
 	} \
 \
+	if (inkUniqueVar(_bytes_))\
 	for (inkUniqueVar(_index_) = 0, (_obj_) = (__typeof__(_obj_))(inkUniqueVar(_bytes_)); \
 		 inkUniqueVar(_index_) < inkUniqueVar(_count_); \
 		 ++inkUniqueVar(_index_), (inkUniqueVar(_bytes_)) += (inkUniqueVar(_size_)), (_obj_) = (__typeof__(_obj_))(inkUniqueVar(_bytes_)))
@@ -39,6 +40,7 @@
 		inkUniqueVar(_bytes_) = (uint8_t *)((_array_)->elements); \
 	} \
 \
+	if (inkUniqueVar(_bytes_))\
 	for (inkUniqueVar(_index_) = 0, (_obj_) = *((__typeof__(&(_obj_)))(inkUniqueVar(_bytes_))); \
 		 inkUniqueVar(_index_) < inkUniqueVar(_count_); \
 		 ++inkUniqueVar(_index_), (inkUniqueVar(_bytes_)) += (inkUniqueVar(_size_)), (_obj_) = *((__typeof__(&(_obj_)))(inkUniqueVar(_bytes_)))) 
