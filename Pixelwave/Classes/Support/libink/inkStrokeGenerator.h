@@ -17,6 +17,9 @@
 #include "inkTessellator.h"
 #include "inkGenerator.h"
 
+// Because inkGenerator is a pointer, you can't just cast a stroke generator to
+// a generator, you must grab the first argument and cast that instead.
+
 typedef struct
 {
 	inkGenerator* generator; // Parent - must be first argument

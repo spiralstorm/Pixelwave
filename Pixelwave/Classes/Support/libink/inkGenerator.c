@@ -16,6 +16,8 @@ inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill)
 
 	if (generator != NULL)
 	{
+		generator->me = generator;
+
 		generator->tessellator = tessellator;
 
 		generator->vertexGroupList = inkArrayCreate(sizeof(inkArray *));
@@ -178,9 +180,10 @@ void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position)
 		{
 			inkBitmapFill* bitmapFill = (inkBitmapFill *)generator->fill;
 
-			// TODO: Use the matrix to calculate the real position.
-			vertex->s = position.x * bitmapFill->bitmapInfo.one_textureWidth;
-			vertex->t = position.y * bitmapFill->bitmapInfo.one_textureHeight;
+			inkPoint convertedPosition = inkMatrixTransformPoint(bitmapFill->matrix, position);
+
+			vertex->s = convertedPosition.x * bitmapFill->bitmapInfo.one_textureWidth;
+			vertex->t = convertedPosition.y * bitmapFill->bitmapInfo.one_textureHeight;
 		}
 			break;
 		case inkFillType_Gradient:

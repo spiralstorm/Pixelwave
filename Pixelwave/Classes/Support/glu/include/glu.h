@@ -31,7 +31,15 @@
 #ifndef __glu_h__
 #define __glu_h__
 
+#ifdef QT_CORE_LIB
+#if WIN32 || __WIN32 || __WIN32__
+#include <GL/gl.h>
+#else
+#include <OpenGL/gl.h>
+#endif
+#else
 #include <OpenGLES/ES1/gl.h>
+#endif
 
 #ifndef GLAPIENTRY
 #define GLAPIENTRY

@@ -38,6 +38,23 @@ void inkFillGeneratorDestroy(inkFillGenerator* fillGenerator)
 		{
 			inkTessellatorEndPolygon(fillGenerator->generator->tessellator);
 
+			if (fillGenerator->generator->tessellator != NULL)
+			{
+				if (fillGenerator->generator->tessellator->currentRenderGroup != NULL)
+				{
+					if (fillGenerator->generator->fill != NULL)
+					{
+						inkFillType fillType = ((inkFill *)fillGenerator->generator->fill)->fillType;
+
+						if (fillType == inkFillType_Bitmap)
+						{
+							inkBitmapFill* bitmapFill = (inkBitmapFill *)fillGenerator->generator->fill;
+							fillGenerator->generator->tessellator->currentRenderGroup->glTextureName = bitmapFill->bitmapInfo.glTextureName;
+						}
+					}
+				}
+			}
+
 			inkGeneratorDestroy(fillGenerator->generator);
 		}
 

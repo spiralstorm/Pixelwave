@@ -93,6 +93,11 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
 
+	if (tessellator->currentRenderGroup != NULL && strokeGenerator->stroke != NULL)
+	{
+		tessellator->currentRenderGroup->glLineWidth = strokeGenerator->stroke->thickness;
+	}
+
 	INKvertex* vertex;
 
 	inkArrayForEach(generator->currentVertices, vertex)

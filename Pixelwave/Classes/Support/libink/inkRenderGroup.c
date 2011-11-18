@@ -15,6 +15,8 @@ inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode)
 	if (renderGroup != NULL)
 	{
 		renderGroup->glDrawMode = glDrawMode;
+		renderGroup->glTextureName = 0;
+		renderGroup->glLineWidth = 0.0f;
 		renderGroup->vertices = inkArrayCreate(sizeof(INKvertex));
 
 		if (renderGroup->vertices == NULL)

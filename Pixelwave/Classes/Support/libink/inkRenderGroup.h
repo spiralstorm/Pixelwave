@@ -18,6 +18,9 @@ typedef struct
 	inkArray *vertices;
 
 	INKenum glDrawMode;
+	unsigned int glTextureName;
+
+	float glLineWidth;
 } inkRenderGroup;
 
 inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode);

@@ -126,9 +126,9 @@ inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy);
 inkMatrix inkMatrixTranslate(inkMatrix matrix, float dx, float dy);
 
 inkMatrix inkMatrixCreateBox(inkMatrix matrix, float scaleX, float scaleY, float rotation, float tx, float ty);
-
+*/
 inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point);
-inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);*/
+inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);
 
 #pragma mark -
 #pragma mark Point Implemenations

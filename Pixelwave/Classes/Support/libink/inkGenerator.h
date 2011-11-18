@@ -15,8 +15,15 @@
 
 typedef void (*inkGeneratorEndFunction)(void *);
 
-typedef struct
+typedef struct _inkGenerator
 {
+	// This is a pointer back to myself. Why is this here? Well, when you cast a
+	// fill or stroke generator to a generator, because they keep a pointer back
+	// to the normal generator then you must use the first argument to grab the
+	// correct value. Well, if I have a pointer as my first value back to
+	// myself, then the first value is uniformed across all structure types.
+	struct _inkGenerator *me;
+
 	inkTessellator* tessellator;
 
 	inkArray* vertexGroupList;
