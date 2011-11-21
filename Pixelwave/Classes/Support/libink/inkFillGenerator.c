@@ -44,11 +44,11 @@ void inkFillGeneratorDestroy(inkFillGenerator* fillGenerator)
 				{
 					if (fillGenerator->generator->fill != NULL)
 					{
-						inkFillType fillType = ((inkFill *)fillGenerator->generator->fill)->fillType;
+						inkFillType fillType = ((inkFill*)fillGenerator->generator->fill)->fillType;
 
 						if (fillType == inkFillType_Bitmap)
 						{
-							inkBitmapFill* bitmapFill = (inkBitmapFill *)fillGenerator->generator->fill;
+							inkBitmapFill* bitmapFill = (inkBitmapFill*)fillGenerator->generator->fill;
 							fillGenerator->generator->tessellator->currentRenderGroup->glTextureName = bitmapFill->bitmapInfo.glTextureName;
 						}
 					}

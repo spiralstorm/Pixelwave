@@ -42,6 +42,7 @@ inkExtern void inkGeneratorLineTo(inkGenerator* generator, inkPoint position);
 inkExtern void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anchor);
 inkExtern void inkGeneratorEnd(inkGenerator* generator);
 
+inkExtern void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill);
 inkExtern void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position);
 
 #endif

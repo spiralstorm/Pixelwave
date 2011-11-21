@@ -55,16 +55,32 @@ extern "C" {
 #endif
 
 #pragma mark -
+#pragma mark Math Declarations
+#pragma mark -
+
+inkInline bool inkIsNearlyEqualf(float a, float b, float precision);
+inkInline bool inkIsEqualf(float a, float b);
+
+float inkQ_rsqrt(float number);
+
+#pragma mark -
 #pragma mark Point Declarations
 #pragma mark -
 
 inkInline inkPoint inkPointMake(float x, float y);
+
+inkInline inkPoint inkAddPoint(inkPoint pointA, inkPoint pointB);
+inkInline inkPoint inkPointNormalize(inkPoint point);
+inkInline float inkPointDistanceFromZero(inkPoint point);
+inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB);
+
+void inkPointBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint pointC, float halfScalar, inkPoint* inner, inkPoint* outer);
+
 /*inkPoint inkAddPoint(inkPoint pointA, inkPoint pointB);
 inkPoint inkSubtractPoint(inkPoint pointA, inkPoint pointB);
 
 bool inkPointIsEqual(inkPoint pointA, inkPoint pointB);
 
-inkPoint inkPointNormalize(inkPoint point);
 inkPoint inkPointNormalizeWithLength(inkPoint point, float length);
 inkPoint inkPointOffset(inkPoint point, float dx, float dy);
 
@@ -131,6 +147,21 @@ inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point);
 inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);
 
 #pragma mark -
+#pragma mark Math Implemenations
+#pragma mark -
+
+inkInline bool inkIsNearlyEqualf(float a, float b, float precision)
+{
+	return (a <= (b + precision)) && (a >= (b - precision));
+}
+
+inkInline bool inkIsEqualf(float a, float b)
+{
+	// TODO: Replace with math constant for small number
+	return inkIsNearlyEqualf(a, b, 0.000001f);
+}
+
+#pragma mark -
 #pragma mark Point Implemenations
 #pragma mark -
 
@@ -142,6 +173,38 @@ inkInline inkPoint inkPointMake(float x, float y)
 	point.y = y;
 
 	return point;
+}
+
+inkInline inkPoint inkAddPoint(inkPoint pointA, inkPoint pointB)
+{
+	return inkPointMake(pointA.x + pointB.x, pointA.y + pointB.y);
+}
+
+inkInline inkPoint inkPointNormalize(inkPoint point)
+{
+	float len = inkPointDistanceFromZero(point);
+	
+	if (len != 0.0f)
+	{
+		float one_len = 1.0f / len;
+		
+		point.x *= one_len;
+		point.y *= one_len;
+	}
+	
+	return point;
+}
+
+inkInline float inkPointDistanceFromZero(inkPoint point)
+{
+	return sqrtf((point.x * point.x) + (point.y * point.y));
+}
+
+inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB)
+{
+	inkPoint diff = inkPointMake(pointA.x - pointB.x, pointA.y - pointB.y);
+	
+	return sqrtf((diff.x * diff.x) + (diff.y * diff.y));
 }
 
 #pragma mark -

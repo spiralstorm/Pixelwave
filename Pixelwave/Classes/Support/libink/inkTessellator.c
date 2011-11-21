@@ -242,7 +242,8 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 	if (v0 == NULL && v1 == NULL && v2 == NULL && v3 == NULL)
 		return;
 
-	// This will also have the array issue
+	// This will not have an array issue as inside it will make a pointer to
+	// pointer array, thus saving the original pointer.
 	INKvertex* vertex = inkTessellatorAddTemporaryVertex(tessellator);
 
 	if (vertex == NULL)

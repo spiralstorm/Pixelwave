@@ -148,27 +148,25 @@ void inkGeneratorEnd(inkGenerator* generator)
 	generator->currentVertices = NULL;
 }
 
-void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position)
+void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
 {
-	if (generator == NULL || generator->currentVertices == NULL)
+	if (vertex == NULL)
 		return;
-
-	INKvertex* vertex = (INKvertex*)inkArrayPush(generator->currentVertices);
 
 	vertex->x = (position.x);
 	vertex->y = (position.y);
 
-	if (generator->fill == NULL)
+	if (fill == NULL)
 		return;
 
-	inkFillType fillType = ((inkFill *)generator->fill)->fillType;
+	inkFillType fillType = ((inkFill *)fill)->fillType;
 
 	switch(fillType)
 	{
 		case inkFillType_Solid:
 		{
-			inkSolidFill* solidFill = (inkSolidFill *)generator->fill;
-
+			inkSolidFill* solidFill = (inkSolidFill *)fill;
+			
 			// TODO: Use a real color checker instead
 			vertex->r = 0xFF & (solidFill->color >> 16);
 			vertex->g = 0xFF & (solidFill->color >> 8);
@@ -178,10 +176,10 @@ void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position)
 			break;
 		case inkFillType_Bitmap:
 		{
-			inkBitmapFill* bitmapFill = (inkBitmapFill *)generator->fill;
-
+			inkBitmapFill* bitmapFill = (inkBitmapFill *)fill;
+			
 			inkPoint convertedPosition = inkMatrixTransformPoint(bitmapFill->matrix, position);
-
+			
 			vertex->s = convertedPosition.x * bitmapFill->bitmapInfo.one_textureWidth;
 			vertex->t = convertedPosition.y * bitmapFill->bitmapInfo.one_textureHeight;
 		}
@@ -192,4 +190,14 @@ void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position)
 		default:
 			break;
 	}
+}
+
+void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position)
+{
+	if (generator == NULL || generator->currentVertices == NULL)
+		return;
+
+	INKvertex* vertex = (INKvertex*)inkArrayPush(generator->currentVertices);
+
+	inkGeneratorInitVertex(vertex, position, generator->fill);
 }
