@@ -25,9 +25,23 @@ typedef struct
 
 typedef struct
 {
+	inkPoint pointA;
+	inkPoint pointB;
+} inkLine;
+
+typedef struct
+{
 	inkPoint origin;
 	inkSize size;
 } inkRect;
+
+typedef struct
+{
+	inkPoint pointA;
+	inkPoint pointB;
+	inkPoint pointC;
+	inkPoint pointD;
+} inkBox;
 
 typedef struct
 {
@@ -41,13 +55,17 @@ typedef struct
 } inkMatrix;
 
 #define _inkPointZero {0.0f, 0.0f}
+#define _inkLineZero {0.0f, 0.0f, 0.0f, 0.0f}
 #define _inkSizeZero {0.0f, 0.0f}
-#define _inkRectZero {0.0f, 0.0f}
+#define _inkRectZero {0.0f, 0.0f, 0.0f, 0.0f}
+#define _inkBoxZero {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}
 #define _inkMatrixIdentity {1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f}
 
 inkExtern const inkPoint inkPointZero;
+inkExtern const inkLine inkLineZero;
 inkExtern const inkSize inkSizeZero;
 inkExtern const inkRect inkRectZero;
+inkExtern const inkBox inkBoxZero;
 inkExtern const inkMatrix inkMatrixIdentity;
 
 #ifdef __cplusplus
@@ -60,8 +78,7 @@ extern "C" {
 
 inkInline bool inkIsNearlyEqualf(float a, float b, float precision);
 inkInline bool inkIsEqualf(float a, float b);
-
-float inkQ_rsqrt(float number);
+inkInline bool inkIsZerof(float a);
 
 #pragma mark -
 #pragma mark Point Declarations
@@ -74,7 +91,9 @@ inkInline inkPoint inkPointNormalize(inkPoint point);
 inkInline float inkPointDistanceFromZero(inkPoint point);
 inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB);
 
-void inkPointBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint pointC, float halfScalar, inkPoint* inner, inkPoint* outer);
+inkPoint inkClosestPointToLine(inkPoint point, inkLine line);
+float inkPointDistanceToLine(inkPoint point, inkLine line);
+bool inkIsPointInLine(inkPoint point, inkLine line);
 
 /*inkPoint inkAddPoint(inkPoint pointA, inkPoint pointB);
 inkPoint inkSubtractPoint(inkPoint pointA, inkPoint pointB);
@@ -99,6 +118,24 @@ inkPoint inkPointPolar(float length, float angle);*/
 inkInline inkSize inkSizeMake(float width, float height);
 
 //bool inkSizeIsEqual(inkSize sizeA, inkSize sizeB);
+
+#pragma mark -
+#pragma mark Line Declarations
+#pragma mark -
+
+inkInline inkLine inkLineMake(inkPoint pointA, inkPoint pointB);
+inkInline inkLine inkLineMakev(float x1, float y1, float x2, float y2);
+
+inkPoint inkLineIntersection(inkLine lineA, inkLine lineB);
+inkLine inkLineBisectionTraverser(inkLine line, float halfScalar);
+inkBox inkLineExpandToBox(inkLine line, float halfScalar);
+inkLine inkTriangleBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint pointC, float halfScalar);
+
+#pragma mark -
+#pragma mark Box Declarations
+#pragma mark -
+
+inkInline inkBox inkBoxMake(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 
 #pragma mark -
 #pragma mark Rect Declarations
@@ -161,6 +198,11 @@ inkInline bool inkIsEqualf(float a, float b)
 	return inkIsNearlyEqualf(a, b, 0.000001f);
 }
 
+inkInline bool inkIsZerof(float a)
+{
+	return inkIsEqualf(a, 0.0f);
+}
+
 #pragma mark -
 #pragma mark Point Implemenations
 #pragma mark -
@@ -208,6 +250,25 @@ inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB)
 }
 
 #pragma mark -
+#pragma mark Line Declarations
+#pragma mark -
+
+inkInline inkLine inkLineMake(inkPoint pointA, inkPoint pointB)
+{
+	inkLine line;
+
+	line.pointA = pointA;
+	line.pointB = pointB;
+
+	return line;
+}
+
+inkInline inkLine inkLineMakev(float x1, float y1, float x2, float y2)
+{
+	return inkLineMake(inkPointMake(x1, y1), inkPointMake(x2, y2));
+}
+
+#pragma mark -
 #pragma mark Size Implemenations
 #pragma mark -
 
@@ -233,6 +294,22 @@ inkInline inkRect inkRectMake(float x, float y, float width, float height)
 	rect.size = inkSizeMake(width, height);
 
 	return rect;
+}
+
+#pragma mark -
+#pragma mark Box Declarations
+#pragma mark -
+
+inkInline inkBox inkBoxMake(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
+{
+	inkBox box;
+
+	box.pointA = inkPointMake(x1, y1);
+	box.pointB = inkPointMake(x2, y2);
+	box.pointC = inkPointMake(x3, y3);
+	box.pointD = inkPointMake(x4, y4);
+
+	return box;
 }
 
 #pragma mark -
