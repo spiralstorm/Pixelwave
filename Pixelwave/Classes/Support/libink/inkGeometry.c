@@ -103,22 +103,44 @@ inkPoint inkLineIntersection(inkLine lineA, inkLine lineB)
 	float theSin;
 	float ABpos;
 
+//	Bx-=Ax; By-=Ay;
+//	Cx-=Ax; Cy-=Ay;
+//	Dx-=Ax; Dy-=Ay;
+
 	//  (1) Translate the system so that point A is on the origin.
 	lineA.pointB = inkPointMake(lineA.pointB.x - lineA.pointA.x, lineA.pointB.y - lineA.pointA.y);
 	lineB.pointA = inkPointMake(lineB.pointA.x - lineA.pointA.x, lineB.pointA.y - lineA.pointA.y);
 	lineB.pointB = inkPointMake(lineB.pointB.x - lineA.pointA.x, lineB.pointB.y - lineA.pointA.y);
 
+	//  Discover the length of segment A-B.
+//	distAB=sqrt(Bx*Bx+By*By);
+
 	// HAS to be greater than 0 at this point, as that test was done earlier
 	distAB = inkPointDistanceFromZero(lineA.pointB);
+
+//	theCos=Bx/distAB;
+//	theSin=By/distAB;
 
 	//  (2) Rotate the system so that point B is on the positive X axis.
 	theCos = lineA.pointB.x / distAB;
 	theSin = lineA.pointB.y / distAB;
 
-	lineB.pointA = inkPointMake(lineB.pointA.x * theCos + lineB.pointA.y * theCos,
+//	newX=Cx*theCos+Cy*theSin;
+//	Cy  =Cy*theCos-Cx*theSin; Cx=newX;
+//	newX=Dx*theCos+Dy*theSin;
+//	Dy  =Dy*theCos-Dx*theSin; Dx=newX;
+
+	lineB.pointA = inkPointMake(lineB.pointA.x * theCos + lineB.pointA.y * theSin,
 								lineB.pointA.y * theCos - lineB.pointA.x * theSin);
 	lineB.pointB = inkPointMake(lineB.pointB.x * theCos + lineB.pointB.y * theSin,
 								lineB.pointB.y * theCos - lineB.pointB.x * theSin);
+
+//	if (Cy<0. && Dy<0. || Cy>=0. && Dy>=0.) return NO;
+
+	//	ABpos=Dx+(Cx-Dx)*Dy/(Dy-Cy);
+	//	if (ABpos<0. || ABpos>distAB) return NO;
+	//	*X=Ax+ABpos*theCos;
+	//	*Y=Ay+ABpos*theSin;
 
 	// Check if they are parallel
 	float yDiff = (lineB.pointB.y - lineB.pointA.y);
