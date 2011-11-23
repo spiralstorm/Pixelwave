@@ -138,29 +138,8 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 	inkPoint curvePt = ptA;
 
 	inkBox box = inkLineExpandToBox(inkLineMake(ptA, ptB), halfScalar);
-	//inkLineBisectionTraverser(inkPointMake(vA.x, vA.y), inkPointMake(vB.x, vB.y), halfScalar, &inner, &outer);
-	//inkTriangleBisectionTraverser(inkPointMake(vA.x, vA.y), inkPointMake(vB.x, vB.y), inkPointMake(vC.x, vC.y), halfScalar, &inner, &outer);
-
-//	INKvertex vC;
-//	INKvertex vD;
 	if (previousBox != NULL)
 	{
-	/*	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
-		inkGeneratorInitVertex(&vA, box.pointA, fill);
-		inkGeneratorInitVertex(&vB, box.pointB, fill);
-		inkGeneratorInitVertex(&vC, box.pointC, fill);
-		inkGeneratorInitVertex(&vD, box.pointD, fill);
-
-		inkTessellatorVertex(&vA, tessellator);
-		inkTessellatorVertex(&vB, tessellator);
-		inkTessellatorVertex(&vC, tessellator);
-		inkTessellatorVertex(&vD, tessellator);
-		inkTessellatorEnd(tessellator);
-
-		inkTessellatorBegin(GL_POINTS, tessellator);*/
-		// previousA -> now D
-		// previousB -> now C
-
 		inkPoint innerA = box.pointD;
 		inkPoint innerB = previousBox->pointA;
 		inkPoint outerA = box.pointC;
@@ -205,7 +184,6 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 			tempPoint = innerB;
 			innerB = outerB;
 			outerB = tempPoint;
-		//	lineADIsInner = true;
 		}
 
 		if (outerAPtr)
@@ -215,55 +193,64 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 		if (innerIntersectionPtr)
 			*innerIntersectionPtr = innerIntersection;
 
+		float angleA = inkPointAngle(curvePt, outerA);
+		float angleB = inkPointAngle(curvePt, outerB);
+
+		float angleDist = inkPointDistance(outerA, curvePt);
+
+		inkPoint pt0;
+		inkPoint pt1;
+
+		float angleDiff = angleA - angleB;
+		if (fabsf(angleDiff) > M_PI)
+		{
+			angleDiff -= (M_PI + M_PI);
+		}
+
+		float miter = stroke->miterLimit;
+		if (stroke->joints == inkJointStyle_Bevel)
+		{
+			miter = (M_PI - angleDiff) / M_PI;
+		}
+
 		switch(stroke->joints)
 		{
-			case inkJointStyle_Miter:
-				inkGeneratorInitVertex(&vA, innerIntersection, fill);
-				inkTessellatorVertex(&vA, tessellator);
-				inkGeneratorInitVertex(&vA, outerIntersection, fill);
-				inkTessellatorVertex(&vA, tessellator);
-				break;
+			/// Let bevel fall into miter, I changed the miter limit for this
 			case inkJointStyle_Bevel:
+			case inkJointStyle_Miter:
+			{
+				float dist = inkPointDistance(curvePt, outerIntersection);
+				float maxDist = stroke->thickness * miter;
+
+				float percentDist = dist / maxDist;
+
+				outerA = inkPointInterpolate(outerA, outerIntersection, percentDist);
+				outerB = inkPointInterpolate(outerB, outerIntersection, percentDist);
+
+				if (inkIsEqualf(percentDist, 1.0f))
+				{
+					inkDrawPointsPlease(innerIntersection, 0xFF0000);
+					inkDrawPointsPlease(outerIntersection, 0x00FF00);
+				}
+				else
+				{
+					inkDrawPointsPlease(innerIntersection, 0xFF0000);
+					inkDrawPointsPlease(outerA, 0x00FF00);
+					inkDrawPointsPlease(outerB, 0x0000FF);
+				}
+			}
 				break;
 			case inkJointStyle_Round:
 			{
-				float angleA = inkPointAngle(curvePt, outerA);
-				float angleB = inkPointAngle(curvePt, outerB);
-
-				float angleDist = inkPointDistance(outerA, curvePt);
-
-				inkPoint pt0;
-				inkPoint pt1;
-				/*inkPoint pt0 = inkPointAdd(curvePt, inkPointFromPolar(angleDist, angleA));
-				inkPoint pt1 = inkPointAdd(curvePt, inkPointFromPolar(angleDist, angleB));*/
-
-			//	float startAngle = fminf(angleA, angleB);
-			//	float endAngle = fmaxf(angleA, angleB);
-				/*if (angleB > angleA)
-				{
-					float temp = angleA;
-					angleA = angleB;
-					angleB = temp;
-
-					inkPoint ptTemp = pt0;
-					pt0 = pt1;
-					pt1 = ptTemp;
-				}*/
-
 				unsigned int precisionPoints = 8;
-				float diff = angleA - angleB;
-				if (fabsf(diff) > M_PI)
-				{
-					diff -= (M_PI + M_PI);
-				}
-				float add = diff / ((float)precisionPoints + 1.0f);
+				float add = angleDiff / ((float)precisionPoints + 1.0f);
 
 				inkDrawPointsPlease(innerIntersection, 0x00FF00);
 				inkDrawPointsPlease(outerB, 0x0000FF);
 
 				pt0 = outerB;
 				float angle = angleB + add;
-				//for (float angle = startAngle + add; angle < endAngle; angle += add)
+
 				for (unsigned int index = 0; index < precisionPoints; ++index, angle += add)
 				{
 					pt1 = inkPointAdd(curvePt, inkPointFromPolar(angleDist, angle));

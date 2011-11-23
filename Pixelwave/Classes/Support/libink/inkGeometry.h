@@ -90,6 +90,7 @@ inkInline inkPoint inkPointAdd(inkPoint pointA, inkPoint pointB);
 inkInline inkPoint inkPointSubtract(inkPoint pointA, inkPoint pointB);
 inkInline inkPoint inkPointNormalize(inkPoint point);
 inkInline inkPoint inkPointFromPolar(float length, float angle);
+inkInline inkPoint inkPointInterpolate(inkPoint from, inkPoint to, float percent);
 inkInline float inkPointAngle(inkPoint pointA, inkPoint pointB);
 inkInline float inkPointDistanceFromZero(inkPoint point);
 inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB);
@@ -244,6 +245,11 @@ inkInline inkPoint inkPointNormalize(inkPoint point)
 	}
 	
 	return point;
+}
+
+inkInline inkPoint inkPointInterpolate(inkPoint from, inkPoint to, float percent)
+{
+	return inkPointMake(from.x + (to.x * percent), from.y + (to.y * percent));
 }
 
 inkInline float inkPointDistanceFromZero(inkPoint point)
