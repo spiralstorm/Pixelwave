@@ -116,9 +116,9 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 	if (stroke == NULL)
 		return inkBoxZero;
 
-	inkSolidFill solidFill;
+//	inkSolidFill solidFill;
 
-//#define inkDrawPointsPleaseA(p, color, a)\
+#define inkDrawPointsPleaseA(p, color, a)\
 	inkGeneratorInitVertex(&vA, p, fill);\
 	inkTessellatorVertex(&vA, tessellator);
 
@@ -126,7 +126,7 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 	solidFill = inkSolidFillMake(, a);\
 	inkGeneratorInitVertex(&vA, p, &solidFill);\
 	inkTessellatorVertex(&vA, tessellator);
-#define inkDrawPointsPleaseA(p, color, a)\
+//#define inkDrawPointsPleaseA(p, color, a)\
 	solidFill = inkSolidFillMake(color, a);\
 	inkGeneratorInitVertex(&vA, p, &solidFill);\
 	inkTessellatorVertex(&vA, tessellator);
@@ -250,7 +250,7 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 					pt1 = ptTemp;
 				}*/
 
-				unsigned int precisionPoints = 1;
+				unsigned int precisionPoints = 8;
 				float diff = angleA - angleB;
 				if (fabsf(diff) > M_PI)
 				{
@@ -269,11 +269,13 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 					pt1 = inkPointAdd(curvePt, inkPointFromPolar(angleDist, angle));
 
 					inkDrawPointsPlease(curvePt, 0x000000);
-				//	inkDrawPointsPlease(pt0, 0xFFFFFF);
+					inkDrawPointsPlease(pt0, 0xFFFFFF);
 					inkDrawPointsPlease(pt1, 0xFFFFFF);
 					pt0 = pt1;
 				}
 
+				inkDrawPointsPlease(curvePt, 0x00FF00);
+				inkDrawPointsPlease(outerA, 0xFF0000);
 				inkDrawPointsPlease(innerIntersection, 0x00FF00);
 				inkDrawPointsPlease(outerA, 0xFF0000);
 			}
@@ -299,10 +301,10 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 	inkGenerator* generator = strokeGenerator->generator;
 	inkTessellator* tessellator = generator->tessellator;
 
-//	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
+	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
 //	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
-	inkTessellatorBegin(GL_POINTS, tessellator);
+//	inkTessellatorBegin(GL_POINTS, tessellator);
 
 	INKvertex* vertex;
 
@@ -393,10 +395,10 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 		if (closedLoop)
 		{
-		/*	inkGeneratorInitVertex(&vA, innerIntersection, fill);
+			inkGeneratorInitVertex(&vA, innerIntersection, fill);
 			inkTessellatorVertex(&vA, tessellator);
 			inkGeneratorInitVertex(&vA, outerB, fill);
-			inkTessellatorVertex(&vA, tessellator);*/
+			inkTessellatorVertex(&vA, tessellator);
 		//	vB = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, 0)));
 		//	inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end);
 		}
