@@ -86,10 +86,14 @@ inkInline bool inkIsZerof(float a);
 
 inkInline inkPoint inkPointMake(float x, float y);
 
-inkInline inkPoint inkAddPoint(inkPoint pointA, inkPoint pointB);
+inkInline inkPoint inkPointAdd(inkPoint pointA, inkPoint pointB);
+inkInline inkPoint inkPointSubtract(inkPoint pointA, inkPoint pointB);
 inkInline inkPoint inkPointNormalize(inkPoint point);
+inkInline inkPoint inkPointFromPolar(float length, float angle);
+inkInline float inkPointAngle(inkPoint pointA, inkPoint pointB);
 inkInline float inkPointDistanceFromZero(inkPoint point);
 inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB);
+inkInline bool inkPointIsEqual(inkPoint pointA, inkPoint pointB);
 
 inkPoint inkClosestPointToLine(inkPoint point, inkLine line);
 float inkPointDistanceToLine(inkPoint point, inkLine line);
@@ -217,9 +221,14 @@ inkInline inkPoint inkPointMake(float x, float y)
 	return point;
 }
 
-inkInline inkPoint inkAddPoint(inkPoint pointA, inkPoint pointB)
+inkInline inkPoint inkPointAdd(inkPoint pointA, inkPoint pointB)
 {
 	return inkPointMake(pointA.x + pointB.x, pointA.y + pointB.y);
+}
+
+inkInline inkPoint inkPointSubtract(inkPoint pointA, inkPoint pointB)
+{
+	return inkPointMake(pointA.x - pointB.x, pointA.y - pointB.y);
 }
 
 inkInline inkPoint inkPointNormalize(inkPoint point)
@@ -247,6 +256,21 @@ inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB)
 	inkPoint diff = inkPointMake(pointA.x - pointB.x, pointA.y - pointB.y);
 	
 	return sqrtf((diff.x * diff.x) + (diff.y * diff.y));
+}
+
+inkInline inkPoint inkPointFromPolar(float length, float angle)
+{
+	return inkPointMake(cosf(angle) * length, sinf(angle) * length);
+}
+
+inkInline float inkPointAngle(inkPoint pointA, inkPoint pointB)
+{
+	return atan2f(pointB.y - pointA.y, pointB.x - pointA.x);
+}
+
+inkInline bool inkPointIsEqual(inkPoint pointA, inkPoint pointB)
+{
+	return inkIsEqualf(pointA.x, pointB.x) && inkIsEqualf(pointA.y, pointB.y);
 }
 
 #pragma mark -
