@@ -95,13 +95,25 @@ void inkGeneratorLineTo(inkGenerator* generator, inkPoint position)
 	generator->previous = position;
 }
 
+void splineASDFASDFASDFASDF(float x0, float y0, float x1, float y1, float x2, float y2, float t, float *x, float *y){
+	float oneMinusT = 1.0f-t;
+	float a, b, c;
+	
+	a = oneMinusT*oneMinusT;
+	b = 2*t*oneMinusT;
+	c = t*t;
+	
+	*x = x0*a + x1*b + x2*c;
+	*y = y0*a + y1*b + y2*c;
+}
+
 void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anchor)
 {
 	if (generator == NULL)
 		return;
 
 	// TODO: Implement properly instead of just making lots of LineTos
-	const unsigned int percision = 100;
+	const unsigned int percision = 32;
 
 	inkPoint nextPoint;
 	inkPoint previousPoint = generator->previous;
@@ -118,6 +130,8 @@ void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anc
 
 	for (index = 0, t = 0.0f, oneMinusT = 1.0f; index < percision; ++index, t += tIncrement, oneMinusT -= tIncrement)
 	{
+		// TODO: Remove this nonsense
+	//	splineASDFASDFASDFASDF(previousPoint.x, previousPoint.y, control.x, control.y, anchor.x, anchor.y, t, &nextPoint.x, &nextPoint.y);
 		pWeight = oneMinusT * oneMinusT;
 		cWeight = 2 * t * oneMinusT;
 		aWeight = t * t;
@@ -127,6 +141,8 @@ void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anc
 
 		inkGeneratorAddVertex(generator, nextPoint);
 	}
+
+	generator->previous = anchor;
 }
 
 void inkGeneratorEnd(inkGenerator* generator)
@@ -146,6 +162,7 @@ void inkGeneratorEnd(inkGenerator* generator)
 	inkTessellatorEndContour(generator->tessellator);
 
 	generator->currentVertices = NULL;
+	generator->previous = inkPointZero;
 }
 
 void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
