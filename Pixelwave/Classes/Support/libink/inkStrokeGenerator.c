@@ -85,35 +85,11 @@ void inkStrokeGeneratorCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint con
 	inkGeneratorCurveTo(strokeGenerator->generator, control, anchor);
 }
 
-inkInline inkLine inkStrokeGeneratorAddBisect(inkTessellator* tessellator, inkLine* previousLine, INKvertex vA, INKvertex vB, INKvertex vC, float halfScalar, void* fill)
-{
-	inkPoint inner;
-	inkPoint outer;
-
-	INKvertex vInner;
-	INKvertex vOuter;
-
-	//inkLineBisectionTraverser(inkPointMake(vA.x, vA.y), inkPointMake(vB.x, vB.y), halfScalar, &inner, &outer);
-	//inkTriangleBisectionTraverser(inkPointMake(vA.x, vA.y), inkPointMake(vB.x, vB.y), inkPointMake(vC.x, vC.y), halfScalar, &inner, &outer);
-
-	//if (previousLine != NULL)
-	{
-		inkGeneratorInitVertex(&vInner, inner, fill);
-		inkGeneratorInitVertex(&vOuter, outer, fill);
-
-		inkTessellatorVertex(&vInner, tessellator);
-		inkTessellatorVertex(&vOuter, tessellator);
-
-		printf(":: inner (%f, %f), outer (%f, %f)\n", inner.x, inner.y, outer.x, outer.y);
-	}
-
-	return inkLineMake(inner, outer);
-}
-
-
 inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBox* previousBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint* outerAPtr, inkPoint *outerBPtr, inkPoint* innerIntersectionPtr)
 {
 	if (stroke == NULL)
+		return inkBoxZero;
+	if (vA.x == vB.x && vA.y == vB.y)
 		return inkBoxZero;
 
 //	inkSolidFill solidFill;
@@ -162,6 +138,10 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 
 		if (isnan(innerIntersection.x))
 		{
+			printf("intersection is nan between lineAD((%f, %f), (%f, %f)) and linePreviousAD((%f, %f), (%f, %f))\n",
+				   lineAD.pointA.x, lineAD.pointA.y, lineAD.pointB.x, lineAD.pointB.y,
+				   linePreviousAD.pointA.x, linePreviousAD.pointA.y, linePreviousAD.pointB.x, linePreviousAD.pointB.y);
+			//return inkBoxZero;
 			// TODO:	Handle a straight (or parallel) line at some point in
 			//			the future.
 
@@ -193,18 +173,20 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 		if (innerIntersectionPtr)
 			*innerIntersectionPtr = innerIntersection;
 
-		float angleA = inkPointAngle(curvePt, outerA);
-		float angleB = inkPointAngle(curvePt, outerB);
+		float angleA = (inkPointAngle(curvePt, outerA));
+		float angleB = (inkPointAngle(curvePt, outerB));
 
 		float angleDist = inkPointDistance(outerA, curvePt);
 
 		inkPoint pt0;
 		inkPoint pt1;
 
-		float angleDiff = angleA - angleB;
-		if (fabsf(angleDiff) > M_PI)
+		float angleDiff = inkAngleOrient(angleA - angleB);
+
+		//printf("diff is %f; a = %f, b = %f\n", angleDiff * 180.0f / M_PI, angleA * 180.0f / M_PI, angleB * 180.0f / M_PI);
+		if (isnan(angleDiff))
 		{
-			angleDiff -= (M_PI + M_PI);
+			
 		}
 
 		float miter = stroke->miterLimit;
@@ -242,7 +224,7 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 				break;
 			case inkJointStyle_Round:
 			{
-				unsigned int precisionPoints = 8;
+				unsigned int precisionPoints = 1;
 				float add = angleDiff / ((float)precisionPoints + 1.0f);
 
 				inkDrawPointsPlease(innerIntersection, 0x00FF00);
@@ -327,10 +309,11 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 	vA = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, count - 2)));
 	//vB = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, count - 1)));
 
-	previousBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, NULL);
+	inkBox testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, NULL);
 
 	if (count > 2)
 	{
+		previousBox = testBox;
 		previousBoxPtr = &previousBox;
 
 		vA = vB;
@@ -344,6 +327,11 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 		//			this will ALWAYS be the case, or this will fail.
 		inkArrayForEach(generator->currentVertices, vertex)
 		{
+			if (inkBoxIsEqual(testBox, inkBoxZero) == false)
+			{
+				previousBox = testBox;
+			}
+
 			vB = *vertex;
 
 			if (closedLoop)
@@ -356,8 +344,7 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 				}
 				if (index == count - 1)
 				{
-					previousBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, NULL);
-				//	vA = vB;
+					testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, NULL);
 					break;
 				}
 			}
@@ -370,14 +357,14 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 			if (has == false)
 			{
 				has = true;
-				previousBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, &outerA, &outerB, &innerIntersection);
+				testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, &outerA, &outerB, &innerIntersection);
+				has = !inkBoxIsEqual(testBox, inkBoxZero);
 			}
 			else
-				previousBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, NULL);
+				testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, NULL);
 
 			vA = vB;
 			++index;
-		//	break;
 		}
 
 		if (closedLoop)
@@ -386,13 +373,8 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 			inkTessellatorVertex(&vA, tessellator);
 			inkGeneratorInitVertex(&vA, outerB, fill);
 			inkTessellatorVertex(&vA, tessellator);
-		//	vB = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, 0)));
-		//	inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end);
 		}
 	}
-
-//	vB = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, 0)));
-//	previousBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end);;
 
 	inkTessellatorEnd(tessellator);
 	generator->currentVertices = NULL;

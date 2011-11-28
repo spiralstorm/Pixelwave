@@ -249,7 +249,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-	inkUtilsDrawRect(vGraphicsUtil, inkRectMake(x, y, width, height));
+	inkUtilsDrawRect(vGraphicsUtil, inkRectMakev(x, y, width, height));
 }
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth
@@ -259,7 +259,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth ellipseHeight:(float)ellipseHeight
 {
-	inkUtilsDrawRoundRect(vGraphicsUtil, inkRectMake(x, y, width, height), inkSizeMake(ellipseWidth, ellipseHeight));
+	inkUtilsDrawRoundRect(vGraphicsUtil, inkRectMakev(x, y, width, height), inkSizeMake(ellipseWidth, ellipseHeight));
 }
 
 - (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius
@@ -269,7 +269,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-	inkUtilsDrawEllipse(vGraphicsUtil, inkRectMake(x, y, width, height));
+	inkUtilsDrawEllipse(vGraphicsUtil, inkRectMakev(x, y, width, height));
 }
 
 #pragma mark -

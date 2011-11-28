@@ -171,8 +171,7 @@ inkBox inkLineExpandToBox(inkLine line, float halfScalar)
 	inkLine lineA = inkLineBisectionTraverser(line, halfScalar);
 	inkLine lineB = inkLineBisectionTraverser(inkLineMake(line.pointB, line.pointA), halfScalar);
 
-	return inkBoxMake(lineA.pointA.x, lineA.pointA.y, lineA.pointB.x, lineA.pointB.y,
-					  lineB.pointA.x, lineB.pointA.y, lineB.pointB.x, lineB.pointB.y);
+	return inkBoxMake(lineA.pointA, lineA.pointB, lineB.pointA, lineB.pointB);
 }
 
 inkLine inkTriangleBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint pointC, float halfScalar)

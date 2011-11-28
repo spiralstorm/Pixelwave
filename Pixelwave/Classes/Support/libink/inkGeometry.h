@@ -79,6 +79,7 @@ extern "C" {
 inkInline bool inkIsNearlyEqualf(float a, float b, float precision);
 inkInline bool inkIsEqualf(float a, float b);
 inkInline bool inkIsZerof(float a);
+inkInline float inkAngleOrient(float angle);
 
 #pragma mark -
 #pragma mark Point Declarations
@@ -140,13 +141,17 @@ inkLine inkTriangleBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint
 #pragma mark Box Declarations
 #pragma mark -
 
-inkInline inkBox inkBoxMake(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+inkInline inkBox inkBoxMake(inkPoint pointA, inkPoint pointB, inkPoint pointC, inkPoint pointD);
+inkInline inkBox inkBoxMakev(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+inkInline bool inkBoxIsEqual(inkBox boxA, inkBox boxB);
+inkInline inkBox inkBoxConcat(inkBox boxA, inkBox boxB);
 
 #pragma mark -
 #pragma mark Rect Declarations
 #pragma mark -
 
-inkInline inkRect inkRectMake(float x, float y, float width, float height);
+inkInline inkRect inkRectMake(inkPoint origin, inkSize size);
+inkInline inkRect inkRectMakev(float x, float y, float width, float height);
 
 /*float inkRectTop(inkRect rect);
 float inkRectBottom(inkRect rect);
@@ -200,12 +205,26 @@ inkInline bool inkIsNearlyEqualf(float a, float b, float precision)
 inkInline bool inkIsEqualf(float a, float b)
 {
 	// TODO: Replace with math constant for small number
-	return inkIsNearlyEqualf(a, b, 0.000001f);
+	return inkIsNearlyEqualf(a, b, 0.00001f);
 }
 
 inkInline bool inkIsZerof(float a)
 {
 	return inkIsEqualf(a, 0.0f);
+}
+
+inkInline float inkAngleOrient(float angle)
+{
+	if (angle > M_PI)
+	{
+		return angle - (M_PI + M_PI);
+	}
+	else if (angle < -M_PI)
+	{
+		return angle + (M_PI + M_PI);
+	}
+	
+	return angle;
 }
 
 #pragma mark -
@@ -316,7 +335,17 @@ inkInline inkSize inkSizeMake(float width, float height)
 #pragma mark Rect Implemenations
 #pragma mark -
 
-inkInline inkRect inkRectMake(float x, float y, float width, float height)
+inkInline inkRect inkRectMake(inkPoint origin, inkSize size)
+{
+	inkRect rect;
+
+	rect.origin = origin;
+	rect.size = size;
+
+	return rect;
+}
+
+inkInline inkRect inkRectMakev(float x, float y, float width, float height)
 {
 	inkRect rect;
 
@@ -330,14 +359,46 @@ inkInline inkRect inkRectMake(float x, float y, float width, float height)
 #pragma mark Box Declarations
 #pragma mark -
 
-inkInline inkBox inkBoxMake(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
+inkInline inkBox inkBoxMake(inkPoint pointA, inkPoint pointB, inkPoint pointC, inkPoint pointD)
 {
 	inkBox box;
 
-	box.pointA = inkPointMake(x1, y1);
-	box.pointB = inkPointMake(x2, y2);
-	box.pointC = inkPointMake(x3, y3);
-	box.pointD = inkPointMake(x4, y4);
+	box.pointA = pointA;
+	box.pointB = pointB;
+	box.pointC = pointC;
+	box.pointD = pointD;
+
+	return box;
+}
+
+inkInline inkBox inkBoxMakev(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
+{
+	return inkBoxMake(inkPointMake(x1, y1), inkPointMake(x2, y2), inkPointMake(x3, y3), inkPointMake(x4, y4));
+}
+
+inkInline bool inkBoxIsEqual(inkBox boxA, inkBox boxB)
+{
+	return inkPointIsEqual(boxA.pointA, boxB.pointA) && inkPointIsEqual(boxA.pointB, boxB.pointB) && inkPointIsEqual(boxA.pointC, boxB.pointC) && inkPointIsEqual(boxA.pointD, boxB.pointD);
+}
+
+inkInline inkBox inkBoxConcat(inkBox boxA, inkBox boxB)
+{
+	inkBox box;
+
+	if (boxA.pointA.x < boxB.pointA.x)
+	{
+		box.pointA = boxA.pointA;
+		box.pointB = boxB.pointB;
+		box.pointC = boxB.pointC;
+		box.pointD = boxA.pointD;
+	}
+	else
+	{
+		box.pointA = boxB.pointA;
+		box.pointB = boxA.pointB;
+		box.pointC = boxA.pointC;
+		box.pointD = boxB.pointD;
+	}
 
 	return box;
 }
