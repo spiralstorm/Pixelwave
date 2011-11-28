@@ -89,6 +89,7 @@ inkInline inkPoint inkPointMake(float x, float y);
 
 inkInline inkPoint inkPointAdd(inkPoint pointA, inkPoint pointB);
 inkInline inkPoint inkPointSubtract(inkPoint pointA, inkPoint pointB);
+inkInline inkPoint inkPointMultiply(inkPoint point, float value);
 inkInline inkPoint inkPointNormalize(inkPoint point);
 inkInline inkPoint inkPointFromPolar(float length, float angle);
 inkInline inkPoint inkPointInterpolate(inkPoint from, inkPoint to, float percent);
@@ -251,6 +252,11 @@ inkInline inkPoint inkPointSubtract(inkPoint pointA, inkPoint pointB)
 	return inkPointMake(pointA.x - pointB.x, pointA.y - pointB.y);
 }
 
+inkInline inkPoint inkPointMultiply(inkPoint point, float value)
+{
+	return inkPointMake(point.x * value, point.y * value);
+}
+
 inkInline inkPoint inkPointNormalize(inkPoint point)
 {
 	float len = inkPointDistanceFromZero(point);
@@ -268,7 +274,7 @@ inkInline inkPoint inkPointNormalize(inkPoint point)
 
 inkInline inkPoint inkPointInterpolate(inkPoint from, inkPoint to, float percent)
 {
-	return inkPointMake(from.x + (to.x * percent), from.y + (to.y * percent));
+	return inkPointMake(from.x + ((to.x - from.x) * percent), from.y + ((to.y - from.y) * percent));
 }
 
 inkInline float inkPointDistanceFromZero(inkPoint point)
@@ -383,24 +389,7 @@ inkInline bool inkBoxIsEqual(inkBox boxA, inkBox boxB)
 
 inkInline inkBox inkBoxConcat(inkBox boxA, inkBox boxB)
 {
-	inkBox box;
-
-	if (boxA.pointA.x < boxB.pointA.x)
-	{
-		box.pointA = boxA.pointA;
-		box.pointB = boxB.pointB;
-		box.pointC = boxB.pointC;
-		box.pointD = boxA.pointD;
-	}
-	else
-	{
-		box.pointA = boxB.pointA;
-		box.pointB = boxA.pointB;
-		box.pointC = boxA.pointC;
-		box.pointD = boxB.pointD;
-	}
-
-	return box;
+	return inkBoxMake(boxA.pointA, boxB.pointB, boxB.pointC, boxA.pointD);
 }
 
 #pragma mark -

@@ -38,6 +38,7 @@
 #include <OpenGL/gl.h>
 #endif
 #else
+#define GLU_GL_ES
 #include <OpenGLES/ES1/gl.h>
 #endif
 

@@ -85,7 +85,7 @@ void inkStrokeGeneratorCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint con
 	inkGeneratorCurveTo(strokeGenerator->generator, control, anchor);
 }
 
-inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBox* previousBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint* outerAPtr, inkPoint *outerBPtr, inkPoint* innerIntersectionPtr)
+inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBox* previousBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise)
 {
 	if (stroke == NULL)
 		return inkBoxZero;
@@ -126,8 +126,10 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 			outerB = previousBox->pointC;
 		}
 
-		inkLine linePreviousAD = inkLineMake(previousBox->pointA, previousBox->pointD);
-		inkLine linePreviousBC = inkLineMake(previousBox->pointB, previousBox->pointC);
+		inkPoint* localLastPointPtr = &outerB;
+
+		inkLine linePreviousAD = inkLineMake(previousBox->pointD, previousBox->pointA);
+		inkLine linePreviousBC = inkLineMake(previousBox->pointC, previousBox->pointB);
 		inkLine lineAD = inkLineMake(box.pointA, box.pointD);
 		inkLine lineBC = inkLineMake(box.pointB, box.pointC);
 
@@ -141,17 +143,44 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 			printf("intersection is nan between lineAD((%f, %f), (%f, %f)) and linePreviousAD((%f, %f), (%f, %f))\n",
 				   lineAD.pointA.x, lineAD.pointA.y, lineAD.pointB.x, lineAD.pointB.y,
 				   linePreviousAD.pointA.x, linePreviousAD.pointA.y, linePreviousAD.pointB.x, linePreviousAD.pointB.y);
+			//box = inkBoxConcat(*previousBox, box);
+			//return box;
 			//return inkBoxZero;
 			// TODO:	Handle a straight (or parallel) line at some point in
 			//			the future.
 
 			// NOTE:	This only needs to be done by either AD or BC
-		}
+			float distAB = inkPointDistance(lineAD.pointA, linePreviousAD.pointB);
+			float distBA = inkPointDistance(lineAD.pointB, linePreviousAD.pointA);
 
-		outerIntersection = inkLineIntersection(lineBC, linePreviousBC);
+			if (distAB < distBA)
+			{
+				innerIntersection = inkPointMultiply(inkPointAdd(lineAD.pointA, linePreviousAD.pointB), 0.5f);
+				outerIntersection = inkPointMultiply(inkPointAdd(lineBC.pointA, linePreviousBC.pointB), 0.5f);
+			}
+			else
+			{
+				innerIntersection = inkPointMultiply(inkPointAdd(lineAD.pointB, linePreviousAD.pointA), 0.5f);
+				outerIntersection = inkPointMultiply(inkPointAdd(lineBC.pointB, linePreviousBC.pointA), 0.5f);
+			}
+
+			inkDrawPointsPlease(innerIntersection, 0xFF0000);
+			inkDrawPointsPlease(outerIntersection, 0x00FF00);
+			return box;
+		}
+		else
+			outerIntersection = inkLineIntersection(lineBC, linePreviousBC);
+
+		/*float addist = inkPointDistanceToLine(innerIntersection, lineAD);
+		float dadist = inkPointDistanceToLine(innerIntersection, linePreviousAD);
+		float bcdist = inkPointDistanceToLine(outerIntersection, lineBC);
+		float cbdist = inkPointDistanceToLine(outerIntersection, linePreviousBC);
+		printf("addist = %f, daDist = %f, bcdist = %f, cbDist = %f - ", addist, dadist, bcdist, cbdist);*/
 
 		// Is our inner really our outer?
-		if (inkIsPointInLine(innerIntersection, lineAD) == false)
+		bool innerOuterSwitch = inkIsPointInLine(innerIntersection, lineAD);
+		//if (inkIsPointInLine(innerIntersection, lineAD) == false)
+		if (clockwise == false)//innerOuterSwitch == false)
 		{
 			inkPoint tempPoint = innerIntersection;
 			innerIntersection = outerIntersection;
@@ -164,14 +193,36 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 			tempPoint = innerB;
 			innerB = outerB;
 			outerB = tempPoint;
+		//	printf("opp\n");
 		}
+		/*else
+		{
+			// TODO:	WTF? Need to figure out why I need to do this, it
+			//			logically shouldn't need to be done.
+			inkPoint tempPoint = innerIntersection;
+			innerIntersection = outerIntersection;
+			outerIntersection = tempPoint;
 
-		if (outerAPtr)
-			*outerAPtr = outerA;
-		if (outerBPtr)
-			*outerBPtr = outerB;
-		if (innerIntersectionPtr)
-			*innerIntersectionPtr = innerIntersection;
+			tempPoint = innerA;
+			innerA = outerA;
+			outerA = tempPoint;
+			
+			tempPoint = innerB;
+			innerB = outerB;
+			outerB = tempPoint;
+
+			tempPoint = outerA;
+			outerA = outerB;
+			outerB = tempPoint;
+		//	printf("not opp\n");
+		}*/
+
+		if (innerOuterSwitch == !clockwise)
+		{
+			inkPoint tempPoint = outerA;
+			outerA = outerB;
+			outerB = tempPoint;
+		}
 
 		float angleA = (inkPointAngle(curvePt, outerA));
 		float angleB = (inkPointAngle(curvePt, outerB));
@@ -189,6 +240,7 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 			
 		}
 
+		//stroke->joints = inkJointStyle_Miter;
 		float miter = stroke->miterLimit;
 		if (stroke->joints == inkJointStyle_Bevel)
 		{
@@ -204,21 +256,26 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 				float dist = inkPointDistance(curvePt, outerIntersection);
 				float maxDist = stroke->thickness * miter;
 
-				float percentDist = dist / maxDist;
-
-				outerA = inkPointInterpolate(outerA, outerIntersection, percentDist);
-				outerB = inkPointInterpolate(outerB, outerIntersection, percentDist);
+				float percentDist = maxDist / dist;
+				percentDist = 0.1f;
+				if (percentDist > 1.0f)
+					percentDist = 1.0f;
 
 				if (inkIsEqualf(percentDist, 1.0f))
 				{
 					inkDrawPointsPlease(innerIntersection, 0xFF0000);
 					inkDrawPointsPlease(outerIntersection, 0x00FF00);
+					localLastPointPtr = &outerIntersection;
 				}
 				else
 				{
+					outerA = inkPointInterpolate(outerA, outerIntersection, percentDist);
+					outerB = inkPointInterpolate(outerB, outerIntersection, percentDist);
+
+					inkDrawPointsPlease(innerIntersection, 0xFF0000);
+					inkDrawPointsPlease(outerB, 0x0000FF);
 					inkDrawPointsPlease(innerIntersection, 0xFF0000);
 					inkDrawPointsPlease(outerA, 0x00FF00);
-					inkDrawPointsPlease(outerB, 0x0000FF);
 				}
 			}
 				break;
@@ -233,7 +290,8 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 				pt0 = outerB;
 				float angle = angleB + add;
 
-				for (unsigned int index = 0; index < precisionPoints; ++index, angle += add)
+				unsigned int index;
+				for (index = 0; index < precisionPoints; ++index, angle += add)
 				{
 					pt1 = inkPointAdd(curvePt, inkPointFromPolar(angleDist, angle));
 
@@ -247,11 +305,18 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 				inkDrawPointsPlease(outerA, 0xFF0000);
 				inkDrawPointsPlease(innerIntersection, 0x00FF00);
 				inkDrawPointsPlease(outerA, 0xFF0000);
+
+				//lastPoint = outerB;
 			}
 				break;
 			default:
 				break;
 		}
+
+		if (lastPointPtr)
+			*lastPointPtr = *localLastPointPtr;
+		if (innerIntersectionPtr)
+			*innerIntersectionPtr = innerIntersection;
 	}
 	
 	return box;
@@ -300,8 +365,7 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 	bool end = start || !closedLoop;
 	bool has = false;
 
-	inkPoint outerA;
-	inkPoint outerB;
+	inkPoint lastPoint;
 	inkPoint innerIntersection;
 
 	// If count is 2, which is the minimum (it will be a line), then a will be 0
@@ -309,7 +373,9 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 	vA = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, count - 2)));
 	//vB = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, count - 1)));
 
-	inkBox testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, NULL);
+	bool clockwise;
+
+	inkBox testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, false);
 
 	if (count > 2)
 	{
@@ -322,6 +388,21 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 		start = false;
 		end = false;
+
+		float sum = 0.0f;
+		INKvertex previousVertex = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, 0)));
+		inkArrayForEach(generator->currentVertices, vertex)
+		{
+			if (index++ == 0)
+				continue;
+
+			sum += (vertex->x - previousVertex.x) * (vertex->y + previousVertex.y);
+			previousVertex = *vertex;
+		}
+
+		clockwise = sum >= 0.0f;
+
+		index = 0;
 
 		// TODO:	inkTessellatorVertex copies the vertex right now, make sure
 		//			this will ALWAYS be the case, or this will fail.
@@ -344,7 +425,7 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 				}
 				if (index == count - 1)
 				{
-					testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, NULL);
+					testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, clockwise);
 					break;
 				}
 			}
@@ -357,11 +438,11 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 			if (has == false)
 			{
 				has = true;
-				testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, &outerA, &outerB, &innerIntersection);
+				testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, &lastPoint, &innerIntersection, clockwise);
 				has = !inkBoxIsEqual(testBox, inkBoxZero);
 			}
 			else
-				testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, NULL);
+				testBox = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, vA, vB, halfScalar, fill, start, end, NULL, NULL, clockwise);
 
 			vA = vB;
 			++index;
@@ -371,7 +452,7 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 		{
 			inkGeneratorInitVertex(&vA, innerIntersection, fill);
 			inkTessellatorVertex(&vA, tessellator);
-			inkGeneratorInitVertex(&vA, outerB, fill);
+			inkGeneratorInitVertex(&vA, lastPoint, fill);
 			inkTessellatorVertex(&vA, tessellator);
 		}
 	}

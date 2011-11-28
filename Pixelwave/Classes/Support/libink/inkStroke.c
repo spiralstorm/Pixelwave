@@ -23,6 +23,10 @@ inkStroke inkStrokeMake(float thickness, bool pixelHinting, inkLineScaleMode sca
 	stroke.scaleMode = scaleMode;
 	stroke.caps = caps;
 	stroke.joints = joints;
+
+	if (miterLimit < 1.0f)
+		miterLimit = 1.0f;
+
 	stroke.miterLimit = miterLimit;
 
 	return stroke;

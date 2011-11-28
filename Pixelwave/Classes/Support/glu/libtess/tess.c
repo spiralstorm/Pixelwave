@@ -32,7 +32,12 @@
 **
 */
 
+#ifdef QT_CORE_LIB
+#include "../include/gluos.h"
+#else
 #include "gluos.h"
+#endif
+
 #include <stddef.h>
 #include <assert.h>
 #include <setjmp.h>

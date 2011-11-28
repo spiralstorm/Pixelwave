@@ -101,7 +101,7 @@ void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anc
 		return;
 
 	// TODO: Implement properly instead of just making lots of LineTos
-	const unsigned int percision = 8;
+	const unsigned int percision = 3;
 
 	inkPoint nextPoint;
 	inkPoint previousStartPoint = generator->previous;
