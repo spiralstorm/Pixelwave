@@ -85,35 +85,87 @@ void inkStrokeGeneratorCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint con
 	inkGeneratorCurveTo(strokeGenerator->generator, control, anchor);
 }
 
-inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBox* previousBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise)
+inkInline void inkStrokeGeneratorAddDrawPoint(inkPoint point, inkTessellator* tessellator, void* fill)
+{
+	INKvertex vertex;
+
+	inkGeneratorInitVertex(&vertex, point, fill);
+	inkTessellatorVertex(&vertex, tessellator);
+}
+
+void inkStrokeGeneratorRound(inkTessellator* tessellator, void* fill, inkPoint pivotPoint, inkPoint startPoint, float startAngle, float angleDiff, float angleDist)
+{
+	unsigned int precisionPoints = 1;
+	float add = angleDiff / ((float)precisionPoints + 1.0f);
+
+	inkPoint pt0 = startPoint;
+	inkPoint pt1;
+
+	float angle = startAngle + add;
+
+	unsigned int index;
+	for (index = 0; index < precisionPoints; ++index, angle += add)
+	{
+		pt1 = inkPointAdd(pivotPoint, inkPointFromPolar(angleDist, angle));
+
+		inkStrokeGeneratorAddDrawPoint(pivotPoint, tessellator, fill);
+		inkStrokeGeneratorAddDrawPoint(pt0, tessellator, fill);
+		inkStrokeGeneratorAddDrawPoint(pt1, tessellator, fill);
+		pt0 = pt1;
+	}
+}
+
+void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, void* fill, inkPoint pivot, inkPoint ptA, inkPoint ptB, bool start)
+{
+	inkPoint pivotPt = pivot;
+
+	float angleA = (inkPointAngle(pivotPt, ptA));
+	float angleB = (inkPointAngle(pivotPt, ptB));
+
+	float angleDist = inkPointDistance(ptA, pivotPt);
+
+	float angleDiff = inkAngleOrient(angleA - angleB);
+
+	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
+	inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
+//	inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
+//	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
+
+	inkStrokeGeneratorRound(tessellator, fill, pivotPt, ptA, angleA, start ? -angleDiff : angleDiff, angleDist);
+
+//	inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
+	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
+	inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
+}
+
+inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBox* previousBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise)
 {
 	if (stroke == NULL)
 		return inkBoxZero;
 	if (vA.x == vB.x && vA.y == vB.y)
 		return inkBoxZero;
 
-//	inkSolidFill solidFill;
+#define inkDrawPointsPleaseA(p, color, a) inkStrokeGeneratorAddDrawPoint(p, tessellator, fill)
 
-#define inkDrawPointsPleaseA(p, color, a)\
-	inkGeneratorInitVertex(&vA, p, fill);\
-	inkTessellatorVertex(&vA, tessellator);
-
-//#define inkDrawPointsPleaseA(p, color, a)\
-	solidFill = inkSolidFillMake(, a);\
-	inkGeneratorInitVertex(&vA, p, &solidFill);\
-	inkTessellatorVertex(&vA, tessellator);
-//#define inkDrawPointsPleaseA(p, color, a)\
-	solidFill = inkSolidFillMake(color, a);\
-	inkGeneratorInitVertex(&vA, p, &solidFill);\
-	inkTessellatorVertex(&vA, tessellator);
 #define inkDrawPointsPlease(p, color) inkDrawPointsPleaseA(p, color, 1.0f)
 
 	inkPoint ptA = inkPointMake(vA.x, vA.y);
 	inkPoint ptB = inkPointMake(vB.x, vB.y);
 
-	inkPoint curvePt = ptA;
-
 	inkBox box = inkLineExpandToBox(inkLineMake(ptA, ptB), halfScalar);
+
+	if (start == true)
+	{
+	//	inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptA, box.pointC, box.pointD, true);
+	}
+
+	if (end == true)
+	{
+	//	inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptB, box.pointB, box.pointA, false);
+	}
+
+	inkPoint pivotPt = ptA;
+
 	if (previousBox != NULL)
 	{
 		inkPoint innerA = box.pointD;
@@ -217,20 +269,17 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 		//	printf("not opp\n");
 		}*/
 
-		if (innerOuterSwitch == !clockwise)
+		if (innerOuterSwitch != clockwise)
 		{
 			inkPoint tempPoint = outerA;
 			outerA = outerB;
 			outerB = tempPoint;
 		}
 
-		float angleA = (inkPointAngle(curvePt, outerA));
-		float angleB = (inkPointAngle(curvePt, outerB));
+		float angleA = (inkPointAngle(pivotPt, outerA));
+		float angleB = (inkPointAngle(pivotPt, outerB));
 
-		float angleDist = inkPointDistance(outerA, curvePt);
-
-		inkPoint pt0;
-		inkPoint pt1;
+		float angleDist = inkPointDistance(outerA, pivotPt);
 
 		float angleDiff = inkAngleOrient(angleA - angleB);
 
@@ -253,7 +302,7 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 			case inkJointStyle_Bevel:
 			case inkJointStyle_Miter:
 			{
-				float dist = inkPointDistance(curvePt, outerIntersection);
+				float dist = inkPointDistance(pivotPt, outerIntersection);
 				float maxDist = stroke->thickness * miter;
 
 				float percentDist = maxDist / dist;
@@ -281,32 +330,15 @@ inkInline inkBox inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessel
 				break;
 			case inkJointStyle_Round:
 			{
-				unsigned int precisionPoints = 1;
-				float add = angleDiff / ((float)precisionPoints + 1.0f);
-
 				inkDrawPointsPlease(innerIntersection, 0x00FF00);
 				inkDrawPointsPlease(outerB, 0x0000FF);
 
-				pt0 = outerB;
-				float angle = angleB + add;
+				inkStrokeGeneratorRound(tessellator, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
 
-				unsigned int index;
-				for (index = 0; index < precisionPoints; ++index, angle += add)
-				{
-					pt1 = inkPointAdd(curvePt, inkPointFromPolar(angleDist, angle));
-
-					inkDrawPointsPlease(curvePt, 0x000000);
-					inkDrawPointsPlease(pt0, 0xFFFFFF);
-					inkDrawPointsPlease(pt1, 0xFFFFFF);
-					pt0 = pt1;
-				}
-
-				inkDrawPointsPlease(curvePt, 0x00FF00);
+				inkDrawPointsPlease(pivotPt, 0x00FF00);
 				inkDrawPointsPlease(outerA, 0xFF0000);
 				inkDrawPointsPlease(innerIntersection, 0x00FF00);
 				inkDrawPointsPlease(outerA, 0xFF0000);
-
-				//lastPoint = outerB;
 			}
 				break;
 			default:
