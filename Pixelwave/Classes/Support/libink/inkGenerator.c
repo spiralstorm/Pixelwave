@@ -155,14 +155,17 @@ void inkGeneratorCubicCurveTo(inkGenerator* generator, inkPoint controlA, inkPoi
 	float t2;
 	float t3;
 
-	inkPoint c = inkPointScale(inkPointSubtract(previousStartPoint, controlA), 3.0f);
-	inkPoint b = inkPointScale(inkPointSubtract(inkPointSubtract(controlA, controlB), c), 3.0f);
+	inkPoint c = inkPointScale(inkPointSubtract(controlA, previousStartPoint), 3.0f);
+	inkPoint b = inkPointScale(inkPointSubtract(inkPointSubtract(controlB, controlA), c), 3.0f);
 	inkPoint a = inkPointSubtract(anchor, inkPointSubtract(previousStartPoint, inkPointSubtract(c, b)));
 
 	unsigned int index;
 
-	for (index = 0, t = 0.0f, t2 = t * t, t3 = t2 * t; index < inkGeneratorCurvePercision; ++index, t += tIncrement, t2 = t * t, t3 = t2 * t)
+	for (index = 0, t = 0.0f; index < inkGeneratorCurvePercision; ++index, t += tIncrement)
 	{
+		t2 = t * t;
+		t3 = t2 * t;
+
 		nextPoint = inkPointMake((a.x * t3) + (b.x * t2) + (c.x * t) + previousStartPoint.x,
 								 (a.y * t3) + (b.y * t2) + (c.y * t) + previousStartPoint.y);
 
