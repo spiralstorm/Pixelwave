@@ -205,8 +205,9 @@ inkInline bool inkIsNearlyEqualf(float a, float b, float precision)
 
 inkInline bool inkIsEqualf(float a, float b)
 {
-	// TODO: Replace with math constant for small number
-	return inkIsNearlyEqualf(a, b, 0.00001f);
+	// TODO:	Replace with math constant for small number, 0.000015f was a
+	//			'off' value that has come up, keep this in mind.
+	return inkIsNearlyEqualf(a, b, 0.00005f);
 }
 
 inkInline bool inkIsZerof(float a)
