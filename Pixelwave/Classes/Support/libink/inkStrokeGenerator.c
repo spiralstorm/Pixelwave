@@ -321,7 +321,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			// Seriously, wtf happened?
 		}
 
-		//stroke->joints = inkJointStyle_Miter;
+		stroke->joints = inkJointStyle_Miter;
 		float miter = stroke->miterLimit;
 		if (stroke->joints == inkJointStyle_Bevel)
 		{
@@ -353,10 +353,20 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 					outerA = inkPointInterpolate(outerA, outerIntersection, percentDist);
 					outerB = inkPointInterpolate(outerB, outerIntersection, percentDist);
 
-					inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					if (flip)
+					{
+						inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
+						inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
+					}
+					else
+					{
+						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
+						inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
+						inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					}
 				}
 			}
 				break;

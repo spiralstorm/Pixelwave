@@ -10,7 +10,7 @@
 
 #include "inkFill.h"
 
-const unsigned int inkGeneratorCurvePercision = 5;
+const unsigned int inkGeneratorCurvePercision = 13;
 
 inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill)
 {
@@ -107,17 +107,10 @@ void inkGeneratorQuadraticCurveTo(inkGenerator* generator, inkPoint control, ink
 	inkPoint nextPoint;
 	inkPoint d = generator->previous;
 	inkPoint previousPoint = d;
-	
+
 	float tIncrement = 1.0f / (float)(inkGeneratorCurvePercision - 1);
 	float t;
 	float t2;
-
-//	x = bx*t2 + cx*t +dx
-//	y = by*t2 + cy*t +dy
-//	with
-//	dx = P0.x	dy = P0.y
-//	cx = 2*P1.x-2*P0.x	cy = 2*P1.y-2*P0.y
-//	bx = P2.x-2*P1.x+P0.x	by = P2.y-2*P1.y+P0.y
 
 	inkPoint c = inkPointSubtract(inkPointScale(control, 2.0f), inkPointScale(d, 2.0f));
 	inkPoint b = inkPointAdd(inkPointSubtract(anchor, inkPointScale(control, 2.0f)), d);
@@ -134,42 +127,10 @@ void inkGeneratorQuadraticCurveTo(inkGenerator* generator, inkPoint control, ink
 		if (inkPointIsEqual(previousPoint, nextPoint) == false)
 		{
 			previousPoint = nextPoint;
-			
+
 			inkGeneratorAddVertex(generator, nextPoint);
 		}
 	}
-
-	/*inkPoint nextPoint;
-	inkPoint previousStartPoint = generator->previous;
-	inkPoint previousPoint = previousStartPoint;
-
-	float tIncrement = 1.0f / (float)(inkGeneratorCurvePercision - 1);
-	float t;
-	float oneMinusT;
-	float twoT;
-
-	float pWeight;
-	float cWeight;
-	float aWeight;
-
-	unsigned int index;
-
-	for (index = 0, t = 0.0f, oneMinusT = 1.0f, twoT = t * 2.0f; index < inkGeneratorCurvePercision; ++index, t += tIncrement, oneMinusT -= tIncrement, twoT += tIncrement + tIncrement)
-	{
-		pWeight = oneMinusT * oneMinusT;
-		cWeight = twoT * oneMinusT;
-		aWeight = t * t;
-
-		nextPoint = inkPointMake((previousStartPoint.x * pWeight) + (control.x * cWeight) + (anchor.x * aWeight),
-								 (previousStartPoint.y * pWeight) + (control.y * cWeight) + (anchor.y * aWeight));
-
-		if (inkPointIsEqual(previousPoint, nextPoint) == false)
-		{
-			previousPoint = nextPoint;
-
-			inkGeneratorAddVertex(generator, nextPoint);
-		}
-	}*/
 
 	generator->previous = anchor;
 }
@@ -189,14 +150,6 @@ void inkGeneratorCubicCurveTo(inkGenerator* generator, inkPoint controlA, inkPoi
 	float t;
 	float t2;
 	float t3;
-
-//	x = a.x*t3 + b.x*t2 + c.x*t +d.x
-//	y = a.y*t3 + b.y*t2 + c.y*t +d.y
-//	Where
-//	dx = P0.x	dy = P0.y
-//	cx = 3*P1.x-3*P0.x	cy = 3*P1.y-3*P0.y
-//	bx = 3*P2.x-6*P1.x+3*P0.x	by = 3*P2.y-6*P1.y+3*P0.y
-//	ax = P3.x-3*P2.x+3*P1.x-P0.x	ay = P3.y-3*P2.y+3*P1.y-P0.y
 
 	inkPoint c = inkPointSubtract(inkPointScale(controlA, 3.0f), inkPointScale(d, 3.0f));
 	inkPoint b = inkPointAdd(inkPointSubtract(inkPointScale(controlB, 3.0f), inkPointScale(controlA, 6.0f)), inkPointScale(d, 3.0f));
