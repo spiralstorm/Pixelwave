@@ -124,6 +124,8 @@ void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, void
 
 	float angleDist = inkPointDistance(ptA, pivotPt);
 
+	// Should always return M_PI or -M_PI as a cap always comes from a line not
+	// a joint.
 	float angleDiff = inkAngleOrient(angleA - angleB);
 
 //	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
@@ -160,10 +162,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 
 	if (start == true)
 	{
-	//	if (clockwise)
-	//		inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptA, box.pointC, box.pointD, clockwise);
-	//	else
-			inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptA, box.pointD, box.pointC, clockwise);
+		inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptA, box.pointD, box.pointC, clockwise);
 	}
 
 	inkPoint pivotPt = ptA;
@@ -379,10 +378,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 
 	if (end == true)
 	{
-	//	if (clockwise)
-	//		inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptB, box.pointA, box.pointB, !clockwise);
-	//	else
-			inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptB, box.pointB, box.pointA, !clockwise);
+		inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptB, box.pointB, box.pointA, !clockwise);
 	}
 
 returnStatement:
@@ -405,9 +401,9 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 	inkGenerator* generator = strokeGenerator->generator;
 	inkTessellator* tessellator = generator->tessellator;
 
-	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
+//	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
-//	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
+	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_POINTS, tessellator);
 
 	INKvertex* vertex;

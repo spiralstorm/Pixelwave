@@ -87,6 +87,8 @@ inkInline float inkAngleOrient(float angle);
 
 inkInline inkPoint inkPointMake(float x, float y);
 
+inkInline inkPoint inkPointFromSize(inkSize size);
+
 inkInline inkPoint inkPointAdd(inkPoint pointA, inkPoint pointB);
 inkInline inkPoint inkPointSubtract(inkPoint pointA, inkPoint pointB);
 inkInline inkPoint inkPointMultiply(inkPoint point, float value);
@@ -124,6 +126,8 @@ inkPoint inkPointPolar(float length, float angle);*/
 
 inkInline inkSize inkSizeMake(float width, float height);
 
+inkInline inkSize inkSizeFromPoint(inkPoint point);
+
 //bool inkSizeIsEqual(inkSize sizeA, inkSize sizeB);
 
 #pragma mark -
@@ -144,6 +148,7 @@ inkLine inkTriangleBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint
 
 inkInline inkBox inkBoxMake(inkPoint pointA, inkPoint pointB, inkPoint pointC, inkPoint pointD);
 inkInline inkBox inkBoxMakev(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+inkInline inkBox inkBoxFromRect(inkRect rect);
 inkInline bool inkBoxIsEqual(inkBox boxA, inkBox boxB);
 inkInline inkBox inkBoxConcat(inkBox boxA, inkBox boxB);
 
@@ -153,6 +158,8 @@ inkInline inkBox inkBoxConcat(inkBox boxA, inkBox boxB);
 
 inkInline inkRect inkRectMake(inkPoint origin, inkSize size);
 inkInline inkRect inkRectMakev(float x, float y, float width, float height);
+
+inkInline inkRect inkRectFromBox(inkBox box);
 
 /*float inkRectTop(inkRect rect);
 float inkRectBottom(inkRect rect);
@@ -241,6 +248,11 @@ inkInline inkPoint inkPointMake(float x, float y)
 	point.y = y;
 
 	return point;
+}
+
+inkInline inkPoint inkPointFromSize(inkSize size)
+{
+	return inkPointMake(size.width, size.height);
 }
 
 inkInline inkPoint inkPointAdd(inkPoint pointA, inkPoint pointB)
@@ -338,6 +350,11 @@ inkInline inkSize inkSizeMake(float width, float height)
 	return size;
 }
 
+inkInline inkSize inkSizeFromPoint(inkPoint point)
+{
+	return inkSizeMake(point.x, point.y);
+}
+
 #pragma mark -
 #pragma mark Rect Implemenations
 #pragma mark -
@@ -362,6 +379,11 @@ inkInline inkRect inkRectMakev(float x, float y, float width, float height)
 	return rect;
 }
 
+inkInline inkRect inkRectFromBox(inkBox box)
+{
+	return inkRectMake(box.pointA, inkSizeFromPoint(inkPointSubtract(box.pointC, box.pointA)));
+}
+
 #pragma mark -
 #pragma mark Box Declarations
 #pragma mark -
@@ -381,6 +403,11 @@ inkInline inkBox inkBoxMake(inkPoint pointA, inkPoint pointB, inkPoint pointC, i
 inkInline inkBox inkBoxMakev(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
 {
 	return inkBoxMake(inkPointMake(x1, y1), inkPointMake(x2, y2), inkPointMake(x3, y3), inkPointMake(x4, y4));
+}
+
+inkInline inkBox inkBoxFromRect(inkRect rect)
+{
+	return inkBoxMake(rect.origin, inkPointAdd(rect.origin, inkPointMake(rect.size.width, 0)), inkPointAdd(rect.origin, inkPointFromSize(rect.size)), inkPointAdd(rect.origin, inkPointMake(0, rect.size.height)));
 }
 
 inkInline bool inkBoxIsEqual(inkBox boxA, inkBox boxB)
