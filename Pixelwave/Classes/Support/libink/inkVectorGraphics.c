@@ -155,6 +155,7 @@ void inkRasterize(inkCanvas* canvas)
 
 				inkFillGeneratorQuadraticCurveTo(fillGenerator, command->control, command->anchor);
 				inkStrokeGeneratorQuadraticCurveTo(strokeGenerator, command->control, command->anchor);
+				break;
 			}
 			case inkCommandType_CubicCurveTo:
 			{

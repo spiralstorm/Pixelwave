@@ -135,7 +135,7 @@ typedef enum
 	inkWindingRule_AbsGeqTwo
 } inkWindingRule;
 
-/*typedef enum
+typedef enum
 {
 	inkPathCommand_NoOp = 0,
 	inkPathCommand_MoveTo,
@@ -143,6 +143,6 @@ typedef enum
 	inkPathCommand_CurveTo,
 	inkPathCommand_WideMoveTo,
 	inkPathCommand_WideLineTo
-} inkPathCommand;*/
+} inkPathCommand;
 
 #endif
