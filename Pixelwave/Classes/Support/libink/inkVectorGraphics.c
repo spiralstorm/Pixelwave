@@ -36,11 +36,26 @@ void inkLineTo(inkCanvas* canvas, inkPoint position)
 
 void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
 {
-	inkCurveToCommand command;
+	inkQuadraticCurveTo(canvas, control, anchor);
+}
+
+void inkQuadraticCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
+{
+	inkQuadraticCurveToCommand command;
 	command.control = control;
 	command.anchor = anchor;
 
-	inkAddCommand(canvas, inkCommandType_CurveTo, &command);
+	inkAddCommand(canvas, inkCommandType_QuadraticCurveTo, &command);
+}
+
+void inkCubicCurveTo(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor)
+{
+	inkCubicCurveToCommand command;
+	command.controlA = controlA;
+	command.controlB = controlB;
+	command.anchor = anchor;
+
+	inkAddCommand(canvas, inkCommandType_CubicCurveTo, &command);
 }
 
 void inkBeginFill(inkCanvas* canvas, inkSolidFill solidFill)
@@ -89,6 +104,11 @@ void inkEndFill(inkCanvas* canvas)
 	inkAddCommand(canvas, inkCommandType_EndFill, NULL);
 }
 
+void inkLineStyleNone(inkCanvas* canvas)
+{
+	inkLineStyle(canvas, inkStrokeDefault, inkSolidFillDefault);
+}
+
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
 void inkRasterize(inkCanvas* canvas)
@@ -129,12 +149,19 @@ void inkRasterize(inkCanvas* canvas)
 				inkStrokeGeneratorLineTo(strokeGenerator, *point);
 			}
 				break;
-			case inkCommandType_CurveTo:
+			case inkCommandType_QuadraticCurveTo:
 			{
-				inkCurveToCommand* command = (inkCurveToCommand*)(commandData);
+				inkQuadraticCurveToCommand* command = (inkQuadraticCurveToCommand*)(commandData);
 
-				inkFillGeneratorCurveTo(fillGenerator, command->control, command->anchor);
-				inkStrokeGeneratorCurveTo(strokeGenerator, command->control, command->anchor);
+				inkFillGeneratorQuadraticCurveTo(fillGenerator, command->control, command->anchor);
+				inkStrokeGeneratorQuadraticCurveTo(strokeGenerator, command->control, command->anchor);
+			}
+			case inkCommandType_CubicCurveTo:
+			{
+				inkCubicCurveToCommand* command = (inkCubicCurveToCommand*)(commandData);
+
+				inkFillGeneratorCubicCurveTo(fillGenerator, command->controlA, command->controlB, command->anchor);
+				inkStrokeGeneratorCubicCurveTo(strokeGenerator, command->controlA, command->controlB, command->anchor);
 			}
 				break;
 			case inkCommandType_SolidFill:

@@ -10,6 +10,8 @@
 
 #include "inkFill.h"
 
+const unsigned int inkGeneratorCurvePercision = 3;
+
 inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill)
 {
 	inkGenerator* generator = malloc(sizeof(inkGenerator));
@@ -95,19 +97,18 @@ void inkGeneratorLineTo(inkGenerator* generator, inkPoint position)
 	generator->previous = position;
 }
 
-void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anchor)
+void inkGeneratorQuadraticCurveTo(inkGenerator* generator, inkPoint control, inkPoint anchor)
 {
 	if (generator == NULL)
 		return;
 
 	// TODO: Implement properly instead of just making lots of LineTos
-	const unsigned int percision = 3;
 
 	inkPoint nextPoint;
 	inkPoint previousStartPoint = generator->previous;
 	inkPoint previousPoint = previousStartPoint;
 
-	float tIncrement = 1.0f / (float)(percision - 1);
+	float tIncrement = 1.0f / (float)(inkGeneratorCurvePercision - 1);
 	float t;
 	float oneMinusT;
 	float twoT;
@@ -118,7 +119,7 @@ void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anc
 
 	unsigned int index;
 
-	for (index = 0, t = 0.0f, oneMinusT = 1.0f, twoT = t * 2.0f; index < percision; ++index, t += tIncrement, oneMinusT -= tIncrement, twoT += tIncrement + tIncrement)
+	for (index = 0, t = 0.0f, oneMinusT = 1.0f, twoT = t * 2.0f; index < inkGeneratorCurvePercision; ++index, t += tIncrement, oneMinusT -= tIncrement, twoT += tIncrement + tIncrement)
 	{
 		pWeight = oneMinusT * oneMinusT;
 		cWeight = twoT * oneMinusT;
@@ -131,6 +132,44 @@ void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anc
 		{
 			previousPoint = nextPoint;
 
+			inkGeneratorAddVertex(generator, nextPoint);
+		}
+	}
+
+	generator->previous = anchor;
+}
+
+void inkGeneratorCubicCurveTo(inkGenerator* generator, inkPoint controlA, inkPoint controlB, inkPoint anchor)
+{
+	if (generator == NULL)
+		return;
+
+	// TODO: Implement properly instead of just making lots of LineTos
+
+	inkPoint nextPoint;
+	inkPoint previousStartPoint = generator->previous;
+	inkPoint previousPoint = previousStartPoint;
+
+	float tIncrement = 1.0f / (float)(inkGeneratorCurvePercision - 1);
+	float t;
+	float t2;
+	float t3;
+
+	inkPoint c = inkPointScale(inkPointSubtract(previousStartPoint, controlA), 3.0f);
+	inkPoint b = inkPointScale(inkPointSubtract(inkPointSubtract(controlA, controlB), c), 3.0f);
+	inkPoint a = inkPointSubtract(anchor, inkPointSubtract(previousStartPoint, inkPointSubtract(c, b)));
+
+	unsigned int index;
+
+	for (index = 0, t = 0.0f, t2 = t * t, t3 = t2 * t; index < inkGeneratorCurvePercision; ++index, t += tIncrement, t2 = t * t, t3 = t2 * t)
+	{
+		nextPoint = inkPointMake((a.x * t3) + (b.x * t2) + (c.x * t) + previousStartPoint.x,
+								 (a.y * t3) + (b.y * t2) + (c.y * t) + previousStartPoint.y);
+
+		if (inkPointIsEqual(previousPoint, nextPoint) == false)
+		{
+			previousPoint = nextPoint;
+			
 			inkGeneratorAddVertex(generator, nextPoint);
 		}
 	}
@@ -176,7 +215,7 @@ void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
 		case inkFillType_Solid:
 		{
 			inkSolidFill* solidFill = (inkSolidFill *)fill;
-			
+
 			// TODO: Use a real color checker instead
 			vertex->r = 0xFF & (solidFill->color >> 16);
 			vertex->g = 0xFF & (solidFill->color >> 8);
@@ -187,9 +226,9 @@ void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
 		case inkFillType_Bitmap:
 		{
 			inkBitmapFill* bitmapFill = (inkBitmapFill *)fill;
-			
-			inkPoint convertedPosition = inkMatrixTransformPoint(bitmapFill->matrix, position);
-			
+
+			inkPoint convertedPosition = inkMatrixTransformPoint(inkMatrixInvert(bitmapFill->matrix), position);
+
 			vertex->s = convertedPosition.x * bitmapFill->bitmapInfo.one_textureWidth;
 			vertex->t = convertedPosition.y * bitmapFill->bitmapInfo.one_textureHeight;
 		}

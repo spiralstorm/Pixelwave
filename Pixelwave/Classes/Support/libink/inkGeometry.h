@@ -91,10 +91,14 @@ inkInline inkPoint inkPointFromSize(inkSize size);
 
 inkInline inkPoint inkPointAdd(inkPoint pointA, inkPoint pointB);
 inkInline inkPoint inkPointSubtract(inkPoint pointA, inkPoint pointB);
-inkInline inkPoint inkPointMultiply(inkPoint point, float value);
+inkInline inkPoint inkPointMultiply(inkPoint pointA, inkPoint pointB);
+inkInline inkPoint inkPointDivide(inkPoint pointA, inkPoint pointB);
+inkInline inkPoint inkPointScale(inkPoint point, float value);
 inkInline inkPoint inkPointNormalize(inkPoint point);
+inkInline inkPoint inkPointNormalizev(inkPoint point, float length);
 inkInline inkPoint inkPointFromPolar(float length, float angle);
 inkInline inkPoint inkPointInterpolate(inkPoint from, inkPoint to, float percent);
+
 inkInline float inkPointAngle(inkPoint pointA, inkPoint pointB);
 inkInline float inkPointDistanceFromZero(inkPoint point);
 inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB);
@@ -103,22 +107,6 @@ inkInline bool inkPointIsEqual(inkPoint pointA, inkPoint pointB);
 inkPoint inkClosestPointToLine(inkPoint point, inkLine line);
 float inkPointDistanceToLine(inkPoint point, inkLine line);
 bool inkIsPointInLine(inkPoint point, inkLine line);
-
-/*inkPoint inkAddPoint(inkPoint pointA, inkPoint pointB);
-inkPoint inkSubtractPoint(inkPoint pointA, inkPoint pointB);
-
-bool inkPointIsEqual(inkPoint pointA, inkPoint pointB);
-
-inkPoint inkPointNormalizeWithLength(inkPoint point, float length);
-inkPoint inkPointOffset(inkPoint point, float dx, float dy);
-
-float inkPointLength(inkPoint point);
-
-float inkPointDistance(inkPoint pointA, inkPoint pointB);
-float inkPointAngle(inkPoint pointA, inkPoint pointB);
-
-inkPoint inkPointInterpolation(inkPoint pointA, inkPoint pointB, float coefficient);
-inkPoint inkPointPolar(float length, float angle);*/
 
 #pragma mark -
 #pragma mark Size Declarations
@@ -189,6 +177,8 @@ inkRect inkRectUnion(inkRect rectA, inkRect rectB);*/
 #pragma mark -
 
 inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, float tx, float ty);
+
+inkInline inkMatrix inkMatrixInvert(inkMatrix matrix);
 
 /*inkMatrix inkMatrixConcat(inkMatrix matrixA, inkMatrix matrixB);
 inkMatrix inkMatrixInvert(inkMatrix matrix);
@@ -265,23 +255,36 @@ inkInline inkPoint inkPointSubtract(inkPoint pointA, inkPoint pointB)
 	return inkPointMake(pointA.x - pointB.x, pointA.y - pointB.y);
 }
 
-inkInline inkPoint inkPointMultiply(inkPoint point, float value)
+inkInline inkPoint inkPointMultiply(inkPoint pointA, inkPoint pointB)
+{
+	return inkPointMake(pointA.x * pointB.x, pointA.y * pointB.y);
+}
+
+inkInline inkPoint inkPointDivide(inkPoint pointA, inkPoint pointB)
+{
+	return inkPointMake(pointA.x / pointB.x, pointA.y / pointB.y);
+}
+
+inkInline inkPoint inkPointScale(inkPoint point, float value)
 {
 	return inkPointMake(point.x * value, point.y * value);
 }
 
 inkInline inkPoint inkPointNormalize(inkPoint point)
 {
-	float len = inkPointDistanceFromZero(point);
-	
-	if (len != 0.0f)
+	return inkPointNormalizev(point, inkPointDistanceFromZero(point));
+}
+
+inkInline inkPoint inkPointNormalizev(inkPoint point, float length)
+{
+	if (length != 0.0f)
 	{
-		float one_len = 1.0f / len;
-		
+		float one_len = 1.0f / length;
+
 		point.x *= one_len;
 		point.y *= one_len;
 	}
-	
+
 	return point;
 }
 
@@ -436,6 +439,25 @@ inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, float tx, 
 	matrix.ty = ty;
 
 	return matrix;
+}
+
+inkInline inkMatrix inkMatrixInvert(inkMatrix matrix)
+{
+	float denom = (matrix.a * matrix.d - matrix.b * matrix.c);
+
+	if (inkIsZerof(denom))
+	{
+		return inkMatrixIdentity;
+	}
+
+	float invBottom = 1.0f / denom;
+
+	return inkMatrixMake(  matrix.d * invBottom,
+						  -matrix.b * invBottom,
+						  -matrix.c * invBottom,
+						   matrix.a * invBottom,
+						  (matrix.c * matrix.ty - matrix.d * matrix.tx) * invBottom,
+						 -(matrix.a * matrix.ty - matrix.b * matrix.tx) * invBottom);
 }
 
 #ifdef __cplusplus

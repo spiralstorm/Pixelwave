@@ -115,7 +115,8 @@ typedef enum
 {
 	inkCommandType_MoveTo = 0,
 	inkCommandType_LineTo,
-	inkCommandType_CurveTo,
+	inkCommandType_QuadraticCurveTo,
+	inkCommandType_CubicCurveTo,
 	inkCommandType_SolidFill,
 	inkCommandType_BitmapFill,
 	inkCommandType_GradientFill,

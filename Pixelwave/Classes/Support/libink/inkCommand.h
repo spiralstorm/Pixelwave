@@ -25,7 +25,14 @@ typedef struct
 {
 	inkPoint control;
 	inkPoint anchor;
-} inkCurveToCommand;
+} inkQuadraticCurveToCommand;
+
+typedef struct
+{
+	inkPoint controlA;
+	inkPoint controlB;
+	inkPoint anchor;
+} inkCubicCurveToCommand;
 
 typedef inkSolidFill inkSolidFillCommand;
 typedef inkBitmapFill inkBitmapFillCommand;

@@ -23,6 +23,8 @@ inkExtern void inkClear(inkCanvas* canvas);
 inkExtern void inkMoveTo(inkCanvas* canvas, inkPoint position);
 inkExtern void inkLineTo(inkCanvas* canvas, inkPoint position);
 inkExtern void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor);
+inkExtern void inkQuadraticCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor);
+inkExtern void inkCubicCurveTo(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor);
 
 inkExtern void inkBeginFill(inkCanvas* canvas, inkSolidFill solidFill);
 inkExtern void inkBeginBitmapFill(inkCanvas* canvas, inkBitmapFill bitmapFill);
@@ -33,6 +35,7 @@ inkExtern void inkLineBitmapStyle(inkCanvas* canvas, inkBitmapFill bitmapFill);
 inkExtern void inkLineGradientStyle(inkCanvas* canvas, inkGradientFill gradientFill);
 
 inkExtern void inkEndFill(inkCanvas* canvas);
+inkExtern void inkLineStyleNone(inkCanvas* canvas);
 
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.

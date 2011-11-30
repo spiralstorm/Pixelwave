@@ -39,7 +39,8 @@ inkExtern void inkGeneratorDestroy(inkGenerator* generator);
 
 inkExtern void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGeneratorEndFunction endFunction, void *userData);
 inkExtern void inkGeneratorLineTo(inkGenerator* generator, inkPoint position);
-inkExtern void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anchor);
+inkExtern void inkGeneratorQuadraticCurveTo(inkGenerator* generator, inkPoint control, inkPoint anchor);
+inkExtern void inkGeneratorCubicCurveTo(inkGenerator* generator, inkPoint controlA, inkPoint controlB, inkPoint anchor);
 inkExtern void inkGeneratorEnd(inkGenerator* generator);
 
 inkExtern void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill);

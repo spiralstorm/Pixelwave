@@ -77,12 +77,20 @@ void inkStrokeGeneratorLineTo(inkStrokeGenerator* strokeGenerator, inkPoint posi
 	inkGeneratorLineTo(strokeGenerator->generator, position);
 }
 
-void inkStrokeGeneratorCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint control, inkPoint anchor)
+void inkStrokeGeneratorQuadraticCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint control, inkPoint anchor)
 {
 	if (strokeGenerator == NULL)
 		return;
 
-	inkGeneratorCurveTo(strokeGenerator->generator, control, anchor);
+	inkGeneratorQuadraticCurveTo(strokeGenerator->generator, control, anchor);
+}
+
+void inkStrokeGeneratorCubicCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint controlA, inkPoint controlB, inkPoint anchor)
+{
+	if (strokeGenerator == NULL)
+		return;
+
+	inkGeneratorCubicCurveTo(strokeGenerator->generator, controlA, controlB, anchor);
 }
 
 inkInline void inkStrokeGeneratorAddDrawPoint(inkPoint point, inkTessellator* tessellator, void* fill)
@@ -161,8 +169,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 	box = inkLineExpandToBox(inkLineMake(ptA, ptB), halfScalar);
 
 	float baAngle = inkPointAngle(ptA, ptB);
-	bool reverseCaps = baAngle >= 0.0f;
-	reverseCaps ^= ~clockwise;
+	bool reverseCaps = (baAngle >= 0.0f) ^ ~clockwise;
 
 	if (start == true)
 	{
@@ -214,13 +221,13 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 
 			if (distAB < distBA)
 			{
-				innerIntersection = inkPointMultiply(inkPointAdd(lineAD.pointA, linePreviousAD.pointB), 0.5f);
-				outerIntersection = inkPointMultiply(inkPointAdd(lineBC.pointA, linePreviousBC.pointB), 0.5f);
+				innerIntersection = inkPointScale(inkPointAdd(lineAD.pointA, linePreviousAD.pointB), 0.5f);
+				outerIntersection = inkPointScale(inkPointAdd(lineBC.pointA, linePreviousBC.pointB), 0.5f);
 			}
 			else
 			{
-				innerIntersection = inkPointMultiply(inkPointAdd(lineAD.pointB, linePreviousAD.pointA), 0.5f);
-				outerIntersection = inkPointMultiply(inkPointAdd(lineBC.pointB, linePreviousBC.pointA), 0.5f);
+				innerIntersection = inkPointScale(inkPointAdd(lineAD.pointB, linePreviousAD.pointA), 0.5f);
+				outerIntersection = inkPointScale(inkPointAdd(lineBC.pointB, linePreviousBC.pointA), 0.5f);
 			}
 
 			inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);

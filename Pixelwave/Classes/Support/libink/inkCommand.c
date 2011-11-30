@@ -55,8 +55,10 @@ inkInline size_t inkCommandDataSizeFromType(inkCommandType type)
 			return sizeof(inkMoveToCommand);
 		case inkCommandType_LineTo:
 			return sizeof(inkLineToCommand);
-		case inkCommandType_CurveTo:
-			return sizeof(inkCurveToCommand);
+		case inkCommandType_QuadraticCurveTo:
+			return sizeof(inkQuadraticCurveToCommand);
+		case inkCommandType_CubicCurveTo:
+			return sizeof(inkCubicCurveToCommand);
 		case inkCommandType_SolidFill:
 			return sizeof(inkSolidFillCommand);
 		case inkCommandType_BitmapFill:
