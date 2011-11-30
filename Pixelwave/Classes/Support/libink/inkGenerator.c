@@ -110,6 +110,7 @@ void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anc
 	float tIncrement = 1.0f / (float)(percision - 1);
 	float t;
 	float oneMinusT;
+	float twoT;
 
 	float pWeight;
 	float cWeight;
@@ -117,10 +118,10 @@ void inkGeneratorCurveTo(inkGenerator* generator, inkPoint control, inkPoint anc
 
 	unsigned int index;
 
-	for (index = 0, t = 0.0f, oneMinusT = 1.0f; index < percision; ++index, t += tIncrement, oneMinusT -= tIncrement)
+	for (index = 0, t = 0.0f, oneMinusT = 1.0f, twoT = t * 2.0f; index < percision; ++index, t += tIncrement, oneMinusT -= tIncrement, twoT += tIncrement + tIncrement)
 	{
 		pWeight = oneMinusT * oneMinusT;
-		cWeight = 2 * t * oneMinusT;
+		cWeight = twoT * oneMinusT;
 		aWeight = t * t;
 
 		nextPoint = inkPointMake((previousStartPoint.x * pWeight) + (control.x * cWeight) + (anchor.x * aWeight),
