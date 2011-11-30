@@ -125,32 +125,47 @@ void inkStrokeGeneratorRound(inkTessellator* tessellator, void* fill, inkPoint p
 
 void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, void* fill, inkPoint pivot, inkPoint ptA, inkPoint ptB, bool reverseAngle)
 {
-	inkPoint pivotPt = pivot;
-
-	float angleA = (inkPointAngle(pivotPt, ptA));
-	//float angleB = (inkPointAngle(pivotPt, ptB));
-
-	float angleDist = inkPointDistance(ptA, pivotPt);
-
-	// Should always return M_PI or -M_PI as a cap always comes from a line not
-	// a joint.
-	//float angleDiff = fabsf(angleA - angleB);
-
-//	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
-//	inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
-//	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
-//	inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
-//	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
 	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
 	inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
 	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
 
-	inkStrokeGeneratorRound(tessellator, fill, pivotPt, ptA, angleA, reverseAngle ? -M_PI : M_PI, angleDist);
+	if (style != inkCapsStyle_None)
+	{
+		float angle = reverseAngle ? -M_PI : M_PI;
+		float angleA = inkPointAngle(pivot, ptA);
+		float angleDist = inkPointDistance(ptA, pivot);
 
-	inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
-//	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
-	inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
-	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
+		switch(style)
+		{
+			case inkCapsStyle_None:
+				break;
+			case inkCapsStyle_Round:
+				inkStrokeGeneratorRound(tessellator, fill, pivot, ptA, angleA, angle, angleDist);
+
+				inkStrokeGeneratorAddDrawPoint(pivot, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
+
+				break;
+			case inkCapsStyle_Square:
+			{
+				inkPoint addPt = inkPointFromPolar(angleDist, angleA + (angle * 0.5f));
+
+				inkPoint outerA = inkPointAdd(ptA, addPt);
+				inkPoint outerB = inkPointAdd(ptB, addPt);
+
+				inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+
+				inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
+			}
+				break;
+			default:
+				break;
+		}
+	}
 }
 
 bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBox* previousBox, inkBox* nowBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise)
@@ -158,10 +173,6 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 	inkBox box = inkBoxZero;
 	if ((stroke == NULL) || (vA.x == vB.x && vA.y == vB.y))
 		goto returnStatement;
-
-//#define inkDrawPointsPleaseA(p, color, a) inkStrokeGeneratorAddDrawPoint(p, tessellator, fill)
-
-//#define inkDrawPointsPlease(p, color) inkDrawPointsPleaseA(p, color, 1.0f)
 
 	inkPoint ptA = inkPointMake(vA.x, vA.y);
 	inkPoint ptB = inkPointMake(vB.x, vB.y);
@@ -171,6 +182,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 	float baAngle = inkPointAngle(ptA, ptB);
 	bool reverseCaps = (baAngle >= 0.0f) ^ ~clockwise;
 
+	//stroke->caps = inkCapsStyle_Square;
 	if (start == true)
 	{
 		inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptA, box.pointD, box.pointC, reverseCaps);
@@ -321,7 +333,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			// Seriously, wtf happened?
 		}
 
-		stroke->joints = inkJointStyle_Miter;
+		//stroke->joints = inkJointStyle_Miter;
 		float miter = stroke->miterLimit;
 		if (stroke->joints == inkJointStyle_Bevel)
 		{
@@ -425,7 +437,7 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
-//	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
+// 	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_POINTS, tessellator);
 
 	INKvertex* vertex;
