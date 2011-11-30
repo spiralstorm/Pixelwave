@@ -109,6 +109,25 @@ void inkLineStyleNone(inkCanvas* canvas)
 	inkLineStyle(canvas, inkStrokeDefault, inkSolidFillDefault);
 }
 
+void inkEndGenerators(inkFillGenerator** fillGeneratorPtr, inkStrokeGenerator** strokeGeneratorPtr)
+{
+	if (fillGeneratorPtr)
+	{
+		// Must be destroyed before we end the stroke generator
+		inkFillGeneratorEnd(*fillGeneratorPtr);
+		inkFillGeneratorDestroy(*fillGeneratorPtr);
+		*fillGeneratorPtr = NULL;
+	}
+
+	if (strokeGeneratorPtr)
+	{
+		// Must be done after we destroy the fill generator.
+		inkStrokeGeneratorEnd(*strokeGeneratorPtr);
+		inkStrokeGeneratorDestroy(*strokeGeneratorPtr);
+		*strokeGeneratorPtr = NULL;
+	}
+}
+
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
 void inkRasterize(inkCanvas* canvas)
@@ -167,9 +186,8 @@ void inkRasterize(inkCanvas* canvas)
 				break;
 			case inkCommandType_SolidFill:
 			{
-				inkFillGeneratorEnd(fillGenerator);
+				inkEndGenerators(&fillGenerator, NULL);
 
-				inkFillGeneratorDestroy(fillGenerator);
 				inkSolidFillCommand* fill = (inkSolidFillCommand*)(commandData);
 
 				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill);
@@ -177,9 +195,8 @@ void inkRasterize(inkCanvas* canvas)
 				break;
 			case inkCommandType_BitmapFill:
 			{
-				inkFillGeneratorEnd(fillGenerator);
+				inkEndGenerators(&fillGenerator, NULL);
 
-				inkFillGeneratorDestroy(fillGenerator);
 				inkBitmapFillCommand* fill = (inkBitmapFillCommand*)(commandData);
 
 				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill);
@@ -187,9 +204,8 @@ void inkRasterize(inkCanvas* canvas)
 				break;
 			case inkCommandType_GradientFill:
 			{
-				inkFillGeneratorEnd(fillGenerator);
+				inkEndGenerators(&fillGenerator, NULL);
 
-				inkFillGeneratorDestroy(fillGenerator);
 				inkGradientFillCommand* fill = (inkGradientFillCommand*)(commandData);
 
 				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill);
@@ -197,9 +213,7 @@ void inkRasterize(inkCanvas* canvas)
 				break;
 			case inkCommandType_LineStyle:
 			{
-				inkStrokeGeneratorEnd(strokeGenerator);
-				inkStrokeGeneratorDestroy(strokeGenerator);
-				strokeGenerator = NULL;
+				inkEndGenerators(NULL, &strokeGenerator);
 
 				inkLineStyleCommand* command = (inkLineStyleCommand*)(commandData);
 
@@ -214,6 +228,7 @@ void inkRasterize(inkCanvas* canvas)
 			{
 				inkLineBitmapCommand* command = (inkLineBitmapCommand*)(commandData);
 
+				// Setting the fill will properly concat the vertices on
 				inkStrokeGeneratorSetFill(strokeGenerator, command);
 			}
 				break;
@@ -221,25 +236,22 @@ void inkRasterize(inkCanvas* canvas)
 			{
 				inkLineGradientCommand* command = (inkLineGradientCommand*)(commandData);
 
+				// Setting the fill will properly concat the vertices on
 				inkStrokeGeneratorSetFill(strokeGenerator, command);
 			}
 				break;
 			case inkCommandType_EndFill:
-				inkFillGeneratorEnd(fillGenerator);
-				inkFillGeneratorDestroy(fillGenerator);
-				fillGenerator = NULL;
-				//inkStrokeGeneratorEnd(strokeGenerator);
+				inkEndGenerators(&fillGenerator, NULL);
+				if (strokeGenerator)
+				{
+					inkStrokeGeneratorEnd(strokeGenerator);
+					inkGeneratorRemoveAllVertices(strokeGenerator->generator);
+				}
 				break;
 			default:
 				break;
 		}
 	}
 
-	// Must be destroyed before we end the stroke generator
-	inkFillGeneratorEnd(fillGenerator);
-	inkFillGeneratorDestroy(fillGenerator);
-
-	// Must be done after we destroy the fill generator.
-	inkStrokeGeneratorEnd(strokeGenerator);
-	inkStrokeGeneratorDestroy(strokeGenerator);
+	inkEndGenerators(&fillGenerator, &strokeGenerator);
 }

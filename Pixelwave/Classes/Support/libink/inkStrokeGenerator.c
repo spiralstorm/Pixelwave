@@ -13,7 +13,24 @@
 
 #include "inkFill.h"
 
-void inkStrokeGeneratorEndConvert(void* generator);
+typedef struct
+{
+	inkArray* vertices; // Weak
+	void* fill; // Weak
+} inkStrokeGeneratorRasterizeObject;
+
+inkInline inkStrokeGeneratorRasterizeObject inkStrokeGeneratorRasterizeObjectMake(inkArray* vertices, void* fill)
+{
+	inkStrokeGeneratorRasterizeObject object;
+
+	object.vertices = vertices;
+	object.fill = fill;
+
+	return object;
+}
+
+void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, inkStrokeGeneratorRasterizeObject* rasterizeObject);
+void inkStrokeGeneratorEndConcat(void* generator);
 
 inkStrokeGenerator* inkStrokeGeneratorCreate(inkTessellator* tessellator, inkArray *renderGroups, inkStroke* stroke)
 {
@@ -29,12 +46,19 @@ inkStrokeGenerator* inkStrokeGeneratorCreate(inkTessellator* tessellator, inkArr
 			return NULL;
 		}
 
+		strokeGenerator->rasterizeGroups = inkArrayCreate(sizeof(inkStrokeGeneratorRasterizeObject));
+		if (strokeGenerator->rasterizeGroups == NULL)
+		{
+			inkStrokeGeneratorDestroy(strokeGenerator);
+			return NULL;
+		}
+
 		strokeGenerator->generator = generator;
 		strokeGenerator->stroke = stroke;
 
 		inkTessellatorBeginPolygon(tessellator, renderGroups);
 	}
-	
+
 	return strokeGenerator;
 }
 
@@ -46,6 +70,7 @@ void inkStrokeGeneratorDestroy(inkStrokeGenerator* strokeGenerator)
 		{
 			inkTessellatorEndPolygon(strokeGenerator->generator->tessellator);
 
+			inkArrayDestroy(strokeGenerator->rasterizeGroups);
 			inkGeneratorDestroy(strokeGenerator->generator);
 		}
 
@@ -58,6 +83,8 @@ void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill)
 	if (strokeGenerator == NULL || strokeGenerator->generator == NULL)
 		return;
 
+	inkStrokeGeneratorEndConcat(strokeGenerator);
+
 	strokeGenerator->generator->fill = fill;
 }
 
@@ -66,7 +93,7 @@ void inkStrokeGeneratorMoveTo(inkStrokeGenerator* strokeGenerator, inkPoint posi
 	if (strokeGenerator == NULL)
 		return;
 
-	inkGeneratorMoveTo(strokeGenerator->generator, position, inkStrokeGeneratorEndConvert, strokeGenerator);
+	inkGeneratorMoveTo(strokeGenerator->generator, position, inkStrokeGeneratorEndConcat, strokeGenerator);
 }
 
 void inkStrokeGeneratorLineTo(inkStrokeGenerator* strokeGenerator, inkPoint position)
@@ -424,13 +451,38 @@ returnStatement:
 
 void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 {
-	if (strokeGenerator == NULL || strokeGenerator->generator == NULL || strokeGenerator->generator->currentVertices == NULL || strokeGenerator->generator->tessellator == NULL || strokeGenerator->stroke == NULL)
+	if (strokeGenerator == NULL)
+		return;
+
+	if (strokeGenerator->generator->currentVertices != NULL)
+	{
+		inkStrokeGeneratorEndConcat(strokeGenerator);
+	}
+
+	inkStrokeGeneratorRasterizeObject* rasterizeObject;
+
+	inkArrayForEach(strokeGenerator->rasterizeGroups, rasterizeObject)
+	{
+		inkStrokeGeneratorEndRasterizeGroup(strokeGenerator, rasterizeObject);
+	}
+
+	// Make sure to clear at the end
+	inkArrayClear(strokeGenerator->rasterizeGroups);
+}
+
+void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, inkStrokeGeneratorRasterizeObject* rasterizeObject)
+{
+	if (strokeGenerator == NULL || rasterizeObject == NULL || strokeGenerator->generator == NULL || rasterizeObject->vertices == NULL || strokeGenerator->generator->tessellator == NULL || strokeGenerator->stroke == NULL)
 	{
 		return;
 	}
 
 	if (isnan(strokeGenerator->stroke->thickness))
 		return;
+
+	inkArray* vertices = rasterizeObject->vertices;
+
+//	strokeGenerator->
 
 	inkGenerator* generator = strokeGenerator->generator;
 	inkTessellator* tessellator = generator->tessellator;
@@ -452,13 +504,13 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 	float halfScalar = strokeGenerator->stroke->thickness * 0.5f;
 
-	unsigned int count = inkArrayCount(generator->currentVertices);
+	unsigned int count = inkArrayCount(vertices);
 
 	if (count <= 1)
 		return;
 
-	vA = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, 0)));
-	vB = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, count - 1)));
+	vA = *((INKvertex *)(inkArrayElementAt(vertices, 0)));
+	vB = *((INKvertex *)(inkArrayElementAt(vertices, count - 1)));
 
 	bool closedLoop = inkIsEqualf(vA.x, vB.x) && inkIsEqualf(vA.y, vB.y);
 	bool start = count == 2;
@@ -470,15 +522,15 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 	// If count is 2, which is the minimum (it will be a line), then a will be 0
 	// and b will be 1
-	//vA = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, count - 2)));
-	//vB = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, count - 1)));
+	//vA = *((INKvertex *)(inkArrayElementAt(vertices, count - 2)));
+	//vB = *((INKvertex *)(inkArrayElementAt(vertices, count - 1)));
 
 	if (closedLoop)
 	{
 		if (count == 2)
 			return;
 
-		vA = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, count - 2)));
+		vA = *((INKvertex *)(inkArrayElementAt(vertices, count - 2)));
 	}
 	else
 	{
@@ -509,8 +561,8 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 	//	end = false;
 
 		float sum = 0.0f;
-		INKvertex previousVertex = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, 0)));
-		inkArrayForEach(generator->currentVertices, vertex)
+		INKvertex previousVertex = *((INKvertex *)(inkArrayElementAt(vertices, 0)));
+		inkArrayForEach(vertices, vertex)
 		{
 			if (index++ == 0)
 				continue;
@@ -525,7 +577,7 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 		// TODO:	inkTessellatorVertex copies the vertex right now, make sure
 		//			this will ALWAYS be the case, or this will fail.
-		inkArrayForEach(generator->currentVertices, vertex)
+		inkArrayForEach(vertices, vertex)
 		{
 			vB = *vertex;
 
@@ -573,7 +625,7 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 		if (closedLoop)
 		{
-			vB = *((INKvertex *)(inkArrayElementAt(generator->currentVertices, 1)));
+			vB = *((INKvertex *)(inkArrayElementAt(vertices, 1)));
 			inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, NULL, vA, vB, halfScalar, fill, false, false, NULL, NULL, clockwise);
 
 			if (flipFirst == true)
@@ -594,10 +646,26 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 	}
 
 	inkTessellatorEnd(tessellator);
-	generator->currentVertices = NULL;
 }
 
-void inkStrokeGeneratorEndConvert(void* generator)
+void inkStrokeGeneratorEndConcat(void* generator)
 {
-	inkStrokeGeneratorEnd((inkStrokeGenerator*)generator);
+	inkStrokeGenerator* strokeGenerator = (inkStrokeGenerator*)generator;
+
+	if (strokeGenerator == NULL || strokeGenerator->generator == NULL || strokeGenerator->generator->currentVertices == NULL)
+	{
+		return;
+	}
+
+	if (inkArrayCount(strokeGenerator->generator->currentVertices) == 0)
+		return;
+
+	inkStrokeGeneratorRasterizeObject* rasterizeObject = inkArrayPush(strokeGenerator->rasterizeGroups);
+	if (rasterizeObject == NULL)
+		return;
+
+	*rasterizeObject = inkStrokeGeneratorRasterizeObjectMake(strokeGenerator->generator->currentVertices, strokeGenerator->generator->fill);
+	strokeGenerator->generator->currentVertices = NULL;
+
+	//inkStrokeGeneratorEnd((inkStrokeGenerator*)generator);
 }

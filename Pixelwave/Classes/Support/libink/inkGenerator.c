@@ -41,17 +41,8 @@ void inkGeneratorDestroy(inkGenerator* generator)
 {
 	if (generator != NULL)
 	{
-		if (generator->vertexGroupList != NULL)
-		{
-			inkArray* array;
-
-			inkArrayPtrForEach(generator->vertexGroupList, array)
-			{
-				inkArrayDestroy(array);
-			}
-
-			inkArrayDestroy(generator->vertexGroupList);
-		}
+		inkGeneratorRemoveAllVertices(generator);
+		inkArrayDestroy(generator->vertexGroupList);
 
 		free(generator);
 	}
@@ -248,4 +239,23 @@ void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position)
 	INKvertex* vertex = (INKvertex*)inkArrayPush(generator->currentVertices);
 
 	inkGeneratorInitVertex(vertex, position, generator->fill);
+}
+
+void inkGeneratorRemoveAllVertices(inkGenerator* generator)
+{
+	if (generator == NULL)
+		return;
+
+	if (generator->vertexGroupList != NULL)
+	{
+		inkArray* array;
+
+		inkArrayPtrForEach(generator->vertexGroupList, array)
+		{
+			inkArrayDestroy(array);
+		}
+
+		inkArrayClear(generator->vertexGroupList);
+		generator->currentVertices = NULL;
+	}
 }

@@ -25,6 +25,8 @@ typedef struct
 	inkGenerator* generator; // Parent - must be first argument
 
 	inkStroke* stroke;
+
+	inkArray* rasterizeGroups;
 } inkStrokeGenerator;
 
 inkExtern inkStrokeGenerator *inkStrokeGeneratorCreate(inkTessellator* tessellator, inkArray *renderGroups, inkStroke* stroke);
