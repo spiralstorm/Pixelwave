@@ -10,7 +10,10 @@
 
 #include "inkFill.h"
 
-const unsigned int inkGeneratorCurvePercision = 13;
+// TODO:	Percision too high can create floating point issues where an
+//			intersection is impossible to find due to the points being too close
+//			together.
+const unsigned int inkGeneratorCurvePercision = 5;
 
 inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill)
 {
