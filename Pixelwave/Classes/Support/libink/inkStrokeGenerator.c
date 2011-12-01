@@ -13,6 +13,8 @@
 
 #include "inkFill.h"
 
+#define INK_STROKE_GENERATOR_NO_FORCE_END
+
 typedef struct
 {
 	inkArray* vertices; // Weak
@@ -198,6 +200,11 @@ void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, void
 bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBox* previousBox, inkBox* nowBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise)
 {
 	inkBox box = inkBoxZero;
+	// Needs to be declared and set prior to using the goto.
+	bool flip = false;
+	bool reverseCaps;
+	bool innerOuterSwitch;
+
 	if ((stroke == NULL) || (vA.x == vB.x && vA.y == vB.y))
 		goto returnStatement;
 
@@ -207,7 +214,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 	box = inkLineExpandToBox(inkLineMake(ptA, ptB), halfScalar);
 
 	float baAngle = inkPointAngle(ptA, ptB);
-	bool reverseCaps = (baAngle >= 0.0f) ^ ~clockwise;
+	reverseCaps = (baAngle >= 0.0f) ^ ~clockwise;
 
 	//stroke->caps = inkCapsStyle_Square;
 	if (start == true)
@@ -216,8 +223,6 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 	}
 
 	inkPoint pivotPt = ptA;
-
-	bool flip = false;
 
 	if (previousBox != NULL)
 	{
@@ -277,19 +282,10 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 		else
 			outerIntersection = inkLineIntersection(lineBC, linePreviousBC);
 
-		/*float addist = inkPointDistanceToLine(innerIntersection, lineAD);
-		float dadist = inkPointDistanceToLine(innerIntersection, linePreviousAD);
-		float bcdist = inkPointDistanceToLine(outerIntersection, lineBC);
-		float cbdist = inkPointDistanceToLine(outerIntersection, linePreviousBC);
-		printf("addist = %f, daDist = %f, bcdist = %f, cbDist = %f - ", addist, dadist, bcdist, cbdist);*/
-
 		// Is our inner really our outer?
-		bool innerOuterSwitch = inkIsPointInLine(innerIntersection, lineAD);
+		innerOuterSwitch = inkIsPointInLine(innerIntersection, lineAD);
 
-		//bool flip = clockwise ^ innerOuterSwitch;
-		//if (inkIsPointInLine(innerIntersection, lineAD) == false)
-		//if (flip)//innerOuterSwitch == false)
-		if (innerOuterSwitch == false)//if (clockwise == false)
+		if (innerOuterSwitch == false)
 		{
 			inkPoint tempPoint = innerIntersection;
 			innerIntersection = outerIntersection;
@@ -302,50 +298,11 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			tempPoint = innerB;
 			innerB = outerB;
 			outerB = tempPoint;
-		//	printf("opp\n");
-
-			/*if (clockwise == false)
-			{
-				tempPoint = outerA;
-				outerA = outerB;
-				outerB = tempPoint;
-			}*/
 		}
-		else// if (clockwise == false)
+		else
 		{
 			flip = true;
-		//	inkPoint tempPoint = outerA;
-		//	outerA = outerB;
-		//	outerB = tempPoint;
 		}
-		/*else
-		{
-			// TODO:	WTF? Need to figure out why I need to do this, it
-			//			logically shouldn't need to be done.
-			inkPoint tempPoint = innerIntersection;
-			innerIntersection = outerIntersection;
-			outerIntersection = tempPoint;
-
-			tempPoint = innerA;
-			innerA = outerA;
-			outerA = tempPoint;
-			
-			tempPoint = innerB;
-			innerB = outerB;
-			outerB = tempPoint;
-
-			tempPoint = outerA;
-			outerA = outerB;
-			outerB = tempPoint;
-		//	printf("not opp\n");
-		}*/
-
-		/*if (innerOuterSwitch != clockwise)
-		{
-			inkPoint tempPoint = outerA;
-			outerA = outerB;
-			outerB = tempPoint;
-		}*/
 
 		float angleA = (inkPointAngle(pivotPt, outerA));
 		float angleB = (inkPointAngle(pivotPt, outerB));
@@ -451,6 +408,7 @@ returnStatement:
 
 void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 {
+#ifndef INK_STROKE_GENERATOR_NO_FORCE_END
 	if (strokeGenerator == NULL)
 		return;
 
@@ -468,6 +426,15 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 	// Make sure to clear at the end
 	inkArrayClear(strokeGenerator->rasterizeGroups);
+#else
+	if (strokeGenerator == NULL|| strokeGenerator->generator == NULL || strokeGenerator->generator->currentVertices == NULL || strokeGenerator->generator->tessellator == NULL || strokeGenerator->stroke == NULL)
+	{
+		return;
+	}
+
+	inkStrokeGeneratorRasterizeObject obj = inkStrokeGeneratorRasterizeObjectMake(strokeGenerator->generator->currentVertices, strokeGenerator->generator->fill);
+	inkStrokeGeneratorEndRasterizeGroup(strokeGenerator, &obj);
+#endif
 }
 
 void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, inkStrokeGeneratorRasterizeObject* rasterizeObject)
@@ -482,19 +449,17 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 	inkArray* vertices = rasterizeObject->vertices;
 
-//	strokeGenerator->
-
 	inkGenerator* generator = strokeGenerator->generator;
 	inkTessellator* tessellator = generator->tessellator;
 
 	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
-// 	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
+//	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_POINTS, tessellator);
 
 	INKvertex* vertex;
 
-	void* fill = strokeGenerator->generator->fill;
+	void* fill = rasterizeObject->fill;
 
 	INKvertex vA;
 	INKvertex vB;
@@ -503,6 +468,8 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 	inkBox* previousBoxPtr = NULL;
 
 	float halfScalar = strokeGenerator->stroke->thickness * 0.5f;
+
+	//halfScalar = 8.0f;
 
 	unsigned int count = inkArrayCount(vertices);
 
@@ -650,6 +617,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 void inkStrokeGeneratorEndConcat(void* generator)
 {
+#ifndef INK_STROKE_GENERATOR_NO_FORCE_END
 	inkStrokeGenerator* strokeGenerator = (inkStrokeGenerator*)generator;
 
 	if (strokeGenerator == NULL || strokeGenerator->generator == NULL || strokeGenerator->generator->currentVertices == NULL)
@@ -666,6 +634,7 @@ void inkStrokeGeneratorEndConcat(void* generator)
 
 	*rasterizeObject = inkStrokeGeneratorRasterizeObjectMake(strokeGenerator->generator->currentVertices, strokeGenerator->generator->fill);
 	strokeGenerator->generator->currentVertices = NULL;
-
-	//inkStrokeGeneratorEnd((inkStrokeGenerator*)generator);
+#else
+	inkStrokeGeneratorEnd((inkStrokeGenerator*)generator);
+#endif
 }

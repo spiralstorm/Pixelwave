@@ -144,16 +144,18 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 	pxGLDefaultState.blendDestination = GL_ONE_MINUS_SRC_ALPHA;
 	
 	glBlendFunc(pxGLDefaultState.blendSource, pxGLDefaultState.blendDestination);
-	// TODO: This function should be used to make rendering to texture work
-	// better. It doesn't really make a difference when just rendering to the
-	// screen. So, glBlendFunc should be replaced by glBlendFuncSeparateOES
-	// everywhere. The problem is that glBlendFuncSeparateOES is only available
-	// in iOS 3.1 and above. So we need to check if
-	// (glBlendFuncSeparateOES != NULL) before calling it. Otherwise,
-	// glBlendFunc could just be used.
-	//
+	// TODO:	This function should be used to make rendering to texture work
+	//			better. It doesn't really make a difference when just rendering
+	//			to the screen. So, glBlendFunc should be replaced by
+	//			glBlendFuncSeparateOES everywhere. The problem is that
+	//			glBlendFuncSeparateOES is only available in iOS 3.1 and above.
+	//			So we need to check if (glBlendFuncSeparateOES != NULL) before
+	//			calling it. Otherwise, glBlendFunc could just be used.
+
+	// NOTE:	Could use glGetString(GL_EXTENSIONS) to figure out which
+	//			extensions are available.
 	//glBlendFuncSeparateOES(pxGLDefaultState.blendSource, pxGLDefaultState.blendDestination, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-	
+
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
 
