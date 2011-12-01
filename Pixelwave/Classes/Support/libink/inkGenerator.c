@@ -13,7 +13,8 @@
 // TODO:	Percision too high can create floating point issues where an
 //			intersection is impossible to find due to the points being too close
 //			together.
-const unsigned int inkGeneratorCurvePercision = 5;
+// NOTE:	See the '+ 2', this is to add the first and last points always
+const unsigned int inkGeneratorCurvePercision = 11 + 2;
 
 inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill)
 {

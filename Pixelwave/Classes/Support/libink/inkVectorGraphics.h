@@ -39,6 +39,9 @@ inkExtern void inkLineStyleNone(inkCanvas* canvas);
 
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
-inkExtern void inkRasterize(inkCanvas* canvas);
+inkExtern void inkBuild(inkCanvas* canvas);
+
+inkExtern unsigned int inkDraw(inkCanvas* canvas);
+inkExtern unsigned int inkDrawv(inkCanvas* canvas, inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc);
 
 #endif

@@ -13,7 +13,11 @@
 
 #include "inkFill.h"
 
-#define INK_STROKE_GENERATOR_NO_FORCE_END
+//#define INK_STROKE_GENERATOR_NO_FORCE_END
+
+const unsigned int inkStrokeGeneratorRoundPrecisionPoints = 5;
+// Anything less than 5 degrees will just be a line.
+//const float inkStrokeGeneratorRoundAngleEpsilon = M_PI / (180 / 5);
 
 typedef struct
 {
@@ -132,8 +136,10 @@ inkInline void inkStrokeGeneratorAddDrawPoint(inkPoint point, inkTessellator* te
 
 void inkStrokeGeneratorRound(inkTessellator* tessellator, void* fill, inkPoint pivotPoint, inkPoint startPoint, float startAngle, float angleDiff, float angleDist)
 {
-	unsigned int precisionPoints = 2;
-	float add = angleDiff / ((float)precisionPoints + 1.0f);
+//	if (angleDiff < inkStrokeGeneratorRoundAngleEpsilon)
+//		return;
+
+	float add = angleDiff / ((float)inkStrokeGeneratorRoundPrecisionPoints + 1.0f);
 
 	inkPoint pt0 = startPoint;
 	inkPoint pt1;
@@ -141,7 +147,7 @@ void inkStrokeGeneratorRound(inkTessellator* tessellator, void* fill, inkPoint p
 	float angle = startAngle + add;
 
 	unsigned int index;
-	for (index = 0; index < precisionPoints; ++index, angle += add)
+	for (index = 0; index < inkStrokeGeneratorRoundPrecisionPoints; ++index, angle += add)
 	{
 		pt1 = inkPointAdd(pivotPoint, inkPointFromPolar(angleDist, angle));
 
@@ -204,12 +210,14 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 	bool flip = false;
 	bool reverseCaps;
 	bool innerOuterSwitch;
+//	bool innerOuterSwitchAlreadyChecked;
 
 	if ((stroke == NULL) || (vA.x == vB.x && vA.y == vB.y))
 		goto returnStatement;
 
 	inkPoint ptA = inkPointMake(vA.x, vA.y);
 	inkPoint ptB = inkPointMake(vB.x, vB.y);
+	inkPoint tempPoint;
 
 	box = inkLineExpandToBox(inkLineMake(ptA, ptB), halfScalar);
 
@@ -246,13 +254,27 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 		inkPoint innerIntersection;
 		inkPoint outerIntersection;
 
+		/*inkLine lineAB = inkLineMake(box.pointA, box.pointB);
+		inkLine linePreviousCD = inkLineMake(previousBox->pointC, previousBox->pointD);
+
+		innerIntersection = inkLineIntersection(lineAB, linePreviousCD);
+
+		innerOuterSwitchAlreadyChecked = false;
+		if (inkIsPointInLine(innerIntersection, lineAB) == false)
+		{
+			innerIntersection = inkLineIntersection(lineAD, linePreviousAD);
+		}
+		else
+		{
+			innerOuterSwitchAlreadyChecked = true;
+		}*/
 		innerIntersection = inkLineIntersection(lineAD, linePreviousAD);
 
 		if (isnan(innerIntersection.x))
 		{
-			printf("intersection is nan between lineAD((%f, %f), (%f, %f)) and linePreviousAD((%f, %f), (%f, %f))\n",
+			/*printf("intersection is nan between lineAD((%f, %f), (%f, %f)) and linePreviousAD((%f, %f), (%f, %f))\n",
 				   lineAD.pointA.x, lineAD.pointA.y, lineAD.pointB.x, lineAD.pointB.y,
-				   linePreviousAD.pointA.x, linePreviousAD.pointA.y, linePreviousAD.pointB.x, linePreviousAD.pointB.y);
+				   linePreviousAD.pointA.x, linePreviousAD.pointA.y, linePreviousAD.pointB.x, linePreviousAD.pointB.y);*/
 			//box = inkBoxConcat(*previousBox, box);
 			//return box;
 			//return inkBoxZero;
@@ -265,31 +287,89 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 
 			if (distAB < distBA)
 			{
-				innerIntersection = inkPointScale(inkPointAdd(lineAD.pointA, linePreviousAD.pointB), 0.5f);
-				outerIntersection = inkPointScale(inkPointAdd(lineBC.pointA, linePreviousBC.pointB), 0.5f);
+				innerIntersection = inkPointScale(inkPointAdd(lineAD.pointB, linePreviousAD.pointB), 0.5f);
+				outerIntersection = inkPointScale(inkPointAdd(lineBC.pointB, linePreviousBC.pointB), 0.5f);
 			}
 			else
 			{
-				innerIntersection = inkPointScale(inkPointAdd(lineAD.pointB, linePreviousAD.pointA), 0.5f);
-				outerIntersection = inkPointScale(inkPointAdd(lineBC.pointB, linePreviousBC.pointA), 0.5f);
+				innerIntersection = inkPointScale(inkPointAdd(lineAD.pointA, linePreviousAD.pointA), 0.5f);
+				outerIntersection = inkPointScale(inkPointAdd(lineBC.pointA, linePreviousBC.pointA), 0.5f);
 			}
 
-			inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-			inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
+			if (reverseCaps)
+			{
+				inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
+			}
+			else
+			{
+				inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
+			}
 
-			goto returnStatement;
+			goto endStatement;
 		}
 		else
-			outerIntersection = inkLineIntersection(lineBC, linePreviousBC);
+		{
+			/*if (innerOuterSwitchAlreadyChecked)
+			{
+				inkLine lineCD = inkLineMake(box.pointC, box.pointD);
+				inkLine linePreviousAB = inkLineMake(previousBox->pointA, previousBox->pointB);
+
+				outerIntersection = inkLineIntersection(lineCD, linePreviousAB);
+			}
+			else
+			{*/
+				outerIntersection = inkLineIntersection(lineBC, linePreviousBC);
+			//}
+		}
 
 		// Is our inner really our outer?
-		innerOuterSwitch = inkIsPointInLine(innerIntersection, lineAD);
-
-		if (innerOuterSwitch == false)
+		//if (innerOuterSwitchAlreadyChecked == false)
 		{
-			inkPoint tempPoint = innerIntersection;
-			innerIntersection = outerIntersection;
-			outerIntersection = tempPoint;
+			float innerIntersectionDist = inkPointDistanceToLine(innerIntersection, lineAD);
+			float outerIntersectionDist = inkPointDistanceToLine(outerIntersection, lineBC);
+			innerOuterSwitch = innerIntersectionDist > outerIntersectionDist;
+		//	innerOuterSwitch = !inkIsPointInLine(innerIntersection, lineAD);
+		}
+		//else
+	//	if (innerOuterSwitchAlreadyChecked)
+		//{
+		//	innerOuterSwitch = false;
+		//	innerOuterSwitch = inkIsZerof(outerIntersectionDist);
+		//}
+	//	innerOuterSwitch = isgreaterequal(innerIntersectionDist, outerIntersectionDist);
+	//	innerOuterSwitch = innerIntersectionDist > outerIntersectionDist || inkIsEqualf(innerIntersectionDist, outerIntersectionDist);
+	//	innerOuterSwitch = !inkIsPointInLine(innerIntersection, lineAD);
+
+	//	if (innerOuterSwitchAlreadyChecked)
+	//		innerOuterSwitch = !innerOuterSwitch;
+
+		inkLine lineAB = inkLineMake(box.pointA, box.pointB);
+		inkLine linePreviousCD = inkLineMake(previousBox->pointC, previousBox->pointD);
+
+		inkPoint abInnerIntersection = inkLineIntersection(lineAB, linePreviousCD);
+
+		inkLine lineCD = inkLineMake(box.pointC, box.pointD);
+		inkLine linePreviousAB = inkLineMake(previousBox->pointA, previousBox->pointB);
+
+		inkPoint cdOuterIntersection = inkLineIntersection(lineCD, linePreviousAB);
+
+		//bool checkAB = reverseCaps;//clockwise ^ !innerOuterSwitch;
+
+		if (innerOuterSwitch == true)
+		{
+			//if (!innerOuterSwitchAlreadyChecked)
+			//{
+				tempPoint = innerIntersection;
+				innerIntersection = outerIntersection;
+				outerIntersection = tempPoint;
+			//}
+
+		//	checkAB = true;
+			//tempPoint = abInnerIntersection;
+			//abInnerIntersection = cdOuterIntersection;
+			//cdOuterIntersection = tempPoint;
 
 			tempPoint = innerA;
 			innerA = outerA;
@@ -301,8 +381,32 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 		}
 		else
 		{
-			flip = true;
+		//	checkAB = true;
+			flip = !flip;
 		}
+
+		if (reverseCaps == true)
+		{
+			if (inkIsPointInLine(abInnerIntersection, lineAB) == true)
+				innerIntersection = abInnerIntersection;
+		}
+		else
+		{
+			if (inkIsPointInLine(cdOuterIntersection, lineCD) == true)
+				innerIntersection = cdOuterIntersection;
+		}
+
+		/*if (innerOuterSwitchAlreadyChecked && (innerIntersection.y > outerIntersection.y))
+		{
+			flip = !flip;
+			tempPoint = innerA;
+			innerA = outerA;
+			outerA = tempPoint;
+			
+			tempPoint = innerB;
+			innerB = outerB;
+			outerB = tempPoint;
+		}*/
 
 		float angleA = (inkPointAngle(pivotPt, outerA));
 		float angleB = (inkPointAngle(pivotPt, outerB));
@@ -394,6 +498,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			*innerIntersectionPtr = innerIntersection;
 	}
 
+endStatement:
 	if (end == true)
 	{
 		inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptB, box.pointB, box.pointA, reverseCaps);

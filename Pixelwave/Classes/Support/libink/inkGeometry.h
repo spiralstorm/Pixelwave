@@ -55,6 +55,7 @@ typedef struct
 } inkMatrix;
 
 #define _inkPointZero {0.0f, 0.0f}
+#define _inkPointNan {NAN, NAN}
 #define _inkLineZero {0.0f, 0.0f, 0.0f, 0.0f}
 #define _inkSizeZero {0.0f, 0.0f}
 #define _inkRectZero {0.0f, 0.0f, 0.0f, 0.0f}
@@ -62,11 +63,14 @@ typedef struct
 #define _inkMatrixIdentity {1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f}
 
 inkExtern const inkPoint inkPointZero;
+inkExtern const inkPoint inkPointNan;
 inkExtern const inkLine inkLineZero;
 inkExtern const inkSize inkSizeZero;
 inkExtern const inkRect inkRectZero;
 inkExtern const inkBox inkBoxZero;
 inkExtern const inkMatrix inkMatrixIdentity;
+
+inkExtern int inkMaxUlps;
 
 #ifdef __cplusplus
 extern "C" {
@@ -76,7 +80,10 @@ extern "C" {
 #pragma mark Math Declarations
 #pragma mark -
 
-inkInline bool inkIsNearlyEqualf(float a, float b, float precision);
+inkInline void inkSetMaxUlps(int maxUlps);
+
+inkInline bool inkIsNearlyEqualf(float a, float b, int maxUlps);
+//inkInline bool inkIsNearlyEqualf(float a, float b, float precision);
 inkInline bool inkIsEqualf(float a, float b);
 inkInline bool inkIsZerof(float a);
 inkInline float inkAngleOrient(float angle);
@@ -99,10 +106,13 @@ inkInline inkPoint inkPointNormalizev(inkPoint point, float length);
 inkInline inkPoint inkPointFromPolar(float length, float angle);
 inkInline inkPoint inkPointInterpolate(inkPoint from, inkPoint to, float percent);
 
+inkInline float inkPointPerp(inkPoint pointA, inkPoint pointB);
 inkInline float inkPointAngle(inkPoint pointA, inkPoint pointB);
 inkInline float inkPointDistanceFromZero(inkPoint point);
 inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB);
+inkInline float inkPointDistanceSq(inkPoint pointA, inkPoint pointB);
 inkInline bool inkPointIsEqual(inkPoint pointA, inkPoint pointB);
+bool inkPointIsNan(inkPoint point);
 
 inkPoint inkClosestPointToLine(inkPoint point, inkLine line);
 float inkPointDistanceToLine(inkPoint point, inkLine line);
@@ -126,6 +136,7 @@ inkInline inkLine inkLineMake(inkPoint pointA, inkPoint pointB);
 inkInline inkLine inkLineMakev(float x1, float y1, float x2, float y2);
 
 inkPoint inkLineIntersection(inkLine lineA, inkLine lineB);
+inkPoint inkLineIntersectionv(inkLine lineA, inkLine lineB, bool flipT);
 inkLine inkLineBisectionTraverser(inkLine line, float halfScalar);
 inkBox inkLineExpandToBox(inkLine line, float halfScalar);
 inkLine inkTriangleBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint pointC, float halfScalar);
@@ -179,12 +190,11 @@ inkRect inkRectUnion(inkRect rectA, inkRect rectB);*/
 inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, float tx, float ty);
 
 inkInline inkMatrix inkMatrixInvert(inkMatrix matrix);
+inkInline inkMatrix inkMatrixRotate(inkMatrix matrix, float angle);
+inkInline inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy);
+inkInline inkMatrix inkMatrixTranslate(inkMatrix matrix, float dx, float dy);
 
 /*inkMatrix inkMatrixConcat(inkMatrix matrixA, inkMatrix matrixB);
-inkMatrix inkMatrixInvert(inkMatrix matrix);
-inkMatrix inkMatrixRotate(inkMatrix matrix, float angle);
-inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy);
-inkMatrix inkMatrixTranslate(inkMatrix matrix, float dx, float dy);
 
 inkMatrix inkMatrixCreateBox(inkMatrix matrix, float scaleX, float scaleY, float rotation, float tx, float ty);
 */
@@ -195,7 +205,32 @@ inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);
 #pragma mark Math Implemenations
 #pragma mark -
 
-inkInline bool inkIsNearlyEqualf(float a, float b, float precision)
+inkInline void inkSetMaxUlps(int maxUlps)
+{
+	assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
+	inkMaxUlps = maxUlps;
+}
+	
+inkInline bool inkIsNearlyEqualf(float a, float b, int maxUlps)
+{
+	// Make sure maxUlps is non-negative and small enough that the
+	// default NAN won't compare as equal to anything.
+	assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
+	int aInt = *(int*)&a;
+	// Make aInt lexicographically ordered as a twos-complement int
+	if (aInt < 0)
+		aInt = 0x80000000 - aInt;
+	// Make bInt lexicographically ordered as a twos-complement int
+	int bInt = *(int*)&b;
+	if (bInt < 0)
+		bInt = 0x80000000 - bInt;
+	int intDiff = abs(aInt - bInt);
+	if (intDiff <= maxUlps)
+		return true;
+	return false;
+}
+
+inkInline bool inkIsNearlyEqualfp(float a, float b, float precision)
 {
 	return (a <= (b + precision)) && (a >= (b - precision));
 }
@@ -204,7 +239,9 @@ inkInline bool inkIsEqualf(float a, float b)
 {
 	// TODO:	Replace with math constant for small number, 0.000015f was a
 	//			'off' value that has come up, keep this in mind.
-	return inkIsNearlyEqualf(a, b, 0.00005f);
+	return inkIsNearlyEqualfp(a, b, 0.00005f);
+
+	//return inkIsNearlyEqualf(a, b, inkMaxUlps);
 }
 
 inkInline bool inkIsZerof(float a)
@@ -293,6 +330,11 @@ inkInline inkPoint inkPointInterpolate(inkPoint from, inkPoint to, float percent
 	return inkPointMake(from.x + ((to.x - from.x) * percent), from.y + ((to.y - from.y) * percent));
 }
 
+inkInline float inkPointPerp(inkPoint pointA, inkPoint pointB)
+{
+	return pointA.x * pointB.y - pointA.y * pointB.x;
+}
+
 inkInline float inkPointDistanceFromZero(inkPoint point)
 {
 	return sqrtf((point.x * point.x) + (point.y * point.y));
@@ -300,9 +342,14 @@ inkInline float inkPointDistanceFromZero(inkPoint point)
 
 inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB)
 {
+	return sqrtf(inkPointDistanceSq(pointA, pointB));
+}
+
+inkInline float inkPointDistanceSq(inkPoint pointA, inkPoint pointB)
+{
 	inkPoint diff = inkPointMake(pointA.x - pointB.x, pointA.y - pointB.y);
 	
-	return sqrtf((diff.x * diff.x) + (diff.y * diff.y));
+	return ((diff.x * diff.x) + (diff.y * diff.y));
 }
 
 inkInline inkPoint inkPointFromPolar(float length, float angle)
@@ -317,6 +364,7 @@ inkInline float inkPointAngle(inkPoint pointA, inkPoint pointB)
 
 inkInline bool inkPointIsEqual(inkPoint pointA, inkPoint pointB)
 {
+	//return inkPointDistanceSq(pointA, pointB) < (0.3f * 0.3f);
 	return inkIsEqualf(pointA.x, pointB.x) && inkIsEqualf(pointA.y, pointB.y);
 }
 
@@ -458,6 +506,29 @@ inkInline inkMatrix inkMatrixInvert(inkMatrix matrix)
 						   matrix.a * invBottom,
 						  (matrix.c * matrix.ty - matrix.d * matrix.tx) * invBottom,
 						 -(matrix.a * matrix.ty - matrix.b * matrix.tx) * invBottom);
+}
+
+inkInline inkMatrix inkMatrixRotate(inkMatrix matrix, float angle)
+{
+	float sinVal = sinf(angle);
+	float cosVal = cosf(angle);
+
+	return inkMatrixMake(matrix.a * cosVal - matrix.b * sinVal,
+						 matrix.a * sinVal + matrix.b * cosVal,
+						 matrix.c * cosVal - matrix.d * sinVal,
+						 matrix.c * sinVal + matrix.d * cosVal,
+						 matrix.tx * cosVal - matrix.ty * sinVal,
+						 matrix.tx * sinVal + matrix.ty * cosVal);
+}
+
+inkInline inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy)
+{
+	return inkMatrixMake(matrix.a * sx, matrix.b, matrix.c, matrix.d * sy, matrix.tx * sx, matrix.ty * sy);
+}
+
+inkInline inkMatrix inkMatrixTranslate(inkMatrix matrix, float dx, float dy)
+{
+	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx + dx, matrix.ty + dy);
 }
 
 #ifdef __cplusplus

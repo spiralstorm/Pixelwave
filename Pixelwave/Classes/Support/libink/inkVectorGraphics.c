@@ -13,6 +13,8 @@
 #include "inkFillGenerator.h"
 #include "inkStrokeGenerator.h"
 
+#include "inkGLU.h"
+
 void inkClear(inkCanvas* canvas)
 {
 	if (canvas == NULL)
@@ -130,7 +132,7 @@ void inkEndGenerators(inkFillGenerator** fillGeneratorPtr, inkStrokeGenerator** 
 
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
-void inkRasterize(inkCanvas* canvas)
+void inkBuild(inkCanvas* canvas)
 {
 	if (canvas == NULL)
 		return;
@@ -254,4 +256,64 @@ void inkRasterize(inkCanvas* canvas)
 	}
 
 	inkEndGenerators(&fillGenerator, &strokeGenerator);
+}
+
+unsigned int inkDraw(inkCanvas* canvas)
+{
+	return inkDrawv(canvas, glEnable, glDisable, glEnableClientState, glDisableClientState, glPointSize, glLineWidth, glBindTexture, glVertexPointer, glTexCoordPointer, glColorPointer, glDrawArrays, glDrawElements);
+}
+
+unsigned int inkDrawv(inkCanvas* canvas, inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc)
+{
+	inkArray *renderGroups = inkRenderGroups(canvas);
+
+	if (renderGroups == NULL)
+		return 0;
+
+	inkRenderGroup *renderGroup;
+	inkArray *vertexArray;
+	INKvertex *vertices;
+
+	pointSizeFunc(4.0f);
+
+	unsigned int vertexArrayCount;
+	unsigned int totalVertexCount = 0;
+
+	inkArrayPtrForEach(renderGroups, renderGroup)
+	{
+		vertexArray = renderGroup->vertices;
+
+		lineWidthFunc(renderGroup->glLineWidth);
+
+		if (renderGroup->glTextureName != 0)
+		{
+			disableClientFunc(GL_COLOR_ARRAY);
+			enableClientFunc(GL_TEXTURE_COORD_ARRAY);
+			
+			enableFunc(GL_TEXTURE_2D);
+			textureFunc(GL_TEXTURE_2D, renderGroup->glTextureName);
+		}
+		else
+		{
+			disableFunc(GL_TEXTURE_2D);
+			enableClientFunc(GL_COLOR_ARRAY);
+			disableClientFunc(GL_TEXTURE_COORD_ARRAY);
+		}
+
+		if (vertexArray != NULL)
+		{
+			vertices = vertexArray->elements;
+
+			vertexArrayCount = inkArrayCount(vertexArray);
+			totalVertexCount += vertexArrayCount;
+
+			vertexFunc(2, GL_FLOAT, sizeof(INKvertex), &(vertices->x));
+			textureCoordinateFunc(2, GL_FLOAT, sizeof(INKvertex), &(vertices->s));
+			colorFunc(4, GL_UNSIGNED_BYTE, sizeof(INKvertex), &(vertices->r));
+
+			drawArraysFunc(renderGroup->glDrawMode, 0, vertexArrayCount);
+		}
+	}
+
+	return totalVertexCount;
 }

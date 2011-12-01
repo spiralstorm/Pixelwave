@@ -17,6 +17,17 @@
 #define    inkNan          __nan( )
 #endif
 
+typedef void (*inkPointSizeFunction)(float);
+typedef void (*inkLineWidthFunction)(float);
+typedef void (*inkStateFunction)(unsigned int);
+
+typedef void (*inkPointerFunction)(int, unsigned int, int, const void*);
+
+typedef void (*inkDrawArraysFunction)(unsigned int, int, int);
+typedef void (*inkDrawElementsFunction)(unsigned int, int, unsigned int, const void*);
+
+typedef void (*inkTextureFunction)(unsigned int, unsigned int);
+
 typedef struct
 {
 	float x, y;
