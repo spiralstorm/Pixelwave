@@ -215,9 +215,6 @@ void PXEngineInit(PXView *view)
 
 void PXEngineDealloc()
 {
-	PXSoundEngineDealloc();
-	PXTouchEngineDealloc();
-
 	// Backwards of init()
 	if (pxEngineSharedObjectPool)
 	{
@@ -267,6 +264,8 @@ void PXEngineDealloc()
 		pxEngineDOBufferCurrentObject = 0;
 	}
 
+	PXSoundEngineDealloc();
+	PXTouchEngineDealloc();
 	_PXTopLevelDealloc();
 
 	pxEngineInitialized = false;
