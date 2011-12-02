@@ -14,7 +14,7 @@
 //			intersection is impossible to find due to the points being too close
 //			together.
 // NOTE:	See the '+ 2', this is to add the first and last points always
-const unsigned int inkGeneratorCurvePercision = 55 + 2;
+const unsigned int inkGeneratorCurvePercision = 5 + 2;
 
 inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill)
 {

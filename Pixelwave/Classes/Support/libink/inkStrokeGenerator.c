@@ -136,7 +136,7 @@ inkInline void inkStrokeGeneratorAddDrawPoint(inkPoint point, inkTessellator* te
 
 void inkStrokeGeneratorRound(inkTessellator* tessellator, void* fill, inkPoint pivotPoint, inkPoint startPoint, float startAngle, float angleDiff, float angleDist)
 {
-	return;
+//	return;
 //	if (angleDiff < inkStrokeGeneratorRoundAngleEpsilon)
 //		return;
 
@@ -338,7 +338,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 
 		// Is our inner really our outer?
 		//if (innerOuterSwitchAlreadyChecked == false)
-		{
+		//{
 			float innerIntersectionDist = inkPointDistanceToLine(innerIntersection, lineAD);
 			float outerIntersectionDist = inkPointDistanceToLine(outerIntersection, lineBC);
 		//	float innerXIntersectionDist = inkPointDistanceToLine(abInnerIntersection, lineAB);
@@ -379,7 +379,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			//	printf("c innerOuterSwitch = %s, o innerOuterSwitch = %s\n", innerOuterSwitch ? "true" : "false", isInnerZero ? "false" : "true");
 			//	printf("ab in? %s, cd in? %s\n", inkIsPointInLine(abInnerIntersection, lineAB) ? "true" : "false", inkIsPointInLine(cdOuterIntersection, lineCD) ? "true" : "false");
 			}*/
-		}
+		//}
 		//else
 	//	if (innerOuterSwitchAlreadyChecked)
 		//{
@@ -416,6 +416,10 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			tempPoint = innerB;
 			innerB = outerB;
 			outerB = tempPoint;
+
+			float temp = innerIntersectionDist;
+			innerIntersectionDist = outerIntersectionDist;
+			outerIntersectionDist = temp;
 		}
 		else
 		{
@@ -423,15 +427,26 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			flip = !flip;
 		}
 
-		if (reverseCaps == true)
+	//	if (isInnerZero == false && isOuterZero == false)
 		{
-			if (inkIsPointInLine(abInnerIntersection, lineAB) == true)
-				innerIntersection = abInnerIntersection;
-		}
-		else
-		{
-			if (inkIsPointInLine(cdOuterIntersection, lineCD) == true)
-				innerIntersection = cdOuterIntersection;
+			if (reverseCaps == true)
+			{
+				float innerXIntersectionDist = inkPointDistanceToLine(abInnerIntersection, lineAB);
+
+			//	inkPoint
+			//	if (inkIsPointInLine(abInnerIntersection, lineAB) == true)
+				if (inkIsEqualf(innerXIntersectionDist, innerIntersectionDist) == false && innerXIntersectionDist < innerIntersectionDist)
+					innerIntersection = abInnerIntersection;
+			}
+			else
+			{
+				float outerXIntersectionDist = inkPointDistanceToLine(cdOuterIntersection, lineCD);
+
+			//	if (inkIsPointInLine(cdOuterIntersection, lineCD) == true)
+			//	if (outerXIntersectionDist < outerIntersectionDist)
+				if (inkIsEqualf(outerXIntersectionDist, outerIntersectionDist) == false && outerXIntersectionDist < innerIntersectionDist)
+					innerIntersection = cdOuterIntersection;
+			}
 		}
 
 	//	if (innerDistFromPivot > 
@@ -456,10 +471,15 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 		float angleDiff = inkAngleOrient(angleA - angleB);
 
 		float innerDistFromPivot = inkPointDistance(pivotPt, innerIntersection);
+	//	float outerDistFromPivot = inkPointDistance(pivotPt, outerIntersection);
 
-		if (inkIsZerof(innerDistFromPivot) == false && inkIsEqualf(angleDist, innerDistFromPivot) == false)
+		// TODO:	Calculate the distance that the inner should be from the
+		//			origin max.
+	//	float maxInnerDistFromPivot = fminf(innerDistFromPivot, outerDistFromPivot);//angleDist + (cosf(M_PI * 0.25f) * angleDist);
+		float maxInnerDistFromPivot = angleDist + (cosf(M_PI * 0.25f) * angleDist);
+		if (inkIsZerof(innerDistFromPivot) == false && innerDistFromPivot > maxInnerDistFromPivot)
 		{
-			float innerDistScale = angleDist / innerDistFromPivot;
+			float innerDistScale = maxInnerDistFromPivot / innerDistFromPivot;
 
 			innerIntersection = inkPointInterpolate(pivotPt, innerIntersection, innerDistScale);
 		}
