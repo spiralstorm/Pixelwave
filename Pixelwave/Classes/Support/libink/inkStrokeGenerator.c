@@ -136,6 +136,7 @@ inkInline void inkStrokeGeneratorAddDrawPoint(inkPoint point, inkTessellator* te
 
 void inkStrokeGeneratorRound(inkTessellator* tessellator, void* fill, inkPoint pivotPoint, inkPoint startPoint, float startAngle, float angleDiff, float angleDist)
 {
+	return;
 //	if (angleDiff < inkStrokeGeneratorRoundAngleEpsilon)
 //		return;
 
@@ -205,6 +206,7 @@ void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, void
 
 bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBox* previousBox, inkBox* nowBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise)
 {
+//	printf("pt = (%f, %f)\n", vA.x, vA.y);
 	inkBox box = inkBoxZero;
 	// Needs to be declared and set prior to using the goto.
 	bool flip = false;
@@ -324,13 +326,59 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			//}
 		}
 
+		inkLine lineAB = inkLineMake(box.pointA, box.pointB);
+		inkLine linePreviousCD = inkLineMake(previousBox->pointC, previousBox->pointD);
+
+		inkPoint abInnerIntersection = inkLineIntersection(lineAB, linePreviousCD);
+
+		inkLine lineCD = inkLineMake(box.pointC, box.pointD);
+		inkLine linePreviousAB = inkLineMake(previousBox->pointA, previousBox->pointB);
+
+		inkPoint cdOuterIntersection = inkLineIntersection(lineCD, linePreviousAB);
+
 		// Is our inner really our outer?
 		//if (innerOuterSwitchAlreadyChecked == false)
 		{
 			float innerIntersectionDist = inkPointDistanceToLine(innerIntersection, lineAD);
 			float outerIntersectionDist = inkPointDistanceToLine(outerIntersection, lineBC);
-			innerOuterSwitch = innerIntersectionDist > outerIntersectionDist;
-		//	innerOuterSwitch = !inkIsPointInLine(innerIntersection, lineAD);
+		//	float innerXIntersectionDist = inkPointDistanceToLine(abInnerIntersection, lineAB);
+		//	float outerXIntersectionDist = inkPointDistanceToLine(cdOuterIntersection, lineCD);
+		//	bool isInnerZero = inkIsZerof(innerIntersectionDist);
+		//	bool isOuterZero = inkIsZerof(outerIntersectionDist);
+		//	bool isInnerXZero = inkIsZerof(innerXIntersectionDist);
+		//	bool isOuterXZero = inkIsZerof(outerXIntersectionDist);
+		//	if (isInnerZero == false && inkIsZerof(outerIntersectionDist) == false)
+				innerOuterSwitch = innerIntersectionDist > outerIntersectionDist;
+		//	else
+		//		innerOuterSwitch = !isInnerZero;
+
+			/*if (isInnerZero == true)
+			{
+				innerOuterSwitch = false;
+			}
+			else if (isOuterZero == true)
+			{
+				innerOuterSwitch = true;
+			}
+			else if (isInnerZero == false && isOuterZero == false)
+			{
+				innerOuterSwitch = innerIntersectionDist > outerIntersectionDist;
+				//innerOuterSwitch = ~isInnerXZero & isOuterXZero;
+			}
+
+			if (innerOuterSwitch == isInnerZero)
+			{
+				printf("DIFF innerIntersectionDist = %f, outerIntersectionDist = %f\n", innerIntersectionDist, outerIntersectionDist);
+				printf("DIFF c innerOuterSwitch = %s, o innerOuterSwitch = %s\n", innerOuterSwitch ? "true" : "false", isInnerZero ? "false" : "true");
+				printf("DIFF ab innerIntersectionDist = %f, cd outerIntersectionDist = %f\n", innerXIntersectionDist, outerXIntersectionDist);
+				printf("DIFF ab in? %s, cd in? %s\n", isInnerXZero ? "true" : "false", isOuterXZero ? "true" : "false");
+			}
+			else
+			{
+			//	printf("innerIntersectionDist = %f, outerIntersectionDist = %f\n", innerIntersectionDist, outerIntersectionDist);
+			//	printf("c innerOuterSwitch = %s, o innerOuterSwitch = %s\n", innerOuterSwitch ? "true" : "false", isInnerZero ? "false" : "true");
+			//	printf("ab in? %s, cd in? %s\n", inkIsPointInLine(abInnerIntersection, lineAB) ? "true" : "false", inkIsPointInLine(cdOuterIntersection, lineCD) ? "true" : "false");
+			}*/
 		}
 		//else
 	//	if (innerOuterSwitchAlreadyChecked)
@@ -344,16 +392,6 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 
 	//	if (innerOuterSwitchAlreadyChecked)
 	//		innerOuterSwitch = !innerOuterSwitch;
-
-		inkLine lineAB = inkLineMake(box.pointA, box.pointB);
-		inkLine linePreviousCD = inkLineMake(previousBox->pointC, previousBox->pointD);
-
-		inkPoint abInnerIntersection = inkLineIntersection(lineAB, linePreviousCD);
-
-		inkLine lineCD = inkLineMake(box.pointC, box.pointD);
-		inkLine linePreviousAB = inkLineMake(previousBox->pointA, previousBox->pointB);
-
-		inkPoint cdOuterIntersection = inkLineIntersection(lineCD, linePreviousAB);
 
 		//bool checkAB = reverseCaps;//clockwise ^ !innerOuterSwitch;
 
@@ -396,6 +434,8 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 				innerIntersection = cdOuterIntersection;
 		}
 
+	//	if (innerDistFromPivot > 
+
 		/*if (innerOuterSwitchAlreadyChecked && (innerIntersection.y > outerIntersection.y))
 		{
 			flip = !flip;
@@ -414,6 +454,15 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 		float angleDist = inkPointDistance(outerA, pivotPt);
 
 		float angleDiff = inkAngleOrient(angleA - angleB);
+
+		float innerDistFromPivot = inkPointDistance(pivotPt, innerIntersection);
+
+		if (inkIsZerof(innerDistFromPivot) == false && inkIsEqualf(angleDist, innerDistFromPivot) == false)
+		{
+			float innerDistScale = angleDist / innerDistFromPivot;
+
+			innerIntersection = inkPointInterpolate(pivotPt, innerIntersection, innerDistScale);
+		}
 
 		//printf("diff is %f; a = %f, b = %f\n", angleDiff * 180.0f / M_PI, angleA * 180.0f / M_PI, angleB * 180.0f / M_PI);
 		if (isnan(angleDiff))
@@ -472,6 +521,22 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 				break;
 			case inkJointStyle_Round:
 			{
+			/*//	inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+			//	inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
+			//	inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+				inkSolidFill solidFill;
+				solidFill = inkSolidFillMake(0xFF0000, 1.0f);
+				inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, &solidFill);
+				solidFill = inkSolidFillMake(0x00FF00, 1.0f);
+				inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, &solidFill);
+				solidFill = inkSolidFillMake(0x0000FF, 1.0f);
+				inkStrokeGeneratorAddDrawPoint(inkPointScale(inkPointAdd(innerIntersection, outerIntersection), 0.5f), tessellator, &solidFill);
+
+				solidFill = inkSolidFillMake(0xFFFFFF, 1.0f);
+				inkStrokeGeneratorAddDrawPoint(ptA, tessellator, &solidFill);
+				solidFill = inkSolidFillMake(0xFFFFFF, 1.0f);
+				inkStrokeGeneratorAddDrawPoint(ptB, tessellator, &solidFill);*/
+
 				if (flip)
 					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
 
@@ -634,16 +699,40 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 		float sum = 0.0f;
 		INKvertex previousVertex = *((INKvertex *)(inkArrayElementAt(vertices, 0)));
+
 		inkArrayForEach(vertices, vertex)
 		{
 			if (index++ == 0)
+			{
 				continue;
+			}
 
 			sum += (vertex->x - previousVertex.x) * (vertex->y + previousVertex.y);
 			previousVertex = *vertex;
 		}
 
 		clockwise = sum >= 0.0f;
+
+		// Print a useful part of the .h
+		/*inkPoint minPoint = inkPointMake(MAXFLOAT, MAXFLOAT);
+		inkPoint maxPoint = inkPointMake(-MAXFLOAT, -MAXFLOAT);
+
+		inkArrayForEach(vertices, vertex)
+		{
+			minPoint = inkPointMake(fminf(minPoint.x, vertex->x), fminf(minPoint.y, vertex->y));
+			maxPoint = inkPointMake(fmaxf(maxPoint.x, vertex->x), fmaxf(maxPoint.y, vertex->y));
+		}
+
+		inkPoint midPoint = inkPointScale(inkPointAdd(minPoint, maxPoint), 0.5f);
+
+		printf("inkPoint offset = inkPointMake(%ff, %ff);\n", midPoint.x, midPoint.y);
+		printf("#define pointCount %u\ninkPoint pts[pointCount] =\n{\n", inkArrayCount(vertices));
+		index = 0;
+		inkArrayForEach(vertices, vertex)
+		{
+			printf("\tinkPointAdd(inkMatrixTransformPoint(matrix, inkPointMultiply(inkPointMake(%ff, %ff), pointMult)), offset),\n", vertex->x - midPoint.x, vertex->y - midPoint.y);
+		}
+		printf("};\n");*/
 
 		index = 0;
 

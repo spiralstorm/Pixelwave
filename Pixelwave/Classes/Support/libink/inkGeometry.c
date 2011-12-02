@@ -20,9 +20,12 @@ const inkRect inkRectZero = _inkRectZero;
 const inkBox inkBoxZero = _inkBoxZero;
 const inkMatrix inkMatrixIdentity = _inkMatrixIdentity;
 
+//int inkMaxUlps = 4 * 1024 * 512;
 //int inkMaxUlps = 4096;
 //int inkMaxUlps = 10;
-int inkMaxUlps = 2048;
+//int inkMaxUlps = 2048;
+//int inkMaxUlps = 1024;
+int inkMaxUlps = 64;
 
 #pragma mark -
 #pragma mark Point

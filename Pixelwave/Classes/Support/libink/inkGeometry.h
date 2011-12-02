@@ -225,6 +225,10 @@ inkInline bool inkIsNearlyEqualf(float a, float b, int maxUlps)
 	if (bInt < 0)
 		bInt = 0x80000000 - bInt;
 	int intDiff = abs(aInt - bInt);
+	if (intDiff > 0)
+	{
+		printf("int diff between (%f and %f) is %d\n", a, b, intDiff);
+	}
 	if (intDiff <= maxUlps)
 		return true;
 	return false;
