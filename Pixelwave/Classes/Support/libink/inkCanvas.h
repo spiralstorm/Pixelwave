@@ -24,6 +24,7 @@ typedef struct
 	inkArray* renderGroups;
 
 	inkPoint cursor;
+	inkRect bounds;
 } inkCanvas;
 
 inkExtern inkCanvas* inkCreate();
@@ -31,6 +32,7 @@ inkExtern void inkDestroy(inkCanvas* canvas);
 
 inkExtern inkArray* inkRenderGroups(inkCanvas* canvas);
 inkExtern inkPoint inkCursor(inkCanvas* canvas);
+inkExtern inkRect inkBounds(inkCanvas* canvas);
 
 inkExtern void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data);
 inkExtern void inkRemoveAllCommands(inkCanvas* canvas);

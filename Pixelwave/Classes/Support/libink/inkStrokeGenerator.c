@@ -432,7 +432,10 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
 			inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
 		}
-		//goto endStatement;
+
+	//	inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+	//	inkStrokeGeneratorAddDrawPoint(innerB, tessellator, fill);
+	//	goto endStatement;
 
 		switch(stroke->joints)
 		{

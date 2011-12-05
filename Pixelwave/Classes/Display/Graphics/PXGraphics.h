@@ -57,7 +57,7 @@ typedef inkPathWinding PXGraphicsPathWinding;
 @interface PXGraphics : NSObject
 {
 @protected
-	void *vGraphicsUtil;
+	void *vCanvas;
 }
 
 - (void) beginFill:(unsigned int)color alpha:(float)alpha;

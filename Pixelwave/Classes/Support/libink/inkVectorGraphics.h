@@ -47,6 +47,8 @@ inkExtern void inkLineStyleNone(inkCanvas* canvas);
 // tessellator.
 inkExtern void inkBuild(inkCanvas* canvas);
 
+inkExtern bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox);
+
 inkExtern unsigned int inkDraw(inkCanvas* canvas);
 inkExtern unsigned int inkDrawv(inkCanvas* canvas, inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc);
 

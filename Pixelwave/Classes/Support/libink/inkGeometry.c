@@ -14,8 +14,11 @@
 
 const inkPoint inkPointZero = _inkPointZero;
 const inkPoint inkPointNan = _inkPointNan;
-const inkLine inkLineZero = _inkLineZero;
+const inkPoint inkPointMin = _inkPointMin;
+const inkPoint inkPointMax = _inkPointMax;
 const inkSize inkSizeZero = _inkSizeZero;
+const inkLine inkLineZero = _inkLineZero;
+const inkTriangle inkTriangleZero = _inkTriangleZero;
 const inkRect inkRectZero = _inkRectZero;
 const inkBox inkBoxZero = _inkBoxZero;
 const inkMatrix inkMatrixIdentity = _inkMatrixIdentity;
@@ -58,7 +61,7 @@ float inkPointDistanceToLine(inkPoint point, inkLine line)
 	return inkPointDistance(inkClosestPointToLine(point, line), point);
 }
 
-bool inkIsPointInLine(inkPoint point, inkLine line)
+bool inkLineContainsPoint(inkLine line, inkPoint point)
 {
 	return inkIsZerof(inkPointDistanceToLine(point, line));
 }
@@ -243,13 +246,16 @@ inkBox inkLineExpandToBox(inkLine line, float halfScalar)
 	return inkBoxMake(lineA.pointA, lineA.pointB, lineB.pointA, lineB.pointB);
 }
 
-inkLine inkTriangleBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint pointC, float halfScalar)
+inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar)
 {
-	if (pointA.x > pointC.x)
-		return inkTriangleBisectionTraverser(pointC, pointB, pointA, halfScalar);
-	
-	inkPoint a = inkPointMake(pointB.x - pointA.x, pointB.y - pointA.y);
-	inkPoint c = inkPointMake(pointB.x - pointC.x, pointB.y - pointC.y);
+	if (triangle.pointA.x > triangle.pointC.x)
+		return inkTriangleBisectionTraverser(inkTriangleMake(triangle.pointC, triangle.pointB, triangle.pointA), halfScalar);
+		//return inkTriangleBisectionTraverser(pointC, pointB, pointA, halfScalar);
+
+	inkPoint a = inkPointSubtract(triangle.pointB, triangle.pointC);
+	inkPoint c = inkPointSubtract(triangle.pointB, triangle.pointA);
+//	inkPoint a = inkPointMake(pointB.x - pointA.x, pointB.y - pointA.y);
+//	inkPoint c = inkPointMake(pointB.x - pointC.x, pointB.y - pointC.y);
 
 	float aLen = inkPointDistanceFromZero(a);
 	float cLen = inkPointDistanceFromZero(c);
@@ -261,7 +267,7 @@ inkLine inkTriangleBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint
 
 	if (inkIsEqualf(a.x * one_aLen, c.x * one_cLen) && inkIsEqualf(a.y * one_aLen, c.x * one_cLen))
 	{
-		return inkLineBisectionTraverser(inkLineMake(pointA, pointB), halfScalar);
+		return inkLineBisectionTraverser(inkLineMake(triangle.pointA, triangle.pointB), halfScalar);
 	}
 
 	bisector = inkPointMake((c.x * aLen) + (a.x * cLen), (c.y * aLen) + (a.y * cLen));
@@ -273,8 +279,35 @@ inkLine inkTriangleBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint
 	halfScalar /= sqrtf(bisectorSq.x + bisectorSq.y);
 	bisector = inkPointMake(bisector.x * halfScalar, bisector.y * halfScalar);
 
-	return inkLineMakev(pointB.x + bisector.x, pointB.y + bisector.y,
-					    pointB.x - bisector.x, pointB.y - bisector.y);
+	return inkLineMake(inkPointAdd(triangle.pointB, bisector), inkPointSubtract(triangle.pointB, bisector));
+//	return inkLineMakev(triangle.pointB.x + bisector.x, triangle.pointB.y + bisector.y,
+//					    triangle.pointB.x - bisector.x, triangle.pointB.y - bisector.y);
+}
+
+bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point)
+{
+	inkPoint v0 = inkPointSubtract(triangle.pointC, triangle.pointA);
+	inkPoint v1 = inkPointSubtract(triangle.pointB, triangle.pointA);
+	inkPoint v2 = inkPointSubtract(point, triangle.pointA);
+
+	// Compute dot products
+	float dot00 = inkPointDot(v0, v0);
+	float dot01 = inkPointDot(v0, v1);
+	float dot02 = inkPointDot(v0, v2);
+	float dot11 = inkPointDot(v1, v1);
+	float dot12 = inkPointDot(v1, v2);
+
+	// Compute barycentric coordinates
+	float denom = ((dot00 * dot11) - (dot01 * dot01));
+	if (inkIsZerof(denom))
+		return false;
+
+	float invDenom = 1.0f / denom;
+	float u = (dot11 * dot02 - dot01 * dot12) * invDenom;
+	float v = (dot00 * dot12 - dot01 * dot02) * invDenom;
+
+	// Check if point is in triangle
+	return (u >= 0) && (v >= 0) && (u + v <= 1);
 }
 
 /*void inkPointBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint pointC, float halfScalar, inkPoint* inner, inkPoint* outer)

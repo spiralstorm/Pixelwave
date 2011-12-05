@@ -31,6 +31,13 @@ typedef struct
 
 typedef struct
 {
+	inkPoint pointA;
+	inkPoint pointB;
+	inkPoint pointC;
+} inkTriangle;
+
+typedef struct
+{
 	inkPoint origin;
 	inkSize size;
 } inkRect;
@@ -56,16 +63,22 @@ typedef struct
 
 #define _inkPointZero {0.0f, 0.0f}
 #define _inkPointNan {NAN, NAN}
-#define _inkLineZero {0.0f, 0.0f, 0.0f, 0.0f}
+#define _inkPointMin {MAXFLOAT, MAXFLOAT}
+#define _inkPointMax {-MAXFLOAT, -MAXFLOAT}
 #define _inkSizeZero {0.0f, 0.0f}
+#define _inkLineZero {0.0f, 0.0f, 0.0f, 0.0f}
 #define _inkRectZero {0.0f, 0.0f, 0.0f, 0.0f}
+#define _inkTriangleZero {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}
 #define _inkBoxZero {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}
 #define _inkMatrixIdentity {1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f}
 
 inkExtern const inkPoint inkPointZero;
 inkExtern const inkPoint inkPointNan;
-inkExtern const inkLine inkLineZero;
+inkExtern const inkPoint inkPointMin;
+inkExtern const inkPoint inkPointMax;
 inkExtern const inkSize inkSizeZero;
+inkExtern const inkLine inkLineZero;
+inkExtern const inkTriangle inkTriangleZero;
 inkExtern const inkRect inkRectZero;
 inkExtern const inkBox inkBoxZero;
 inkExtern const inkMatrix inkMatrixIdentity;
@@ -107,6 +120,7 @@ inkInline inkPoint inkPointFromPolar(float length, float angle);
 inkInline inkPoint inkPointInterpolate(inkPoint from, inkPoint to, float percent);
 
 inkInline float inkPointPerp(inkPoint pointA, inkPoint pointB);
+inkInline float inkPointDot(inkPoint pointA, inkPoint pointB);
 inkInline float inkPointAngle(inkPoint pointA, inkPoint pointB);
 inkInline float inkPointDistanceFromZero(inkPoint point);
 inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB);
@@ -116,7 +130,6 @@ bool inkPointIsNan(inkPoint point);
 
 inkPoint inkClosestPointToLine(inkPoint point, inkLine line);
 float inkPointDistanceToLine(inkPoint point, inkLine line);
-bool inkIsPointInLine(inkPoint point, inkLine line);
 
 #pragma mark -
 #pragma mark Size Declarations
@@ -135,11 +148,22 @@ inkInline inkSize inkSizeFromPoint(inkPoint point);
 inkInline inkLine inkLineMake(inkPoint pointA, inkPoint pointB);
 inkInline inkLine inkLineMakev(float x1, float y1, float x2, float y2);
 
+bool inkLineContainsPoint(inkLine line, inkPoint point);
+
 inkPoint inkLineIntersection(inkLine lineA, inkLine lineB);
 inkPoint inkLineIntersectionv(inkLine lineA, inkLine lineB, bool flipT);
 inkLine inkLineBisectionTraverser(inkLine line, float halfScalar);
 inkBox inkLineExpandToBox(inkLine line, float halfScalar);
-inkLine inkTriangleBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint pointC, float halfScalar);
+
+#pragma mark -
+#pragma mark Triangle Declarations
+#pragma mark -
+
+inkInline inkTriangle inkTriangleMake(inkPoint pointA, inkPoint pointB, inkPoint pointC);
+inkInline inkTriangle inkTriangleMakev(float x1, float y1, float x2, float y2, float x3, float y3);
+
+inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar);
+bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point);
 
 #pragma mark -
 #pragma mark Box Declarations
@@ -159,6 +183,8 @@ inkInline inkRect inkRectMake(inkPoint origin, inkSize size);
 inkInline inkRect inkRectMakev(float x, float y, float width, float height);
 
 inkInline inkRect inkRectFromBox(inkBox box);
+
+inkInline bool inkRectContainsPoint(inkRect rect, inkPoint point);
 
 /*float inkRectTop(inkRect rect);
 float inkRectBottom(inkRect rect);
@@ -336,7 +362,12 @@ inkInline inkPoint inkPointInterpolate(inkPoint from, inkPoint to, float percent
 
 inkInline float inkPointPerp(inkPoint pointA, inkPoint pointB)
 {
-	return pointA.x * pointB.y - pointA.y * pointB.x;
+	return ((pointA.x * pointB.y) - (pointA.y * pointB.x));
+}
+
+inkInline float inkPointDot(inkPoint pointA, inkPoint pointB)
+{
+	return ((pointA.x * pointB.x) + (pointA.y * pointB.y));
 }
 
 inkInline float inkPointDistanceFromZero(inkPoint point)
@@ -373,7 +404,26 @@ inkInline bool inkPointIsEqual(inkPoint pointA, inkPoint pointB)
 }
 
 #pragma mark -
-#pragma mark Line Declarations
+#pragma mark Size Implemenations
+#pragma mark -
+
+inkInline inkSize inkSizeMake(float width, float height)
+{
+	inkSize size;
+
+	size.width = width;
+	size.height = height;
+
+	return size;
+}
+
+inkInline inkSize inkSizeFromPoint(inkPoint point)
+{
+	return inkSizeMake(point.x, point.y);
+}
+
+#pragma mark -
+#pragma mark Line Implementations
 #pragma mark -
 
 inkInline inkLine inkLineMake(inkPoint pointA, inkPoint pointB)
@@ -392,22 +442,23 @@ inkInline inkLine inkLineMakev(float x1, float y1, float x2, float y2)
 }
 
 #pragma mark -
-#pragma mark Size Implemenations
+#pragma mark Triangle Implementations
 #pragma mark -
 
-inkInline inkSize inkSizeMake(float width, float height)
+inkInline inkTriangle inkTriangleMake(inkPoint pointA, inkPoint pointB, inkPoint pointC)
 {
-	inkSize size;
+	inkTriangle triangle;
 
-	size.width = width;
-	size.height = height;
+	triangle.pointA = pointA;
+	triangle.pointB = pointB;
+	triangle.pointC = pointC;
 
-	return size;
+	return triangle;
 }
 
-inkInline inkSize inkSizeFromPoint(inkPoint point)
+inkInline inkTriangle inkTriangleMakev(float x1, float y1, float x2, float y2, float x3, float y3)
 {
-	return inkSizeMake(point.x, point.y);
+	return inkTriangleMake(inkPointMake(x1, y1), inkPointMake(x2, y2), inkPointMake(x3, y3));
 }
 
 #pragma mark -
@@ -437,6 +488,11 @@ inkInline inkRect inkRectMakev(float x, float y, float width, float height)
 inkInline inkRect inkRectFromBox(inkBox box)
 {
 	return inkRectMake(box.pointA, inkSizeFromPoint(inkPointSubtract(box.pointC, box.pointA)));
+}
+
+inkInline bool inkRectContainsPoint(inkRect rect, inkPoint point)
+{
+	return !(point.x < rect.origin.x || point.x > (rect.origin.x + rect.size.width) || point.y < rect.origin.y || point.y > (rect.origin.y + rect.size.height));
 }
 
 #pragma mark -

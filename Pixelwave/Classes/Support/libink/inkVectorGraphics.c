@@ -318,6 +318,132 @@ void inkBuild(inkCanvas* canvas)
 	inkEndGenerators(&fillGenerator, &strokeGenerator);
 
 	canvas->cursor = inkPointZero;
+
+	inkArray* renderGroups = inkRenderGroups(canvas);
+
+	if (renderGroups == NULL)
+	{
+		canvas->bounds = inkRectZero;
+		return;
+	}
+
+	inkRenderGroup* renderGroup;
+	inkArray* vertexArray;
+	INKvertex* vertex;
+	unsigned int vertexCount;
+
+	inkPoint minPoint = inkPointMax;
+	inkPoint maxPoint = inkPointMin;
+
+	inkArrayPtrForEach(renderGroups, renderGroup)
+	{
+		vertexArray = renderGroup->vertices;
+		vertexCount = inkArrayCount(vertexArray);
+
+		if (vertexCount == 0)
+			continue;
+
+		inkArrayForEach(vertexArray, vertex)
+		{
+			minPoint = inkPointMake(fminf(minPoint.x, vertex->x), fminf(minPoint.y, vertex->y));
+			maxPoint = inkPointMake(fmaxf(maxPoint.x, vertex->x), fmaxf(maxPoint.y, vertex->y));
+		}
+	}
+
+	canvas->bounds = inkRectMake(minPoint, inkSizeFromPoint(inkPointSubtract(maxPoint, minPoint)));
+}
+
+bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox)
+{
+	inkArray* renderGroups = inkRenderGroups(canvas);
+
+	if (renderGroups == NULL)
+		return false;
+
+	inkRenderGroup* renderGroup;
+	inkArray* vertexArray;
+	INKvertex* vertex;
+	inkTriangle triangle = inkTriangleZero;
+	inkPoint firstPoint;
+
+	unsigned int index;
+	unsigned int vertexCount;
+
+	if (useBoundingBox == true)
+	{
+		return inkRectContainsPoint(canvas->bounds, point);
+	}
+
+	inkArrayPtrForEach(renderGroups, renderGroup)
+	{
+		vertexArray = renderGroup->vertices;
+		vertexCount = inkArrayCount(vertexArray);
+
+		if (vertexCount == 0)
+			continue;
+
+		index = 0;
+
+		firstPoint = *((inkPoint*)inkArrayElementAt(vertexArray, 0));
+		triangle.pointC = *((inkPoint*)inkArrayElementAt(vertexArray, vertexCount - 1));
+
+		inkArrayForEach(vertexArray, vertex)
+		{
+			triangle.pointA = triangle.pointB;
+			triangle.pointB = triangle.pointC;
+			triangle.pointC = inkPointMake(vertex->x, vertex->y);
+
+			switch(renderGroup->glDrawMode)
+			{
+		// POINTS
+				case GL_POINTS:
+					if (inkPointIsEqual(triangle.pointC, point))
+						return true;
+					break;
+
+		// LINES
+				case GL_LINES:
+					if (index % 2 == 0)
+						break; // must break so index iterates
+				case GL_LINE_STRIP:
+					if (index == 0)
+						break; // must break so index iterates
+				case GL_LINE_LOOP:
+					// At index  0, point B will be the last point, and pointC
+					// will be the first point, thus checking loop.
+					if (inkLineContainsPoint(inkLineMake(triangle.pointB, triangle.pointC), point))
+						return true;
+
+					break;
+
+		// TRIANGLES
+				case GL_TRIANGLES:
+					if (index == 0 || (index % 3 != 0))
+						break;
+
+					break;
+				case GL_TRIANGLE_FAN:
+					if (index < 2)
+						break;
+
+					triangle.pointA = firstPoint;
+
+					break;
+				case GL_TRIANGLE_STRIP:
+					if (index < 2)
+						break; // must break so index iterates
+
+					if (inkTriangleContainsPoint(triangle, point))
+						return true;
+
+					break;
+			}
+
+			++index;
+		}
+	}
+
+	return false;
 }
 
 unsigned int inkDraw(inkCanvas* canvas)
@@ -327,14 +453,14 @@ unsigned int inkDraw(inkCanvas* canvas)
 
 unsigned int inkDrawv(inkCanvas* canvas, inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc)
 {
-	inkArray *renderGroups = inkRenderGroups(canvas);
+	inkArray* renderGroups = inkRenderGroups(canvas);
 
 	if (renderGroups == NULL)
 		return 0;
 
-	inkRenderGroup *renderGroup;
-	inkArray *vertexArray;
-	INKvertex *vertices;
+	inkRenderGroup* renderGroup;
+	inkArray* vertexArray;
+	INKvertex* vertices;
 
 	pointSizeFunc(4.0f);
 

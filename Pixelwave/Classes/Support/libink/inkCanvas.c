@@ -44,6 +44,9 @@ inkCanvas* inkCreate()
 			inkDestroy(canvas);
 			return NULL;
 		}
+
+		canvas->cursor = inkPointZero;
+		canvas->bounds = inkRectZero;
 	}
 
 	return canvas;
@@ -100,6 +103,14 @@ inkPoint inkCursor(inkCanvas* canvas)
 		return inkPointZero;
 
 	return canvas->cursor;
+}
+
+inkRect inkBounds(inkCanvas* canvas)
+{
+	if (canvas == NULL)
+		return inkRectZero;
+
+	return canvas->bounds;
 }
 
 void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)

@@ -44,6 +44,8 @@
 
 #include "PXDebug.h"
 
+#include "PXGL.h"
+
 #include "inkVectorGraphics.h"
 #include "inkVectorGraphicsUtils.h"
 
@@ -122,9 +124,9 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 	if (self)
 	{
-		vGraphicsUtil = inkCreate();
+		vCanvas = inkCreate();
 
-		if (vGraphicsUtil == nil)
+		if (vCanvas == nil)
 		{
 			[self release];
 			return nil;
@@ -136,7 +138,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) dealloc
 {
-	inkDestroy(vGraphicsUtil);
+	inkDestroy((inkCanvas*)vCanvas);
 
 	[super dealloc];
 }
@@ -147,7 +149,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) beginFill:(unsigned int)color alpha:(float)alpha
 {
-	inkBeginFill(vGraphicsUtil, inkSolidFillMake(color, alpha));
+	inkBeginFill((inkCanvas*)vCanvas, inkSolidFillMake(color, alpha));
 }
 
 - (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)pxMatrix repeat:(BOOL)repeat smooth:(BOOL)smooth
@@ -158,19 +160,19 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	inkMatrix matrix = PXGraphicsMakeMatrixFromPXMatrix(pxMatrix);
 	inkBitmapFill fill = inkBitmapFillMake(matrix, inkBitmapInfoMake(textureData.glTextureName, textureData.glTextureWidth, textureData.glTextureHeight), repeat, smooth);
 
-	inkBeginBitmapFill(vGraphicsUtil, fill);
+	inkBeginBitmapFill((inkCanvas*)vCanvas, fill);
 }
 
 - (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
 {
 	inkGradientFill gradientInfo = PXGraphicsGradientInfoMake(type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
 
-	inkBeginGradientFill(vGraphicsUtil, gradientInfo);
+	inkBeginGradientFill((inkCanvas*)vCanvas, gradientInfo);
 }
 
 - (void) endFill
 {
-	inkEndFill(vGraphicsUtil);
+	inkEndFill((inkCanvas*)vCanvas);
 }
 
 #pragma mark -
@@ -182,7 +184,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	inkStroke stroke = inkStrokeMake(thickness, pixelHinting, scaleMode, caps, joints, miterLimit);
 	inkSolidFill solidFill = inkSolidFillMake(color, alpha);
 
-	inkLineStyle(vGraphicsUtil, stroke, solidFill);
+	inkLineStyle((inkCanvas*)vCanvas, stroke, solidFill);
 }
 
 - (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)pxMatrix repeat:(BOOL)repeat smooth:(BOOL)smooth
@@ -193,14 +195,14 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	inkMatrix matrix = PXGraphicsMakeMatrixFromPXMatrix(pxMatrix);
 	inkBitmapFill fill = inkBitmapFillMake(matrix, inkBitmapInfoMake(textureData.glTextureName, textureData.glTextureWidth, textureData.glTextureHeight), repeat, smooth);
 
-	inkBeginBitmapFill(vGraphicsUtil, fill);
+	inkBeginBitmapFill((inkCanvas*)vCanvas, fill);
 }
 
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
 {
 	inkGradientFill gradientInfo = PXGraphicsGradientInfoMake(type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
 
-	inkLineGradientStyle(vGraphicsUtil, gradientInfo);
+	inkLineGradientStyle((inkCanvas*)vCanvas, gradientInfo);
 }
 
 #pragma mark -
@@ -209,17 +211,17 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) moveToX:(float)x y:(float)y
 {
-	inkMoveTo(vGraphicsUtil, inkPointMake(x, y));
+	inkMoveTo((inkCanvas*)vCanvas, inkPointMake(x, y));
 }
 
 - (void) lineToX:(float)x y:(float)y
 {
-	inkLineTo(vGraphicsUtil, inkPointMake(x, y));
+	inkLineTo((inkCanvas*)vCanvas, inkPointMake(x, y));
 }
 
 - (void) curveToControlX:(float)controlX controlY:(float)controlY anchorX:(float)anchorX anchorY:(float)anchorY
 {
-	inkCurveTo(vGraphicsUtil, inkPointMake(controlX, controlY), inkPointMake(anchorX, anchorY));
+	inkCurveTo((inkCanvas*)vCanvas, inkPointMake(controlX, controlY), inkPointMake(anchorX, anchorY));
 }
 
 // Need to be of type PXGraphicsData
@@ -240,7 +242,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) clear
 {
-	inkClear(vGraphicsUtil);
+	inkClear((inkCanvas*)vCanvas);
 }
 
 #pragma mark -
@@ -249,7 +251,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-	inkUtilsDrawRect(vGraphicsUtil, inkRectMakev(x, y, width, height));
+	inkUtilsDrawRect((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height));
 }
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth
@@ -259,17 +261,17 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth ellipseHeight:(float)ellipseHeight
 {
-	inkUtilsDrawRoundRect(vGraphicsUtil, inkRectMakev(x, y, width, height), inkSizeMake(ellipseWidth, ellipseHeight));
+	inkUtilsDrawRoundRect((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height), inkSizeMake(ellipseWidth, ellipseHeight));
 }
 
 - (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius
 {
-	inkUtilsDrawCircle(vGraphicsUtil, inkPointMake(x, y), radius);
+	inkUtilsDrawCircle((inkCanvas*)vCanvas, inkPointMake(x, y), radius);
 }
 
 - (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
-	inkUtilsDrawEllipse(vGraphicsUtil, inkRectMakev(x, y, width, height));
+	inkUtilsDrawEllipse((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height));
 }
 
 #pragma mark -
@@ -278,24 +280,29 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
-	// TODO: Implement
+	if (retBounds == NULL)
+		return;
+
+	inkRect bounds = inkBounds((inkCanvas*)vCanvas);
+
+	*retBounds = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y
 {
-	// TODO: Implement
-	return NO;
+	return [self _containsPointWithLocalX:x localY:y shapeFlag:NO];
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
-	// TODO: Implement
-	return NO;
+	// inkContainsPoint asks if you are using the bounds, not the shape flag;
+	// therefore it is the opposite of the shape flag.
+	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake(x, y), !shapeFlag);
 }
 
 - (void) _renderGL
 {
-	// TODO: Implement
+	inkDrawv((inkCanvas*)vCanvas, PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements);
 }
 
 @end
