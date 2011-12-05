@@ -15,6 +15,22 @@
 
 #include "inkGLU.h"
 
+inkInline inkPoint inkPosition(inkCanvas* canvas, inkPoint position, bool relative)
+{
+	if (canvas == NULL || relative == false)
+		return position;
+
+	return inkPointAdd(canvas->cursor, position);
+}
+
+inkInline void inkSetCursor(inkCanvas* canvas, inkPoint position)
+{
+	if (canvas == NULL)
+		return;
+
+	canvas->cursor = position;
+}
+
 void inkClear(inkCanvas* canvas)
 {
 	if (canvas == NULL)
@@ -26,38 +42,82 @@ void inkClear(inkCanvas* canvas)
 
 void inkMoveTo(inkCanvas* canvas, inkPoint position)
 {
-	inkMoveToCommand command = position;
-	inkAddCommand(canvas, inkCommandType_MoveTo, &command);
+	inkMoveTov(canvas, position, false);
 }
 
 void inkLineTo(inkCanvas* canvas, inkPoint position)
 {
-	inkLineToCommand command = position;
-	inkAddCommand(canvas, inkCommandType_LineTo, &command);
+	inkLineTov(canvas, position, false);
 }
 
 void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
 {
-	inkQuadraticCurveTo(canvas, control, anchor);
+	inkCurveTov(canvas, control, anchor, false);
 }
 
 void inkQuadraticCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
 {
+	inkQuadraticCurveTov(canvas, control, anchor, false);
+}
+
+void inkCubicCurveTo(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor)
+{
+	inkCubicCurveTov(canvas, controlA, controlB, anchor, false);
+}
+
+void inkMoveTov(inkCanvas* canvas, inkPoint position, bool relative)
+{
+	position = inkPosition(canvas, position, relative);
+
+	inkMoveToCommand command = position;
+	inkAddCommand(canvas, inkCommandType_MoveTo, &command);
+
+	inkSetCursor(canvas, position);
+}
+
+void inkLineTov(inkCanvas* canvas, inkPoint position, bool relative)
+{
+	position = inkPosition(canvas, position, relative);
+
+	inkLineToCommand command = position;
+	inkAddCommand(canvas, inkCommandType_LineTo, &command);
+
+	inkSetCursor(canvas, position);
+}
+
+void inkCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative)
+{
+	inkQuadraticCurveTo(canvas, control, anchor);
+}
+
+void inkQuadraticCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative)
+{
+	control = inkPosition(canvas, control, relative);
+	anchor = inkPosition(canvas, anchor, relative);
+
 	inkQuadraticCurveToCommand command;
 	command.control = control;
 	command.anchor = anchor;
 
 	inkAddCommand(canvas, inkCommandType_QuadraticCurveTo, &command);
+
+	inkSetCursor(canvas, anchor);
 }
 
-void inkCubicCurveTo(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor)
+void inkCubicCurveTov(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor, bool relative)
 {
+	controlA = inkPosition(canvas, controlA, relative);
+	controlB = inkPosition(canvas, controlB, relative);
+	anchor = inkPosition(canvas, anchor, relative);
+
 	inkCubicCurveToCommand command;
 	command.controlA = controlA;
 	command.controlB = controlB;
 	command.anchor = anchor;
 
 	inkAddCommand(canvas, inkCommandType_CubicCurveTo, &command);
+
+	inkSetCursor(canvas, anchor);
 }
 
 void inkBeginFill(inkCanvas* canvas, inkSolidFill solidFill)

@@ -94,6 +94,14 @@ inkArray* inkRenderGroups(inkCanvas* canvas)
 	return canvas->renderGroups;
 }
 
+inkPoint inkCursor(inkCanvas* canvas)
+{
+	if (canvas == NULL)
+		return inkPointZero;
+
+	return canvas->cursor;
+}
+
 void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)
 {
 	if (canvas == NULL)
