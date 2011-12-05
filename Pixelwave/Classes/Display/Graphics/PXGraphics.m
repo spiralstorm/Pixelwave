@@ -133,6 +133,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 		}
 	}
 
+	wasBuilt = false;
+
 	return self;
 }
 
@@ -216,32 +218,38 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) lineToX:(float)x y:(float)y
 {
+	wasBuilt = false;
 	inkLineTo((inkCanvas*)vCanvas, inkPointMake(x, y));
 }
 
 - (void) curveToControlX:(float)controlX controlY:(float)controlY anchorX:(float)anchorX anchorY:(float)anchorY
 {
+	wasBuilt = false;
 	inkCurveTo((inkCanvas*)vCanvas, inkPointMake(controlX, controlY), inkPointMake(anchorX, anchorY));
 }
 
 // Need to be of type PXGraphicsData
 - (void) drawGraphicsData:(NSArray *)graphicsData
 {
+	wasBuilt = false;
 	// TODO: Implement
 }
 
 - (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data
 {
+	wasBuilt = false;
 	[self drawPathWithCommands:commands count:count data:data winding:inkPathWinding_EvenOdd];
 }
 
 - (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data winding:(PXGraphicsPathWinding)winding
 {
+	wasBuilt = false;
 	// TODO: Implement
 }
 
 - (void) clear
 {
+	wasBuilt = false;
 	inkClear((inkCanvas*)vCanvas);
 }
 
@@ -251,6 +259,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
+	wasBuilt = false;
 	inkUtilsDrawRect((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height));
 }
 
@@ -261,16 +270,19 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth ellipseHeight:(float)ellipseHeight
 {
+	wasBuilt = false;
 	inkUtilsDrawRoundRect((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height), inkSizeMake(ellipseWidth, ellipseHeight));
 }
 
 - (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius
 {
+	wasBuilt = false;
 	inkUtilsDrawCircle((inkCanvas*)vCanvas, inkPointMake(x, y), radius);
 }
 
 - (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
+	wasBuilt = false;
 	inkUtilsDrawEllipse((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height));
 }
 
@@ -302,6 +314,13 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) _renderGL
 {
+	if (wasBuilt == false)
+	{
+		wasBuilt = true;
+
+		inkBuild((inkCanvas*)vCanvas);
+	}
+
 	inkDrawv((inkCanvas*)vCanvas, PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements);
 }
 

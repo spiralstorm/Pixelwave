@@ -58,6 +58,8 @@ typedef inkPathWinding PXGraphicsPathWinding;
 {
 @protected
 	void *vCanvas;
+
+	bool wasBuilt;
 }
 
 - (void) beginFill:(unsigned int)color alpha:(float)alpha;
