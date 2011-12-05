@@ -268,7 +268,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			//			the future.
 
 			// NOTE:	This only needs to be done by either AD or BC
-			float distAB = inkPointDistance(lineAD.pointA, linePreviousAD.pointB);
+			/*float distAB = inkPointDistance(lineAD.pointA, linePreviousAD.pointB);
 			float distBA = inkPointDistance(lineAD.pointB, linePreviousAD.pointA);
 
 			if (distAB < distBA)
@@ -291,6 +291,21 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			{
 				inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
 				inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
+			}*/
+
+			if (reverseCaps)
+			{
+				inkStrokeGeneratorAddDrawPoint(previousBox->pointB, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(previousBox->pointA, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(box.pointC, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(box.pointD, tessellator, fill);
+			}
+			else
+			{
+				inkStrokeGeneratorAddDrawPoint(previousBox->pointA, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(previousBox->pointB, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(box.pointD, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(box.pointC, tessellator, fill);
 			}
 
 			goto endStatement;
