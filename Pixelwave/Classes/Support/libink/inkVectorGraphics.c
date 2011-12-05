@@ -316,6 +316,8 @@ void inkBuild(inkCanvas* canvas)
 	}
 
 	inkEndGenerators(&fillGenerator, &strokeGenerator);
+
+	canvas->cursor = inkPointZero;
 }
 
 unsigned int inkDraw(inkCanvas* canvas)

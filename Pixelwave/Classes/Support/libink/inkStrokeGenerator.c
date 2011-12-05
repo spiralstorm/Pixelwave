@@ -15,7 +15,7 @@
 
 //#define INK_STROKE_GENERATOR_NO_FORCE_END
 
-const unsigned int inkStrokeGeneratorRoundPrecisionPoints = 11;
+const unsigned int inkStrokeGeneratorRoundPrecisionPoints = 3;
 // Anything less than 5 degrees will just be a line.
 //const float inkStrokeGeneratorRoundAngleEpsilon = M_PI / (180 / 5);
 
@@ -387,12 +387,17 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 		float innerDistFromPivot = inkPointDistance(pivotPt, innerIntersection);
 	//	float outerDistFromPivot = inkPointDistance(pivotPt, outerIntersection);
 
+	//	printf("dist from pivot = %f, dist from line = %f\n", innerDistFromPivot, innerIntersectionDist);
 		// TODO:	Calculate the distance that the inner should be from the
 		//			origin max.
 	//	float maxInnerDistFromPivot = fminf(innerDistFromPivot, outerDistFromPivot);//angleDist + (cosf(M_PI * 0.25f) * angleDist);
 	//	float maxInnerDistFromPivot = inkPointDistance(ptA, ptB);//angleDist + (cosf(M_PI * 0.25f) * angleDist);
 	//	float maxInnerDistFromPivot = angleDist + (cosf(M_PI * 0.25f) * angleDist);
-		float maxInnerDistFromPivot = fmaxf(inkPointDistance(ptA, ptB), angleDist + (cosf(M_PI * 0.25f) * angleDist));
+		//float ptDist = inkPointDistance(ptA, ptB);
+		float d1 = inkPointDistance(box.pointB, box.pointC);
+		float d2 = inkPointDistance(previousBox->pointB, previousBox->pointC);
+		float ptDist = fminf(d1, d2);
+		float maxInnerDistFromPivot = fmaxf(ptDist, angleDist + (cosf(M_PI * 0.25f) * angleDist));
 		if (inkIsZerof(innerDistFromPivot) == false && innerDistFromPivot > maxInnerDistFromPivot)
 		{
 			float innerDistScale = maxInnerDistFromPivot / innerDistFromPivot;
@@ -410,8 +415,24 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 		float miter = stroke->miterLimit;
 		if (stroke->joints == inkJointStyle_Bevel)
 		{
-			miter = (M_PI - angleDiff) / M_PI;
+			miter = (M_PI - fabsf(angleDiff)) / M_PI;
 		}
+
+		if (flip)
+		{
+			inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+			inkStrokeGeneratorAddDrawPoint(innerB, tessellator, fill);
+			inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+			inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+		}
+		else
+		{
+			inkStrokeGeneratorAddDrawPoint(innerB, tessellator, fill);
+			inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+			inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+			inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+		}
+		//goto endStatement;
 
 		switch(stroke->joints)
 		{
@@ -423,14 +444,21 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 				float maxDist = stroke->thickness * miter;
 
 				float percentDist = maxDist / dist;
-				percentDist = 0.1f;
 				if (percentDist > 1.0f)
 					percentDist = 1.0f;
 
 				if (inkIsEqualf(percentDist, 1.0f))
 				{
-					inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
+					if (flip)
+					{
+						inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
+						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
+					}
+					else
+					{
+						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
+						inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
+					}
 					localLastPointPtr = &outerIntersection;
 				}
 				else
@@ -458,19 +486,51 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 			case inkJointStyle_Round:
 			{
 				if (flip)
+				{
+			//		inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+				}
+
+			//	inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
+				//inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+
+				if (flip)
+				{
+					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					inkStrokeGeneratorRound(tessellator, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
+				}
+				else
+				{
+					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+					inkStrokeGeneratorRound(tessellator, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
+				}
 
-				inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-
-				inkStrokeGeneratorRound(tessellator, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
+				//inkStrokeGeneratorRound(tessellator, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
 
 				inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
+			//	inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
+			//	inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+			//	inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
 
-				if (!flip)
+				if (flip)
+				{
+					//inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+				}
+				else
+				{
+				//	inkStrokeGeneratorAddDrawPoint(innerB, tessellator, fill);
+				//	inkStrokeGeneratorAddDrawPoint(innerB, tessellator, fill);
+				//	inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+				//	inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+				}
 			}
 				break;
 			default:
