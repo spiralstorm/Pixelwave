@@ -103,6 +103,8 @@ typedef inkPathWinding PXGraphicsPathWinding;*/
 @end
 
 @interface PXGraphics(PrivateButPublic)
+- (void) _setWinding:(PXPathWinding)winding;
+
 - (void) _measureLocalBounds:(CGRect *)retBounds;
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y;
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag;

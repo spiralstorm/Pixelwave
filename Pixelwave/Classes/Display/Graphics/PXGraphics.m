@@ -279,7 +279,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 - (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
 	wasBuilt = false;
-	inkUtilsDrawRect((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height));
+	inkDrawRect((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height));
 }
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth
@@ -290,19 +290,34 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth ellipseHeight:(float)ellipseHeight
 {
 	wasBuilt = false;
-	inkUtilsDrawRoundRect((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height), inkSizeMake(ellipseWidth, ellipseHeight));
+	inkDrawRoundRect((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height), inkSizeMake(ellipseWidth, ellipseHeight));
 }
 
 - (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius
 {
 	wasBuilt = false;
-	inkUtilsDrawCircle((inkCanvas*)vCanvas, inkPointMake(x, y), radius);
+	inkDrawCircle((inkCanvas*)vCanvas, inkPointMake(x, y), radius);
 }
 
 - (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
 	wasBuilt = false;
-	inkUtilsDrawEllipse((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height));
+	inkDrawEllipse((inkCanvas*)vCanvas, inkRectMakev(x, y, width, height));
+}
+
+- (void) _setWinding:(PXPathWinding)winding
+{
+	switch(winding)
+	{
+		case PXPathWinding_EvenOdd:
+			inkWindingStyle((inkCanvas*)vCanvas, inkWindingRule_EvenOdd);
+			break;
+		case PXPathWinding_NonZero:
+			inkWindingStyle((inkCanvas*)vCanvas, inkWindingRule_NonZero);
+			break;
+		default:
+			break;
+	}
 }
 
 #pragma mark -

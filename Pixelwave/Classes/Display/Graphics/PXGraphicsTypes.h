@@ -77,7 +77,7 @@ typedef enum
 	PXPathCommand_NoOp = inkPathCommand_NoOp,
 	PXPathCommand_MoveTo = inkPathCommand_MoveTo,
 	PXPathCommand_LineTo = inkPathCommand_LineTo,
-	PXPathCommand_CurveTo = inkPathCommand_CurveTo,
+	PXPathCommand_CurveTo = inkPathCommand_QuadraticCurveTo,
 	PXPathCommand_WideMoveTo = inkPathCommand_WideMoveTo,
 	PXPathCommand_WideLineTo = inkPathCommand_WideLineTo
 } PXPathCommand;

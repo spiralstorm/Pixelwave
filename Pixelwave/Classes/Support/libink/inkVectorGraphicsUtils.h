@@ -13,9 +13,14 @@
 #include "inkCanvas.h"
 #include "inkGeometry.h"
 
-inkExtern void inkUtilsDrawCircle(inkCanvas* canvas, inkPoint position, float radius);
-inkExtern void inkUtilsDrawEllipse(inkCanvas* canvas, inkRect boundingRect);
-inkExtern void inkUtilsDrawRect(inkCanvas* canvas, inkRect rect);
-inkExtern void inkUtilsDrawRoundRect(inkCanvas* canvas, inkRect rect, inkSize ellipseSize);
+inkExtern void inkDrawCircle(inkCanvas* canvas, inkPoint position, float radius);
+inkExtern void inkDrawEllipse(inkCanvas* canvas, inkRect boundingRect);
+inkExtern void inkDrawRect(inkCanvas* canvas, inkRect rect);
+inkExtern void inkDrawRoundRect(inkCanvas* canvas, inkRect rect, inkSize ellipseSize);
+
+inkExtern void inkDrawPath(inkCanvas* canvas, inkArray* commands, inkArray* points, inkWindingRule winding);
+
+typedef ssize_t(*inkDataWriter)(void *user, const void *buf, size_t count);
+typedef ssize_t(*inkDataReader)(void *user, const void *buf, size_t count);
 
 #endif

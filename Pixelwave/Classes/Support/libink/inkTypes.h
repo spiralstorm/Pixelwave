@@ -152,7 +152,8 @@ typedef enum
 	inkPathCommand_NoOp = 0,
 	inkPathCommand_MoveTo,
 	inkPathCommand_LineTo,
-	inkPathCommand_CurveTo,
+	inkPathCommand_QuadraticCurveTo,
+	inkPathCommand_CubicCurveTo,
 	inkPathCommand_WideMoveTo,
 	inkPathCommand_WideLineTo
 } inkPathCommand;

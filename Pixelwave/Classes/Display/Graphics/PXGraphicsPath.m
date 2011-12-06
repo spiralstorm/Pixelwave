@@ -186,6 +186,8 @@ success:
 	float* values = (float*)data->array;
 	unsigned int dataIndex = 0;
 
+	[graphics _setWinding:winding];
+
 	PXPathCommand* commandPtr;
 
 	PXArrayBufferForEach(commands, commandPtr)
