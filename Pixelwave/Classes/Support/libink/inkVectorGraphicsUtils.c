@@ -11,28 +11,37 @@
 #include "inkTypes.h"
 #include "inkVectorGraphics.h"
 
+#define _inkVectorGraphicsUtilsCurveCount 8
+const unsigned int inkVectorGraphicsUtilsCurveCount = _inkVectorGraphicsUtilsCurveCount;
+const float inkVectorGraphicsUtilsPI_CurveCount = M_PI / (float)_inkVectorGraphicsUtilsCurveCount;
+
 void inkDrawCircle(inkCanvas* canvas, inkPoint position, float radius)
 {
-	const unsigned int curveCount = 3;
-	float stepAngle = M_PI * 2 / curveCount;
-	unsigned int index;
-
-	inkMoveTo(canvas, inkPointAdd(position, inkPointMake(radius, 0)));
-	float controlRadius = radius / cosf(M_PI / curveCount);
-
-	for (index = 1; index <= curveCount; ++index)
-	{
-		float angle = stepAngle * index;
-		float controlAngle = angle - stepAngle * 0.5f;
-		inkPoint control = inkPointAdd(position, inkPointFromPolar(controlRadius, controlAngle));
-		inkPoint anchor = inkPointAdd(position, inkPointFromPolar(radius, angle));
-		inkCurveTo(canvas, control, anchor);
-	}
+	float doubleRadius = radius * 2.0f;
+	inkDrawEllipse(canvas, inkRectMake(inkPointMake(position.x - radius, position.y - radius), inkSizeMake(doubleRadius, doubleRadius)));
 }
 
 void inkDrawEllipse(inkCanvas* canvas, inkRect boundingRect)
 {
-	// TODO: Implement
+	inkSize halfBoundingSize = inkSizeMake(boundingRect.size.width * 0.5f, boundingRect.size.height * 0.5f);
+	inkPoint position = inkPointAdd(boundingRect.origin, inkPointFromSize(halfBoundingSize));
+
+	float stepAngle = M_PI * 2 / inkVectorGraphicsUtilsCurveCount;
+	unsigned int index;
+
+	inkMoveTo(canvas, inkPointAdd(position, inkPointFromElliptical(halfBoundingSize, 0.0f)));
+	float one_cosfVal = 1.0f / cosf(inkVectorGraphicsUtilsPI_CurveCount);
+	inkSize controlSize = inkSizeMake(halfBoundingSize.width * one_cosfVal, halfBoundingSize.height * one_cosfVal);
+
+	for (index = 1; index <= inkVectorGraphicsUtilsCurveCount; ++index)
+	{
+		float angle = stepAngle * index;
+		float controlAngle = angle - stepAngle * 0.5f;
+
+		inkPoint control = inkPointAdd(position, inkPointFromElliptical(controlSize, controlAngle));
+		inkPoint anchor = inkPointAdd(position, inkPointFromElliptical(halfBoundingSize, angle));
+		inkCurveTo(canvas, control, anchor);
+	}
 }
 
 void inkDrawRect(inkCanvas* canvas, inkRect rect)

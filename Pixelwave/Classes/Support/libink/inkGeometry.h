@@ -117,6 +117,7 @@ inkInline inkPoint inkPointScale(inkPoint point, float value);
 inkInline inkPoint inkPointNormalize(inkPoint point);
 inkInline inkPoint inkPointNormalizev(inkPoint point, float length);
 inkInline inkPoint inkPointFromPolar(float length, float angle);
+inkInline inkPoint inkPointFromElliptical(inkSize length, float angle);
 inkInline inkPoint inkPointInterpolate(inkPoint from, inkPoint to, float percent);
 
 inkInline float inkPointPerp(inkPoint pointA, inkPoint pointB);
@@ -391,6 +392,11 @@ inkInline float inkPointDistanceSq(inkPoint pointA, inkPoint pointB)
 inkInline inkPoint inkPointFromPolar(float length, float angle)
 {
 	return inkPointMake(cosf(angle) * length, sinf(angle) * length);
+}
+
+inkInline inkPoint inkPointFromElliptical(inkSize length, float angle)
+{
+	return inkPointMake(cosf(angle) * length.width, sinf(angle) * length.height);
 }
 
 inkInline float inkPointAngle(inkPoint pointA, inkPoint pointB)
