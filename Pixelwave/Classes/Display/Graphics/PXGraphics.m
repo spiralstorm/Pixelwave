@@ -49,6 +49,9 @@
 #include "inkVectorGraphics.h"
 #include "inkVectorGraphicsUtils.h"
 
+#import "PXGraphicsPath.h"
+#import "PXGraphicsData.h"
+
 static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 {
 	if (matrix == nil)
@@ -231,20 +234,36 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 // Need to be of type PXGraphicsData
 - (void) drawGraphicsData:(NSArray *)graphicsData
 {
-	wasBuilt = false;
-	// TODO: Implement
+	// Do not need to reset the built setting, as if anything needs to do that
+	// within the list, it will by calling the correct function.
+
+	for (NSObject *obj in graphicsData)
+	{
+		if ([obj conformsToProtocol:@protocol(PXGraphicsData)] == false)
+			continue;
+
+		[(id<PXGraphicsData>)obj _sendToGraphics:self];
+	}
 }
 
 - (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data
 {
-	wasBuilt = false;
 	[self drawPathWithCommands:commands count:count data:data winding:PXPathWinding_EvenOdd];
 }
 
 - (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data winding:(PXPathWinding)winding
 {
-	wasBuilt = false;
-	// TODO: Implement
+	PXGraphicsPath *path = [[PXGraphicsPath alloc] initWithCommands:commands commandCount:count data:data winding:winding];
+
+	if (path == NULL)
+		return;
+
+	NSArray *array = [[NSArray alloc] initWithObjects:path, nil];
+	[path release];
+
+	[self drawGraphicsData:array];
+
+	[array release];
 }
 
 - (void) clear

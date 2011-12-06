@@ -6,6 +6,9 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-@protocol PXGraphicsData <NSObject>
+@class PXGraphics;
 
+@protocol PXGraphicsData <NSObject>
+@required
+- (void) _sendToGraphics:(PXGraphics *)graphics;
 @end

@@ -10,6 +10,9 @@
 
 #import "PXGraphicsFill.h"
 
+#import "PXGraphics.h"
+#import "PXGraphicsSolidFill.h"
+
 @implementation PXGraphicsStroke
 
 @synthesize fill;
@@ -81,6 +84,20 @@
 	self.fill = nil;
 
 	[super dealloc];
+}
+
+- (void) _sendToGraphics:(PXGraphics *)graphics
+{
+	unsigned int color = 0xFFFFFF;
+	float alpha = 1.0f;
+
+	if ([fill isKindOfClass:[PXGraphicsSolidFill class]])
+	{
+		color = ((PXGraphicsSolidFill *)fill).color;
+		alpha = ((PXGraphicsSolidFill *)fill).color;
+	}
+
+	[graphics lineStyleWithThickness:thickness color:color alpha:alpha pixelHinting:pixelHinting scaleMode:scaleMode caps:caps joints:joints miterLimit:miterLimit];
 }
 
 @end

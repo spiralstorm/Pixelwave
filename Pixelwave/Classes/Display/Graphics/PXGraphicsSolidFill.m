@@ -8,6 +8,8 @@
 
 #import "PXGraphicsSolidFill.h"
 
+#import "PXGraphics.h"
+
 @implementation PXGraphicsSolidFill
 
 @synthesize color;
@@ -34,6 +36,16 @@
 	}
 
 	return self;
+}
+
+- (void) _sendToGraphics:(PXGraphics *)graphics
+{
+	[graphics beginFill:color alpha:alpha];
+}
+
+- (void) _sendToGraphicsAsStroke:(PXGraphics *)graphics
+{
+	return;
 }
 
 @end

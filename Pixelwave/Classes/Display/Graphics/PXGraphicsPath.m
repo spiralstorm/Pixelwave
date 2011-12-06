@@ -8,7 +8,9 @@
 
 #import "PXGraphicsPath.h"
 
-#import <UIKit/UIKit.h>
+#include <CoreGraphics/CGGeometry.h>
+
+#import "PXGraphics.h"
 
 @interface PXGraphicsPath(Private)
 - (void) addCommand:(PXPathCommand)command data:(float *)data;
@@ -167,6 +169,11 @@ fail:
 
 success:
 	return;
+}
+
+- (void) _sendToGraphics:(PXGraphics *)graphics
+{
+	// TODO: Implement
 }
 
 @end

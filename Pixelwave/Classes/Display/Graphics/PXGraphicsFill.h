@@ -8,4 +8,6 @@
 
 @protocol PXGraphicsFill <NSObject>
 
+- (void) _sendToGraphicsAsStroke:(PXGraphics *)graphics;
+
 @end

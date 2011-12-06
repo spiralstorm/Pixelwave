@@ -8,6 +8,8 @@
 
 #import "PXGraphicsBitmapFill.h"
 
+#import "PXGraphics.h"
+
 @implementation PXGraphicsBitmapFill
 
 @synthesize textureData;
@@ -57,6 +59,16 @@
 	self.matrix = nil;
 
 	[super dealloc];
+}
+
+- (void) _sendToGraphics:(PXGraphics *)graphics
+{
+	[graphics beginFillWithTextureData:textureData matrix:matrix repeat:repeat smooth:smooth];
+}
+
+- (void) _sendToGraphicsAsStroke:(PXGraphics *)graphics
+{
+	[graphics lineStyleWithTextureData:textureData matrix:matrix repeat:repeat smooth:smooth];
 }
 
 @end

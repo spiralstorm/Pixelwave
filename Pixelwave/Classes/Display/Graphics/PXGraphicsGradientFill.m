@@ -8,6 +8,8 @@
 
 #import "PXGraphicsGradientFill.h"
 
+#import "PXGraphics.h"
+
 @implementation PXGraphicsGradientFill
 
 @synthesize colors;
@@ -75,6 +77,16 @@
 	self.matrix = nil;
 
 	[super dealloc];
+}
+
+- (void) _sendToGraphics:(PXGraphics *)graphics
+{
+	[graphics beginFillWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:matrix spreadMethod:spreadMethod interpolationMethod:interpolationMethod focalPointRatio:focalPointRatio];
+}
+
+- (void) _sendToGraphicsAsStroke:(PXGraphics *)graphics
+{
+	[graphics lineStyleWithGradientType:type colors:colors alphas:alphas ratios:ratios matrix:matrix spreadMethod:spreadMethod interpolationMethod:interpolationMethod focalPointRatio:focalPointRatio];
 }
 
 @end
