@@ -78,22 +78,6 @@ void inkFillGeneratorLineTo(inkFillGenerator* fillGenerator, inkPoint position)
 	inkGeneratorLineTo(fillGenerator->generator, position);
 }
 
-/*void inkFillGeneratorQuadraticCurveTo(inkFillGenerator* fillGenerator, inkPoint control, inkPoint anchor)
-{
-	if (fillGenerator == NULL)
-		return;
-
-	inkGeneratorQuadraticCurveTo(fillGenerator->generator, control, anchor);
-}
-
-void inkFillGeneratorCubicCurveTo(inkFillGenerator* fillGenerator, inkPoint controlA, inkPoint controlB, inkPoint anchor)
-{
-	if (fillGenerator == NULL)
-		return;
-
-	inkGeneratorCubicCurveTo(fillGenerator->generator, controlA, controlB, anchor);
-}*/
-
 void inkFillGeneratorEnd(inkFillGenerator* fillGenerator)
 {
 	if (fillGenerator == NULL)

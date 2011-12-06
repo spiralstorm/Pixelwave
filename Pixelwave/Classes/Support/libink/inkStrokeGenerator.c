@@ -110,22 +110,6 @@ void inkStrokeGeneratorLineTo(inkStrokeGenerator* strokeGenerator, inkPoint posi
 	inkGeneratorLineTo(strokeGenerator->generator, position);
 }
 
-/*void inkStrokeGeneratorQuadraticCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint control, inkPoint anchor)
-{
-	if (strokeGenerator == NULL)
-		return;
-
-	inkGeneratorQuadraticCurveTo(strokeGenerator->generator, control, anchor);
-}
-
-void inkStrokeGeneratorCubicCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint controlA, inkPoint controlB, inkPoint anchor)
-{
-	if (strokeGenerator == NULL)
-		return;
-
-	inkGeneratorCubicCurveTo(strokeGenerator->generator, controlA, controlB, anchor);
-}*/
-
 inkInline void inkStrokeGeneratorAddDrawPoint(inkPoint point, inkTessellator* tessellator, void* fill)
 {
 	INKvertex vertex;
