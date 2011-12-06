@@ -173,7 +173,62 @@ success:
 
 - (void) _sendToGraphics:(PXGraphics *)graphics
 {
-	// TODO: Implement
+	unsigned int commandCount = PXArrayBufferCount(commands);
+
+	if (commandCount == 0)
+		return;
+
+	unsigned int dataCount = PXArrayBufferCount(data);
+
+	if (dataCount == 0)
+		return;
+
+	float* values = (float*)data->array;
+	unsigned int dataIndex = 0;
+
+	PXPathCommand* commandPtr;
+
+	PXArrayBufferForEach(commands, commandPtr)
+	{
+		// At this point they share the same data as their non wide to commands.
+		switch(*commandPtr)
+		{
+			case PXPathCommand_NoOp:
+				break;
+			case PXPathCommand_WideMoveTo:
+			case PXPathCommand_MoveTo:
+			{
+				if (dataIndex + 2 >= dataCount)
+					return;
+				dataIndex += 2;
+
+				[graphics moveToX:*values y:*(values + 1)];
+				values += 2;
+			}
+				break;
+			case PXPathCommand_WideLineTo:
+			case PXPathCommand_LineTo:
+			{
+				if (dataIndex + 2 >= dataCount)
+					return;
+				dataIndex += 2;
+
+				[graphics lineToX:*values y:*(values + 1)];
+				values += 2;
+			}
+				break;
+			case PXPathCommand_CurveTo:
+			{
+				if (dataIndex + 4 >= dataCount)
+					return;
+				dataIndex += 4;
+
+				[graphics curveToControlX:*values controlY:*(values + 1) anchorX:*(values + 2) anchorY:*(values + 3)];
+				values += 4;
+			}
+				break;
+		}
+	}
 }
 
 @end
