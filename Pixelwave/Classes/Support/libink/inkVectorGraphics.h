@@ -18,8 +18,6 @@
 
 inkExtern void inkClear(inkCanvas* canvas);
 
-// TODO: Make x and y counterparts that call into the real function
-
 inkExtern void inkMoveTo(inkCanvas* canvas, inkPoint position);
 inkExtern void inkLineTo(inkCanvas* canvas, inkPoint position);
 inkExtern void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor);
@@ -40,8 +38,24 @@ inkExtern void inkLineStyle(inkCanvas* canvas, inkStroke stroke, inkSolidFill so
 inkExtern void inkLineBitmapStyle(inkCanvas* canvas, inkBitmapFill bitmapFill);
 inkExtern void inkLineGradientStyle(inkCanvas* canvas, inkGradientFill gradientFill);
 
+inkExtern void inkWindingStyle(inkCanvas* canvas, inkWindingRule winding);
+
 inkExtern void inkEndFill(inkCanvas* canvas);
 inkExtern void inkLineStyleNone(inkCanvas* canvas);
+
+/*
+inkExtern void inkPushMatrix(inkCanvas* canvas);
+inkExtern void inkPushMatrixo(inkCanvas* canvas, inkMatrix matrix);
+inkExtern void inkPopMatrix(inkCanvas* canvas);
+inkExtern void inkLoadMatrixo(inkCanvas* canvas, inkMatrix matrix);
+inkExtern void inkMultMatrixo(inkCanvas* canvas, inkMatrix matrix);
+inkExtern void inkRotatef(inkCanvas* canvas, float radians, float x, float y);
+inkExtern void inkRotateo(inkCanvas* canvas, float radians, inkPoint point);
+inkExtern void inkScalef(inkCanvas* canvas, float x, float y);
+inkExtern void inkScaleo(inkCanvas* canvas, inkSize size);
+inkExtern void inkTranslatef(inkCanvas* canvas, float x, float y);
+inkExtern void inkTranslateo(inkCanvas* canvas, inkPoint offset);
+*/
 
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.

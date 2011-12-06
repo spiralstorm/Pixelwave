@@ -54,6 +54,8 @@ typedef struct
 	inkCommandType type;
 } inkCommand;
 
+typedef inkWindingRule inkWindingCommand;
+
 inkExtern inkCommand* inkCommandCreate(inkCommandType type, void* data);
 inkExtern void inkCommandDestroy(inkCommand* command);
 

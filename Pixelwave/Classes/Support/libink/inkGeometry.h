@@ -63,8 +63,8 @@ typedef struct
 
 #define _inkPointZero {0.0f, 0.0f}
 #define _inkPointNan {NAN, NAN}
-#define _inkPointMin {MAXFLOAT, MAXFLOAT}
-#define _inkPointMax {-MAXFLOAT, -MAXFLOAT}
+#define _inkPointMin {-MAXFLOAT, -MAXFLOAT}
+#define _inkPointMax {MAXFLOAT, MAXFLOAT}
 #define _inkSizeZero {0.0f, 0.0f}
 #define _inkLineZero {0.0f, 0.0f, 0.0f, 0.0f}
 #define _inkRectZero {0.0f, 0.0f, 0.0f, 0.0f}
@@ -164,6 +164,7 @@ inkInline inkTriangle inkTriangleMakev(float x1, float y1, float x2, float y2, f
 
 inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar);
 bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point);
+float inkTriangleArea(inkTriangle triangle);
 
 #pragma mark -
 #pragma mark Box Declarations
@@ -224,8 +225,8 @@ inkInline inkMatrix inkMatrixTranslate(inkMatrix matrix, float dx, float dy);
 
 inkMatrix inkMatrixCreateBox(inkMatrix matrix, float scaleX, float scaleY, float rotation, float tx, float ty);
 */
-inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point);
-inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);
+inkInline inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point);
+inkInline inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);
 
 #pragma mark -
 #pragma mark Math Implemenations
@@ -581,6 +582,12 @@ inkInline inkMatrix inkMatrixRotate(inkMatrix matrix, float angle)
 						 matrix.tx * sinVal + matrix.ty * cosVal);
 }
 
+inkInline float inkMatrixRotation(inkMatrix matrix)
+{
+	inkPoint transformPoint = inkMatrixDeltaTransformPoint(matrix, inkPointMake(1.0f, 0.0f));
+	return inkPointAngle(inkPointZero, transformPoint);
+}
+
 inkInline inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy)
 {
 	return inkMatrixMake(matrix.a * sx, matrix.b, matrix.c, matrix.d * sy, matrix.tx * sx, matrix.ty * sy);
@@ -589,6 +596,18 @@ inkInline inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy)
 inkInline inkMatrix inkMatrixTranslate(inkMatrix matrix, float dx, float dy)
 {
 	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx + dx, matrix.ty + dy);
+}
+	
+inkInline inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point)
+{
+	return inkPointMake((point.x * matrix.a) + (point.y * matrix.c) + matrix.tx,
+						(point.x * matrix.b) + (point.y * matrix.d) + matrix.ty);
+}
+
+inkInline inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point)
+{
+	return inkPointMake((point.x * matrix.a) + (point.y * matrix.c),
+						(point.x * matrix.b) + (point.y * matrix.d));
 }
 
 #ifdef __cplusplus

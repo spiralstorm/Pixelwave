@@ -113,6 +113,25 @@ inkRect inkBounds(inkCanvas* canvas)
 	return canvas->bounds;
 }
 
+void inkSetPixelHint(inkCanvas* canvas, float pixelHint)
+{
+	if (canvas == NULL)
+		return;
+
+	if (pixelHint <= 0.0f)
+		return;
+
+	canvas->pixelHint = pixelHint;
+}
+
+float inkPixelHint(inkCanvas* canvas)
+{
+	if (canvas == NULL)
+		return 0.0f;
+	
+	return canvas->pixelHint;
+}
+
 void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)
 {
 	if (canvas == NULL)

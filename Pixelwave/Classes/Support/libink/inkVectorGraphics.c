@@ -15,6 +15,18 @@
 
 #include "inkGLU.h"
 
+// TODO:	Percision too high can create floating point issues where an
+//			intersection is impossible to find due to the points being too close
+//			together.
+// NOTE:	See the '+ 2', this is to add the first and last points always
+const unsigned int inkVectorGraphicsCurvePercision = 11 + 2;
+
+typedef enum
+{
+	inkCurveType_Quadratic = 0,
+	inkCurveType_Cubic,
+} inkCurveType;
+
 inkInline inkPoint inkPosition(inkCanvas* canvas, inkPoint position, bool relative)
 {
 	if (canvas == NULL || relative == false)
@@ -161,6 +173,13 @@ void inkLineGradientStyle(inkCanvas* canvas, inkGradientFill gradientFill)
 	inkAddCommand(canvas, inkCommandType_LineStyle, &command);
 }
 
+void inkWindingStyle(inkCanvas* canvas, inkWindingRule winding)
+{
+	inkWindingCommand command = winding;
+
+	inkAddCommand(canvas, inkCommandType_Winding, &command);
+}
+
 void inkEndFill(inkCanvas* canvas)
 {
 	inkAddCommand(canvas, inkCommandType_EndFill, NULL);
@@ -190,6 +209,73 @@ void inkEndGenerators(inkFillGenerator** fillGeneratorPtr, inkStrokeGenerator** 
 	}
 }
 
+inkPoint inkUpdatePosition(inkCanvas* canvas, inkPoint point)
+{
+	return point;
+}
+
+void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator, inkCurveType curveType, inkPoint controlA, inkPoint controlB, inkPoint anchor)
+{
+	if (fillGenerator == NULL && strokeGenerator == NULL)
+		return;
+
+	inkPoint d;
+
+	if (fillGenerator != NULL && fillGenerator->generator != NULL)
+		d = fillGenerator->generator->previous;
+	else if (strokeGenerator != NULL && strokeGenerator->generator != NULL)
+		d = strokeGenerator->generator->previous;
+	else
+		return;
+
+	inkPoint point;
+	inkPoint previousPoint = d;
+
+	float tIncrement = 1.0f / (float)(inkVectorGraphicsCurvePercision - 1);
+	float t;
+	float t2;
+	float t3;
+
+	inkPoint a;
+	inkPoint b;
+	inkPoint c;
+
+	if (curveType == inkCurveType_Cubic)
+	{
+		c = inkPointSubtract(inkPointScale(controlA, 3.0f), inkPointScale(d, 3.0f));
+		b = inkPointAdd(inkPointSubtract(inkPointScale(controlB, 3.0f), inkPointScale(controlA, 6.0f)), inkPointScale(d, 3.0f));
+		a = inkPointSubtract(inkPointAdd(inkPointSubtract(anchor, inkPointScale(controlB, 3.0f)), inkPointScale(controlA, 3.0f)), d);
+	}
+	else if (curveType == inkCurveType_Quadratic)
+	{
+		c = inkPointSubtract(inkPointScale(controlB, 2.0f), inkPointScale(d, 2.0f));
+		b = inkPointAdd(inkPointSubtract(anchor, inkPointScale(controlB, 2.0f)), d);
+		a = inkPointZero;
+	}
+	else
+		return;
+
+	unsigned int index;
+
+	for (index = 0, t = 0.0f; index < inkVectorGraphicsCurvePercision; ++index, t += tIncrement)
+	{
+		t2 = t * t;
+		t3 = t2 * t;
+
+		point = inkPointMake((a.x * t3) + (b.x * t2) + (c.x * t) + d.x,
+							 (a.y * t3) + (b.y * t2) + (c.y * t) + d.y);
+
+		if (inkPointIsEqual(previousPoint, point) == false)
+		{
+			previousPoint = point;
+
+			point = inkUpdatePosition(canvas, point);
+			inkFillGeneratorLineTo(fillGenerator, point);
+			inkStrokeGeneratorLineTo(strokeGenerator, point);
+		}
+	}
+}
+
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
 void inkBuild(inkCanvas* canvas)
@@ -216,34 +302,38 @@ void inkBuild(inkCanvas* canvas)
 		{
 			case inkCommandType_MoveTo:
 			{
-				inkMoveToCommand* point = (inkPoint*)(commandData);
+				inkMoveToCommand* command = (inkPoint*)(commandData);
 
-				inkFillGeneratorMoveTo(fillGenerator, *point);
-				inkStrokeGeneratorMoveTo(strokeGenerator, *point);
+				inkPoint point = inkUpdatePosition(canvas, *command);
+				inkFillGeneratorMoveTo(fillGenerator, point);
+				inkStrokeGeneratorMoveTo(strokeGenerator, point);
 			}
 				break;
 			case inkCommandType_LineTo:
 			{
-				inkLineToCommand* point = (inkPoint*)(commandData);
+				inkLineToCommand* command = (inkPoint*)(commandData);
 
-				inkFillGeneratorLineTo(fillGenerator, *point);
-				inkStrokeGeneratorLineTo(strokeGenerator, *point);
+				inkPoint point = inkUpdatePosition(canvas, *command);
+				inkFillGeneratorLineTo(fillGenerator, point);
+				inkStrokeGeneratorLineTo(strokeGenerator, point);
 			}
 				break;
 			case inkCommandType_QuadraticCurveTo:
 			{
 				inkQuadraticCurveToCommand* command = (inkQuadraticCurveToCommand*)(commandData);
 
-				inkFillGeneratorQuadraticCurveTo(fillGenerator, command->control, command->anchor);
-				inkStrokeGeneratorQuadraticCurveTo(strokeGenerator, command->control, command->anchor);
+				inkCurve(canvas, fillGenerator, strokeGenerator, inkCurveType_Quadratic, inkPointZero, command->control, command->anchor);
+			//	inkFillGeneratorQuadraticCurveTo(fillGenerator, command->control, command->anchor);
+			//	inkStrokeGeneratorQuadraticCurveTo(strokeGenerator, command->control, command->anchor);
 				break;
 			}
 			case inkCommandType_CubicCurveTo:
 			{
 				inkCubicCurveToCommand* command = (inkCubicCurveToCommand*)(commandData);
 
-				inkFillGeneratorCubicCurveTo(fillGenerator, command->controlA, command->controlB, command->anchor);
-				inkStrokeGeneratorCubicCurveTo(strokeGenerator, command->controlA, command->controlB, command->anchor);
+				inkCurve(canvas, fillGenerator, strokeGenerator, inkCurveType_Quadratic, command->controlA, command->controlB, command->anchor);
+			//	inkFillGeneratorCubicCurveTo(fillGenerator, command->controlA, command->controlB, command->anchor);
+			//	inkStrokeGeneratorCubicCurveTo(strokeGenerator, command->controlA, command->controlB, command->anchor);
 			}
 				break;
 			case inkCommandType_SolidFill:
@@ -300,6 +390,14 @@ void inkBuild(inkCanvas* canvas)
 
 				// Setting the fill will properly concat the vertices on
 				inkStrokeGeneratorSetFill(strokeGenerator, command);
+			}
+				break;
+			case inkCommandType_Winding:
+			{
+				inkWindingCommand* command = (inkWindingCommand*)(commandData);
+
+				inkTessellatorSetWindingRule(fillTessellator, *command);
+				inkTessellatorSetWindingRule(strokeTessellator, *command);
 			}
 				break;
 			case inkCommandType_EndFill:
@@ -369,10 +467,10 @@ bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox)
 	unsigned int index;
 	unsigned int vertexCount;
 
-	if (useBoundingBox == true)
-	{
-		return inkRectContainsPoint(canvas->bounds, point);
-	}
+	if (inkRectContainsPoint(canvas->bounds, point) == false)
+		return false;
+	else if (useBoundingBox == true)
+		return true;
 
 	inkArrayPtrForEach(renderGroups, renderGroup)
 	{
@@ -418,23 +516,20 @@ bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox)
 
 		// TRIANGLES
 				case GL_TRIANGLES:
-					if (index == 0 || (index % 3 != 0))
+					if (index % 3 != 0)
 						break;
-
-					break;
 				case GL_TRIANGLE_FAN:
-					if (index < 2)
-						break;
-
-					triangle.pointA = firstPoint;
-
-					break;
+					if (renderGroup->glDrawMode == GL_TRIANGLE_FAN)
+						triangle.pointA = firstPoint;
 				case GL_TRIANGLE_STRIP:
 					if (index < 2)
 						break; // must break so index iterates
 
 					if (inkTriangleContainsPoint(triangle, point))
+					{
+						inkTriangleContainsPoint(triangle, point);
 						return true;
+					}
 
 					break;
 			}

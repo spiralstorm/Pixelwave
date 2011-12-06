@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-/*#import "PXGraphicsPath.h"
+#import "PXGraphicsPath.h"
 
 @implementation PXGraphicsPath
 
@@ -14,10 +14,10 @@
 
 - (id) init
 {
-	return [self initWithCommands:NULL commandCount:0 data:NULL winding:PXGraphicsPathWinding_EvenOdd];
+	return [self initWithCommands:NULL commandCount:0 data:NULL winding:PXPathWinding_EvenOdd];
 }
 
-- (id) initWithCommands:(PXPathCommand *)_commands commandCount:(unsigned int)_commandCount data:(float *)_data winding:(PXGraphicsPathWinding)_winding
+- (id) initWithCommands:(PXPathCommand *)_commands commandCount:(unsigned int)_commandCount data:(float *)_data winding:(PXPathWinding)_winding
 {
 	self = [super init];
 
@@ -89,4 +89,4 @@
 	// TODO: Implement
 }
 
-@end*/
+@end

@@ -10,12 +10,6 @@
 
 #include "inkFill.h"
 
-// TODO:	Percision too high can create floating point issues where an
-//			intersection is impossible to find due to the points being too close
-//			together.
-// NOTE:	See the '+ 2', this is to add the first and last points always
-const unsigned int inkGeneratorCurvePercision = 11 + 2;
-
 inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill)
 {
 	inkGenerator* generator = malloc(sizeof(inkGenerator));
@@ -92,7 +86,7 @@ void inkGeneratorLineTo(inkGenerator* generator, inkPoint position)
 	generator->previous = position;
 }
 
-void inkGeneratorQuadraticCurveTo(inkGenerator* generator, inkPoint control, inkPoint anchor)
+/*void inkGeneratorQuadraticCurveTo(inkGenerator* generator, inkPoint control, inkPoint anchor)
 {
 	if (generator == NULL)
 		return;
@@ -169,7 +163,7 @@ void inkGeneratorCubicCurveTo(inkGenerator* generator, inkPoint controlA, inkPoi
 	}
 
 	generator->previous = anchor;
-}
+}*/
 
 void inkGeneratorEnd(inkGenerator* generator)
 {
@@ -221,7 +215,22 @@ void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
 		{
 			inkBitmapFill* bitmapFill = (inkBitmapFill *)fill;
 
-			inkPoint convertedPosition = inkMatrixTransformPoint(inkMatrixInvert(bitmapFill->matrix), position);
+			/*inkPoint matPoint = inkPointMake(bitmapFill->matrix.tx, bitmapFill->matrix.ty);
+
+			inkMatrix matrix = inkMatrixMake(bitmapFill->matrix.a,
+											 bitmapFill->matrix.b,
+											 bitmapFill->matrix.c,
+											 bitmapFill->matrix.d,
+											 0.0f,
+											 0.0f);*/
+			float angle = inkMatrixRotation(bitmapFill->matrix);
+			inkMatrix matrix = inkMatrixIdentity;
+			matrix = inkMatrixTranslate(matrix, bitmapFill->matrix.tx, bitmapFill->matrix.ty);
+			matrix = inkMatrixRotate(matrix, angle);
+
+		//	inkPoint matPos = inkPointMake(bitmapFill->matrix.tx, bitmapFill->matrix.ty);
+			//inkPoint convertedPosition = inkMatrixTransformPoint(inkMatrixInvert(bitmapFill->matrix), position);
+			inkPoint convertedPosition = inkMatrixTransformPoint(matrix, inkPointMake(position.x, position.y));
 
 			vertex->s = convertedPosition.x * bitmapFill->bitmapInfo.one_textureWidth;
 			vertex->t = convertedPosition.y * bitmapFill->bitmapInfo.one_textureHeight;

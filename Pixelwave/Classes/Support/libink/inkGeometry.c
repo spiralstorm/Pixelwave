@@ -286,8 +286,16 @@ inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar)
 
 bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point)
 {
+	// TODO:	Make a cheaper version of this test.
+	float area = inkTriangleArea(triangle);
+	if (inkIsZerof(area))
+	{
+		return false;
+	}
+
 	inkPoint v0 = inkPointSubtract(triangle.pointC, triangle.pointA);
 	inkPoint v1 = inkPointSubtract(triangle.pointB, triangle.pointA);
+
 	inkPoint v2 = inkPointSubtract(point, triangle.pointA);
 
 	// Compute dot products
@@ -308,6 +316,28 @@ bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point)
 
 	// Check if point is in triangle
 	return (u >= 0) && (v >= 0) && (u + v <= 1);
+}
+
+float inkTriangleArea(inkTriangle triangle)
+{
+	float ab = inkPointDistanceSq(triangle.pointA, triangle.pointB);
+	float ac = inkPointDistanceSq(triangle.pointA, triangle.pointC);
+	float bc = inkPointDistanceSq(triangle.pointB, triangle.pointC);
+
+	if ((ab <= 0.0f) || (ac <= 0.0f) || (bc <= 0.0f))
+		return 0.0f;
+
+	ab = sqrtf(ab);
+	ac = sqrtf(ac);
+	bc = sqrtf(bc);
+
+	if (((ab + ac > bc) && (ab + bc > ac) && (ac + bc > ab)))
+	{
+		float s = (ab + ac + bc) * 0.5f;
+		return sqrtf(s * (s - ab) * (s - ac) * (s - bc));
+	}
+
+	return 0.0f;
 }
 
 /*void inkPointBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint pointC, float halfScalar, inkPoint* inner, inkPoint* outer)
@@ -354,15 +384,3 @@ bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point)
 #pragma mark -
 #pragma mark Matrix
 #pragma mark -
-
-inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point)
-{
-	return inkPointMake((point.x * matrix.a) + (point.y * matrix.c) + matrix.tx,
-						(point.x * matrix.b) + (point.y * matrix.d) + matrix.ty);
-}
-
-inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point)
-{
-	return inkPointMake((point.x * matrix.a) + (point.y * matrix.c),
-						(point.x * matrix.b) + (point.y * matrix.d));
-}

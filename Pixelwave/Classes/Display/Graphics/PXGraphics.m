@@ -183,7 +183,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit
 {
-	inkStroke stroke = inkStrokeMake(thickness, pixelHinting, scaleMode, caps, joints, miterLimit);
+	inkStroke stroke = inkStrokeMake(thickness, pixelHinting, (inkLineScaleMode)scaleMode, (inkCapsStyle)caps, (inkJointStyle)joints, miterLimit);
 	inkSolidFill solidFill = inkSolidFillMake(color, alpha);
 
 	inkLineStyle((inkCanvas*)vCanvas, stroke, solidFill);
@@ -238,10 +238,10 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 - (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data
 {
 	wasBuilt = false;
-	[self drawPathWithCommands:commands count:count data:data winding:inkPathWinding_EvenOdd];
+	[self drawPathWithCommands:commands count:count data:data winding:PXPathWinding_EvenOdd];
 }
 
-- (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data winding:(PXGraphicsPathWinding)winding
+- (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data winding:(PXPathWinding)winding
 {
 	wasBuilt = false;
 	// TODO: Implement

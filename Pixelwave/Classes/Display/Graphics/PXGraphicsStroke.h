@@ -6,9 +6,9 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-/*#import "PXGraphicsData.h"
+#import "PXGraphicsData.h"
 
-#include "PXGraphicsUtilTypes.h"
+#include "PXGraphicsTypes.h"
 
 @protocol PXGraphicsFill;
 
@@ -50,4 +50,3 @@
 - (id) initWithThickness:(float)thickness pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit fill:(id<PXGraphicsFill>)fill;
 
 @end
-*/

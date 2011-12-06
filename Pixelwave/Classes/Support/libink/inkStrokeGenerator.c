@@ -110,7 +110,7 @@ void inkStrokeGeneratorLineTo(inkStrokeGenerator* strokeGenerator, inkPoint posi
 	inkGeneratorLineTo(strokeGenerator->generator, position);
 }
 
-void inkStrokeGeneratorQuadraticCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint control, inkPoint anchor)
+/*void inkStrokeGeneratorQuadraticCurveTo(inkStrokeGenerator* strokeGenerator, inkPoint control, inkPoint anchor)
 {
 	if (strokeGenerator == NULL)
 		return;
@@ -124,7 +124,7 @@ void inkStrokeGeneratorCubicCurveTo(inkStrokeGenerator* strokeGenerator, inkPoin
 		return;
 
 	inkGeneratorCubicCurveTo(strokeGenerator->generator, controlA, controlB, anchor);
-}
+}*/
 
 inkInline void inkStrokeGeneratorAddDrawPoint(inkPoint point, inkTessellator* tessellator, void* fill)
 {

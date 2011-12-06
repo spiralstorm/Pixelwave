@@ -37,22 +37,24 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#include "inkTypes.h"
+//#include "inkTypes.h"
 
 #include <CoreGraphics/CGGeometry.h>
+
+#include "PXGraphicsTypes.h"
 
 @class PXTextureData;
 @class PXMatrix;
 
 //typedef inkPathCommand PXPathCommand;
-typedef int PXPathCommand;
+/*typedef int PXPathCommand;
 typedef inkInterpolationMethod PXInterpolationMethod;
 typedef inkGradientType PXGradientType;
 typedef inkLineScaleMode PXLineScaleMode;
 typedef inkJointStyle PXJointStyle;
 typedef inkCapsStyle PXCapsStyle;
 typedef inkSpreadMethod PXSpreadMethod;
-typedef inkPathWinding PXGraphicsPathWinding;
+typedef inkPathWinding PXGraphicsPathWinding;*/
 
 @interface PXGraphics : NSObject
 {
@@ -88,7 +90,7 @@ typedef inkPathWinding PXGraphicsPathWinding;
 
 // The commands describe how to read the data
 - (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data;
-- (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data winding:(PXGraphicsPathWinding)winding;
+- (void) drawPathWithCommands:(PXPathCommand *)commands count:(unsigned int)count data:(float *)data winding:(PXPathWinding)winding;
 
 - (void) clear;
 

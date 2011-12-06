@@ -113,7 +113,7 @@
 
 //-- ScriptName: createBox
 - (void) createBoxWithScaleX:(float)scaleX
-				   scaleY:(float)scaleY
+					  scaleY:(float)scaleY
 					rotation:(float)rotation
 						  tx:(float)tx
 						  ty:(float)ty;

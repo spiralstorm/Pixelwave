@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-/*#import "PXGraphicsStroke.h"
+#import "PXGraphicsStroke.h"
 
 #import "PXGraphicsFill.h"
 
@@ -83,4 +83,4 @@
 	[super dealloc];
 }
 
-@end*/
+@end

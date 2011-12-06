@@ -6,10 +6,10 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-/*#import "PXGraphicsData.h"
+#import "PXGraphicsData.h"
 
 #include "PXArrayBuffer.h"
-#include "PXGraphicsUtilTypes.h"
+#include "PXGraphicsTypes.h"
 
 @protocol PXGraphicsPath <NSObject>
 
@@ -21,7 +21,7 @@
 	PXArrayBuffer *commands;
 	PXArrayBuffer *data;
 
-	PXGraphicsPathWinding winding;
+	PXPathWinding winding;
 }
 
 @property (nonatomic, readonly) PXPathCommand *commands;
@@ -29,9 +29,9 @@
 
 @property (nonatomic, readonly) unsigned int commandCount;
 
-@property (nonatomic, assign) PXGraphicsPathWinding winding;
+@property (nonatomic, assign) PXPathWinding winding;
 
-- (id) initWithCommands:(PXPathCommand *)commands commandCount:(unsigned int)commandCount data:(float *)data winding:(PXGraphicsPathWinding)winding;
+- (id) initWithCommands:(PXPathCommand *)commands commandCount:(unsigned int)commandCount data:(float *)data winding:(PXPathWinding)winding;
 
 - (void) moveToX:(float)x y:(float)y;
 - (void) lineToX:(float)x y:(float)y;
@@ -39,4 +39,4 @@
 - (void) wideMoveToX:(float)x y:(float)y;
 - (void) wideLineToX:(float)x y:(float)y;
 
-@end*/
+@end

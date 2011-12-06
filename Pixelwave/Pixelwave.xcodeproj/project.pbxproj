@@ -388,6 +388,7 @@
 		526DA3F5146B369200566FF2 /* inkGeometry.c in Sources */ = {isa = PBXBuildFile; fileRef = 526DA3F3146B369100566FF2 /* inkGeometry.c */; };
 		526DA3F8146C271000566FF2 /* inkStroke.h in Headers */ = {isa = PBXBuildFile; fileRef = 526DA3F6146C270C00566FF2 /* inkStroke.h */; };
 		526DA3F9146C271000566FF2 /* inkStroke.c in Sources */ = {isa = PBXBuildFile; fileRef = 526DA3F7146C270E00566FF2 /* inkStroke.c */; };
+		52771679148E99CE00181159 /* PXGraphicsTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 52771678148E99CC00181159 /* PXGraphicsTypes.h */; };
 		5280DE331333FB1600B0F353 /* PXGLState.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280DE321333FB1600B0F353 /* PXGLState.h */; };
 		5280DEA5133407AF00B0F353 /* PXGLStatePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 5280DEA4133407AF00B0F353 /* PXGLStatePrivate.h */; };
 		52834A8A12F0C59B000227DD /* PXTextureFontOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 52834A8812F0C59B000227DD /* PXTextureFontOptions.h */; };
@@ -962,6 +963,7 @@
 		526DA3F3146B369100566FF2 /* inkGeometry.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkGeometry.c; sourceTree = "<group>"; };
 		526DA3F6146C270C00566FF2 /* inkStroke.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkStroke.h; sourceTree = "<group>"; };
 		526DA3F7146C270E00566FF2 /* inkStroke.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkStroke.c; sourceTree = "<group>"; };
+		52771678148E99CC00181159 /* PXGraphicsTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGraphicsTypes.h; sourceTree = "<group>"; };
 		5280DE321333FB1600B0F353 /* PXGLState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLState.h; sourceTree = "<group>"; };
 		5280DEA4133407AF00B0F353 /* PXGLStatePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLStatePrivate.h; sourceTree = "<group>"; };
 		52834A8812F0C59B000227DD /* PXTextureFontOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureFontOptions.h; sourceTree = "<group>"; };
@@ -2132,6 +2134,7 @@
 		52876F1E1469E42A00056E60 /* Graphics */ = {
 			isa = PBXGroup;
 			children = (
+				52771678148E99CC00181159 /* PXGraphicsTypes.h */,
 				52876F1F1469E42B00056E60 /* PXGraphics.h */,
 				52876F201469E42B00056E60 /* PXGraphics.m */,
 				52876F231469E43B00056E60 /* PXGraphicsData.h */,
@@ -2724,6 +2727,7 @@
 				52A22E911475C30B002B41BC /* tess.h in Headers */,
 				52A22E931475C30B002B41BC /* tessmono.h in Headers */,
 				52A22E961475C30B002B41BC /* gluint.h in Headers */,
+				52771679148E99CE00181159 /* PXGraphicsTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
