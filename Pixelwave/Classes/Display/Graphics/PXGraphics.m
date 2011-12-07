@@ -119,6 +119,10 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	return info;
 }
 
+@interface PXGraphics(Private)
+- (void) build;
+@end
+
 @implementation PXGraphics
 
 - (id) init
@@ -320,6 +324,16 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	}
 }
 
+- (void) build
+{
+	if (wasBuilt == false)
+	{
+		wasBuilt = true;
+
+		inkBuild((inkCanvas*)vCanvas);
+	}
+}
+
 #pragma mark -
 #pragma mark Override
 #pragma mark -
@@ -329,6 +343,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	if (retBounds == NULL)
 		return;
 
+	[self build];
+
 	inkRect bounds = inkBounds((inkCanvas*)vCanvas);
 
 	*retBounds = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
@@ -336,11 +352,15 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y
 {
+	[self build];
+
 	return [self _containsPointWithLocalX:x localY:y shapeFlag:NO];
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
+	[self build];
+
 	// inkContainsPoint asks if you are using the bounds, not the shape flag;
 	// therefore it is the opposite of the shape flag.
 	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake(x, y), !shapeFlag);
@@ -348,12 +368,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) _renderGL
 {
-	if (wasBuilt == false)
-	{
-		wasBuilt = true;
-
-		inkBuild((inkCanvas*)vCanvas);
-	}
+	[self build];
 
 	inkDrawv((inkCanvas*)vCanvas, PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements);
 }
