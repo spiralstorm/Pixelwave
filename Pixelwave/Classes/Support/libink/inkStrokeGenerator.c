@@ -616,9 +616,9 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 	inkTessellator* tessellator = generator->tessellator;
 
 	inkTessellatorSetTextureName(tessellator, inkFillTextureName(strokeGenerator->generator->fill));
-	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
+//	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
-//	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
+	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_POINTS, tessellator);
 
 	INKvertex* vertex;
@@ -784,6 +784,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 			vB = *((INKvertex *)(inkArrayElementAt(vertices, startIndex)));
 			inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, NULL, vA, vB, halfScalar, fill, false, false, NULL, NULL, clockwise);
 
+			// ROOT of the closed loop issue, need to look into it.
 			if (flipFirst == true)
 			{
 				inkGeneratorInitVertex(&vA, lastPoint, fill);
