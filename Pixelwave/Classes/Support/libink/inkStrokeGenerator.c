@@ -684,11 +684,24 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		float sum = 0.0f;
 		INKvertex previousVertex = *((INKvertex *)(inkArrayElementAt(vertices, 0)));
 
+		unsigned int startIndex = 1;
+		bool dontIncreaseStartIndex = false;
+
 		inkArrayForEach(vertices, vertex)
 		{
 			if (index++ == 0)
 			{
 				continue;
+			}
+
+			if (dontIncreaseStartIndex == false && previousVertex.x == vertex->x && previousVertex.y == vertex->y)
+			{
+				++startIndex;
+				continue;
+			}
+			else
+			{
+				dontIncreaseStartIndex = true;
 			}
 
 			sum += (vertex->x - previousVertex.x) * (vertex->y + previousVertex.y);
@@ -726,16 +739,16 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		{
 			vB = *vertex;
 
-			if (index == 0)
+			if (index < startIndex)
 				goto continueStatement;
 
 			if (closedLoop == false)
 			{
-				start = (index == 1);
+				start = (index == startIndex);
 				end = (index == count - 1);
 			}
 
-			if (has == true || index == 1)
+			if (has == true || index == startIndex)
 			{
 				inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, NULL, NULL, clockwise);
 				previousBoxPtr = &previousBox;
@@ -768,7 +781,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 		if (closedLoop)
 		{
-			vB = *((INKvertex *)(inkArrayElementAt(vertices, 1)));
+			vB = *((INKvertex *)(inkArrayElementAt(vertices, startIndex)));
 			inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, NULL, vA, vB, halfScalar, fill, false, false, NULL, NULL, clockwise);
 
 			if (flipFirst == true)

@@ -66,10 +66,10 @@ typedef struct
 #define _inkPointMin {-FLT_MAX, -FLT_MAX}
 #define _inkPointMax {FLT_MAX, FLT_MAX}
 #define _inkSizeZero {0.0f, 0.0f}
-#define _inkLineZero {0.0f, 0.0f, 0.0f, 0.0f}
-#define _inkRectZero {0.0f, 0.0f, 0.0f, 0.0f}
-#define _inkTriangleZero {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}
-#define _inkBoxZero {0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f}
+#define _inkLineZero {_inkPointZero, _inkPointZero}
+#define _inkRectZero {_inkPointZero, _inkSizeZero}
+#define _inkTriangleZero {_inkPointZero, _inkPointZero, _inkPointZero}
+#define _inkBoxZero {_inkPointZero, _inkPointZero, _inkPointZero, _inkPointZero}
 #define _inkMatrixIdentity {1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f}
 
 inkExtern const inkPoint inkPointZero;
