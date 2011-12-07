@@ -199,7 +199,17 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 	bool innerOuterSwitch;
 //	bool innerOuterSwitchAlreadyChecked;
 
-	if ((stroke == NULL) || (vA.x == vB.x && vA.y == vB.y))
+	if (stroke == NULL)
+		goto returnStatement;
+
+	if (previousBox != NULL && vA.x == vB.x && vA.y == vB.y)
+	{
+		inkPoint mid = inkPointScale(inkPointAdd(previousBox->pointC, previousBox->pointD), 0.5f);
+		vA.x = mid.x;
+		vA.y = mid.y;
+	}
+
+	if (vA.x == vB.x && vA.y == vB.y)
 		goto returnStatement;
 
 	inkPoint ptA = inkPointMake(vA.x, vA.y);
@@ -280,20 +290,29 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 
 			if (reverseCaps)
 			{
-				inkStrokeGeneratorAddDrawPoint(previousBox->pointB, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(previousBox->pointA, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(box.pointC, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(box.pointD, tessellator, fill);
+			//	outerIntersection = previousBox->pointB;
+			//	innerIntersection = box.pointC;
+				innerIntersection = previousBox->pointB;
+				outerIntersection = box.pointC;
+			//	innerIntersection = previousBox->pointA;
+			//	outerIntersection = box.pointD;
+		//		flip = !flip;
+		//		inkStrokeGeneratorAddDrawPoint(previousBox->pointB, tessellator, fill);
+		//		inkStrokeGeneratorAddDrawPoint(previousBox->pointA, tessellator, fill);
+		//		inkStrokeGeneratorAddDrawPoint(box.pointC, tessellator, fill);
+		//		inkStrokeGeneratorAddDrawPoint(box.pointD, tessellator, fill);
 			}
 			else
 			{
-				inkStrokeGeneratorAddDrawPoint(previousBox->pointA, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(previousBox->pointB, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(box.pointD, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(box.pointC, tessellator, fill);
+				outerIntersection = previousBox->pointA;
+				innerIntersection = box.pointD;
+		//		inkStrokeGeneratorAddDrawPoint(previousBox->pointA, tessellator, fill);
+		//		inkStrokeGeneratorAddDrawPoint(previousBox->pointB, tessellator, fill);
+		//		inkStrokeGeneratorAddDrawPoint(box.pointD, tessellator, fill);
+		//		inkStrokeGeneratorAddDrawPoint(box.pointC, tessellator, fill);
 			}
 
-			goto endStatement;
+		//	goto endStatement;
 		}
 		else
 		{
@@ -368,6 +387,12 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 		float angleDist = inkPointDistance(outerA, pivotPt);
 
 		float angleDiff = inkAngleOrient(angleA - angleB);
+
+		if (inkIsEqualf(angleDiff, baAngle) == true && inkIsEqualf(angleDiff, M_PI) == true)
+		{
+			angleDiff = -angleDiff;
+			//printf("angleDiff and baAngle are the same\n");
+		}
 
 		float innerDistFromPivot = inkPointDistance(pivotPt, innerIntersection);
 	//	float outerDistFromPivot = inkPointDistance(pivotPt, outerIntersection);
