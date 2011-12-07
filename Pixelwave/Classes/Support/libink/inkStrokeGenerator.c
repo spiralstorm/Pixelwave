@@ -15,7 +15,7 @@
 
 //#define INK_STROKE_GENERATOR_NO_FORCE_END
 
-const unsigned int inkStrokeGeneratorRoundPrecisionPoints = 3;
+const unsigned int inkStrokeGeneratorRoundPrecisionPoints = 5;
 // Anything less than 5 degrees will just be a line.
 //const float inkStrokeGeneratorRoundAngleEpsilon = M_PI / (180 / 5);
 
@@ -671,8 +671,8 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		clockwise = sum >= 0.0f;
 
 		// Print a useful part of the .h
-		/*inkPoint minPoint = inkPointMake(MAXFLOAT, MAXFLOAT);
-		inkPoint maxPoint = inkPointMake(-MAXFLOAT, -MAXFLOAT);
+		/*inkPoint minPoint = inkPointMake(FLT_MAX, FLT_MAX);
+		inkPoint maxPoint = inkPointMake(-FLT_MAX, -FLT_MAX);
 
 		inkArrayForEach(vertices, vertex)
 		{

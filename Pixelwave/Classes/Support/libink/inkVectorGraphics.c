@@ -19,7 +19,7 @@
 //			intersection is impossible to find due to the points being too close
 //			together.
 // NOTE:	See the '+ 2', this is to add the first and last points always
-const unsigned int inkVectorGraphicsCurvePercision = 11 + 2;
+const unsigned int inkVectorGraphicsCurvePercision = 9 + 2;
 
 typedef enum
 {

@@ -37,24 +37,12 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-//#include "inkTypes.h"
-
 #include <CoreGraphics/CGGeometry.h>
 
 #include "PXGraphicsTypes.h"
 
 @class PXTextureData;
 @class PXMatrix;
-
-//typedef inkPathCommand PXPathCommand;
-/*typedef int PXPathCommand;
-typedef inkInterpolationMethod PXInterpolationMethod;
-typedef inkGradientType PXGradientType;
-typedef inkLineScaleMode PXLineScaleMode;
-typedef inkJointStyle PXJointStyle;
-typedef inkCapsStyle PXCapsStyle;
-typedef inkSpreadMethod PXSpreadMethod;
-typedef inkPathWinding PXGraphicsPathWinding;*/
 
 @interface PXGraphics : NSObject
 {

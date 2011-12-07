@@ -63,8 +63,8 @@ typedef struct
 
 #define _inkPointZero {0.0f, 0.0f}
 #define _inkPointNan {NAN, NAN}
-#define _inkPointMin {-MAXFLOAT, -MAXFLOAT}
-#define _inkPointMax {MAXFLOAT, MAXFLOAT}
+#define _inkPointMin {-FLT_MAX, -FLT_MAX}
+#define _inkPointMax {FLT_MAX, FLT_MAX}
 #define _inkSizeZero {0.0f, 0.0f}
 #define _inkLineZero {0.0f, 0.0f, 0.0f, 0.0f}
 #define _inkRectZero {0.0f, 0.0f, 0.0f, 0.0f}
@@ -592,6 +592,13 @@ inkInline float inkMatrixRotation(inkMatrix matrix)
 {
 	inkPoint transformPoint = inkMatrixDeltaTransformPoint(matrix, inkPointMake(1.0f, 0.0f));
 	return inkPointAngle(inkPointZero, transformPoint);
+}
+
+inkInline inkSize inkMatrixSize(inkMatrix matrix)
+{
+	float angle = inkMatrixRotation(matrix);
+	matrix = inkMatrixRotate(matrix, -angle);
+	return inkSizeMake(matrix.a, matrix.d);
 }
 
 inkInline inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy)

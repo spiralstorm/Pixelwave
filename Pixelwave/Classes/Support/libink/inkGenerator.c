@@ -145,10 +145,26 @@ void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
 											 0.0f,
 											 0.0f);*/
 			float angle = inkMatrixRotation(bitmapFill->matrix);
+			inkSize scale = inkMatrixSize(bitmapFill->matrix);
 			inkMatrix matrix = inkMatrixIdentity;
-			matrix = inkMatrixTranslate(matrix, bitmapFill->matrix.tx, bitmapFill->matrix.ty);
-			matrix = inkMatrixRotate(matrix, angle);
+			// scale, rotate, then translate?
+			// PERFECT - not what flash does :-(
+		//	matrix = inkMatrixScale(matrix, 1.0f / scale.width, 1.0f / scale.height);
+		//	matrix = inkMatrixRotate(matrix, angle);
+		//	matrix = inkMatrixTranslate(matrix, -bitmapFill->matrix.tx, -bitmapFill->matrix.ty);
 
+			matrix = inkMatrixTranslate(matrix, -bitmapFill->matrix.tx, -bitmapFill->matrix.ty);
+			matrix = inkMatrixScale(matrix, 1.0f / scale.width, 1.0f / scale.height);
+			matrix = inkMatrixRotate(matrix, angle);
+		//	printf("scale = (%f, %f)\n", scale.width, scale.height);
+			/*inkMatrix matrix = inkMatrixMake(bitmapFill->matrix.a,
+											 bitmapFill->matrix.b,
+											 bitmapFill->matrix.c,
+											 bitmapFill->matrix.d,
+											 -bitmapFill->matrix.tx,
+											 -bitmapFill->matrix.ty);*/
+
+		//	matrix = inkMatrixIdentity;
 		//	inkPoint matPos = inkPointMake(bitmapFill->matrix.tx, bitmapFill->matrix.ty);
 			//inkPoint convertedPosition = inkMatrixTransformPoint(inkMatrixInvert(bitmapFill->matrix), position);
 			inkPoint convertedPosition = inkMatrixTransformPoint(matrix, inkPointMake(position.x, position.y));

@@ -10,6 +10,7 @@
 #define _INK_HEADER_H_
 
 #include <stdlib.h>
+#include <float.h>
 #include <stddef.h>
 #include <stdbool.h>
 #include <stdint.h>

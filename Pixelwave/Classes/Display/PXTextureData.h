@@ -68,7 +68,7 @@
 
 	// Either GL_LINEAR or GL_NEAREST
 	unsigned short _smoothingType;
-	// Either GLL_REPEAT or GL_CLAMP_TO_EDGE
+	// Either GL_REPEAT or GL_CLAMP_TO_EDGE
 	unsigned short _wrapType;
 @private
 	// Pixel format in memory
