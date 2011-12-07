@@ -148,8 +148,5 @@ void inkDrawPath(inkCanvas* canvas, inkArray* commands, inkArray* points, inkWin
             default:
                 assert(0);
         }
-
     }
-
-
 }

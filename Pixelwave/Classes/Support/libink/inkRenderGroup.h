@@ -23,7 +23,7 @@ typedef struct
 	float glLineWidth;
 } inkRenderGroup;
 
-inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode);
+inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, unsigned int glTextureName);
 //inkExtern inkRenderGroup* inkRenderGroupCreateWithVertices(inkArray *vertices, INKenum glDrawMode);
 inkExtern void inkRenderGroupDestroy(inkRenderGroup *group);
 

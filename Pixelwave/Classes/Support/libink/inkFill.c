@@ -66,3 +66,16 @@ inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors, inkArray
 
 	return fill;
 }
+
+inkExtern unsigned int inkFillTextureName(void* fill)
+{
+	if (fill == NULL)
+		return 0;
+
+	inkFillType fillType = ((inkFill*)fill)->fillType;
+
+	if (fillType != inkFillType_Bitmap)
+		return 0;
+
+	return ((inkBitmapFill*)fill)->bitmapInfo.glTextureName;
+}

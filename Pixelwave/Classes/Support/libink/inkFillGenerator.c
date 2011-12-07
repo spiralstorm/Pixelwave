@@ -24,6 +24,7 @@ inkFillGenerator* inkFillGeneratorCreate(inkTessellator* tessellator, inkArray* 
 
 		fillGenerator->generator = generator;
 
+		inkTessellatorSetTextureName(tessellator, inkFillTextureName(fill));
 		inkTessellatorBeginPolygon(tessellator, renderGroups);
 	}
 
@@ -38,7 +39,7 @@ void inkFillGeneratorDestroy(inkFillGenerator* fillGenerator)
 		{
 			inkTessellatorEndPolygon(fillGenerator->generator->tessellator);
 
-			if (fillGenerator->generator->tessellator != NULL)
+			/*if (fillGenerator->generator->tessellator != NULL)
 			{
 				if (fillGenerator->generator->tessellator->currentRenderGroup != NULL)
 				{
@@ -53,7 +54,7 @@ void inkFillGeneratorDestroy(inkFillGenerator* fillGenerator)
 						}
 					}
 				}
-			}
+			}*/
 
 			inkGeneratorDestroy(fillGenerator->generator);
 		}

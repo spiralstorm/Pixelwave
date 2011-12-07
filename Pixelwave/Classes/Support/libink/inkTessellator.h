@@ -24,6 +24,8 @@ typedef struct
 	inkRenderGroup *currentRenderGroup; // Weak
 	inkArray *vertexPtrs;
 
+	unsigned int glTextureName;
+
 	bool contourBegan;
 	bool polygonBegan;
 } inkTessellator;
@@ -32,6 +34,7 @@ inkExtern inkTessellator *inkTessellatorCreate();
 inkExtern void inkTessellatorDestroy(inkTessellator* tessellator);
 
 inkExtern void inkTessellatorSetWindingRule(inkTessellator* tessellator, inkWindingRule windingRule);
+inkExtern void inkTessellatorSetTextureName(inkTessellator* tessellator, unsigned int glTextureName);
 
 inkExtern void inkTessellatorBeginPolygon(inkTessellator* tessellator, inkArray *renderGroups);
 inkExtern void inkTessellatorEndPolygon(inkTessellator* tessellator);

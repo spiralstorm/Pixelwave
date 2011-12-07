@@ -163,14 +163,14 @@ void inkLineBitmapStyle(inkCanvas* canvas, inkBitmapFill bitmapFill)
 {
 	inkBitmapFillCommand command = bitmapFill;
 
-	inkAddCommand(canvas, inkCommandType_LineStyle, &command);
+	inkAddCommand(canvas, inkCommandType_LineBitmap, &command);
 }
 
 void inkLineGradientStyle(inkCanvas* canvas, inkGradientFill gradientFill)
 {
 	inkLineGradientCommand command = gradientFill;
 
-	inkAddCommand(canvas, inkCommandType_LineStyle, &command);
+	inkAddCommand(canvas, inkCommandType_LineGradient, &command);
 }
 
 void inkWindingStyle(inkCanvas* canvas, inkWindingRule winding)

@@ -8,14 +8,14 @@
 
 #include "inkRenderGroup.h"
 
-inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode)
+inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, unsigned int glTextureName)
 {
 	inkRenderGroup* renderGroup = malloc(sizeof(inkRenderGroup));
 
 	if (renderGroup != NULL)
 	{
 		renderGroup->glDrawMode = glDrawMode;
-		renderGroup->glTextureName = 0;
+		renderGroup->glTextureName = glTextureName;
 		renderGroup->glLineWidth = 0.0f;
 		renderGroup->vertices = inkArrayCreate(sizeof(INKvertex));
 

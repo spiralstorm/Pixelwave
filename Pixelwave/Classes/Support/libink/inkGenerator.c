@@ -136,6 +136,11 @@ void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
 		{
 			inkBitmapFill* bitmapFill = (inkBitmapFill *)fill;
 
+		//	vertex->r = 0xFF;
+		//	vertex->g = 0xFF;
+		//	vertex->b = 0xFF;
+		//	vertex->a = 0xFF;
+
 			/*inkPoint matPoint = inkPointMake(bitmapFill->matrix.tx, bitmapFill->matrix.ty);
 
 			inkMatrix matrix = inkMatrixMake(bitmapFill->matrix.a,

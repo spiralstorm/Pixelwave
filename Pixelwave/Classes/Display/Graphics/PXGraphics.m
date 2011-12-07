@@ -200,7 +200,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	inkMatrix matrix = PXGraphicsMakeMatrixFromPXMatrix(pxMatrix);
 	inkBitmapFill fill = inkBitmapFillMake(matrix, inkBitmapInfoMake(textureData.glTextureName, textureData.glTextureWidth, textureData.glTextureHeight), repeat, smooth);
 
-	inkBeginBitmapFill((inkCanvas*)vCanvas, fill);
+	inkLineBitmapStyle((inkCanvas*)vCanvas, fill);
 }
 
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio

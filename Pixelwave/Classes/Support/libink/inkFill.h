@@ -80,4 +80,6 @@ inkExtern inkSolidFill inkSolidFillMake(unsigned int color, float alpha);
 inkExtern inkBitmapFill inkBitmapFillMake(inkMatrix matrix, inkBitmapInfo bitmapInfo, bool repeat, bool smooth);
 inkExtern inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors, inkArray* alphas, inkArray* ratios, inkGradientType type, inkSpreadMethod spreadMethod, inkInterpolationMethod interpolationMethod, float focalPointRatio);
 
+inkExtern unsigned int inkFillTextureName(void* fill);
+
 #endif

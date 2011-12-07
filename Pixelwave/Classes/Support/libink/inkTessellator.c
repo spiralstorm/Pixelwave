@@ -61,6 +61,7 @@ inkTessellator *inkTessellatorCreate()
 			return NULL;
 		}
 
+		tessellator->glTextureName = 0;
 		tessellator->currentRenderGroup = NULL;
 		tessellator->polygonBegan = false;
 		tessellator->contourBegan = false;
@@ -164,6 +165,14 @@ void inkTessellatorSetWindingRule(inkTessellator* tessellator, inkWindingRule wi
 	}
 }
 
+void inkTessellatorSetTextureName(inkTessellator* tessellator, unsigned int glTextureName)
+{
+	if (tessellator == NULL)
+		return;
+
+	tessellator->glTextureName = glTextureName;
+}
+
 void inkTessellatorBegin(INKenum type, inkTessellator* tessellator)
 {
 	inkTessellatorBeginCallback(type, tessellator);
@@ -195,7 +204,7 @@ void inkTessellatorBeginCallback(GLenum type, inkTessellator* tessellator)
 		return;
 
 	inkRenderGroup** renderGroupPtr = (inkRenderGroup**)inkArrayPush(tessellator->renderGroups);
-	*renderGroupPtr = inkRenderGroupCreate(type);
+	*renderGroupPtr = inkRenderGroupCreate(type, tessellator->glTextureName);
 	tessellator->currentRenderGroup = *renderGroupPtr;
 }
 
