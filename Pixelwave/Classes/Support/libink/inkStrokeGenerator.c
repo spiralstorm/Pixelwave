@@ -445,7 +445,25 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 
 	//	inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
 	//	inkStrokeGeneratorAddDrawPoint(innerB, tessellator, fill);
-	//	goto endStatement;
+		/*(if (true)
+		{
+			if (flip)
+			{
+				localLastPointPtr = &outerB;
+				innerIntersection = innerB;
+			}
+			else
+			{
+				localLastPointPtr = &outerB;
+				innerIntersection = innerB;
+			}
+
+			if (lastPointPtr)
+				*lastPointPtr = *localLastPointPtr;
+			if (innerIntersectionPtr)
+				*innerIntersectionPtr = innerIntersection;
+		}
+		goto endStatement;*/
 
 		switch(stroke->joints)
 		{
@@ -472,7 +490,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
 						inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
 					}
-					localLastPointPtr = &outerIntersection;
+				//	localLastPointPtr = &outerIntersection;
 				}
 				else
 				{
@@ -521,28 +539,22 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 					inkStrokeGeneratorRound(tessellator, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
 				}
 
-				//inkStrokeGeneratorRound(tessellator, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
-
 				inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
-			//	inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
-			//	inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-			//	inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
 
 				if (flip)
 				{
-					//inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+					localLastPointPtr = &outerB;
+					innerIntersection = innerB;
 				}
 				else
 				{
-				//	inkStrokeGeneratorAddDrawPoint(innerB, tessellator, fill);
-				//	inkStrokeGeneratorAddDrawPoint(innerB, tessellator, fill);
-				//	inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-				//	inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					localLastPointPtr = &outerB;
+					innerIntersection = innerB;
 				}
 			}
 				break;
@@ -616,9 +628,9 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 	inkTessellator* tessellator = generator->tessellator;
 
 	inkTessellatorSetTextureName(tessellator, inkFillTextureName(strokeGenerator->generator->fill));
-//	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
+	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
-	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
+//	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_POINTS, tessellator);
 
 	INKvertex* vertex;

@@ -28,8 +28,6 @@ inkExtern void inkFillGeneratorDestroy(inkFillGenerator* generator);
 
 inkExtern void inkFillGeneratorMoveTo(inkFillGenerator* generator, inkPoint position);
 inkExtern void inkFillGeneratorLineTo(inkFillGenerator* generator, inkPoint position);
-//inkExtern void inkFillGeneratorQuadraticCurveTo(inkFillGenerator* generator, inkPoint control, inkPoint anchor);
-//inkExtern void inkFillGeneratorCubicCurveTo(inkFillGenerator* generator, inkPoint controlA, inkPoint controlB, inkPoint anchor);
 inkExtern void inkFillGeneratorEnd(inkFillGenerator* generator);
 
 #endif

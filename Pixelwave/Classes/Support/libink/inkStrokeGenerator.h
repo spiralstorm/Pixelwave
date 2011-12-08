@@ -36,8 +36,6 @@ inkExtern void inkStrokeGeneratorSetFill(inkStrokeGenerator* generator, void* fi
 
 inkExtern void inkStrokeGeneratorMoveTo(inkStrokeGenerator* generator, inkPoint position);
 inkExtern void inkStrokeGeneratorLineTo(inkStrokeGenerator* generator, inkPoint position);
-//inkExtern void inkStrokeGeneratorQuadraticCurveTo(inkStrokeGenerator* generator, inkPoint control, inkPoint anchor);
-//inkExtern void inkStrokeGeneratorCubicCurveTo(inkStrokeGenerator* generator, inkPoint controlA, inkPoint controlB, inkPoint anchor);
 inkExtern void inkStrokeGeneratorEnd(inkStrokeGenerator* generator);
 
 #endif
