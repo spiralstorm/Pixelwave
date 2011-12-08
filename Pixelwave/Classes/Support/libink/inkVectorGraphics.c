@@ -211,7 +211,10 @@ void inkEndGenerators(inkFillGenerator** fillGeneratorPtr, inkStrokeGenerator** 
 
 inkPoint inkUpdatePosition(inkCanvas* canvas, inkPoint point)
 {
-	return point;
+	if (canvas == NULL)
+		return inkPointZero;
+
+	return inkMatrixTransformPoint(canvas->matrix, point);
 }
 
 void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator, inkCurveType curveType, inkPoint controlA, inkPoint controlB, inkPoint anchor)
@@ -539,6 +542,88 @@ bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox)
 	}
 
 	return false;
+}
+
+void inkPushMatrix(inkCanvas* canvas)
+{
+	if (canvas == NULL)
+		return;
+
+	inkMatrix* matrixPtr = inkArrayPush(canvas->matrixStack);
+
+	if (matrixPtr != NULL)
+	{
+		*matrixPtr = canvas->matrix;
+	}
+}
+
+void inkPopMatrix(inkCanvas* canvas)
+{
+	if (canvas == NULL)
+		return;
+
+	inkArrayPop(canvas->matrixStack);
+
+	unsigned int count = inkArrayCount(canvas->matrixStack);
+
+	if (count == 0)
+	{
+		canvas->matrix = inkMatrixIdentity;
+	}
+	else
+	{
+		inkArrayElementAt(canvas->matrixStack, count - 1);
+	}
+}
+
+void inkLoadMatrix(inkCanvas* canvas, inkMatrix matrix)
+{
+	if (canvas == NULL)
+		return;
+
+	canvas->matrix = matrix;
+}
+
+void inkMultMatrix(inkCanvas* canvas, inkMatrix matrix)
+{
+	if (canvas == NULL)
+		return;
+
+	canvas->matrix = inkMatrixMultiply(canvas->matrix, matrix);
+}
+
+void inkRotate(inkCanvas* canvas, float radians)
+{
+	if (canvas == NULL)
+		return;
+
+	inkMatrixRotate(canvas->matrix, radians);
+}
+
+void inkScale(inkCanvas* canvas, inkSize scale)
+{
+	if (canvas == NULL)
+		return;
+
+	inkMatrixScale(canvas->matrix, scale);
+}
+
+void inkScalef(inkCanvas* canvas, float x, float y)
+{
+	inkScale(canvas, inkSizeMake(x, y));
+}
+
+void inkTranslate(inkCanvas* canvas, inkPoint offset)
+{
+	if (canvas == NULL)
+		return;
+
+	inkMatrixTranslate(canvas->matrix, offset);
+}
+
+void inkTranslatef(inkCanvas* canvas, float x, float y)
+{
+	inkTranslate(canvas, inkPointMake(x, y));
 }
 
 unsigned int inkDraw(inkCanvas* canvas)

@@ -158,8 +158,8 @@ void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
 		//	matrix = inkMatrixRotate(matrix, angle);
 		//	matrix = inkMatrixTranslate(matrix, -bitmapFill->matrix.tx, -bitmapFill->matrix.ty);
 
-			matrix = inkMatrixTranslate(matrix, -bitmapFill->matrix.tx, -bitmapFill->matrix.ty);
-			matrix = inkMatrixScale(matrix, 1.0f / scale.width, 1.0f / scale.height);
+			matrix = inkMatrixTranslatef(matrix, -bitmapFill->matrix.tx, -bitmapFill->matrix.ty);
+			matrix = inkMatrixScalef(matrix, 1.0f / scale.width, 1.0f / scale.height);
 			matrix = inkMatrixRotate(matrix, angle);
 		//	printf("scale = (%f, %f)\n", scale.width, scale.height);
 			/*inkMatrix matrix = inkMatrixMake(bitmapFill->matrix.a,

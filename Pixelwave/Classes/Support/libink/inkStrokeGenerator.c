@@ -475,10 +475,11 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 
 				if (inkIsZerof(innerIntersectionDist) && inkIsZerof(outerIntersectionDist))
 				{
-					// Arbitrary value of 1024x larger, as in reality it is
+					// Arbitrary value of 65536x larger, as in reality it is
 					// infinately far away in this case.
-					innerIntersection = inkPointInterpolate(ptB, ptA, -1024.0f);
-					outerIntersection = inkPointInterpolate(ptB, ptA,  1024.0f);
+					const float multiplier = 65536.0f;
+					innerIntersection = inkPointInterpolate(ptB, ptA, -multiplier);
+					outerIntersection = inkPointInterpolate(ptB, ptA,  multiplier);
 				}
 
 				float dist = inkPointDistance(pivotPt, outerIntersection);
@@ -487,75 +488,37 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 				if (percentDist > 1.0f)
 					percentDist = 1.0f;
 
-				//if (inkIsEqualf(percentDist, 1.0f))
+				if (flip)
 				{
-					/*if (flip)
-					{
-						inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-					}
-					else
-					{
-						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
-					}*/
-				//	localLastPointPtr = &outerIntersection;
+					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+
+					inkPoint nA = inkPointInterpolate(outerA, outerIntersection, percentDist);
+					inkPoint nB = inkPointInterpolate(outerB, outerIntersection, percentDist);
+
+					inkStrokeGeneratorAddDrawPoint(nA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
+
+					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
 				}
-				//else
+				else
 				{
-					/*inkPoint nOuterA = inkPointInterpolate(outerA, outerIntersection, percentDist);
-					inkPoint nOuterB = inkPointInterpolate(outerB, outerIntersection, percentDist);
+					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+					
+					inkPoint nA = inkPointInterpolate(outerA, outerIntersection, percentDist);
+					inkPoint nB = inkPointInterpolate(outerB, outerIntersection, percentDist);
+					
+					inkStrokeGeneratorAddDrawPoint(nA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
 
-					if (flip)
-					{
-						inkStrokeGeneratorAddDrawPoint(nOuterB, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(nOuterA, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-					}
-					else
-					{
-						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(nOuterB, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(nOuterA, tessellator, fill);
-					}*/
-
-				//	inkPoint nOuterA = inkPointInterpolate(outerA, outerIntersection, percentDist);
-				//	inkPoint nOuterB = inkPointInterpolate(outerB, outerIntersection, percentDist);
-
-					if (flip)
-					{
-						inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-
-						inkPoint nA = inkPointInterpolate(outerA, outerIntersection, percentDist);
-						inkPoint nB = inkPointInterpolate(outerB, outerIntersection, percentDist);
-
-						inkStrokeGeneratorAddDrawPoint(nA, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
-
-						inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
-					}
-					else
-					{
-						inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-						
-						inkPoint nA = inkPointInterpolate(outerA, outerIntersection, percentDist);
-						inkPoint nB = inkPointInterpolate(outerB, outerIntersection, percentDist);
-						
-						inkStrokeGeneratorAddDrawPoint(nA, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
-
-						inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
-						inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-					}
+					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
 				}
 
 				localLastPointPtr = &outerB;

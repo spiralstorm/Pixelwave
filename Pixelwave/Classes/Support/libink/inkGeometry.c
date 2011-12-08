@@ -234,8 +234,9 @@ inkLine inkLineBisectionTraverser(inkLine line, float halfScalar)
 
 	bisector = inkPointMake(bisector.x * halfScalar, bisector.y * halfScalar);
 
-	return inkLineMakev(line.pointB.x - bisector.x, line.pointB.y - bisector.y,
-					    line.pointB.x + bisector.x, line.pointB.y + bisector.y);
+	return inkLineMake(inkPointSubtract(line.pointB, bisector), inkPointAdd(line.pointB, bisector));
+//	return inkLineMakef(line.pointB.x - bisector.x, line.pointB.y - bisector.y,
+//					    line.pointB.x + bisector.x, line.pointB.y + bisector.y);
 }
 
 inkBox inkLineExpandToBox(inkLine line, float halfScalar)

@@ -23,6 +23,9 @@ typedef struct
 	inkArray* commandList;
 	inkArray* renderGroups;
 
+	inkMatrix matrix;
+	inkArray* matrixStack;
+
 	inkPoint cursor;
 	inkRect bounds;
 

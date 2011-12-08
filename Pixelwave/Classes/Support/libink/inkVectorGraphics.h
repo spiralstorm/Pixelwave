@@ -43,25 +43,21 @@ inkExtern void inkWindingStyle(inkCanvas* canvas, inkWindingRule winding);
 inkExtern void inkEndFill(inkCanvas* canvas);
 inkExtern void inkLineStyleNone(inkCanvas* canvas);
 
-/*
-inkExtern void inkPushMatrix(inkCanvas* canvas);
-inkExtern void inkPushMatrixo(inkCanvas* canvas, inkMatrix matrix);
-inkExtern void inkPopMatrix(inkCanvas* canvas);
-inkExtern void inkLoadMatrixo(inkCanvas* canvas, inkMatrix matrix);
-inkExtern void inkMultMatrixo(inkCanvas* canvas, inkMatrix matrix);
-inkExtern void inkRotatef(inkCanvas* canvas, float radians, float x, float y);
-inkExtern void inkRotateo(inkCanvas* canvas, float radians, inkPoint point);
-inkExtern void inkScalef(inkCanvas* canvas, float x, float y);
-inkExtern void inkScaleo(inkCanvas* canvas, inkSize size);
-inkExtern void inkTranslatef(inkCanvas* canvas, float x, float y);
-inkExtern void inkTranslateo(inkCanvas* canvas, inkPoint offset);
-*/
-
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
 inkExtern void inkBuild(inkCanvas* canvas);
 
 inkExtern bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox);
+
+inkExtern void inkPushMatrix(inkCanvas* canvas);
+inkExtern void inkPopMatrix(inkCanvas* canvas);
+inkExtern void inkLoadMatrix(inkCanvas* canvas, inkMatrix matrix);
+inkExtern void inkMultMatrix(inkCanvas* canvas, inkMatrix matrix);
+inkExtern void inkRotate(inkCanvas* canvas, float radians);
+inkExtern void inkScale(inkCanvas* canvas, inkSize scale);
+inkExtern void inkScalef(inkCanvas* canvas, float x, float y);
+inkExtern void inkTranslate(inkCanvas* canvas, inkPoint offset);
+inkExtern void inkTranslatef(inkCanvas* canvas, float x, float y);
 
 inkExtern unsigned int inkDraw(inkCanvas* canvas);
 inkExtern unsigned int inkDrawv(inkCanvas* canvas, inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc);

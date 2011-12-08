@@ -38,13 +38,15 @@ inkCanvas* inkCreate()
 
 		canvas->commandList = inkArrayCreate(sizeof(inkCommand*));
 		canvas->renderGroups = inkArrayCreate(sizeof(inkRenderGroup*));
+		canvas->matrixStack = inkArrayCreate(sizeof(inkMatrix));
 
-		if (canvas->commandList == NULL || canvas->renderGroups == NULL)
+		if (canvas->commandList == NULL || canvas->renderGroups == NULL || canvas->matrixStack == NULL)
 		{
 			inkDestroy(canvas);
 			return NULL;
 		}
 
+		canvas->matrix = inkMatrixIdentity;
 		canvas->cursor = inkPointZero;
 		canvas->bounds = inkRectZero;
 	}
@@ -67,11 +69,12 @@ void inkDestroy(inkCanvas* canvas)
 				inkSharedFillTesselator = NULL;
 			}
 		}
+
 		if (inkSharedStrokeTesselator != NULL)
 		{
 			if (inkSharedStrokeTessellatorUseCount != 0)
 				--inkSharedStrokeTessellatorUseCount;
-			
+
 			if (inkSharedStrokeTessellatorUseCount == 0)
 			{
 				inkTessellatorDestroy(inkSharedStrokeTesselator);
@@ -84,6 +87,8 @@ void inkDestroy(inkCanvas* canvas)
 
 		inkRemoveAllRenderGroups(canvas);
 		inkArrayDestroy(canvas->renderGroups);
+
+		inkArrayDestroy(canvas->matrixStack);
 
 		free(canvas);
 	}

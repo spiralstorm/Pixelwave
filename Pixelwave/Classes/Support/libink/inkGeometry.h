@@ -147,7 +147,7 @@ inkInline inkSize inkSizeFromPoint(inkPoint point);
 #pragma mark -
 
 inkInline inkLine inkLineMake(inkPoint pointA, inkPoint pointB);
-inkInline inkLine inkLineMakev(float x1, float y1, float x2, float y2);
+inkInline inkLine inkLineMakef(float x1, float y1, float x2, float y2);
 
 bool inkLineContainsPoint(inkLine line, inkPoint point);
 
@@ -161,7 +161,7 @@ inkBox inkLineExpandToBox(inkLine line, float halfScalar);
 #pragma mark -
 
 inkInline inkTriangle inkTriangleMake(inkPoint pointA, inkPoint pointB, inkPoint pointC);
-inkInline inkTriangle inkTriangleMakev(float x1, float y1, float x2, float y2, float x3, float y3);
+inkInline inkTriangle inkTriangleMakef(float x1, float y1, float x2, float y2, float x3, float y3);
 
 inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar);
 bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point);
@@ -172,7 +172,7 @@ float inkTriangleArea(inkTriangle triangle);
 #pragma mark -
 
 inkInline inkBox inkBoxMake(inkPoint pointA, inkPoint pointB, inkPoint pointC, inkPoint pointD);
-inkInline inkBox inkBoxMakev(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
+inkInline inkBox inkBoxMakef(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
 inkInline inkBox inkBoxFromRect(inkRect rect);
 inkInline bool inkBoxIsEqual(inkBox boxA, inkBox boxB);
 inkInline inkBox inkBoxConcat(inkBox boxA, inkBox boxB);
@@ -182,7 +182,7 @@ inkInline inkBox inkBoxConcat(inkBox boxA, inkBox boxB);
 #pragma mark -
 
 inkInline inkRect inkRectMake(inkPoint origin, inkSize size);
-inkInline inkRect inkRectMakev(float x, float y, float width, float height);
+inkInline inkRect inkRectMakef(float x, float y, float width, float height);
 
 inkInline inkRect inkRectFromBox(inkBox box);
 
@@ -219,8 +219,12 @@ inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, float tx, 
 
 inkInline inkMatrix inkMatrixInvert(inkMatrix matrix);
 inkInline inkMatrix inkMatrixRotate(inkMatrix matrix, float angle);
-inkInline inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy);
-inkInline inkMatrix inkMatrixTranslate(inkMatrix matrix, float dx, float dy);
+inkInline inkMatrix inkMatrixScale(inkMatrix matrix, inkSize scale);
+inkInline inkMatrix inkMatrixScalef(inkMatrix matrix, float sx, float sy);
+inkInline inkMatrix inkMatrixTranslate(inkMatrix matrix, inkPoint offset);
+inkInline inkMatrix inkMatrixTranslatef(inkMatrix matrix, float dx, float dy);
+
+inkInline inkMatrix inkMatrixMultiply(inkMatrix matrixA, inkMatrix matrixB);
 
 /*inkMatrix inkMatrixConcat(inkMatrix matrixA, inkMatrix matrixB);
 
@@ -443,7 +447,7 @@ inkInline inkLine inkLineMake(inkPoint pointA, inkPoint pointB)
 	return line;
 }
 
-inkInline inkLine inkLineMakev(float x1, float y1, float x2, float y2)
+inkInline inkLine inkLineMakef(float x1, float y1, float x2, float y2)
 {
 	return inkLineMake(inkPointMake(x1, y1), inkPointMake(x2, y2));
 }
@@ -463,7 +467,7 @@ inkInline inkTriangle inkTriangleMake(inkPoint pointA, inkPoint pointB, inkPoint
 	return triangle;
 }
 
-inkInline inkTriangle inkTriangleMakev(float x1, float y1, float x2, float y2, float x3, float y3)
+inkInline inkTriangle inkTriangleMakef(float x1, float y1, float x2, float y2, float x3, float y3)
 {
 	return inkTriangleMake(inkPointMake(x1, y1), inkPointMake(x2, y2), inkPointMake(x3, y3));
 }
@@ -482,7 +486,7 @@ inkInline inkRect inkRectMake(inkPoint origin, inkSize size)
 	return rect;
 }
 
-inkInline inkRect inkRectMakev(float x, float y, float width, float height)
+inkInline inkRect inkRectMakef(float x, float y, float width, float height)
 {
 	inkRect rect;
 
@@ -518,7 +522,7 @@ inkInline inkBox inkBoxMake(inkPoint pointA, inkPoint pointB, inkPoint pointC, i
 	return box;
 }
 
-inkInline inkBox inkBoxMakev(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
+inkInline inkBox inkBoxMakef(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
 {
 	return inkBoxMake(inkPointMake(x1, y1), inkPointMake(x2, y2), inkPointMake(x3, y3), inkPointMake(x4, y4));
 }
@@ -601,14 +605,34 @@ inkInline inkSize inkMatrixSize(inkMatrix matrix)
 	return inkSizeMake(matrix.a, matrix.d);
 }
 
-inkInline inkMatrix inkMatrixScale(inkMatrix matrix, float sx, float sy)
+inkInline inkMatrix inkMatrixScale(inkMatrix matrix, inkSize scale)
 {
-	return inkMatrixMake(matrix.a * sx, matrix.b, matrix.c, matrix.d * sy, matrix.tx * sx, matrix.ty * sy);
+	return inkMatrixMake(matrix.a * scale.width, matrix.b, matrix.c, matrix.d * scale.height, matrix.tx * scale.width, matrix.ty * scale.height);
 }
 
-inkInline inkMatrix inkMatrixTranslate(inkMatrix matrix, float dx, float dy)
+inkInline inkMatrix inkMatrixScalef(inkMatrix matrix, float sx, float sy)
 {
-	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx + dx, matrix.ty + dy);
+	return inkMatrixScale(matrix, inkSizeMake(sx, sy));
+}
+
+inkInline inkMatrix inkMatrixTranslate(inkMatrix matrix, inkPoint offset)
+{
+	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx + offset.x, matrix.ty + offset.y);
+}
+
+inkInline inkMatrix inkMatrixTranslatef(inkMatrix matrix, float dx, float dy)
+{
+	return inkMatrixTranslate(matrix, inkPointMake(dx, dy));
+}
+
+inkInline inkMatrix inkMatrixMultiply(inkMatrix matrixA, inkMatrix matrixB)
+{
+	return inkMatrixMake(matrixA.a * matrixB.a + matrixA.b * matrixB.c,
+						 matrixA.a * matrixB.b + matrixA.b * matrixB.d,
+						 matrixA.c * matrixB.a + matrixA.d * matrixB.c,
+						 matrixA.c * matrixB.b + matrixA.d * matrixB.d,
+						 matrixA.tx * matrixB.a + matrixA.ty * matrixB.c + matrixB.tx,
+						 matrixA.tx * matrixB.b + matrixA.ty * matrixB.d + matrixB.ty);
 }
 	
 inkInline inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point)
