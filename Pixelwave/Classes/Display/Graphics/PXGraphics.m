@@ -52,6 +52,8 @@
 #import "PXGraphicsPath.h"
 #import "PXGraphicsData.h"
 
+const inkRenderer pxGraphicsInkRenderer = {PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLGetBooleanv, PXGLGetFloatv, PXGLGetIntegerv, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLGetTexParameteriv, PXGLTexParameteri, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements};
+
 static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 {
 	if (matrix == nil)
@@ -370,7 +372,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 {
 	[self build];
 
-	inkDrawv((inkCanvas*)vCanvas, PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLGetBooleanv, PXGLGetFloatv, PXGLGetIntegerv, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLGetTexParameteriv, PXGLTexParameteri, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements);
+	inkDrawv((inkCanvas*)vCanvas, pxGraphicsInkRenderer);
 }
 
 @end

@@ -60,6 +60,6 @@ inkExtern void inkTranslate(inkCanvas* canvas, inkPoint offset);
 inkExtern void inkTranslatef(inkCanvas* canvas, float x, float y);
 
 inkExtern unsigned int inkDraw(inkCanvas* canvas);
-inkExtern unsigned int inkDrawv(inkCanvas* canvas, inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkGetBooleanFunction getBooleanFunc, inkGetFloatFunction getFloatFunc, inkGetIntegerFunction getIntegerFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkGetTexParameterFunction getTexParamFunc, inkSetTexParameterFunction setTexParamFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc);
+inkExtern unsigned int inkDrawv(inkCanvas* canvas, inkRenderer renderer);
 
 #endif
