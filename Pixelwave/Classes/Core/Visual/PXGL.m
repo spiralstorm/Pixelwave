@@ -1030,6 +1030,46 @@ void PXGLShadeModel(GLenum mode)
 	}
 }
 
+void PXGLGetBooleanv(GLenum pname, GLboolean *params)
+{
+	if (params == NULL)
+		return;
+
+	PXGLFlush();
+
+	glGetBooleanv(pname, params);
+}
+
+void PXGLGetFloatv(GLenum pname, GLfloat *params)
+{
+	if (params == NULL)
+		return;
+
+	PXGLFlush();
+
+	glGetFloatv(pname, params);
+}
+
+void PXGLGetIntegerv(GLenum pname, GLint *params)
+{
+	if (params == NULL)
+		return;
+
+	PXGLFlush();
+
+	glGetIntegerv(pname, params);
+}
+
+void PXGLGetTexParameteriv(GLenum target, GLenum pname, GLint *params)
+{
+	if (params == NULL)
+		return;
+
+	PXGLFlush();
+
+	glGetTexParameteriv(target, pname, params);
+}
+
 void PXGLTexEnvf(GLenum target, GLenum pname, GLfloat param)
 {
 	PXGLFlush();

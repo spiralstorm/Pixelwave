@@ -28,6 +28,13 @@ typedef void (*inkDrawElementsFunction)(unsigned int, int, unsigned int, const v
 
 typedef void (*inkTextureFunction)(unsigned int, unsigned int);
 
+typedef void (*inkGetBooleanFunction)(unsigned int, unsigned char*);
+typedef void (*inkGetFloatFunction)(unsigned int, float*);
+typedef void (*inkGetIntegerFunction)(unsigned int, int*);
+
+typedef void (*inkGetTexParameterFunction)(unsigned int, unsigned int, int*);
+typedef void (*inkSetTexParameterFunction)(unsigned int, unsigned int, int);
+
 typedef struct
 {
 	float x, y;

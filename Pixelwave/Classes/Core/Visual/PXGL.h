@@ -74,6 +74,11 @@ void PXGLTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *
 void PXGLTexParameteri(GLenum target, GLenum pname, GLint param);
 void PXGLVertexPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
 
+void PXGLGetBooleanv(GLenum pname, GLboolean *params);
+void PXGLGetFloatv(GLenum pname, GLfloat *params);
+void PXGLGetIntegerv(GLenum pname, GLint *params);
+void PXGLGetTexParameteriv(GLenum target, GLenum pname, GLint *params);
+
 void PXGLShadeModel(GLenum mode);
 
 void PXGLTexEnvf(GLenum target, GLenum pname, GLfloat param);

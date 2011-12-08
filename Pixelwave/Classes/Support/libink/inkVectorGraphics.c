@@ -628,10 +628,10 @@ void inkTranslatef(inkCanvas* canvas, float x, float y)
 
 unsigned int inkDraw(inkCanvas* canvas)
 {
-	return inkDrawv(canvas, glEnable, glDisable, glEnableClientState, glDisableClientState, glPointSize, glLineWidth, glBindTexture, glVertexPointer, glTexCoordPointer, glColorPointer, glDrawArrays, glDrawElements);
+	return inkDrawv(canvas, glEnable, glDisable, glEnableClientState, glDisableClientState, glGetBooleanv, glGetFloatv, glGetIntegerv, glPointSize, glLineWidth, glBindTexture, glGetTexParameteriv, glTexParameteri, glVertexPointer, glTexCoordPointer, glColorPointer, glDrawArrays, glDrawElements);
 }
 
-unsigned int inkDrawv(inkCanvas* canvas, inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc)
+unsigned int inkDrawv(inkCanvas* canvas, inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkGetBooleanFunction getBooleanFunc, inkGetFloatFunction getFloatFunc, inkGetIntegerFunction getIntegerFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkGetTexParameterFunction getTexParamFunc, inkSetTexParameterFunction setTexParamFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc)
 {
 	inkArray* renderGroups = inkRenderGroups(canvas);
 

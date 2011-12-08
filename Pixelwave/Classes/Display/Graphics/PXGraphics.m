@@ -370,7 +370,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 {
 	[self build];
 
-	inkDrawv((inkCanvas*)vCanvas, PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements);
+	inkDrawv((inkCanvas*)vCanvas, PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLGetBooleanv, PXGLGetFloatv, PXGLGetIntegerv, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLGetTexParameteriv, PXGLTexParameteri, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements);
 }
 
 @end
