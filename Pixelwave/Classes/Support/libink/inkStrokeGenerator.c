@@ -92,7 +92,7 @@ void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill)
 	inkStrokeGeneratorEndConcat(strokeGenerator);
 
 	strokeGenerator->generator->fill = fill;
-	inkTessellatorSetTextureName(strokeGenerator->generator->tessellator, inkFillTextureName(fill));
+	inkTessellatorSetGLData(strokeGenerator->generator->tessellator, inkFillUpdateGLData(fill, inkTessellatorGetGLData(strokeGenerator->generator->tessellator)));
 }
 
 void inkStrokeGeneratorMoveTo(inkStrokeGenerator* strokeGenerator, inkPoint position)
@@ -640,7 +640,8 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 	inkGenerator* generator = strokeGenerator->generator;
 	inkTessellator* tessellator = generator->tessellator;
 
-	inkTessellatorSetTextureName(tessellator, inkFillTextureName(strokeGenerator->generator->fill));
+	inkTessellatorSetGLData(tessellator, inkFillUpdateGLData(strokeGenerator->generator->fill, inkTessellatorGetGLData(tessellator)));
+
 	inkTessellatorBegin(GL_TRIANGLE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_LINE_LOOP, tessellator);
 //	inkTessellatorBegin(GL_LINE_STRIP, tessellator);

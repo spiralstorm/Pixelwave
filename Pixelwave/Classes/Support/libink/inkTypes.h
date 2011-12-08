@@ -37,6 +37,21 @@ typedef void (*inkSetTexParameterFunction)(unsigned int, unsigned int, int);
 
 typedef struct
 {
+	unsigned int textureName;
+	int minFilter;
+	int magFilter;
+	int wrapS;
+	int wrapT;
+
+	float lineWidth;
+	float pointSize;
+} inkPresetGLData;
+
+#define _inkPresetGLDataDefault {0, GL_NEAREST, GL_NEAREST, GL_REPEAT, GL_REPEAT, 0.0f, 4.0f}
+inkExtern const inkPresetGLData inkPresetGLDataDefault;
+
+typedef struct
+{
 	float x, y;
 	unsigned char r, g, b, a;
 	float s, t;

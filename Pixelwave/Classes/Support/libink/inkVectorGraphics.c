@@ -642,30 +642,113 @@ unsigned int inkDrawv(inkCanvas* canvas, inkStateFunction enableFunc, inkStateFu
 	inkArray* vertexArray;
 	INKvertex* vertices;
 
-	pointSizeFunc(4.0f);
-
 	unsigned int vertexArrayCount;
 	unsigned int totalVertexCount = 0;
+
+	inkPresetGLData previousGLData;
+
+	getIntegerFunc(GL_TEXTURE_BINDING_2D, (int*)&previousGLData.textureName);
+	if (previousGLData.textureName != 0)
+	{
+		getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &previousGLData.magFilter);
+		getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &previousGLData.minFilter);
+		getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &previousGLData.wrapS);
+		getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &previousGLData.wrapT);
+
+		disableClientFunc(GL_COLOR_ARRAY);
+		enableClientFunc(GL_TEXTURE_COORD_ARRAY);
+
+		enableFunc(GL_TEXTURE_2D);
+	}
+	else
+	{
+		disableFunc(GL_TEXTURE_2D);
+		enableClientFunc(GL_COLOR_ARRAY);
+		disableClientFunc(GL_TEXTURE_COORD_ARRAY);
+	}
+	getFloatFunc(GL_POINT_SIZE, &previousGLData.pointSize);
+	getFloatFunc(GL_LINE_WIDTH, &previousGLData.lineWidth);
+
+	inkPresetGLData origGLData = previousGLData;
+	inkPresetGLData startState = previousGLData;
 
 	inkArrayPtrForEach(renderGroups, renderGroup)
 	{
 		vertexArray = renderGroup->vertices;
 
-		lineWidthFunc(renderGroup->glLineWidth);
-
-		if (renderGroup->glTextureName != 0)
+		if (previousGLData.pointSize != renderGroup->glData.pointSize)
 		{
-			disableClientFunc(GL_COLOR_ARRAY);
-			enableClientFunc(GL_TEXTURE_COORD_ARRAY);
-			
-			enableFunc(GL_TEXTURE_2D);
-			textureFunc(GL_TEXTURE_2D, renderGroup->glTextureName);
+			previousGLData.pointSize = renderGroup->glData.pointSize;
+			pointSizeFunc(renderGroup->glData.pointSize);
 		}
-		else
+
+		if (previousGLData.lineWidth != renderGroup->glData.lineWidth)
 		{
-			disableFunc(GL_TEXTURE_2D);
-			enableClientFunc(GL_COLOR_ARRAY);
-			disableClientFunc(GL_TEXTURE_COORD_ARRAY);
+			previousGLData.lineWidth = renderGroup->glData.lineWidth;
+			pointSizeFunc(renderGroup->glData.lineWidth);
+		}
+
+		if (previousGLData.textureName != renderGroup->glData.textureName)
+		{
+			if (origGLData.textureName != 0)
+			{
+				if (origGLData.magFilter != previousGLData.magFilter)
+					setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, origGLData.magFilter);
+				if (origGLData.minFilter != previousGLData.minFilter)
+					setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, origGLData.minFilter);
+				if (origGLData.wrapS != previousGLData.wrapS)
+					setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, origGLData.wrapS);
+				if (origGLData.wrapT != previousGLData.wrapT)
+					setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, origGLData.wrapT);
+			}
+
+			previousGLData.textureName = renderGroup->glData.textureName;
+
+			if (previousGLData.textureName != 0)
+			{
+				disableClientFunc(GL_COLOR_ARRAY);
+				enableClientFunc(GL_TEXTURE_COORD_ARRAY);
+
+				enableFunc(GL_TEXTURE_2D);
+				textureFunc(GL_TEXTURE_2D, renderGroup->glData.textureName);
+
+				getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &previousGLData.magFilter);
+				getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &previousGLData.minFilter);
+				getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &previousGLData.wrapS);
+				getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &previousGLData.wrapT);
+			}
+			else
+			{
+				disableFunc(GL_TEXTURE_2D);
+				enableClientFunc(GL_COLOR_ARRAY);
+				disableClientFunc(GL_TEXTURE_COORD_ARRAY);
+			}
+
+			origGLData = previousGLData;
+		}
+
+		if (previousGLData.textureName != 0)
+		{
+			if (previousGLData.magFilter != renderGroup->glData.magFilter)
+			{
+				previousGLData.magFilter = renderGroup->glData.magFilter;
+				setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, renderGroup->glData.magFilter);
+			}
+			if (previousGLData.minFilter != renderGroup->glData.minFilter)
+			{
+				previousGLData.minFilter = renderGroup->glData.minFilter;
+				setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, renderGroup->glData.minFilter);
+			}
+			if (previousGLData.wrapS != renderGroup->glData.wrapS)
+			{
+				previousGLData.wrapS = renderGroup->glData.wrapS;
+				setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, renderGroup->glData.wrapS);
+			}
+			if (previousGLData.wrapT != renderGroup->glData.wrapT)
+			{
+				previousGLData.wrapT = renderGroup->glData.wrapT;
+				setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, renderGroup->glData.wrapT);
+			}
 		}
 
 		if (vertexArray != NULL)
@@ -680,6 +763,36 @@ unsigned int inkDrawv(inkCanvas* canvas, inkStateFunction enableFunc, inkStateFu
 			colorFunc(4, GL_UNSIGNED_BYTE, sizeof(INKvertex), &(vertices->r));
 
 			drawArraysFunc(renderGroup->glDrawMode, 0, vertexArrayCount);
+		}
+	}
+
+	if (origGLData.textureName != previousGLData.textureName)
+	{
+		if (origGLData.textureName != 0)
+		{
+			if (origGLData.magFilter != previousGLData.magFilter)
+				setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, origGLData.magFilter);
+			if (origGLData.minFilter != previousGLData.minFilter)
+				setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, origGLData.minFilter);
+			if (origGLData.wrapS != previousGLData.wrapS)
+				setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, origGLData.wrapS);
+			if (origGLData.wrapT != previousGLData.wrapT)
+				setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, origGLData.wrapT);
+		}
+
+		if (startState.textureName != 0)
+		{
+			disableClientFunc(GL_COLOR_ARRAY);
+			enableClientFunc(GL_TEXTURE_COORD_ARRAY);
+
+			enableFunc(GL_TEXTURE_2D);
+			textureFunc(GL_TEXTURE_2D, startState.textureName);
+		}
+		else
+		{
+			disableFunc(GL_TEXTURE_2D);
+			enableClientFunc(GL_COLOR_ARRAY);
+			disableClientFunc(GL_TEXTURE_COORD_ARRAY);
 		}
 	}
 

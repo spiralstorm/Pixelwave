@@ -24,7 +24,8 @@ inkFillGenerator* inkFillGeneratorCreate(inkTessellator* tessellator, inkArray* 
 
 		fillGenerator->generator = generator;
 
-		inkTessellatorSetTextureName(tessellator, inkFillTextureName(fill));
+		inkTessellatorSetGLData(tessellator, inkFillUpdateGLData(fill, inkTessellatorGetGLData(tessellator)));
+
 		inkTessellatorBeginPolygon(tessellator, renderGroups);
 	}
 
@@ -38,24 +39,6 @@ void inkFillGeneratorDestroy(inkFillGenerator* fillGenerator)
 		if (fillGenerator->generator != NULL)
 		{
 			inkTessellatorEndPolygon(fillGenerator->generator->tessellator);
-
-			/*if (fillGenerator->generator->tessellator != NULL)
-			{
-				if (fillGenerator->generator->tessellator->currentRenderGroup != NULL)
-				{
-					if (fillGenerator->generator->fill != NULL)
-					{
-						inkFillType fillType = ((inkFill*)fillGenerator->generator->fill)->fillType;
-
-						if (fillType == inkFillType_Bitmap)
-						{
-							inkBitmapFill* bitmapFill = (inkBitmapFill*)fillGenerator->generator->fill;
-							fillGenerator->generator->tessellator->currentRenderGroup->glTextureName = bitmapFill->bitmapInfo.glTextureName;
-						}
-					}
-				}
-			}*/
-
 			inkGeneratorDestroy(fillGenerator->generator);
 		}
 

@@ -8,6 +8,9 @@
 
 #include "inkTypes.h"
 
+#include "inkGLU.h"
+
+const inkPresetGLData inkPresetGLDataDefault = _inkPresetGLDataDefault;
 const inkSpreadMethod inkSpreadMethodDefault = _inkSpreadMethodDefault;
 const inkInterpolationMethod inkInterpolationMethodDefault = _inkInterpolationMethodDefault;
 const inkGradientType inkGradientTypeDefault = _inkGradientTypeDefault;

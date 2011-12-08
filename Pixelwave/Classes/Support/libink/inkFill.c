@@ -8,6 +8,8 @@
 
 #include "inkFill.h"
 
+#include "inkGLU.h"
+
 const inkSolidFill inkSolidFillDefault = _inkSolidFillDefault;
 const inkBitmapFill inkBitmapFillDefault = _inkBitmapFillDefault;
 const inkGradientFill inkGradientFillDefault = _inkGradientFillDefault;
@@ -67,15 +69,25 @@ inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors, inkArray
 	return fill;
 }
 
-inkExtern unsigned int inkFillTextureName(void* fill)
+inkExtern inkPresetGLData inkFillUpdateGLData(void* fill, inkPresetGLData glData)
 {
 	if (fill == NULL)
-		return 0;
+		return glData;
 
 	inkFillType fillType = ((inkFill*)fill)->fillType;
 
 	if (fillType != inkFillType_Bitmap)
-		return 0;
+	{
+		glData.textureName = 0;
+		return glData;
+	}
 
-	return ((inkBitmapFill*)fill)->bitmapInfo.glTextureName;
+	glData.textureName = ((inkBitmapFill*)fill)->bitmapInfo.glTextureName;
+
+	glData.magFilter = ((inkBitmapFill*)fill)->smooth ? GL_LINEAR : GL_NEAREST;
+	glData.minFilter = ((inkBitmapFill*)fill)->smooth ? GL_LINEAR : GL_NEAREST;
+	glData.wrapS = ((inkBitmapFill*)fill)->repeat ? GL_REPEAT : GL_CLAMP_TO_EDGE;
+	glData.wrapT = ((inkBitmapFill*)fill)->repeat ? GL_REPEAT : GL_CLAMP_TO_EDGE;
+
+	return glData;
 }

@@ -18,13 +18,11 @@ typedef struct
 	inkArray *vertices;
 
 	INKenum glDrawMode;
-	unsigned int glTextureName;
 
-	float glLineWidth;
+	inkPresetGLData glData;
 } inkRenderGroup;
 
-inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, unsigned int glTextureName);
-//inkExtern inkRenderGroup* inkRenderGroupCreateWithVertices(inkArray *vertices, INKenum glDrawMode);
+inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData);
 inkExtern void inkRenderGroupDestroy(inkRenderGroup *group);
 
 inkExtern INKvertex *inkRenderGroupNextVertex(inkRenderGroup *group);
