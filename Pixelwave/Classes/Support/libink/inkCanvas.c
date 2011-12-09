@@ -49,6 +49,8 @@ inkCanvas* inkCreate()
 		canvas->matrix = inkMatrixIdentity;
 		canvas->cursor = inkPointZero;
 		canvas->bounds = inkRectZero;
+		inkSetCurveMultiplier(canvas, 0.5f);
+		inkSetPixelsPerPoint(canvas, 1.0f);
 	}
 
 	return canvas;
@@ -118,23 +120,45 @@ inkRect inkBounds(inkCanvas* canvas)
 	return canvas->bounds;
 }
 
-void inkSetPixelHint(inkCanvas* canvas, float pixelHint)
+void inkSetCurveMultiplier(inkCanvas* canvas, float curveMultiplier)
 {
 	if (canvas == NULL)
 		return;
 
-	if (pixelHint <= 0.0f)
-		return;
+	curveMultiplier = fabsf(curveMultiplier);
+	if (inkIsZerof(curveMultiplier))
+		curveMultiplier = 0.01f;
 
-	canvas->pixelHint = pixelHint;
+	canvas->curveMultiplier = curveMultiplier;
 }
 
-float inkPixelHint(inkCanvas* canvas)
+float inkCurveMultiplier(inkCanvas* canvas)
 {
 	if (canvas == NULL)
 		return 0.0f;
-	
-	return canvas->pixelHint;
+
+	return canvas->curveMultiplier;
+}
+
+void inkSetPixelsPerPoint(inkCanvas* canvas, float pixelsPerPoint)
+{
+	if (canvas == NULL)
+		return;
+
+	pixelsPerPoint = fabsf(pixelsPerPoint);
+	if (pixelsPerPoint <= 0.0f)
+		return;
+
+	canvas->pixelsPerPoint = pixelsPerPoint;
+	canvas->one_pixelsPerPoint = 1.0f / pixelsPerPoint;
+}
+
+float inkPixelsPerPoint(inkCanvas* canvas)
+{
+	if (canvas == NULL)
+		return 1.0f;
+
+	return canvas->pixelsPerPoint;
 }
 
 void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)

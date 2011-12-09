@@ -19,13 +19,17 @@
 //			intersection is impossible to find due to the points being too close
 //			together.
 // NOTE:	See the '+ 2', this is to add the first and last points always
-const unsigned int inkVectorGraphicsCurvePercision = 9 + 2;
 
-typedef enum
+typedef struct
 {
-	inkCurveType_Quadratic = 0,
-	inkCurveType_Cubic,
-} inkCurveType;
+	inkFillGenerator* fillGenerator;
+	inkStrokeGenerator* strokeGenerator;
+} inkCurveGenerators;
+
+inkPoint inkUpdatePositionv(inkPoint point, void* canvas);
+inkPoint inkUpdatePosition(inkCanvas* canvas, inkPoint point);
+
+void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator, inkCurveType curveType, inkPoint controlA, inkPoint controlB, inkPoint anchor);
 
 inkInline inkPoint inkPosition(inkCanvas* canvas, inkPoint position, bool relative)
 {
@@ -41,6 +45,18 @@ inkInline void inkSetCursor(inkCanvas* canvas, inkPoint position)
 		return;
 
 	canvas->cursor = position;
+}
+
+unsigned int inkArcLengthSegmentCount(inkCanvas* canvas, float arcLength)
+{
+	unsigned int count = lroundf(fabsf(arcLength));
+
+	count *= canvas->pixelsPerPoint * canvas->curveMultiplier;
+
+	if (count < 3)
+		count = 3;
+
+	return count;
 }
 
 void inkClear(inkCanvas* canvas)
@@ -209,6 +225,11 @@ void inkEndGenerators(inkFillGenerator** fillGeneratorPtr, inkStrokeGenerator** 
 	}
 }
 
+inkPoint inkUpdatePositionv(inkPoint point, void* canvas)
+{
+	return inkUpdatePosition((inkCanvas*)canvas, point);
+}
+
 inkPoint inkUpdatePosition(inkCanvas* canvas, inkPoint point)
 {
 	if (canvas == NULL)
@@ -217,66 +238,32 @@ inkPoint inkUpdatePosition(inkCanvas* canvas, inkPoint point)
 	return inkMatrixTransformPoint(canvas->matrix, point);
 }
 
+void inkCurveAdd(inkPoint point, void* userData)
+{
+	inkCurveGenerators generators = *((inkCurveGenerators*)userData);
+
+	inkFillGeneratorLineTo(generators.fillGenerator, point);
+	inkStrokeGeneratorLineTo(generators.strokeGenerator, point);
+}
+
 void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator, inkCurveType curveType, inkPoint controlA, inkPoint controlB, inkPoint anchor)
 {
-	if (fillGenerator == NULL && strokeGenerator == NULL)
-		return;
-
-	inkPoint d;
+	inkPoint start;
 
 	if (fillGenerator != NULL && fillGenerator->generator != NULL)
-		d = fillGenerator->generator->previous;
+		start = fillGenerator->generator->previous;
 	else if (strokeGenerator != NULL && strokeGenerator->generator != NULL)
-		d = strokeGenerator->generator->previous;
+		start = strokeGenerator->generator->previous;
 	else
 		return;
 
-	inkPoint point;
-	inkPoint previousPoint = d;
+	float arcLength = inkCurveLength(inkUpdatePositionv, canvas, curveType, start, controlA, controlB, anchor);
 
-	float tIncrement = 1.0f / (float)(inkVectorGraphicsCurvePercision - 1);
-	float t;
-	float t2;
-	float t3;
+	inkCurveGenerators generators;
+	generators.fillGenerator = fillGenerator;
+	generators.strokeGenerator = strokeGenerator;
 
-	inkPoint a;
-	inkPoint b;
-	inkPoint c;
-
-	if (curveType == inkCurveType_Cubic)
-	{
-		c = inkPointSubtract(inkPointScale(controlA, 3.0f), inkPointScale(d, 3.0f));
-		b = inkPointAdd(inkPointSubtract(inkPointScale(controlB, 3.0f), inkPointScale(controlA, 6.0f)), inkPointScale(d, 3.0f));
-		a = inkPointSubtract(inkPointAdd(inkPointSubtract(anchor, inkPointScale(controlB, 3.0f)), inkPointScale(controlA, 3.0f)), d);
-	}
-	else if (curveType == inkCurveType_Quadratic)
-	{
-		c = inkPointSubtract(inkPointScale(controlB, 2.0f), inkPointScale(d, 2.0f));
-		b = inkPointAdd(inkPointSubtract(anchor, inkPointScale(controlB, 2.0f)), d);
-		a = inkPointZero;
-	}
-	else
-		return;
-
-	unsigned int index;
-
-	for (index = 0, t = 0.0f; index < inkVectorGraphicsCurvePercision; ++index, t += tIncrement)
-	{
-		t2 = t * t;
-		t3 = t2 * t;
-
-		point = inkPointMake((a.x * t3) + (b.x * t2) + (c.x * t) + d.x,
-							 (a.y * t3) + (b.y * t2) + (c.y * t) + d.y);
-
-		if (inkPointIsEqual(previousPoint, point) == false)
-		{
-			previousPoint = point;
-
-			point = inkUpdatePosition(canvas, point);
-			inkFillGeneratorLineTo(fillGenerator, point);
-			inkStrokeGeneratorLineTo(strokeGenerator, point);
-		}
-	}
+	inkCurveApproximation(inkUpdatePositionv, canvas, curveType, start, controlA, controlB, anchor, inkArcLengthSegmentCount(canvas, arcLength), inkCurveAdd, (void*)(&generators));
 }
 
 // ONLY call this method on the main thread as it uses a non-thread safe shared
@@ -285,6 +272,8 @@ void inkBuild(inkCanvas* canvas)
 {
 	if (canvas == NULL)
 		return;
+
+	inkRemoveAllRenderGroups(canvas);
 
 	inkArray* commandList = canvas->commandList;
 	void* commandData;
@@ -374,7 +363,7 @@ void inkBuild(inkCanvas* canvas)
 
 				if (!isnan(command->stroke.thickness))
 				{
-					strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas->renderGroups, &(command->stroke));
+					strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas, canvas->renderGroups, &(command->stroke));
 					inkStrokeGeneratorSetFill(strokeGenerator, &(command->fill));
 				}
 			}

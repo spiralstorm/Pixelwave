@@ -47,10 +47,15 @@
 @interface PXGraphics : NSObject
 {
 @protected
+	unsigned int vertexCount;
 	void *vCanvas;
 
 	bool wasBuilt;
+
+	CGSize previousSize;
 }
+
+@property (nonatomic, readonly) unsigned int vertexCount;
 
 - (void) beginFill:(unsigned int)color alpha:(float)alpha;
 - (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth;

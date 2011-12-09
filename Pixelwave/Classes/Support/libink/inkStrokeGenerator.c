@@ -12,10 +12,11 @@
 #include "inkGLU.h"
 
 #include "inkFill.h"
+#include "inkVectorGraphics.h"
 
 //#define INK_STROKE_GENERATOR_NO_FORCE_END
 
-const unsigned int inkStrokeGeneratorRoundPrecisionPoints = 5;
+//const unsigned int inkStrokeGeneratorRoundPrecisionPoints = 5;
 // Anything less than 5 degrees will just be a line.
 //const float inkStrokeGeneratorRoundAngleEpsilon = M_PI / (180 / 5);
 
@@ -38,7 +39,7 @@ inkInline inkStrokeGeneratorRasterizeObject inkStrokeGeneratorRasterizeObjectMak
 void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, inkStrokeGeneratorRasterizeObject* rasterizeObject);
 void inkStrokeGeneratorEndConcat(void* generator);
 
-inkStrokeGenerator* inkStrokeGeneratorCreate(inkTessellator* tessellator, inkArray *renderGroups, inkStroke* stroke)
+inkStrokeGenerator* inkStrokeGeneratorCreate(inkTessellator* tessellator, inkCanvas* canvas, inkArray *renderGroups, inkStroke* stroke)
 {
 	inkStrokeGenerator* strokeGenerator = malloc(sizeof(inkStrokeGenerator));
 
@@ -61,6 +62,7 @@ inkStrokeGenerator* inkStrokeGeneratorCreate(inkTessellator* tessellator, inkArr
 
 		strokeGenerator->generator = generator;
 		strokeGenerator->stroke = stroke;
+		strokeGenerator->canvas = canvas;
 
 		inkTessellatorBeginPolygon(tessellator, renderGroups);
 	}
@@ -119,13 +121,17 @@ inkInline void inkStrokeGeneratorAddDrawPoint(inkPoint point, inkTessellator* te
 	inkTessellatorVertex(&vertex, tessellator);
 }
 
-void inkStrokeGeneratorRound(inkTessellator* tessellator, void* fill, inkPoint pivotPoint, inkPoint startPoint, float startAngle, float angleDiff, float angleDist)
+void inkStrokeGeneratorRound(inkTessellator* tessellator, inkCanvas* canvas, void* fill, inkPoint pivotPoint, inkPoint startPoint, float startAngle, float angleDiff, float angleDist)
 {
 //	return;
 //	if (angleDiff < inkStrokeGeneratorRoundAngleEpsilon)
 //		return;
 
-	float add = angleDiff / ((float)inkStrokeGeneratorRoundPrecisionPoints + 1.0f);
+	float arcLength = 2.0f * M_PI * angleDist * fabsf(angleDiff / M_PI);
+	// guaranteed to at lest return 2.
+	unsigned int segmentCount = inkArcLengthSegmentCount(canvas, arcLength);
+	//float add = angleDiff / ((float)inkStrokeGeneratorRoundPrecisionPoints + 1.0f);
+	float add = angleDiff / ((float)segmentCount);
 
 	inkPoint pt0 = startPoint;
 	inkPoint pt1;
@@ -133,7 +139,7 @@ void inkStrokeGeneratorRound(inkTessellator* tessellator, void* fill, inkPoint p
 	float angle = startAngle + add;
 
 	unsigned int index;
-	for (index = 0; index < inkStrokeGeneratorRoundPrecisionPoints; ++index, angle += add)
+	for (index = 0; index < segmentCount; ++index, angle += add)
 	{
 		pt1 = inkPointAdd(pivotPoint, inkPointFromPolar(angleDist, angle));
 
@@ -144,7 +150,7 @@ void inkStrokeGeneratorRound(inkTessellator* tessellator, void* fill, inkPoint p
 	}
 }
 
-void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, void* fill, inkPoint pivot, inkPoint ptA, inkPoint ptB, bool reverseAngle)
+void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, inkCanvas* canvas, void* fill, inkPoint pivot, inkPoint ptA, inkPoint ptB, bool reverseAngle)
 {
 	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
 	inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
@@ -161,7 +167,7 @@ void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, void
 			case inkCapsStyle_None:
 				break;
 			case inkCapsStyle_Round:
-				inkStrokeGeneratorRound(tessellator, fill, pivot, ptA, angleA, angle, angleDist);
+				inkStrokeGeneratorRound(tessellator, canvas, fill, pivot, ptA, angleA, angle, angleDist);
 
 				inkStrokeGeneratorAddDrawPoint(pivot, tessellator, fill);
 				inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
@@ -189,7 +195,7 @@ void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, void
 	}
 }
 
-bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBox* previousBox, inkBox* nowBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise)
+bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCanvas* canvas, inkBox* previousBox, inkBox* nowBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise)
 {
 //	printf("pt = (%f, %f)\n", vA.x, vA.y);
 	inkBox box = inkBoxZero;
@@ -224,7 +230,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 	//stroke->caps = inkCapsStyle_Square;
 	if (start == true)
 	{
-		inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptA, box.pointD, box.pointC, reverseCaps);
+		inkStrokeGeneratorCap(stroke->caps, tessellator, canvas, fill, ptA, box.pointD, box.pointC, reverseCaps);
 	}
 
 	inkPoint pivotPt = ptA;
@@ -543,14 +549,14 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-					inkStrokeGeneratorRound(tessellator, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
+					inkStrokeGeneratorRound(tessellator, canvas, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
 				}
 				else
 				{
 					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
 					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-					inkStrokeGeneratorRound(tessellator, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
+					inkStrokeGeneratorRound(tessellator, canvas, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
 				}
 
 				inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
@@ -584,7 +590,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkBo
 endStatement:
 	if (end == true)
 	{
-		inkStrokeGeneratorCap(stroke->caps, tessellator, fill, ptB, box.pointB, box.pointA, reverseCaps);
+		inkStrokeGeneratorCap(stroke->caps, tessellator, canvas, fill, ptB, box.pointB, box.pointA, reverseCaps);
 	}
 
 returnStatement:
@@ -776,13 +782,13 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 			if (has == true || index == startIndex)
 			{
-				inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, NULL, NULL, clockwise);
+				inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, NULL, NULL, clockwise);
 				previousBoxPtr = &previousBox;
 			}
 			else
 			{
 				testHas = true;
-				flipFirst = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, &lastPoint, &innerIntersection, clockwise);
+				flipFirst = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, &lastPoint, &innerIntersection, clockwise);
 			}
 
 			if (inkBoxIsEqual(testBox, inkBoxZero) == false)
@@ -808,7 +814,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		if (closedLoop)
 		{
 			vB = *((INKvertex *)(inkArrayElementAt(vertices, startIndex)));
-			inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, previousBoxPtr, NULL, vA, vB, halfScalar, fill, false, false, NULL, NULL, clockwise);
+			inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, NULL, vA, vB, halfScalar, fill, false, false, NULL, NULL, clockwise);
 
 			// ROOT of the closed loop issue, need to look into it.
 			if (flipFirst == true)

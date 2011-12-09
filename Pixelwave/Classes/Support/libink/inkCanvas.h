@@ -29,7 +29,10 @@ typedef struct
 	inkPoint cursor;
 	inkRect bounds;
 
-	float pixelHint;
+	float curveMultiplier;
+
+	float pixelsPerPoint;
+	float one_pixelsPerPoint;
 } inkCanvas;
 
 inkExtern inkCanvas* inkCreate();
@@ -39,8 +42,11 @@ inkExtern inkArray* inkRenderGroups(inkCanvas* canvas);
 inkExtern inkPoint inkCursor(inkCanvas* canvas);
 inkExtern inkRect inkBounds(inkCanvas* canvas);
 
-inkExtern void inkSetPixelHint(inkCanvas* canvas, float pixelHint);
-inkExtern float inkPixelHint(inkCanvas* canvas);
+inkExtern void inkSetCurveMultiplier(inkCanvas* canvas, float curveMultiplier);
+inkExtern float inkCurveMultiplier(inkCanvas* canvas);
+
+inkExtern void inkSetPixelsPerPoint(inkCanvas* canvas, float pixelHint);
+inkExtern float inkPixelsPerPoint(inkCanvas* canvas);
 
 inkExtern void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data);
 inkExtern void inkRemoveAllCommands(inkCanvas* canvas);

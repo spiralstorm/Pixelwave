@@ -30,6 +30,12 @@ const inkMatrix inkMatrixIdentity = _inkMatrixIdentity;
 //int inkMaxUlps = 1024;
 int inkMaxUlps = 64;
 
+typedef struct
+{
+	float totalDistance;
+	inkPoint previousPoint;
+} inkCurveLengthApproximator;
+
 #pragma mark -
 #pragma mark Point
 #pragma mark -
@@ -385,3 +391,109 @@ float inkTriangleArea(inkTriangle triangle)
 #pragma mark -
 #pragma mark Matrix
 #pragma mark -
+
+#pragma mark -
+#pragma mark Curve
+#pragma mark
+
+void inkCurveLengthAdd(inkPoint point, void* userData)
+{
+	if (userData == NULL)
+		return;
+
+	inkCurveLengthApproximator* calculator = (inkCurveLengthApproximator*)userData;
+
+	calculator->totalDistance += inkPointDistance(calculator->previousPoint, point);
+	calculator->previousPoint = point;
+}
+
+float inkQuadraticCurveLength(inkPoint start, inkPoint control, inkPoint end)
+{
+	// TODO: Figure out why this doesn't work.
+	inkPoint a = inkPointMake(start.x - (2.0f * control.x) + end.x, start.y - (2.0f * control.x) + end.y);
+	inkPoint b = inkPointMake(2.0f * control.x - 2.0f * start.x, 2.0f * control.y - 2.0f * start.y);
+
+	float A = 4.0f * (a.x * a.x + a.y * a.y);
+	float B = 4.0f * (a.x * b.x + a.y * b.y);
+	float C = b.x * b.x + b.y * b.y;
+
+	float Sabc = 2 * sqrtf(A+B+C);
+	float A_2 = sqrtf(A);
+	float A_32 = 2 * A*A_2;
+	float C_2 = 2 * sqrtf(C);
+	float BA = B / A_2;
+
+	return (A_32 * Sabc + A_2 * B * (Sabc - C_2) + (4.0f * C * A - B * B) * logf((2 * A_2 + BA + Sabc) / (BA + C_2))) / (4.0f * A_32);
+}
+
+float inkCurveLength(inkCurveUpdatePointCallback updatePointFunc, void* updatePointUserData, inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint end)
+{
+//	if (curveType == inkCurveType_Quadratic)
+//		return inkQuadraticCurveLength(start, controlB, end);
+
+	inkCurveLengthApproximator approximator;
+	approximator.totalDistance = 0.0f;
+	approximator.previousPoint = start;
+
+	inkCurveApproximation(updatePointFunc, updatePointUserData, curveType, start, controlA, controlB, end, 23, inkCurveLengthAdd, (void*)(&approximator));
+	return approximator.totalDistance;
+}
+
+void inkCurveApproximation(inkCurveUpdatePointCallback updatePointFunc, void* updatePointUserData, inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint anchor, unsigned int precicion, inkCurveNewPointCallback newPointFunc, void* newPointUserData)
+{
+	if (newPointFunc == NULL)
+		return;
+
+	if (precicion < 2)
+		precicion = 2;
+
+	inkPoint d = start;
+
+	inkPoint point;
+	inkPoint previousPoint = d;
+
+	float tIncrement = 1.0f / (float)(precicion - 1);
+	float t;
+	float t2;
+	float t3;
+
+	inkPoint a;
+	inkPoint b;
+	inkPoint c;
+
+	if (curveType == inkCurveType_Cubic)
+	{
+		c = inkPointSubtract(inkPointScale(controlA, 3.0f), inkPointScale(d, 3.0f));
+		b = inkPointAdd(inkPointSubtract(inkPointScale(controlB, 3.0f), inkPointScale(controlA, 6.0f)), inkPointScale(d, 3.0f));
+		a = inkPointSubtract(inkPointAdd(inkPointSubtract(anchor, inkPointScale(controlB, 3.0f)), inkPointScale(controlA, 3.0f)), d);
+	}
+	else if (curveType == inkCurveType_Quadratic)
+	{
+		c = inkPointSubtract(inkPointScale(controlB, 2.0f), inkPointScale(d, 2.0f));
+		b = inkPointAdd(inkPointSubtract(anchor, inkPointScale(controlB, 2.0f)), d);
+		a = inkPointZero;
+	}
+	else
+		return;
+
+	unsigned int index;
+
+	for (index = 0, t = 0.0f; index < precicion; ++index, t += tIncrement)
+	{
+		t2 = t * t;
+		t3 = t2 * t;
+
+		point = inkPointMake((a.x * t3) + (b.x * t2) + (c.x * t) + d.x,
+							 (a.y * t3) + (b.y * t2) + (c.y * t) + d.y);
+
+		if (inkPointIsEqual(previousPoint, point) == false)
+		{
+			previousPoint = point;
+
+			if (updatePointFunc != NULL)
+				point = updatePointFunc(point, updatePointUserData);
+
+			newPointFunc(point, newPointUserData);
+		}
+	}
+}

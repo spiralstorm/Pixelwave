@@ -61,6 +61,15 @@ typedef struct
 	float ty;
 } inkMatrix;
 
+typedef enum
+{
+	inkCurveType_Quadratic = 0,
+	inkCurveType_Cubic,
+} inkCurveType;
+
+typedef void (*inkCurveNewPointCallback)(inkPoint, void*);
+typedef inkPoint (*inkCurveUpdatePointCallback)(inkPoint, void*);
+
 #define _inkPointZero {0.0f, 0.0f}
 #define _inkPointNan {NAN, NAN}
 #define _inkPointMin {-FLT_MAX, -FLT_MAX}
@@ -232,6 +241,13 @@ inkMatrix inkMatrixCreateBox(inkMatrix matrix, float scaleX, float scaleY, float
 */
 inkInline inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point);
 inkInline inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);
+
+#pragma mark -
+#pragma mark Curve Declaration
+#pragma mark
+
+float inkCurveLength(inkCurveUpdatePointCallback updatePointFunc, void* updatePointUserData, inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint end);
+void inkCurveApproximation(inkCurveUpdatePointCallback updatePointFunc, void* updatePointUserData, inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint anchor, unsigned int precicion, inkCurveNewPointCallback newPointFunc, void* newPointUserData);
 
 #pragma mark -
 #pragma mark Math Implemenations

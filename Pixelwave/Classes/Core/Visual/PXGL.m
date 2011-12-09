@@ -1765,6 +1765,18 @@ void PXGLResetMatrixStack()
 	PXGLLoadIdentity();
 }
 
+PXGLMatrix PXGLCurrentMatrix()
+{
+	PXGLMatrix mat;
+
+	if (pxGLCurrentMatrix)
+		mat = *pxGLCurrentMatrix;
+	else
+		PXGLMatrixIdentity(&mat);
+
+	return mat;
+}
+
 /*
  * This method loads our matrix into gl.
  */

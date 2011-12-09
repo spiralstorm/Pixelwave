@@ -17,6 +17,8 @@
 #include "inkTessellator.h"
 #include "inkGenerator.h"
 
+#include "inkCanvas.h"
+
 // Because inkGenerator is a pointer, you can't just cast a stroke generator to
 // a generator, you must grab the first argument and cast that instead.
 
@@ -27,9 +29,10 @@ typedef struct
 	inkStroke* stroke;
 
 	inkArray* rasterizeGroups;
+	inkCanvas* canvas;
 } inkStrokeGenerator;
 
-inkExtern inkStrokeGenerator *inkStrokeGeneratorCreate(inkTessellator* tessellator, inkArray *renderGroups, inkStroke* stroke);
+inkExtern inkStrokeGenerator *inkStrokeGeneratorCreate(inkTessellator* tessellator, inkCanvas* canvas, inkArray *renderGroups, inkStroke* stroke);
 inkExtern void inkStrokeGeneratorDestroy(inkStrokeGenerator* generator);
 
 inkExtern void inkStrokeGeneratorSetFill(inkStrokeGenerator* generator, void* fill);

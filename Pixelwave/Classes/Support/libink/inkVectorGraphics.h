@@ -48,6 +48,7 @@ inkExtern void inkLineStyleNone(inkCanvas* canvas);
 inkExtern void inkBuild(inkCanvas* canvas);
 
 inkExtern bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox);
+inkExtern unsigned int inkArcLengthSegmentCount(inkCanvas* canvas, float arcLength);
 
 inkExtern void inkPushMatrix(inkCanvas* canvas);
 inkExtern void inkPopMatrix(inkCanvas* canvas);

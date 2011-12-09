@@ -99,6 +99,7 @@ void PXGLRotate(GLfloat angle);
 void PXGLMultMatrix(PXGLMatrix *mat);
 void PXGLLoadMatrixToGL();
 void PXGLResetMatrixStack();
+PXGLMatrix PXGLCurrentMatrix();
 
 void PXGLPopColorTransform();
 void PXGLPushColorTransform();

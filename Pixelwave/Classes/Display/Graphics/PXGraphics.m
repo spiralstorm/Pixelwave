@@ -122,10 +122,12 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 }
 
 @interface PXGraphics(Private)
-- (void) build;
+- (BOOL) build;
 @end
 
 @implementation PXGraphics
+
+@synthesize vertexCount;
 
 - (id) init
 {
@@ -143,6 +145,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	}
 
 	wasBuilt = false;
+	previousSize = CGSizeMake(1.0f, 1.0f);
 
 	return self;
 }
@@ -326,14 +329,18 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	}
 }
 
-- (void) build
+- (BOOL) build
 {
 	if (wasBuilt == false)
 	{
 		wasBuilt = true;
 
 		inkBuild((inkCanvas*)vCanvas);
+
+		return true;
 	}
+
+	return false;
 }
 
 #pragma mark -
@@ -370,9 +377,29 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) _renderGL
 {
-	[self build];
+	BOOL print = NO;
 
-	inkDrawv((inkCanvas*)vCanvas, pxGraphicsInkRenderer);
+	PXGLMatrix matrix = PXGLCurrentMatrix();
+	inkMatrix nMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+	inkSize matrixSize = inkMatrixSize(nMatrix);
+	CGSize size = CGSizeMake(matrixSize.width, matrixSize.height);
+
+	if (PXMathIsEqual(size.width, previousSize.width) == false ||
+		PXMathIsEqual(size.height, previousSize.height) == false)
+	{
+		printf("previousSize = (%f, %f) newSize = (%f, %f)\n", previousSize.width, previousSize.height, size.width, size.height);
+		previousSize = size;
+		wasBuilt = NO;
+
+		inkSetPixelsPerPoint((inkCanvas*)vCanvas, (size.width + size.height) * 0.5f);
+	}
+
+	print = [self build];
+
+	vertexCount = inkDrawv((inkCanvas*)vCanvas, pxGraphicsInkRenderer);
+
+	if (print)
+		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
 }
 
 @end
