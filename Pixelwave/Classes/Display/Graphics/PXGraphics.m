@@ -51,6 +51,7 @@
 
 #import "PXGraphicsPath.h"
 #import "PXGraphicsData.h"
+#import "PXEngine.h"
 
 const inkRenderer pxGraphicsInkRenderer = {PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLGetBooleanv, PXGLGetFloatv, PXGLGetIntegerv, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLGetTexParameteriv, PXGLTexParameteri, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements};
 
@@ -380,7 +381,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 	// inkContainsPoint asks if you are using the bounds, not the shape flag;
 	// therefore it is the opposite of the shape flag.
-	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake(x, y), !shapeFlag, useStroke);
+	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake((x), (y)), !shapeFlag, useStroke);
 }
 
 - (void) _renderGL
@@ -399,7 +400,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 		previousSize = size;
 		wasBuilt = NO;
 
-		inkSetPixelsPerPoint((inkCanvas*)vCanvas, (size.width + size.height) * 0.5f);
+		float contentScaleFactor = PXEngineGetContentScaleFactor();
+		inkSetPixelsPerPoint((inkCanvas*)vCanvas, (size.width + size.height) * 0.5f * contentScaleFactor);
 	}
 
 	print = [self build];

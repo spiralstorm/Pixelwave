@@ -226,12 +226,21 @@ inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar)
 
 bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point)
 {
-	// TODO:	Make a cheaper version of this test.
-	float area = inkTriangleArea(triangle);
-	if (inkIsZerof(area))
-	{
+	if (point.x < triangle.pointA.x && point.x < triangle.pointB.x && point.x < triangle.pointC.x)
 		return false;
-	}
+	if (point.x > triangle.pointA.x && point.x > triangle.pointB.x && point.x > triangle.pointC.x)
+		return false;
+	if (point.y < triangle.pointA.y && point.y < triangle.pointB.y && point.y < triangle.pointC.y)
+		return false;
+	if (point.y > triangle.pointA.y && point.y > triangle.pointB.y && point.y > triangle.pointC.y)
+		return false;
+
+	if (inkPointIsEqual(triangle.pointA, triangle.pointB))
+		return inkLineContainsPoint(inkLineMake(triangle.pointA, triangle.pointC), point);
+	if (inkPointIsEqual(triangle.pointA, triangle.pointC) || inkPointIsEqual(triangle.pointB, triangle.pointC))
+		return inkLineContainsPoint(inkLineMake(triangle.pointA, triangle.pointB), point);
+
+	//triangle = inkTriangleXOrder(triangle);
 
 	inkPoint v0 = inkPointSubtract(triangle.pointC, triangle.pointA);
 	inkPoint v1 = inkPointSubtract(triangle.pointB, triangle.pointA);
@@ -254,8 +263,13 @@ bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point)
 	float u = (dot11 * dot02 - dot01 * dot12) * invDenom;
 	float v = (dot00 * dot12 - dot01 * dot02) * invDenom;
 
+	//bool success = (u >= -0.5f) && (v >= -0.5f) && (u + v <= 1.0f);
+
 	// Check if point is in triangle
-	return (u >= 0) && (v >= 0) && (u + v <= 1);
+	//return success;
+	return (u >= 0.0f) && (v >= 0.0f) && (u + v <= 1.0f);
+//	return (u >= -0.75f) && (v >= -0.75f) && (u + v <= 1.0f);
+	//return ((u > 0.0f) || inkIsZerof(u)) && ((v > 0.0f) || inkIsZerof(v)) && ((u + v) < 1.0f || inkIsEqualf(u + v, 1.0f));
 }
 
 float inkTriangleArea(inkTriangle triangle)

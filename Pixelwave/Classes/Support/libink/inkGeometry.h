@@ -172,6 +172,8 @@ inkBox inkLineExpandToBox(inkLine line, float halfScalar);
 inkInline inkTriangle inkTriangleMake(inkPoint pointA, inkPoint pointB, inkPoint pointC);
 inkInline inkTriangle inkTriangleMakef(float x1, float y1, float x2, float y2, float x3, float y3);
 
+inkInline inkTriangle inkTriangleXOrder(inkTriangle triangle);
+
 inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar);
 bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point);
 float inkTriangleArea(inkTriangle triangle);
@@ -493,6 +495,30 @@ inkInline inkTriangle inkTriangleMake(inkPoint pointA, inkPoint pointB, inkPoint
 inkInline inkTriangle inkTriangleMakef(float x1, float y1, float x2, float y2, float x3, float y3)
 {
 	return inkTriangleMake(inkPointMake(x1, y1), inkPointMake(x2, y2), inkPointMake(x3, y3));
+}
+
+inkInline inkTriangle inkTriangleXOrder(inkTriangle triangle)
+{
+	if (triangle.pointC.x < triangle.pointB.x)
+	{
+		inkPoint temp = triangle.pointB;
+		triangle.pointB = triangle.pointC;
+		triangle.pointC = temp;
+	}
+	if (triangle.pointB.x < triangle.pointA.x)
+	{
+		inkPoint temp = triangle.pointA;
+		triangle.pointA = triangle.pointB;
+		triangle.pointB = temp;
+	}
+	if (triangle.pointC.x < triangle.pointB.x)
+	{
+		inkPoint temp = triangle.pointB;
+		triangle.pointB = triangle.pointC;
+		triangle.pointC = temp;
+	}
+
+	return triangle;
 }
 
 #pragma mark -
