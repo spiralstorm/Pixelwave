@@ -435,7 +435,7 @@ float inkCurveLength(inkCurveUpdatePointCallback updatePointFunc, void* updatePo
 	approximator.totalDistance = 0.0f;
 	approximator.previousPoint = start;
 
-	inkCurveApproximation(updatePointFunc, updatePointUserData, curveType, start, controlA, controlB, end, 23, inkCurveLengthAdd, (void*)(&approximator));
+	inkCurveApproximation(updatePointFunc, updatePointUserData, curveType, start, controlA, controlB, end, 10, inkCurveLengthAdd, (void*)(&approximator));
 	return approximator.totalDistance;
 }
 
