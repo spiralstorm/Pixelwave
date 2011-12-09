@@ -149,7 +149,7 @@ inkInline inkSize inkSizeMake(float width, float height);
 
 inkInline inkSize inkSizeFromPoint(inkPoint point);
 
-//bool inkSizeIsEqual(inkSize sizeA, inkSize sizeB);
+inkInline bool inkSizeIsEqual(inkSize sizeA, inkSize sizeB);
 
 #pragma mark -
 #pragma mark Line Declarations
@@ -196,29 +196,31 @@ inkInline inkRect inkRectMakef(float x, float y, float width, float height);
 inkInline inkRect inkRectFromBox(inkBox box);
 
 inkInline bool inkRectContainsPoint(inkRect rect, inkPoint point);
+inkInline bool inkRectContainsPointf(inkRect rect, float x, float y);
 
-/*float inkRectTop(inkRect rect);
-float inkRectBottom(inkRect rect);
-float inkRectLeft(inkRect rect);
-float inkRectRight(inkRect rect);
+inkInline float inkRectTop(inkRect rect);
+inkInline float inkRectBottom(inkRect rect);
+inkInline float inkRectLeft(inkRect rect);
+inkInline float inkRectRight(inkRect rect);
 
-inkPoint inkRectBottomRight(inkRect rect);
-inkPoint inkRectTopLeft(inkRect rect);
+inkInline inkPoint inkRectBottomLeft(inkRect rect);
+inkInline inkPoint inkRectBottomRight(inkRect rect);
+inkInline inkPoint inkRectTopLeft(inkRect rect);
+inkInline inkPoint inkRectTopRight(inkRect rect);
 
-bool inkRectContains(inkRect rect, float x, float y);
-bool inkRectContainsPoint(inkRect rect, inkPoint point);
+inkInline bool inkRectIsEmpty(inkRect rect);
+inkInline bool inkRectIsEqual(inkRect rectA, inkRect rectB);
+
+inkInline inkRect inkRectInflate(inkRect rect, inkPoint point);
+inkInline inkRect inkRectInflatef(inkRect rect, float dx, float dy);
+inkInline inkRect inkRectOffset(inkRect rect, inkPoint point);
+inkInline inkRect inkRectOffsetf(inkRect rect, float dx, float dy);
+inkInline inkRect inkRectStandardize(inkRect rect);
+
 bool inkRectContainsRect(inkRect rectA, inkRect rectB);
-bool inkRectIsEmpty(inkRect rect);
-
 bool inkRectIntersects(inkRect rectA, inkRect rectB);
-
-inkRect inkRectInflate(inkRect rect, float dx, float dy);
-inkRect inkRectInflateWithPoint(inkRect rect, inkPoint point);
-inkRect inkRectOffset(float dx, float dy);
-inkRect inkRectOffsetWithPoint(inkRect rect, inkPoint point);
-
 inkRect inkRectIntersection(inkRect rectA, inkRect rectB);
-inkRect inkRectUnion(inkRect rectA, inkRect rectB);*/
+inkRect inkRectUnion(inkRect rectA, inkRect rectB);
 
 #pragma mark -
 #pragma mark Matrix Declaration
@@ -449,6 +451,11 @@ inkInline inkSize inkSizeFromPoint(inkPoint point)
 	return inkSizeMake(point.x, point.y);
 }
 
+inkInline bool inkSizeIsEqual(inkSize sizeA, inkSize sizeB)
+{
+	return inkPointIsEqual(inkPointFromSize(sizeA), inkPointFromSize(sizeB));
+}
+
 #pragma mark -
 #pragma mark Line Implementations
 #pragma mark -
@@ -520,6 +527,101 @@ inkInline inkRect inkRectFromBox(inkBox box)
 inkInline bool inkRectContainsPoint(inkRect rect, inkPoint point)
 {
 	return !(point.x < rect.origin.x || point.x > (rect.origin.x + rect.size.width) || point.y < rect.origin.y || point.y > (rect.origin.y + rect.size.height));
+}
+
+inkInline bool inkRectContainsPointf(inkRect rect, float x, float y)
+{
+	return inkRectContainsPoint(rect, inkPointMake(x, y));
+}
+
+inkInline float inkRectTop(inkRect rect)
+{
+	return rect.origin.y;
+}
+
+inkInline float inkRectBottom(inkRect rect)
+{
+	return rect.origin.y + rect.size.height;
+}
+
+inkInline float inkRectLeft(inkRect rect)
+{
+	return rect.origin.x;
+}
+
+inkInline float inkRectRight(inkRect rect)
+{
+	return rect.origin.x + rect.size.width;
+}
+
+inkInline inkPoint inkRectBottomLeft(inkRect rect)
+{
+	return inkPointMake(inkRectLeft(rect), inkRectBottom(rect));
+}
+
+inkInline inkPoint inkRectBottomRight(inkRect rect)
+{
+	return inkPointMake(inkRectRight(rect), inkRectBottom(rect));
+}
+
+inkInline inkPoint inkRectTopLeft(inkRect rect)
+{
+	return inkPointMake(inkRectLeft(rect), inkRectTop(rect));
+}
+
+inkInline inkPoint inkRectTopRight(inkRect rect)
+{
+	return inkPointMake(inkRectRight(rect), inkRectTop(rect));
+}
+
+inkInline bool inkRectIsEmpty(inkRect rect)
+{
+	return (rect.size.width <= 0.0f || rect.size.height <= 0.0f);
+}
+
+inkInline bool inkRectIsEqual(inkRect rectA, inkRect rectB)
+{
+	return inkPointIsEqual(rectA.origin, rectB.origin) && inkSizeIsEqual(rectA.size, rectB.size);
+}
+
+inkInline inkRect inkRectInflate(inkRect rect, inkPoint point)
+{
+	rect.origin = inkPointSubtract(rect.origin, point);
+	rect.size = inkSizeFromPoint(inkPointAdd(inkPointFromSize(rect.size), inkPointScale(point, 2.0f)));
+	return rect;
+}
+
+inkInline inkRect inkRectInflatef(inkRect rect, float dx, float dy)
+{
+	return inkRectInflate(rect, inkPointMake(dx, dy));
+}
+
+inkInline inkRect inkRectOffset(inkRect rect, inkPoint point)
+{
+	rect.origin = inkPointAdd(rect.origin, point);
+	return rect;
+}
+
+inkInline inkRect inkRectOffsetf(inkRect rect, float dx, float dy)
+{
+	return inkRectOffset(rect, inkPointMake(dx, dy));
+}
+
+inkInline inkRect inkRectStandardize(inkRect rect)
+{
+	if (rect.size.width < 0.0f)
+	{
+		rect.origin.x += rect.size.width;
+		rect.size.width = -rect.size.width;
+	}
+
+	if (rect.size.height < 0.0f)
+	{
+		rect.origin.y += rect.size.height;
+		rect.size.height = -rect.size.height;
+	}
+
+	return rect;
 }
 
 #pragma mark -

@@ -388,6 +388,59 @@ float inkTriangleArea(inkTriangle triangle)
 #pragma mark Rect
 #pragma mark -
 
+bool inkRectContainsRect(inkRect rectA, inkRect rectB)
+{
+	return inkRectContainsPoint(rectA, inkRectTopLeft(rectB)) && inkRectContainsPoint(rectA, inkRectTopRight(rectB)) && inkRectContainsPoint(rectA, inkRectBottomLeft(rectB)) && inkRectContainsPoint(rectA, inkRectBottomRight(rectB));
+}
+
+bool inkRectIntersects(inkRect rectA, inkRect rectB)
+{
+	return inkRectIsEmpty(inkRectIntersection(rectA, rectB));
+}
+
+inkRect inkRectIntersection(inkRect rectA, inkRect rectB)
+{
+	if (inkRectIsEmpty(rectA))
+		return rectB;
+	if (inkRectIsEmpty(rectB))
+		return rectA;
+
+	rectA = inkRectStandardize(rectA);
+	rectB = inkRectStandardize(rectB);
+
+	// If one rect contains no portion of the other then their intersection is
+	// zero.
+	if (rectA.origin.x + rectA.size.width  <= rectB.origin.x ||
+		rectA.origin.y + rectA.size.height <= rectB.origin.y ||
+		rectB.origin.x + rectB.size.width  <= rectA.origin.x ||
+		rectB.origin.y + rectB.size.height <= rectA.origin.y)
+	{
+		return inkRectZero;
+	}
+
+	inkPoint origin = inkPointMake(fmaxf(rectA.origin.x, rectB.origin.x), fmaxf(rectA.origin.y, rectB.origin.y));
+
+	return inkRectMake(origin,
+					   inkSizeMake(fminf(rectA.origin.x + rectA.size.width,  rectB.origin.x + rectB.size.width)  - origin.x,
+								   fminf(rectA.origin.y + rectA.size.height, rectB.origin.y + rectB.size.height) - origin.y));
+}
+
+inkRect inkRectUnion(inkRect rectA, inkRect rectB)
+{
+	if (inkRectIsEmpty(rectA))
+		return rectB;
+	if (inkRectIsEmpty(rectB))
+		return rectA;
+
+	rectA = inkRectStandardize(rectA);
+	rectB = inkRectStandardize(rectB);
+
+	return inkRectMakef(fminf(rectA.origin.x, rectB.origin.x),
+						fminf(rectA.origin.y, rectB.origin.y),
+						fmaxf(rectA.origin.x + rectA.size.width, rectB.origin.x + rectB.size.width),
+						fmaxf(rectA.origin.y + rectA.size.height, rectB.origin.y + rectB.size.height));
+}
+
 #pragma mark -
 #pragma mark Matrix
 #pragma mark -
