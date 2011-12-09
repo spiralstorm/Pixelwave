@@ -103,10 +103,8 @@ inkPoint inkLineIntersectionv(inkLine lineA, inkLine lineB, bool flipT)
 		return inkPointNan;
 	}
 
-	//var v3 = {vx:v2.p0.x-v1.p0.x, vy:v2.p0.y-v1.p0.y};
 	inkPoint v3v = inkPointSubtract(lineB.pointA, lineA.pointA);
 
-//	var t = perP(v3, v2)/perP(v1, v2);
 	float perpA = inkPointPerp(v3v, v2v);
 	float perpB = inkPointPerp(v1v, v2v);
 	float t = perpA / perpB;
@@ -126,14 +124,6 @@ inkPoint inkLineIntersectiona(inkLine lineA, inkLine lineB)
 	if (inkIsZerof(deltaA.x) && inkIsZerof(deltaA.y))
 	{
 		return inkPointNan;
-		/*inkPoint pointInLine = inkClosestPointToLine(lineA.pointA, lineB);
-
-		if (inkIsZerof(inkPointDistanceToLine(pointInLine, lineA)))
-		{
-			return pointInLine;
-		}
-
-		return lineA.pointA;*/
 	}
 
 	inkPoint deltaB = inkPointMake(lineB.pointB.x - lineB.pointA.x, lineB.pointB.y - lineB.pointA.y);
@@ -143,82 +133,32 @@ inkPoint inkLineIntersectiona(inkLine lineA, inkLine lineB)
 	if (inkIsZerof(deltaB.x) && inkIsZerof(deltaB.y))
 	{
 		return inkPointNan;
-		/*inkPoint pointInLine = inkClosestPointToLine(lineB.pointA, lineA);
-
-		if (inkIsZerof(inkPointDistanceToLine(pointInLine, lineB)))
-		{
-			return pointInLine;
-		}
-
-		return lineB.pointA;*/
 	}
 
-	if (inkPointIsEqual(lineA.pointA, lineB.pointA))
+	if (inkPointIsEqual(lineA.pointA, lineB.pointA) || inkPointIsEqual(lineA.pointB, lineB.pointA) || inkPointIsEqual(lineA.pointA, lineB.pointB) || inkPointIsEqual(lineA.pointB, lineB.pointB))
 		return inkPointNan;
-	//	return lineA.pointA;
-	if (inkPointIsEqual(lineA.pointB, lineB.pointA))
-		return inkPointNan;
-	//	return lineA.pointB;
-	if (inkPointIsEqual(lineA.pointA, lineB.pointB))
-		return inkPointNan;
-	//	return lineA.pointA;
-	if (inkPointIsEqual(lineA.pointB, lineB.pointB))
-		return inkPointNan;
-	//	return lineA.pointB;
-
-	// If they share an end point, return the end point
-	/*if (inkIsEqualf(lineA.pointA.x, lineB.pointA.x) && inkIsEqualf(lineA.pointA.y, lineB.pointA.y))
-		return lineA.pointA;
-	if (inkIsEqualf(lineA.pointB.x, lineB.pointA.x) && inkIsEqualf(lineA.pointB.y, lineB.pointA.y))
-		return lineA.pointB;
-	if (inkIsEqualf(lineA.pointA.x, lineB.pointB.x) && inkIsEqualf(lineA.pointA.y, lineB.pointB.y))
-		return lineA.pointA;
-	if (inkIsEqualf(lineA.pointB.x, lineB.pointB.x) && inkIsEqualf(lineA.pointB.y, lineB.pointB.y))
-		return lineA.pointB;*/
 
 	float distAB;
 	float theCos;
 	float theSin;
 	float ABpos;
 
-//	Bx-=Ax; By-=Ay;
-//	Cx-=Ax; Cy-=Ay;
-//	Dx-=Ax; Dy-=Ay;
-
 	//  (1) Translate the system so that point A is on the origin.
 	lineA.pointB = inkPointMake(lineA.pointB.x - lineA.pointA.x, lineA.pointB.y - lineA.pointA.y);
 	lineB.pointA = inkPointMake(lineB.pointA.x - lineA.pointA.x, lineB.pointA.y - lineA.pointA.y);
 	lineB.pointB = inkPointMake(lineB.pointB.x - lineA.pointA.x, lineB.pointB.y - lineA.pointA.y);
 
-	//  Discover the length of segment A-B.
-//	distAB=sqrt(Bx*Bx+By*By);
-
 	// HAS to be greater than 0 at this point, as that test was done earlier
 	distAB = inkPointDistanceFromZero(lineA.pointB);
-
-//	theCos=Bx/distAB;
-//	theSin=By/distAB;
 
 	//  (2) Rotate the system so that point B is on the positive X axis.
 	theCos = lineA.pointB.x / distAB;
 	theSin = lineA.pointB.y / distAB;
 
-//	newX=Cx*theCos+Cy*theSin;
-//	Cy  =Cy*theCos-Cx*theSin; Cx=newX;
-//	newX=Dx*theCos+Dy*theSin;
-//	Dy  =Dy*theCos-Dx*theSin; Dx=newX;
-
 	lineB.pointA = inkPointMake(lineB.pointA.x * theCos + lineB.pointA.y * theSin,
 								lineB.pointA.y * theCos - lineB.pointA.x * theSin);
 	lineB.pointB = inkPointMake(lineB.pointB.x * theCos + lineB.pointB.y * theSin,
 								lineB.pointB.y * theCos - lineB.pointB.x * theSin);
-
-//	if (Cy<0. && Dy<0. || Cy>=0. && Dy>=0.) return NO;
-
-	//	ABpos=Dx+(Cx-Dx)*Dy/(Dy-Cy);
-	//	if (ABpos<0. || ABpos>distAB) return NO;
-	//	*X=Ax+ABpos*theCos;
-	//	*Y=Ay+ABpos*theSin;
 
 	// Check if they are parallel
 	float yDiff = (lineB.pointB.y - lineB.pointA.y);
@@ -241,8 +181,6 @@ inkLine inkLineBisectionTraverser(inkLine line, float halfScalar)
 	bisector = inkPointMake(bisector.x * halfScalar, bisector.y * halfScalar);
 
 	return inkLineMake(inkPointSubtract(line.pointB, bisector), inkPointAdd(line.pointB, bisector));
-//	return inkLineMakef(line.pointB.x - bisector.x, line.pointB.y - bisector.y,
-//					    line.pointB.x + bisector.x, line.pointB.y + bisector.y);
 }
 
 inkBox inkLineExpandToBox(inkLine line, float halfScalar)
@@ -257,12 +195,9 @@ inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar)
 {
 	if (triangle.pointA.x > triangle.pointC.x)
 		return inkTriangleBisectionTraverser(inkTriangleMake(triangle.pointC, triangle.pointB, triangle.pointA), halfScalar);
-		//return inkTriangleBisectionTraverser(pointC, pointB, pointA, halfScalar);
 
 	inkPoint a = inkPointSubtract(triangle.pointB, triangle.pointC);
 	inkPoint c = inkPointSubtract(triangle.pointB, triangle.pointA);
-//	inkPoint a = inkPointMake(pointB.x - pointA.x, pointB.y - pointA.y);
-//	inkPoint c = inkPointMake(pointB.x - pointC.x, pointB.y - pointC.y);
 
 	float aLen = inkPointDistanceFromZero(a);
 	float cLen = inkPointDistanceFromZero(c);
@@ -287,8 +222,6 @@ inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar)
 	bisector = inkPointMake(bisector.x * halfScalar, bisector.y * halfScalar);
 
 	return inkLineMake(inkPointAdd(triangle.pointB, bisector), inkPointSubtract(triangle.pointB, bisector));
-//	return inkLineMakev(triangle.pointB.x + bisector.x, triangle.pointB.y + bisector.y,
-//					    triangle.pointB.x - bisector.x, triangle.pointB.y - bisector.y);
 }
 
 bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point)
@@ -347,39 +280,6 @@ float inkTriangleArea(inkTriangle triangle)
 	return 0.0f;
 }
 
-/*void inkPointBisectionTraverser(inkPoint pointA, inkPoint pointB, inkPoint pointC, float halfScalar, inkPoint* inner, inkPoint* outer)
-{
-//	inkPointMake(bisector.x * halfScalar, bisector.y * halfScalar);
-
-	float ratio = 1.0f;
-
-	float bcDist = inkPointDistance(pointB, pointC);
-	if (bcDist != 0.0f)
-		ratio = (inkPointDistance(pointA, pointB) / bcDist) * 0.5f;
-
-	inkPoint tangent = inkPointMake((pointA.x + pointC.x) * ratio, (pointA.y + pointC.y) * (1.0f - ratio));
-
-	inkPoint diff = inkPointMake(tangent.x - pointB.x, tangent.y - pointB.y);
-	float dist = sqrtf((diff.x * diff.x) + (diff.y * diff.y));
-
-	if (dist != 0.0f)
-	{
-		halfScalar /= dist;
-	}
-
-	diff = inkPointMake(diff.x * halfScalar, diff.y * halfScalar);
-
-	if (inner != NULL)
-	{
-		*inner = inkPointMake(pointB.x + diff.x, pointB.y + diff.y);
-	}
-
-	if (outer != NULL)
-	{
-		*outer = inkPointMake(pointB.x - diff.x, pointB.y - diff.y);
-	}
-}*/
-
 #pragma mark -
 #pragma mark Size
 #pragma mark -
@@ -437,7 +337,7 @@ inkRect inkRectUnion(inkRect rectA, inkRect rectB)
 
 	return inkRectMakef(fminf(rectA.origin.x, rectB.origin.x),
 						fminf(rectA.origin.y, rectB.origin.y),
-						fmaxf(rectA.origin.x + rectA.size.width, rectB.origin.x + rectB.size.width),
+						fmaxf(rectA.origin.x + rectA.size.width,  rectB.origin.x + rectB.size.width),
 						fmaxf(rectA.origin.y + rectA.size.height, rectB.origin.y + rectB.size.height));
 }
 
@@ -454,10 +354,10 @@ void inkCurveLengthAdd(inkPoint point, void* userData)
 	if (userData == NULL)
 		return;
 
-	inkCurveLengthApproximator* calculator = (inkCurveLengthApproximator*)userData;
+	inkCurveLengthApproximator* approximator = (inkCurveLengthApproximator*)userData;
 
-	calculator->totalDistance += inkPointDistance(calculator->previousPoint, point);
-	calculator->previousPoint = point;
+	approximator->totalDistance += inkPointDistance(approximator->previousPoint, point);
+	approximator->previousPoint = point;
 }
 
 float inkQuadraticCurveLength(inkPoint start, inkPoint control, inkPoint end)
@@ -481,9 +381,6 @@ float inkQuadraticCurveLength(inkPoint start, inkPoint control, inkPoint end)
 
 float inkCurveLength(inkCurveUpdatePointCallback updatePointFunc, void* updatePointUserData, inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint end)
 {
-//	if (curveType == inkCurveType_Quadratic)
-//		return inkQuadraticCurveLength(start, controlB, end);
-
 	inkCurveLengthApproximator approximator;
 	approximator.totalDistance = 0.0f;
 	approximator.previousPoint = start;
@@ -516,14 +413,18 @@ void inkCurveApproximation(inkCurveUpdatePointCallback updatePointFunc, void* up
 
 	if (curveType == inkCurveType_Cubic)
 	{
-		c = inkPointSubtract(inkPointScale(controlA, 3.0f), inkPointScale(d, 3.0f));
-		b = inkPointAdd(inkPointSubtract(inkPointScale(controlB, 3.0f), inkPointScale(controlA, 6.0f)), inkPointScale(d, 3.0f));
-		a = inkPointSubtract(inkPointAdd(inkPointSubtract(anchor, inkPointScale(controlB, 3.0f)), inkPointScale(controlA, 3.0f)), d);
+		inkPoint a3 = inkPointScale(controlA, 3.0f);
+		inkPoint b3 = inkPointScale(controlB, 3.0f);
+		inkPoint d3 = inkPointScale(d, 3.0f);
+		c = inkPointSubtract(a3, d3);
+		b = inkPointAdd(inkPointSubtract(b3, inkPointScale(controlA, 6.0f)), d3);
+		a = inkPointSubtract(inkPointAdd(inkPointSubtract(anchor, b3), a3), d);
 	}
 	else if (curveType == inkCurveType_Quadratic)
 	{
-		c = inkPointSubtract(inkPointScale(controlB, 2.0f), inkPointScale(d, 2.0f));
-		b = inkPointAdd(inkPointSubtract(anchor, inkPointScale(controlB, 2.0f)), d);
+		inkPoint b2 = inkPointScale(controlB, 2.0f);
+		c = inkPointSubtract(b2, inkPointScale(d, 2.0f));
+		b = inkPointAdd(inkPointSubtract(anchor, b2), d);
 		a = inkPointZero;
 	}
 	else

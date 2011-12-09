@@ -131,6 +131,11 @@
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
+	return [self _measureLocalBounds:retBounds useStroke:YES];
+}
+
+- (void) _measureLocalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
+{
 	*retBounds = CGRectZero;
 
 	if (hitAreaIsRect)
@@ -139,11 +144,14 @@
 	}
 	else if (hitArea)
 	{
-		[hitArea _measureGlobalBounds:retBounds];
+		if (useStroke == YES) // For the sake of baackwards compatability
+			[hitArea _measureGlobalBounds:retBounds];
+		else
+			[hitArea _measureGlobalBounds:retBounds useStroke:useStroke];
 	}
 	else
 	{
-		[_graphics _measureLocalBounds:retBounds];
+		[_graphics _measureLocalBounds:retBounds useStroke:useStroke];
 	}
 }
 

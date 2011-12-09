@@ -28,6 +28,7 @@ typedef struct
 
 	inkPoint cursor;
 	inkRect bounds;
+	inkRect boundsWithStroke;
 
 	float curveMultiplier;
 
@@ -41,6 +42,7 @@ inkExtern void inkDestroy(inkCanvas* canvas);
 inkExtern inkArray* inkRenderGroups(inkCanvas* canvas);
 inkExtern inkPoint inkCursor(inkCanvas* canvas);
 inkExtern inkRect inkBounds(inkCanvas* canvas);
+inkExtern inkRect inkBoundsv(inkCanvas* canvas, bool withStroke);
 
 inkExtern void inkSetCurveMultiplier(inkCanvas* canvas, float curveMultiplier);
 inkExtern float inkCurveMultiplier(inkCanvas* canvas);

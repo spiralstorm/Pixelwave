@@ -28,6 +28,7 @@ typedef struct
 
 	bool contourBegan;
 	bool polygonBegan;
+	bool isStroke;
 } inkTessellator;
 
 inkExtern inkTessellator *inkTessellatorCreate();
@@ -37,6 +38,8 @@ inkExtern void inkTessellatorSetWindingRule(inkTessellator* tessellator, inkWind
 
 inkExtern inkPresetGLData inkTessellatorGetGLData(inkTessellator* tessellator);
 inkExtern void inkTessellatorSetGLData(inkTessellator* tessellator, inkPresetGLData glData);
+
+inkExtern void inkTessellatorSetIsStroke(inkTessellator* tessellator, bool isStroke);
 
 inkExtern void inkTessellatorBeginPolygon(inkTessellator* tessellator, inkArray *renderGroups);
 inkExtern void inkTessellatorEndPolygon(inkTessellator* tessellator);

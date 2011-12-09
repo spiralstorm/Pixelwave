@@ -1141,19 +1141,25 @@
 
 - (void) _measureGlobalBounds:(CGRect *)retBounds
 {
+	[self _measureGlobalBounds:retBounds useStroke:YES];
+}
+
+- (void) _measureGlobalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
+{
 	if (_numChildren == 0)
 	{
-		[self _measureLocalBounds:retBounds];
+		if (useStroke == YES) // For backwards compatability
+			[self _measureLocalBounds:retBounds];
+		else
+			[self _measureLocalBounds:retBounds useStroke:useStroke];
 		return;
 	}
 
 	CGRect _bounds = CGRectZero;
-	[self _measureLocalBounds:&_bounds];
-
-//	float xMin = _bounds.origin.x;
-//	float xMax = abs(xMin) + _bounds.size.width;
-//	float yMin = _bounds.origin.y;
-//	float yMax = abs(yMin) + _bounds.size.height;
+	if (useStroke == YES) // For backwards compatability
+		[self _measureLocalBounds:&_bounds];
+	else
+		[self _measureLocalBounds:&_bounds useStroke:useStroke];
 
 	float xMin = _bounds.origin.x;
 	float xMax = xMin + _bounds.size.width;
@@ -1162,15 +1168,10 @@
 
 #define _PX_DISPLAY_OBJECT_UPDATE_AABB_BOUNDS(_xMin_, _xMax_, _yMin_, _yMax_, _x_, _y_) \
 	{ \
-		(_xMin_) = MIN((_x_), (_xMin_)); \
-		(_xMax_) = MAX((_x_), (_xMax_)); \
-		(_yMin_) = MIN((_y_), (_yMin_)); \
-		(_yMax_) = MAX((_y_), (_yMax_)); \
-	}
-	//	if ((_xMin) > (_x)) (_xMin) = (_x); \
-		if ((_xMax) < (_x)) (_xMax) = (_x); \
-		if ((_yMin) > (_y)) (_yMin) = (_y); \
-		if ((_yMax) < (_y)) (_yMax) = (_y); \
+		(_xMin_) = fminf((_x_), (_xMin_)); \
+		(_xMax_) = fmaxf((_x_), (_xMax_)); \
+		(_yMin_) = fminf((_y_), (_yMin_)); \
+		(_yMax_) = fmaxf((_y_), (_yMax_)); \
 	}
 
 	float rectX = 0.0f;
@@ -1189,7 +1190,10 @@
 	for (loopIndex = 0, loopChild = _childrenHead; loopIndex < _numChildren; ++loopIndex, loopChild = loopChild->_next)
 	{
 		_bounds = CGRectZero;
-		[loopChild _measureGlobalBounds:&_bounds];
+		if (useStroke == YES) // For backwards compatability
+			[loopChild _measureGlobalBounds:&_bounds];
+		else
+			[loopChild _measureGlobalBounds:&_bounds useStroke:useStroke];
 
 		if (CGRectIsEmpty(_bounds))
 		{

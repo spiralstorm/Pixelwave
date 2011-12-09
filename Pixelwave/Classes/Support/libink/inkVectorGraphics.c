@@ -285,6 +285,9 @@ void inkBuild(inkCanvas* canvas)
 	inkTessellator* fillTessellator = inkGetFillTessellator();
 	inkTessellator* strokeTessellator = inkGetStrokeTessellator();
 
+	inkTessellatorSetIsStroke(fillTessellator, false);
+	inkTessellatorSetIsStroke(strokeTessellator, true);
+
 	inkArrayPtrForEach(commandList, command)
 	{
 		commandType = command->type;
@@ -424,6 +427,8 @@ void inkBuild(inkCanvas* canvas)
 
 	inkPoint minPoint = inkPointMax;
 	inkPoint maxPoint = inkPointMin;
+	inkPoint minPointWithStroke = inkPointMax;
+	inkPoint maxPointWithStroke = inkPointMin;
 
 	inkArrayPtrForEach(renderGroups, renderGroup)
 	{
@@ -435,15 +440,22 @@ void inkBuild(inkCanvas* canvas)
 
 		inkArrayForEach(vertexArray, vertex)
 		{
-			minPoint = inkPointMake(fminf(minPoint.x, vertex->x), fminf(minPoint.y, vertex->y));
-			maxPoint = inkPointMake(fmaxf(maxPoint.x, vertex->x), fmaxf(maxPoint.y, vertex->y));
+			if (renderGroup->isStroke == false)
+			{
+				minPoint = inkPointMake(fminf(minPoint.x, vertex->x), fminf(minPoint.y, vertex->y));
+				maxPoint = inkPointMake(fmaxf(maxPoint.x, vertex->x), fmaxf(maxPoint.y, vertex->y));
+			}
+
+			minPointWithStroke = inkPointMake(fminf(minPointWithStroke.x, vertex->x), fminf(minPointWithStroke.y, vertex->y));
+			maxPointWithStroke = inkPointMake(fmaxf(maxPointWithStroke.x, vertex->x), fmaxf(maxPointWithStroke.y, vertex->y));
 		}
 	}
 
 	canvas->bounds = inkRectMake(minPoint, inkSizeFromPoint(inkPointSubtract(maxPoint, minPoint)));
+	canvas->boundsWithStroke = inkRectMake(minPointWithStroke, inkSizeFromPoint(inkPointSubtract(maxPointWithStroke, minPointWithStroke)));
 }
 
-bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox)
+bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox, bool useStroke)
 {
 	inkArray* renderGroups = inkRenderGroups(canvas);
 
@@ -459,7 +471,9 @@ bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox)
 	unsigned int index;
 	unsigned int vertexCount;
 
-	if (inkRectContainsPoint(canvas->bounds, point) == false)
+	inkRect bounds = useStroke ? canvas->boundsWithStroke : canvas->bounds;
+
+	if (inkRectContainsPoint(bounds, point) == false)
 		return false;
 	else if (useBoundingBox == true)
 		return true;

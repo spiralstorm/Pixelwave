@@ -73,9 +73,14 @@
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
+	return [self _measureLocalBounds:retBounds useStroke:YES];
+}
+
+- (void) _measureLocalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
+{
 	*retBounds = CGRectZero;
 
-	[_graphics _measureLocalBounds:retBounds];
+	[_graphics _measureLocalBounds:retBounds useStroke:useStroke];
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag

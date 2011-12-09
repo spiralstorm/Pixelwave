@@ -320,6 +320,7 @@ typedef enum
 @interface PXDisplayObject (PrivateButPublic)
 - (BOOL) _dispatchEventNoFlow:(PXEvent *)event;
 - (void) _measureGlobalBounds:(CGRect *)retBounds;
+- (void) _measureGlobalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke;
 
 - (BOOL) _hitTestPointWithoutRecursionWithGlobalX:(float)x globalY:(float)y shapeFlag:(BOOL)shapeFlag;
 - (BOOL) _hitTestPointWithParentX:(float)x parentY:(float)y shapeFlag:(BOOL)shapeFlag;
@@ -336,5 +337,7 @@ typedef enum
 @interface PXDisplayObject (Override)
 - (void) _renderGL;
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag;
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke;
 - (void) _measureLocalBounds:(CGRect *)retBounds;
+- (void) _measureLocalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke;
 @end

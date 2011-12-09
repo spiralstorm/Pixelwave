@@ -49,6 +49,7 @@ inkCanvas* inkCreate()
 		canvas->matrix = inkMatrixIdentity;
 		canvas->cursor = inkPointZero;
 		canvas->bounds = inkRectZero;
+		canvas->boundsWithStroke = inkRectZero;
 		inkSetCurveMultiplier(canvas, 0.5f);
 		inkSetPixelsPerPoint(canvas, 1.0f);
 	}
@@ -114,8 +115,16 @@ inkPoint inkCursor(inkCanvas* canvas)
 
 inkRect inkBounds(inkCanvas* canvas)
 {
+	return inkBoundsv(canvas, false);
+}
+
+inkRect inkBoundsv(inkCanvas* canvas, bool withStroke)
+{
 	if (canvas == NULL)
 		return inkRectZero;
+
+	if (withStroke)
+		return canvas->boundsWithStroke;
 
 	return canvas->bounds;
 }

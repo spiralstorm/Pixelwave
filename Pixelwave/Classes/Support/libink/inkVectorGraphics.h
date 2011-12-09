@@ -47,7 +47,7 @@ inkExtern void inkLineStyleNone(inkCanvas* canvas);
 // tessellator.
 inkExtern void inkBuild(inkCanvas* canvas);
 
-inkExtern bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox);
+inkExtern bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox, bool useStroke);
 inkExtern unsigned int inkArcLengthSegmentCount(inkCanvas* canvas, float arcLength);
 
 inkExtern void inkPushMatrix(inkCanvas* canvas);

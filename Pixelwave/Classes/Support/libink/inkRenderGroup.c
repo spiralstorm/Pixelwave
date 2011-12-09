@@ -8,14 +8,12 @@
 
 #include "inkRenderGroup.h"
 
-inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData)
+inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData, bool isStroke)
 {
 	inkRenderGroup* renderGroup = malloc(sizeof(inkRenderGroup));
 
 	if (renderGroup != NULL)
 	{
-		renderGroup->glDrawMode = glDrawMode;
-		renderGroup->glData = glData;
 		renderGroup->vertices = inkArrayCreate(sizeof(INKvertex));
 
 		if (renderGroup->vertices == NULL)
@@ -23,6 +21,10 @@ inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData)
 			inkRenderGroupDestroy(renderGroup);
 			return NULL;
 		}
+
+		renderGroup->glDrawMode = glDrawMode;
+		renderGroup->glData = glData;
+		renderGroup->isStroke = isStroke;
 	}
 
 	return renderGroup;

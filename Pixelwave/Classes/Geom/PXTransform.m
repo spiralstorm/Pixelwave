@@ -231,10 +231,7 @@
 	CGRect rect;
 	[_displayObject _measureGlobalBounds:&rect];
 
-	return [[[PXRectangle alloc] initWithX:rect.origin.x
-									  y:rect.origin.y
-								  width:rect.size.width
-								 height:rect.size.height] autorelease];
+	return [PXRectangle rectangleWithX:rect.origin.x y:rect.origin.y width:rect.size.width height:rect.size.height];
 }
 
 @end

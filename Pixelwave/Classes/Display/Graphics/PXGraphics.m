@@ -349,6 +349,11 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
+	return [self _measureLocalBounds:retBounds useStroke:YES];
+}
+
+- (void) _measureLocalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
+{
 	if (retBounds == NULL)
 		return;
 
@@ -361,18 +366,21 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y
 {
-	[self build];
-
 	return [self _containsPointWithLocalX:x localY:y shapeFlag:NO];
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
+	return [self _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag useStroke:YES];
+}
+
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
+{
 	[self build];
 
 	// inkContainsPoint asks if you are using the bounds, not the shape flag;
 	// therefore it is the opposite of the shape flag.
-	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake(x, y), !shapeFlag);
+	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake(x, y), !shapeFlag, useStroke);
 }
 
 - (void) _renderGL
@@ -387,7 +395,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	if (PXMathIsEqual(size.width, previousSize.width) == false ||
 		PXMathIsEqual(size.height, previousSize.height) == false)
 	{
-		printf("previousSize = (%f, %f) newSize = (%f, %f)\n", previousSize.width, previousSize.height, size.width, size.height);
+//		printf("previousSize = (%f, %f) newSize = (%f, %f)\n", previousSize.width, previousSize.height, size.width, size.height);
 		previousSize = size;
 		wasBuilt = NO;
 
@@ -398,8 +406,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 	vertexCount = inkDrawv((inkCanvas*)vCanvas, pxGraphicsInkRenderer);
 
-	if (print)
-		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
+//	if (print)
+//		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
 }
 
 @end

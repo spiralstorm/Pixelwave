@@ -500,22 +500,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 {
 	return [self positionOfTouch:PXTouchEngineGetFirstTouch()];
 }
-/*
-- (float) localX:(UITouch *)touch
-{
-	PXPoint *point = [self localTouch:touch];
-	if (!point)
-		return 0.0f;
-	return point.x;
-}
-- (float) localY:(UITouch *)touch
-{
-	PXPoint *point = [self localTouch:touch];
-	if (!point)
-		return 0.0f;
-	return point.y;
-}
-*/
+
 - (NSArray *)touchPositions
 {
 	NSMutableArray *list = [[NSMutableArray alloc] init];
@@ -535,62 +520,27 @@ static unsigned int _pxDisplayObjectCount = 0;
 	return [list autorelease];
 }
 
-/////////////////
-/////////////////
-/////////////////
-
-/*- (BOOL) multiplyDown:(PXDisplayObject *)targetCoordinateSpace:(PXDisplayObject *)displayObject:(PXGLMatrix *)matrix
-{
-	if (displayObject == targetCoordinateSpace)
-		return YES;
-
-	if (displayObject->_parent)
-	{
-		if ([self multiplyDown:targetCoordinateSpace:displayObject->_parent:matrix])
-		{
-			PXGLMatrixMult(matrix, matrix, &displayObject->_matrix);
-			return YES;
-		}
-	}
-
-	return NO;
-}
-
-- (void) multDown:(PXGLMatrix *)matrix
-{
-	PXDisplayObject *root = _parent;
-	while (root && root->_parent)
-		root = root->_parent;
-
-	[self multiplyDown:root:self:matrix];
-}
-
-- (void) multUp:(PXGLMatrix *)matrix
-{
-	PXGLMatrix matInv;
-	PXGLMatrixIdentity(&matInv);
-	PXGLMatrixMult(&matInv, &matInv, &_matrix);
-	PXGLMatrixInvert(&matInv);
-	PXGLMatrixMult(matrix, matrix, &matInv);
-
-	PXDisplayObject *parent = _parent;
-	while (parent && parent->_parent)
-	{
-		PXGLMatrixIdentity(&matInv);
-		PXGLMatrixMult(&matInv, &matInv, &parent->_matrix);
-		PXGLMatrixInvert(&matInv);
-		PXGLMatrixMult(matrix, matrix, &matInv);
-
-		parent = parent->_parent;
-	}
-}*/
-
 - (void) _measureGlobalBounds:(CGRect *)retBounds
 {
-	[self _measureLocalBounds:retBounds];
+	[self _measureGlobalBounds:retBounds useStroke:YES];
+}
+
+- (void) _measureGlobalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
+{
+	// This silly if statement is for backwards compatability sakes; not
+	// everything overrides locdalBounds:useStroke, though I wish it did.
+	if (useStroke == YES)
+		[self _measureLocalBounds:retBounds];
+	else
+		[self _measureLocalBounds:retBounds useStroke:useStroke];
 }
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
+{
+	[self _measureLocalBounds:retBounds useStroke:YES];
+}
+
+- (void) _measureLocalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
 {
 	*retBounds = CGRectZero;
 }
@@ -688,13 +638,16 @@ static unsigned int _pxDisplayObjectCount = 0;
  *	NSLog (@"shape1 in root = %@\n", [bounds description]);
  *	// bounds = (x=50.0f, y=25.0f, w=100.0f, h=200.0f)
  */
-- (PXRectangle *)boundsWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace
+- (PXRectangle *)boundsWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace useStroke:(BOOL)useStroke
 {
 	if (targetCoordinateSpace == nil)
 		return nil;
 
 	CGRect bounds;
-	[self _measureGlobalBounds:&bounds];
+	if (useStroke == YES) // Forbackwards compatability
+		[self _measureGlobalBounds:&bounds];
+	else
+		[self _measureGlobalBounds:&bounds useStroke:useStroke];
 
 	if (targetCoordinateSpace != self)
 	{
@@ -712,18 +665,26 @@ static unsigned int _pxDisplayObjectCount = 0;
 		bounds = PXGLMatrixConvertRect(&matrix, bounds);
 	}
 
- 	return [[[PXRectangle alloc] initWithX:bounds.origin.x y:bounds.origin.y width:bounds.size.width height:bounds.size.height] autorelease];
+ 	return [PXRectangle rectangleWithX:bounds.origin.x y:bounds.origin.y width:bounds.size.width height:bounds.size.height];
+}
+
+- (PXRectangle *)boundsWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace
+{
+	return [self boundsWithCoordinateSpace:targetCoordinateSpace useStroke:YES];
 }
 
 /**
- * For the time being, both rectWithCoordinateSpace and
- * boundsWithCoordinateSpace do the same thing.
+ * Finds the bounding box of this display object in the target coordinate space
+ * and does NOT include the size of the stroke (if one exists).
  *
- * @see [PXDisplayObject boundsWithCoordinateSpace]
+ * @param targetCoordinateSpace The coordinate space for the bounds
+ *
+ * @return The bounding box in the target coordinate system excluding the size
+ * of the stroke (if one exists).
  */
 - (PXRectangle *)rectWithCoordinateSpace:(PXDisplayObject *)targetCoordinateSpace
 {
-	return [self boundsWithCoordinateSpace:targetCoordinateSpace];
+	return [self boundsWithCoordinateSpace:targetCoordinateSpace useStroke:NO];
 }
 
 /**
@@ -954,6 +915,12 @@ static unsigned int _pxDisplayObjectCount = 0;
 
 // The actual one the user should override
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
+{
+	return [self _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag useStroke:YES];
+}
+
+// The actual one the user should override
+- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
 {
 	return NO;
 }

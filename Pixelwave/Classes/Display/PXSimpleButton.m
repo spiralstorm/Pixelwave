@@ -352,6 +352,11 @@
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
+	return [self _measureLocalBounds:retBounds useStroke:YES];
+}
+
+- (void) _measureLocalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
+{
 	*retBounds = CGRectZero;
 
 	if (hitAreaIsRect == YES)
@@ -362,7 +367,10 @@
 	{
 		// Ask the hit test for the GLOBAL bounds, because it needs to take
 		// any children it may have into affect.
-		[hitTestState _measureGlobalBounds:retBounds];
+		if (useStroke == YES) // For backwards compatability
+			[hitTestState _measureGlobalBounds:retBounds];
+		else
+			[hitTestState _measureGlobalBounds:retBounds useStroke:useStroke];
 	}
 }
 

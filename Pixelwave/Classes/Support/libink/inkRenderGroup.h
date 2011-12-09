@@ -20,9 +20,11 @@ typedef struct
 	INKenum glDrawMode;
 
 	inkPresetGLData glData;
+
+	bool isStroke;
 } inkRenderGroup;
 
-inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData);
+inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData, bool isStroke);
 inkExtern void inkRenderGroupDestroy(inkRenderGroup *group);
 
 inkExtern INKvertex *inkRenderGroupNextVertex(inkRenderGroup *group);
