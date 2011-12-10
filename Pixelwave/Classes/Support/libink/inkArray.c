@@ -72,6 +72,10 @@ inkInline void inkArrayResize(inkArray *array, size_t size)
 	if (size == array->_byteCount)
 		return;
 
+	size_t minSize = array->_elementSize * inkArrayMinimumElementCount;
+	if (size < minSize)
+		size = minSize;
+
 	array->_byteCount = size;
 	array->elements = realloc(array->elements, array->_byteCount);
 }

@@ -221,6 +221,9 @@ void inkTessellatorBeginCallback(GLenum type, inkTessellator* tessellator)
 		return;
 
 	inkRenderGroup** renderGroupPtr = (inkRenderGroup**)inkArrayPush(tessellator->renderGroups);
+	if (renderGroupPtr == NULL)
+		return;
+
 	*renderGroupPtr = inkRenderGroupCreate(type, tessellator->glData, tessellator->isStroke);
 	tessellator->currentRenderGroup = *renderGroupPtr;
 }
