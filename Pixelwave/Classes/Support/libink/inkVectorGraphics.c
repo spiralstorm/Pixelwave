@@ -349,7 +349,7 @@ void inkBuild(inkCanvas* canvas)
 			{
 				inkCubicCurveToCommand* command = (inkCubicCurveToCommand*)(commandData);
 
-				inkCurve(canvas, fillGenerator, strokeGenerator, inkCurveType_Quadratic, command->controlA, command->controlB, command->anchor);
+				inkCurve(canvas, fillGenerator, strokeGenerator, inkCurveType_Cubic, command->controlA, command->controlB, command->anchor);
 			//	inkFillGeneratorCubicCurveTo(fillGenerator, command->controlA, command->controlB, command->anchor);
 			//	inkStrokeGeneratorCubicCurveTo(strokeGenerator, command->controlA, command->controlB, command->anchor);
 			}
