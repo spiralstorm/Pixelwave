@@ -50,6 +50,7 @@ inkCanvas* inkCreate()
 		canvas->cursor = inkPointZero;
 		canvas->bounds = inkRectZero;
 		canvas->boundsWithStroke = inkRectZero;
+		canvas->previousControl = inkPointZero;
 		inkSetCurveMultiplier(canvas, 0.5f);
 		inkSetPixelsPerPoint(canvas, 1.0f);
 	}

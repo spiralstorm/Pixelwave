@@ -26,9 +26,9 @@ inkExtern void inkCubicCurveTo(inkCanvas* canvas, inkPoint controlA, inkPoint co
 
 inkExtern void inkMoveTov(inkCanvas* canvas, inkPoint position, bool relative);
 inkExtern void inkLineTov(inkCanvas* canvas, inkPoint position, bool relative);
-inkExtern void inkCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative);
-inkExtern void inkQuadraticCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative);
-inkExtern void inkCubicCurveTov(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor, bool relative);
+inkExtern void inkCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative, bool reflect);
+inkExtern void inkQuadraticCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative, bool reflect);
+inkExtern void inkCubicCurveTov(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor, bool relative, bool reflect);
 
 inkExtern void inkBeginFill(inkCanvas* canvas, inkSolidFill solidFill);
 inkExtern void inkBeginBitmapFill(inkCanvas* canvas, inkBitmapFill bitmapFill);

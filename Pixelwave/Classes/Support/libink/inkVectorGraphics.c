@@ -80,17 +80,17 @@ void inkLineTo(inkCanvas* canvas, inkPoint position)
 
 void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
 {
-	inkCurveTov(canvas, control, anchor, false);
+	inkCurveTov(canvas, control, anchor, false, false);
 }
 
 void inkQuadraticCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
 {
-	inkQuadraticCurveTov(canvas, control, anchor, false);
+	inkQuadraticCurveTov(canvas, control, anchor, false, false);
 }
 
 void inkCubicCurveTo(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor)
 {
-	inkCubicCurveTov(canvas, controlA, controlB, anchor, false);
+	inkCubicCurveTov(canvas, controlA, controlB, anchor, false, false);
 }
 
 void inkMoveTov(inkCanvas* canvas, inkPoint position, bool relative)
@@ -113,14 +113,24 @@ void inkLineTov(inkCanvas* canvas, inkPoint position, bool relative)
 	inkSetCursor(canvas, position);
 }
 
-void inkCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative)
+void inkCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative, bool reflect)
 {
-	inkQuadraticCurveTo(canvas, control, anchor);
+	inkQuadraticCurveTov(canvas, control, anchor, relative, reflect);
 }
 
-void inkQuadraticCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative)
+void inkQuadraticCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative, bool reflect)
 {
-	control = inkPosition(canvas, control, relative);
+	if (canvas == NULL)
+		return;
+
+	if (reflect == false)
+		control = inkPosition(canvas, control, relative);
+	else
+	{
+		inkPoint cursor = canvas->cursor;
+		control = inkPointAdd(inkPointSubtract(cursor, canvas->previousControl), cursor);
+	}
+
 	anchor = inkPosition(canvas, anchor, relative);
 
 	inkQuadraticCurveToCommand command;
@@ -129,13 +139,25 @@ void inkQuadraticCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, 
 
 	inkAddCommand(canvas, inkCommandType_QuadraticCurveTo, &command);
 
+	canvas->previousControl = control;
+
 	inkSetCursor(canvas, anchor);
 }
 
-void inkCubicCurveTov(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor, bool relative)
+void inkCubicCurveTov(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor, bool relative, bool reflect)
 {
-	controlA = inkPosition(canvas, controlA, relative);
-	controlB = inkPosition(canvas, controlB, relative);
+	if (reflect == false)
+	{
+		controlA = inkPosition(canvas, controlA, relative);
+		controlB = inkPosition(canvas, controlB, relative);
+	}
+	else
+	{
+		inkPoint cursor = canvas->cursor;
+		controlA = inkPointAdd(inkPointSubtract(cursor, canvas->previousControl), cursor);
+		controlB = inkPosition(canvas, controlB, relative);
+	}
+
 	anchor = inkPosition(canvas, anchor, relative);
 
 	inkCubicCurveToCommand command;
@@ -145,6 +167,7 @@ void inkCubicCurveTov(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, i
 
 	inkAddCommand(canvas, inkCommandType_CubicCurveTo, &command);
 
+	canvas->previousControl = controlB;
 	inkSetCursor(canvas, anchor);
 }
 

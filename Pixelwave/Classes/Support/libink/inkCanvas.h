@@ -30,6 +30,8 @@ typedef struct
 	inkRect bounds;
 	inkRect boundsWithStroke;
 
+	inkPoint previousControl;
+
 	float curveMultiplier;
 
 	float pixelsPerPoint;
