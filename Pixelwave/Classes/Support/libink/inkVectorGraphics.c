@@ -659,7 +659,7 @@ void inkTranslate(inkCanvas* canvas, inkPoint offset)
 	if (canvas == NULL)
 		return;
 
-	inkMatrixTranslate(canvas->matrix, offset);
+	canvas->matrix = inkMatrixTranslate(canvas->matrix, offset);
 }
 
 void inkTranslatef(inkCanvas* canvas, float x, float y)
