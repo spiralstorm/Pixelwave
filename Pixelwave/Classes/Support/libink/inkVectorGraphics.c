@@ -392,7 +392,8 @@ void inkBuild(inkCanvas* canvas)
 				if (!isnan(command->stroke.thickness))
 				{
 					inkSize scale = inkMatrixSize(canvas->matrix);
-					inkPoint thickness = inkPointMake(command->stroke.thickness, command->stroke.thickness);
+					float val = fabsf(command->stroke.thickness);
+					inkPoint thickness = inkPointMake(val, val);
 					thickness = inkPointMultiply(thickness, inkPointFromSize(scale));
 					command->stroke.thickness = (thickness.x + thickness.y) * 0.5f;
 					strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas, canvas->renderGroups, &(command->stroke));
