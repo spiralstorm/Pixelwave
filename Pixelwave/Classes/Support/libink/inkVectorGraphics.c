@@ -192,6 +192,9 @@ void inkBeginGradientFill(inkCanvas* canvas, inkGradientFill gradientFill)
 void inkLineStyle(inkCanvas* canvas, inkStroke stroke, inkSolidFill solidFill)
 {
 	inkLineStyleCommand command;
+	inkPoint thickness = inkPointMake(stroke.thickness, stroke.thickness);
+	thickness = inkPosition(canvas, thickness, false);
+	stroke.thickness = (thickness.x + thickness.y) * 0.5f;
 	command.fill = solidFill;
 	command.stroke = stroke;
 
@@ -340,7 +343,9 @@ void inkBuild(inkCanvas* canvas)
 			{
 				inkQuadraticCurveToCommand* command = (inkQuadraticCurveToCommand*)(commandData);
 
-				inkCurve(canvas, fillGenerator, strokeGenerator, inkCurveType_Quadratic, inkPointZero, command->control, command->anchor);
+				inkPoint control = inkUpdatePosition(canvas, command->control);
+				inkPoint anchor = inkUpdatePosition(canvas, command->anchor);
+				inkCurve(canvas, fillGenerator, strokeGenerator, inkCurveType_Quadratic, inkPointZero, control, anchor);
 			//	inkFillGeneratorQuadraticCurveTo(fillGenerator, command->control, command->anchor);
 			//	inkStrokeGeneratorQuadraticCurveTo(strokeGenerator, command->control, command->anchor);
 				break;
@@ -349,7 +354,10 @@ void inkBuild(inkCanvas* canvas)
 			{
 				inkCubicCurveToCommand* command = (inkCubicCurveToCommand*)(commandData);
 
-				inkCurve(canvas, fillGenerator, strokeGenerator, inkCurveType_Cubic, command->controlA, command->controlB, command->anchor);
+				inkPoint controlA = inkUpdatePosition(canvas, command->controlA);
+				inkPoint controlB = inkUpdatePosition(canvas, command->controlB);
+				inkPoint anchor = inkUpdatePosition(canvas, command->anchor);
+				inkCurve(canvas, fillGenerator, strokeGenerator, inkCurveType_Cubic, controlA, controlB, anchor);
 			//	inkFillGeneratorCubicCurveTo(fillGenerator, command->controlA, command->controlB, command->anchor);
 			//	inkStrokeGeneratorCubicCurveTo(strokeGenerator, command->controlA, command->controlB, command->anchor);
 			}
