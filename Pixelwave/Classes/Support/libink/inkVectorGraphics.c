@@ -192,9 +192,6 @@ void inkBeginGradientFill(inkCanvas* canvas, inkGradientFill gradientFill)
 void inkLineStyle(inkCanvas* canvas, inkStroke stroke, inkSolidFill solidFill)
 {
 	inkLineStyleCommand command;
-	inkPoint thickness = inkPointMake(stroke.thickness, stroke.thickness);
-	thickness = inkPosition(canvas, thickness, false);
-	stroke.thickness = (thickness.x + thickness.y) * 0.5f;
 	command.fill = solidFill;
 	command.stroke = stroke;
 
@@ -253,7 +250,8 @@ void inkEndGenerators(inkFillGenerator** fillGeneratorPtr, inkStrokeGenerator** 
 
 inkPoint inkUpdatePositionv(inkPoint point, void* canvas)
 {
-	return inkUpdatePosition((inkCanvas*)canvas, point);
+	return point;
+//	return inkUpdatePosition((inkCanvas*)canvas, point);
 }
 
 inkPoint inkUpdatePosition(inkCanvas* canvas, inkPoint point)
@@ -346,10 +344,8 @@ void inkBuild(inkCanvas* canvas)
 				inkPoint control = inkUpdatePosition(canvas, command->control);
 				inkPoint anchor = inkUpdatePosition(canvas, command->anchor);
 				inkCurve(canvas, fillGenerator, strokeGenerator, inkCurveType_Quadratic, inkPointZero, control, anchor);
-			//	inkFillGeneratorQuadraticCurveTo(fillGenerator, command->control, command->anchor);
-			//	inkStrokeGeneratorQuadraticCurveTo(strokeGenerator, command->control, command->anchor);
-				break;
 			}
+				break;
 			case inkCommandType_CubicCurveTo:
 			{
 				inkCubicCurveToCommand* command = (inkCubicCurveToCommand*)(commandData);
@@ -358,8 +354,6 @@ void inkBuild(inkCanvas* canvas)
 				inkPoint controlB = inkUpdatePosition(canvas, command->controlB);
 				inkPoint anchor = inkUpdatePosition(canvas, command->anchor);
 				inkCurve(canvas, fillGenerator, strokeGenerator, inkCurveType_Cubic, controlA, controlB, anchor);
-			//	inkFillGeneratorCubicCurveTo(fillGenerator, command->controlA, command->controlB, command->anchor);
-			//	inkStrokeGeneratorCubicCurveTo(strokeGenerator, command->controlA, command->controlB, command->anchor);
 			}
 				break;
 			case inkCommandType_SolidFill:
@@ -397,6 +391,9 @@ void inkBuild(inkCanvas* canvas)
 
 				if (!isnan(command->stroke.thickness))
 				{
+					inkPoint thickness = inkPointMake(command->stroke.thickness, command->stroke.thickness);
+					thickness = inkUpdatePosition(canvas, thickness);
+					command->stroke.thickness = (thickness.x + thickness.y) * 0.5f;
 					strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas, canvas->renderGroups, &(command->stroke));
 					inkStrokeGeneratorSetFill(strokeGenerator, &(command->fill));
 				}
