@@ -781,13 +781,13 @@ inkInline inkMatrix inkMatrixMakeBox(inkSize scale, float rotation, inkPoint tra
 {
 	inkMatrix matrix = inkMatrixRotate(inkMatrixIdentity, rotation);
 	matrix = inkMatrixScale(matrix, scale);
-	matrix = inkMatrixTranslate(translate);
+	matrix = inkMatrixTranslate(matrix, translate);
 	return matrix;
 }
 
 inkInline inkMatrix inkMatrixMakeBoxf(float scaleX, float scaleY, float rotation, float tx, float ty)
 {
-	return inkMatrixBox(matrix, inkSizeMake(scaleX, scaleY), rotation, inkPointMake(tx, ty));
+	return inkMatrixMakeBox(inkSizeMake(scaleX, scaleY), rotation, inkPointMake(tx, ty));
 }
 
 inkInline inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point)
