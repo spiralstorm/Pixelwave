@@ -184,6 +184,8 @@ void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)
 
 		if (commandPtr != NULL)
 			*commandPtr = command;
+		else
+			inkCommandDestroy(command);
 	}
 }
 

@@ -45,5 +45,5 @@ INKvertex* inkRenderGroupNextVertex(inkRenderGroup* renderGroup)
 	if (renderGroup == NULL || renderGroup->vertices == NULL)
 		return NULL;
 
-	return (INKvertex *)inkArrayPush(renderGroup->vertices);
+	return (INKvertex*)inkArrayPush(renderGroup->vertices);
 }

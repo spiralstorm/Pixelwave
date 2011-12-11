@@ -8,7 +8,7 @@
 
 #include "inkArray.h"
 
-#define inkArrayMinimumElementCount 32
+#define inkArrayMinimumElementCount 4
 
 inkInline int64_t inkArrayNextPowerOfTwo(int64_t val)
 {
@@ -27,7 +27,7 @@ inkInline int64_t inkArrayNextPowerOfTwo(int64_t val)
 inkInline void inkArrayResize(inkArray *array, size_t size);
 inkInline void inkArrayUpdateCount(inkArray *array, unsigned int count);
 
-inkArray *inkArrayCreate(size_t elementSize)
+inkArray* inkArrayCreate(size_t elementSize)
 {
 	if (elementSize == 0)
 		return NULL;
@@ -64,23 +64,23 @@ void inkArrayDestroy(inkArray* array)
 	}
 }
 
-inkInline void inkArrayResize(inkArray *array, size_t size)
+inkInline void inkArrayResize(inkArray* array, size_t size)
 {
 	if (array == NULL || array->elements == NULL)
-		return;
-
-	if (size == array->_byteCount)
 		return;
 
 	size_t minSize = array->_elementSize * inkArrayMinimumElementCount;
 	if (size < minSize)
 		size = minSize;
 
+	if (size == array->_byteCount)
+		return;
+
 	array->_byteCount = size;
 	array->elements = realloc(array->elements, array->_byteCount);
 }
 
-inkInline void inkArrayUpdateCount(inkArray *array, unsigned int count)
+inkInline void inkArrayUpdateCount(inkArray* array, unsigned int count)
 {
 	if (array == NULL)
 		return;
@@ -118,7 +118,7 @@ void* inkArrayPushElements(inkArray* array, unsigned int count)
 		inkArrayResize(array, newSize);
 	}
 
-	void *current = (void *)(((uint8_t *)(array->elements)) + preUsedSize);
+	void *current = (void *)(((uint8_t*)(array->elements)) + preUsedSize);
 
 	current = memset(current, 0, array->_elementSize);
 	// Lets return the next available vertex for use.
@@ -153,8 +153,8 @@ void inkArrayRemoveFromLeft(inkArray* array, unsigned int count)
 
 	size_t elementSize = array->_elementSize;
 
-	uint8_t *bytes = (uint8_t *)(array->elements);
-	uint8_t *bytesOffset = bytes + (count * elementSize);
+	uint8_t* bytes = (uint8_t*)(array->elements);
+	uint8_t* bytesOffset = bytes + (count * elementSize);
 
 	unsigned int newCount = oldCount - count;
 
