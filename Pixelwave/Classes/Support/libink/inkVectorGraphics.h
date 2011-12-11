@@ -55,6 +55,7 @@ inkExtern void inkPopMatrix(inkCanvas* canvas);
 inkExtern void inkLoadMatrix(inkCanvas* canvas, inkMatrix matrix);
 inkExtern void inkMultMatrix(inkCanvas* canvas, inkMatrix matrix);
 inkExtern void inkRotate(inkCanvas* canvas, float radians);
+inkExtern void inkRotatef(inkCanvas* canvas, float radians);
 inkExtern void inkScale(inkCanvas* canvas, inkSize scale);
 inkExtern void inkScalef(inkCanvas* canvas, float x, float y);
 inkExtern void inkTranslate(inkCanvas* canvas, inkPoint offset);

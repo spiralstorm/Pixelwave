@@ -238,11 +238,9 @@ inkInline inkMatrix inkMatrixTranslate(inkMatrix matrix, inkPoint offset);
 inkInline inkMatrix inkMatrixTranslatef(inkMatrix matrix, float dx, float dy);
 
 inkInline inkMatrix inkMatrixMultiply(inkMatrix matrixA, inkMatrix matrixB);
+inkInline inkMatrix inkMatrixMakeBox(inkSize scale, float rotation, inkPoint translate);
+inkInline inkMatrix inkMatrixMakeBoxf(float scaleX, float scaleY, float rotation, float tx, float ty);
 
-/*inkMatrix inkMatrixConcat(inkMatrix matrixA, inkMatrix matrixB);
-
-inkMatrix inkMatrixCreateBox(inkMatrix matrix, float scaleX, float scaleY, float rotation, float tx, float ty);
-*/
 inkInline inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point);
 inkInline inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);
 
@@ -778,7 +776,20 @@ inkInline inkMatrix inkMatrixMultiply(inkMatrix matrixA, inkMatrix matrixB)
 						 matrixA.tx * matrixB.a + matrixA.ty * matrixB.c + matrixB.tx,
 						 matrixA.tx * matrixB.b + matrixA.ty * matrixB.d + matrixB.ty);
 }
-	
+
+inkInline inkMatrix inkMatrixMakeBox(inkSize scale, float rotation, inkPoint translate)
+{
+	inkMatrix matrix = inkMatrixRotate(inkMatrixIdentity, rotation);
+	matrix = inkMatrixScale(matrix, scale);
+	matrix = inkMatrixTranslate(translate);
+	return matrix;
+}
+
+inkInline inkMatrix inkMatrixMakeBoxf(float scaleX, float scaleY, float rotation, float tx, float ty)
+{
+	return inkMatrixBox(matrix, inkSizeMake(scaleX, scaleY), rotation, inkPointMake(tx, ty));
+}
+
 inkInline inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point)
 {
 	return inkPointMake((point.x * matrix.a) + (point.y * matrix.c) + matrix.tx,

@@ -647,6 +647,11 @@ void inkRotate(inkCanvas* canvas, float radians)
 	canvas->matrix = inkMatrixRotate(canvas->matrix, radians);
 }
 
+void inkRotatef(inkCanvas* canvas, float radians)
+{
+	return inkRotate(canvas, radians);
+}
+
 void inkScale(inkCanvas* canvas, inkSize scale)
 {
 	if (canvas == NULL)
