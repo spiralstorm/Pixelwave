@@ -248,8 +248,8 @@ inkInline inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point
 #pragma mark Curve Declaration
 #pragma mark
 
-float inkCurveLength(inkCurveUpdatePointCallback updatePointFunc, void* updatePointUserData, inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint end);
-void inkCurveApproximation(inkCurveUpdatePointCallback updatePointFunc, void* updatePointUserData, inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint anchor, unsigned int precicion, inkCurveNewPointCallback newPointFunc, void* newPointUserData);
+float inkCurveLength(inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint end);
+void inkCurveApproximation(inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint anchor, unsigned int precicion, inkCurveNewPointCallback newPointFunc, void* newPointUserData);
 
 #pragma mark -
 #pragma mark Math Implemenations

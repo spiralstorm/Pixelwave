@@ -309,14 +309,14 @@ void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGener
 	else
 		return;
 
-	float arcLength = inkCurveLength(inkUpdatePositionv, canvas, curveType, start, controlA, controlB, anchor);
+	float arcLength = inkCurveLength(curveType, start, controlA, controlB, anchor);
 
 	inkCurveGenerators generators;
 	generators.canvas = canvas;
 	generators.fillGenerator = fillGenerator;
 	generators.strokeGenerator = strokeGenerator;
 
-	inkCurveApproximation(inkUpdatePositionv, canvas, curveType, start, controlA, controlB, anchor, inkArcLengthSegmentCount(canvas, arcLength), inkCurveAdd, (void*)(&generators));
+	inkCurveApproximation(curveType, start, controlA, controlB, anchor, inkArcLengthSegmentCount(canvas, arcLength), inkCurveAdd, (void*)(&generators));
 }
 
 // ONLY call this method on the main thread as it uses a non-thread safe shared

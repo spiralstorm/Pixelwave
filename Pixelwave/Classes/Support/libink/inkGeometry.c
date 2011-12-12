@@ -393,17 +393,17 @@ float inkQuadraticCurveLength(inkPoint start, inkPoint control, inkPoint end)
 	return (A_32 * Sabc + A_2 * B * (Sabc - C_2) + (4.0f * C * A - B * B) * logf((2 * A_2 + BA + Sabc) / (BA + C_2))) / (4.0f * A_32);
 }
 
-float inkCurveLength(inkCurveUpdatePointCallback updatePointFunc, void* updatePointUserData, inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint end)
+float inkCurveLength(inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint end)
 {
 	inkCurveLengthApproximator approximator;
 	approximator.totalDistance = 0.0f;
 	approximator.previousPoint = start;
 
-	inkCurveApproximation(updatePointFunc, updatePointUserData, curveType, start, controlA, controlB, end, 10, inkCurveLengthAdd, (void*)(&approximator));
+	inkCurveApproximation(curveType, start, controlA, controlB, end, 10, inkCurveLengthAdd, (void*)(&approximator));
 	return approximator.totalDistance;
 }
 
-void inkCurveApproximation(inkCurveUpdatePointCallback updatePointFunc, void* updatePointUserData, inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint anchor, unsigned int precicion, inkCurveNewPointCallback newPointFunc, void* newPointUserData)
+void inkCurveApproximation(inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint anchor, unsigned int precicion, inkCurveNewPointCallback newPointFunc, void* newPointUserData)
 {
 	if (newPointFunc == NULL)
 		return;
@@ -458,8 +458,8 @@ void inkCurveApproximation(inkCurveUpdatePointCallback updatePointFunc, void* up
 		{
 			previousPoint = point;
 
-			if (updatePointFunc != NULL)
-				point = updatePointFunc(point, updatePointUserData);
+		//	if (updatePointFunc != NULL)
+		//		point = updatePointFunc(point, updatePointUserData);
 
 			newPointFunc(point, newPointUserData);
 		}
