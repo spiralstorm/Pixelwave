@@ -18,6 +18,7 @@
 #include <string.h>
 #include <math.h>
 #include <stdio.h>
+#include <setjmp.h>
 
 #ifdef __cplusplus
 #define inkExtern extern "C"

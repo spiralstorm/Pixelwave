@@ -80,12 +80,12 @@
 {
 	*retBounds = CGRectZero;
 
-	[_graphics _measureLocalBounds:retBounds useStroke:useStroke];
+	[_graphics _measureLocalBounds:retBounds displayObject:self useStroke:useStroke];
 }
 
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
 {
-	return [_graphics _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag];
+	return [_graphics _containsLocalPoint:CGPointMake(x, y) displayObject:self shapeFlag:shapeFlag useStroke:YES];
 }
 
 - (void) _renderGL

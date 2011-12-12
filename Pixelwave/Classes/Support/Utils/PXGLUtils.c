@@ -46,8 +46,8 @@
 #define PXGLAABBResetMin INT_MAX
 #define PXGLAABBResetMax INT_MIN
 
-#define PXGLAABBfResetMin MAXFLOAT
-#define PXGLAABBfResetMax (-MAXFLOAT)
+#define PXGLAABBfResetMin FLT_MAX
+#define PXGLAABBfResetMax (-FLT_MAX)
 
 const PXGLAABB PXGLAABBReset = {PXGLAABBResetMin, PXGLAABBResetMin, PXGLAABBResetMax, PXGLAABBResetMax};
 const PXGLAABBf PXGLAABBfReset = {PXGLAABBfResetMin, PXGLAABBfResetMin, PXGLAABBfResetMax, PXGLAABBfResetMax};
@@ -526,6 +526,19 @@ PXInline_c void PXGLMatrixConvertAABBfv(PXGLMatrix *matrix,
 	*yMin = fminf(p1.y, fminf(p2.y, fminf(p3.y, p4.y)));
 	*xMax = fmaxf(p1.x, fmaxf(p2.x, fmaxf(p3.x, p4.x)));
 	*yMax = fmaxf(p1.y, fmaxf(p2.y, fmaxf(p3.y, p4.y)));
+}
+
+PXInline_c bool PXGLMatrixIsEqual(PXGLMatrix *matrixA, PXGLMatrix *matrixB)
+{
+	if (matrixA == matrixB)
+		return true;
+
+	return (PXMathIsEqual(matrixA->a, matrixB->a) &&
+			PXMathIsEqual(matrixA->b, matrixB->b) &&
+			PXMathIsEqual(matrixA->c, matrixB->c) &&
+			PXMathIsEqual(matrixA->d, matrixB->d) &&
+			PXMathIsEqual(matrixA->tx, matrixB->tx) &&
+			PXMathIsEqual(matrixA->ty, matrixB->ty));
 }
 
 #pragma mark -

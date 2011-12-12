@@ -391,11 +391,35 @@ void inkBuild(inkCanvas* canvas)
 
 				if (!isnan(command->stroke.thickness))
 				{
-					inkSize scale = inkMatrixSize(canvas->matrix);
-					float val = fabsf(command->stroke.thickness);
-					inkPoint thickness = inkPointMake(val, val);
-					thickness = inkPointMultiply(thickness, inkPointFromSize(scale));
-					command->stroke.thickness = (thickness.x + thickness.y) * 0.5f;
+					if (command->stroke.scaleMode == inkLineScaleMode_None)
+					{
+						command->stroke.thickness = command->stroke.origThickness;
+					}
+					else
+					{
+						inkSize scale = inkMatrixSize(canvas->matrix);
+						float val = fabsf(command->stroke.origThickness);
+						inkPoint thickness = inkPointMake(val, val);
+						thickness = inkPointMultiply(thickness, inkPointFromSize(scale));
+
+						switch(command->stroke.scaleMode)
+						{
+							case inkLineScaleMode_None:
+								break;
+							case inkLineScaleMode_Horizontal:
+								command->stroke.thickness = thickness.y;
+								break;
+							case inkLineScaleMode_Vertical:
+								command->stroke.thickness = thickness.x;
+								break;
+							case inkLineScaleMode_Normal:
+								command->stroke.thickness = (thickness.x + thickness.y) * 0.5f;
+								break;
+							default:
+								break;
+						}
+					}
+
 					strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas, canvas->renderGroups, &(command->stroke));
 					inkStrokeGeneratorSetFill(strokeGenerator, &(command->fill));
 				}

@@ -188,6 +188,8 @@ PXInline_h void PXGLMatrixConvertAABBv(PXGLMatrix *matrix, GLint *xMin, GLint *y
 PXInline_h PXGLAABBf PXGLMatrixConvertAABBf(PXGLMatrix *matrix, PXGLAABBf aabb);
 PXInline_h void PXGLMatrixConvertAABBfv(PXGLMatrix *matrix, GLfloat *xMin, GLfloat *yMin, GLfloat *xMax, GLfloat *yMax);
 
+PXInline_h bool PXGLMatrixIsEqual(PXGLMatrix *matrixA, PXGLMatrix *matrixB);
+
 #pragma mark -
 #pragma mark Rect Functions
 #pragma mark -

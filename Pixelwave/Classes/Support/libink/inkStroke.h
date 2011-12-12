@@ -20,6 +20,7 @@ typedef struct
 	
 	float miterLimit;
 	float thickness;
+	float origThickness;
 
 	bool pixelHinting;
 } inkStroke;

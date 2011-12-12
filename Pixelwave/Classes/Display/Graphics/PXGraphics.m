@@ -52,6 +52,7 @@
 #import "PXGraphicsPath.h"
 #import "PXGraphicsData.h"
 #import "PXEngine.h"
+#import "PXEngineUtils.h"
 
 const inkRenderer pxGraphicsInkRenderer = {PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLGetBooleanv, PXGLGetFloatv, PXGLGetIntegerv, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLGetTexParameteriv, PXGLTexParameteri, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements};
 
@@ -146,7 +147,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	}
 
 	wasBuilt = false;
-	previousSize = CGSizeMake(1.0f, 1.0f);
+	//previousSize = CGSizeMake(1.0f, 1.0f);
+	PXGLMatrixIdentity(&previousMatrix);
 
 	return self;
 }
@@ -348,12 +350,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 #pragma mark Override
 #pragma mark -
 
-- (void) _measureLocalBounds:(CGRect *)retBounds
-{
-	return [self _measureLocalBounds:retBounds useStroke:YES];
-}
-
-- (void) _measureLocalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
+- (void) _measureGlobalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
 {
 	if (retBounds == NULL)
 		return;
@@ -361,11 +358,36 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	[self build];
 
 	inkRect bounds = inkBounds((inkCanvas*)vCanvas);
-
 	*retBounds = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
 }
 
-- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y
+- (void) _measureLocalBounds:(CGRect *)retBounds displayObject:(PXDisplayObject *)displayObject useStroke:(BOOL)useStroke
+{
+	PXGLMatrix matrix;
+	PXGLMatrixIdentity(&matrix);
+	if (!PXUtilsDisplayObjectMultiplyUp((PXDisplayObject*)PXEngineGetStage(), displayObject, &matrix))
+		return;
+
+	[self _measureGlobalBounds:retBounds useStroke:useStroke];
+
+	*retBounds = PXGLMatrixConvertRect(&matrix, *retBounds);
+}
+
+- (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
+{
+	[self build];
+
+	// inkContainsPoint asks if you are using the bounds, not the shape flag;
+	// therefore it is the opposite of the shape flag.
+	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake(point.x, point.y), !shapeFlag, useStroke);
+}
+
+- (BOOL) _containsLocalPoint:(CGPoint)point displayObject:(PXDisplayObject *)displayObject shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
+{
+	return [self _containsGlobalPoint:PXUtilsLocalToGlobal(displayObject, point) shapeFlag:shapeFlag useStroke:YES];
+}
+
+/*- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y
 {
 	return [self _containsPointWithLocalX:x localY:y shapeFlag:NO];
 }
@@ -379,17 +401,23 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 {
 	[self build];
 
+	CGPoint cPt = CGPointMake(x, y);
+	//inkPoint pt = inkPointMake(x, y);
+	cPt = PXUtilsLocalToGlobal
+	cPt = PXGLMatrixConvertPoint(&previousMatrix, cPt);
+	inkPoint pt = inkPointMake(cPt.x, cPt.y);
+
 	// inkContainsPoint asks if you are using the bounds, not the shape flag;
 	// therefore it is the opposite of the shape flag.
-	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake((x), (y)), !shapeFlag, useStroke);
+	return inkContainsPoint((inkCanvas*)vCanvas, pt, !shapeFlag, useStroke);
 }
-
+*/
 - (void) _renderGL
 {
 	BOOL print = NO;
 
 	PXGLMatrix matrix = PXGLCurrentMatrix();
-	inkMatrix nMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+	/*inkMatrix nMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
 	inkSize matrixSize = inkMatrixSize(nMatrix);
 	CGSize size = CGSizeMake(matrixSize.width, matrixSize.height);
 
@@ -402,14 +430,26 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 		float contentScaleFactor = PXEngineGetContentScaleFactor();
 		inkSetPixelsPerPoint((inkCanvas*)vCanvas, (size.width + size.height) * 0.5f * contentScaleFactor);
+	}*/
+
+	if (wasBuilt == NO || PXGLMatrixIsEqual(&matrix, &previousMatrix) == false)
+	{
+		previousMatrix = matrix;
+		wasBuilt = NO;
+
+		inkMatrix iMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+		inkPushMatrix((inkCanvas*)vCanvas);
+		inkMultMatrix((inkCanvas*)vCanvas, iMatrix);
+		print = [self build];
+		inkPopMatrix((inkCanvas*)vCanvas);
 	}
 
-	print = [self build];
-
+	PXGLLoadIdentity();
 	vertexCount = inkDrawv((inkCanvas*)vCanvas, pxGraphicsInkRenderer);
+	PXGLMultMatrix(&matrix);
 
-//	if (print)
-//		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
+	if (print)
+		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
 }
 
 @end

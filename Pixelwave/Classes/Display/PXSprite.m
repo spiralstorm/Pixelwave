@@ -45,6 +45,9 @@
 #include "PXDebug.h"
 #include "PXPrivateUtils.h"
 
+#include "PXEngine.h"
+#include "PXEngineUtils.h"
+
 /**
  * A PXSprite is a concrete display object that can contain children and has a graphics object.
  *
@@ -151,7 +154,7 @@
 	}
 	else
 	{
-		[_graphics _measureLocalBounds:retBounds useStroke:useStroke];
+		[_graphics _measureLocalBounds:retBounds displayObject:self useStroke:useStroke];
 	}
 }
 
@@ -166,7 +169,7 @@
 		return [hitArea _hitTestPointWithParentX:x parentY:y shapeFlag:shapeFlag];
 	}
 
-	return [_graphics _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag];
+	return [_graphics _containsLocalPoint:CGPointMake(x, y) displayObject:self shapeFlag:shapeFlag useStroke:YES];
 }
 
 - (void) _renderGL

@@ -25,6 +25,7 @@ inkCanvas* inkCreate()
 
 	if (canvas != NULL)
 	{
+		
 		if (inkSharedFillTesselator == NULL)
 		{
 			inkSharedFillTesselator = inkTessellatorCreate();

@@ -206,4 +206,10 @@ typedef enum
 	inkPathCommand_WideLineTo
 } inkPathCommand;
 
+typedef enum
+{
+	inkError_None = 0,
+	inkError_OutOfMemory
+} inkError;
+
 #endif
