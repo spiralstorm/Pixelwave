@@ -174,8 +174,8 @@ NSMutableDictionary *pxFonts = nil;
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Methods
+// MARK: -
+// MARK: Methods
 
 - (PXFontRenderer *)_newFontRenderer
 {
@@ -186,8 +186,8 @@ NSMutableDictionary *pxFonts = nil;
 // Static Methods //
 ////////////////////
 
-#pragma mark -
-#pragma mark Static Methods
+// MARK: -
+// MARK: Static Methods
 
 /**
  * Registers a font to the font library with the given name.  To access this

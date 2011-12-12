@@ -50,7 +50,7 @@ inline static int HexToInt(char inCharacter)
 - (BOOL) scanNotQuoteCharactersIntoString:(NSString **)outValue;
 @end
 
-#pragma mark -
+// MARK: -
 
 @implementation CJSONScanner
 
@@ -78,7 +78,7 @@ inline static int HexToInt(char inCharacter)
     [super dealloc];
     }
 
-#pragma mark -
+// MARK: -
 
 - (BOOL) setData:(NSData *)inData error:(NSError **)outError;
     {
@@ -139,7 +139,7 @@ inline static int HexToInt(char inCharacter)
     [self setData:inData error:NULL];
     }
 
-#pragma mark -
+// MARK: -
 
 - (BOOL) scanJSONObject:(id *)outObject error:(NSError **)outError
     {
@@ -705,7 +705,7 @@ inline static int HexToInt(char inCharacter)
     }
 #endif // TREAT_COMMENTS_AS_WHITESPACE
 
-#pragma mark -
+// MARK: -
 
 - (BOOL) scanNotQuoteCharactersIntoString:(NSString **)outValue
     {

@@ -160,9 +160,9 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Fill
-#pragma mark -
+// MARK: -
+// MARK: Fill
+// MARK: -
 
 - (void) beginFill:(unsigned int)color alpha:(float)alpha
 {
@@ -192,9 +192,9 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	inkEndFill((inkCanvas*)vCanvas);
 }
 
-#pragma mark -
-#pragma mark Lines
-#pragma mark -
+// MARK: -
+// MARK: Lines
+// MARK: -
 
 - (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit
 {
@@ -222,9 +222,9 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	inkLineGradientStyle((inkCanvas*)vCanvas, gradientInfo);
 }
 
-#pragma mark -
-#pragma mark Draw
-#pragma mark -
+// MARK: -
+// MARK: Draw
+// MARK: -
 
 - (void) moveToX:(float)x y:(float)y
 {
@@ -284,9 +284,9 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	inkClear((inkCanvas*)vCanvas);
 }
 
-#pragma mark -
-#pragma mark Utility
-#pragma mark -
+// MARK: -
+// MARK: Utility
+// MARK: -
 
 - (void) drawRectWithX:(float)x y:(float)y width:(float)width height:(float)height
 {
@@ -346,9 +346,9 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	return false;
 }
 
-#pragma mark -
-#pragma mark Override
-#pragma mark -
+// MARK: -
+// MARK: Override
+// MARK: -
 
 - (void) _measureGlobalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
 {

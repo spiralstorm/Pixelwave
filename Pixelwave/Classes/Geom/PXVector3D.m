@@ -98,7 +98,7 @@
 	return self;
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -110,7 +110,7 @@
 	return [NSString stringWithFormat:@"(x=%f, y=%f, z=%f, w=%f)", x, y, z, w];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {
@@ -121,7 +121,7 @@
 	w = 0.0f;
 }
 
-#pragma mark Properties
+// MARK: Properties
 
 - (float) length
 {
@@ -133,7 +133,7 @@
 	return ((x * x) + (y * y) + (z * z));
 }
 
-#pragma mark Additional Methods
+// MARK: Additional Methods
 
 /**
  * Sets the vector to (#x, #y, #z).
@@ -174,7 +174,7 @@
 	w = _w;
 }
 
-#pragma mark Flash Methods
+// MARK: Flash Methods
 
 /**
  * Adds the values of the given vector to the corresponding values of this

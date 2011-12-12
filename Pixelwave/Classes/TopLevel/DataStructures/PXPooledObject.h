@@ -37,7 +37,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#pragma mark Header
+// MARK: Header
 
 /**
  * This protocol should be implemented by all classes which will be pooled in

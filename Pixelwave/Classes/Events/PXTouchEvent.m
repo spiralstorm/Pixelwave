@@ -108,7 +108,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 	[super dealloc];
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -136,7 +136,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 			_stageY];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {

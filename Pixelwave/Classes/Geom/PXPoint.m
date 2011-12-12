@@ -81,7 +81,7 @@
 	[super dealloc];
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -93,7 +93,7 @@
 	return [NSString stringWithFormat:@"(x=%f, y=%f)", x, y];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {
@@ -101,14 +101,14 @@
 	y = 0.0f;
 }
 
-#pragma mark Properties
+// MARK: Properties
 
 - (float) length
 {
 	return sqrtf((x * x) + (y * y));
 }
 
-#pragma mark Methods
+// MARK: Methods
 
 /**
  * Sets the point to (x, y).
@@ -128,7 +128,7 @@
 	y = _y;
 }
 
-#pragma mark Flash Methods
+// MARK: Flash Methods
 
 /**
  * Adds the coordinates of the given point to the coordinates of this point to
@@ -371,7 +371,7 @@
 	return [pt autorelease];
 }
 
-#pragma mark Static Methods
+// MARK: Static Methods
 
 /**
  * Creates a point at (x, y).

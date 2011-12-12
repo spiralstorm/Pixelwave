@@ -12,7 +12,7 @@
 @property (readonly, nonatomic, retain) NSData *serializedJSONData;
 @end
 
-#pragma mark -
+// MARK: -
 
 @interface CJSONSerializedData : NSObject <CJSONSerializable> {
     NSData *data;

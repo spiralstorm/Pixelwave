@@ -99,7 +99,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
 
 //\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\//\\
 
-#pragma mark Grabbing objects from pool
+// MARK: Grabbing objects from pool
 
 /**
  * Returns a pooled object of the given type. The returned object will have a
@@ -154,7 +154,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
 	return retObject;
 }
 
-#pragma mark Returning Objects to pool
+// MARK: Returning Objects to pool
 
 /**
  * Returns an object to the pool and takes control of its ownership.
@@ -210,7 +210,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
 	}
 }
 
-#pragma mark Static Methods
+// MARK: Static Methods
 
 /**
  * A global object pool which can be shared accross the entire application.
@@ -226,7 +226,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
 	return pxSharedObjectPool;	
 }
 
-#pragma mark Debugging
+// MARK: Debugging
 
 - (NSString *)description
 {

@@ -378,7 +378,7 @@ BOOL PXEngineIsInitialized()
 	return pxEngineInitialized;
 }
 
-#pragma mark Clearing the screen
+// MARK: Clearing the screen
 
 void PXEngineSetClearScreen(BOOL clear)
 {
@@ -404,7 +404,7 @@ void PXEngineInvalidateStage()
 	pxStageWasInvalidated = YES;
 }
 
-#pragma mark Setting the Frame Rate
+// MARK: Setting the Frame Rate
 
 void PXEngineUpdateMainLoopInterval()
 {
@@ -507,7 +507,7 @@ bool PXEngineGetRunning()
 	return pxEngineIsRunning;
 }
 
-#pragma mark Registering Frame Event Listeners
+// MARK: Registering Frame Event Listeners
 
 void PXEngineAddFrameListener(PXDisplayObject *displayObject)
 {
@@ -555,7 +555,7 @@ void PXEngineDispatchFrameEvents()
 	[pxEngineCachedListeners removeAllObjects];
 }
 
-#pragma mark Registering Render Event Listeners
+// MARK: Registering Render Event Listeners
 
 void PXEngineAddRenderListener(PXDisplayObject *displayObject)
 {
@@ -902,9 +902,9 @@ void PXEngineOnFrame()
 #endif
 }
 
-#pragma mark -
-#pragma mark RENDER
-#pragma mark -
+// MARK: -
+// MARK: RENDER
+// MARK: -
 
 void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transformationsEnabled, bool canBeUsedForTouches)
 {
@@ -1340,7 +1340,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
 }
 
-#pragma mark Extracting Pixel Data
+// MARK: Extracting Pixel Data
 
 // Delared in: PXTextureData.h
 
@@ -1425,7 +1425,7 @@ void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pi
 				 pixels);	
 }
 
-#pragma mark Misc
+// MARK: Misc
 
 PXObjectPool *PXEngineGetSharedObjectPool()
 {
@@ -1437,7 +1437,7 @@ PXObjectPool *PXEngineGetSharedObjectPool()
 	return pxEngineSharedObjectPool;
 }
 
-#pragma mark Touches
+// MARK: Touches
 
 float _PXEngineDBGGetTimeBetweenFrames()
 {

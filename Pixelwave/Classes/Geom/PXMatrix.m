@@ -98,7 +98,7 @@
 	return self;
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -110,7 +110,7 @@
 	return [NSString stringWithFormat:@"(a=%f, b=%f, c=%f, d=%f, tx=%f, ty=%f)", a, b, c, d, tx, ty];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {

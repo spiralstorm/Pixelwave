@@ -135,9 +135,9 @@
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Properties
-#pragma mark -
+// MARK: -
+// MARK: Properties
+// MARK: -
 
 - (void) setTextureData:(PXTextureData *)val
 {
@@ -171,9 +171,9 @@
 	return [[clipRect copy] autorelease];
 }
 
-#pragma mark -
-#pragma mark Methods
-#pragma mark -
+// MARK: -
+// MARK: Methods
+// MARK: -
 
 /**
  * A utility method for quickly updating the given PXTexture object to represent this frame's sub-image.
@@ -194,7 +194,7 @@
 	}
 }
 
-#pragma mark Utility Methods
+// MARK: Utility Methods
 
 /**
  * A utility method for quicly creating a PXAtlasFrame object with the given parameters.

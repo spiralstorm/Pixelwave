@@ -105,8 +105,8 @@
 	[super reset];
 }
 
-#pragma mark -
-#pragma mark NSObject Overrides
+// MARK: -
+// MARK: NSObject Overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {

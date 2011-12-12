@@ -37,7 +37,7 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#pragma mark Header
+// MARK: Header
 
 @interface PXDebug : NSObject
 {

@@ -146,7 +146,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	[super dealloc];
 }
 
-#pragma mark Adding Listeners
+// MARK: Adding Listeners
 
 /**
  * Adds an event listener.
@@ -272,7 +272,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	return YES;
 }
 
-#pragma mark Removing Listeners
+// MARK: Removing Listeners
 
 /**
  * Removes an event listener.
@@ -411,7 +411,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	}*/
 }
 
-#pragma mark Querying
+// MARK: Querying
 
 /**
  * Returns `YES` if this event dispatcher has a listener of the type.
@@ -468,7 +468,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	return [self hasEventListenerOfType:type];
 }
 
-#pragma mark Dispatching
+// MARK: Dispatching
 
 // Prepares an event for dispatching
 //- (PXEvent *)_prepEvent:(PXEvent *)event
@@ -559,7 +559,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	return !defaultPrevented;
 }
 
-#pragma mark Private functions
+// MARK: Private functions
 
 /*
  * This actually dispatches the event listeners. Loops through all of the

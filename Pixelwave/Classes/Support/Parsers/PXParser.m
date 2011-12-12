@@ -48,9 +48,9 @@
 // A dictionary containing an array of adapater classes for the base class.
 static NSMutableDictionary *pxParsers = nil;
 
-#pragma mark -
-#pragma mark C Definitions
-#pragma mark -
+// MARK: -
+// MARK: C Definitions
+// MARK: -
 
 // Makes the dictionary if it doesn't exist
 PXInline void PXParsersMake();
@@ -111,7 +111,7 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 	PXDebugLog(@"[%@] %@\n", origin, message);
 }
 
-#pragma mark Overridable
+// MARK: Overridable
 
 - (BOOL) _initialize
 {
@@ -129,9 +129,9 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 }
 
 
-#pragma mark -
-#pragma mark Static Methods
-#pragma mark -
+// MARK: -
+// MARK: Static Methods
+// MARK: -
 
 /**
  * Registers the parser with it's base class. Ex. if you wanted to make a
@@ -272,9 +272,9 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 
 @end
 
-#pragma mark -
-#pragma mark C Implementation
-#pragma mark -
+// MARK: -
+// MARK: C Implementation
+// MARK: -
 
 // Makes the dictionary if it doesn't exist
 PXInline void PXParsersMake()

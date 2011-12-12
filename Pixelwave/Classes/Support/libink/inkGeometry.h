@@ -98,9 +98,9 @@ inkExtern int inkMaxUlps;
 extern "C" {
 #endif
 
-#pragma mark -
-#pragma mark Math Declarations
-#pragma mark -
+// MARK: -
+// MARK: Math Declarations
+// MARK: -
 
 inkInline void inkSetMaxUlps(int maxUlps);
 
@@ -110,9 +110,9 @@ inkInline bool inkIsEqualf(float a, float b);
 inkInline bool inkIsZerof(float a);
 inkInline float inkAngleOrient(float angle);
 
-#pragma mark -
-#pragma mark Point Declarations
-#pragma mark -
+// MARK: -
+// MARK: Point Declarations
+// MARK: -
 
 inkInline inkPoint inkPointMake(float x, float y);
 
@@ -141,9 +141,9 @@ bool inkPointIsNan(inkPoint point);
 inkPoint inkClosestPointToLine(inkPoint point, inkLine line);
 float inkPointDistanceToLine(inkPoint point, inkLine line);
 
-#pragma mark -
-#pragma mark Size Declarations
-#pragma mark -
+// MARK: -
+// MARK: Size Declarations
+// MARK: -
 
 inkInline inkSize inkSizeMake(float width, float height);
 
@@ -151,9 +151,9 @@ inkInline inkSize inkSizeFromPoint(inkPoint point);
 
 inkInline bool inkSizeIsEqual(inkSize sizeA, inkSize sizeB);
 
-#pragma mark -
-#pragma mark Line Declarations
-#pragma mark -
+// MARK: -
+// MARK: Line Declarations
+// MARK: -
 
 inkInline inkLine inkLineMake(inkPoint pointA, inkPoint pointB);
 inkInline inkLine inkLineMakef(float x1, float y1, float x2, float y2);
@@ -165,9 +165,9 @@ inkPoint inkLineIntersectionv(inkLine lineA, inkLine lineB, bool flipT);
 inkLine inkLineBisectionTraverser(inkLine line, float halfScalar);
 inkBox inkLineExpandToBox(inkLine line, float halfScalar);
 
-#pragma mark -
-#pragma mark Triangle Declarations
-#pragma mark -
+// MARK: -
+// MARK: Triangle Declarations
+// MARK: -
 
 inkInline inkTriangle inkTriangleMake(inkPoint pointA, inkPoint pointB, inkPoint pointC);
 inkInline inkTriangle inkTriangleMakef(float x1, float y1, float x2, float y2, float x3, float y3);
@@ -178,9 +178,9 @@ inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar);
 bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point);
 float inkTriangleArea(inkTriangle triangle);
 
-#pragma mark -
-#pragma mark Box Declarations
-#pragma mark -
+// MARK: -
+// MARK: Box Declarations
+// MARK: -
 
 inkInline inkBox inkBoxMake(inkPoint pointA, inkPoint pointB, inkPoint pointC, inkPoint pointD);
 inkInline inkBox inkBoxMakef(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4);
@@ -188,9 +188,9 @@ inkInline inkBox inkBoxFromRect(inkRect rect);
 inkInline bool inkBoxIsEqual(inkBox boxA, inkBox boxB);
 inkInline inkBox inkBoxConcat(inkBox boxA, inkBox boxB);
 
-#pragma mark -
-#pragma mark Rect Declarations
-#pragma mark -
+// MARK: -
+// MARK: Rect Declarations
+// MARK: -
 
 inkInline inkRect inkRectMake(inkPoint origin, inkSize size);
 inkInline inkRect inkRectMakef(float x, float y, float width, float height);
@@ -224,9 +224,9 @@ bool inkRectIntersects(inkRect rectA, inkRect rectB);
 inkRect inkRectIntersection(inkRect rectA, inkRect rectB);
 inkRect inkRectUnion(inkRect rectA, inkRect rectB);
 
-#pragma mark -
-#pragma mark Matrix Declaration
-#pragma mark -
+// MARK: -
+// MARK: Matrix Declaration
+// MARK: -
 
 inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, float tx, float ty);
 
@@ -244,16 +244,16 @@ inkInline inkMatrix inkMatrixMakeBoxf(float scaleX, float scaleY, float rotation
 inkInline inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point);
 inkInline inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);
 
-#pragma mark -
-#pragma mark Curve Declaration
-#pragma mark
+// MARK: -
+// MARK: Curve Declaration
+// MARK: -
 
 float inkCurveLength(inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint end);
 void inkCurveApproximation(inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint anchor, unsigned int precicion, inkCurveNewPointCallback newPointFunc, void* newPointUserData);
 
-#pragma mark -
-#pragma mark Math Implemenations
-#pragma mark -
+// MARK: -
+// MARK: Math Implemenations
+// MARK: -
 
 inkInline void inkSetMaxUlps(int maxUlps)
 {
@@ -317,9 +317,9 @@ inkInline float inkAngleOrient(float angle)
 	return angle;
 }
 
-#pragma mark -
-#pragma mark Point Implemenations
-#pragma mark -
+// MARK: -
+// MARK: Point Implemenations
+// MARK: -
 
 inkInline inkPoint inkPointMake(float x, float y)
 {
@@ -432,9 +432,9 @@ inkInline bool inkPointIsEqual(inkPoint pointA, inkPoint pointB)
 	return inkIsEqualf(pointA.x, pointB.x) && inkIsEqualf(pointA.y, pointB.y);
 }
 
-#pragma mark -
-#pragma mark Size Implemenations
-#pragma mark -
+// MARK: -
+// MARK: Size Implemenations
+// MARK: -
 
 inkInline inkSize inkSizeMake(float width, float height)
 {
@@ -456,9 +456,9 @@ inkInline bool inkSizeIsEqual(inkSize sizeA, inkSize sizeB)
 	return inkPointIsEqual(inkPointFromSize(sizeA), inkPointFromSize(sizeB));
 }
 
-#pragma mark -
-#pragma mark Line Implementations
-#pragma mark -
+// MARK: -
+// MARK: Line Implementations
+// MARK: -
 
 inkInline inkLine inkLineMake(inkPoint pointA, inkPoint pointB)
 {
@@ -475,9 +475,9 @@ inkInline inkLine inkLineMakef(float x1, float y1, float x2, float y2)
 	return inkLineMake(inkPointMake(x1, y1), inkPointMake(x2, y2));
 }
 
-#pragma mark -
-#pragma mark Triangle Implementations
-#pragma mark -
+// MARK: -
+// MARK: Triangle Implementations
+// MARK: -
 
 inkInline inkTriangle inkTriangleMake(inkPoint pointA, inkPoint pointB, inkPoint pointC)
 {
@@ -519,9 +519,9 @@ inkInline inkTriangle inkTriangleXOrder(inkTriangle triangle)
 	return triangle;
 }
 
-#pragma mark -
-#pragma mark Rect Implemenations
-#pragma mark -
+// MARK: -
+// MARK: Rect Implemenations
+// MARK: -
 
 inkInline inkRect inkRectMake(inkPoint origin, inkSize size)
 {
@@ -648,9 +648,9 @@ inkInline inkRect inkRectStandardize(inkRect rect)
 	return rect;
 }
 
-#pragma mark -
-#pragma mark Box Declarations
-#pragma mark -
+// MARK: -
+// MARK: Box Declarations
+// MARK: -
 
 inkInline inkBox inkBoxMake(inkPoint pointA, inkPoint pointB, inkPoint pointC, inkPoint pointD)
 {
@@ -684,9 +684,9 @@ inkInline inkBox inkBoxConcat(inkBox boxA, inkBox boxB)
 	return inkBoxMake(boxA.pointA, boxB.pointB, boxB.pointC, boxA.pointD);
 }
 
-#pragma mark -
-#pragma mark Matrix Implemenations
-#pragma mark -
+// MARK: -
+// MARK: Matrix Implemenations
+// MARK: -
 
 inkInline inkMatrix inkMatrixMake(float a, float b, float c, float d, float tx, float ty)
 {

@@ -314,7 +314,7 @@
 	return YES;
 }
 
-#pragma mark -
+// MARK: -
 
 - (void) updateOrientation
 {
@@ -398,9 +398,9 @@
 // 	[event release];
 // }
 
-#pragma mark -
-#pragma mark Properties
-#pragma mark -
+// MARK: -
+// MARK: Properties
+// MARK: -
 
 - (void) setContentScaleFactor:(float)_contentScaleFactor
 {
@@ -471,9 +471,9 @@
 	return PXEngineGetRoot();
 }
 
-#pragma mark -
-#pragma mark EAGL
-#pragma mark -
+// MARK: -
+// MARK: EAGL
+// MARK: -
 
 + (Class) layerClass
 {
@@ -509,9 +509,9 @@
 	}
 }
 
-#pragma mark -
-#pragma mark UIView
-#pragma mark -
+// MARK: -
+// MARK: UIView
+// MARK: -
 
 - (BOOL) resizeFromLayer:(CAEAGLLayer *)layer
 {
@@ -550,9 +550,9 @@
 	[super encodeWithCoder:encoder];
 }
 
-#pragma mark -
-#pragma mark Touch Handling
-#pragma mark -
+// MARK: -
+// MARK: Touch Handling
+// MARK: -
 
 - (void) touchHandeler:(NSSet *)touches function:(void(*)(UITouch *touch, CGPoint *pos))function
 {
@@ -596,9 +596,9 @@
 	[self touchesCanceled:touches];
 }
 
-#pragma mark -
-#pragma mark Misc
-#pragma mark -
+// MARK: -
+// MARK: Misc
+// MARK: -
 
 // Invoked by super when the view is about to be added/removed. We use it to
 // immediately render the display list.
@@ -614,9 +614,9 @@
 	}
 }
 
-#pragma mark -
-#pragma mark Utility
-#pragma mark -
+// MARK: -
+// MARK: Utility
+// MARK: -
 
 /**
  * A screen grab of the current state of the main display list, as a UIImage.

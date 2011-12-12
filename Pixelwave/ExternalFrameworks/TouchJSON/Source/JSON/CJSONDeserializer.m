@@ -64,7 +64,7 @@ NSString *const kJSONDeserializerErrorDomain  = @"CJSONDeserializerErrorDomain";
     [super dealloc];
     }
 
-#pragma mark -
+// MARK: -
 
 - (CJSONScanner *)scanner
     {
@@ -85,7 +85,7 @@ NSString *const kJSONDeserializerErrorDomain  = @"CJSONDeserializerErrorDomain";
     self.scanner.nullObject = inNullObject;
     }
 
-#pragma mark -
+// MARK: -
 
 - (NSStringEncoding) allowedEncoding
     {
@@ -97,7 +97,7 @@ NSString *const kJSONDeserializerErrorDomain  = @"CJSONDeserializerErrorDomain";
     self.scanner.allowedEncoding = inAllowedEncoding;
     }
 
-#pragma mark -
+// MARK: -
 
 - (id) deserialize:(NSData *)inData error:(NSError **)outError
     {

@@ -123,8 +123,8 @@ BOOL pxSoundListenerInitialized = NO;
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Properties
+// MARK: -
+// MARK: Properties
 
 - (void) setTransform:(PXSoundTransform3D *)_transform
 {
@@ -260,8 +260,8 @@ BOOL pxSoundListenerInitialized = NO;
 	return transform.logarithmicExponent;
 }
 
-#pragma mark -
-#pragma mark Methods
+// MARK: -
+// MARK: Methods
 /**
  * Changes the forward and up vectors to match the perspective at the given
  * angle.

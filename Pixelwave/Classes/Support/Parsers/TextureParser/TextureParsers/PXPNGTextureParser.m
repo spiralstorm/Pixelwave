@@ -382,7 +382,7 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 	return YES;
 }
 
-#pragma mark Protected Methods
+// MARK: Protected Methods
 
 //////////////////////////////////////
 // Protected method implementations //

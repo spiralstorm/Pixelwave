@@ -140,8 +140,8 @@
 	return error;
 }
 
-#pragma mark -
-#pragma mark Override
+// MARK: -
+// MARK: Override
 
 - (BOOL) _parse
 {

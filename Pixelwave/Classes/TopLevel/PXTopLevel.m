@@ -80,7 +80,7 @@
 
 double pxTopLevelStartTime;
 
-#pragma mark Implemetations
+// MARK: Implemetations
 
 void _PXTopLevelInitialize( )
 {

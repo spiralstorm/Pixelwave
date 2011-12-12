@@ -34,7 +34,7 @@
 @interface CDataScanner ()
 @end
 
-#pragma mark -
+// MARK: -
 
 inline static unichar CharacterAtPointer(void *start, void *end)
     {
@@ -142,7 +142,7 @@ inline static unichar CharacterAtPointer(void *start, void *end)
     return(CharacterAtPointer(current, end));
     }
 
-#pragma mark -
+// MARK: -
 
 - (unichar) scanCharacter
     {

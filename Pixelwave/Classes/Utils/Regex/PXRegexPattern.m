@@ -123,7 +123,7 @@
 	[super dealloc];
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -159,9 +159,9 @@
 	return description;
 }
 
-#pragma mark -
-#pragma mark Properties
-#pragma mark -
+// MARK: -
+// MARK: Properties
+// MARK: -
 
 /*
 - (void) setRegex:(NSString *)_regex
@@ -233,9 +233,9 @@
 	return rt->re_nsub;
 }
 
-#pragma mark -
-#pragma mark Private Methods
-#pragma mark -
+// MARK: -
+// MARK: Private Methods
+// MARK: -
 
 - (void) updateRegexPtr
 {
@@ -283,9 +283,9 @@
 	}
 }
 
-#pragma mark -
-#pragma mark Methods
-#pragma mark -
+// MARK: -
+// MARK: Methods
+// MARK: -
 
 /**
  * Creates a new PXRegexMatcher object without specifying the input string to
@@ -311,9 +311,9 @@
 	return [[[PXRegexMatcher alloc] initWithPattern:self input:input] autorelease];
 }
 
-#pragma mark -
-#pragma mark Static Methods
-#pragma mark -
+// MARK: -
+// MARK: Static Methods
+// MARK: -
 
 /**
  * Creates a regex pattern with the default flags

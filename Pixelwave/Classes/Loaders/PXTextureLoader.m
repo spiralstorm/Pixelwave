@@ -110,7 +110,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
  */
 @implementation PXTextureLoader
 
-#pragma mark Utility Initializers
+// MARK: Utility Initializers
 
 /**
  * Creates a new PXTextureLoader instance containing the loaded image data.
@@ -222,7 +222,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 	return [self initWithContentsOfFile:nil orURL:url modifier:_modifier];
 }
 
-#pragma mark Designated Initializer
+// MARK: Designated Initializer
 
 - (id) initWithContentsOfFile:(NSString *)path
 						orURL:(NSURL *)url
@@ -341,7 +341,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 	return [textureParser newTextureData];
 }
 
-#pragma mark Utility Methods
+// MARK: Utility Methods
 
 /**
  * Given an image name (with an extension or not), this method tries to find a

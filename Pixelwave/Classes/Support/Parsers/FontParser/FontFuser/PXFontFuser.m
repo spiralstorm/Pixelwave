@@ -53,8 +53,8 @@ static NSMutableDictionary *pxFontFuserKeyFromOptions = nil;
 // Dictionary that holds the fusers for the combination of the two keys above.
 static NSMutableDictionary *pxFontFusers = nil;
 
-#pragma mark -
-#pragma mark C Definitions
+// MARK: -
+// MARK: C Definitions
 
 // Makes the key dictionaries if they don't exist
 PXInline void PXFontFuserMakeKeys();
@@ -77,13 +77,13 @@ PXInline NSString *PXFontFuserKeyFromFuser(Class fuser);
 // dictionary.
 PXInline Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
 
-#pragma mark -
+// MARK: -
 @interface PXFontFuser(Private)
 + (void) makeDictionaries;
 + (void) releaseDictionaries;
 @end
 
-#pragma mark -
+// MARK: -
 @implementation PXFontFuser
 
 - (id) init
@@ -120,9 +120,9 @@ PXInline Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Static Methods (Public)
-#pragma mark -
+// MARK: -
+// MARK: Static Methods (Public)
+// MARK: -
 
 + (void) makeDictionaries
 {
@@ -207,9 +207,9 @@ PXInline Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
 {
 	return PXFontFuserGetFuser(parser, options);
 }
-#pragma mark -
-#pragma mark Overrideable
-#pragma mark -
+// MARK: -
+// MARK: Overrideable
+// MARK: -
 
 /*
 - (BOOL) initializeWithParser:(PXParser *)_parser options:(PXFontOptions *)_options
@@ -240,9 +240,9 @@ PXInline Class PXFontFuserGetFuser(Class fontParser, Class fontOptions);
 
 @end
 
-#pragma mark -
-#pragma mark C Implementations
-#pragma mark -
+// MARK: -
+// MARK: C Implementations
+// MARK: -
 
 // Makes the key dictionaries if they don't exist
 PXInline void PXFontFuserMakeKeys()

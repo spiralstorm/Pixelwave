@@ -58,9 +58,9 @@
 extern "C" {
 #endif
 
-#pragma mark -
-#pragma mark - Define
-#pragma mark -
+// MARK: -
+// MARK: - Define
+// MARK: -
 
 typedef struct
 {
@@ -92,9 +92,9 @@ typedef _PXTF_LA				PXTF_LA_88;
 typedef UInt8					PXTF_A_8;
 typedef UInt8					PXTF_L_8;
 
-#pragma mark -
-#pragma mark - Make
-#pragma mark -
+// MARK: -
+// MARK: - Make
+// MARK: -
 
 PXInline_h PXTF_RGBA_8888 PXTF_RGBA_8888_Make(UInt8 red, UInt8 green, UInt8 blue, UInt8 alpha);
 PXInline_h PXTF_RGB_888 PXTF_RGB_888_Make(UInt8 red, UInt8 green, UInt8 blue);
@@ -105,9 +105,9 @@ PXInline_h PXTF_LA_88 PXTF_LA_88_Make(UInt8 luminance, UInt8 alpha);
 PXInline_h PXTF_A_8 PXTF_A_8_Make(UInt8 alpha);
 PXInline_h PXTF_L_8 PXTF_L_8_Make(UInt8 luminance);
 
-#pragma mark -
-#pragma mark - To RGBA 8888
-#pragma mark -
+// MARK: -
+// MARK: - To RGBA 8888
+// MARK: -
 
 PXInline_h PXTF_RGBA_8888 PXTF_RGBA_8888_From_RGB_888(PXTF_RGB_888 val);
 PXInline_h PXTF_RGBA_8888 PXTF_RGBA_8888_From_RGBA_4444(PXTF_RGBA_4444 val);
@@ -117,9 +117,9 @@ PXInline_h PXTF_RGBA_8888 PXTF_RGBA_8888_From_LA_88(PXTF_LA_88 val);
 PXInline_h PXTF_RGBA_8888 PXTF_RGBA_8888_From_A_8(PXTF_A_8 val);
 PXInline_h PXTF_RGBA_8888 PXTF_RGBA_8888_From_L_8(PXTF_L_8 val);
 
-#pragma mark -
-#pragma mark - To RGB 888
-#pragma mark -
+// MARK: -
+// MARK: - To RGB 888
+// MARK: -
 
 PXInline_h PXTF_RGB_888 PXTF_RGB_888_From_RGBA_8888(PXTF_RGBA_8888 val);
 PXInline_h PXTF_RGB_888 PXTF_RGB_888_From_RGBA_4444(PXTF_RGBA_4444 val);
@@ -129,9 +129,9 @@ PXInline_h PXTF_RGB_888 PXTF_RGB_888_From_LA_88(PXTF_LA_88 val);
 PXInline_h PXTF_RGB_888 PXTF_RGB_888_From_A_8(PXTF_A_8 val);
 PXInline_h PXTF_RGB_888 PXTF_RGB_888_From_L_8(PXTF_L_8 val);
 
-#pragma mark -
-#pragma mark - To RGBA 4444
-#pragma mark -
+// MARK: -
+// MARK: - To RGBA 4444
+// MARK: -
 
 PXInline_h PXTF_RGBA_4444 PXTF_RGBA_4444_From_RGBA_8888(PXTF_RGBA_8888 val);
 PXInline_h PXTF_RGBA_4444 PXTF_RGBA_4444_From_RGB_888(PXTF_RGB_888 val);
@@ -141,9 +141,9 @@ PXInline_h PXTF_RGBA_4444 PXTF_RGBA_4444_From_LA_88(PXTF_LA_88 val);
 PXInline_h PXTF_RGBA_4444 PXTF_RGBA_4444_From_A_8(PXTF_A_8 val);
 PXInline_h PXTF_RGBA_4444 PXTF_RGBA_4444_From_L_8(PXTF_L_8 val);
 
-#pragma mark -
-#pragma mark - To RGBA 5551
-#pragma mark -
+// MARK: -
+// MARK: - To RGBA 5551
+// MARK: -
 
 PXInline_h PXTF_RGBA_5551 PXTF_RGBA_5551_From_RGBA_8888(PXTF_RGBA_8888 val);
 PXInline_h PXTF_RGBA_5551 PXTF_RGBA_5551_From_RGB_888(PXTF_RGB_888 val);
@@ -153,9 +153,9 @@ PXInline_h PXTF_RGBA_5551 PXTF_RGBA_5551_From_LA_88(PXTF_LA_88 val);
 PXInline_h PXTF_RGBA_5551 PXTF_RGBA_5551_From_A_8(PXTF_A_8 val);
 PXInline_h PXTF_RGBA_5551 PXTF_RGBA_5551_From_L_8(PXTF_L_8 val);
 
-#pragma mark -
-#pragma mark - To RGBA 565
-#pragma mark -
+// MARK: -
+// MARK: - To RGBA 565
+// MARK: -
 
 PXInline_h PXTF_RGB_565 PXTF_RGB_565_From_RGBA_8888(PXTF_RGBA_8888 val);
 PXInline_h PXTF_RGB_565 PXTF_RGB_565_From_RGB_888(PXTF_RGB_888 val);
@@ -165,9 +165,9 @@ PXInline_h PXTF_RGB_565 PXTF_RGB_565_From_LA_88(PXTF_LA_88 val);
 PXInline_h PXTF_RGB_565 PXTF_RGB_565_From_A_8(PXTF_A_8 val);
 PXInline_h PXTF_RGB_565 PXTF_RGB_565_From_L_8(PXTF_L_8 val);
 
-#pragma mark -
-#pragma mark - To LA 88
-#pragma mark -
+// MARK: -
+// MARK: - To LA 88
+// MARK: -
 
 PXInline_h PXTF_LA_88 PXTF_LA_88_From_RGBA_8888(PXTF_RGBA_8888 val);
 PXInline_h PXTF_LA_88 PXTF_LA_88_From_RGB_888(PXTF_RGB_888 val);
@@ -177,9 +177,9 @@ PXInline_h PXTF_LA_88 PXTF_LA_88_From_RGB_565(PXTF_RGB_565 val);
 PXInline_h PXTF_LA_88 PXTF_LA_88_From_A_8(PXTF_A_8 val);
 PXInline_h PXTF_LA_88 PXTF_LA_88_From_L_8(PXTF_L_8 val);
 
-#pragma mark -
-#pragma mark - To A 8
-#pragma mark -
+// MARK: -
+// MARK: - To A 8
+// MARK: -
 
 PXInline_h PXTF_A_8 PXTF_A_8_From_RGBA_8888(PXTF_RGBA_8888 val);
 PXInline_h PXTF_A_8 PXTF_A_8_From_RGB_888(PXTF_RGB_888 val);
@@ -189,9 +189,9 @@ PXInline_h PXTF_A_8 PXTF_A_8_From_RGB_565(PXTF_RGB_565 val);
 PXInline_h PXTF_A_8 PXTF_A_8_From_LA_88(PXTF_LA_88 val);
 PXInline_h PXTF_A_8 PXTF_A_8_From_L_8(PXTF_L_8 val);
 
-#pragma mark -
-#pragma mark - To L 8
-#pragma mark -
+// MARK: -
+// MARK: - To L 8
+// MARK: -
 
 PXInline_h PXTF_L_8 PXTF_L_8_From_RGBA_8888(PXTF_RGBA_8888 val);
 PXInline_h PXTF_L_8 PXTF_L_8_From_RGB_888(PXTF_RGB_888 val);

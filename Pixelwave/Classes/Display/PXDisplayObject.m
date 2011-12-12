@@ -214,7 +214,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	return PX_IS_BIT_ENABLED(_flags, _PXDisplayObjectFlags_visible);
 }
 
-#pragma mark Stage and Root
+// MARK: Stage and Root
 
 - (PXStage *)stage
 {
@@ -235,7 +235,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	return nil;
 }
 
-#pragma mark Transformations
+// MARK: Transformations
 
 - (void) setTransform:(PXTransform *)newTransform
 {
@@ -588,7 +588,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	return globalPoint;
 }
 
-#pragma mark Flash Methods
+// MARK: Flash Methods
 /**
  * Finds the bounding box of this display object in the target coordinate space.
  *
@@ -936,13 +936,13 @@ static unsigned int _pxDisplayObjectCount = 0;
 	return [self _containsPointWithLocalX:globalPoint.x localY:globalPoint.y shapeFlag:shapeFlag];
 }
 
-#pragma mark GL Rendering
+// MARK: GL Rendering
 
 - (void) _renderGL
 {
 }
 
-#pragma mark Per frame event listeners
+// MARK: Per frame event listeners
 
 - (BOOL) addEventListenerOfType:(NSString *)type listener:(PXEventListener *)listener useCapture:(BOOL)useCapture priority:(int)priority
 {
@@ -1031,7 +1031,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	return YES;
 }
 
-#pragma mark the Event Flow
+// MARK: the Event Flow
 
 /*
  * Since I'm overriding the dispatchEvent method, this one can be used to
@@ -1217,7 +1217,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	
 }
 
-#pragma mark Private public Functions
+// MARK: Private public Functions
 
 - (void) _dispatchAndPropegateEvent:(PXEvent *)event
 {

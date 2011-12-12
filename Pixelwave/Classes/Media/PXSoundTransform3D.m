@@ -100,7 +100,7 @@
 	return self;
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -131,7 +131,7 @@
 			logarithmicExponent];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {
@@ -144,8 +144,8 @@
 	self.logarithmicExponent = PXSoundEngineGetDefaultLogarithmicExponent();
 }
 
-#pragma mark -
-#pragma mark Properties
+// MARK: -
+// MARK: Properties
 
 - (void) setReferenceDistance:(float)_referenceDistance
 {
@@ -157,8 +157,8 @@
 	logarithmicExponent = fabsf(_logarithmicExponent);
 }
 
-#pragma mark -
-#pragma mark Methods
+// MARK: -
+// MARK: Methods
 
 /**
  * Sets the position to (x, y, z).
@@ -199,8 +199,8 @@
 	velocityZ = _z;
 }
 
-#pragma mark -
-#pragma mark Static Methods
+// MARK: -
+// MARK: Static Methods
 
 /**
  * Creates a 3D sound transform with the given `volume` and

@@ -39,8 +39,8 @@
 
 #ifndef PX_AL_DEBUG_DONT_CHANGE
 
-#pragma mark -
-#pragma mark AL Func
+// MARK: -
+// MARK: AL Func
 
 #define alEnable                      _alEnable
 #define alDisable                     _alDisable
@@ -117,8 +117,8 @@
 #define alDistanceModel               _alDistanceModel
 
 
-#pragma mark -
-#pragma mark ALC Func
+// MARK: -
+// MARK: ALC Func
 
 #define alcCreateContext              _alcCreateContext
 #define alcMakeContextCurrent         _alcMakeContextCurrent
@@ -146,8 +146,8 @@
 #ifndef _PX_AL_UTILS_CHANGER_H_
 #define _PX_AL_UTILS_CHANGER_H_
 
-#pragma mark -
-#pragma mark AL_H
+// MARK: -
+// MARK: AL_H
 
 #if defined(_WIN32) && !defined(_XBOX)
 /* _OPENAL32LIB is deprecated */
@@ -255,8 +255,8 @@ typedef void ALvoid;
 #define AL_EXPONENT_DISTANCE_CLAMPED              0xD006
 
 
-#pragma mark -
-#pragma mark ALC_H
+// MARK: -
+// MARK: ALC_H
 
 #if defined(_WIN32) && !defined(_XBOX)
 /* _OPENAL32LIB is deprecated */

@@ -45,9 +45,9 @@
  */
 @implementation PXTexturePadding
 
-#pragma mark -
-#pragma mark init/dealloc
-#pragma mark -
+// MARK: -
+// MARK: init/dealloc
+// MARK: -
 
 - (id) init
 {
@@ -73,9 +73,9 @@
 														 left:_padding.left];
 }
 
-#pragma mark -
-#pragma mark properties
-#pragma mark -
+// MARK: -
+// MARK: properties
+// MARK: -
 
 - (float) top
 {
@@ -115,9 +115,9 @@
 	_padding = _PXTexturePaddingMake(top, right, bottom, left);
 }
 
-#pragma mark -
-#pragma mark static methods
-#pragma mark -
+// MARK: -
+// MARK: static methods
+// MARK: -
 
 + (PXTexturePadding *)texturePaddingWithTop:(float)top right:(float)right bottom:(float)bottom left:(float)left
 {
@@ -126,9 +126,9 @@
 
 @end
 
-#pragma mark -
-#pragma mark c methods
-#pragma mark -
+// MARK: -
+// MARK: c methods
+// MARK: -
 
 _PXTexturePadding _PXTexturePaddingMake(float top, float right, float bottom, float left)
 {

@@ -151,7 +151,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 	[super dealloc];
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -176,7 +176,7 @@ NSString * const PXEvent_SoundComplete = @"soundComplete";
 			PX_BOOL_TO_STRING(_cancelable)];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {

@@ -50,9 +50,9 @@
 extern "C" {
 #endif
 
-#pragma mark -
-#pragma mark Structs
-#pragma mark -
+// MARK: -
+// MARK: Structs
+// MARK: -
 
 typedef struct
 {
@@ -126,9 +126,9 @@ typedef struct
 
 typedef PXGLColorVertices* PXGLColorVerticesRef;
 
-#pragma mark -
-#pragma mark Make Functions
-#pragma mark -
+// MARK: -
+// MARK: Make Functions
+// MARK: -
 
 PXInline_h PXGLVertex PXGLVertexMake(GLfloat x, GLfloat y);
 PXInline_h PXGLColorVertex PXGLColorVertexMake(GLfloat x, GLfloat y, GLubyte r, GLubyte g, GLubyte b, GLubyte a);
@@ -145,9 +145,9 @@ PXInline_h void PXGLColorVerticesRefFree(PXGLColorVertices* ref);
 PXInline_h PXGLColorVertices PXGLColorVerticesMake(GLuint vertexCount, GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
 PXInline_h void PXGLColorVerticesFree(PXGLColorVertices *colorVertices);
 
-#pragma mark -
-#pragma mark AABB Functions
-#pragma mark -
+// MARK: -
+// MARK: AABB Functions
+// MARK: -
 
 extern const PXGLAABB PXGLAABBReset;
 PXInline_h void PXGLAABBUpdate(PXGLAABB *toBeUpdated, PXGLAABB *checkVals);
@@ -171,9 +171,9 @@ PXInline_h bool PXGLAABBfContainsPoint(PXGLAABBf *aabb, CGPoint point);
 PXInline_h bool PXGLAABBfContainsPointv(PXGLAABBf *aabb, GLfloat x, GLfloat y);
 PXInline_h bool PXGLAABBfIsEqual(PXGLAABBf *aabb1, PXGLAABBf *aabb2);
 
-#pragma mark -
-#pragma mark Matrix Functions
-#pragma mark -
+// MARK: -
+// MARK: Matrix Functions
+// MARK: -
 
 PXInline_h CGPoint PXGLMatrixConvertPoint(PXGLMatrix *matrix, CGPoint point);
 PXInline_h void PXGLMatrixConvertPointv(PXGLMatrix *matrix, GLfloat *x, GLfloat *y);
@@ -190,9 +190,9 @@ PXInline_h void PXGLMatrixConvertAABBfv(PXGLMatrix *matrix, GLfloat *xMin, GLflo
 
 PXInline_h bool PXGLMatrixIsEqual(PXGLMatrix *matrixA, PXGLMatrix *matrixB);
 
-#pragma mark -
-#pragma mark Rect Functions
-#pragma mark -
+// MARK: -
+// MARK: Rect Functions
+// MARK: -
 
 PXInline_h bool _PXGLRectContainsAABB(_PXGLRect *rect, PXGLAABB *aabb);
 

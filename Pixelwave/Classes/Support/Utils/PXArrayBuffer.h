@@ -100,9 +100,9 @@ typedef struct
 	unsigned int count;
 } PXArrayBuffer;
 
-#pragma mark -
-#pragma mark Declerations
-#pragma mark -
+// MARK: -
+// MARK: Declerations
+// MARK: -
 
 PXInline PXArrayBuffer *PXArrayBufferCreate();// PX_ALWAYS_INLINE;
 PXInline PXArrayBuffer *PXArrayBufferCreatev(size_t elementSize);// PX_ALWAYS_INLINE;
@@ -127,9 +127,9 @@ PXInline void PXArrayBufferListUpdate(PXArrayBuffer *buffer,
 									  bool (*deleteCheck)(PXArrayBuffer *buffer, void *element, void *userData),
 									  void (*updateFunc)(PXArrayBuffer *buffer, void *element, void *userData));
 
-#pragma mark -
-#pragma mark Implementations
-#pragma mark -
+// MARK: -
+// MARK: Implementations
+// MARK: -
 
 PXInline PXArrayBuffer *PXArrayBufferCreate()
 {

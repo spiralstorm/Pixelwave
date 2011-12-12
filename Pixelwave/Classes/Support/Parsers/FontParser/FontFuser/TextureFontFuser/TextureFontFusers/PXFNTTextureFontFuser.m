@@ -86,9 +86,9 @@ typedef struct
 	PXTextureGlyph *newGlyph;
 } PXFNTTextureFontExtractionInfo;
 
-#pragma mark -
-#pragma mark C Functions Declarations
-#pragma mark -
+// MARK: -
+// MARK: C Functions Declarations
+// MARK: -
 
 PXInline PXFNTTextureFontExtractionInfo *PXFNTTextureFontExtractionInfoMake();
 PXInline void PXFNTTextureFontExtractionInfoFree(PXFNTTextureFontExtractionInfo *info);
@@ -104,23 +104,23 @@ PXInline void PXFNTTextureFontFuserHandleColumnChars(PXFNTTextureFontExtractionI
 PXInline void PXFNTTextureFontFuserHandleColumnChar(PXFNTTextureFontExtractionInfo *info);
 PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractionInfo *info);
 
-#pragma mark -
-#pragma mark Fuser Private Declaration
-#pragma mark -
+// MARK: -
+// MARK: Fuser Private Declaration
+// MARK: -
 
 @interface PXFNTTextureFontFuser(Private)
 - (BOOL) parseFontWithParser:(PXFNTFontParser *)parser;
 @end
 
-#pragma mark -
-#pragma mark Fuser Implementation
-#pragma mark -
+// MARK: -
+// MARK: Fuser Implementation
+// MARK: -
 
 @implementation PXFNTTextureFontFuser
 
-#pragma mark -
-#pragma mark Override
-#pragma mark -
+// MARK: -
+// MARK: Override
+// MARK: -
 
 - (BOOL) initializeFuser
 {
@@ -549,9 +549,9 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 
 @end
 
-#pragma mark -
-#pragma mark C Functions Implementations
-#pragma mark -
+// MARK: -
+// MARK: C Functions Implementations
+// MARK: -
 
 PXInline PXFNTTextureFontExtractionInfo *PXFNTTextureFontExtractionInfoMake()
 {

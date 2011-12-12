@@ -88,7 +88,7 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
 	return self;
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -110,7 +110,7 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
 			[PXStageOrientationEvent orientationName:afterOrientation]];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {

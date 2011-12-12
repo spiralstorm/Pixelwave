@@ -49,9 +49,9 @@ extern "C" {
 typedef float			PXGLfloat;
 typedef unsigned char   PXGLubyte;
 
-#pragma mark -
-#pragma mark Macros
-#pragma mark -
+// MARK: -
+// MARK: Macros
+// MARK: -
 
 #define PX_IS_BIT_ENABLED(_var_, _flag_)	(((_var_) & (_flag_)) == (_flag_))
 #define PX_IS_BIT_ENABLED_IN_BOTH(_var1_, _var2_, _flag_)	(PX_IS_BIT_ENABLED(_var1_, _flag_) && PX_IS_BIT_ENABLED(_var2_, _flag_))
@@ -62,9 +62,9 @@ typedef unsigned char   PXGLubyte;
 #define PX_COLOR_FLOAT_TO_BYTE(_color_) ((PXGLubyte)((_color_) * 0xFF))
 #define PX_BOOL_TO_STRING(_var_) ((_var_) ? @"YES" : @"NO")
 
-#pragma mark -
-#pragma mark Declerations
-#pragma mark -
+// MARK: -
+// MARK: Declerations
+// MARK: -
 
 PXInline void PXSwap(int *val0, int *val1) PXAlwaysInline;
 PXInline void PXSwapf(float *val0, float *val1) PXAlwaysInline;
@@ -72,9 +72,9 @@ PXInline void PXSwapv(void *val0, void *val1, size_t size) PXAlwaysInline;
 
 PXInline void *PXStridedMemcpy(void *dest, void *src, size_t size, size_t len, size_t destStride, size_t srcStride);
 
-#pragma mark -
-#pragma mark Implementations
-#pragma mark -
+// MARK: -
+// MARK: Implementations
+// MARK: -
 
 PXInline void PXSwap(int *val0, int *val1)
 {

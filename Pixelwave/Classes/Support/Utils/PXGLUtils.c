@@ -52,9 +52,9 @@
 const PXGLAABB PXGLAABBReset = {PXGLAABBResetMin, PXGLAABBResetMin, PXGLAABBResetMax, PXGLAABBResetMax};
 const PXGLAABBf PXGLAABBfReset = {PXGLAABBfResetMin, PXGLAABBfResetMin, PXGLAABBfResetMax, PXGLAABBfResetMax};
 
-#pragma mark -
-#pragma mark Make Functions
-#pragma mark -
+// MARK: -
+// MARK: Make Functions
+// MARK: -
 
 PXInline_c PXGLVertex PXGLVertexMake(GLfloat x, GLfloat y)
 {
@@ -249,9 +249,9 @@ PXInline_c void PXGLColorVerticesFree(PXGLColorVertices *colorVertices)
 	}
 }
 
-#pragma mark -
-#pragma mark AABB Functions
-#pragma mark -
+// MARK: -
+// MARK: AABB Functions
+// MARK: -
 
 /*PXInline_c PXGLAABB PXGLAABBReset()
 {
@@ -312,9 +312,9 @@ PXInline_c bool PXGLAABBIsEqual(PXGLAABB *aabb1, PXGLAABB *aabb2)
 			aabb1->yMax == aabb2->yMax);
 }
 
-#pragma mark -
-#pragma mark AABBf Functions
-#pragma mark -
+// MARK: -
+// MARK: AABBf Functions
+// MARK: -
 
 //PXInline_c PXGLAABBf PXGLAABBfReset()
 //{
@@ -375,9 +375,9 @@ PXInline_c bool PXGLAABBfIsEqual(PXGLAABBf *aabb1, PXGLAABBf *aabb2)
 			PXMathIsEqual(aabb1->xMax, aabb2->yMax));
 }
 
-#pragma mark -
-#pragma mark Matrix Functions
-#pragma mark -
+// MARK: -
+// MARK: Matrix Functions
+// MARK: -
 
 PXInline_c CGPoint PXGLMatrixConvertPoint(PXGLMatrix *matrix,
 									  CGPoint point)
@@ -541,9 +541,9 @@ PXInline_c bool PXGLMatrixIsEqual(PXGLMatrix *matrixA, PXGLMatrix *matrixB)
 			PXMathIsEqual(matrixA->ty, matrixB->ty));
 }
 
-#pragma mark -
-#pragma mark Rect Functions
-#pragma mark -
+// MARK: -
+// MARK: Rect Functions
+// MARK: -
 
 PXInline_c bool _PXGLRectContainsAABB(_PXGLRect *rect, PXGLAABB *aabb)
 {

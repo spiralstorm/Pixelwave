@@ -153,74 +153,62 @@ void inkDrawPath(inkCanvas* canvas, inkArray* commands, inkArray* points, inkWin
     }
 }
 
-char inkPathGetCommand(char const ** path_ptr)
+char inkPathGetCommand(char ** path_ptr)
 {
     char cmd = **path_ptr;
     ++*path_ptr;
     return cmd;
 }
 
-inkInline float inkPathGetFloat(char ** path_ptr)
+float inkPathGetFloat(char ** path_ptr)
 {
-	char* path = *path_ptr;
-
+    char* path = *path_ptr;
     float result = 0.0f;
-    while (!isdigit(*path) && *path != '-')
-		++path;
-
+    while ( !isdigit(*path) && *path != '-' ) ++path;
     result = strtod(path, path_ptr);
     return result;
 }
 
-inkInline inkPoint inkPathGetPoint(char ** path_ptr)
+inkPoint inkPathGetPoint(char** path_ptr)
 {
-    return inkPointMake(inkPathGetFloat(path_ptr),-inkPathGetFloat(path_ptr));
+    float x = inkPathGetFloat(path_ptr);
+    float y = inkPathGetFloat(path_ptr);
+    return inkPointMake(x,-y);
 }
+
+
 
 void inkDrawSVGPathv(inkCanvas* canvas, const char* path, inkPoint offset)
 {
-    inkPoint p1;
-	inkPoint p2;
-	inkPoint p3;
-
-	char cmd;
+    char cmd;
+    inkPoint p1, p2, p3;
     bool relative;
-
-    while (*path)
-	{
-        cmd = inkPathGetCommand(&path);
+    while ( *path ) {
+        cmd = inkPathGetCommand((char**)&path);
         relative = islower(cmd);
-
-        switch (cmd)
-		{
+        switch ( cmd ) {
 			case 'z':
 				break;
 			case 'C':
 			case 'c':
-				p1 = inkPathGetPoint((char **)&path);
-				p2 = inkPathGetPoint((char **)&path);
-				p3 = inkPathGetPoint((char **)&path);
-
-				if (!relative)
-					p1 = inkPointAdd(p1, offset);
-				if (!relative)
-					p2 = inkPointAdd(p2, offset);
-				if (!relative)
-					p3 = inkPointAdd(p3, offset);
-
+				p1 = inkPathGetPoint((char**)&path);
+				p2 = inkPathGetPoint((char**)&path);
+				p3 = inkPathGetPoint((char**)&path);
+				
+				if (!relative) p1 = inkPointAdd(p1, offset);
+				if (!relative) p2 = inkPointAdd(p2, offset);
+				if (!relative) p3 = inkPointAdd(p3, offset);
+				
 				break;
 			case 'Q':
 			case 'q':
 			case 's':
 			case 'S':
-				p1 = inkPathGetPoint((char **)&path);
-				p2 = inkPathGetPoint((char **)&path);
-
-				if (!relative)
-					p1 = inkPointAdd(p1, offset);
-				if (!relative)
-					p2 = inkPointAdd(p2, offset);
-
+				p1 = inkPathGetPoint((char**)&path);
+				p2 = inkPathGetPoint((char**)&path);
+				
+				if (!relative) p1 = inkPointAdd(p1, offset);
+				if (!relative) p2 = inkPointAdd(p2, offset);
 				break;
 			case 'm':
 			case 'M':
@@ -228,27 +216,23 @@ void inkDrawSVGPathv(inkCanvas* canvas, const char* path, inkPoint offset)
 			case 'l':
 			case 'T':
 			case 't':
-				p1 = inkPathGetPoint((char **)&path);
-				if (!relative)
-					p1 = inkPointAdd(p1, offset);
-
+				p1 = inkPathGetPoint((char**)&path);
+				
+				if (!relative) p1 = inkPointAdd(p1, offset);
 				break;
 			case 'H':
 			case 'h':
-				p1 = inkPointMake(inkPathGetFloat((char **)&path),relative ? 0 : canvas->cursor.y);
-				if (!relative)
-					p1 = inkPointAdd(p1, offset);
+				p1 = inkPointMake(inkPathGetFloat((char**)&path),relative ? 0 : canvas->cursor.y);
+				if (!relative) p1 = inkPointAdd(p1, offset);
 				break;
 			case 'V':
 			case 'v':
-				p1 = inkPointMake(relative ? 0 : canvas->cursor.x, 0-inkPathGetFloat((char **)&path));
-				if (!relative)
-					p1 = inkPointAdd(p1, offset);
+				p1 = inkPointMake(relative ? 0 : canvas->cursor.x, 0-inkPathGetFloat((char**)&path));
+				if (!relative) p1 = inkPointAdd(p1, offset);
 				break;
         }
-
-        switch (cmd)
-		{
+		
+        switch ( cmd ) {
 			case 'm':
 			case 'M':
 				inkMoveTov(canvas, p1,relative);

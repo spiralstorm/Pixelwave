@@ -117,8 +117,8 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 	self.characters = nil;
 }
 
-#pragma mark -
-#pragma mark NSObject Overrides
+// MARK: -
+// MARK: NSObject Overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -134,8 +134,8 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 	return [NSString stringWithFormat:@"(characters=%@)", characters];
 }
 
-#pragma mark -
-#pragma mark Properties
+// MARK: -
+// MARK: Properties
 
 - (void) setCharacters:(NSString *)_characters
 {
@@ -145,8 +145,8 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 	[_characters release];
 }
 
-#pragma mark -
-#pragma mark Methods
+// MARK: -
+// MARK: Methods
 
 - (NSString *)newStringByRemovingDuplicatesFromString:(NSString *)copyString
 {
@@ -202,8 +202,8 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 	return [[NSString alloc] initWithCharacters:noDupChars length:numCharsFound];
 }
 
-#pragma mark -
-#pragma mark Static Methods
+// MARK: -
+// MARK: Static Methods
 
 /**
  * This is where the default character sets are defined.
@@ -281,8 +281,8 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 
 @end
 
-#pragma mark -
-#pragma mark C Implementations
+// MARK: -
+// MARK: C Implementations
 
 PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *element2)
 {

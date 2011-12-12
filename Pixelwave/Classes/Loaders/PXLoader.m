@@ -130,8 +130,8 @@
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Private Properties
+// MARK: -
+// MARK: Private Properties
 
 - (void) _setOrigin:(NSString *)_origin
 {
@@ -140,8 +140,8 @@
 	origin = [_origin copy];
 }
 
-#pragma mark -
-#pragma mark Protected Methods
+// MARK: -
+// MARK: Protected Methods
 
 // This method loads the file stored in 'origin' into the 'data' variable.
 // If the file isn't found, or there's a different error, NO is returned.
@@ -184,8 +184,8 @@
 	PXDebugLog(@"[%@] %@\n", origin, message);
 }
 
-#pragma mark -
-#pragma mark Static Methods(Public)
+// MARK: -
+// MARK: Static Methods(Public)
 
 /**
  * Creates the absolute path from the relative path given. If the path is

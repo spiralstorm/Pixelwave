@@ -10,9 +10,9 @@
 #ifndef PX_ENGINE_PRIVATE_H
 #define PX_ENGINE_PRIVATE_H
 
-#pragma mark -
-#pragma mark Includes
-#pragma mark -
+// MARK: -
+// MARK: Includes
+// MARK: -
 
 #import <QuartzCore/QuartzCore.h>
 #import <UIKit/UITouch.h>
@@ -43,9 +43,9 @@
 #include "PXHeaderUtils.h"
 #include "PXColorUtils.h"
 
-#pragma mark -
-#pragma mark Macros
-#pragma mark -
+// MARK: -
+// MARK: Macros
+// MARK: -
 
 #define PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_) \
 { \
@@ -126,9 +126,9 @@
 	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_); \
 }
 
-#pragma mark -
-#pragma mark Structs
-#pragma mark -
+// MARK: -
+// MARK: Structs
+// MARK: -
 
 typedef struct
 {
@@ -137,9 +137,9 @@ typedef struct
 	PXDisplayObject **array;
 } _PXEngineDisplayObjectBuffer;
 
-#pragma mark -
-#pragma mark Variables
-#pragma mark -
+// MARK: -
+// MARK: Variables
+// MARK: -
 
 PXExtern PXStage *pxEngineStage;							//Strongly referenced
 PXExtern PXDisplayObject *pxEngineRoot;						//Weakly referenced

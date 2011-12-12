@@ -2031,9 +2031,9 @@ void PXGLResetStates(PXGLState desiredState)
 	pxGLState = desiredState;
 }
 
-#pragma mark -
-#pragma mark STATES
-#pragma mark -
+// MARK: -
+// MARK: STATES
+// MARK: -
 
 PXInline_c void PXGLSetupEnables()
 {
@@ -2304,7 +2304,7 @@ PXInline GLuint PXSizeOfGLEnum(GLenum type)
 	return 0;
 }
 
-#pragma mark GLPrivate
+// MARK: GLPrivate
 
 // width and height passed in POINTS
 // @param orientationEnabled

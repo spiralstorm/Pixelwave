@@ -111,7 +111,7 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
  */
 @implementation PXSoundLoader
 
-#pragma mark Utility init methods
+// MARK: Utility init methods
 
 /**
  * Creates a new PXSoundLoader object containing the loaded sound data.
@@ -183,7 +183,7 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
 	return [self initWithContentsOfFile:nil orURL:url modifier:_modifier];
 }
 
-#pragma mark Designated Initializer
+// MARK: Designated Initializer
 
 - (id) initWithContentsOfFile:(NSString *)path
 						orURL:(NSURL *)url
@@ -256,8 +256,8 @@ id<PXSoundModifier> pxSoundLoaderDefaultModifier = nil;
 	return pxSoundLoaderDefaultModifier;
 }
 
-#pragma mark Utility Methods
-#pragma mark -
+// MARK: Utility Methods
+// MARK: -
 
 /////////////
 // Utility //

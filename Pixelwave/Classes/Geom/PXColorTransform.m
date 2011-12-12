@@ -107,7 +107,7 @@
 	return self;
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -122,7 +122,7 @@
 	return [NSString stringWithFormat:@"(r=%f, g=%f, b=%f, a=%f)", redMultiplier, greenMultiplier, blueMultiplier, alphaMultiplier];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {

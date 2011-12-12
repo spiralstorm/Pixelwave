@@ -454,7 +454,7 @@
 	return YES;
 }
 
-#pragma mark Protected Methods
+// MARK: Protected Methods
 
 //////////////////////////////////////
 // Protected method implementations //

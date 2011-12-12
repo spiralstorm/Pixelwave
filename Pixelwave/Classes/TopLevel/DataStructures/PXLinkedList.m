@@ -330,7 +330,7 @@ _PXLLNode pxLinkedListBadNode;
 	return [str autorelease];
 }
 
-#pragma mark Querying
+// MARK: Querying
 
 // Private
 - (_PXLLNode *)getNodeByIndex:(int)indexOfObject
@@ -517,7 +517,7 @@ _PXLLNode pxLinkedListBadNode;
 
 ////
 
-#pragma mark Adding
+// MARK: Adding
 
 /**
  * Adds the specified object to the end of list.  If
@@ -927,7 +927,7 @@ _PXLLNode pxLinkedListBadNode;
 	[object release];
 }
 
-#pragma mark Removing
+// MARK: Removing
 
 /**
  * Removes the specified object from the list.
@@ -1346,7 +1346,7 @@ _PXLLNode pxLinkedListBadNode;
 	--_nodeCount;
 }
 
-#pragma mark Swapping
+// MARK: Swapping
 
 /**
  * Swaps the location of two objects in the list.  If either of the parameters
@@ -1444,7 +1444,7 @@ _PXLLNode pxLinkedListBadNode;
 	node2->data = data1;
 }
 
-#pragma mark Fast Enumeration
+// MARK: Fast Enumeration
 
 - (NSUInteger) countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)len
 {
@@ -1495,7 +1495,7 @@ _PXLLNode pxLinkedListBadNode;
 	return index;
 }
 
-#pragma mark Exporting
+// MARK: Exporting
 
 /**
  * Creates and returns a C array containing pointers to all the objects
@@ -1569,7 +1569,7 @@ _PXLLNode pxLinkedListBadNode;
 	return list;
 }
 
-#pragma mark Pooling
+// MARK: Pooling
 
 /**
  * Resets the node pool. Applies to all instances of PXLinkedList and should be
@@ -1641,7 +1641,7 @@ _PXLLNode pxLinkedListBadNode;
 
 @end
 
-#pragma mark Node Pooling
+// MARK: Node Pooling
 
 //////////////////
 // Node Pooling //

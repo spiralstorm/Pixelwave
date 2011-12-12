@@ -101,7 +101,7 @@
 	return self;
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -116,7 +116,7 @@
 	return [NSString stringWithFormat:@"(x=%f, y=%f, w=%f, h=%f)", x, y, width, height];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {
@@ -126,7 +126,7 @@
 	height = 0.0f;
 }
 
-#pragma mark Properties
+// MARK: Properties
 
 - (void) setLeft:(float)left
 {
@@ -205,7 +205,7 @@
 	return [[[PXPoint alloc] initWithX:x y:y] autorelease];
 }
 
-#pragma mark Methods
+// MARK: Methods
 
 /**
  * Sets the rectangle's `topLeft` corner to (#x,
@@ -230,7 +230,7 @@
 	height = _height;
 }
 
-#pragma mark Flash Methods
+// MARK: Flash Methods
 
 /**
  * Determines whether the specified point is contained within the rectangle's
@@ -562,7 +562,7 @@
 	return retUnion;
 }
 
-#pragma mark Static Methods
+// MARK: Static Methods
 
 /**
  * Creates a rectangle with `topLeft` corner at (#x,

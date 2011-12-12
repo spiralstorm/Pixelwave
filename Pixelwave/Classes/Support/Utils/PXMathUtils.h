@@ -46,9 +46,9 @@
 extern "C" {
 #endif
 
-#pragma mark -
-#pragma mark Macros
-#pragma mark -
+// MARK: -
+// MARK: Macros
+// MARK: -
 
 static const float pxMath1_3 = 1.0f / 3.0f;
 static const float pxMath2_3 = 2.0f / 3.0f;
@@ -70,9 +70,9 @@ static const float pxMath180_PI = 180.0f / M_PI;
 #define PXMathMax(_val1_, _val2_) (((_val1_) > (_val2_)) ? (_val1_) : (_val2_))
 #define PXMathClamp(_val_, _minVal_, _maxVal_) ((_val_) = ((_val_) = ((_val_) < (_minVal_) ? (_minVal_) : (_val_))) > (_maxVal_) ? (_maxVal_) : (_val_))
 
-#pragma mark -
-#pragma mark Structs
-#pragma mark -
+// MARK: -
+// MARK: Structs
+// MARK: -
 
 typedef struct
 {
@@ -119,9 +119,9 @@ typedef struct
 	PXMathPoint3D pointC;
 } PXMathTriangle3D;
 
-#pragma mark -
-#pragma mark Declerations
-#pragma mark -
+// MARK: -
+// MARK: Declerations
+// MARK: -
 
 bool PXMathIsNan(float val);
 int PXMathSignbit(float val);
@@ -176,9 +176,9 @@ bool PXMathPointInLine(PXMathPoint *ans, PXMathPoint *point, PXMathLine *line);
 bool PXMathIsPointInLine(PXMathPoint *point, PXMathLine *line);
 bool PXMathIsPointInTriangle(PXMathPoint *point, PXMathTriangle *triangle);
 
-#pragma mark -
-#pragma mark Implementations
-#pragma mark -
+// MARK: -
+// MARK: Implementations
+// MARK: -
 
 //(start * (1.0f - percent)) + (end * percent);
 #define _PX_MATH_LERP(_start_, _end_, _percent_) _start_ + ((_end_ - _start_) * _percent_)

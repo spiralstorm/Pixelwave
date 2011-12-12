@@ -102,8 +102,8 @@
 	return [PXFNTTextureFontFuser class];
 }
 
-#pragma mark -
-#pragma mark Override
+// MARK: -
+// MARK: Override
 
 - (BOOL) _parse
 {

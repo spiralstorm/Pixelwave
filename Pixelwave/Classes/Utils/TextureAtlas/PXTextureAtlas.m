@@ -242,7 +242,7 @@
 // Properties
 //
 
-#pragma mark Properties
+// MARK: Properties
 
 - (NSArray *)allNames
 {
@@ -282,7 +282,7 @@
 // Functions
 //
 
-#pragma mark Standard container methods (add/remove/read)
+// MARK: Standard container methods (add/remove/read)
 
 /**
  * Adds the given frame to the atlas. Useful when creating a custom
@@ -337,7 +337,7 @@
 	return (PXAtlasFrame *)[frames objectForKey:name];
 }
 
-#pragma mark Utility
+// MARK: Utility
 
 /////////////
 // Utility //

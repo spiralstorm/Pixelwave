@@ -149,16 +149,16 @@
 			PX_BOOL_TO_STRING(self.is3DReady)];
 }
 
-#pragma mark -
-#pragma mark Properties
+// MARK: -
+// MARK: Properties
 
 - (BOOL) is3DReady
 {
 	return NO;
 }
 
-#pragma mark -
-#pragma mark Methods
+// MARK: -
+// MARK: Methods
 
 /**
  * Plays a sound from the start, doesn't loop and has a volume and pitch of
@@ -222,8 +222,8 @@
 	return nil;
 }
 
-#pragma mark -
-#pragma mark Static Methods
+// MARK: -
+// MARK: Static Methods
 
 /**
  * Creates a sound by loading the file at the given path.

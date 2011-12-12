@@ -11,9 +11,9 @@
 #include "PXEngine.h"
 #include "PXEnginePrivate.h"
 
-#pragma mark -
-#pragma mark Variables
-#pragma mark -
+// MARK: -
+// MARK: Variables
+// MARK: -
 
 PXLinkedList *pxTouchEngineTouchEvents = nil;
 PXLinkedList *pxTouchEngineRemoveFromSavedTouchEvents = nil;
@@ -24,9 +24,9 @@ PXLinkedList *pxTouchEngineTouchList = nil;
 // which captured it.
 CFMutableDictionaryRef pxEngineTouchCapturingObjects = NULL;
 
-#pragma mark -
-#pragma mark Functions
-#pragma mark -
+// MARK: -
+// MARK: Functions
+// MARK: -
 
 PXTouchEvent *PXTouchEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, NSString *type, BOOL orientTouch);
 void PXTouchEngineCancelTouch(UITouch *touch);
@@ -36,9 +36,9 @@ void _PXTouchEngineRemoveAllTouchCapturesFromObjects(PXLinkedList *objects);
 
 void PXTouchEngineAddEvent(UITouch *touch, CGPoint *pos, NSString *type);
 
-#pragma mark -
-#pragma mark Implementations
-#pragma mark -
+// MARK: -
+// MARK: Implementations
+// MARK: -
 
 void PXTouchEngineInit()
 {
@@ -348,7 +348,7 @@ void PXTouchEngineDispatchTouchEvents()
 	[pxTouchEngineTouchEvents removeAllObjects];
 }
 
-#pragma mark -
+// MARK: -
 
 // Internal method for canceling a touch. It will dispatch the cancel event to a
 // captured target (if one exists) and remove it from the association list.
@@ -429,7 +429,7 @@ bool PXTouchEngineGetTouchDisplayHierarchy(PXDisplayObject *object, PXLinkedList
 	return true;
 }
 
-#pragma mark -
+// MARK: -
 
 void _PXTouchEngineRemoveAllTouchCapturesFromObjects(PXLinkedList *objects)
 {

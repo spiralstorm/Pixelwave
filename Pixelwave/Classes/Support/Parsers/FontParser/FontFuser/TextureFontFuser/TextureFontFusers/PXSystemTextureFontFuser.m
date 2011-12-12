@@ -76,8 +76,8 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 
 @implementation PXSystemTextureFontFuser
 
-#pragma mark -
-#pragma mark Override
+// MARK: -
+// MARK: Override
 
 - (BOOL) initializeFuser
 {

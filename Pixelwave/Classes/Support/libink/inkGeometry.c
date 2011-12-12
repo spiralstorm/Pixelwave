@@ -8,9 +8,9 @@
 
 #import "inkGeometry.h"
 
-#pragma mark -
-#pragma mark Constants
-#pragma mark -
+// MARK: -
+// MARK: Constants
+// MARK: -
 
 const inkPoint inkPointZero = _inkPointZero;
 const inkPoint inkPointNan = _inkPointNan;
@@ -36,9 +36,9 @@ typedef struct
 	inkPoint previousPoint;
 } inkCurveLengthApproximator;
 
-#pragma mark -
-#pragma mark Point
-#pragma mark -
+// MARK: -
+// MARK: Point
+// MARK: -
 
 bool inkPointIsNan(inkPoint point)
 {
@@ -72,9 +72,9 @@ bool inkLineContainsPoint(inkLine line, inkPoint point)
 	return inkIsZerof(inkPointDistanceToLine(point, line));
 }
 
-#pragma mark -
-#pragma mark Line
-#pragma mark -
+// MARK: -
+// MARK: Line
+// MARK: -
 
 inkPoint inkLineIntersection(inkLine lineA, inkLine lineB)
 {
@@ -294,13 +294,13 @@ float inkTriangleArea(inkTriangle triangle)
 	return 0.0f;
 }
 
-#pragma mark -
-#pragma mark Size
-#pragma mark -
+// MARK: -
+// MARK: Size
+// MARK: -
 
-#pragma mark -
-#pragma mark Rect
-#pragma mark -
+// MARK: -
+// MARK: Rect
+// MARK: -
 
 bool inkRectContainsRect(inkRect rectA, inkRect rectB)
 {
@@ -355,13 +355,13 @@ inkRect inkRectUnion(inkRect rectA, inkRect rectB)
 						fmaxf(rectA.origin.y + rectA.size.height, rectB.origin.y + rectB.size.height));
 }
 
-#pragma mark -
-#pragma mark Matrix
-#pragma mark -
+// MARK: -
+// MARK: Matrix
+// MARK: -
 
-#pragma mark -
-#pragma mark Curve
-#pragma mark
+// MARK: -
+// MARK: Curve
+// MARK:
 
 void inkCurveLengthAdd(inkPoint point, void* userData)
 {
@@ -386,7 +386,7 @@ float inkQuadraticCurveLength(inkPoint start, inkPoint control, inkPoint end)
 
 	float Sabc = 2 * sqrtf(A+B+C);
 	float A_2 = sqrtf(A);
-	float A_32 = 2 * A*A_2;
+	float A_32 = 2 * A * A_2;
 	float C_2 = 2 * sqrtf(C);
 	float BA = B / A_2;
 
@@ -457,9 +457,6 @@ void inkCurveApproximation(inkCurveType curveType, inkPoint start, inkPoint cont
 		if (inkPointIsEqual(previousPoint, point) == false)
 		{
 			previousPoint = point;
-
-		//	if (updatePointFunc != NULL)
-		//		point = updatePointFunc(point, updatePointUserData);
 
 			newPointFunc(point, newPointUserData);
 		}

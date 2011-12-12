@@ -58,9 +58,9 @@
 #define PXTF_565_G(_val_) ((_val_) >> 5)
 #define PXTF_565_B(_val_) (_val_)
 
-#pragma mark -
-#pragma mark - Bit Changers
-#pragma mark -
+// MARK: -
+// MARK: - Bit Changers
+// MARK: -
 
 // 8 Bit
 PXInline uint8_t PX8BitTo6Bit(uint8_t val)
@@ -170,9 +170,9 @@ PXInline uint8_t PX444BitsTo8Bit(uint8_t r, uint8_t g, uint8_t b)
 	return ((float)(((r & 0x0F) + (g & 0x0F) + (b & 0x0F)) * PXTF_ONE_RGB)) * 0xFF;
 }
 
-#pragma mark -
-#pragma mark - Make
-#pragma mark -
+// MARK: -
+// MARK: - Make
+// MARK: -
 
 PXInline_c PXTF_RGBA_8888 PXTF_RGBA_8888_Make(UInt8 red, UInt8 green, UInt8 blue, UInt8 alpha)
 {
@@ -225,9 +225,9 @@ PXInline_c PXTF_L_8 PXTF_L_8_Make(UInt8 luminance)
 	return luminance;
 }
 
-#pragma mark -
-#pragma mark - To RGBA 8888
-#pragma mark -
+// MARK: -
+// MARK: - To RGBA 8888
+// MARK: -
 
 PXInline_c PXTF_RGBA_8888 PXTF_RGBA_8888_From_RGB_888(PXTF_RGB_888 val)
 {
@@ -270,9 +270,9 @@ PXInline_c PXTF_RGBA_8888 PXTF_RGBA_8888_From_L_8(PXTF_L_8 val)
 	return PXTF_RGBA_8888_Make(val, val, val, 0xFF);
 }
 
-#pragma mark -
-#pragma mark - To RGB 888
-#pragma mark -
+// MARK: -
+// MARK: - To RGB 888
+// MARK: -
 
 PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
@@ -309,9 +309,9 @@ PXInline_c PXTF_RGB_888 PXTF_RGB_888_From_L_8(PXTF_L_8 val)
 	return PXTF_RGB_888_Make(val, val, val);
 }
 
-#pragma mark -
-#pragma mark - To RGBA 4444
-#pragma mark -
+// MARK: -
+// MARK: - To RGBA 4444
+// MARK: -
 
 PXInline_c PXTF_RGBA_4444 PXTF_RGBA_4444_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
@@ -356,9 +356,9 @@ PXInline_c PXTF_RGBA_4444 PXTF_RGBA_4444_From_L_8(PXTF_L_8 val)
 	return PXTF_RGBA_4444_Make(lum, lum, lum, 0x0F);
 }
 
-#pragma mark -
-#pragma mark - To RGBA 5551
-#pragma mark -
+// MARK: -
+// MARK: - To RGBA 5551
+// MARK: -
 
 PXInline_c PXTF_RGBA_5551 PXTF_RGBA_5551_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
@@ -403,9 +403,9 @@ PXInline_c PXTF_RGBA_5551 PXTF_RGBA_5551_From_L_8(PXTF_L_8 val)
 	return PXTF_RGBA_5551_Make(lum, lum, lum, 0x1F);
 }
 
-#pragma mark -
-#pragma mark - To RGBA 565
-#pragma mark -
+// MARK: -
+// MARK: - To RGBA 565
+// MARK: -
 
 PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
@@ -447,9 +447,9 @@ PXInline_c PXTF_RGB_565 PXTF_RGB_565_From_L_8(PXTF_L_8 val)
 	return PXTF_RGB_565_Make(lum5, PX8BitTo6Bit(val), lum5);
 }
 
-#pragma mark -
-#pragma mark - To LA 88
-#pragma mark -
+// MARK: -
+// MARK: - To LA 88
+// MARK: -
 
 PXInline_c PXTF_LA_88 PXTF_LA_88_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
@@ -487,9 +487,9 @@ PXInline_c PXTF_LA_88 PXTF_LA_88_From_L_8(PXTF_L_8 val)
 	return PXTF_LA_88_Make(val, 0xFF);
 }
 
-#pragma mark -
-#pragma mark - To A 8
-#pragma mark -
+// MARK: -
+// MARK: - To A 8
+// MARK: -
 
 PXInline_c PXTF_A_8 PXTF_A_8_From_RGBA_8888(PXTF_RGBA_8888 val)
 {
@@ -520,9 +520,9 @@ PXInline_c PXTF_A_8 PXTF_A_8_From_L_8(PXTF_L_8 val)
 	return val;
 }
 
-#pragma mark -
-#pragma mark - To L 8
-#pragma mark -
+// MARK: -
+// MARK: - To L 8
+// MARK: -
 
 PXInline_c PXTF_L_8 PXTF_L_8_From_RGBA_8888(PXTF_RGBA_8888 val)
 {

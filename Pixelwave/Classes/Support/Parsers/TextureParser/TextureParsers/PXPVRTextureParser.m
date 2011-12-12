@@ -281,7 +281,7 @@ typedef struct _PVRTexHeader
 	return success;
 }
 
-#pragma mark Protected Methods
+// MARK: Protected Methods
 
 //////////////////////////////////////
 // Protected method implementations //

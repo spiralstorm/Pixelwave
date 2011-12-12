@@ -166,7 +166,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 	}
 }
 
-#pragma mark Clipping the texture
+// MARK: Clipping the texture
 
 /**
  * Sets the clip area and anchor point in one call.
@@ -300,7 +300,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 	return [rect autorelease];
 }
 
-#pragma mark Properties
+// MARK: Properties
 
 - (void) setSmoothing:(BOOL)smoothing
 {
@@ -326,7 +326,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 	return (wrapType == GL_REPEAT);
 }
 
-#pragma mark Anchors
+// MARK: Anchors
 
 - (void) setAnchorX:(float)val
 {
@@ -398,7 +398,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 					   y:(y / contentHeight)];
 }
 
-#pragma mark Padding
+// MARK: Padding
 
 // Private
 // For setting the padding efficiently
@@ -455,11 +455,11 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 											  left:padding.left];
 }
 
-#pragma mark -
-#pragma mark Private methods
-#pragma mark -
+// MARK: -
+// MARK: Private methods
+// MARK: -
 
-#pragma mark Validating
+// MARK: Validating
 
 // This method assumes that the vertices have been validated before it gets
 // called
@@ -524,7 +524,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 	}
 }
 
-#pragma mark DisplayObject
+// MARK: DisplayObject
 
 - (void) _measureLocalBounds:(CGRect *)retBounds
 {
@@ -611,7 +611,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 //////////////
 //////////////
 
-#pragma mark Utility functions
+// MARK: Utility functions
 
 /**
  *
@@ -698,7 +698,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 
 @end
 
-#pragma mark Utility
+// MARK: Utility
 
 // Utility
 PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXTexturePadding padding, BOOL paddingEnabled)

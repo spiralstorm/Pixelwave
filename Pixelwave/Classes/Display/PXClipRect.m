@@ -219,7 +219,7 @@
 	return [NSString stringWithFormat:@"(x=%f, y=%f, width=%f, height=%f)", x, y, width, height];
 }
 
-#pragma mark NSCopying
+// MARK: NSCopying
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -232,7 +232,7 @@
 	return newRect;
 }
 
-#pragma mark Utility
+// MARK: Utility
 
 + (PXClipRect *)clipRectWithX:(float)x y:(float)y
 						width:(float)width height:(float)height

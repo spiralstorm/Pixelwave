@@ -82,7 +82,7 @@
 	return self;
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -96,7 +96,7 @@
 	return [NSString stringWithFormat:@"(volume=%f, pitch=%f)", volume, pitch];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {
@@ -104,8 +104,8 @@
 	pitch  = 1.0f;
 }
 
-#pragma mark -
-#pragma mark Static Methods
+// MARK: -
+// MARK: Static Methods
 
 /**
  * Creates a sound transform with the given #volume and #pitch.

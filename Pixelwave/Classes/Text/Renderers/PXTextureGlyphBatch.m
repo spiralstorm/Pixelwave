@@ -78,7 +78,7 @@
 	[super dealloc];
 }
 
-#pragma mark NSObject overrides
+// MARK: NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
@@ -106,7 +106,7 @@
 			_textureData->_glName];
 }
 
-#pragma mark Pooled Reset
+// MARK: Pooled Reset
 
 - (void) reset
 {
@@ -121,7 +121,7 @@
 	_vertexCount = 0;
 }
 
-#pragma mark Properties
+// MARK: Properties
 
 - (void) setVertexCount:(unsigned)val
 {

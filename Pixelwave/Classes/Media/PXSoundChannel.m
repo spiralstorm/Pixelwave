@@ -87,8 +87,8 @@
 	[super dealloc];
 }
 
-#pragma mark -
-#pragma mark Internal Methods
+// MARK: -
+// MARK: Internal Methods
 
 - (void) _update
 {
@@ -99,8 +99,8 @@
 	return NO;
 }
 
-#pragma mark -
-#pragma mark Properties
+// MARK: -
+// MARK: Properties
 
 - (void) setSoundTransform:(PXSoundTransform *)_soundTransform
 {
@@ -126,8 +126,8 @@
 	return (soundState == _PXSoundChannelState_Playing);
 }
 
-#pragma mark -
-#pragma mark Methods
+// MARK: -
+// MARK: Methods
 
 /**
  * If the sound is not already playing, it plays the sound from it's current

@@ -131,7 +131,7 @@
 // Helper functions //
 //////////////////////
 
-#pragma mark Adding children
+// MARK: Adding children
 
 // Private function. This one actually does the adding
 - (void) addChild:(PXDisplayObject *)child beforeChild:(PXDisplayObject *)childToAddBefore dispatchEvents:(BOOL)dispatchEvents
@@ -355,7 +355,7 @@
 	return child;
 }
 
-#pragma mark Removing Children
+// MARK: Removing Children
 
 // As an optimization, there is no containment check to see if the child is
 // actually on the list. Only the parent is checked to see if it matches.
@@ -551,7 +551,7 @@
 	[self removeChild:child];
 }
 
-#pragma mark Querying
+// MARK: Querying
 
 /**
  * Determines whether the specified object is a child of this container or any
@@ -651,7 +651,7 @@
 	return -1;
 }
 
-#pragma mark Retrieving Children
+// MARK: Retrieving Children
 
 /**
  * Retrieves the child at the specified index.  If no child was found at the
@@ -735,7 +735,7 @@
 	return nil;
 }
 
-#pragma mark Moving Children
+// MARK: Moving Children
 
 /**
  * Changes the position of the child to the specified index.  This will
@@ -1080,7 +1080,7 @@
 	return [list autorelease];
 }
 
-#pragma mark Event Dispatching
+// MARK: Event Dispatching
 
 // Tell all of my children they were added to the stage
 // Overriden
@@ -1137,7 +1137,7 @@
 	}
 }
 
-#pragma mark Misc
+// MARK: Misc
 
 - (void) _measureGlobalBounds:(CGRect *)retBounds
 {
@@ -1243,7 +1243,7 @@
 	return [self _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag];
 }
 
-#pragma mark Fast Enumeration
+// MARK: Fast Enumeration
 
 - (NSUInteger) countByEnumeratingWithState:(NSFastEnumerationState *)state objects:(id *)stackbuf count:(NSUInteger)count
 {

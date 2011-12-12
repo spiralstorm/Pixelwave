@@ -11,7 +11,7 @@
 @interface CJSONSerializedData ()
 @end
 
-#pragma mark -
+// MARK: -
 
 @implementation CJSONSerializedData
 

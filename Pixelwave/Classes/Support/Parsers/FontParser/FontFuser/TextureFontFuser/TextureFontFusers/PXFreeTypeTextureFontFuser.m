@@ -66,8 +66,8 @@
 
 @implementation PXFreeTypeTextureFontFuser
 
-#pragma mark -
-#pragma mark Override
+// MARK: -
+// MARK: Override
 
 - (BOOL) initializeFuser
 {
