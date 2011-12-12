@@ -367,10 +367,13 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	PXGLMatrixIdentity(&matrix);
 	if (!PXUtilsDisplayObjectMultiplyUp((PXDisplayObject*)PXEngineGetStage(), displayObject, &matrix))
 		return;
+//	if (!PXUtilsDisplayObjectMultiplyDown((PXDisplayObject*)PXEngineGetStage(), displayObject, &matrix))
+//		return;
 
 	[self _measureGlobalBounds:retBounds useStroke:useStroke];
 
 	*retBounds = PXGLMatrixConvertRect(&matrix, *retBounds);
+	//*retBounds = PXGLMatrixConvertRect(&previousMatrix, *retBounds);
 }
 
 - (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
@@ -438,6 +441,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 		wasBuilt = NO;
 
 		inkMatrix iMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+
 		inkPushMatrix((inkCanvas*)vCanvas);
 		inkMultMatrix((inkCanvas*)vCanvas, iMatrix);
 		print = [self build];

@@ -22,6 +22,7 @@
 
 typedef struct
 {
+	inkCanvas* canvas;
 	inkFillGenerator* fillGenerator;
 	inkStrokeGenerator* strokeGenerator;
 } inkCurveGenerators;
@@ -293,8 +294,7 @@ void inkCurveAdd(inkPoint point, void* userData)
 {
 	inkCurveGenerators generators = *((inkCurveGenerators*)userData);
 
-	inkFillGeneratorLineTo(generators.fillGenerator, point);
-	inkStrokeGeneratorLineTo(generators.strokeGenerator, point);
+	inkInternalLineTo(generators.canvas, point, generators.fillGenerator, generators.strokeGenerator);
 }
 
 void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator, inkCurveType curveType, inkPoint controlA, inkPoint controlB, inkPoint anchor)
@@ -311,6 +311,7 @@ void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGener
 	float arcLength = inkCurveLength(inkUpdatePositionv, canvas, curveType, start, controlA, controlB, anchor);
 
 	inkCurveGenerators generators;
+	generators.canvas = canvas;
 	generators.fillGenerator = fillGenerator;
 	generators.strokeGenerator = strokeGenerator;
 
@@ -362,8 +363,6 @@ void inkBuild(inkCanvas* canvas)
 
 				inkPoint point = inkUpdatePosition(canvas, *command);
 				inkInternalLineTo(canvas, point, fillGenerator, strokeGenerator);
-			//	inkFillGeneratorLineTo(fillGenerator, point);
-			//	inkStrokeGeneratorLineTo(strokeGenerator, point);
 			}
 				break;
 			case inkCommandType_QuadraticCurveTo:
