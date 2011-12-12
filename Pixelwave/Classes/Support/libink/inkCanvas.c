@@ -52,6 +52,8 @@ inkCanvas* inkCreate()
 		canvas->bounds = inkRectZero;
 		canvas->boundsWithStroke = inkRectZero;
 		canvas->previousControl = inkPointZero;
+		canvas->totalLength = 0.0f;
+		inkSetMaxLength(canvas, FLT_MAX);
 		inkSetCurveMultiplier(canvas, 0.5f);
 		inkSetPixelsPerPoint(canvas, 1.0f);
 	}
@@ -151,6 +153,30 @@ float inkCurveMultiplier(inkCanvas* canvas)
 	return canvas->curveMultiplier;
 }
 
+float inkTotalLength(inkCanvas* canvas)
+{
+	if (canvas == NULL)
+		return 0.0f;
+
+	return canvas->totalLength;
+}
+
+void inkSetMaxLength(inkCanvas* canvas, float length)
+{
+	if (canvas == NULL)
+		return;
+
+	canvas->maxLength = fabsf(length);
+}
+
+float inkMaxLength(inkCanvas* canvas)
+{
+	if (canvas == NULL)
+		return 0.0f;
+
+	return canvas->maxLength;
+}
+
 void inkSetPixelsPerPoint(inkCanvas* canvas, float pixelsPerPoint)
 {
 	if (canvas == NULL)
@@ -224,6 +250,8 @@ void inkRemoveAllRenderGroups(inkCanvas* canvas)
 
 		inkArrayClear(canvas->renderGroups);
 	}
+
+	canvas->totalLength = 0.0f;
 }
 
 // We use a shared tessellator because the 'rasterization' step, where

@@ -114,8 +114,11 @@ void* inkArrayPushElements(inkArray* array, unsigned int count)
 	if (array->_usedSize > array->_byteCount)
 	{
 		unsigned int newCount = array->count + 10;
-		size_t newSize = inkArrayNextPowerOfTwo(newCount) * array->_elementSize;
-		inkArrayResize(array, newSize);
+		size_t newSize = inkArrayNextPowerOfTwo(newCount);
+		if (newSize < inkArrayMinimumElementCount)
+			newSize = inkArrayMinimumElementCount;
+		inkArrayResize(array, newSize * array->_elementSize);
+		assert(array->elements);
 	}
 
 	void *current = (void *)(((uint8_t*)(array->elements)) + preUsedSize);

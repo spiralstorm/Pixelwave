@@ -20,7 +20,7 @@ inkExtern void inkDrawRoundRect(inkCanvas* canvas, inkRect rect, inkSize ellipse
 
 inkExtern void inkDrawPath(inkCanvas* canvas, inkArray* commands, inkArray* points, inkWindingRule winding);
 
-typedef ssize_t(*inkDataWriter)(void *user, const void *buf, size_t count);
-typedef ssize_t(*inkDataReader)(void *user, const void *buf, size_t count);
+inkExtern void inkDrawSVGPath(inkCanvas* canvas, const char* path);
+inkExtern void inkDrawSVGPathv(inkCanvas* canvas, const char* path, inkPoint offset);
 
 #endif

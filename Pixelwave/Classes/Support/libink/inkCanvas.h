@@ -33,6 +33,8 @@ typedef struct
 	inkPoint previousControl;
 
 	float curveMultiplier;
+	float totalLength;
+	float maxLength;
 
 	float pixelsPerPoint;
 	float one_pixelsPerPoint;
@@ -48,6 +50,10 @@ inkExtern inkRect inkBoundsv(inkCanvas* canvas, bool withStroke);
 
 inkExtern void inkSetCurveMultiplier(inkCanvas* canvas, float curveMultiplier);
 inkExtern float inkCurveMultiplier(inkCanvas* canvas);
+
+inkExtern float inkTotalLength(inkCanvas* canvas);
+inkExtern void inkSetMaxLength(inkCanvas* canvas, float length);
+inkExtern float inkMaxLength(inkCanvas* canvas);
 
 inkExtern void inkSetPixelsPerPoint(inkCanvas* canvas, float pixelHint);
 inkExtern float inkPixelsPerPoint(inkCanvas* canvas);

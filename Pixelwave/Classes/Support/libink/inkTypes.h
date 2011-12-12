@@ -35,6 +35,9 @@ typedef void (*inkGetIntegerFunction)(unsigned int, int*);
 typedef void (*inkGetTexParameterFunction)(unsigned int, unsigned int, int*);
 typedef void (*inkSetTexParameterFunction)(unsigned int, unsigned int, int);
 
+typedef ssize_t (*inkDataWriter)(void *user, const void *buf, size_t count);
+typedef ssize_t (*inkDataReader)(void *user, const void *buf, size_t count);
+
 typedef struct
 {
 	unsigned int textureName;
