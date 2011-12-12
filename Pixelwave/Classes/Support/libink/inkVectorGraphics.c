@@ -274,11 +274,11 @@ void inkInternalLineTo(inkCanvas* canvas, inkPoint point, inkFillGenerator* fill
 
 	float additionalDistance = inkPointDistance(point, canvas->cursor);
 
-	if (canvas->maxLength != FLT_MAX)
+	if (canvas->maxLength != FLT_MAX && inkIsZerof(additionalDistance) == false)
 	{
 		if (canvas->totalLength + additionalDistance >= canvas->maxLength)
 		{
-			float percent = additionalDistance / (canvas->maxLength - canvas->totalLength);
+			float percent = (canvas->maxLength - canvas->totalLength) / additionalDistance;
 			point = inkPointInterpolate(canvas->cursor, point, percent);
 		}
 	}
@@ -292,9 +292,10 @@ void inkInternalLineTo(inkCanvas* canvas, inkPoint point, inkFillGenerator* fill
 
 void inkCurveAdd(inkPoint point, void* userData)
 {
-	inkCurveGenerators generators = *((inkCurveGenerators*)userData);
+	if (userData == NULL)
+		return;
 
-	inkInternalLineTo(generators.canvas, point, generators.fillGenerator, generators.strokeGenerator);
+	inkInternalLineTo(((inkCurveGenerators*)userData)->canvas, point, ((inkCurveGenerators*)userData)->fillGenerator, ((inkCurveGenerators*)userData)->strokeGenerator);
 }
 
 void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator, inkCurveType curveType, inkPoint controlA, inkPoint controlB, inkPoint anchor)
