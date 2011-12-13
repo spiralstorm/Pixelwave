@@ -59,92 +59,15 @@ void inkDrawRect(inkCanvas* canvas, inkRect rect)
 
 void inkDrawRoundRect(inkCanvas* canvas, inkRect rect, inkSize ellipseSize)
 {
-	// TODO: Implement
-
-	float x = rect.origin.x;
-	float y = rect.origin.y;
-	float w = rect.size.width;
-	float h = rect.size.height;
-	float rw = ellipseSize.width;
-	float rh = ellipseSize.height;
-	inkMoveTof(canvas,				x + rw,			y);
-	inkLineTof(canvas,				x + w - rw,		y);
-	inkQuadraticCurveTof(canvas,	x + w,			y,					x + w,			y + rh);
-	inkLineTof(canvas,				x + w,			y + h - rh);
-	inkQuadraticCurveTof(canvas,	x + w,			y + h,				x + w - rw,		y + h);
-	inkLineTof(canvas,				x + rw,			y + h);
-	inkQuadraticCurveTof(canvas,	x,				y + h,				x,				y + h - rh);
-	inkLineTof(canvas,				x,				y + rh);
-	inkQuadraticCurveTof(canvas,	x,				y,					x + rw,			y);
-
-	/*inkMoveTof(canvas,				x + radius,				y);
-	inkLineTof(canvas,				x + width - radius,		y);
-	inkQuadraticCurveTof(canvas,	x + width,				y,						x + width,				y + radius);
-	inkLineTof(canvas,				x + width,				y + height - radius);
-	inkQuadraticCurveTof(canvas,	x + width,				y + height,				x + width - radius,		y + height);
-	inkLineTof(canvas,				x + radius,				y + height);
-	inkQuadraticCurveTof(canvas,	x,						y + height,				x,						y + height - radius);
-	inkLineTof(canvas,				x,						y + radius);
-	inkQuadraticCurveTof(canvas,	x,						y,						x + radius,				y);*/
-
-	//inkMoveTo(canvas, rect.origin);
-	/*rect.graphics.moveTo( 0, tl );
-	rect.graphics.curveTo( 0, 0, tl, 0 );
-	rect.graphics.lineTo(w - tr, 0);
-	rect.graphics.curveTo( w, 0, w, tr );
-	rect.graphics.lineTo(w, h - br);
-	rect.graphics.curveTo( w, h, w - br, h );
-	rect.graphics.lineTo(bl, h);
-	rect.graphics.curveTo( 0, h, 0, h - bl );*/
-
-	/*float x1 = inkRectLeft(rect);
-	float x2 = inkRectRight(rect);
-	float y1 = inkRectTop(rect);
-	float y2 = inkRectBottom(rect);
-
-	float xRadius = fminf(ellipseSize.width, rect.size.width  * 0.5f);
-	float yRadius = fminf(ellipseSize.height, rect.size.height * 0.5f);
-
-	inkMoveTof(canvas, x1 + xRadius, y1);
-	inkLineTof(canvas, x1 + xRadius, y1);
-
-	inkMoveTof(canvas, x1 + xRadius, y1); // MoveTo
-	inkLineTof(canvas, x2 - xRadius, y1); // LineTo
-	inkCubicCurveTof(canvas, x2 - (1 - KAPPA) * xRadius, y1,     // CurveTo
-				x2, y1 + (1 - KAPPA) * yRadius,
-				x2, y1 + yRadius);
-	inkLineTof(canvas, x2, y2 - yRadius);                   // LineTo
-	inkCubicCurveTof(canvas, x2, y2 - (1 - KAPPA) * yRadius,     // CurveTo
-				x2 - (1 - KAPPA) * xRadius, y2,
-				x2 - xRadius, y2);
-	inkLineTof(canvas, x1 + xRadius, y2);                  // LineTo
-	inkCubicCurveTof(canvas, x1 + (1 - KAPPA) * xRadius, y2,           // CurveTo
-						x1, y2 - (1 - KAPPA) * yRadius,
-						x1, y2 - yRadius);
-	inkLineTof(canvas, x1, y1 + yRadius);                  // LineTo
-	inkCubicCurveTof(canvas, x1, y1 + KAPPA * yRadius,           // CurveTo
-					x1 + (1 - KAPPA) * xRadius, y1,
-				x1 + xRadius, y1);*/
-
-	/*qreal pts[] = {
-		x1 + xRadius, y1,                   // MoveTo
-		x2 - xRadius, y1,                   // LineTo
-		x2 - (1 - KAPPA) * xRadius, y1,     // CurveTo
-		x2, y1 + (1 - KAPPA) * yRadius,
-		x2, y1 + yRadius,
-		x2, y2 - yRadius,                   // LineTo
-		x2, y2 - (1 - KAPPA) * yRadius,     // CurveTo
-		x2 - (1 - KAPPA) * xRadius, y2,
-		x2 - xRadius, y2,
-		x1 + xRadius, y2,                   // LineTo
-		x1 + (1 - KAPPA) * xRadius, y2,           // CurveTo
-		x1, y2 - (1 - KAPPA) * yRadius,
-		x1, y2 - yRadius,
-		x1, y1 + yRadius,                   // LineTo
-		x1, y1 + KAPPA * yRadius,           // CurveTo
-		x1 + (1 - KAPPA) * xRadius, y1,
-		x1 + xRadius, y1
-	};*/
+	inkMoveTof(canvas, rect.origin.x + ellipseSize.width, rect.origin.y);
+	inkLineTof(canvas, rect.origin.x + rect.size.width - ellipseSize.width, rect.origin.y);
+	inkQuadraticCurveTof(canvas, rect.origin.x + rect.size.width, rect.origin.y, rect.origin.x + rect.size.width, rect.origin.y + ellipseSize.height);
+	inkLineTof(canvas, rect.origin.x + rect.size.width, rect.origin.y + rect.size.height - ellipseSize.height);
+	inkQuadraticCurveTof(canvas, rect.origin.x + rect.size.width, rect.origin.y + rect.size.height, rect.origin.x + rect.size.width - ellipseSize.width, rect.origin.y + rect.size.height);
+	inkLineTof(canvas, rect.origin.x + ellipseSize.width, rect.origin.y + rect.size.height);
+	inkQuadraticCurveTof(canvas, rect.origin.x, rect.origin.y + rect.size.height, rect.origin.x, rect.origin.y + rect.size.height - ellipseSize.height);
+	inkLineTof(canvas, rect.origin.x, rect.origin.y + ellipseSize.height);
+	inkQuadraticCurveTof(canvas, rect.origin.x, rect.origin.y, rect.origin.x + ellipseSize.width, rect.origin.y);
 }
 
 void inkDrawPath(inkCanvas* canvas, inkArray* commands, inkArray* points, inkWindingRule winding)
