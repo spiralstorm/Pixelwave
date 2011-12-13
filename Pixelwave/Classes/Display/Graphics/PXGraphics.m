@@ -53,6 +53,7 @@
 #import "PXGraphicsData.h"
 #import "PXEngine.h"
 #import "PXEngineUtils.h"
+#import "PXEnginePrivate.h"
 
 const inkRenderer pxGraphicsInkRenderer = {PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLGetBooleanv, PXGLGetFloatv, PXGLGetIntegerv, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLGetTexParameteriv, PXGLTexParameteri, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements};
 
@@ -124,7 +125,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 }
 
 @interface PXGraphics(Private)
-- (BOOL) build;
+- (BOOL) buildWithDisplayObject:(PXDisplayObject *)obj;
+- (BOOL) build:(PXGLMatrix)matrix;
 @end
 
 @implementation PXGraphics
@@ -332,13 +334,33 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	}
 }
 
-- (BOOL) build
+- (BOOL) buildWithDisplayObject:(PXDisplayObject *)obj
 {
-	if (wasBuilt == false)
+	PXStage *stage = PXEngineGetStage();
+
+	if (stage == NULL || obj == NULL)
+		return NO;
+
+	PXGLMatrix matrix;
+	PXGLMatrixIdentity(&matrix);
+	PXGLMatrixMult(&matrix, &matrix, &stage->_matrix);
+	PXUtilsDisplayObjectMultiplyDown(stage, obj, &matrix);
+	return [self build:matrix];
+}
+
+- (BOOL) build:(PXGLMatrix)matrix
+{
+	if (wasBuilt == false || PXGLMatrixIsEqual(&matrix, &previousMatrix) == false)
 	{
+		previousMatrix = matrix;
 		wasBuilt = true;
 
+		inkMatrix iMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+
+		inkPushMatrix((inkCanvas*)vCanvas);
+		inkMultMatrix((inkCanvas*)vCanvas, iMatrix);
 		inkBuild((inkCanvas*)vCanvas);
+		inkPopMatrix((inkCanvas*)vCanvas);
 
 		return true;
 	}
@@ -355,8 +377,6 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	if (retBounds == NULL)
 		return;
 
-	[self build];
-
 	inkRect bounds = inkBounds((inkCanvas*)vCanvas);
 	*retBounds = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
 }
@@ -365,20 +385,27 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 {
 	PXGLMatrix matrix;
 	PXGLMatrixIdentity(&matrix);
-	if (!PXUtilsDisplayObjectMultiplyUp((PXDisplayObject*)PXEngineGetStage(), displayObject, &matrix))
+	PXStage *stage = PXEngineGetStage();
+
+	if (!PXUtilsDisplayObjectMultiplyUp((PXDisplayObject*)stage, displayObject, &matrix))
 		return;
-//	if (!PXUtilsDisplayObjectMultiplyDown((PXDisplayObject*)PXEngineGetStage(), displayObject, &matrix))
-//		return;
+
+	[self buildWithDisplayObject:displayObject];
 
 	[self _measureGlobalBounds:retBounds useStroke:useStroke];
 
-	*retBounds = PXGLMatrixConvertRect(&matrix, *retBounds);
-	//*retBounds = PXGLMatrixConvertRect(&previousMatrix, *retBounds);
+//	printf("rect = (%f, %f, %f, %f)\n", retBounds->origin.x, retBounds->origin.y, retBounds->size.width, retBounds->size.height);
+
+	PXGLAABBf aabb = PXGLAABBfMake(retBounds->origin.x, retBounds->origin.y, retBounds->origin.x + retBounds->size.width, retBounds->origin.y + retBounds->size.height);
+	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(&aabb, stage);
+	aabb = PXGLMatrixConvertAABBf(&matrix, aabb);
+	*retBounds = CGRectMake(aabb.xMin, aabb.yMin, aabb.xMax - aabb.xMin, aabb.yMax - aabb.yMin);
 }
 
 - (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
 {
-	[self build];
+	PXStage *stage = PXEngineGetStage();
+	PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(point.x, point.y, stage);
 
 	// inkContainsPoint asks if you are using the bounds, not the shape flag;
 	// therefore it is the opposite of the shape flag.
@@ -387,6 +414,10 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (BOOL) _containsLocalPoint:(CGPoint)point displayObject:(PXDisplayObject *)displayObject shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
 {
+	[self buildWithDisplayObject:displayObject];
+
+//	PXStage *stage = PXEngineGetStage();
+//	PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(point.x, point.y, stage);
 	return [self _containsGlobalPoint:PXUtilsLocalToGlobal(displayObject, point) shapeFlag:shapeFlag useStroke:YES];
 }
 
@@ -435,25 +466,14 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 		inkSetPixelsPerPoint((inkCanvas*)vCanvas, (size.width + size.height) * 0.5f * contentScaleFactor);
 	}*/
 
-	if (wasBuilt == NO || PXGLMatrixIsEqual(&matrix, &previousMatrix) == false)
-	{
-		previousMatrix = matrix;
-		wasBuilt = NO;
-
-		inkMatrix iMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-
-		inkPushMatrix((inkCanvas*)vCanvas);
-		inkMultMatrix((inkCanvas*)vCanvas, iMatrix);
-		print = [self build];
-		inkPopMatrix((inkCanvas*)vCanvas);
-	}
+	print = [self build:matrix];
 
 	PXGLLoadIdentity();
 	vertexCount = inkDrawv((inkCanvas*)vCanvas, pxGraphicsInkRenderer);
 	PXGLMultMatrix(&matrix);
 
-	if (print)
-		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
+//	if (print)
+//		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
 }
 
 @end

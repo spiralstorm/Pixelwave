@@ -101,9 +101,9 @@
 @interface PXGraphics(PrivateButPublic)
 - (void) _setWinding:(PXPathWinding)winding;
 
-- (void) _measureGlobalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke;
+//- (void) _measureGlobalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke;
 - (void) _measureLocalBounds:(CGRect *)retBounds displayObject:(PXDisplayObject *)displayObject useStroke:(BOOL)useStroke;
-- (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke;
+//- (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke;
 - (BOOL) _containsLocalPoint:(CGPoint)point displayObject:(PXDisplayObject *)displayObject shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke;
 /*- (void) _measureLocalBounds:(CGRect *)retBounds;
 - (void) _measureLocalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke;

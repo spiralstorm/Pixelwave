@@ -536,6 +536,11 @@ void inkBuild(inkCanvas* canvas)
 
 	canvas->bounds = inkRectMake(minPoint, inkSizeFromPoint(inkPointSubtract(maxPoint, minPoint)));
 	canvas->boundsWithStroke = inkRectMake(minPointWithStroke, inkSizeFromPoint(inkPointSubtract(maxPointWithStroke, minPointWithStroke)));
+
+	if (canvas->bounds.size.width == canvas->bounds.size.height)
+	{
+		printf("here\n");
+	}
 }
 
 // TODO:	Remove these methods. They only exist for easier debug call stack
@@ -567,6 +572,8 @@ bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox, bo
 	unsigned int vertexCount;
 
 	inkRect bounds = useStroke ? canvas->boundsWithStroke : canvas->bounds;
+
+	printf("bounds = (%f, %f, %f, %f)\n", bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
 
 	if (inkRectContainsPoint(bounds, point) == false)
 		return inkContainsPointFailure();

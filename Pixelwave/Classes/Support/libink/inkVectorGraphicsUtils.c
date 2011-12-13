@@ -173,7 +173,7 @@ inkPoint inkPathGetPoint(char** path_ptr)
 {
     float x = inkPathGetFloat(path_ptr);
     float y = inkPathGetFloat(path_ptr);
-    return inkPointMake(x,-y);
+    return inkPointMake(x,y);
 }
 
 
@@ -223,12 +223,12 @@ void inkDrawSVGPathv(inkCanvas* canvas, const char* path, inkPoint offset)
 			case 'H':
 			case 'h':
 				p1 = inkPointMake(inkPathGetFloat((char**)&path),relative ? 0 : canvas->cursor.y);
-				if (!relative) p1 = inkPointAdd(p1, offset);
+				if (!relative) p1.x += offset.x;
 				break;
 			case 'V':
 			case 'v':
-				p1 = inkPointMake(relative ? 0 : canvas->cursor.x, 0-inkPathGetFloat((char**)&path));
-				if (!relative) p1 = inkPointAdd(p1, offset);
+				p1 = inkPointMake(relative ? 0 : canvas->cursor.x, inkPathGetFloat((char**)&path));
+				if (!relative) p1.y += offset.y;
 				break;
         }
 		
