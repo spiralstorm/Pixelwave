@@ -428,6 +428,9 @@ void inkBuild(inkCanvas* canvas)
 						inkPoint thickness = inkPointMake(val, val);
 						thickness = inkPointMultiply(thickness, inkPointFromSize(scale));
 
+						thickness.x = fabsf(thickness.x);
+						thickness.y = fabsf(thickness.y);
+
 						switch(command->stroke.scaleMode)
 						{
 							case inkLineScaleMode_None:
