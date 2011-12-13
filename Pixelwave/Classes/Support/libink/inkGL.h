@@ -19,12 +19,12 @@
 #define INK_GL_ES
 
 #elif defined(INK_PLATFORM_OSX)
-#include <GL/gl.h>
-#include <GL/glext.h>
-
-#elif defined(INK_PLATFORM_WINDOWS)
 #include <OpenGL/gl.h>
 #include <OpenGL/glext.h>
+
+#elif defined(INK_PLATFORM_WINDOWS)
+#include <GL/gl.h>
+#include <GL/glext.h>
 
 #elif defined(INK_PLATFORM_ANDROID)
 #include <GLES/gl.h>
