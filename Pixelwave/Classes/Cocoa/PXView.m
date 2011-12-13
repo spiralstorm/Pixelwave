@@ -491,7 +491,7 @@
 {
 	if ([EAGLContext setCurrentContext:eaglContext] == NO)
 	{
-		printf("Failed to set current context %p in %s\n", eaglContext, __FUNCTION__);
+		PXDebugLog(@"Failed to set current context %p in %s\n", eaglContext, __FUNCTION__);
 	}
 }
 
@@ -504,7 +504,7 @@
 {
 	if ([EAGLContext setCurrentContext:nil] == NO)
 	{
-		printf("Failed to clear current context in %s\n", __FUNCTION__);
+		PXDebugLog(@"Failed to clear current context in %s\n", __FUNCTION__);
 	}
 }
 

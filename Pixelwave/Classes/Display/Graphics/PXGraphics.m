@@ -357,6 +357,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 		inkMatrix iMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
 
+		float contentScaleFactor = PXEngineGetContentScaleFactor();
+		inkSetPixelsPerPoint((inkCanvas*)vCanvas, contentScaleFactor);
 		inkPushMatrix((inkCanvas*)vCanvas);
 		inkMultMatrix((inkCanvas*)vCanvas, iMatrix);
 		inkBuild((inkCanvas*)vCanvas);
@@ -394,8 +396,6 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 	[self _measureGlobalBounds:retBounds useStroke:useStroke];
 
-//	printf("rect = (%f, %f, %f, %f)\n", retBounds->origin.x, retBounds->origin.y, retBounds->size.width, retBounds->size.height);
-
 	PXGLAABBf aabb = PXGLAABBfMake(retBounds->origin.x, retBounds->origin.y, retBounds->origin.x + retBounds->size.width, retBounds->origin.y + retBounds->size.height);
 	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(&aabb, stage);
 	aabb = PXGLMatrixConvertAABBf(&matrix, aabb);
@@ -409,62 +409,21 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 	// inkContainsPoint asks if you are using the bounds, not the shape flag;
 	// therefore it is the opposite of the shape flag.
-	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake(point.x, point.y), !shapeFlag, useStroke);
+	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake(point.x, point.y), !shapeFlag, useStroke) != NULL;
 }
 
 - (BOOL) _containsLocalPoint:(CGPoint)point displayObject:(PXDisplayObject *)displayObject shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
 {
 	[self buildWithDisplayObject:displayObject];
 
-//	PXStage *stage = PXEngineGetStage();
-//	PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(point.x, point.y, stage);
 	return [self _containsGlobalPoint:PXUtilsLocalToGlobal(displayObject, point) shapeFlag:shapeFlag useStroke:YES];
 }
 
-/*- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y
-{
-	return [self _containsPointWithLocalX:x localY:y shapeFlag:NO];
-}
-
-- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag
-{
-	return [self _containsPointWithLocalX:x localY:y shapeFlag:shapeFlag useStroke:YES];
-}
-
-- (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
-{
-	[self build];
-
-	CGPoint cPt = CGPointMake(x, y);
-	//inkPoint pt = inkPointMake(x, y);
-	cPt = PXUtilsLocalToGlobal
-	cPt = PXGLMatrixConvertPoint(&previousMatrix, cPt);
-	inkPoint pt = inkPointMake(cPt.x, cPt.y);
-
-	// inkContainsPoint asks if you are using the bounds, not the shape flag;
-	// therefore it is the opposite of the shape flag.
-	return inkContainsPoint((inkCanvas*)vCanvas, pt, !shapeFlag, useStroke);
-}
-*/
 - (void) _renderGL
 {
 	BOOL print = NO;
 
 	PXGLMatrix matrix = PXGLCurrentMatrix();
-	/*inkMatrix nMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-	inkSize matrixSize = inkMatrixSize(nMatrix);
-	CGSize size = CGSizeMake(matrixSize.width, matrixSize.height);
-
-	if (PXMathIsEqual(size.width, previousSize.width) == false ||
-		PXMathIsEqual(size.height, previousSize.height) == false)
-	{
-//		printf("previousSize = (%f, %f) newSize = (%f, %f)\n", previousSize.width, previousSize.height, size.width, size.height);
-		previousSize = size;
-		wasBuilt = NO;
-
-		float contentScaleFactor = PXEngineGetContentScaleFactor();
-		inkSetPixelsPerPoint((inkCanvas*)vCanvas, (size.width + size.height) * 0.5f * contentScaleFactor);
-	}*/
 
 	print = [self build:matrix];
 
@@ -472,8 +431,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);
 	PXGLMultMatrix(&matrix);
 
-//	if (print)
-//		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
+	if (print)
+		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
 }
 
 @end

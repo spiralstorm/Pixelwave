@@ -16,7 +16,7 @@
 
 #ifdef MAC_OS_X_VERSION_10_3
 #include "TargetConditionals.h"
-#endif // Includes for apple
+#endif // includes for apple
 
 // ios
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
@@ -27,15 +27,15 @@
 #define INK_PLATFORM_OSX
 #endif // #if apple
 
-// Windows
+// windows
 #elif defined(WIN32) || defined(__WIN32) || defined(__WIN32__)
 #define INK_PLATFORM_WINDOWS
 
-// Linux
+// linux
 #elif defined(linux) || defined(__linux) || defined(__linux__)
 #define INK_PLATFORM_LINUX
 
-// Unknown?!?
+// unknown?!?
 #else
 #define INK_PLATFORM_UNKOWN
 #endif // Platform search

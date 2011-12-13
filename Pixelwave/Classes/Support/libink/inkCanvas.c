@@ -47,7 +47,7 @@ inkCanvas* inkCreate()
 		canvas->previousControl = inkPointZero;
 		canvas->totalLength = 0.0f;
 		inkSetMaxLength(canvas, FLT_MAX);
-		inkSetCurveMultiplier(canvas, 0.5f);
+		inkSetCurveMultiplier(canvas, 0.1f);
 		inkSetPixelsPerPoint(canvas, 1.0f);
 	}
 

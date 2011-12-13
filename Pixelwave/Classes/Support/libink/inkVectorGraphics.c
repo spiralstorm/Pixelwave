@@ -459,6 +459,7 @@ void inkBuild(inkCanvas* canvas)
 					if (command->stroke.pixelHinting == true)
 					{
 						float minThickness = 1.0f / inkPixelsPerPoint(canvas);
+						command->stroke.thickness = inkRoundToNearestf(command->stroke.thickness, minThickness);
 						command->stroke.thickness = fmaxf(minThickness, command->stroke.thickness);
 					}
 
@@ -559,24 +560,12 @@ void inkBuild(inkCanvas* canvas)
 	canvas->boundsWithStroke = inkRectMake(minPointWithStroke, inkSizeFromPoint(inkPointSubtract(maxPointWithStroke, minPointWithStroke)));
 }
 
-// TODO:	Remove these methods. They only exist for easier debug call stack
-//			tracing.
-inkInline bool inkContainsPointSuccess()
-{
-	return true;
-}
-
-inkInline bool inkContainsPointFailure()
-{
-	return false;
-}
-
-bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox, bool useStroke)
+inkRenderGroup* inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox, bool useStroke)
 {
 	inkArray* renderGroups = inkRenderGroups(canvas);
 
 	if (renderGroups == NULL)
-		return inkContainsPointFailure();
+		return NULL;
 
 	inkRenderGroup* renderGroup;
 	inkArray* vertexArray;
@@ -589,12 +578,10 @@ bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox, bo
 
 	inkRect bounds = useStroke ? canvas->boundsWithStroke : canvas->bounds;
 
-	printf("bounds = (%f, %f, %f, %f)\n", bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
-
 	if (inkRectContainsPoint(bounds, point) == false)
-		return inkContainsPointFailure();
+		return NULL;
 	else if (useBoundingBox == true)
-		return inkContainsPointSuccess();
+		return inkArrayElementAt(renderGroups, 0);
 
 	//point = inkPointMake(31.025f, 119.0f);
 	inkArrayPtrForEach(renderGroups, renderGroup)
@@ -623,7 +610,7 @@ bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox, bo
 		// POINTS
 				case GL_POINTS:
 					if (inkPointIsEqual(triangle.pointC, point))
-						return inkContainsPointSuccess();
+						return renderGroup;
 					break;
 
 		// LINES
@@ -637,7 +624,7 @@ bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox, bo
 					// At index  0, point B will be the last point, and pointC
 					// will be the first point, thus checking loop.
 					if (inkLineContainsPoint(inkLineMake(triangle.pointB, triangle.pointC), point))
-						return inkContainsPointSuccess();
+						return renderGroup;
 
 					break;
 
@@ -655,7 +642,7 @@ bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox, bo
 					if (inkTriangleContainsPoint(triangle, point))
 					{
 						inkTriangleContainsPoint(triangle, point);
-						return inkContainsPointSuccess();
+						return renderGroup;
 					}
 
 					break;
@@ -665,7 +652,7 @@ bool inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoundingBox, bo
 		}
 	}
 
-	return inkContainsPointFailure();
+	return NULL;
 }
 
 void inkPushMatrix(inkCanvas* canvas)
