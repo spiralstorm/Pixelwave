@@ -361,7 +361,7 @@ inkRect inkRectUnion(inkRect rectA, inkRect rectB)
 
 // MARK: -
 // MARK: Curve
-// MARK:
+// MARK: -
 
 void inkCurveLengthAdd(inkPoint point, void* userData)
 {

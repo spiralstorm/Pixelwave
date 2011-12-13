@@ -39,7 +39,6 @@
 
 #import "PXFontRenderer.h"
 #import <UIKit/UIKit.h>
-#import <OpenGLES/ES1/glext.h>
 
 @class PXTextureData;
 @class PXTextureGlyphBatch;
@@ -52,7 +51,7 @@
 	PXTextureData *textureData;
 	PXTextureGlyphBatch *textureGlyphBatch;
 	
-	GLuint smoothingType;
+	unsigned int smoothingType;
 }
 
 - (id) initWithUIFont:(UIFont *)font;

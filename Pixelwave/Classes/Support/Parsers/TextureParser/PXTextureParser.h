@@ -41,7 +41,6 @@
 
 #import "PXParser.h"
 #import "PXParsedTextureData.h"
-#import <OpenGLES/ES1/glext.h>
 
 @class PXTextureData;
 @protocol PXTextureModifier;
@@ -94,6 +93,6 @@
 		   modifier:(id<PXTextureModifier>)modifier
 			  origin:(NSString *)origin;
 
-- (BOOL) _initializeTexture:(GLuint)texName;
+- (BOOL) _initializeTexture:(unsigned int)texName;
 - (void) _expandEdges:(PXParsedTextureData *)data;
 @end

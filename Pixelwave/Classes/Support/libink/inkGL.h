@@ -12,8 +12,8 @@
 #include "inkPlatform.h"
 
 #if defined(INK_PLATFORM_IOS)
-#include "OpenGLES/ES1/gl.h"
-#include "OpenGLES/ES1/glext.h"
+#include <OpenGLES/ES1/gl.h>
+#include <OpenGLES/ES1/glext.h>
 #define INK_GL_ES
 
 #elif defined(INK_PLATFORM_OSX)

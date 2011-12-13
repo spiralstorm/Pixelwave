@@ -41,7 +41,6 @@
 
 #import <OpenGLES/EAGL.h>
 #import <OpenGLES/EAGLDrawable.h>
-#import <OpenGLES/ES1/gl.h>
 
 #import "PXEngine.h"
 #import "PXTouchEngine.h"

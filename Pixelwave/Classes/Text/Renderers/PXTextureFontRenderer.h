@@ -38,7 +38,6 @@
  */
 
 #import "PXFontRenderer.h"
-#import <OpenGLES/ES1/glext.h>
 
 @class PXTextureFont;
 
@@ -48,7 +47,7 @@
 	NSMutableDictionary *glNameToTextureGlyphBatch;
 	PXTextureFont *font;
 
-	GLuint smoothingType;
+	unsigned int smoothingType;
 	
 	BOOL enableColors;
 }

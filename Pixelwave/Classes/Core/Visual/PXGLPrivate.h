@@ -40,8 +40,7 @@
 #ifndef _PX_GL_PRIVATE_H_
 #define _PX_GL_PRIVATE_H_
 
-#include <OpenGLES/ES1/gl.h>
-#include <OpenGLES/ES1/glext.h>
+#include "inkGL.h"
 
 #include "PXGLUtils.h"
 #include "PXGLState.h"

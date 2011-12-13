@@ -42,8 +42,8 @@
 
 #include "PXHeaderUtils.h"
 
-#include <OpenGLES/ES1/gl.h>
-#include <OpenGLES/ES1/glext.h>
+#include "inkGL.h"
+
 #include <CoreGraphics/CGGeometry.h>
 
 #ifdef __cplusplus

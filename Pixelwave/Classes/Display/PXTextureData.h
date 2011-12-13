@@ -38,7 +38,8 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <OpenGLES/ES1/glext.h>
+
+#include "inkGL.h"
 
 #include "PXTextureDataPixelFormat.h"
 

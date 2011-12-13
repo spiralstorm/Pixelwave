@@ -38,7 +38,6 @@
  */
 
 #import <UIKit/UIKit.h>
-#import <OpenGLES/ES1/glext.h>
 
 @class PXView;
 @class PXStage;

@@ -9,10 +9,6 @@
 #ifndef _INK_GLU_H_
 #define _INK_GLU_H_
 
-#ifdef QT_CORE_LIB
 #include "../glu/include/glu.h"
-#else
-#include "glu.h"
-#endif
 
 #endif
