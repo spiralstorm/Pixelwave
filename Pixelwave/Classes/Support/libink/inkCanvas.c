@@ -25,27 +25,20 @@ inkCanvas* inkCreate()
 
 	if (canvas != NULL)
 	{
-		
-		if (inkSharedFillTesselator == NULL)
-		{
-			inkSharedFillTesselator = inkTessellatorCreate();
-			++inkSharedFillTessellatorUseCount;
-		}
-		if (inkSharedStrokeTesselator == NULL)
-		{
-			inkSharedStrokeTesselator = inkTessellatorCreate();
-			++inkSharedStrokeTessellatorUseCount;
-		}
-
 		canvas->commandList = inkArrayCreate(sizeof(inkCommand*));
 		canvas->renderGroups = inkArrayCreate(sizeof(inkRenderGroup*));
 		canvas->matrixStack = inkArrayCreate(sizeof(inkMatrix));
+		canvas->fillTessellator = inkTessellatorCreate();
+		canvas->strokeTessellator = inkTessellatorCreate();
 
-		if (canvas->commandList == NULL || canvas->renderGroups == NULL || canvas->matrixStack == NULL)
+		if (canvas->commandList == NULL || canvas->renderGroups == NULL || canvas->matrixStack == NULL || canvas->fillTessellator == NULL || canvas->strokeTessellator == NULL)
 		{
 			inkDestroy(canvas);
 			return NULL;
 		}
+
+		inkTessellatorSetIsStroke(canvas->fillTessellator, false);
+		inkTessellatorSetIsStroke(canvas->strokeTessellator, true);
 
 		canvas->matrix = inkMatrixIdentity;
 		canvas->cursor = inkPointZero;
@@ -65,30 +58,6 @@ void inkDestroy(inkCanvas* canvas)
 {
 	if (canvas != NULL)
 	{
-		if (inkSharedFillTesselator != NULL)
-		{
-			if (inkSharedFillTessellatorUseCount != 0)
-				--inkSharedFillTessellatorUseCount;
-
-			if (inkSharedFillTessellatorUseCount == 0)
-			{
-				inkTessellatorDestroy(inkSharedFillTesselator);
-				inkSharedFillTesselator = NULL;
-			}
-		}
-
-		if (inkSharedStrokeTesselator != NULL)
-		{
-			if (inkSharedStrokeTessellatorUseCount != 0)
-				--inkSharedStrokeTessellatorUseCount;
-
-			if (inkSharedStrokeTessellatorUseCount == 0)
-			{
-				inkTessellatorDestroy(inkSharedStrokeTesselator);
-				inkSharedStrokeTesselator = NULL;
-			}
-		}
-
 		inkRemoveAllCommands(canvas);
 		inkArrayDestroy(canvas->commandList);
 
@@ -96,6 +65,9 @@ void inkDestroy(inkCanvas* canvas)
 		inkArrayDestroy(canvas->renderGroups);
 
 		inkArrayDestroy(canvas->matrixStack);
+
+		inkTessellatorDestroy(canvas->fillTessellator);
+		inkTessellatorDestroy(canvas->strokeTessellator);
 
 		free(canvas);
 	}
@@ -252,17 +224,4 @@ void inkRemoveAllRenderGroups(inkCanvas* canvas)
 	}
 
 	canvas->totalLength = 0.0f;
-}
-
-// We use a shared tessellator because the 'rasterization' step, where
-// tessellation is done, should ONLY ever happen on the main thread
-
-inkTessellator* inkGetFillTessellator()
-{
-	return inkSharedFillTesselator;
-}
-
-inkTessellator* inkGetStrokeTessellator()
-{
-	return inkSharedStrokeTesselator;
 }

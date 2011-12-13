@@ -335,11 +335,8 @@ void inkBuild(inkCanvas* canvas)
 	inkFillGenerator* fillGenerator = NULL;
 	inkStrokeGenerator* strokeGenerator = NULL;
 
-	inkTessellator* fillTessellator = inkGetFillTessellator();
-	inkTessellator* strokeTessellator = inkGetStrokeTessellator();
-
-	inkTessellatorSetIsStroke(fillTessellator, false);
-	inkTessellatorSetIsStroke(strokeTessellator, true);
+	inkTessellator* fillTessellator = canvas->fillTessellator;
+	inkTessellator* strokeTessellator = canvas->strokeTessellator;
 
 	inkArrayPtrForEach(commandList, command)
 	{
@@ -447,6 +444,12 @@ void inkBuild(inkCanvas* canvas)
 							default:
 								break;
 						}
+					}
+
+					if (command->stroke.pixelHinting == true)
+					{
+						float minThickness = 1.0f / inkPixelsPerPoint(canvas);
+						command->stroke.thickness = fmaxf(minThickness, command->stroke.thickness);
 					}
 
 					strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas, canvas->renderGroups, &(command->stroke));

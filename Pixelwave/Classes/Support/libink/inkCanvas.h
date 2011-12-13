@@ -23,6 +23,9 @@ typedef struct
 	inkArray* commandList;
 	inkArray* renderGroups;
 
+	inkTessellator* fillTessellator;
+	inkTessellator* strokeTessellator;
+
 	inkMatrix matrix;
 	inkArray* matrixStack;
 
@@ -62,9 +65,5 @@ inkExtern void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)
 inkExtern void inkRemoveAllCommands(inkCanvas* canvas);
 
 inkExtern void inkRemoveAllRenderGroups(inkCanvas* canvas);
-
-// Will be NULL unless a canvas has been created
-inkExtern inkTessellator* inkGetFillTessellator();
-inkExtern inkTessellator* inkGetStrokeTessellator();
 
 #endif
