@@ -21,12 +21,13 @@ typedef struct
 
 	inkPresetGLData glData;
 
+	void *userData;
 	bool isStroke;
 } inkRenderGroup;
 
-inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData, bool isStroke);
-inkExtern void inkRenderGroupDestroy(inkRenderGroup *group);
+inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData, void* userData, bool isStroke);
+inkExtern void inkRenderGroupDestroy(inkRenderGroup* group);
 
-inkExtern INKvertex *inkRenderGroupNextVertex(inkRenderGroup *group);
+inkExtern INKvertex *inkRenderGroupNextVertex(inkRenderGroup* group);
 
 #endif

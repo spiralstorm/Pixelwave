@@ -25,6 +25,7 @@ typedef struct
 	inkArray *vertexPtrs;
 
 	inkPresetGLData glData;
+	void* userData;
 
 	bool contourBegan;
 	bool polygonBegan;
@@ -35,6 +36,7 @@ inkExtern inkTessellator *inkTessellatorCreate();
 inkExtern void inkTessellatorDestroy(inkTessellator* tessellator);
 
 inkExtern void inkTessellatorSetWindingRule(inkTessellator* tessellator, inkWindingRule windingRule);
+inkExtern void inkTessellatorSetUserData(inkTessellator* tessellator, void* userData);
 
 inkExtern inkPresetGLData inkTessellatorGetGLData(inkTessellator* tessellator);
 inkExtern void inkTessellatorSetGLData(inkTessellator* tessellator, inkPresetGLData glData);

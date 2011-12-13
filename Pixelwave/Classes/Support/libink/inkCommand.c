@@ -73,6 +73,8 @@ inkInline size_t inkCommandDataSizeFromType(inkCommandType type)
 			return sizeof(inkLineGradientCommand);
 		case inkCommandType_Winding:
 			return sizeof(inkWindingCommand);
+		case inkCommandType_UserData:
+			return sizeof(inkUserDataCommand);
 		case inkCommandType_EndFill:
 		default:
 			break;

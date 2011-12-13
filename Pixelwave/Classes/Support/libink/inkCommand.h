@@ -47,6 +47,8 @@ typedef struct
 typedef inkBitmapFill inkLineBitmapCommand;
 typedef inkGradientFill inkLineGradientCommand;
 
+typedef void* inkUserDataCommand;
+
 typedef struct
 {
 	void* data;

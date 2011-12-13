@@ -185,7 +185,8 @@ typedef enum
 	inkCommandType_LineBitmap,
 	inkCommandType_LineGradient,
 	inkCommandType_EndFill,
-	inkCommandType_Winding
+	inkCommandType_Winding,
+	inkCommandType_UserData,
 } inkCommandType;
 
 typedef enum

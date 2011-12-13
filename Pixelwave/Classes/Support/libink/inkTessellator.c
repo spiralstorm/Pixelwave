@@ -166,6 +166,14 @@ void inkTessellatorSetWindingRule(inkTessellator* tessellator, inkWindingRule wi
 	}
 }
 
+void inkTessellatorSetUserData(inkTessellator* tessellator, void* userData)
+{
+	if (tessellator == NULL)
+		return;
+
+	tessellator->userData = userData;
+}
+
 inkPresetGLData inkTessellatorGetGLData(inkTessellator* tessellator)
 {
 	if (tessellator == NULL)
@@ -224,7 +232,7 @@ void inkTessellatorBeginCallback(GLenum type, inkTessellator* tessellator)
 	if (renderGroupPtr == NULL)
 		return;
 
-	*renderGroupPtr = inkRenderGroupCreate(type, tessellator->glData, tessellator->isStroke);
+	*renderGroupPtr = inkRenderGroupCreate(type, tessellator->glData, tessellator->userData, tessellator->isStroke);
 	tessellator->currentRenderGroup = *renderGroupPtr;
 }
 

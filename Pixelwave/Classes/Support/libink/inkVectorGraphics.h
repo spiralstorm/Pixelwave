@@ -39,6 +39,7 @@ inkExtern void inkLineBitmapStyle(inkCanvas* canvas, inkBitmapFill bitmapFill);
 inkExtern void inkLineGradientStyle(inkCanvas* canvas, inkGradientFill gradientFill);
 
 inkExtern void inkWindingStyle(inkCanvas* canvas, inkWindingRule winding);
+inkExtern void inkUserData(inkCanvas* canvas, void* userData);
 
 inkExtern void inkEndFill(inkCanvas* canvas);
 inkExtern void inkLineStyleNone(inkCanvas* canvas);

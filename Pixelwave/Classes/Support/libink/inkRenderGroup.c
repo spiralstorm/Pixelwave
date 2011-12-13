@@ -8,7 +8,7 @@
 
 #include "inkRenderGroup.h"
 
-inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData, bool isStroke)
+inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData, void* userData, bool isStroke)
 {
 	inkRenderGroup* renderGroup = malloc(sizeof(inkRenderGroup));
 
@@ -24,6 +24,7 @@ inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData,
 
 		renderGroup->glDrawMode = glDrawMode;
 		renderGroup->glData = glData;
+		renderGroup->userData = userData;
 		renderGroup->isStroke = isStroke;
 	}
 

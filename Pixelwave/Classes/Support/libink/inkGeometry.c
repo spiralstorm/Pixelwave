@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-#import "inkGeometry.h"
+#include "inkGeometry.h"
 
 // MARK: -
 // MARK: Constants

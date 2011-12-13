@@ -221,6 +221,13 @@ void inkWindingStyle(inkCanvas* canvas, inkWindingRule winding)
 	inkAddCommand(canvas, inkCommandType_Winding, &command);
 }
 
+void inkUserData(inkCanvas* canvas, void* userData)
+{
+	inkUserDataCommand command = userData;
+
+	inkAddCommand(canvas, inkCommandType_UserData, &command);
+}
+
 void inkEndFill(inkCanvas* canvas)
 {
 	inkAddCommand(canvas, inkCommandType_EndFill, NULL);
@@ -482,6 +489,14 @@ void inkBuild(inkCanvas* canvas)
 
 				inkTessellatorSetWindingRule(fillTessellator, *command);
 				inkTessellatorSetWindingRule(strokeTessellator, *command);
+			}
+				break;
+			case inkCommandType_UserData:
+			{
+				inkUserDataCommand* command = (inkUserDataCommand*)(commandData);
+
+				inkTessellatorSetUserData(fillTessellator, *command);
+				inkTessellatorSetUserData(strokeTessellator, *command);
 			}
 				break;
 			case inkCommandType_EndFill:
