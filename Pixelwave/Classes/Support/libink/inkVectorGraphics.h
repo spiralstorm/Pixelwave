@@ -62,6 +62,6 @@ inkExtern void inkTranslate(inkCanvas* canvas, inkPoint offset);
 inkExtern void inkTranslatef(inkCanvas* canvas, float x, float y);
 
 inkExtern unsigned int inkDraw(inkCanvas* canvas);
-inkExtern unsigned int inkDrawv(inkCanvas* canvas, inkRenderer renderer);
+unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer);
 
 #endif

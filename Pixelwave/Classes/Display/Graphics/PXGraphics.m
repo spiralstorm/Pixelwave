@@ -469,7 +469,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	print = [self build:matrix];
 
 	PXGLLoadIdentity();
-	vertexCount = inkDrawv((inkCanvas*)vCanvas, pxGraphicsInkRenderer);
+	vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);
 	PXGLMultMatrix(&matrix);
 
 //	if (print)

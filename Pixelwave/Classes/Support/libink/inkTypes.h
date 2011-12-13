@@ -74,7 +74,6 @@ typedef struct
 	inkDrawElementsFunction drawElementsFunc;
 } inkRenderer;
 
-#define _inkRendererDefault {glEnable, glDisable, glEnableClientState, glDisableClientState, glGetBooleanv, glGetFloatv, glGetIntegerv, glPointSize, glLineWidth, glBindTexture, glGetTexParameteriv, glTexParameteri, glVertexPointer, glTexCoordPointer, glColorPointer, glDrawArrays, glDrawElements}
 inkExtern const inkRenderer inkRendererDefault;
 
 inkExtern inkRenderer inkRendererMake(inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkGetBooleanFunction getBooleanFunc, inkGetFloatFunction getFloatFunc, inkGetIntegerFunction getIntegerFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkGetTexParameterFunction getTexParamFunc, inkSetTexParameterFunction setTexParamFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc);

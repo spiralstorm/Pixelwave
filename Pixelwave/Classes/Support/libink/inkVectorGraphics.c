@@ -536,11 +536,6 @@ void inkBuild(inkCanvas* canvas)
 
 	canvas->bounds = inkRectMake(minPoint, inkSizeFromPoint(inkPointSubtract(maxPoint, minPoint)));
 	canvas->boundsWithStroke = inkRectMake(minPointWithStroke, inkSizeFromPoint(inkPointSubtract(maxPointWithStroke, minPointWithStroke)));
-
-	if (canvas->bounds.size.width == canvas->bounds.size.height)
-	{
-		printf("here\n");
-	}
 }
 
 // TODO:	Remove these methods. They only exist for easier debug call stack
@@ -741,14 +736,14 @@ void inkTranslatef(inkCanvas* canvas, float x, float y)
 
 unsigned int inkDraw(inkCanvas* canvas)
 {
-	return inkDrawv(canvas, inkRendererDefault);
+	return inkDrawv(canvas, (inkRenderer*)&inkRendererDefault);
 }
 
-unsigned int inkDrawv(inkCanvas* canvas, inkRenderer renderer)
+unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 {
 	inkArray* renderGroups = inkRenderGroups(canvas);
 
-	if (renderGroups == NULL)
+	if (renderer == NULL || renderGroups == NULL)
 		return 0;
 
 	inkRenderGroup* renderGroup;
@@ -760,27 +755,27 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer renderer)
 
 	inkPresetGLData previousGLData;
 
-	renderer.getIntegerFunc(GL_TEXTURE_BINDING_2D, (int*)&previousGLData.textureName);
+	renderer->getIntegerFunc(GL_TEXTURE_BINDING_2D, (int*)&previousGLData.textureName);
 	if (previousGLData.textureName != 0)
 	{
-		renderer.getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &previousGLData.magFilter);
-		renderer.getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &previousGLData.minFilter);
-		renderer.getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &previousGLData.wrapS);
-		renderer.getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &previousGLData.wrapT);
+		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &previousGLData.magFilter);
+		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &previousGLData.minFilter);
+		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &previousGLData.wrapS);
+		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &previousGLData.wrapT);
 
-		renderer.disableClientFunc(GL_COLOR_ARRAY);
-		renderer.enableClientFunc(GL_TEXTURE_COORD_ARRAY);
+		renderer->disableClientFunc(GL_COLOR_ARRAY);
+		renderer->enableClientFunc(GL_TEXTURE_COORD_ARRAY);
 
-		renderer.enableFunc(GL_TEXTURE_2D);
+		renderer->enableFunc(GL_TEXTURE_2D);
 	}
 	else
 	{
-		renderer.disableFunc(GL_TEXTURE_2D);
-		renderer.enableClientFunc(GL_COLOR_ARRAY);
-		renderer.disableClientFunc(GL_TEXTURE_COORD_ARRAY);
+		renderer->disableFunc(GL_TEXTURE_2D);
+		renderer->enableClientFunc(GL_COLOR_ARRAY);
+		renderer->disableClientFunc(GL_TEXTURE_COORD_ARRAY);
 	}
-	renderer.getFloatFunc(GL_POINT_SIZE, &previousGLData.pointSize);
-	renderer.getFloatFunc(GL_LINE_WIDTH, &previousGLData.lineWidth);
+	renderer->getFloatFunc(GL_POINT_SIZE, &previousGLData.pointSize);
+	renderer->getFloatFunc(GL_LINE_WIDTH, &previousGLData.lineWidth);
 
 	inkPresetGLData origGLData = previousGLData;
 	inkPresetGLData startState = previousGLData;
@@ -792,13 +787,13 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer renderer)
 		if (previousGLData.pointSize != renderGroup->glData.pointSize)
 		{
 			previousGLData.pointSize = renderGroup->glData.pointSize;
-			renderer.pointSizeFunc(renderGroup->glData.pointSize);
+			renderer->pointSizeFunc(renderGroup->glData.pointSize);
 		}
 
 		if (previousGLData.lineWidth != renderGroup->glData.lineWidth)
 		{
 			previousGLData.lineWidth = renderGroup->glData.lineWidth;
-			renderer.pointSizeFunc(renderGroup->glData.lineWidth);
+			renderer->lineWidthFunc(renderGroup->glData.lineWidth);
 		}
 
 		if (previousGLData.textureName != renderGroup->glData.textureName)
@@ -806,35 +801,35 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer renderer)
 			if (origGLData.textureName != 0)
 			{
 				if (origGLData.magFilter != previousGLData.magFilter)
-					renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, origGLData.magFilter);
+					renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, origGLData.magFilter);
 				if (origGLData.minFilter != previousGLData.minFilter)
-					renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, origGLData.minFilter);
+					renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, origGLData.minFilter);
 				if (origGLData.wrapS != previousGLData.wrapS)
-					renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, origGLData.wrapS);
+					renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, origGLData.wrapS);
 				if (origGLData.wrapT != previousGLData.wrapT)
-					renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, origGLData.wrapT);
+					renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, origGLData.wrapT);
 			}
 
 			previousGLData.textureName = renderGroup->glData.textureName;
 
 			if (previousGLData.textureName != 0)
 			{
-				renderer.disableClientFunc(GL_COLOR_ARRAY);
-				renderer.enableClientFunc(GL_TEXTURE_COORD_ARRAY);
+				renderer->disableClientFunc(GL_COLOR_ARRAY);
+				renderer->enableClientFunc(GL_TEXTURE_COORD_ARRAY);
 
-				renderer.enableFunc(GL_TEXTURE_2D);
-				renderer.textureFunc(GL_TEXTURE_2D, renderGroup->glData.textureName);
+				renderer->enableFunc(GL_TEXTURE_2D);
+				renderer->textureFunc(GL_TEXTURE_2D, renderGroup->glData.textureName);
 
-				renderer.getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &previousGLData.magFilter);
-				renderer.getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &previousGLData.minFilter);
-				renderer.getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &previousGLData.wrapS);
-				renderer.getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &previousGLData.wrapT);
+				renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &previousGLData.magFilter);
+				renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &previousGLData.minFilter);
+				renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &previousGLData.wrapS);
+				renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &previousGLData.wrapT);
 			}
 			else
 			{
-				renderer.disableFunc(GL_TEXTURE_2D);
-				renderer.enableClientFunc(GL_COLOR_ARRAY);
-				renderer.disableClientFunc(GL_TEXTURE_COORD_ARRAY);
+				renderer->disableFunc(GL_TEXTURE_2D);
+				renderer->enableClientFunc(GL_COLOR_ARRAY);
+				renderer->disableClientFunc(GL_TEXTURE_COORD_ARRAY);
 			}
 
 			origGLData = previousGLData;
@@ -845,22 +840,22 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer renderer)
 			if (previousGLData.magFilter != renderGroup->glData.magFilter)
 			{
 				previousGLData.magFilter = renderGroup->glData.magFilter;
-				renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, renderGroup->glData.magFilter);
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, renderGroup->glData.magFilter);
 			}
 			if (previousGLData.minFilter != renderGroup->glData.minFilter)
 			{
 				previousGLData.minFilter = renderGroup->glData.minFilter;
-				renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, renderGroup->glData.minFilter);
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, renderGroup->glData.minFilter);
 			}
 			if (previousGLData.wrapS != renderGroup->glData.wrapS)
 			{
 				previousGLData.wrapS = renderGroup->glData.wrapS;
-				renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, renderGroup->glData.wrapS);
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, renderGroup->glData.wrapS);
 			}
 			if (previousGLData.wrapT != renderGroup->glData.wrapT)
 			{
 				previousGLData.wrapT = renderGroup->glData.wrapT;
-				renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, renderGroup->glData.wrapT);
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, renderGroup->glData.wrapT);
 			}
 		}
 
@@ -871,11 +866,11 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer renderer)
 			vertexArrayCount = inkArrayCount(vertexArray);
 			totalVertexCount += vertexArrayCount;
 
-			renderer.vertexFunc(2, GL_FLOAT, sizeof(INKvertex), &(vertices->x));
-			renderer.textureCoordinateFunc(2, GL_FLOAT, sizeof(INKvertex), &(vertices->s));
-			renderer.colorFunc(4, GL_UNSIGNED_BYTE, sizeof(INKvertex), &(vertices->r));
+			renderer->vertexFunc(2, GL_FLOAT, sizeof(INKvertex), &(vertices->x));
+			renderer->textureCoordinateFunc(2, GL_FLOAT, sizeof(INKvertex), &(vertices->s));
+			renderer->colorFunc(4, GL_UNSIGNED_BYTE, sizeof(INKvertex), &(vertices->r));
 
-			renderer.drawArraysFunc(renderGroup->glDrawMode, 0, vertexArrayCount);
+			renderer->drawArraysFunc(renderGroup->glDrawMode, 0, vertexArrayCount);
 		}
 	}
 
@@ -884,28 +879,28 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer renderer)
 		if (origGLData.textureName != 0)
 		{
 			if (origGLData.magFilter != previousGLData.magFilter)
-				renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, origGLData.magFilter);
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, origGLData.magFilter);
 			if (origGLData.minFilter != previousGLData.minFilter)
-				renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, origGLData.minFilter);
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, origGLData.minFilter);
 			if (origGLData.wrapS != previousGLData.wrapS)
-				renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, origGLData.wrapS);
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, origGLData.wrapS);
 			if (origGLData.wrapT != previousGLData.wrapT)
-				renderer.setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, origGLData.wrapT);
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, origGLData.wrapT);
 		}
 
 		if (startState.textureName != 0)
 		{
-			renderer.disableClientFunc(GL_COLOR_ARRAY);
-			renderer.enableClientFunc(GL_TEXTURE_COORD_ARRAY);
+			renderer->disableClientFunc(GL_COLOR_ARRAY);
+			renderer->enableClientFunc(GL_TEXTURE_COORD_ARRAY);
 
-			renderer.enableFunc(GL_TEXTURE_2D);
-			renderer.textureFunc(GL_TEXTURE_2D, startState.textureName);
+			renderer->enableFunc(GL_TEXTURE_2D);
+			renderer->textureFunc(GL_TEXTURE_2D, startState.textureName);
 		}
 		else
 		{
-			renderer.disableFunc(GL_TEXTURE_2D);
-			renderer.enableClientFunc(GL_COLOR_ARRAY);
-			renderer.disableClientFunc(GL_TEXTURE_COORD_ARRAY);
+			renderer->disableFunc(GL_TEXTURE_2D);
+			renderer->enableClientFunc(GL_COLOR_ARRAY);
+			renderer->disableClientFunc(GL_TEXTURE_COORD_ARRAY);
 		}
 	}
 

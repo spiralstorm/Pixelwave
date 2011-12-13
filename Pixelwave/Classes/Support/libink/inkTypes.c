@@ -10,6 +10,8 @@
 
 #include "inkGLU.h"
 
+#define _inkRendererDefault {inkglEnable, inkglDisable, inkglEnableClientState, inkglDisableClientState, inkglGetBooleanv, inkglGetFloatv, inkglGetIntegerv, inkglPointSize, inkglLineWidth, inkglBindTexture, inkglGetTexParameteriv, inkglTexParameteri, inkglVertexPointer, inkglTexCoordPointer, inkglColorPointer, inkglDrawArrays, inkglDrawElements}
+
 const inkPresetGLData inkPresetGLDataDefault = _inkPresetGLDataDefault;
 const inkSpreadMethod inkSpreadMethodDefault = _inkSpreadMethodDefault;
 const inkInterpolationMethod inkInterpolationMethodDefault = _inkInterpolationMethodDefault;
@@ -19,6 +21,24 @@ const inkTriangleCulling inkTriangleCullingDefault = _inkTriangleCullingDefault;
 const inkJointStyle inkJointStyleDefault = _inkJointStyleDefault;
 const inkLineScaleMode inkLineScaleModeDefault = _inkLineScaleModeDefault;
 const inkCapsStyle inkCapsStyleDefault = _inkCapsStyleDefault;
+
+void inkglEnable(unsigned int cap) {glEnable(cap);}
+void inkglDisable(unsigned int cap) {glDisable(cap);}
+void inkglEnableClientState(unsigned int array) {glEnableClientState(array);}
+void inkglDisableClientState(unsigned int array) {glDisableClientState(array);}
+void inkglGetBooleanv(unsigned int pname, unsigned char *params) {glGetBooleanv(pname, params);}
+void inkglGetFloatv(unsigned int pname, float *params) {glGetFloatv(pname, params);}
+void inkglGetIntegerv(unsigned int pname, int *params) {glGetIntegerv(pname, params);}
+void inkglPointSize(float size) {glPointSize(size);}
+void inkglLineWidth(float width) {glLineWidth(width);}
+void inkglBindTexture(unsigned int target, unsigned int texture) {glBindTexture(target, texture);}
+void inkglGetTexParameteriv(unsigned int target, unsigned int pname, int *params) {glGetTexParameteriv(target, pname, params);}
+void inkglTexParameteri(unsigned int target, unsigned int pname, int param) {glTexParameteri(target, pname, param);}
+void inkglVertexPointer(int size, unsigned int type, int stride, const void *pointer) {glVertexPointer(size, type, stride, pointer);}
+void inkglTexCoordPointer(int size, unsigned int type, int stride, const void *pointer) {glTexCoordPointer(size, type, stride, pointer);}
+void inkglColorPointer(int size, unsigned int type, int stride, const void *pointer) {glColorPointer(size, type, stride, pointer);}
+void inkglDrawArrays(unsigned int mode, int first, int count) {glDrawArrays(mode, first, count);}
+void inkglDrawElements(unsigned int mode, int count, unsigned int type, const void *indices) {glDrawElements(mode, count, type, indices);}
 
 const inkRenderer inkRendererDefault = _inkRendererDefault;
 
