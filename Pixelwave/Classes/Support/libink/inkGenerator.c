@@ -6,7 +6,7 @@
 //  Copyright (c) 2011 Spiralstorm Games. All rights reserved.
 //
 
-#import "inkGenerator.h"
+#include "inkGenerator.h"
 
 #include "inkFill.h"
 

@@ -28,13 +28,8 @@
  * Silicon Graphics, Inc.
  */
 
-#ifdef QT_CORE_LIB
 #include "../include/gluos.h"
 #include "../include/glu.h"
-#else
-#include "gluos.h"
-#include "glu.h"
-#endif
 
 #include <math.h>
 #include "gluint.h"
@@ -63,7 +58,7 @@ static void __gluMakeIdentityf(GLfloat m[16])
 void GLAPIENTRY
 gluOrtho2D(GLdouble left, GLdouble right, GLdouble bottom, GLdouble top)
 {
-#ifdef GLU_GL_ES
+#ifdef INK_GL_ES
     glOrthof(left, right, bottom, top, -1, 1);
 #else
 	glOrtho(left, right, bottom, top, -1, 1);

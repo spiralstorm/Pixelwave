@@ -31,16 +31,7 @@
 #ifndef __glu_h__
 #define __glu_h__
 
-#ifdef QT_CORE_LIB
-#if WIN32 || __WIN32 || __WIN32__
-#include <GL/gl.h>
-#else
-#include <OpenGL/gl.h>
-#endif
-#else
-#define GLU_GL_ES
-#include <OpenGLES/ES1/gl.h>
-#endif
+#include "../../libink/inkGL.h"
 
 #ifndef GLAPIENTRY
 #define GLAPIENTRY

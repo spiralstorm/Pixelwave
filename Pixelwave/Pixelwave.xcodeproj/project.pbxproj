@@ -345,6 +345,8 @@
 		5256CACD130980980001A379 /* PXRegexMatcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 5256CAC7130980980001A379 /* PXRegexMatcher.m */; };
 		5256CACE130980980001A379 /* PXRegexPattern.h in Headers */ = {isa = PBXBuildFile; fileRef = 5256CAC8130980980001A379 /* PXRegexPattern.h */; };
 		5256CACF130980980001A379 /* PXRegexPattern.m in Sources */ = {isa = PBXBuildFile; fileRef = 5256CAC9130980980001A379 /* PXRegexPattern.m */; };
+		5257AA1C1497BE63003BA330 /* inkGL.h in Headers */ = {isa = PBXBuildFile; fileRef = 5257AA1B1497BE60003BA330 /* inkGL.h */; };
+		5257AA1E1497C04B003BA330 /* inkPlatform.h in Headers */ = {isa = PBXBuildFile; fileRef = 5257AA1D1497C041003BA330 /* inkPlatform.h */; };
 		526A73ED13046E250020FB2B /* PXSoundModifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 526A73DF13046E250020FB2B /* PXSoundModifier.h */; };
 		526A73F113046E250020FB2B /* PXTextureModifier.h in Headers */ = {isa = PBXBuildFile; fileRef = 526A73E313046E250020FB2B /* PXTextureModifier.h */; };
 		526A73F313046E250020FB2B /* PXSoundModifierToMono.h in Headers */ = {isa = PBXBuildFile; fileRef = 526A73E613046E250020FB2B /* PXSoundModifierToMono.h */; };
@@ -920,6 +922,8 @@
 		5256CAC7130980980001A379 /* PXRegexMatcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXRegexMatcher.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		5256CAC8130980980001A379 /* PXRegexPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXRegexPattern.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		5256CAC9130980980001A379 /* PXRegexPattern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXRegexPattern.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		5257AA1B1497BE60003BA330 /* inkGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkGL.h; sourceTree = "<group>"; };
+		5257AA1D1497C041003BA330 /* inkPlatform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkPlatform.h; sourceTree = "<group>"; };
 		526A73DF13046E250020FB2B /* PXSoundModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSoundModifier.h; sourceTree = "<group>"; };
 		526A73E313046E250020FB2B /* PXTextureModifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureModifier.h; sourceTree = "<group>"; };
 		526A73E613046E250020FB2B /* PXSoundModifierToMono.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSoundModifierToMono.h; sourceTree = "<group>"; };
@@ -2041,6 +2045,8 @@
 		526DA3BB146B19FC00566FF2 /* libink */ = {
 			isa = PBXGroup;
 			children = (
+				5257AA1D1497C041003BA330 /* inkPlatform.h */,
+				5257AA1B1497BE60003BA330 /* inkGL.h */,
 				52A22E561475C2F2002B41BC /* glu */,
 				526DA3D2146B1A0A00566FF2 /* ink.h */,
 				52A22E541475AA9D002B41BC /* inkGLU.h */,
@@ -2728,6 +2734,8 @@
 				52A22E931475C30B002B41BC /* tessmono.h in Headers */,
 				52A22E961475C30B002B41BC /* gluint.h in Headers */,
 				52771679148E99CE00181159 /* PXGraphicsTypes.h in Headers */,
+				5257AA1C1497BE63003BA330 /* inkGL.h in Headers */,
+				5257AA1E1497C04B003BA330 /* inkPlatform.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -28,13 +28,8 @@
  * Silicon Graphics, Inc.
  */
 
-#ifdef QT_CORE_LIB
 #include "../include/gluos.h"
 #include "../include/glu.h"
-#else
-#include "gluos.h"
-#include "glu.h"
-#endif
 
 #include "gluint.h"
 #include <stdio.h>
