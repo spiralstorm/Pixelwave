@@ -489,6 +489,9 @@ void inkBuild(inkCanvas* canvas)
 			default:
 				break;
 		}
+
+		if (canvas->totalLength >= canvas->maxLength)
+			break;
 	}
 
 	inkEndGenerators(&fillGenerator, &strokeGenerator);
