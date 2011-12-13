@@ -70,31 +70,6 @@ void inkClear(inkCanvas* canvas)
 	inkRemoveAllRenderGroups(canvas);
 }
 
-void inkMoveTo(inkCanvas* canvas, inkPoint position)
-{
-	inkMoveTov(canvas, position, false);
-}
-
-void inkLineTo(inkCanvas* canvas, inkPoint position)
-{
-	inkLineTov(canvas, position, false);
-}
-
-void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
-{
-	inkCurveTov(canvas, control, anchor, false, false);
-}
-
-void inkQuadraticCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor)
-{
-	inkQuadraticCurveTov(canvas, control, anchor, false, false);
-}
-
-void inkCubicCurveTo(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor)
-{
-	inkCubicCurveTov(canvas, controlA, controlB, anchor, false, false);
-}
-
 void inkMoveTov(inkCanvas* canvas, inkPoint position, bool relative)
 {
 	position = inkPosition(canvas, position, relative);
@@ -317,6 +292,9 @@ void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGener
 		return;
 
 	float arcLength = inkCurveLength(curveType, start, controlA, controlB, anchor);
+
+	if (isnan(arcLength))
+		assert(arcLength);
 
 	inkCurveGenerators generators;
 	generators.canvas = canvas;

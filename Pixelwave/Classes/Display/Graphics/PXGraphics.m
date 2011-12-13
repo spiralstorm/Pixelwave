@@ -298,7 +298,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth
 {
-	return [self drawRoundRectWithX:x y:y width:width height:height ellipseWidth:ellipseWidth ellipseHeight:NAN];
+	return [self drawRoundRectWithX:x y:y width:width height:height ellipseWidth:ellipseWidth ellipseHeight:ellipseWidth];
 }
 
 - (void) drawRoundRectWithX:(float)x y:(float)y width:(float)width height:(float)height ellipseWidth:(float)ellipseWidth ellipseHeight:(float)ellipseHeight
@@ -431,8 +431,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);
 	PXGLMultMatrix(&matrix);
 
-	if (print)
-		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
+//	if (print)
+//		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
 }
 
 @end

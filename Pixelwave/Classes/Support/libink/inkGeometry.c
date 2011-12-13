@@ -411,6 +411,11 @@ void inkCurveApproximation(inkCurveType curveType, inkPoint start, inkPoint cont
 	if (precicion < 2)
 		precicion = 2;
 
+	assert(inkPointIsNan(start) == false);
+	assert(inkPointIsNan(controlA) == false);
+	assert(inkPointIsNan(controlB) == false);
+	assert(inkPointIsNan(anchor) == false);
+
 	inkPoint d = start;
 
 	inkPoint point;
