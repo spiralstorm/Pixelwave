@@ -491,7 +491,14 @@ void inkBuild(inkCanvas* canvas)
 		}
 
 		if (canvas->totalLength >= canvas->maxLength)
+		{
+			if (canvas->cancelIncompleteFills == true)
+				inkGeneratorRemoveAllVertices(fillGenerator->generator);
+			if (canvas->cancelIncompleteStrokes == true)
+				inkGeneratorRemoveAllVertices(strokeGenerator->generator);
+
 			break;
+		}
 	}
 
 	inkEndGenerators(&fillGenerator, &strokeGenerator);

@@ -41,6 +41,9 @@ typedef struct
 
 	float pixelsPerPoint;
 	float one_pixelsPerPoint;
+
+	bool cancelIncompleteFills;
+	bool cancelIncompleteStrokes;
 } inkCanvas;
 
 inkExtern inkCanvas* inkCreate();
@@ -57,6 +60,8 @@ inkExtern float inkCurveMultiplier(inkCanvas* canvas);
 inkExtern float inkTotalLength(inkCanvas* canvas);
 inkExtern void inkSetMaxLength(inkCanvas* canvas, float length);
 inkExtern float inkMaxLength(inkCanvas* canvas);
+
+inkExtern void inkSetCancelIncompleteDraws(inkCanvas* canvas, bool cancelIncompleteFills, bool cancelIncompleteStrokes);
 
 inkExtern void inkSetPixelsPerPoint(inkCanvas* canvas, float pixelHint);
 inkExtern float inkPixelsPerPoint(inkCanvas* canvas);

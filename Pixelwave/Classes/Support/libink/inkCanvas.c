@@ -46,6 +46,7 @@ inkCanvas* inkCreate()
 		canvas->boundsWithStroke = inkRectZero;
 		canvas->previousControl = inkPointZero;
 		canvas->totalLength = 0.0f;
+		inkSetCancelIncompleteDraws(canvas, true, false);
 		inkSetMaxLength(canvas, FLT_MAX);
 		inkSetCurveMultiplier(canvas, 0.1f);
 		inkSetPixelsPerPoint(canvas, 1.0f);
@@ -147,6 +148,15 @@ float inkMaxLength(inkCanvas* canvas)
 		return 0.0f;
 
 	return canvas->maxLength;
+}
+
+void inkSetCancelIncompleteDraws(inkCanvas* canvas, bool cancelIncompleteFills, bool cancelIncompleteStrokes)
+{
+	if (canvas == NULL)
+		return;
+
+	canvas->cancelIncompleteFills = cancelIncompleteFills;
+	canvas->cancelIncompleteStrokes = cancelIncompleteStrokes;
 }
 
 void inkSetPixelsPerPoint(inkCanvas* canvas, float pixelsPerPoint)
