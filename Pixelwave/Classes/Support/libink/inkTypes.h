@@ -215,4 +215,11 @@ typedef enum
 	inkError_OutOfMemory
 } inkError;
 
+typedef enum
+{
+	inkIncompleteDrawStrategy_Ignore = 0,
+	inkIncompleteDrawStrategy_Fade,
+	inkIncompleteDrawStrategy_Full
+} inkIncompleteDrawStrategy;
+
 #endif

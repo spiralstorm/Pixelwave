@@ -45,4 +45,6 @@ inkExtern void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void
 inkExtern void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position);
 inkExtern void inkGeneratorRemoveAllVertices(inkGenerator* generator);
 
+inkExtern void inkGeneratorMultColor(inkGenerator* generator, float red, float green, float blue, float alpha);
+
 #endif

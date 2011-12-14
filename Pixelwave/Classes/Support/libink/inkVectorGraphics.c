@@ -304,6 +304,48 @@ void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGener
 	inkCurveApproximation(curveType, start, controlA, controlB, anchor, inkArcLengthSegmentCount(canvas, arcLength), inkCurveAdd, (void*)(&generators));
 }
 
+void inkHandleIncompleteGenerator(inkCanvas* canvas, inkGenerator* generator, inkIncompleteDrawStrategy strategy)
+{
+	if (generator == NULL)
+		return;
+
+	switch(strategy)
+	{
+		case inkIncompleteDrawStrategy_Ignore:
+			inkGeneratorRemoveAllVertices(generator);
+			break;
+		case inkIncompleteDrawStrategy_Fade:
+		{
+			float alphaMult = 0.0f;
+			if (canvas->overDrawAllowance != 0.0f)
+			{
+				canvas->overDrawAllowance = (canvas->totalLength - canvas->maxLength) / canvas->overDrawAllowance;
+				alphaMult = fmaxf(0.0f, fminf(alphaMult, 1.0f));
+			}
+
+			inkGeneratorMultColor(generator, 1.0f, 1.0f, 1.0f, alphaMult);
+		}
+			break;
+		case inkIncompleteDrawStrategy_Full:
+			break;
+		default:
+			break;
+	}
+}
+
+void inkHandleIncompleteDraw(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator)
+{
+	if (fillGenerator != NULL)
+	{
+		inkHandleIncompleteGenerator(canvas, fillGenerator->generator, canvas->incompleteFillStrategy);
+	}
+
+	if (strokeGenerator != NULL)
+	{
+		inkHandleIncompleteGenerator(canvas, strokeGenerator->generator, canvas->incompleteStrokeStrategy);
+	}
+}
+
 // ONLY call this method on the main thread as it uses a non-thread safe shared
 // tessellator.
 void inkBuild(inkCanvas* canvas)
@@ -492,11 +534,7 @@ void inkBuild(inkCanvas* canvas)
 
 		if (canvas->totalLength >= canvas->maxLength)
 		{
-			if (canvas->cancelIncompleteFills == true && fillGenerator != NULL)
-				inkGeneratorRemoveAllVertices(fillGenerator->generator);
-			if (canvas->cancelIncompleteStrokes == true && strokeGenerator != NULL)
-				inkGeneratorRemoveAllVertices(strokeGenerator->generator);
-
+			inkHandleIncompleteDraw(canvas, fillGenerator, strokeGenerator);
 			break;
 		}
 	}

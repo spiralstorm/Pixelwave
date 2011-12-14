@@ -214,3 +214,23 @@ void inkGeneratorRemoveAllVertices(inkGenerator* generator)
 		generator->currentVertices = NULL;
 	}
 }
+
+void inkGeneratorMultColor(inkGenerator* generator, float red, float green, float blue, float alpha)
+{
+	if (generator == NULL)
+		return;
+
+	inkArray* array;
+	INKvertex* vertex;
+
+	inkArrayPtrForEach(generator->vertexGroupList, array)
+	{
+		inkArrayForEach(array, vertex)
+		{
+			vertex->r *= red;
+			vertex->g *= green;
+			vertex->b *= blue;
+			vertex->a *= alpha;
+		}
+	}
+}
