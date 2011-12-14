@@ -127,7 +127,7 @@ void inkStrokeGeneratorRound(inkStrokeGenerator* strokeGenerator, inkTessellator
 //	if (angleDiff < inkStrokeGeneratorRoundAngleEpsilon)
 //		return;
 
-	float arcLength = 2.0f * M_PI * angleDist * fabsf(angleDiff / M_PI);
+	float arcLength = M_TAU * angleDist * fabsf(angleDiff * M_1_PI);
 	// guaranteed to at lest return 2.
 	unsigned int segmentCount = inkArcLengthSegmentCount(canvas, arcLength);
 	//float add = angleDiff / ((float)inkStrokeGeneratorRoundPrecisionPoints + 1.0f);
@@ -369,7 +369,7 @@ bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* strok
 		float miter = stroke->miterLimit;
 		if (stroke->joints == inkJointStyle_Bevel)
 		{
-			miter = (M_PI - fabsf(angleDiff)) / M_PI;
+			miter = (M_PI - fabsf(angleDiff)) * M_1_PI;
 		}
 
 		if (flip)

@@ -305,11 +305,11 @@ inkInline float inkAngleOrient(float angle)
 {
 	if (angle > M_PI)
 	{
-		return angle - (M_PI + M_PI);
+		return angle - M_TAU;
 	}
 	else if (angle < -M_PI)
 	{
-		return angle + (M_PI + M_PI);
+		return angle + M_TAU;
 	}
 	
 	return angle;

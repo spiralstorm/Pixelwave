@@ -15,11 +15,6 @@
 
 #include "inkGLU.h"
 
-// TODO:	Percision too high can create floating point issues where an
-//			intersection is impossible to find due to the points being too close
-//			together.
-// NOTE:	See the '+ 2', this is to add the first and last points always
-
 typedef struct
 {
 	inkCanvas* canvas;
