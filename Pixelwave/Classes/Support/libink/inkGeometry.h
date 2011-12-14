@@ -110,6 +110,9 @@ inkInline bool inkIsEqualf(float a, float b);
 inkInline bool inkIsZerof(float a);
 inkInline float inkAngleOrient(float angle);
 inkInline float inkRoundToNearestf(float val, float nearest);
+inkInline float inkClampf(float val);
+inkInline float inkReflectf(float val);
+inkInline float inkRepeatf(float val);
 
 // MARK: -
 // MARK: Point Declarations
@@ -322,6 +325,38 @@ inkInline float inkRoundToNearestf(float val, float nearest)
 	val *= nearest;
 
 	return val;
+}
+
+inkInline float inkClampf(float val)
+{
+	if (val < 0.0f)
+		return 0.0f;
+
+	if (val > 1.0f)
+		return 1.0f;
+
+	return val;
+}
+
+inkInline float inkReflectf(float val)
+{
+	if (val == 0.0f || val == 1.0f)
+		return val;
+
+	return 1.0f - fabsf(1.0f - fmodf(fabsf(val), 2.0f));
+}
+
+inkInline float inkRepeatf(float val)
+{
+	if (val == 0.0f)
+		return val;
+
+	float v;
+	float remain = fabsf(modff(val, &v));
+	if (remain == 0.0f)
+		return 1.0f;
+
+	return val < 0.0f ? 1.0f - remain : remain;
 }
 
 // MARK: -

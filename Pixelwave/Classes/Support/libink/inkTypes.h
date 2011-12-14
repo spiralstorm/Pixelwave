@@ -87,6 +87,34 @@ typedef struct
 
 typedef unsigned int INKenum;
 
+typedef struct
+{
+	unsigned char r, g, b, a;
+} inkColor;
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+inkInline inkColor inkColorMake(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+	inkColor color;
+
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	color.a = a;
+
+	return color;
+}
+
+inkInline inkColor inkColorMakef(float r, float g, float b, float a)
+{
+	return inkColorMake(r * 0xFF, g * 0xFF, b * 0xFF, a * 0xFF);
+}
+#ifdef __cplusplus
+}
+#endif
+
 typedef enum
 {
 	inkFillType_Solid = 0,

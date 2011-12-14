@@ -10,6 +10,10 @@
 
 #include "inkGLU.h"
 
+#ifndef GL_CLAMP_TO_EDGE
+#define GL_CLAMP_TO_EDGE GL_REPEAT
+#endif
+
 const inkSolidFill inkSolidFillDefault = _inkSolidFillDefault;
 const inkBitmapFill inkBitmapFillDefault = _inkBitmapFillDefault;
 const inkGradientFill inkGradientFillDefault = _inkGradientFillDefault;
@@ -52,14 +56,13 @@ inkBitmapFill inkBitmapFillMake(inkMatrix matrix, inkBitmapInfo bitmapInfo, bool
 	return fill;
 }
 
-inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors, inkArray* alphas, inkArray* ratios, inkGradientType type, inkSpreadMethod spreadMethod, inkInterpolationMethod interpolationMethod, float focalPointRatio)
+inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors, inkArray* ratios, inkGradientType type, inkSpreadMethod spreadMethod, inkInterpolationMethod interpolationMethod, float focalPointRatio)
 {
 	inkGradientFill fill;
 
 	fill.fillType = inkFillType_Gradient;
 
 	fill.colors = colors;
-	fill.alphas = alphas;
 	fill.ratios = ratios;
 	fill.type = type;
 	fill.spreadMethod = spreadMethod;
@@ -90,4 +93,41 @@ inkExtern inkPresetGLData inkFillUpdateGLData(void* fill, inkPresetGLData glData
 	glData.wrapT = ((inkBitmapFill*)fill)->repeat ? GL_REPEAT : GL_CLAMP_TO_EDGE;
 
 	return glData;
+}
+
+inkColor inkGradientColor(inkGradientFill* fill, float x, float y)
+{
+	if (fill == NULL)
+		return inkColorMakef(1.0f, 1.0f, 1.0f, 1.0f);
+
+	if (fill->colors == NULL)
+		return inkColorMakef(1.0f, 1.0f, 1.0f, 1.0f);
+
+	unsigned int count = inkArrayCount(fill->colors);
+
+	if (count == 0)
+		return inkColorMakef(1.0f, 1.0f, 1.0f, 1.0f);
+
+	if (count == 1)
+	{
+		return *((inkColor*)inkArrayElementAt(fill->colors, 0));
+	}
+
+	switch(fill->spreadMethod)
+	{
+		case inkSpreadMethod_Pad:
+			x = inkClampf(x);
+			y = inkClampf(y);
+			break;
+		case inkSpreadMethod_Reflect:
+			x = inkReflectf(x);
+			y = inkReflectf(y);
+			break;
+		case inkSpreadMethod_Repeat:
+			x = inkRepeatf(x);
+			y = inkRepeatf(y);
+			break;
+	}
+
+	return inkColorMakef(1.0f, 1.0f, 1.0f, 1.0f);
 }
