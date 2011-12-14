@@ -154,7 +154,7 @@
 	}
 	else
 	{
-		[_graphics _measureLocalBounds:retBounds displayObject:self useStroke:useStroke];
+		*retBounds = [_graphics _measureLocalBoundsWithDisplayObject:self useStroke:useStroke];
 	}
 }
 

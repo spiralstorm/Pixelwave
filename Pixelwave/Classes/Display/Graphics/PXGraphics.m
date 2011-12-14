@@ -374,32 +374,30 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 // MARK: Override
 // MARK: -
 
-- (void) _measureGlobalBounds:(CGRect *)retBounds useStroke:(BOOL)useStroke
+- (CGRect) _measureGlobalBoundsUseStroke:(BOOL)useStroke
 {
-	if (retBounds == NULL)
-		return;
-
-	inkRect bounds = inkBounds((inkCanvas*)vCanvas);
-	*retBounds = CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
+	inkRect bounds = inkBoundsv((inkCanvas*)vCanvas, useStroke);
+	return CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
 }
 
-- (void) _measureLocalBounds:(CGRect *)retBounds displayObject:(PXDisplayObject *)displayObject useStroke:(BOOL)useStroke
+- (CGRect) _measureLocalBoundsWithDisplayObject:(PXDisplayObject *)displayObject useStroke:(BOOL)useStroke
 {
 	PXGLMatrix matrix;
 	PXGLMatrixIdentity(&matrix);
 	PXStage *stage = PXEngineGetStage();
 
 	if (!PXUtilsDisplayObjectMultiplyUp((PXDisplayObject*)stage, displayObject, &matrix))
-		return;
+		return CGRectZero;
 
 	[self buildWithDisplayObject:displayObject];
 
-	[self _measureGlobalBounds:retBounds useStroke:useStroke];
+	CGRect bounds = [self _measureGlobalBoundsUseStroke:useStroke];
 
-	PXGLAABBf aabb = PXGLAABBfMake(retBounds->origin.x, retBounds->origin.y, retBounds->origin.x + retBounds->size.width, retBounds->origin.y + retBounds->size.height);
+	PXGLAABBf aabb = PXGLAABBfMake(bounds.origin.x, bounds.origin.y, bounds.origin.x + bounds.size.width, bounds.origin.y + bounds.size.height);
 	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(&aabb, stage);
 	aabb = PXGLMatrixConvertAABBf(&matrix, aabb);
-	*retBounds = CGRectMake(aabb.xMin, aabb.yMin, aabb.xMax - aabb.xMin, aabb.yMax - aabb.yMin);
+
+	return CGRectMake(aabb.xMin, aabb.yMin, aabb.xMax - aabb.xMin, aabb.yMax - aabb.yMin);
 }
 
 - (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke

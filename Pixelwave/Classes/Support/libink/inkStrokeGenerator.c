@@ -14,9 +14,6 @@
 #include "inkFill.h"
 #include "inkVectorGraphics.h"
 
-//#define INK_STROKE_GENERATOR_NO_FORCE_END
-
-//const unsigned int inkStrokeGeneratorRoundPrecisionPoints = 5;
 // Anything less than 5 degrees will just be a line.
 //const float inkStrokeGeneratorRoundAngleEpsilon = M_PI / (180 / 5);
 
@@ -197,13 +194,12 @@ void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, inkC
 
 bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCanvas* canvas, inkBox* previousBox, inkBox* nowBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise)
 {
-//	printf("pt = (%f, %f)\n", vA.x, vA.y);
 	inkBox box = inkBoxZero;
+
 	// Needs to be declared and set prior to using the goto.
 	bool flip = false;
 	bool reverseCaps;
 	bool innerOuterSwitch;
-//	bool innerOuterSwitchAlreadyChecked;
 
 	if (stroke == NULL)
 		goto returnStatement;
@@ -227,7 +223,6 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 	float baAngle = inkPointAngle(ptA, ptB);
 	reverseCaps = (baAngle >= 0.0f) ^ ~clockwise;
 
-	//stroke->caps = inkCapsStyle_Square;
 	if (start == true)
 	{
 		inkStrokeGeneratorCap(stroke->caps, tessellator, canvas, fill, ptA, box.pointD, box.pointC, reverseCaps);
@@ -261,64 +256,16 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 
 		if (isnan(innerIntersection.x))
 		{
-			/*printf("intersection is nan between lineAD((%f, %f), (%f, %f)) and linePreviousAD((%f, %f), (%f, %f))\n",
-				   lineAD.pointA.x, lineAD.pointA.y, lineAD.pointB.x, lineAD.pointB.y,
-				   linePreviousAD.pointA.x, linePreviousAD.pointA.y, linePreviousAD.pointB.x, linePreviousAD.pointB.y);*/
-
-			// TODO:	Handle a straight (or parallel) line at some point in
-			//			the future.
-
-			// NOTE:	This only needs to be done by either AD or BC
-			/*float distAB = inkPointDistance(lineAD.pointA, linePreviousAD.pointB);
-			float distBA = inkPointDistance(lineAD.pointB, linePreviousAD.pointA);
-
-			if (distAB < distBA)
-			{
-				innerIntersection = inkPointScale(inkPointAdd(lineAD.pointB, linePreviousAD.pointB), 0.5f);
-				outerIntersection = inkPointScale(inkPointAdd(lineBC.pointB, linePreviousBC.pointB), 0.5f);
-			}
-			else
-			{
-				innerIntersection = inkPointScale(inkPointAdd(lineAD.pointA, linePreviousAD.pointA), 0.5f);
-				outerIntersection = inkPointScale(inkPointAdd(lineBC.pointA, linePreviousBC.pointA), 0.5f);
-			}
-
 			if (reverseCaps)
 			{
-				inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-			}
-			else
-			{
-				inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(outerIntersection, tessellator, fill);
-			}*/
-
-			if (reverseCaps)
-			{
-			//	outerIntersection = previousBox->pointB;
-			//	innerIntersection = box.pointC;
 				innerIntersection = previousBox->pointB;
 				outerIntersection = box.pointC;
-			//	innerIntersection = previousBox->pointA;
-			//	outerIntersection = box.pointD;
-		//		flip = !flip;
-		//		inkStrokeGeneratorAddDrawPoint(previousBox->pointB, tessellator, fill);
-		//		inkStrokeGeneratorAddDrawPoint(previousBox->pointA, tessellator, fill);
-		//		inkStrokeGeneratorAddDrawPoint(box.pointC, tessellator, fill);
-		//		inkStrokeGeneratorAddDrawPoint(box.pointD, tessellator, fill);
 			}
 			else
 			{
 				outerIntersection = previousBox->pointA;
 				innerIntersection = box.pointD;
-		//		inkStrokeGeneratorAddDrawPoint(previousBox->pointA, tessellator, fill);
-		//		inkStrokeGeneratorAddDrawPoint(previousBox->pointB, tessellator, fill);
-		//		inkStrokeGeneratorAddDrawPoint(box.pointD, tessellator, fill);
-		//		inkStrokeGeneratorAddDrawPoint(box.pointC, tessellator, fill);
 			}
-
-		//	goto endStatement;
 		}
 		else
 		{
@@ -361,7 +308,6 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 		}
 		else
 		{
-		//	checkAB = true;
 			flip = !flip;
 		}
 
@@ -371,7 +317,6 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 			{
 				float innerXIntersectionDist = inkPointDistanceToLine(abInnerIntersection, lineAB);
 
-			//	inkPoint
 			//	if (inkIsPointInLine(abInnerIntersection, lineAB) == true)
 				if (inkIsEqualf(innerXIntersectionDist, innerIntersectionDist) == false && innerXIntersectionDist < innerIntersectionDist)
 					innerIntersection = abInnerIntersection;
@@ -401,15 +346,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 		}
 
 		float innerDistFromPivot = inkPointDistance(pivotPt, innerIntersection);
-	//	float outerDistFromPivot = inkPointDistance(pivotPt, outerIntersection);
 
-	//	printf("dist from pivot = %f, dist from line = %f\n", innerDistFromPivot, innerIntersectionDist);
-		// TODO:	Calculate the distance that the inner should be from the
-		//			origin max.
-	//	float maxInnerDistFromPivot = fminf(innerDistFromPivot, outerDistFromPivot);//angleDist + (cosf(M_PI * 0.25f) * angleDist);
-	//	float maxInnerDistFromPivot = inkPointDistance(ptA, ptB);//angleDist + (cosf(M_PI * 0.25f) * angleDist);
-	//	float maxInnerDistFromPivot = angleDist + (cosf(M_PI * 0.25f) * angleDist);
-		//float ptDist = inkPointDistance(ptA, ptB);
 		float d1 = inkPointDistance(box.pointB, box.pointC);
 		float d2 = inkPointDistance(previousBox->pointB, previousBox->pointC);
 		float ptDist = fminf(d1, d2);
@@ -421,13 +358,11 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 			innerIntersection = inkPointInterpolate(pivotPt, innerIntersection, innerDistScale);
 		}
 
-		//printf("diff is %f; a = %f, b = %f\n", angleDiff * 180.0f / M_PI, angleA * 180.0f / M_PI, angleB * 180.0f / M_PI);
 		if (isnan(angleDiff))
 		{
 			// Seriously, wtf happened?
 		}
 
-		//stroke->joints = inkJointStyle_Miter;
 		float miter = stroke->miterLimit;
 		if (stroke->joints == inkJointStyle_Bevel)
 		{
@@ -473,7 +408,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 
 		switch(stroke->joints)
 		{
-			/// Let bevel fall into miter, I changed the miter limit for this
+			// Let bevel fall into miter, I changed the miter limit for this
 			case inkJointStyle_Bevel:
 			case inkJointStyle_Miter:
 			{
@@ -536,13 +471,6 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 				// TODO:	Check the angleDiff and see if there is actually a
 				//			need to do anything here, other then set the local
 				//			points that is.
-				if (flip)
-				{
-			//		inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-				}
-
-			//	inkStrokeGeneratorAddDrawPoint(innerIntersection, tessellator, fill);
-				//inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
 
 				if (flip)
 				{
@@ -602,25 +530,6 @@ returnStatement:
 
 void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 {
-#ifndef INK_STROKE_GENERATOR_NO_FORCE_END
-	if (strokeGenerator == NULL)
-		return;
-
-	if (strokeGenerator->generator->currentVertices != NULL)
-	{
-		inkStrokeGeneratorEndConcat(strokeGenerator);
-	}
-
-	inkStrokeGeneratorRasterizeObject* rasterizeObject;
-
-	inkArrayForEach(strokeGenerator->rasterizeGroups, rasterizeObject)
-	{
-		inkStrokeGeneratorEndRasterizeGroup(strokeGenerator, rasterizeObject);
-	}
-
-	// Make sure to clear at the end
-	inkArrayClear(strokeGenerator->rasterizeGroups);
-#else
 	if (strokeGenerator == NULL|| strokeGenerator->generator == NULL || strokeGenerator->generator->currentVertices == NULL || strokeGenerator->generator->tessellator == NULL || strokeGenerator->stroke == NULL)
 	{
 		return;
@@ -628,7 +537,6 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 
 	inkStrokeGeneratorRasterizeObject obj = inkStrokeGeneratorRasterizeObjectMake(strokeGenerator->generator->currentVertices, strokeGenerator->generator->fill);
 	inkStrokeGeneratorEndRasterizeGroup(strokeGenerator, &obj);
-#endif
 }
 
 void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, inkStrokeGeneratorRasterizeObject* rasterizeObject)
@@ -664,8 +572,6 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 	inkBox* previousBoxPtr = NULL;
 
 	float halfScalar = strokeGenerator->stroke->thickness * 0.5f;
-
-	//halfScalar = 8.0f;
 
 	unsigned int count = inkArrayCount(vertices);
 
@@ -741,27 +647,6 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		}
 
 		clockwise = sum >= 0.0f;
-
-		// Print a useful part of the .h
-		/*inkPoint minPoint = inkPointMake(FLT_MAX, FLT_MAX);
-		inkPoint maxPoint = inkPointMake(-FLT_MAX, -FLT_MAX);
-
-		inkArrayForEach(vertices, vertex)
-		{
-			minPoint = inkPointMake(fminf(minPoint.x, vertex->x), fminf(minPoint.y, vertex->y));
-			maxPoint = inkPointMake(fmaxf(maxPoint.x, vertex->x), fmaxf(maxPoint.y, vertex->y));
-		}
-
-		inkPoint midPoint = inkPointScale(inkPointAdd(minPoint, maxPoint), 0.5f);
-
-		printf("inkPoint offset = inkPointMake(%ff, %ff);\n", midPoint.x, midPoint.y);
-		printf("#define pointCount %u\ninkPoint pts[pointCount] =\n{\n", inkArrayCount(vertices));
-		index = 0;
-		inkArrayForEach(vertices, vertex)
-		{
-			printf("\tinkPointAdd(inkMatrixTransformPoint(matrix, inkPointMultiply(inkPointMake(%ff, %ff), pointMult)), offset),\n", vertex->x - midPoint.x, vertex->y - midPoint.y);
-		}
-		printf("};\n");*/
 
 		index = 0;
 
@@ -839,24 +724,5 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 void inkStrokeGeneratorEndConcat(void* generator)
 {
-#ifndef INK_STROKE_GENERATOR_NO_FORCE_END
-	inkStrokeGenerator* strokeGenerator = (inkStrokeGenerator*)generator;
-
-	if (strokeGenerator == NULL || strokeGenerator->generator == NULL || strokeGenerator->generator->currentVertices == NULL)
-	{
-		return;
-	}
-
-	if (inkArrayCount(strokeGenerator->generator->currentVertices) == 0)
-		return;
-
-	inkStrokeGeneratorRasterizeObject* rasterizeObject = inkArrayPush(strokeGenerator->rasterizeGroups);
-	if (rasterizeObject == NULL)
-		return;
-
-	*rasterizeObject = inkStrokeGeneratorRasterizeObjectMake(strokeGenerator->generator->currentVertices, strokeGenerator->generator->fill);
-	strokeGenerator->generator->currentVertices = NULL;
-#else
 	inkStrokeGeneratorEnd((inkStrokeGenerator*)generator);
-#endif
 }

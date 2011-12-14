@@ -153,4 +153,9 @@ PXExtern unsigned pxEngineDOBufferOldMaxSize;
 
 PXExtern void PXTouchEngineDispatchTouchEvents();
 
+PXExtern PXGLAABBf PXEngineAABBStageToGL(PXGLAABBf aabb, PXStage *stage);
+PXExtern PXGLAABBf PXEngineAABBGLToStage(PXGLAABBf aabb, PXStage *stage);
+PXExtern CGPoint PXEnginePointStageToGL(CGPoint point, PXStage *stage);
+PXExtern CGPoint PXEnginePointGLToStage(CGPoint point, PXStage *stage);
+
 #endif

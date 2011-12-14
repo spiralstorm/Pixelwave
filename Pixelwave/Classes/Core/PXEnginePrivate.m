@@ -17,3 +17,60 @@ PXDisplayObject **pxEngineDOBufferCurrentObject = NULL;
 
 unsigned pxEngineDOBufferMaxSize = 0;
 unsigned pxEngineDOBufferOldMaxSize = 0;
+
+PXGLAABBf PXEngineAABBStageToGL(PXGLAABBf aabb, PXStage *stage)
+{
+	aabb = PXEngineAABBGLToStage(aabb, stage);
+	aabb = PXEngineAABBGLToStage(aabb, stage);
+	return PXEngineAABBGLToStage(aabb, stage);
+}
+
+PXGLAABBf PXEngineAABBGLToStage(PXGLAABBf aabb, PXStage *stage)
+{
+	PXStageOrientation orientation = stage.orientation;
+
+	int stageWidth  = stage.stageWidth;
+	int stageHeight = stage.stageHeight;
+
+	switch (orientation)
+	{
+		case PXStageOrientation_PortraitUpsideDown:
+			return PXGLAABBfMake(stageWidth - aabb.xMax, stageHeight - aabb.yMax, stageWidth - aabb.xMin, stageHeight - aabb.yMin);
+		case PXStageOrientation_LandscapeLeft:
+			return PXGLAABBfMake(stageWidth - aabb.yMax, aabb.xMin, stageWidth - aabb.yMin, aabb.xMax);
+		case PXStageOrientation_LandscapeRight:
+			return PXGLAABBfMake(aabb.yMin, stageHeight - aabb.xMax, aabb.yMax, stageHeight - aabb.xMin);
+		case PXStageOrientation_Portrait:
+		default:
+			break;
+	}
+
+	return aabb;
+}
+
+CGPoint PXEnginePointStageToGL(CGPoint point, PXStage *stage)
+{
+	point = PXEnginePointGLToStage(point, stage);
+	point = PXEnginePointGLToStage(point, stage);
+	return PXEnginePointGLToStage(point, stage);
+}
+
+CGPoint PXEnginePointGLToStage(CGPoint point, PXStage *stage)
+{
+	PXStageOrientation orientation = stage.orientation;
+
+	switch (orientation)
+	{
+		case PXStageOrientation_PortraitUpsideDown:
+			return CGPointMake(stage.stageWidth - point.x, stage.stageHeight - point.y);
+		case PXStageOrientation_LandscapeLeft:
+			return CGPointMake(stage.stageWidth - point.y, point.x);
+		case PXStageOrientation_LandscapeRight:
+			return CGPointMake(point.y, stage.stageHeight - point.x);
+		case PXStageOrientation_Portrait:
+		default:
+			break;
+	}
+
+	return point;
+}
