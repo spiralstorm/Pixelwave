@@ -306,14 +306,6 @@ float PXEngineGetViewHeight()
 	return pxEngineViewSize.height;
 }
 
-void PXEngineConvertPointToStageOrientation(float *x, float *y)
-{
-	if (x && y)
-	{
-		PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(*x, *y, pxEngineStage);
-	}
-}
-
 PXStage *PXEngineGetStage()
 {
 	return pxEngineStage;
@@ -718,12 +710,13 @@ void PXEngineRender()
 			aabb.yMin = aabbPtr->yMin;
 			aabb.yMax = aabbPtr->yMax;
 
-			PX_ENGINE_CONVERT_AABB_FROM_STAGE_ORIENTATION(&aabb, pxEngineStage);
+			aabb = PXEngineAABBStageToGL(aabb, pxEngineStage);
+			//PX_ENGINE_CONVERT_AABB_FROM_STAGE_ORIENTATION(&aabb, pxEngineStage);
 
-			vertices[0] = PXGLVertexMake(aabb.xMin, aabb.yMin);
-			vertices[1] = PXGLVertexMake(aabb.xMin, aabb.yMax);
-			vertices[2] = PXGLVertexMake(aabb.xMax, aabb.yMax);
-			vertices[3] = PXGLVertexMake(aabb.xMax, aabb.yMin);
+			vertices[0] = PXGLVertexMake((aabb.xMin), (aabb.yMin));
+			vertices[1] = PXGLVertexMake((aabb.xMin), (aabb.yMax));
+			vertices[2] = PXGLVertexMake((aabb.xMax), (aabb.yMax));
+			vertices[3] = PXGLVertexMake((aabb.xMax), (aabb.yMin));
 
 			PXGLShadeModel(GL_SMOOTH);
 			PXGLDisable(GL_TEXTURE_2D);
@@ -762,10 +755,15 @@ void PXEngineRender()
 			topRight    = PXUtilsLocalToGlobal(doAABB, CGPointMake(bounds.origin.x + bounds.size.width, bounds.origin.y));
 			bottomRight = PXUtilsLocalToGlobal(doAABB, CGPointMake(bounds.origin.x + bounds.size.width, bounds.origin.y + bounds.size.height));
 
-			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(topLeft.x, topLeft.y, pxEngineStage);
-			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(bottomLeft.x, bottomLeft.y, pxEngineStage);
-			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(topRight.x, topRight.y, pxEngineStage);
-			PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(bottomRight.x, bottomRight.y, pxEngineStage);
+			topLeft = PXEnginePointStageToGL(topLeft, pxEngineStage);
+			topRight = PXEnginePointStageToGL(topRight, pxEngineStage);
+			bottomLeft = PXEnginePointStageToGL(bottomLeft, pxEngineStage);
+			bottomRight = PXEnginePointStageToGL(bottomRight, pxEngineStage);
+
+		//	PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(topLeft.x, topLeft.y, pxEngineStage);
+		//	PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(bottomLeft.x, bottomLeft.y, pxEngineStage);
+		//	PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(topRight.x, topRight.y, pxEngineStage);
+		//	PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(bottomRight.x, bottomRight.y, pxEngineStage);
 
 			vertices[0] = PXGLVertexMake(topLeft.x, topLeft.y);
 			vertices[1] = PXGLVertexMake(bottomLeft.x, bottomLeft.y);
@@ -1083,7 +1081,8 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 
 		//	if (orientationEnabled)
 		//	{
-				PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(aabb, pxEngineStage);
+			*aabb = PXEngineAABBGLToStage(*aabb, pxEngineStage);
+			//	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(aabb, pxEngineStage);
 		//	}
 
 			// Set the AABB of the display object to the one found by rendering.

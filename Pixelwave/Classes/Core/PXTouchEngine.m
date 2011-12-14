@@ -606,7 +606,8 @@ CGPoint PXTouchEngineTouchToScreenCoordinates(UITouch *touch)
 	point.y += pos.y;
 
 	// Convert it to stage coordinates.
-	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(point.x, point.y, pxEngineStage);
+	point = PXEnginePointGLToStage(point, pxEngineStage);
+	//PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(point.x, point.y, pxEngineStage);
 
 	return point;
 }
@@ -624,7 +625,8 @@ PXTouchEvent *PXTouchEngineNewTouchEventWithTouch(UITouch *touch, CGPoint *pos, 
 	if (orientTouch == YES)
 	{
 		// Convert the touch to stage coordinates.
-		PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(location.x, location.y, pxEngineStage);
+		location = PXEnginePointGLToStage(location, pxEngineStage);
+		//PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(location.x, location.y, pxEngineStage);
 
 		// Do half screen magic...
 #ifdef PX_DEBUG_MODE

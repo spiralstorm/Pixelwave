@@ -106,7 +106,7 @@ void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pi
 // Working with the stage / root //
 ///////////////////////////////////
 	
-void PXEngineConvertPointToStageOrientation(float *x, float *y);
+//void PXEngineConvertPointToStageOrientation(float *x, float *y);
 PXStage *PXEngineGetStage();
 
 void PXEngineSetClearScreen(BOOL clear);

@@ -47,7 +47,7 @@
 // MARK: Macros
 // MARK: -
 
-#define PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_) \
+/*#define PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_) \
 { \
 	PXStageOrientation _orientation_ = _stage_.orientation; \
 \
@@ -68,16 +68,16 @@
 		(_x_) = (_y_); \
 		(_y_) = _stage_.stageHeight - _oldX_; \
 	} \
-}
+}*/
 
-#define PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(_x_, _y_, _stage_) \
+/*#define PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(_x_, _y_, _stage_) \
 { \
 	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_); \
 	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_); \
 	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(_x_, _y_, _stage_); \
-}
+}*/
 
-#define PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_) \
+/*#define PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_) \
 { \
 	PXStageOrientation _orientation_ = _stage_.orientation; \
 	int _stageWidth_  = _stage_.stageWidth; \
@@ -124,7 +124,7 @@
 	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_); \
 	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_); \
 	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(_aabb_, _stage_); \
-}
+}*/
 
 // MARK: -
 // MARK: Structs
@@ -153,8 +153,10 @@ PXExtern unsigned pxEngineDOBufferOldMaxSize;
 
 PXExtern void PXTouchEngineDispatchTouchEvents();
 
-PXExtern PXGLAABBf PXEngineAABBStageToGL(PXGLAABBf aabb, PXStage *stage);
-PXExtern PXGLAABBf PXEngineAABBGLToStage(PXGLAABBf aabb, PXStage *stage);
+PXExtern PXGLAABB PXEngineAABBStageToGL(PXGLAABB aabb, PXStage *stage);
+PXExtern PXGLAABB PXEngineAABBGLToStage(PXGLAABB aabb, PXStage *stage);
+PXExtern PXGLAABBf PXEngineAABBfStageToGL(PXGLAABBf aabb, PXStage *stage);
+PXExtern PXGLAABBf PXEngineAABBfGLToStage(PXGLAABBf aabb, PXStage *stage);
 PXExtern CGPoint PXEnginePointStageToGL(CGPoint point, PXStage *stage);
 PXExtern CGPoint PXEnginePointGLToStage(CGPoint point, PXStage *stage);
 

@@ -394,7 +394,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	CGRect bounds = [self _measureGlobalBoundsUseStroke:useStroke];
 
 	PXGLAABBf aabb = PXGLAABBfMake(bounds.origin.x, bounds.origin.y, bounds.origin.x + bounds.size.width, bounds.origin.y + bounds.size.height);
-	PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(&aabb, stage);
+	aabb = PXEngineAABBfGLToStage(aabb, stage);
+	//PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(&aabb, stage);
 	aabb = PXGLMatrixConvertAABBf(&matrix, aabb);
 
 	return CGRectMake(aabb.xMin, aabb.yMin, aabb.xMax - aabb.xMin, aabb.yMax - aabb.yMin);
@@ -403,7 +404,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 - (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
 {
 	PXStage *stage = PXEngineGetStage();
-	PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(point.x, point.y, stage);
+	point = PXEnginePointStageToGL(point, stage);
+	//PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(point.x, point.y, stage);
 
 	// inkContainsPoint asks if you are using the bounds, not the shape flag;
 	// therefore it is the opposite of the shape flag.
