@@ -217,7 +217,7 @@ typedef enum
 
 typedef enum
 {
-	inkIncompleteDrawStrategy_Ignore = 0,
+	inkIncompleteDrawStrategy_None = 0,
 	inkIncompleteDrawStrategy_Fade,
 	inkIncompleteDrawStrategy_Full
 } inkIncompleteDrawStrategy;

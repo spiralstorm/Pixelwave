@@ -304,25 +304,58 @@ void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGener
 	inkCurveApproximation(curveType, start, controlA, controlB, anchor, inkArcLengthSegmentCount(canvas, arcLength), inkCurveAdd, (void*)(&generators));
 }
 
-void inkHandleIncompleteGenerator(inkCanvas* canvas, inkGenerator* generator, inkIncompleteDrawStrategy strategy)
+void inkFadeStrategyRenderGroups(inkCanvas* canvas, float red, float green, float blue, float alpha)
+{
+	if (canvas == NULL)
+		return;
+
+	if (canvas->incompleteFillStrategy != inkIncompleteDrawStrategy_Fade &&
+		canvas->incompleteStrokeStrategy != inkIncompleteDrawStrategy_Fade)
+	{
+		return;
+	}
+
+	inkArray* renderGroups = inkRenderGroups(canvas);
+
+	if (renderGroups == NULL)
+		return;
+
+	inkRenderGroup* renderGroup;
+	inkArray* vertexArray;
+	INKvertex* vertex;
+
+	inkArrayPtrForEach(renderGroups, renderGroup)
+	{
+		if (renderGroup->isStroke == false && canvas->incompleteFillStrategy != inkIncompleteDrawStrategy_Fade)
+			continue;
+
+		if (renderGroup->isStroke == true && canvas->incompleteStrokeStrategy != inkIncompleteDrawStrategy_Fade)
+			continue;
+
+		vertexArray = renderGroup->vertices;
+
+		inkArrayForEach(vertexArray, vertex)
+		{
+			vertex->r *= red;
+			vertex->g *= green;
+			vertex->b *= blue;
+			vertex->a *= alpha;
+		}
+	}
+}
+
+void inkHandleIncompleteGenerator(inkCanvas* canvas, inkGenerator* generator, inkIncompleteDrawStrategy strategy, float alphaMult)
 {
 	if (generator == NULL)
 		return;
 
 	switch(strategy)
 	{
-		case inkIncompleteDrawStrategy_Ignore:
+		case inkIncompleteDrawStrategy_None:
 			inkGeneratorRemoveAllVertices(generator);
 			break;
 		case inkIncompleteDrawStrategy_Fade:
 		{
-			float alphaMult = 0.0f;
-			if (canvas->overDrawAllowance != 0.0f)
-			{
-				canvas->overDrawAllowance = (canvas->totalLength - canvas->maxLength) / canvas->overDrawAllowance;
-				alphaMult = fmaxf(0.0f, fminf(alphaMult, 1.0f));
-			}
-
 			inkGeneratorMultColor(generator, 1.0f, 1.0f, 1.0f, alphaMult);
 		}
 			break;
@@ -335,15 +368,27 @@ void inkHandleIncompleteGenerator(inkCanvas* canvas, inkGenerator* generator, in
 
 void inkHandleIncompleteDraw(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator)
 {
+	if (canvas == NULL)
+		return;
+
+	float alphaMult = 0.0f;
+	if (canvas->overDrawAllowance != 0.0f)
+	{
+		canvas->overDrawAllowance = (canvas->totalLength - canvas->maxLength) / canvas->overDrawAllowance;
+		alphaMult = fmaxf(0.0f, fminf(alphaMult, 1.0f));
+	}
+
 	if (fillGenerator != NULL)
 	{
-		inkHandleIncompleteGenerator(canvas, fillGenerator->generator, canvas->incompleteFillStrategy);
+		inkHandleIncompleteGenerator(canvas, fillGenerator->generator, canvas->incompleteFillStrategy, alphaMult);
 	}
 
 	if (strokeGenerator != NULL)
 	{
-		inkHandleIncompleteGenerator(canvas, strokeGenerator->generator, canvas->incompleteStrokeStrategy);
+		inkHandleIncompleteGenerator(canvas, strokeGenerator->generator, canvas->incompleteStrokeStrategy, alphaMult);
 	}
+
+	inkFadeStrategyRenderGroups(canvas, 1.0f, 1.0f, 1.0f, alphaMult);
 }
 
 // ONLY call this method on the main thread as it uses a non-thread safe shared
