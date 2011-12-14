@@ -10,7 +10,7 @@
 
 #include "inkFill.h"
 
-inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill)
+inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill, inkMatrix matrix)
 {
 	inkGenerator* generator = malloc(sizeof(inkGenerator));
 
@@ -30,6 +30,7 @@ inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill)
 
 		generator->currentVertices = NULL;
 		generator->fill = fill;
+		generator->matrix = matrix;
 	}
 	
 	return generator;
@@ -74,7 +75,7 @@ void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGenerator
 
 	generator->previous = position;
 
-	inkGeneratorAddVertex(generator, generator->previous);
+	inkGeneratorAddVertex(generator, generator->previous, generator->fill, generator->matrix);
 }
 
 void inkGeneratorLineTo(inkGenerator* generator, inkPoint position)
@@ -82,7 +83,7 @@ void inkGeneratorLineTo(inkGenerator* generator, inkPoint position)
 	if (generator == NULL)
 		return;
 
-	inkGeneratorAddVertex(generator, position);
+	inkGeneratorAddVertex(generator, position, generator->fill, generator->matrix);
 	generator->previous = position;
 }
 
@@ -106,9 +107,9 @@ void inkGeneratorEnd(inkGenerator* generator)
 	generator->previous = inkPointZero;
 }
 
-void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
+void inkGeneratorInitVertex(inkGenerator* generator, INKvertex* vertex, inkPoint position, void* fill, inkMatrix glMatrix)
 {
-	if (vertex == NULL)
+	if (generator == NULL || vertex == NULL)
 		return;
 
 	vertex->x = (position.x);
@@ -134,44 +135,19 @@ void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
 			break;
 		case inkFillType_Bitmap:
 		{
+			inkMatrix invMatrix = inkMatrixInvert(glMatrix);
+
 			inkBitmapFill* bitmapFill = (inkBitmapFill *)fill;
 
-		//	vertex->r = 0xFF;
-		//	vertex->g = 0xFF;
-		//	vertex->b = 0xFF;
-		//	vertex->a = 0xFF;
-
-			/*inkPoint matPoint = inkPointMake(bitmapFill->matrix.tx, bitmapFill->matrix.ty);
-
-			inkMatrix matrix = inkMatrixMake(bitmapFill->matrix.a,
-											 bitmapFill->matrix.b,
-											 bitmapFill->matrix.c,
-											 bitmapFill->matrix.d,
-											 0.0f,
-											 0.0f);*/
 			float angle = inkMatrixRotation(bitmapFill->matrix);
 			inkSize scale = inkMatrixSize(bitmapFill->matrix);
 			inkMatrix matrix = inkMatrixIdentity;
-			// scale, rotate, then translate?
-			// PERFECT - not what flash does :-(
-		//	matrix = inkMatrixScale(matrix, 1.0f / scale.width, 1.0f / scale.height);
-		//	matrix = inkMatrixRotate(matrix, angle);
-		//	matrix = inkMatrixTranslate(matrix, -bitmapFill->matrix.tx, -bitmapFill->matrix.ty);
 
 			matrix = inkMatrixTranslatef(matrix, -bitmapFill->matrix.tx, -bitmapFill->matrix.ty);
 			matrix = inkMatrixScalef(matrix, 1.0f / scale.width, 1.0f / scale.height);
 			matrix = inkMatrixRotate(matrix, angle);
-		//	printf("scale = (%f, %f)\n", scale.width, scale.height);
-			/*inkMatrix matrix = inkMatrixMake(bitmapFill->matrix.a,
-											 bitmapFill->matrix.b,
-											 bitmapFill->matrix.c,
-											 bitmapFill->matrix.d,
-											 -bitmapFill->matrix.tx,
-											 -bitmapFill->matrix.ty);*/
 
-		//	matrix = inkMatrixIdentity;
-		//	inkPoint matPos = inkPointMake(bitmapFill->matrix.tx, bitmapFill->matrix.ty);
-			//inkPoint convertedPosition = inkMatrixTransformPoint(inkMatrixInvert(bitmapFill->matrix), position);
+			matrix = inkMatrixMultiply(invMatrix, matrix);
 			inkPoint convertedPosition = inkMatrixTransformPoint(matrix, inkPointMake(position.x, position.y));
 
 			vertex->s = convertedPosition.x * bitmapFill->bitmapInfo.one_textureWidth;
@@ -186,14 +162,14 @@ void inkGeneratorInitVertex(INKvertex* vertex, inkPoint position, void* fill)
 	}
 }
 
-void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position)
+void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position, void* fill, inkMatrix matrix)
 {
 	if (generator == NULL || generator->currentVertices == NULL)
 		return;
 
 	INKvertex* vertex = (INKvertex*)inkArrayPush(generator->currentVertices);
 
-	inkGeneratorInitVertex(vertex, position, generator->fill);
+	inkGeneratorInitVertex(generator, vertex, position, fill, matrix);
 }
 
 void inkGeneratorRemoveAllVertices(inkGenerator* generator)

@@ -55,6 +55,8 @@
 	bool wasBuilt;
 
 	PXGLMatrix previousMatrix;
+
+	NSMutableArray* textureDataList;
 }
 
 @property (nonatomic, readonly) unsigned int vertexCount;

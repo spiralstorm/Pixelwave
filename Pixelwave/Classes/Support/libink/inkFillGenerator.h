@@ -23,7 +23,7 @@ typedef struct
 	inkGenerator* generator; // Parent - must be first argument
 } inkFillGenerator;
 
-inkExtern inkFillGenerator* inkFillGeneratorCreate(inkTessellator* tessellator, inkArray* renderGroups, void* fill);
+inkExtern inkFillGenerator* inkFillGeneratorCreate(inkTessellator* tessellator, inkArray* renderGroups, void* fill, inkMatrix matrix);
 inkExtern void inkFillGeneratorDestroy(inkFillGenerator* generator);
 
 inkExtern void inkFillGeneratorMoveTo(inkFillGenerator* generator, inkPoint position);

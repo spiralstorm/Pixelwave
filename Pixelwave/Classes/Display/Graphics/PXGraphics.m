@@ -146,6 +146,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 			[self release];
 			return nil;
 		}
+
+		textureDataList = [[NSMutableArray alloc] init];
 	}
 
 	wasBuilt = false;
@@ -158,6 +160,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 - (void) dealloc
 {
 	inkDestroy((inkCanvas*)vCanvas);
+
+	[textureDataList release];
 
 	[super dealloc];
 }
@@ -175,6 +179,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 {
 	if (textureData == nil)
 		return;
+
+	[textureDataList addObject:textureData];
 
 	inkMatrix matrix = PXGraphicsMakeMatrixFromPXMatrix(pxMatrix);
 	inkBitmapFill fill = inkBitmapFillMake(matrix, inkBitmapInfoMake(textureData.glTextureName, textureData.glTextureWidth, textureData.glTextureHeight), repeat, smooth);
@@ -210,6 +216,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 {
 	if (textureData == nil)
 		return;
+
+	[textureDataList addObject:textureData];
 
 	inkMatrix matrix = PXGraphicsMakeMatrixFromPXMatrix(pxMatrix);
 	inkBitmapFill fill = inkBitmapFillMake(matrix, inkBitmapInfoMake(textureData.glTextureName, textureData.glTextureWidth, textureData.glTextureHeight), repeat, smooth);
@@ -284,6 +292,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 {
 	wasBuilt = false;
 	inkClear((inkCanvas*)vCanvas);
+
+	[textureDataList removeAllObjects];
 }
 
 // MARK: -

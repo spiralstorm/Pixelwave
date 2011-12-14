@@ -8,13 +8,13 @@
 
 #include "inkFillGenerator.h"
 
-inkFillGenerator* inkFillGeneratorCreate(inkTessellator* tessellator, inkArray* renderGroups, void* fill)
+inkFillGenerator* inkFillGeneratorCreate(inkTessellator* tessellator, inkArray* renderGroups, void* fill, inkMatrix matrix)
 {
 	inkFillGenerator* fillGenerator = malloc(sizeof(inkFillGenerator));
 
 	if (fillGenerator != NULL)
 	{
-		inkGenerator* generator = inkGeneratorCreate(tessellator, fill);
+		inkGenerator* generator = inkGeneratorCreate(tessellator, fill, matrix);
 
 		if (generator == NULL)
 		{

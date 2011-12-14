@@ -21,14 +21,16 @@ typedef struct
 {
 	inkArray* vertices; // Weak
 	void* fill; // Weak
+	inkMatrix matrix;
 } inkStrokeGeneratorRasterizeObject;
 
-inkInline inkStrokeGeneratorRasterizeObject inkStrokeGeneratorRasterizeObjectMake(inkArray* vertices, void* fill)
+inkInline inkStrokeGeneratorRasterizeObject inkStrokeGeneratorRasterizeObjectMake(inkArray* vertices, void* fill, inkMatrix matrix)
 {
 	inkStrokeGeneratorRasterizeObject object;
 
 	object.vertices = vertices;
 	object.fill = fill;
+	object.matrix = matrix;
 
 	return object;
 }
@@ -36,13 +38,13 @@ inkInline inkStrokeGeneratorRasterizeObject inkStrokeGeneratorRasterizeObjectMak
 void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, inkStrokeGeneratorRasterizeObject* rasterizeObject);
 void inkStrokeGeneratorEndConcat(void* generator);
 
-inkStrokeGenerator* inkStrokeGeneratorCreate(inkTessellator* tessellator, inkCanvas* canvas, inkArray *renderGroups, inkStroke* stroke)
+inkStrokeGenerator* inkStrokeGeneratorCreate(inkTessellator* tessellator, inkCanvas* canvas, inkArray *renderGroups, inkStroke* stroke, inkMatrix matrix)
 {
 	inkStrokeGenerator* strokeGenerator = malloc(sizeof(inkStrokeGenerator));
 
 	if (strokeGenerator != NULL)
 	{
-		inkGenerator* generator = inkGeneratorCreate(tessellator, NULL);
+		inkGenerator* generator = inkGeneratorCreate(tessellator, NULL, matrix);
 
 		if (generator == NULL)
 		{
@@ -83,7 +85,7 @@ void inkStrokeGeneratorDestroy(inkStrokeGenerator* strokeGenerator)
 	}
 }
 
-void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill)
+void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill, inkMatrix matrix)
 {
 	if (strokeGenerator == NULL || strokeGenerator->generator == NULL)
 		return;
@@ -91,6 +93,7 @@ void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill)
 	inkStrokeGeneratorEndConcat(strokeGenerator);
 
 	strokeGenerator->generator->fill = fill;
+	strokeGenerator->generator->matrix = matrix;
 	inkTessellatorSetGLData(strokeGenerator->generator->tessellator, inkFillUpdateGLData(fill, inkTessellatorGetGLData(strokeGenerator->generator->tessellator)));
 }
 
@@ -110,15 +113,15 @@ void inkStrokeGeneratorLineTo(inkStrokeGenerator* strokeGenerator, inkPoint posi
 	inkGeneratorLineTo(strokeGenerator->generator, position);
 }
 
-inkInline void inkStrokeGeneratorAddDrawPoint(inkPoint point, inkTessellator* tessellator, void* fill)
+inkInline void inkStrokeGeneratorAddDrawPoint(inkStrokeGenerator* strokeGenerator, inkPoint point, inkTessellator* tessellator, void* fill, inkMatrix matrix)
 {
 	INKvertex vertex;
 
-	inkGeneratorInitVertex(&vertex, point, fill);
+	inkGeneratorInitVertex(strokeGenerator->generator, &vertex, point, fill, matrix);
 	inkTessellatorVertex(&vertex, tessellator);
 }
 
-void inkStrokeGeneratorRound(inkTessellator* tessellator, inkCanvas* canvas, void* fill, inkPoint pivotPoint, inkPoint startPoint, float startAngle, float angleDiff, float angleDist)
+void inkStrokeGeneratorRound(inkStrokeGenerator* strokeGenerator, inkTessellator* tessellator, inkCanvas* canvas, void* fill, inkPoint pivotPoint, inkPoint startPoint, float startAngle, float angleDiff, float angleDist, inkMatrix glMatrix)
 {
 //	return;
 //	if (angleDiff < inkStrokeGeneratorRoundAngleEpsilon)
@@ -140,18 +143,18 @@ void inkStrokeGeneratorRound(inkTessellator* tessellator, inkCanvas* canvas, voi
 	{
 		pt1 = inkPointAdd(pivotPoint, inkPointFromPolar(angleDist, angle));
 
-		inkStrokeGeneratorAddDrawPoint(pivotPoint, tessellator, fill);
-		inkStrokeGeneratorAddDrawPoint(pt0, tessellator, fill);
-		inkStrokeGeneratorAddDrawPoint(pt1, tessellator, fill);
+		inkStrokeGeneratorAddDrawPoint(strokeGenerator, pivotPoint, tessellator, fill, glMatrix);
+		inkStrokeGeneratorAddDrawPoint(strokeGenerator, pt0, tessellator, fill, glMatrix);
+		inkStrokeGeneratorAddDrawPoint(strokeGenerator, pt1, tessellator, fill, glMatrix);
 		pt0 = pt1;
 	}
 }
 
-void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, inkCanvas* canvas, void* fill, inkPoint pivot, inkPoint ptA, inkPoint ptB, bool reverseAngle)
+void inkStrokeGeneratorCap(inkStrokeGenerator* strokeGenerator, inkCapsStyle style, inkTessellator* tessellator, inkCanvas* canvas, void* fill, inkPoint pivot, inkPoint ptA, inkPoint ptB, bool reverseAngle, inkMatrix glMatrix)
 {
-	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
-	inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
-	inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
+	inkStrokeGeneratorAddDrawPoint(strokeGenerator, ptA, tessellator, fill, glMatrix);
+	inkStrokeGeneratorAddDrawPoint(strokeGenerator, ptB, tessellator, fill, glMatrix);
+	inkStrokeGeneratorAddDrawPoint(strokeGenerator, ptA, tessellator, fill, glMatrix);
 
 	if (style != inkCapsStyle_None)
 	{
@@ -164,11 +167,11 @@ void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, inkC
 			case inkCapsStyle_None:
 				break;
 			case inkCapsStyle_Round:
-				inkStrokeGeneratorRound(tessellator, canvas, fill, pivot, ptA, angleA, angle, angleDist);
+				inkStrokeGeneratorRound(strokeGenerator, tessellator, canvas, fill, pivot, ptA, angleA, angle, angleDist, glMatrix);
 
-				inkStrokeGeneratorAddDrawPoint(pivot, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, pivot, tessellator, fill, glMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, ptB, tessellator, fill, glMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, ptA, tessellator, fill, glMatrix);
 
 				break;
 			case inkCapsStyle_Square:
@@ -178,12 +181,12 @@ void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, inkC
 				inkPoint outerA = inkPointAdd(ptA, addPt);
 				inkPoint outerB = inkPointAdd(ptB, addPt);
 
-				inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, glMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
 
-				inkStrokeGeneratorAddDrawPoint(ptB, tessellator, fill);
-				inkStrokeGeneratorAddDrawPoint(ptA, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, ptB, tessellator, fill, glMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, ptA, tessellator, fill, glMatrix);
 			}
 				break;
 			default:
@@ -192,7 +195,7 @@ void inkStrokeGeneratorCap(inkCapsStyle style, inkTessellator* tessellator, inkC
 	}
 }
 
-bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCanvas* canvas, inkBox* previousBox, inkBox* nowBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise)
+bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* stroke, inkTessellator* tessellator, inkCanvas* canvas, inkBox* previousBox, inkBox* nowBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise, inkMatrix glMatrix)
 {
 	inkBox box = inkBoxZero;
 
@@ -225,7 +228,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 
 	if (start == true)
 	{
-		inkStrokeGeneratorCap(stroke->caps, tessellator, canvas, fill, ptA, box.pointD, box.pointC, reverseCaps);
+		inkStrokeGeneratorCap(strokeGenerator, stroke->caps, tessellator, canvas, fill, ptA, box.pointD, box.pointC, reverseCaps, glMatrix);
 	}
 
 	inkPoint pivotPt = ptA;
@@ -371,17 +374,17 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 
 		if (flip)
 		{
-			inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-			inkStrokeGeneratorAddDrawPoint(innerB, tessellator, fill);
-			inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-			inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+			inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, glMatrix);
+			inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerB, tessellator, fill, glMatrix);
+			inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
+			inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, glMatrix);
 		}
 		else
 		{
-			inkStrokeGeneratorAddDrawPoint(innerB, tessellator, fill);
-			inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-			inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
-			inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+			inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerB, tessellator, fill, glMatrix);
+			inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, glMatrix);
+			inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, glMatrix);
+			inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
 		}
 
 	//	inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
@@ -431,35 +434,35 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 
 				if (flip)
 				{
-					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, glMatrix);
 
 					inkPoint nA = inkPointInterpolate(outerA, outerIntersection, percentDist);
 					inkPoint nB = inkPointInterpolate(outerB, outerIntersection, percentDist);
 
-					inkStrokeGeneratorAddDrawPoint(nA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, nA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, nB, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, nB, tessellator, fill, glMatrix);
 
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, glMatrix);
 				}
 				else
 				{
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, glMatrix);
 					
 					inkPoint nA = inkPointInterpolate(outerA, outerIntersection, percentDist);
 					inkPoint nB = inkPointInterpolate(outerB, outerIntersection, percentDist);
 					
-					inkStrokeGeneratorAddDrawPoint(nA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(nB, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, nA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, nB, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, nB, tessellator, fill, glMatrix);
 
-					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
 				}
 
 				localLastPointPtr = &outerB;
@@ -474,31 +477,31 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 
 				if (flip)
 				{
-					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-					inkStrokeGeneratorRound(tessellator, canvas, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorRound(strokeGenerator, tessellator, canvas, fill, pivotPt, outerB, angleB, angleDiff, angleDist, glMatrix);
 				}
 				else
 				{
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerB, tessellator, fill);
-					inkStrokeGeneratorRound(tessellator, canvas, fill, pivotPt, outerB, angleB, angleDiff, angleDist);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, glMatrix);
+					inkStrokeGeneratorRound(strokeGenerator, tessellator, canvas, fill, pivotPt, outerB, angleB, angleDiff, angleDist, glMatrix);
 				}
 
-				inkStrokeGeneratorAddDrawPoint(pivotPt, tessellator, fill);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, pivotPt, tessellator, fill, glMatrix);
 
 				if (flip)
 				{
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, glMatrix);
 				}
 				else
 				{
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
-					inkStrokeGeneratorAddDrawPoint(outerA, tessellator, fill);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, glMatrix);
+					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, glMatrix);
 				}
 
 				localLastPointPtr = &outerB;
@@ -518,7 +521,7 @@ bool inkStrokeGeneratorAdd(inkStroke* stroke, inkTessellator* tessellator, inkCa
 endStatement:
 	if (end == true)
 	{
-		inkStrokeGeneratorCap(stroke->caps, tessellator, canvas, fill, ptB, box.pointB, box.pointA, reverseCaps);
+		inkStrokeGeneratorCap(strokeGenerator, stroke->caps, tessellator, canvas, fill, ptB, box.pointB, box.pointA, reverseCaps, glMatrix);
 	}
 
 returnStatement:
@@ -530,13 +533,23 @@ returnStatement:
 
 void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 {
-	if (strokeGenerator == NULL|| strokeGenerator->generator == NULL || strokeGenerator->generator->currentVertices == NULL || strokeGenerator->generator->tessellator == NULL || strokeGenerator->stroke == NULL)
-	{
+	if (strokeGenerator == NULL)
 		return;
+	
+	if (strokeGenerator->generator->currentVertices != NULL)
+	{
+		inkStrokeGeneratorEndConcat(strokeGenerator);
 	}
-
-	inkStrokeGeneratorRasterizeObject obj = inkStrokeGeneratorRasterizeObjectMake(strokeGenerator->generator->currentVertices, strokeGenerator->generator->fill);
-	inkStrokeGeneratorEndRasterizeGroup(strokeGenerator, &obj);
+	
+	inkStrokeGeneratorRasterizeObject* rasterizeObject;
+	
+	inkArrayForEach(strokeGenerator->rasterizeGroups, rasterizeObject)
+	{
+		inkStrokeGeneratorEndRasterizeGroup(strokeGenerator, rasterizeObject);
+	}
+	
+	// Make sure to clear at the end
+	inkArrayClear(strokeGenerator->rasterizeGroups);
 }
 
 void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, inkStrokeGeneratorRasterizeObject* rasterizeObject)
@@ -564,6 +577,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 	INKvertex* vertex;
 
 	void* fill = rasterizeObject->fill;
+	inkMatrix glMatrix = rasterizeObject->matrix;
 
 	INKvertex vA;
 	INKvertex vB;
@@ -667,13 +681,13 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 			if (has == true || index == startIndex)
 			{
-				inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, NULL, NULL, clockwise);
+				inkStrokeGeneratorAdd(strokeGenerator, strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, NULL, NULL, clockwise, glMatrix);
 				previousBoxPtr = &previousBox;
 			}
 			else
 			{
 				testHas = true;
-				flipFirst = inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, &lastPoint, &innerIntersection, clockwise);
+				flipFirst = inkStrokeGeneratorAdd(strokeGenerator, strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, &lastPoint, &innerIntersection, clockwise, glMatrix);
 			}
 
 			if (inkBoxIsEqual(testBox, inkBoxZero) == false)
@@ -699,22 +713,25 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		if (closedLoop)
 		{
 			vB = *((INKvertex *)(inkArrayElementAt(vertices, startIndex)));
-			inkStrokeGeneratorAdd(strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, NULL, vA, vB, halfScalar, fill, false, false, NULL, NULL, clockwise);
+			inkStrokeGeneratorAdd(strokeGenerator, strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, NULL, vA, vB, halfScalar, fill, false, false, NULL, NULL, clockwise, glMatrix);
 
 			// ROOT of the closed loop issue, need to look into it.
 			if (flipFirst == true)
 			{
-				inkGeneratorInitVertex(&vA, lastPoint, fill);
-				inkTessellatorVertex(&vA, tessellator);
+				//inkGeneratorInitVertex(&vA, lastPoint, fill);
+			//	inkTessellatorVertex(&vA, tessellator);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, lastPoint, tessellator, fill, glMatrix);
 			}
 
-			inkGeneratorInitVertex(&vA, innerIntersection, fill);
-			inkTessellatorVertex(&vA, tessellator);
+			//inkGeneratorInitVertex(&vA, innerIntersection, fill);
+			//inkTessellatorVertex(&vA, tessellator);
+			inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerIntersection, tessellator, fill, glMatrix);
 
 			if (flipFirst == false)
 			{
-				inkGeneratorInitVertex(&vA, lastPoint, fill);
-				inkTessellatorVertex(&vA, tessellator);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, lastPoint, tessellator, fill, glMatrix);
+				//inkGeneratorInitVertex(&vA, lastPoint, fill);
+				//inkTessellatorVertex(&vA, tessellator);
 			}
 		}
 	}
@@ -724,5 +741,20 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 void inkStrokeGeneratorEndConcat(void* generator)
 {
-	inkStrokeGeneratorEnd((inkStrokeGenerator*)generator);
+	inkStrokeGenerator* strokeGenerator = (inkStrokeGenerator*)generator;
+
+	if (strokeGenerator == NULL || strokeGenerator->generator == NULL || strokeGenerator->generator->currentVertices == NULL)
+	{
+		return;
+	}
+
+	if (inkArrayCount(strokeGenerator->generator->currentVertices) == 0)
+		return;
+
+	inkStrokeGeneratorRasterizeObject* rasterizeObject = inkArrayPush(strokeGenerator->rasterizeGroups);
+	if (rasterizeObject == NULL)
+		return;
+
+	*rasterizeObject = inkStrokeGeneratorRasterizeObjectMake(strokeGenerator->generator->currentVertices, strokeGenerator->generator->fill, strokeGenerator->generator->matrix);
+	strokeGenerator->generator->currentVertices = NULL;
 }
