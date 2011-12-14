@@ -460,7 +460,7 @@ void inkBuild(inkCanvas* canvas)
 
 				inkSolidFillCommand* fill = (inkSolidFillCommand*)(commandData);
 
-				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill, canvas->matrix);
+				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill, inkMatrixInvert(canvas->matrix));
 			}
 				break;
 			case inkCommandType_BitmapFill:
@@ -469,7 +469,7 @@ void inkBuild(inkCanvas* canvas)
 
 				inkBitmapFillCommand* fill = (inkBitmapFillCommand*)(commandData);
 
-				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill, canvas->matrix);
+				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill, inkMatrixInvert(canvas->matrix));
 			}
 				break;
 			case inkCommandType_GradientFill:
@@ -478,7 +478,7 @@ void inkBuild(inkCanvas* canvas)
 
 				inkGradientFillCommand* fill = (inkGradientFillCommand*)(commandData);
 
-				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill, canvas->matrix);
+				fillGenerator = inkFillGeneratorCreate(fillTessellator, canvas->renderGroups, fill, inkMatrixInvert(canvas->matrix));
 			}
 				break;
 			case inkCommandType_LineStyle:
@@ -528,8 +528,8 @@ void inkBuild(inkCanvas* canvas)
 						command->stroke.thickness = fmaxf(minThickness, command->stroke.thickness);
 					}
 
-					strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas, canvas->renderGroups, &(command->stroke), canvas->matrix);
-					inkStrokeGeneratorSetFill(strokeGenerator, &(command->fill), canvas->matrix);
+					strokeGenerator = inkStrokeGeneratorCreate(strokeTessellator, canvas, canvas->renderGroups, &(command->stroke), inkMatrixInvert(canvas->matrix));
+					inkStrokeGeneratorSetFill(strokeGenerator, &(command->fill), inkMatrixInvert(canvas->matrix));
 				}
 			}
 				break;
@@ -538,7 +538,7 @@ void inkBuild(inkCanvas* canvas)
 				inkLineBitmapCommand* command = (inkLineBitmapCommand*)(commandData);
 
 				// Setting the fill will properly concat the vertices on
-				inkStrokeGeneratorSetFill(strokeGenerator, command, canvas->matrix);
+				inkStrokeGeneratorSetFill(strokeGenerator, command, inkMatrixInvert(canvas->matrix));
 			}
 				break;
 			case inkCommandType_LineGradient:
@@ -546,7 +546,7 @@ void inkBuild(inkCanvas* canvas)
 				inkLineGradientCommand* command = (inkLineGradientCommand*)(commandData);
 
 				// Setting the fill will properly concat the vertices on
-				inkStrokeGeneratorSetFill(strokeGenerator, command, canvas->matrix);
+				inkStrokeGeneratorSetFill(strokeGenerator, command, inkMatrixInvert(canvas->matrix));
 			}
 				break;
 			case inkCommandType_Winding:

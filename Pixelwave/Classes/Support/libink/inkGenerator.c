@@ -10,7 +10,7 @@
 
 #include "inkFill.h"
 
-inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill, inkMatrix matrix)
+inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill, inkMatrix invGLMatrix)
 {
 	inkGenerator* generator = malloc(sizeof(inkGenerator));
 
@@ -30,7 +30,7 @@ inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill, inkMat
 
 		generator->currentVertices = NULL;
 		generator->fill = fill;
-		generator->matrix = matrix;
+		generator->invGLMatrix = invGLMatrix;
 	}
 	
 	return generator;
@@ -75,7 +75,7 @@ void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGenerator
 
 	generator->previous = position;
 
-	inkGeneratorAddVertex(generator, generator->previous, generator->fill, generator->matrix);
+	inkGeneratorAddVertex(generator, generator->previous, generator->fill, generator->invGLMatrix);
 }
 
 void inkGeneratorLineTo(inkGenerator* generator, inkPoint position)
@@ -83,7 +83,7 @@ void inkGeneratorLineTo(inkGenerator* generator, inkPoint position)
 	if (generator == NULL)
 		return;
 
-	inkGeneratorAddVertex(generator, position, generator->fill, generator->matrix);
+	inkGeneratorAddVertex(generator, position, generator->fill, generator->invGLMatrix);
 	generator->previous = position;
 }
 
@@ -107,7 +107,7 @@ void inkGeneratorEnd(inkGenerator* generator)
 	generator->previous = inkPointZero;
 }
 
-void inkGeneratorInitVertex(inkGenerator* generator, INKvertex* vertex, inkPoint position, void* fill, inkMatrix glMatrix)
+void inkGeneratorInitVertex(inkGenerator* generator, INKvertex* vertex, inkPoint position, void* fill, inkMatrix invGLMatrix)
 {
 	if (generator == NULL || vertex == NULL)
 		return;
@@ -135,8 +135,6 @@ void inkGeneratorInitVertex(inkGenerator* generator, INKvertex* vertex, inkPoint
 			break;
 		case inkFillType_Bitmap:
 		{
-			inkMatrix invMatrix = inkMatrixInvert(glMatrix);
-
 			inkBitmapFill* bitmapFill = (inkBitmapFill *)fill;
 
 			float angle = inkMatrixRotation(bitmapFill->matrix);
@@ -147,7 +145,7 @@ void inkGeneratorInitVertex(inkGenerator* generator, INKvertex* vertex, inkPoint
 			matrix = inkMatrixScalef(matrix, 1.0f / scale.width, 1.0f / scale.height);
 			matrix = inkMatrixRotate(matrix, angle);
 
-			matrix = inkMatrixMultiply(invMatrix, matrix);
+			matrix = inkMatrixMultiply(invGLMatrix, matrix);
 			inkPoint convertedPosition = inkMatrixTransformPoint(matrix, inkPointMake(position.x, position.y));
 
 			vertex->s = convertedPosition.x * bitmapFill->bitmapInfo.one_textureWidth;

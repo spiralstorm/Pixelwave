@@ -35,8 +35,7 @@ typedef struct
 inkExtern inkStrokeGenerator *inkStrokeGeneratorCreate(inkTessellator* tessellator, inkCanvas* canvas, inkArray *renderGroups, inkStroke* stroke, inkMatrix matrix);
 inkExtern void inkStrokeGeneratorDestroy(inkStrokeGenerator* generator);
 
-inkExtern void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill, inkMatrix matrix);
-inkExtern void inkStrokeGeneratorSetMatrix(inkStrokeGenerator* strokeGenerator, inkMatrix matrix);
+inkExtern void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill, inkMatrix invGLMatrix);
 
 inkExtern void inkStrokeGeneratorMoveTo(inkStrokeGenerator* generator, inkPoint position);
 inkExtern void inkStrokeGeneratorLineTo(inkStrokeGenerator* generator, inkPoint position);

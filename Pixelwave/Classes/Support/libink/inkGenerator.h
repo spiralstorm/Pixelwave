@@ -24,7 +24,7 @@ typedef struct _inkGenerator
 	// myself, then the first value is uniformed across all structure types.
 	struct _inkGenerator *me;
 
-	inkMatrix matrix;
+	inkMatrix invGLMatrix;
 
 	inkTessellator* tessellator;
 
@@ -36,15 +36,15 @@ typedef struct _inkGenerator
 	void* fill;
 } inkGenerator;
 
-inkExtern inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill, inkMatrix matrix);
+inkExtern inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill, inkMatrix invGLMatrix);
 inkExtern void inkGeneratorDestroy(inkGenerator* generator);
 
 inkExtern void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGeneratorEndFunction endFunction, void *userData);
 inkExtern void inkGeneratorLineTo(inkGenerator* generator, inkPoint position);
 inkExtern void inkGeneratorEnd(inkGenerator* generator);
 
-inkExtern void inkGeneratorInitVertex(inkGenerator* generator, INKvertex* vertex, inkPoint position, void* fill, inkMatrix matrix);
-inkExtern void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position, void* fill, inkMatrix matrix);
+inkExtern void inkGeneratorInitVertex(inkGenerator* generator, INKvertex* vertex, inkPoint position, void* fill, inkMatrix invGLMatrix);
+inkExtern void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position, void* fill, inkMatrix invGLMatrix);
 inkExtern void inkGeneratorRemoveAllVertices(inkGenerator* generator);
 
 inkExtern void inkGeneratorMultColor(inkGenerator* generator, float red, float green, float blue, float alpha);
