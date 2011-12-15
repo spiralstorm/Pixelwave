@@ -71,7 +71,10 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 {
 	inkGradientFill info = inkGradientFillDefault;
 
-	// TODO: implement
+	info.matrix = PXGraphicsMakeMatrixFromPXMatrix(matrix);
+	info.spreadMethod = (inkSpreadMethod)spreadMethod;
+	info.interpolationMethod = (inkInterpolationMethod)interpolationMethod;
+	info.focalPointRatio = focalPointRatio;
 
 	unsigned int colorCount = [colors count];
 	unsigned int alphaCount = [alphas count];

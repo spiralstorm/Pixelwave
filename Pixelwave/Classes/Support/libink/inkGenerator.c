@@ -161,7 +161,13 @@ void inkGeneratorInitVertex(inkGenerator* generator, inkVertex* vertex, inkPoint
 		{
 			inkGradientFill* gradientFill = (inkGradientFill *)fill;
 
-			inkPoint convertedPosition = inkGeneratorConvertPositionFromMatrix(inkPointMake(position.x, position.y), gradientFill->matrix, invGLMatrix);
+			//inkPoint oldPoint = position;
+			position = inkMatrixTransformPoint(invGLMatrix, position);
+			inkPoint convertedPosition = inkMatrixTransformPoint(gradientFill->matrix, position);
+			//inkPoint convertedPosition = inkMatrixTransformPoint(inkMatrixMultiply(invGLMatrix, gradientFill->matrix), position);
+			//inkPoint convertedPosition = inkGeneratorConvertPositionFromMatrix(position, gradientFill->matrix, invGLMatrix);
+
+			//printf("Converted [(%3.4f, %3.4f)] (%3.4f, %3.4f) into (%3.4f, %3.4f)\n", oldPoint.x, oldPoint.y, position.x, position.y, convertedPosition.x, convertedPosition.y);
 			vertex->color = inkGradientColor(gradientFill, convertedPosition);
 		}
 			break;

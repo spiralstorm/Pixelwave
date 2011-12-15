@@ -270,4 +270,12 @@ inkInline inkColor inkColorApplyTransform(inkColor color, inkColorTransform tran
 	return inkColorMake(color.r * transform.r, color.g * transform.g, color.b * transform.b, color.a * transform.a);
 }
 
+inkInline inkColor inkColorInterpolate(inkColor colorA, inkColor colorB, float percent)
+{
+	return inkColorMake(colorA.r + ((colorB.r - colorA.r) * percent),
+						colorA.g + ((colorB.g - colorA.g) * percent),
+						colorA.b + ((colorB.b - colorA.b) * percent),
+						colorA.a + ((colorB.a - colorA.a) * percent));
+}
+
 #endif

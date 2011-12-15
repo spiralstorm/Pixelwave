@@ -129,6 +129,21 @@ inkColor inkGradientColor(inkGradientFill* fill, inkPoint position)
 			break;
 	}
 
+	if (inkIsEqualf(position.x, 1.0f))
+	{
+		return *((inkColor*)inkArrayElementAt(fill->colors, count - 1));
+	}
+
+	if (inkIsEqualf(position.x, 0.0f))
+	{
+		return *((inkColor*)inkArrayElementAt(fill->colors, 0));
+	}
+
+	if (count == 2)
+	{
+		return inkColorInterpolate(*((inkColor*)inkArrayElementAt(fill->colors, 0)), *((inkColor*)inkArrayElementAt(fill->colors, count - 1)), position.x);
+	}
+
 	unsigned int index = 0;
 	float percentAccum = 0.0f;
 	float* percentPtr;
@@ -136,11 +151,14 @@ inkColor inkGradientColor(inkGradientFill* fill, inkPoint position)
 	{
 		percentAccum += *percentPtr;
 
-		++index;
-
-		if (position.x <= percentAccum)
+		if (position.x < percentAccum || inkIsEqualf(position.x, percentAccum))
 			break;
+
+		++index;
 	}
+
+	if (index == 0)
+		index = 1;
 
 	return *((inkColor*)inkArrayElementAt(fill->colors, index - 1));
 }
