@@ -67,7 +67,7 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
 }
 
-static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NSArray *colors, NSArray *alphas, NSArray *ratios, PXMatrix *matrix, PXSpreadMethod spreadMethod, PXInterpolationMethod interpolationMethod, float focalPointRatio)
+static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType type, NSArray *colors, NSArray *alphas, NSArray *ratios, PXMatrix *matrix, PXSpreadMethod spreadMethod, PXInterpolationMethod interpolationMethod, float focalPointRatio)
 {
 	inkGradientFill info = inkGradientFillDefault;
 
@@ -95,7 +95,17 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 	}
 
 	info.colors = inkArrayCreate(sizeof(inkColor));
+	if (info.colors == NULL)
+		return info;
 	info.ratios = inkArrayCreate(sizeof(float));
+	if (info.ratios == NULL)
+	{
+		inkArrayDestroy(info.colors);
+		return info;
+	}
+
+	inkAddMemoryToFreeUponClear(canvas, info.colors, (void(*)(void*))inkArrayDestroy);
+	inkAddMemoryToFreeUponClear(canvas, info.ratios, (void(*)(void*))inkArrayDestroy);
 
 	unsigned int index = 0;
 
@@ -193,7 +203,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
 {
-	inkGradientFill gradientInfo = PXGraphicsGradientInfoMake(type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
+	inkGradientFill gradientInfo = PXGraphicsGradientInfoMake((inkCanvas*)vCanvas, type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
 
 	inkBeginGradientFill((inkCanvas*)vCanvas, gradientInfo);
 }
@@ -230,7 +240,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NS
 
 - (void) lineStyleWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
 {
-	inkGradientFill gradientInfo = PXGraphicsGradientInfoMake(type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
+	inkGradientFill gradientInfo = PXGraphicsGradientInfoMake((inkCanvas*)vCanvas, type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
 
 	inkLineGradientStyle((inkCanvas*)vCanvas, gradientInfo);
 }

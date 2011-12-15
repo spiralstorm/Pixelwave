@@ -17,10 +17,10 @@ inkInline bool inkObjectInit(inkObject* object, void* holder, inkDestroyFunction
 
 	object->_onStack = onStack;
 
+	object->holder = holder;
 	if (object->holder == NULL)
 		return false;
 
-	object->holder = holder;
 	object->destroyFunction = destroyFunction;
 	object->retainCount = 1;
 
@@ -59,6 +59,7 @@ inkObject* inkObjectCreate(void* holder, inkDestroyFunction destroyFunction)
 	if (inkObjectInit(object, holder, destroyFunction, false) == false)
 	{
 		inkObjectDestroy(object);
+		return NULL;
 	}
 
 	return object;

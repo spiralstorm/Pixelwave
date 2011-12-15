@@ -10,8 +10,7 @@
 #define _INK_OBJECT_H_
 
 #include "inkHeader.h"
-
-typedef void (*inkDestroyFunction)(void *);
+#include "inkTypes.h"
 
 typedef struct
 {

@@ -11,6 +11,8 @@
 #include "inkCommand.h"
 #include "inkRenderGroup.h"
 
+#include "inkObject.h"
+
 #include <stdio.h>
 
 inkTessellator* inkSharedFillTesselator = NULL;
@@ -28,10 +30,11 @@ inkCanvas* inkCreate()
 		canvas->commandList = inkArrayCreate(sizeof(inkCommand*));
 		canvas->renderGroups = inkArrayCreate(sizeof(inkRenderGroup*));
 		canvas->matrixStack = inkArrayCreate(sizeof(inkMatrix));
+		canvas->destroyUponClear = inkArrayCreate(sizeof(inkObject*));
 		canvas->fillTessellator = inkTessellatorCreate();
 		canvas->strokeTessellator = inkTessellatorCreate();
 
-		if (canvas->commandList == NULL || canvas->renderGroups == NULL || canvas->matrixStack == NULL || canvas->fillTessellator == NULL || canvas->strokeTessellator == NULL)
+		if (canvas->commandList == NULL || canvas->renderGroups == NULL || canvas->matrixStack == NULL || canvas->destroyUponClear == NULL || canvas->fillTessellator == NULL || canvas->strokeTessellator == NULL)
 		{
 			inkDestroy(canvas);
 			return NULL;
@@ -70,6 +73,9 @@ void inkDestroy(inkCanvas* canvas)
 
 		inkTessellatorDestroy(canvas->fillTessellator);
 		inkTessellatorDestroy(canvas->strokeTessellator);
+
+		inkFreeCachedMemory(canvas);
+		inkArrayDestroy(canvas->destroyUponClear);
 
 		free(canvas);
 	}
@@ -236,4 +242,40 @@ void inkRemoveAllRenderGroups(inkCanvas* canvas)
 	}
 
 	canvas->totalLength = 0.0f;
+}
+
+bool inkAddMemoryToFreeUponClear(inkCanvas* canvas, void* holder, inkDestroyFunction func)
+{
+	if (canvas == NULL)
+		return false;
+
+	unsigned int previousCount = inkArrayCount(canvas->destroyUponClear);
+	inkObject** objPtr = inkArrayPush(canvas->destroyUponClear);
+	if (objPtr == NULL)
+		return false;
+
+	*objPtr = inkObjectCreate(holder, func);
+
+	if (*objPtr == NULL)
+	{
+		inkArrayUpdateCount(canvas->destroyUponClear, previousCount);
+		return false;
+	}
+
+	return true;
+}
+
+void inkFreeCachedMemory(inkCanvas* canvas)
+{
+	if (canvas == NULL)
+		return;
+
+	inkObject* obj;
+
+	inkArrayPtrForEach(canvas->destroyUponClear, obj)
+	{
+		inkObjectRelease(obj);
+	}
+
+	inkArrayClear(canvas->destroyUponClear);
 }

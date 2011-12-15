@@ -17,6 +17,8 @@
 #define    inkNan          __nan( )
 #endif
 
+typedef void (*inkDestroyFunction)(void *);
+
 typedef void (*inkPointSizeFunction)(float);
 typedef void (*inkLineWidthFunction)(float);
 typedef void (*inkStateFunction)(unsigned int);

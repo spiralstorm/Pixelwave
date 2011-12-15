@@ -29,6 +29,8 @@ typedef struct
 	inkMatrix matrix;
 	inkArray* matrixStack;
 
+	inkArray* destroyUponClear;
+
 	inkPoint cursor;
 	inkRect bounds;
 	inkRect boundsWithStroke;
@@ -71,5 +73,8 @@ inkExtern void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)
 inkExtern void inkRemoveAllCommands(inkCanvas* canvas);
 
 inkExtern void inkRemoveAllRenderGroups(inkCanvas* canvas);
+
+inkExtern bool inkAddMemoryToFreeUponClear(inkCanvas* canvas, void* holder, inkDestroyFunction func);
+inkExtern void inkFreeCachedMemory(inkCanvas* canvas);
 
 #endif
