@@ -31,13 +31,13 @@ inkInline inkTessellatorGLUVertex inkTessellatorGLUVertexMake(float x, float y)
 inkInline void inkTessellatorInitialize(inkTessellator* tessellator);
 
 inkInline void inkTessellatorClearTemporaryVertices(inkTessellator* tessellator);
-inkInline INKvertex* inkTessellatorAddTemporaryVertex(inkTessellator* tessellator);
+inkInline inkVertex* inkTessellatorAddTemporaryVertex(inkTessellator* tessellator);
 
 void inkTessellatorBeginCallback(GLenum type, inkTessellator* tessellator);
 void inkTessellatorEndCallback(inkTessellator* tessellator);
 void inkTessellatorVertexCallback(GLvoid* vertex, inkTessellator* tessellator);
 void inkTessellatorErrorCallback(GLenum error, inkTessellator*tessellator);
-void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4], GLfloat weight[4], INKvertex** outData, inkTessellator* tessellator);
+void inkTessellatorCombineCallback(GLdouble coords[3], inkVertex* vertexData[4], GLfloat weight[4], inkVertex** outData, inkTessellator* tessellator);
 
 inkTessellator *inkTessellatorCreate()
 {
@@ -53,7 +53,7 @@ inkTessellator *inkTessellatorCreate()
 			return NULL;
 		}
 
-		tessellator->vertexPtrs = inkArrayCreate(sizeof(INKvertex*));
+		tessellator->vertexPtrs = inkArrayCreate(sizeof(inkVertex*));
 
 		if (tessellator->vertexPtrs == NULL)
 		{
@@ -90,7 +90,7 @@ inkInline void inkTessellatorClearTemporaryVertices(inkTessellator* tessellator)
 {
 	if (tessellator->vertexPtrs)
 	{
-		INKvertex* vertex;
+		inkVertex* vertex;
 
 		inkArrayPtrForEach(tessellator->vertexPtrs, vertex)
 		{
@@ -101,14 +101,14 @@ inkInline void inkTessellatorClearTemporaryVertices(inkTessellator* tessellator)
 	}
 }
 
-inkInline INKvertex* inkTessellatorAddTemporaryVertex(inkTessellator* tessellator)
+inkInline inkVertex* inkTessellatorAddTemporaryVertex(inkTessellator* tessellator)
 {
-	INKvertex* vertex = calloc(1, sizeof(INKvertex));
+	inkVertex* vertex = calloc(1, sizeof(inkVertex));
 
 	if (vertex == NULL)
 		return NULL;
 
-	INKvertex** vertexPtr = (INKvertex**)inkArrayPush(tessellator->vertexPtrs);
+	inkVertex** vertexPtr = (inkVertex**)inkArrayPush(tessellator->vertexPtrs);
 
 	if (vertexPtr == NULL)
 	{
@@ -218,7 +218,7 @@ void inkTessellatorError(INKenum error, inkTessellator*tessellator)
 	inkTessellatorErrorCallback(error, tessellator);
 }
 
-void inkTessellatorCombine(double coords[3], INKvertex* vertexData[4], float weight[4], INKvertex** outData, inkTessellator* tessellator)
+void inkTessellatorCombine(double coords[3], inkVertex* vertexData[4], float weight[4], inkVertex** outData, inkTessellator* tessellator)
 {
 	inkTessellatorCombineCallback(coords, vertexData, weight, outData, tessellator);
 }
@@ -249,11 +249,11 @@ void inkTessellatorVertexCallback(GLvoid* vertex, inkTessellator* tessellator)
 	if (vertex == NULL || tessellator == NULL || tessellator->currentRenderGroup == NULL)
 		return;
 
-	INKvertex* currentVertex = inkRenderGroupNextVertex(tessellator->currentRenderGroup);
+	inkVertex* currentVertex = inkRenderGroupNextVertex(tessellator->currentRenderGroup);
 
 	if (currentVertex != NULL)
 	{
-		*currentVertex = *((INKvertex *)(vertex));
+		*currentVertex = *((inkVertex *)(vertex));
 	}
 }
 
@@ -265,15 +265,15 @@ void inkTessellatorErrorCallback(GLenum error, inkTessellator* tessellator)
 	printf("inkTessellatorErrorCallback:: error = %s\n", gluErrorString(error));
 }
 
-void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4], GLfloat weight[4], INKvertex** outData, inkTessellator* tessellator)
+void inkTessellatorCombineCallback(GLdouble coords[3], inkVertex* vertexData[4], GLfloat weight[4], inkVertex** outData, inkTessellator* tessellator)
 {
 	if (tessellator == NULL || tessellator->vertexPtrs == NULL || outData == NULL)
 		return;
 
-	INKvertex* v0 = vertexData[0];
-	INKvertex* v1 = vertexData[1];
-	INKvertex* v2 = vertexData[2];
-	INKvertex* v3 = vertexData[3];
+	inkVertex* v0 = vertexData[0];
+	inkVertex* v1 = vertexData[1];
+	inkVertex* v2 = vertexData[2];
+	inkVertex* v3 = vertexData[3];
 
 	// Can't merge if all points given are null.
 	if (v0 == NULL && v1 == NULL && v2 == NULL && v3 == NULL)
@@ -281,7 +281,7 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 
 	// This will not have an array issue as inside it will make a pointer to
 	// pointer array, thus saving the original pointer.
-	INKvertex* vertex = inkTessellatorAddTemporaryVertex(tessellator);
+	inkVertex* vertex = inkTessellatorAddTemporaryVertex(tessellator);
 
 	if (vertex == NULL)
 		return;
@@ -309,13 +309,13 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 { \
 	if (_in_ != NULL) \
 	{ \
-		_r_ += (_in_)->r * _w_; \
-		_g_ += (_in_)->g * _w_; \
-		_b_ += (_in_)->b * _w_; \
-		_a_ += (_in_)->a * _w_; \
+		_r_ += (_in_)->color.r * _w_; \
+		_g_ += (_in_)->color.g * _w_; \
+		_b_ += (_in_)->color.b * _w_; \
+		_a_ += (_in_)->color.a * _w_; \
 \
-		_s_ += (_in_)->s * _w_; \
-		_t_ += (_in_)->t * _w_; \
+		_s_ += (_in_)->tex.x * _w_; \
+		_t_ += (_in_)->tex.y * _w_; \
 	} \
 }
 
@@ -325,20 +325,20 @@ void inkTessellatorCombineCallback(GLdouble coords[3], INKvertex* vertexData[4],
 	inkTessellatorCombineVertex(r, g, b, a, s, t, v2, w2);
 	inkTessellatorCombineVertex(r, g, b, a, s, t, v3, w3);
 
-	vertex->x = coords[0];
-	vertex->y = coords[1];
+	vertex->pos.x = coords[0];
+	vertex->pos.y = coords[1];
 
 	// Rounding really shouldn't be needed as it should never exceed 255,
 	// however with floating point rounding errors it is possible to get
 	// slightly above 255 which would roll back around to 0 and thus fail.
 
-	vertex->r = lroundf(r);
-	vertex->g = lroundf(g);
-	vertex->b = lroundf(b);
-	vertex->a = lroundf(a);
+	vertex->color.r = lroundf(r);
+	vertex->color.g = lroundf(g);
+	vertex->color.b = lroundf(b);
+	vertex->color.a = lroundf(a);
 
-	vertex->s = s;
-	vertex->t = t;
+	vertex->tex.x = s;
+	vertex->tex.y = t;
 
 	// This would be ideal, however there are too many fail points for this to
 	// work correctly.
@@ -410,12 +410,12 @@ void inkTessellatorEndContour(inkTessellator* tessellator)
 	gluTessEndContour(tessellator->gluTessellator);
 }
 
-void inkTessellatorAddPoint(inkTessellator* tessellator, INKvertex* vertex)
+void inkTessellatorAddPoint(inkTessellator* tessellator, inkVertex* vertex)
 {
 	if (tessellator == NULL || tessellator->gluTessellator == NULL || vertex == NULL)
 		return;
 
-	inkTessellatorGLUVertex gluVertex = inkTessellatorGLUVertexMake(vertex->x, vertex->y);
+	inkTessellatorGLUVertex gluVertex = inkTessellatorGLUVertexMake(vertex->pos.x, vertex->pos.y);
 
 	//GLdouble v[] = {gluVertex.x, gluVertex.y, 0.0};
 	//gluTessVertex(tessellator->gluTessellator, v, vertex);

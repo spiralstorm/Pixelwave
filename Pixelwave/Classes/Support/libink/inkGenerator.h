@@ -43,7 +43,7 @@ inkExtern void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, in
 inkExtern void inkGeneratorLineTo(inkGenerator* generator, inkPoint position);
 inkExtern void inkGeneratorEnd(inkGenerator* generator);
 
-inkExtern void inkGeneratorInitVertex(inkGenerator* generator, INKvertex* vertex, inkPoint position, void* fill, inkMatrix invGLMatrix);
+inkExtern void inkGeneratorInitVertex(inkGenerator* generator, inkVertex* vertex, inkPoint position, void* fill, inkMatrix invGLMatrix);
 inkExtern void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position, void* fill, inkMatrix invGLMatrix);
 inkExtern void inkGeneratorRemoveAllVertices(inkGenerator* generator);
 

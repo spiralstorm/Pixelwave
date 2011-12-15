@@ -95,18 +95,18 @@ inkExtern inkPresetGLData inkFillUpdateGLData(void* fill, inkPresetGLData glData
 	return glData;
 }
 
-inkColor inkGradientColor(inkGradientFill* fill, float x, float y)
+inkColor inkGradientColor(inkGradientFill* fill, inkPoint position)
 {
 	if (fill == NULL)
-		return inkColorMakef(1.0f, 1.0f, 1.0f, 1.0f);
+		return inkColorMake(0xFF, 0xFF, 0xFF, 0xFF);
 
 	if (fill->colors == NULL)
-		return inkColorMakef(1.0f, 1.0f, 1.0f, 1.0f);
+		return inkColorMake(0xFF, 0xFF, 0xFF, 0xFF);
 
 	unsigned int count = inkArrayCount(fill->colors);
 
 	if (count == 0)
-		return inkColorMakef(1.0f, 1.0f, 1.0f, 1.0f);
+		return inkColorMake(0xFF, 0xFF, 0xFF, 0xFF);
 
 	if (count == 1)
 	{
@@ -116,18 +116,31 @@ inkColor inkGradientColor(inkGradientFill* fill, float x, float y)
 	switch(fill->spreadMethod)
 	{
 		case inkSpreadMethod_Pad:
-			x = inkClampf(x);
-			y = inkClampf(y);
+			position.x = inkClampf(position.x);
+			position.y = inkClampf(position.y);
 			break;
 		case inkSpreadMethod_Reflect:
-			x = inkReflectf(x);
-			y = inkReflectf(y);
+			position.x = inkReflectf(position.x);
+			position.y = inkReflectf(position.y);
 			break;
 		case inkSpreadMethod_Repeat:
-			x = inkRepeatf(x);
-			y = inkRepeatf(y);
+			position.x = inkRepeatf(position.x);
+			position.y = inkRepeatf(position.y);
 			break;
 	}
 
-	return inkColorMakef(1.0f, 1.0f, 1.0f, 1.0f);
+	unsigned int index = 0;
+	float percentAccum = 0.0f;
+	float* percentPtr;
+	inkArrayForEach(fill->ratios, percentPtr)
+	{
+		percentAccum += *percentPtr;
+
+		++index;
+
+		if (position.x <= percentAccum)
+			break;
+	}
+
+	return *((inkColor*)inkArrayElementAt(fill->colors, index - 1));
 }

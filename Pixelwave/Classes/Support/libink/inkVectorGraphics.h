@@ -16,10 +16,6 @@
 #include "inkFill.h"
 #include "inkStroke.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 inkInline void inkMoveTo(inkCanvas* canvas, inkPoint position);
 inkInline void inkLineTo(inkCanvas* canvas, inkPoint position);
 inkInline void inkCurveTo(inkCanvas* canvas, inkPoint control, inkPoint anchor);
@@ -37,10 +33,6 @@ inkInline void inkLineTofv(inkCanvas* canvas, float x, float y, bool relative);
 inkInline void inkCurveTofv(inkCanvas* canvas, float controlX, float controlY, float anchorX, float anchorY, bool relative, bool reflect);
 inkInline void inkQuadraticCurveTofv(inkCanvas* canvas, float controlX, float controlY, float anchorX, float anchorY, bool relative, bool reflect);
 inkInline void inkCubicCurveTofv(inkCanvas* canvas, float controlAX, float controlAY, float controlBX, float controlBY, float anchorX, float anchorY, bool relative, bool reflect);
-
-#ifdef __cplusplus
-}
-#endif
 
 inkExtern void inkClear(inkCanvas* canvas);
 
@@ -84,10 +76,6 @@ inkExtern void inkTranslatef(inkCanvas* canvas, float x, float y);
 
 inkExtern unsigned int inkDraw(inkCanvas* canvas);
 inkExtern unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer);
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 inkInline void inkMoveTo(inkCanvas* canvas, inkPoint position)
 {
@@ -163,9 +151,5 @@ inkInline void inkCubicCurveTofv(inkCanvas* canvas, float controlAX, float contr
 {
 	inkCubicCurveTov(canvas, inkPointMake(controlAX, controlAY), inkPointMake(controlBX, controlBY), inkPointMake(anchorX, anchorY), relative, reflect);
 }
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

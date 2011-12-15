@@ -27,19 +27,24 @@ PXGLAABB PXEngineAABBStageToGL(PXGLAABB aabb, PXStage *stage)
 
 PXGLAABB PXEngineAABBGLToStage(PXGLAABB aabb, PXStage *stage)
 {
-	PXStageOrientation orientation = stage.orientation;
-
-	int stageWidth  = stage.stageWidth;
-	int stageHeight = stage.stageHeight;
-
-	switch (orientation)
+	switch (stage.orientation)
 	{
 		case PXStageOrientation_PortraitUpsideDown:
+		{
+			int stageWidth  = stage.stageWidth;
+			int stageHeight = stage.stageHeight;
 			return PXGLAABBMake(stageWidth - aabb.xMax, stageHeight - aabb.yMax, stageWidth - aabb.xMin, stageHeight - aabb.yMin);
+		}
 		case PXStageOrientation_LandscapeLeft:
+		{
+			int stageWidth  = stage.stageWidth;
 			return PXGLAABBMake(stageWidth - aabb.yMax, aabb.xMin, stageWidth - aabb.yMin, aabb.xMax);
+		}
 		case PXStageOrientation_LandscapeRight:
+		{
+			int stageHeight = stage.stageHeight;
 			return PXGLAABBMake(aabb.yMin, stageHeight - aabb.xMax, aabb.yMax, stageHeight - aabb.xMin);
+		}
 		case PXStageOrientation_Portrait:
 		default:
 			break;
@@ -57,19 +62,24 @@ PXGLAABBf PXEngineAABBfStageToGL(PXGLAABBf aabb, PXStage *stage)
 
 PXGLAABBf PXEngineAABBfGLToStage(PXGLAABBf aabb, PXStage *stage)
 {
-	PXStageOrientation orientation = stage.orientation;
-
-	float stageWidth  = stage.stageWidth;
-	float stageHeight = stage.stageHeight;
-
-	switch (orientation)
+	switch (stage.orientation)
 	{
 		case PXStageOrientation_PortraitUpsideDown:
+		{
+			float stageWidth  = stage.stageWidth;
+			float stageHeight = stage.stageHeight;
 			return PXGLAABBfMake(stageWidth - aabb.xMax, stageHeight - aabb.yMax, stageWidth - aabb.xMin, stageHeight - aabb.yMin);
+		}
 		case PXStageOrientation_LandscapeLeft:
+		{
+			float stageWidth  = stage.stageWidth;
 			return PXGLAABBfMake(stageWidth - aabb.yMax, aabb.xMin, stageWidth - aabb.yMin, aabb.xMax);
+		}
 		case PXStageOrientation_LandscapeRight:
+		{
+			float stageHeight = stage.stageHeight;
 			return PXGLAABBfMake(aabb.yMin, stageHeight - aabb.xMax, aabb.yMax, stageHeight - aabb.xMin);
+		}
 		case PXStageOrientation_Portrait:
 		default:
 			break;
@@ -87,9 +97,7 @@ CGPoint PXEnginePointStageToGL(CGPoint point, PXStage *stage)
 
 CGPoint PXEnginePointGLToStage(CGPoint point, PXStage *stage)
 {
-	PXStageOrientation orientation = stage.orientation;
-
-	switch (orientation)
+	switch (stage.orientation)
 	{
 		case PXStageOrientation_PortraitUpsideDown:
 			return CGPointMake(stage.stageWidth - point.x, stage.stageHeight - point.y);

@@ -11,6 +11,8 @@
 
 #include "inkHeader.h"
 
+#include "inkTypes.h"
+
 typedef struct
 {
 	float x;
@@ -67,6 +69,13 @@ typedef enum
 	inkCurveType_Cubic,
 } inkCurveType;
 
+typedef struct
+{
+	inkPoint pos;
+	inkColor color;
+	inkPoint tex;
+} inkVertex;
+
 typedef void (*inkCurveNewPointCallback)(inkPoint, void*);
 typedef inkPoint (*inkCurveUpdatePointCallback)(inkPoint, void*);
 
@@ -93,10 +102,6 @@ inkExtern const inkBox inkBoxZero;
 inkExtern const inkMatrix inkMatrixIdentity;
 
 inkExtern int inkMaxUlps;
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 // MARK: -
 // MARK: Math Declarations
@@ -843,9 +848,5 @@ inkInline inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point
 	return inkPointMake((point.x * matrix.a) + (point.y * matrix.c),
 						(point.x * matrix.b) + (point.y * matrix.d));
 }
-
-#ifdef __cplusplus
-}
-#endif
 
 #endif

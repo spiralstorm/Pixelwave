@@ -71,6 +71,8 @@ inkExtern void inkArrayClear(inkArray* array);
 inkExtern void inkArrayRemoveFromLeft(inkArray* array, unsigned int count);
 inkExtern void inkArrayRemoveFromRight(inkArray* array, unsigned int count);
 
+inkExtern void inkArrayUpdateCount(inkArray *array, unsigned int count);
+
 // Inquiry
 inkExtern unsigned int inkArrayCount(inkArray* array);
 inkExtern void* inkArrayElementAt(inkArray* array, unsigned int index);

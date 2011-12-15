@@ -69,57 +69,57 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 
 static inline inkGradientFill PXGraphicsGradientInfoMake(PXGradientType type, NSArray *colors, NSArray *alphas, NSArray *ratios, PXMatrix *matrix, PXSpreadMethod spreadMethod, PXInterpolationMethod interpolationMethod, float focalPointRatio)
 {
-	inkGradientFill info;
-
-	memset(&info, 0, sizeof(inkGradientFill));
+	inkGradientFill info = inkGradientFillDefault;
 
 	// TODO: implement
 
-	/*unsigned int colorCount = [colors count];
+	unsigned int colorCount = [colors count];
 	unsigned int alphaCount = [alphas count];
+	unsigned int ratioCount = [ratios count];
 
-	if (colorCount != alphaCount)
+	if (colorCount != alphaCount || colorCount != ratioCount || alphaCount != ratioCount)
 	{
-		PXDebugLog(@"PXGraphics Error: There must be equal quantity of colors and alphas.");
+		PXDebugLog(@"PXGraphics Error: There must be equal quantity of colors, alphas and ratios.");
 
 		return info;
 	}
 
-	if (colorCount != 0)
+	if (colorCount == 0)
 	{
-		info.colors = alloca(sizeof(unsigned int) * info.colorCount);
-		info.alphas = alloca(sizeof(float) * info.colorCount);
+		PXDebugLog(@"PXGraphics Error: Gradients should have at least one color.");
 
-		unsigned int *curColor = info.colors;
-		float *curAlpha = info.alphas;
-
-		for (NSNumber *color in colors)
-		{
-			*curColor = [color unsignedIntegerValue];
-			++curColor;
-		}
-
-		for (NSNumber *alpha in alphas)
-		{
-			*curAlpha = [alpha floatValue];
-			++curAlpha;
-		}
+		return info;
 	}
 
-	info.ratioCount = [ratios count];
+	info.colors = inkArrayCreate(sizeof(inkColor));
+	info.ratios = inkArrayCreate(sizeof(float));
 
-	if (info.ratioCount != 0)
+	unsigned int index = 0;
+
+	for (index = 0; index < colorCount; ++index)
 	{
-		info.ratios = alloca(sizeof(float) * info.ratioCount);
+		unsigned int color = [[colors objectAtIndex:index] unsignedIntegerValue];
+		float alpha = [[alphas objectAtIndex:index] floatValue];
+		float ratio = [[ratios objectAtIndex:index] floatValue];
+		ratio *= M_1_255;
 
-		float *curRatio = info.ratios;
+		unsigned int prevColorCount = inkArrayCount(info.colors);
+		unsigned int prevReatioCount = inkArrayCount(info.ratios);
 
-		for (NSNumber *ratio in ratios)
+		inkColor* colorPtr = inkArrayPush(info.colors);
+		float* ratioPtr = inkArrayPush(info.ratios);
+
+		if (colorPtr == NULL || ratioPtr == NULL)
 		{
-			*curRatio = [ratio floatValue];
-			++curRatio;
+			inkArrayUpdateCount(info.colors, prevColorCount);
+			inkArrayUpdateCount(info.ratios, prevReatioCount);
+
+			return info;
 		}
-	}*/
+
+		*colorPtr = inkColorMake((color >> 16) & 0xFF , (color >> 8) & 0xFF, (color) & 0xFF, (unsigned char)(alpha * 0xFF));
+		*ratioPtr = ratio;
+	}
 
 	return info;
 }

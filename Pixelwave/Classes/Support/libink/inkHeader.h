@@ -26,8 +26,14 @@
 #define inkExtern extern
 #endif
 
+//#define inkInline static inline
+//#define inkAlwaysInline  __attribute__((always_inline))
+
+#ifdef __cplusplus
+#define inkInline extern "C" static inline
+#else
 #define inkInline static inline
-#define inkAlwaysInline  __attribute__((always_inline))
+#endif
 
 #define inkUniqueVarConcat(_name_, _line_) _name_ ## _line_
 #define inkLikeName(_name_, _line_) inkUniqueVarConcat(_name_, _line_)
@@ -37,6 +43,9 @@
 
 #define inkNotUsed(_val_) ((void)(_val_))
 
+#ifndef M_1_255
+#define M_1_255		0.003921568627450980392367790557453522
+#endif
 #ifndef M_E
 #define M_E			2.71828182845904523536028747135266250
 #endif

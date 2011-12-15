@@ -57,7 +57,7 @@ void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGenerator
 	else
 		inkGeneratorEnd(generator);
 
-	inkArray* vertices = inkArrayCreate(sizeof(INKvertex));
+	inkArray* vertices = inkArrayCreate(sizeof(inkVertex));
 
 	if (vertices == NULL)
 		return;
@@ -94,7 +94,7 @@ void inkGeneratorEnd(inkGenerator* generator)
 
 	inkTessellatorBeginContour(generator->tessellator);
 
-	INKvertex *vertex;
+	inkVertex *vertex;
 
 	inkArrayForEach(generator->currentVertices, vertex)
 	{
@@ -107,13 +107,27 @@ void inkGeneratorEnd(inkGenerator* generator)
 	generator->previous = inkPointZero;
 }
 
-void inkGeneratorInitVertex(inkGenerator* generator, INKvertex* vertex, inkPoint position, void* fill, inkMatrix invGLMatrix)
+inkPoint inkGeneratorConvertPositionFromMatrix(inkPoint position, inkMatrix convMatrix, inkMatrix invGLMatrix)
+{
+	float angle = inkMatrixRotation(convMatrix);
+	inkSize scale = inkMatrixSize(convMatrix);
+	inkMatrix matrix = inkMatrixIdentity;
+
+	matrix = inkMatrixTranslatef(matrix, -convMatrix.tx, -convMatrix.ty);
+	matrix = inkMatrixScalef(matrix, 1.0f / scale.width, 1.0f / scale.height);
+	matrix = inkMatrixRotate(matrix, angle);
+
+	matrix = inkMatrixMultiply(invGLMatrix, matrix);
+
+	return inkMatrixTransformPoint(matrix, inkPointMake(position.x, position.y));
+}
+
+void inkGeneratorInitVertex(inkGenerator* generator, inkVertex* vertex, inkPoint position, void* fill, inkMatrix invGLMatrix)
 {
 	if (generator == NULL || vertex == NULL)
 		return;
 
-	vertex->x = (position.x);
-	vertex->y = (position.y);
+	vertex->pos = position;
 
 	if (fill == NULL)
 		return;
@@ -127,33 +141,29 @@ void inkGeneratorInitVertex(inkGenerator* generator, INKvertex* vertex, inkPoint
 			inkSolidFill* solidFill = (inkSolidFill *)fill;
 
 			// TODO: Use a real color checker instead
-			vertex->r = 0xFF & (solidFill->color >> 16);
-			vertex->g = 0xFF & (solidFill->color >> 8);
-			vertex->b = 0xFF & (solidFill->color);
-			vertex->a = 0xFF * solidFill->alpha;
+			vertex->color.r = 0xFF & (solidFill->color >> 16);
+			vertex->color.g = 0xFF & (solidFill->color >> 8);
+			vertex->color.b = 0xFF & (solidFill->color);
+			vertex->color.a = 0xFF * solidFill->alpha;
 		}
 			break;
 		case inkFillType_Bitmap:
 		{
 			inkBitmapFill* bitmapFill = (inkBitmapFill *)fill;
 
-			float angle = inkMatrixRotation(bitmapFill->matrix);
-			inkSize scale = inkMatrixSize(bitmapFill->matrix);
-			inkMatrix matrix = inkMatrixIdentity;
+			inkPoint convertedPosition = inkGeneratorConvertPositionFromMatrix(inkPointMake(position.x, position.y), bitmapFill->matrix, invGLMatrix);
 
-			matrix = inkMatrixTranslatef(matrix, -bitmapFill->matrix.tx, -bitmapFill->matrix.ty);
-			matrix = inkMatrixScalef(matrix, 1.0f / scale.width, 1.0f / scale.height);
-			matrix = inkMatrixRotate(matrix, angle);
-
-			matrix = inkMatrixMultiply(invGLMatrix, matrix);
-			inkPoint convertedPosition = inkMatrixTransformPoint(matrix, inkPointMake(position.x, position.y));
-
-			vertex->s = convertedPosition.x * bitmapFill->bitmapInfo.one_textureWidth;
-			vertex->t = convertedPosition.y * bitmapFill->bitmapInfo.one_textureHeight;
+			vertex->tex.x = convertedPosition.x * bitmapFill->bitmapInfo.one_textureWidth;
+			vertex->tex.y = convertedPosition.y * bitmapFill->bitmapInfo.one_textureHeight;
 		}
 			break;
 		case inkFillType_Gradient:
-			// TODO: Implement
+		{
+			inkGradientFill* gradientFill = (inkGradientFill *)fill;
+
+			inkPoint convertedPosition = inkGeneratorConvertPositionFromMatrix(inkPointMake(position.x, position.y), gradientFill->matrix, invGLMatrix);
+			vertex->color = inkGradientColor(gradientFill, convertedPosition);
+		}
 			break;
 		default:
 			break;
@@ -165,7 +175,7 @@ void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position, void* fil
 	if (generator == NULL || generator->currentVertices == NULL)
 		return;
 
-	INKvertex* vertex = (INKvertex*)inkArrayPush(generator->currentVertices);
+	inkVertex* vertex = (inkVertex*)inkArrayPush(generator->currentVertices);
 
 	inkGeneratorInitVertex(generator, vertex, position, fill, matrix);
 }
@@ -195,16 +205,16 @@ void inkGeneratorMultColor(inkGenerator* generator, float red, float green, floa
 		return;
 
 	inkArray* array;
-	INKvertex* vertex;
+	inkVertex* vertex;
 
 	inkArrayPtrForEach(generator->vertexGroupList, array)
 	{
 		inkArrayForEach(array, vertex)
 		{
-			vertex->r *= red;
-			vertex->g *= green;
-			vertex->b *= blue;
-			vertex->a *= alpha;
+			vertex->color.r *= red;
+			vertex->color.g *= green;
+			vertex->color.b *= blue;
+			vertex->color.a *= alpha;
 		}
 	}
 }

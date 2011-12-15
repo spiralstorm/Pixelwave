@@ -101,23 +101,23 @@ typedef struct
 
 //
 
-PXInline_h void PXColorRGBToHex(unsigned r, unsigned g, unsigned b, int *hex);
-PXInline_h void PXColorHexToRGB(unsigned hex, PXColor3 *color);
-PXInline_h void PXColorHexToRGBf(unsigned hex, PXColor3f *color);
-PXInline_h void PXColorHexToARGB(unsigned hex, PXColor4 *color);
+void PXColorRGBToHex(unsigned r, unsigned g, unsigned b, int *hex);
+void PXColorHexToRGB(unsigned hex, PXColor3 *color);
+void PXColorHexToRGBf(unsigned hex, PXColor3f *color);
+void PXColorHexToARGB(unsigned hex, PXColor4 *color);
 
-PXInline_h bool PXColorsAreEqual(PXColor4f *color1, PXColor4f *color2);
+bool PXColorsAreEqual(PXColor4f *color1, PXColor4f *color2);
 
-PXInline_h PXRGBA PXRGBAMake(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
-PXInline_h PXHSV PXHSVMake(float hue, float saturation, float value);
-PXInline_h PXHSL PXHSLMake(float hue, float saturation, float lightness);
+PXRGBA PXRGBAMake(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
+PXHSV PXHSVMake(float hue, float saturation, float value);
+PXHSL PXHSLMake(float hue, float saturation, float lightness);
 
-PXInline_h PXRGBA PXHSVToRGBA(PXHSV hsv);
-PXInline_h PXRGBA PXHSLToRGBA(PXHSL hsl);
-PXInline_h PXHSV PXRGBAToHSV(PXRGBA rgba);
-PXInline_h PXHSV PXHSLToHSV(PXHSL hsl);
-PXInline_h PXHSL PXRGBAToHSL(PXRGBA rgba);
-PXInline_h PXHSL PXHSVToHSL(PXHSV hsv);
+PXRGBA PXHSVToRGBA(PXHSV hsv);
+PXRGBA PXHSLToRGBA(PXHSL hsl);
+PXHSV PXRGBAToHSV(PXRGBA rgba);
+PXHSV PXHSLToHSV(PXHSL hsl);
+PXHSL PXRGBAToHSL(PXRGBA rgba);
+PXHSL PXHSVToHSL(PXHSV hsv);
 
 // TODO Later: Make a PXColor class (similar to the structure of PXMath).
 typedef enum

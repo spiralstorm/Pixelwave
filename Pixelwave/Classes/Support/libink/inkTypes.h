@@ -78,13 +78,6 @@ inkExtern const inkRenderer inkRendererDefault;
 
 inkExtern inkRenderer inkRendererMake(inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkGetBooleanFunction getBooleanFunc, inkGetFloatFunction getFloatFunc, inkGetIntegerFunction getIntegerFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkGetTexParameterFunction getTexParamFunc, inkSetTexParameterFunction setTexParamFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc);
 
-typedef struct
-{
-	float x, y;
-	unsigned char r, g, b, a;
-	float s, t;
-} INKvertex;
-
 typedef unsigned int INKenum;
 
 typedef struct
@@ -92,28 +85,16 @@ typedef struct
 	unsigned char r, g, b, a;
 } inkColor;
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-inkInline inkColor inkColorMake(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+typedef struct
 {
-	inkColor color;
+	float r, g, b, a;
+} inkColorTransform;
 
-	color.r = r;
-	color.g = g;
-	color.b = b;
-	color.a = a;
-
-	return color;
-}
-
-inkInline inkColor inkColorMakef(float r, float g, float b, float a)
-{
-	return inkColorMake(r * 0xFF, g * 0xFF, b * 0xFF, a * 0xFF);
-}
-#ifdef __cplusplus
-}
-#endif
+inkInline inkColor inkColorMake(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+inkInline inkColor inkColorFromTransform(inkColorTransform transform);
+inkInline inkColor inkColorApplyTransform(inkColor color, inkColorTransform transform);
+inkInline inkColorTransform inkColorTransformMake(float r, float g, float b, float a);
+inkInline inkColorTransform inkColorTransformFromColor(inkColor color);
 
 typedef enum
 {
@@ -249,5 +230,44 @@ typedef enum
 	inkIncompleteDrawStrategy_Fade,
 	inkIncompleteDrawStrategy_Full
 } inkIncompleteDrawStrategy;
+
+inkInline inkColor inkColorMake(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+{
+	inkColor color;
+	
+	color.r = r;
+	color.g = g;
+	color.b = b;
+	color.a = a;
+	
+	return color;
+}
+
+inkInline inkColorTransform inkColorTransformMake(float r, float g, float b, float a)
+{
+	inkColorTransform transform;
+	
+	transform.r = r;
+	transform.g = g;
+	transform.b = b;
+	transform.a = a;
+	
+	return transform;
+}
+
+inkInline inkColor inkColorFromTransform(inkColorTransform transform)
+{
+	return inkColorMake(0xFF * transform.r, 0xFF * transform.g, 0xFF * transform.b, 0xFF * transform.a);
+}
+
+inkInline inkColorTransform inkColorTransformFromColor(inkColor color)
+{
+	return inkColorTransformMake(M_1_255 * color.r, M_1_255 * color.g, M_1_255 * color.b, M_1_255 * color.a);
+}
+
+inkInline inkColor inkColorApplyTransform(inkColor color, inkColorTransform transform)
+{
+	return inkColorMake(color.r * transform.r, color.g * transform.g, color.b * transform.b, color.a * transform.a);
+}
 
 #endif

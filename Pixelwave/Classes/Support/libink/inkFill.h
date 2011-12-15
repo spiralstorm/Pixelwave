@@ -81,6 +81,6 @@ inkExtern inkGradientFill inkGradientFillMake(inkMatrix matrix, inkArray* colors
 
 inkExtern inkPresetGLData inkFillUpdateGLData(void* fill, inkPresetGLData glData);
 
-inkExtern inkColor inkGradientColor(inkGradientFill* fill, float x, float y);
+inkExtern inkColor inkGradientColor(inkGradientFill* fill, inkPoint position);
 
 #endif

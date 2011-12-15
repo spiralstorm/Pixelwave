@@ -24,8 +24,7 @@ inkInline int64_t inkArrayNextPowerOfTwo(int64_t val)
 	return val;
 }
 
-inkInline void inkArrayResize(inkArray *array, size_t size);
-inkInline void inkArrayUpdateCount(inkArray *array, unsigned int count);
+void inkArrayResize(inkArray *array, size_t size);
 
 inkArray* inkArrayCreate(size_t elementSize)
 {
@@ -64,7 +63,7 @@ void inkArrayDestroy(inkArray* array)
 	}
 }
 
-inkInline void inkArrayResize(inkArray* array, size_t size)
+void inkArrayResize(inkArray* array, size_t size)
 {
 	if (array == NULL || array->elements == NULL)
 		return;
@@ -80,7 +79,7 @@ inkInline void inkArrayResize(inkArray* array, size_t size)
 	array->elements = realloc(array->elements, array->_byteCount);
 }
 
-inkInline void inkArrayUpdateCount(inkArray* array, unsigned int count)
+void inkArrayUpdateCount(inkArray* array, unsigned int count)
 {
 	if (array == NULL)
 		return;

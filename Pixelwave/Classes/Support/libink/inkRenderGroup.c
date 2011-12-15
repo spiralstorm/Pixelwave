@@ -14,7 +14,7 @@ inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData,
 
 	if (renderGroup != NULL)
 	{
-		renderGroup->vertices = inkArrayCreate(sizeof(INKvertex));
+		renderGroup->vertices = inkArrayCreate(sizeof(inkVertex));
 
 		if (renderGroup->vertices == NULL)
 		{
@@ -41,10 +41,10 @@ void inkRenderGroupDestroy(inkRenderGroup* renderGroup)
 	}
 }
 
-INKvertex* inkRenderGroupNextVertex(inkRenderGroup* renderGroup)
+inkVertex* inkRenderGroupNextVertex(inkRenderGroup* renderGroup)
 {
 	if (renderGroup == NULL || renderGroup->vertices == NULL)
 		return NULL;
 
-	return (INKvertex*)inkArrayPush(renderGroup->vertices);
+	return (inkVertex*)inkArrayPush(renderGroup->vertices);
 }

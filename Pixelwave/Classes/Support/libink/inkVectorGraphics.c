@@ -317,7 +317,7 @@ void inkFadeStrategyRenderGroups(inkCanvas* canvas, float red, float green, floa
 
 	inkRenderGroup* renderGroup;
 	inkArray* vertexArray;
-	INKvertex* vertex;
+	inkVertex* vertex;
 
 	inkArrayPtrForEach(renderGroups, renderGroup)
 	{
@@ -331,10 +331,10 @@ void inkFadeStrategyRenderGroups(inkCanvas* canvas, float red, float green, floa
 
 		inkArrayForEach(vertexArray, vertex)
 		{
-			vertex->r *= red;
-			vertex->g *= green;
-			vertex->b *= blue;
-			vertex->a *= alpha;
+			vertex->color.r *= red;
+			vertex->color.g *= green;
+			vertex->color.b *= blue;
+			vertex->color.a *= alpha;
 		}
 	}
 }
@@ -593,7 +593,7 @@ void inkBuild(inkCanvas* canvas)
 
 	inkRenderGroup* renderGroup;
 	inkArray* vertexArray;
-	INKvertex* vertex;
+	inkVertex* vertex;
 	unsigned int vertexCount;
 
 	inkPoint minPoint = inkPointMax;
@@ -613,12 +613,12 @@ void inkBuild(inkCanvas* canvas)
 		{
 			if (renderGroup->isStroke == false)
 			{
-				minPoint = inkPointMake(fminf(minPoint.x, vertex->x), fminf(minPoint.y, vertex->y));
-				maxPoint = inkPointMake(fmaxf(maxPoint.x, vertex->x), fmaxf(maxPoint.y, vertex->y));
+				minPoint = inkPointMake(fminf(minPoint.x, vertex->pos.x), fminf(minPoint.y, vertex->pos.y));
+				maxPoint = inkPointMake(fmaxf(maxPoint.x, vertex->pos.x), fmaxf(maxPoint.y, vertex->pos.y));
 			}
 
-			minPointWithStroke = inkPointMake(fminf(minPointWithStroke.x, vertex->x), fminf(minPointWithStroke.y, vertex->y));
-			maxPointWithStroke = inkPointMake(fmaxf(maxPointWithStroke.x, vertex->x), fmaxf(maxPointWithStroke.y, vertex->y));
+			minPointWithStroke = inkPointMake(fminf(minPointWithStroke.x, vertex->pos.x), fminf(minPointWithStroke.y, vertex->pos.y));
+			maxPointWithStroke = inkPointMake(fmaxf(maxPointWithStroke.x, vertex->pos.x), fmaxf(maxPointWithStroke.y, vertex->pos.y));
 		}
 	}
 
@@ -635,7 +635,7 @@ inkRenderGroup* inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoun
 
 	inkRenderGroup* renderGroup;
 	inkArray* vertexArray;
-	INKvertex* vertex;
+	inkVertex* vertex;
 	inkTriangle triangle = inkTriangleZero;
 	inkPoint firstPoint;
 
@@ -669,7 +669,7 @@ inkRenderGroup* inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoun
 		{
 			triangle.pointA = triangle.pointB;
 			triangle.pointB = triangle.pointC;
-			triangle.pointC = inkPointMake(vertex->x, vertex->y);
+			triangle.pointC = inkPointMake(vertex->pos.x, vertex->pos.y);
 
 			switch(renderGroup->glDrawMode)
 			{
@@ -822,7 +822,7 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 
 	inkRenderGroup* renderGroup;
 	inkArray* vertexArray;
-	INKvertex* vertices;
+	inkVertex* vertices;
 
 	unsigned int vertexArrayCount;
 	unsigned int totalVertexCount = 0;
@@ -940,9 +940,9 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 			vertexArrayCount = inkArrayCount(vertexArray);
 			totalVertexCount += vertexArrayCount;
 
-			renderer->vertexFunc(2, GL_FLOAT, sizeof(INKvertex), &(vertices->x));
-			renderer->textureCoordinateFunc(2, GL_FLOAT, sizeof(INKvertex), &(vertices->s));
-			renderer->colorFunc(4, GL_UNSIGNED_BYTE, sizeof(INKvertex), &(vertices->r));
+			renderer->vertexFunc(2, GL_FLOAT, sizeof(inkVertex), &(vertices->pos));
+			renderer->textureCoordinateFunc(2, GL_FLOAT, sizeof(inkVertex), &(vertices->tex));
+			renderer->colorFunc(4, GL_UNSIGNED_BYTE, sizeof(inkVertex), &(vertices->color));
 
 			renderer->drawArraysFunc(renderGroup->glDrawMode, 0, vertexArrayCount);
 		}

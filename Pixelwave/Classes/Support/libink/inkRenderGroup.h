@@ -12,6 +12,7 @@
 #include "inkHeader.h"
 #include "inkTypes.h"
 #include "inkArray.h"
+#include "inkGeometry.h"
 
 typedef struct
 {
@@ -28,6 +29,6 @@ typedef struct
 inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData, void* userData, bool isStroke);
 inkExtern void inkRenderGroupDestroy(inkRenderGroup* group);
 
-inkExtern INKvertex *inkRenderGroupNextVertex(inkRenderGroup* group);
+inkExtern inkVertex *inkRenderGroupNextVertex(inkRenderGroup* group);
 
 #endif

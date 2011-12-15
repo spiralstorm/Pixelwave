@@ -15,6 +15,7 @@
 #include "inkRenderGroup.h"
 
 #include "inkTypes.h"
+#include "inkGeometry.h"
 
 typedef struct
 {
@@ -48,12 +49,12 @@ inkExtern void inkTessellatorEndPolygon(inkTessellator* tessellator);
 inkExtern void inkTessellatorBeginContour(inkTessellator* tessellator);
 inkExtern void inkTessellatorEndContour(inkTessellator* tessellator);
 
-inkExtern void inkTessellatorAddPoint(inkTessellator* tessellator, INKvertex *vertex);
+inkExtern void inkTessellatorAddPoint(inkTessellator* tessellator, inkVertex *vertex);
 
 inkExtern void inkTessellatorBegin(INKenum type, inkTessellator* tessellator);
 inkExtern void inkTessellatorEnd(inkTessellator* tessellator);
 inkExtern void inkTessellatorVertex(void* vertex, inkTessellator* tessellator);
 inkExtern void inkTessellatorError(INKenum error, inkTessellator*tessellator);
-inkExtern void inkTessellatorCombine(double coords[3], INKvertex* vertexData[4], float weight[4], INKvertex** outData, inkTessellator* tessellator);
+inkExtern void inkTessellatorCombine(double coords[3], inkVertex* vertexData[4], float weight[4], inkVertex** outData, inkTessellator* tessellator);
 
 #endif

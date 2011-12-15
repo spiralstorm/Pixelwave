@@ -115,7 +115,7 @@ void inkStrokeGeneratorLineTo(inkStrokeGenerator* strokeGenerator, inkPoint posi
 
 inkInline void inkStrokeGeneratorAddDrawPoint(inkStrokeGenerator* strokeGenerator, inkPoint point, inkTessellator* tessellator, void* fill, inkMatrix invGLMatrix)
 {
-	INKvertex vertex;
+	inkVertex vertex;
 
 	inkGeneratorInitVertex(strokeGenerator->generator, &vertex, point, fill, invGLMatrix);
 	inkTessellatorVertex(&vertex, tessellator);
@@ -195,7 +195,7 @@ void inkStrokeGeneratorCap(inkStrokeGenerator* strokeGenerator, inkCapsStyle sty
 	}
 }
 
-bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* stroke, inkTessellator* tessellator, inkCanvas* canvas, inkBox* previousBox, inkBox* nowBox, INKvertex vA, INKvertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise, inkMatrix invGLMatrix)
+bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* stroke, inkTessellator* tessellator, inkCanvas* canvas, inkBox* previousBox, inkBox* nowBox, inkVertex vA, inkVertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise, inkMatrix invGLMatrix)
 {
 	inkBox box = inkBoxZero;
 
@@ -207,18 +207,16 @@ bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* strok
 	if (stroke == NULL)
 		goto returnStatement;
 
-	if (previousBox != NULL && vA.x == vB.x && vA.y == vB.y)
+	if (previousBox != NULL && vA.pos.x == vB.pos.x && vA.pos.y == vB.pos.y)
 	{
-		inkPoint mid = inkPointScale(inkPointAdd(previousBox->pointC, previousBox->pointD), 0.5f);
-		vA.x = mid.x;
-		vA.y = mid.y;
+		vA.pos = inkPointScale(inkPointAdd(previousBox->pointC, previousBox->pointD), 0.5f);
 	}
 
-	if (vA.x == vB.x && vA.y == vB.y)
+	if (vA.pos.x == vB.pos.x && vA.pos.y == vB.pos.y)
 		goto returnStatement;
 
-	inkPoint ptA = inkPointMake(vA.x, vA.y);
-	inkPoint ptB = inkPointMake(vB.x, vB.y);
+	inkPoint ptA = vA.pos;
+	inkPoint ptB = vB.pos;
 	inkPoint tempPoint;
 
 	box = inkLineExpandToBox(inkLineMake(ptA, ptB), halfScalar);
@@ -574,13 +572,13 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 //	inkTessellatorBegin(GL_LINE_STRIP, tessellator);
 //	inkTessellatorBegin(GL_POINTS, tessellator);
 
-	INKvertex* vertex;
+	inkVertex* vertex;
 
 	void* fill = rasterizeObject->fill;
 	inkMatrix invGLMatrix = rasterizeObject->invGLMatrix;
 
-	INKvertex vA;
-	INKvertex vB;
+	inkVertex vA;
+	inkVertex vB;
 
 	inkBox previousBox;
 	inkBox* previousBoxPtr = NULL;
@@ -592,10 +590,10 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 	if (count <= 1)
 		return;
 
-	vA = *((INKvertex *)(inkArrayElementAt(vertices, 0)));
-	vB = *((INKvertex *)(inkArrayElementAt(vertices, count - 1)));
+	vA = *((inkVertex *)(inkArrayElementAt(vertices, 0)));
+	vB = *((inkVertex *)(inkArrayElementAt(vertices, count - 1)));
 
-	bool closedLoop = inkIsEqualf(vA.x, vB.x) && inkIsEqualf(vA.y, vB.y);
+	bool closedLoop = inkIsEqualf(vA.pos.x, vB.pos.x) && inkIsEqualf(vA.pos.y, vB.pos.y);
 	bool start = count == 2;
 	bool end = start || !closedLoop;
 	bool has = false;
@@ -608,7 +606,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		if (count == 2)
 			return;
 
-		vA = *((INKvertex *)(inkArrayElementAt(vertices, count - 2)));
+		vA = *((inkVertex *)(inkArrayElementAt(vertices, count - 2)));
 	}
 	else
 	{
@@ -634,7 +632,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		}
 
 		float sum = 0.0f;
-		INKvertex previousVertex = *((INKvertex *)(inkArrayElementAt(vertices, 0)));
+		inkVertex previousVertex = *((inkVertex *)(inkArrayElementAt(vertices, 0)));
 
 		unsigned int startIndex = 1;
 		bool dontIncreaseStartIndex = false;
@@ -646,7 +644,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 				continue;
 			}
 
-			if (dontIncreaseStartIndex == false && previousVertex.x == vertex->x && previousVertex.y == vertex->y)
+			if (dontIncreaseStartIndex == false && previousVertex.pos.x == vertex->pos.x && previousVertex.pos.y == vertex->pos.y)
 			{
 				++startIndex;
 				continue;
@@ -656,7 +654,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 				dontIncreaseStartIndex = true;
 			}
 
-			sum += (vertex->x - previousVertex.x) * (vertex->y + previousVertex.y);
+			sum += (vertex->pos.x - previousVertex.pos.x) * (vertex->pos.y + previousVertex.pos.y);
 			previousVertex = *vertex;
 		}
 
@@ -712,7 +710,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 		if (closedLoop)
 		{
-			vB = *((INKvertex *)(inkArrayElementAt(vertices, startIndex)));
+			vB = *((inkVertex *)(inkArrayElementAt(vertices, startIndex)));
 			inkStrokeGeneratorAdd(strokeGenerator, strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, NULL, vA, vB, halfScalar, fill, false, false, NULL, NULL, clockwise, invGLMatrix);
 
 			// ROOT of the closed loop issue, need to look into it.
