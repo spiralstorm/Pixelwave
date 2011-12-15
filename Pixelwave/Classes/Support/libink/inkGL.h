@@ -22,7 +22,7 @@
 #include <OpenGL/gl.h>
 #include <OpenGL/glext.h>
 
-#elif defined(INK_PLATFORM_WINDOWS)
+#elif defined(INK_PLATFORM_WINDOWS) || defined(INK_PLATFORM_LINUX)
 #include <GL/gl.h>
 #include <GL/glext.h>
 
@@ -30,6 +30,7 @@
 #include <GLES/gl.h>
 #include <GLES/glext.h>
 #define INK_GL_ES
+
 #else
 #error "GL is not defined."
 #endif

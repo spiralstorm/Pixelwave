@@ -32,7 +32,7 @@
 #define INK_PLATFORM_WINDOWS
 
 // linux
-#elif defined(linux) || defined(__linux) || defined(__linux__)
+#elif defined(__LINUX__) || defined(__linux__) || defined(linux) || defined(__linux)
 #define INK_PLATFORM_LINUX
 
 // unknown?!?
