@@ -139,26 +139,30 @@ inkColor inkGradientColor(inkGradientFill* fill, inkPoint position)
 		return *((inkColor*)inkArrayElementAt(fill->colors, 0));
 	}
 
-	if (count == 2)
-	{
-		return inkColorInterpolate(*((inkColor*)inkArrayElementAt(fill->colors, 0)), *((inkColor*)inkArrayElementAt(fill->colors, count - 1)), position.x);
-	}
-
+	unsigned int prevIndex = 0;
 	unsigned int index = 0;
-	float percentAccum = 0.0f;
+	float curPercent = 0.0f;
+	float lastPercent = 1.0f;
 	float* percentPtr;
 	inkArrayForEach(fill->ratios, percentPtr)
 	{
-		percentAccum += *percentPtr;
+		curPercent = *percentPtr;
 
-		if (position.x < percentAccum || inkIsEqualf(position.x, percentAccum))
+		if (position.x < curPercent || inkIsEqualf(position.x, curPercent))
 			break;
 
+		lastPercent = curPercent;
+		prevIndex = index;
 		++index;
 	}
 
-	if (index == 0)
-		index = 1;
+	if (index == count)
+		index = count - 1;
 
-	return *((inkColor*)inkArrayElementAt(fill->colors, index - 1));
+	float percentDiff = (curPercent - lastPercent);
+
+	if (percentDiff != 0.0f)
+		position.x = fabsf(position.x - lastPercent) / fabsf(percentDiff);
+
+	return inkColorInterpolate(*((inkColor*)inkArrayElementAt(fill->colors, prevIndex)), *((inkColor*)inkArrayElementAt(fill->colors, index)), inkClampf(position.x));
 }
