@@ -41,8 +41,8 @@ inkArray* inkArrayCreate(size_t elementSize)
 
 		if (array->elements == NULL)
 		{
-			free(array);
-			array = NULL;
+			inkArrayDestroy(array);
+			return NULL;
 		}
 	}
 
@@ -56,8 +56,9 @@ void inkArrayDestroy(inkArray* array)
 		if (array->elements != NULL)
 		{
 			free(array->elements);
-			array->elements = NULL;
 		}
+
+		memset(array, 0, sizeof(inkArray));
 
 		free (array);
 	}
@@ -77,6 +78,15 @@ void inkArrayResize(inkArray* array, size_t size)
 
 	array->_byteCount = size;
 	array->elements = realloc(array->elements, array->_byteCount);
+	assert(array->elements);
+
+	/*if (array->_byteCount != array->_usedSize)
+	{
+		void* at = array->elements + array->_usedSize;
+		size_t diff = array->_byteCount - array->_usedSize;
+
+		memset(at, 0, diff);
+	}*/
 }
 
 void inkArrayUpdateCount(inkArray* array, unsigned int count)
@@ -117,7 +127,6 @@ void* inkArrayPushElements(inkArray* array, unsigned int count)
 		if (newSize < inkArrayMinimumElementCount)
 			newSize = inkArrayMinimumElementCount;
 		inkArrayResize(array, newSize * array->_elementSize);
-		assert(array->elements);
 	}
 
 	void *current = (void *)(((uint8_t*)(array->elements)) + preUsedSize);
