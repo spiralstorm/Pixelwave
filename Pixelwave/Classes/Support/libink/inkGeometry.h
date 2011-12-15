@@ -345,23 +345,23 @@ inkInline float inkClampf(float val)
 
 inkInline float inkReflectf(float val)
 {
-	if (val == 0.0f || val == 1.0f)
+	if (inkIsZerof(val) || inkIsEqualf(val, 1.0f))
 		return val;
 
-	return 1.0f - fabsf(1.0f - fmodf(fabsf(val), 2.0f));
+	return inkClampf(1.0f - fabsf(1.0f - fmodf(fabsf(val), 2.0f)));
 }
 
 inkInline float inkRepeatf(float val)
 {
-	if (val == 0.0f)
+	if (inkIsZerof(val))
 		return val;
 
 	float v;
 	float remain = fabsf(modff(val, &v));
-	if (remain == 0.0f)
+	if (inkIsZerof(remain))
 		return 1.0f;
 
-	return val < 0.0f ? 1.0f - remain : remain;
+	return inkClampf(val < 0.0f ? 1.0f - remain : remain);
 }
 
 // MARK: -

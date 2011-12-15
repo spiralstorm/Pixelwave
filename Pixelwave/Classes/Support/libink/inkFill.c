@@ -161,7 +161,7 @@ inkColor inkGradientColor(inkGradientFill* fill, inkPoint position)
 
 	float percentDiff = (curPercent - lastPercent);
 
-	if (percentDiff != 0.0f)
+	if (inkIsZerof(percentDiff) == false)
 		position.x = fabsf(position.x - lastPercent) / fabsf(percentDiff);
 
 	return inkColorInterpolate(*((inkColor*)inkArrayElementAt(fill->colors, prevIndex)), *((inkColor*)inkArrayElementAt(fill->colors, index)), inkClampf(position.x));
