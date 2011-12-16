@@ -194,7 +194,7 @@ void inkGeneratorRemoveAllVertices(inkGenerator* generator)
 	if (generator->vertexGroupList != NULL)
 	{
 		inkArray* array;
-		unsigned int index = 0;
+		/*unsigned int index = 0;
 
 		inkArrayPtrForEach(generator->vertexGroupList, array)
 		{
@@ -208,7 +208,7 @@ void inkGeneratorRemoveAllVertices(inkGenerator* generator)
 				assert(arr2 != array);
 			}
 			++index;
-		}
+		}*/
 		inkArrayPtrForEach(generator->vertexGroupList, array)
 		{
 			inkArrayDestroy(array);

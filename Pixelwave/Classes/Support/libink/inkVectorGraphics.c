@@ -64,6 +64,10 @@ void inkClear(inkCanvas* canvas)
 	inkRemoveAllCommands(canvas);
 	inkRemoveAllRenderGroups(canvas);
 	inkFreeCachedMemory(canvas);
+
+	inkRemoveAllCommands(canvas);
+	inkRemoveAllRenderGroups(canvas);
+	inkFreeCachedMemory(canvas);
 }
 
 void inkMoveTov(inkCanvas* canvas, inkPoint position, bool relative)

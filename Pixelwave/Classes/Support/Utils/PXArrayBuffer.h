@@ -79,7 +79,7 @@
 	if (PX_UNIQUE_VAR(_bytes_))\
 	for (PX_UNIQUE_VAR(_index_) = 0, (_obj_) = *((void **)(PX_UNIQUE_VAR(_bytes_))); \
 		 PX_UNIQUE_VAR(_index_) < PX_UNIQUE_VAR(_count_); \
-		 ++PX_UNIQUE_VAR(_index_), (PX_UNIQUE_VAR(_bytes_)) += (PX_UNIQUE_VAR(_size_)), (_obj_) = *((void **)(PX_UNIQUE_VAR(_bytes_))))
+		 ++PX_UNIQUE_VAR(_index_), (PX_UNIQUE_VAR(_bytes_)) += (PX_UNIQUE_VAR(_size_)), PX_UNIQUE_VAR(_index_) < PX_UNIQUE_VAR(_count_) ? (_obj_) = *((void **)(PX_UNIQUE_VAR(_bytes_))) : 0)
 
 #ifdef __cplusplus
 extern "C" {
