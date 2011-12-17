@@ -270,6 +270,10 @@
 //	PXGLDisableClientState(GL_COLOR_ARRAY);
 
 	PXGLBindTexture(GL_TEXTURE_2D, textureData->_glName);
+	if (textureData->_premultiplied)
+		PXGLBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	else
+		PXGLBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	if (smoothingType != textureData->_smoothingType)
 	{

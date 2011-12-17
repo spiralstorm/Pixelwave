@@ -70,6 +70,9 @@
 	unsigned short _smoothingType;
 	// Either GLL_REPEAT or GL_CLAMP_TO_EDGE
 	unsigned short _wrapType;
+
+	BOOL _premultiplied;
+
 @private
 	// åPixel format in memory
 	PXTextureDataPixelFormat pixelFormat;
@@ -272,7 +275,8 @@
 					   usingContentWidth:(unsigned)contentWidth
 						   contentHeight:(unsigned)contentHeight
 					  contentScaleFactor:(float)contentScaleFactor
-								  format:(PXTextureDataPixelFormat)pixelFormat;
+								  format:(PXTextureDataPixelFormat)pixelFormat
+						   premultiplied:(BOOL)premultiplied;
 @end
 
 /**

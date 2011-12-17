@@ -254,7 +254,8 @@
 								   usingContentWidth:contentSize.width
 									   contentHeight:contentSize.height
 								  contentScaleFactor:contentScaleFactor
-											  format:textureInfo->pixelFormat];
+											  format:textureInfo->pixelFormat
+									   premultiplied:textureInfo->premultiplied];
 	}
 	else
 	{

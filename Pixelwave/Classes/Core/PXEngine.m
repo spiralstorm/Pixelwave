@@ -176,7 +176,7 @@ void PXEngineInit(PXView *view)
 	// listeners it added once it gets deallocated.
 	pxEngineFrameListeners = [[PXLinkedList alloc] initWithWeakReferences:YES];
 
-	pxEngineCachedListeners = [[PXLinkedList alloc] init];
+	pxEngineCachedListeners = [[PXLinkedList alloc] initWithWeakReferences:YES];
 
 	// Create a reusable enter frame event instead of creating one every frame.
 	pxEngineEnterFrameEvent = [[PXEvent alloc] initWithType:PXEvent_EnterFrame bubbles:NO cancelable:NO];
@@ -215,9 +215,6 @@ void PXEngineInit(PXView *view)
 
 void PXEngineDealloc()
 {
-	PXSoundEngineDealloc();
-	PXTouchEngineDealloc();
-
 	// Backwards of init()
 	if (pxEngineSharedObjectPool)
 	{
@@ -267,6 +264,8 @@ void PXEngineDealloc()
 		pxEngineDOBufferCurrentObject = 0;
 	}
 
+	PXSoundEngineDealloc();
+	PXTouchEngineDealloc();
 	_PXTopLevelDealloc();
 
 	pxEngineInitialized = false;
@@ -561,7 +560,7 @@ void PXEngineAddRenderListener(PXDisplayObject *displayObject)
 {
 	if (pxEngineRenderListeners == nil)
 	{
-		pxEngineRenderListeners = [[PXLinkedList alloc] init];
+		pxEngineRenderListeners = [[PXLinkedList alloc] initWithWeakReferences:YES];
 		pxEngineRenderEvent = [[PXEvent alloc] initWithType:PXEvent_Render bubbles:NO cancelable:NO];
 	}
 	

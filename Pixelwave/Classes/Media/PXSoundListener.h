@@ -64,13 +64,13 @@ typedef enum
  *
  * **Default:** [0,0,-1]
  */
-@property (nonatomic, assign) PXVector3D *forward;
+@property (nonatomic, copy) PXVector3D *forward;
 /**
  * The up facing vector.
  *
  * **Default:** [0,1,0]
  */
-@property (nonatomic, assign) PXVector3D *up;
+@property (nonatomic, copy) PXVector3D *up;
 
 /**
  * The horizontal coordinate.

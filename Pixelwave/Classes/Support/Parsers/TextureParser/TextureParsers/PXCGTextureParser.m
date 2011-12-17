@@ -115,6 +115,7 @@
 	unsigned char *outPixel8;
 	unsigned short *outPixel16;
 	BOOL hasAlpha;
+	BOOL premultiplied;
 	CGImageAlphaInfo info;
 	CGAffineTransform transform;
 	CGSize imageSize;
@@ -262,6 +263,7 @@
 
 			_context = CGBitmapContextCreate(_data, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
 			CGColorSpaceRelease(colorSpace);
+			premultiplied = YES;
 			break;
 			
 		case PXTextureDataPixelFormat_RGBA5551:
@@ -272,6 +274,7 @@
 
 			_context = CGBitmapContextCreate(_data, width, height, 5, 2 * width, colorSpace, kCGImageAlphaNoneSkipFirst | kCGBitmapByteOrder16Little);
 			CGColorSpaceRelease(colorSpace);
+			premultiplied = NO;
 			break;
 			
 		case PXTextureDataPixelFormat_RGB888:
@@ -283,6 +286,7 @@
 
 			_context = CGBitmapContextCreate(_data, width, height, 8, 4 * width, colorSpace, kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Big);
 			CGColorSpaceRelease(colorSpace);
+			premultiplied = NO;
 			break;
 			
 		case PXTextureDataPixelFormat_L8:
@@ -293,6 +297,7 @@
 
 			_context = CGBitmapContextCreate(_data, width, height, 8, width, colorSpace, kCGImageAlphaNone);
 			CGColorSpaceRelease(colorSpace);
+			premultiplied = NO;
 			break;
 			
 		case PXTextureDataPixelFormat_A8:
@@ -300,6 +305,7 @@
 			_data = malloc(_byteCount);
 
 			_context = CGBitmapContextCreate(_data, width, height, 8, width, NULL, kCGImageAlphaOnly);
+			premultiplied = NO;
 			break;
 			
 		case PXTextureDataPixelFormat_LA88:
@@ -310,6 +316,7 @@
 
 			_context = CGBitmapContextCreate(_data, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
 			CGColorSpaceRelease(colorSpace);
+			premultiplied = YES;
 			break;
 			
 		default:
@@ -443,6 +450,7 @@
 	////////////////////
 
 	textureInfo->pixelFormat = _pixelFormat;
+	textureInfo->premultiplied = premultiplied;
 	textureInfo->size = CGSizeMake(width, height);
 	contentSize = CGSizeMake(imageSize.width, imageSize.height);
 

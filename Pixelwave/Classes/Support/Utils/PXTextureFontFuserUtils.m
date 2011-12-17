@@ -181,7 +181,8 @@ PXFont *PXTextureFontUtilsNewFont(PXTextureFontTextureInfo *info,
 							   usingContentWidth:textureInfo->size.width
 								   contentHeight:textureInfo->size.height
 							  contentScaleFactor:contentScaleFactor
-										  format:textureInfo->pixelFormat];
+										  format:textureInfo->pixelFormat
+								   premultiplied:textureInfo->premultiplied];
 
 	textureFont->_baseLine = info->baseLine;
 	textureFont->_fontSize = info->fontSize;
