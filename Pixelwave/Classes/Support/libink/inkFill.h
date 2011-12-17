@@ -12,6 +12,7 @@
 #include "inkHeader.h"
 #include "inkTypes.h"
 #include "inkGeometry.h"
+#include "inkColor.h"
 #include "inkArray.h"
 
 typedef struct

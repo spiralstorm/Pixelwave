@@ -82,22 +82,6 @@ inkExtern inkRenderer inkRendererMake(inkStateFunction enableFunc, inkStateFunct
 
 typedef unsigned int INKenum;
 
-typedef struct
-{
-	unsigned char r, g, b, a;
-} inkColor;
-
-typedef struct
-{
-	float r, g, b, a;
-} inkColorTransform;
-
-inkInline inkColor inkColorMake(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
-inkInline inkColor inkColorFromTransform(inkColorTransform transform);
-inkInline inkColor inkColorApplyTransform(inkColor color, inkColorTransform transform);
-inkInline inkColorTransform inkColorTransformMake(float r, float g, float b, float a);
-inkInline inkColorTransform inkColorTransformFromColor(inkColor color);
-
 typedef enum
 {
 	inkFillType_Solid = 0,
@@ -232,52 +216,5 @@ typedef enum
 	inkIncompleteDrawStrategy_Fade,
 	inkIncompleteDrawStrategy_Full
 } inkIncompleteDrawStrategy;
-
-inkInline inkColor inkColorMake(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
-{
-	inkColor color;
-	
-	color.r = r;
-	color.g = g;
-	color.b = b;
-	color.a = a;
-	
-	return color;
-}
-
-inkInline inkColorTransform inkColorTransformMake(float r, float g, float b, float a)
-{
-	inkColorTransform transform;
-	
-	transform.r = r;
-	transform.g = g;
-	transform.b = b;
-	transform.a = a;
-	
-	return transform;
-}
-
-inkInline inkColor inkColorFromTransform(inkColorTransform transform)
-{
-	return inkColorMake(0xFF * transform.r, 0xFF * transform.g, 0xFF * transform.b, 0xFF * transform.a);
-}
-
-inkInline inkColorTransform inkColorTransformFromColor(inkColor color)
-{
-	return inkColorTransformMake(M_1_255 * color.r, M_1_255 * color.g, M_1_255 * color.b, M_1_255 * color.a);
-}
-
-inkInline inkColor inkColorApplyTransform(inkColor color, inkColorTransform transform)
-{
-	return inkColorMake(color.r * transform.r, color.g * transform.g, color.b * transform.b, color.a * transform.a);
-}
-
-inkInline inkColor inkColorInterpolate(inkColor colorA, inkColor colorB, float percent)
-{
-	return inkColorMake(colorA.r + ((colorB.r - colorA.r) * percent),
-						colorA.g + ((colorB.g - colorA.g) * percent),
-						colorA.b + ((colorB.b - colorA.b) * percent),
-						colorA.a + ((colorB.a - colorA.a) * percent));
-}
 
 #endif
