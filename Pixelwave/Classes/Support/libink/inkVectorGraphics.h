@@ -42,6 +42,9 @@ inkExtern void inkCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor,
 inkExtern void inkQuadraticCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative, bool reflect);
 inkExtern void inkCubicCurveTov(inkCanvas* canvas, inkPoint controlA, inkPoint controlB, inkPoint anchor, bool relative, bool reflect);
 
+inkInline void inkBeginFillf(inkCanvas* canvas, unsigned int color, float alpha);
+inkInline void inkLineStylef(inkCanvas* canvas, float thickness, bool pixelHinting, inkLineScaleMode scaleMode, inkCapsStyle caps, inkJointStyle joints, float miterLimit, unsigned int color, float alpha);
+
 inkExtern void inkBeginFill(inkCanvas* canvas, inkSolidFill solidFill);
 inkExtern void inkBeginBitmapFill(inkCanvas* canvas, inkBitmapFill bitmapFill);
 inkExtern void inkBeginGradientFill(inkCanvas* canvas, inkGradientFill gradientFill);
@@ -150,6 +153,16 @@ inkInline void inkQuadraticCurveTofv(inkCanvas* canvas, float controlX, float co
 inkInline void inkCubicCurveTofv(inkCanvas* canvas, float controlAX, float controlAY, float controlBX, float controlBY, float anchorX, float anchorY, bool relative, bool reflect)
 {
 	inkCubicCurveTov(canvas, inkPointMake(controlAX, controlAY), inkPointMake(controlBX, controlBY), inkPointMake(anchorX, anchorY), relative, reflect);
+}
+
+inkInline void inkBeginFillf(inkCanvas* canvas, unsigned int color, float alpha)
+{
+	inkBeginFill(canvas, inkSolidFillMake(color, alpha));
+}
+
+inkInline void inkLineStylef(inkCanvas* canvas, float thickness, bool pixelHinting, inkLineScaleMode scaleMode, inkCapsStyle caps, inkJointStyle joints, float miterLimit, unsigned int color, float alpha)
+{
+	inkLineStyle(canvas, inkStrokeMake(thickness, pixelHinting, scaleMode, caps, joints, miterLimit), inkSolidFillMake(color, alpha));
 }
 
 #endif
