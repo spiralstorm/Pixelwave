@@ -164,7 +164,7 @@ inkColor inkGradientColor(inkGradientFill* fill, inkPoint position)
 	if (inkIsZerof(percentDiff) == false)
 		position.x = fabsf(position.x - lastPercent) / fabsf(percentDiff);
 
-	//return inkColorLinearInterpolate(*((inkColor*)inkArrayElementAt(fill->colors, prevIndex)), *((inkColor*)inkArrayElementAt(fill->colors, index)), inkClampf(position.x));
-	//return inkColorInterpolate(*((inkColor*)inkArrayElementAt(fill->colors, prevIndex)), *((inkColor*)inkArrayElementAt(fill->colors, index)), inkClampf(position.x));
-	return inkColorInterpolate(*((inkColor*)inkArrayElementAt(fill->colors, prevIndex)), *((inkColor*)inkArrayElementAt(fill->colors, index)), inkClampf(position.x));
+	// inkColorInterpolate
+	// inkColorHSVInterpolate
+	return inkColorHSVInterpolate(*((inkColor*)inkArrayElementAt(fill->colors, prevIndex)), *((inkColor*)inkArrayElementAt(fill->colors, index)), inkClampf(position.x));
 }

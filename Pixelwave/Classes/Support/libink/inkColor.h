@@ -18,6 +18,7 @@ typedef struct
 
 typedef struct
 {
+	// All 0.0 to 1.0
 	float h, s, v;
 } inkColorHSV;
 
@@ -39,7 +40,10 @@ inkExtern inkColor inkColorInterpolate(inkColor colorA, inkColor colorB, float p
 inkExtern inkColor inkColorHSVInterpolate(inkColor colorA, inkColor colorB, float percent);
 
 inkExtern inkColor inkColorFromHSV(inkColorHSV hsv);
+inkExtern inkColorTransform inkColorTransformFromHSV(inkColorHSV hsv);
+
 inkExtern inkColorHSV inkColorHSVFromColor(inkColor color);
+inkExtern inkColorHSV inkColorHSVFromTransform(inkColorTransform transform);
 
 inkExtern const inkColor inkColorIndianRed;
 inkExtern const inkColor inkColorLightCoral;
@@ -220,7 +224,7 @@ inkInline inkColorHSV inkColorHSVMake(float h, float s, float v)
 
 inkInline inkColor inkColorFromTransform(inkColorTransform transform)
 {
-	return inkColorMake(0xFF * transform.r, 0xFF * transform.g, 0xFF * transform.b, 0xFF * transform.a);
+	return inkColorMake(lroundf(0xFF * transform.r), lroundf(0xFF * transform.g), lroundf(0xFF * transform.b), lroundf(0xFF * transform.a));
 }
 
 inkInline inkColorTransform inkColorTransformFromColor(inkColor color)
