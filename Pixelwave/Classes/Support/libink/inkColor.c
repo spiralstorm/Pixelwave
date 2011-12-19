@@ -222,35 +222,35 @@ inkColor inkColorHSVInterpolate(inkColor colorA, inkColor colorB, float percent)
 
 inkColor inkColorFromHSV(inkColorHSV hsv)
 {
-	double hsvH = hsv.h * 6.0;
+	float hsvH = hsv.h * 6.0f;
 	int hi = floorf(hsvH);
-	double f = hsvH - (double)hi;
+	float f = hsvH - (double)hi;
 
-	double p = hsv.v * (1.0 - hsv.s);
-	double q = hsv.v * (1.0 - (f * hsv.s));
-	double t = hsv.v * (1.0 - ((1.0 - f) * hsv.s));
+	float p = hsv.v * (1.0f - hsv.s);
+	float q = hsv.v * (1.0f - (f * hsv.s));
+	float t = hsv.v * (1.0f - ((1.0f - f) * hsv.s));
 
 	inkColorTransform ct;
 
 	switch (hi)
 	{
 		case 0:
-			ct = inkColorTransformMake(hsv.v, t, p, 1.0);
+			ct = inkColorTransformMake(hsv.v, t, p, 1.0f);
 			break;
 		case 1:
-			ct = inkColorTransformMake(q, hsv.v, p, 1.0);
+			ct = inkColorTransformMake(q, hsv.v, p, 1.0f);
 			break;
 		case 2:
-			ct = inkColorTransformMake(p, hsv.v, t, 1.0);
+			ct = inkColorTransformMake(p, hsv.v, t, 1.0f);
 			break;
 		case 3:
-			ct = inkColorTransformMake(p, q, hsv.v, 1.0);
+			ct = inkColorTransformMake(p, q, hsv.v, 1.0f);
 			break;
 		case 4:
-			ct = inkColorTransformMake(t, p, hsv.v, 1.0);
+			ct = inkColorTransformMake(t, p, hsv.v, 1.0f);
 			break;
 		case 5:
-			ct = inkColorTransformMake(hsv.v, p, q, 1.0);
+			ct = inkColorTransformMake(hsv.v, p, q, 1.0f);
 			break;
 		default:
 			ct = inkColorTransformMake(0.0f, 0.0f, 0.0f, 1.0f);
@@ -271,7 +271,7 @@ inkColorHSV inkColorHSVFromTransform(inkColorTransform transform)
 	float maxC = fmaxf(transform.r, fmaxf(transform.g, transform.b));
 	float delta = maxC - minC;
 
-	if (maxC == 0.0)
+	if (inkIsZerof(maxC))
 		return inkColorHSVMake(0.0f, 0.0f, 0.0f);
 
 	inkColorHSV hsv;
@@ -279,11 +279,11 @@ inkColorHSV inkColorHSVFromTransform(inkColorTransform transform)
 	hsv.s = delta / maxC;
 
 	if (inkIsEqualf(transform.r, maxC))
-		hsv.h = ( transform.g - transform.b ) / delta;		// between yellow & magenta
+		hsv.h = (transform.g - transform.b) / delta;		// between yellow & magenta
 	else if (inkIsEqualf(transform.g, maxC))
-		hsv.h = 2 + ( transform.b - transform.r ) / delta;	// between cyan & yellow
+		hsv.h = 2.0f + (transform.b - transform.r) / delta;	// between cyan & yellow
 	else
-		hsv.h = 4 + ( transform.r - transform.g ) / delta;	// between magenta & cyan
+		hsv.h = 4.0f + (transform.r - transform.g) / delta;	// between magenta & cyan
 
 	hsv.h *= M_1_6;
 
@@ -291,72 +291,4 @@ inkColorHSV inkColorHSVFromTransform(inkColorTransform transform)
 		hsv.h += 1.0f;
 
 	return hsv;
-
-	/*inkColorHSV hsv;
-
-	double rgb_min;
-	double rgb_max;
-
-	rgb_min = fminf(transform.r, fminf(transform.g, transform.b));
-	rgb_max = fmaxf(transform.r, fmaxf(transform.g, transform.b));
-
-	hsv.v = rgb_max;
-
-	if (hsv.v == 0)
-	{
-		hsv.h = hsv.s = 0;
-		return hsv;
-	}
-
-	float one_hsvV = 1.0f / hsv.v;
-
-	transform.r *= one_hsvV;
-	transform.g *= one_hsvV;
-	transform.b *= one_hsvV;
-
-	rgb_min = fminf(transform.r, fminf(transform.g, transform.b));
-	rgb_max = fmaxf(transform.r, fmaxf(transform.g, transform.b));
-
-	hsv.s = rgb_max - rgb_min;
-
-	if (hsv.s == 0.0)
-	{
-		hsv.h = 0.0;
-
-		return hsv;
-	}
-
-	// Normalize saturation to 1
-	double one_maxMinusMin = 1.0 / (rgb_max - rgb_min);
-	transform.r = (transform.r - rgb_min) * one_maxMinusMin;
-	transform.g = (transform.g - rgb_min) * one_maxMinusMin;
-	transform.b = (transform.b - rgb_min) * one_maxMinusMin;
-
-	rgb_min = fminf(transform.r, fminf(transform.g, transform.b));
-	rgb_max = fmaxf(transform.r, fmaxf(transform.g, transform.b));
-
-	// Compute hue
-	if (rgb_max == transform.r)
-	{
-		hsv.h = M_1_6 * (transform.g - transform.b);
-
-		if (hsv.h < 0.0)
-		{
-			hsv.h += 1.0;
-		}
-	}
-	else if (rgb_max == transform.g)
-	{
-		hsv.h = M_1_3 + M_1_6 * (transform.b - transform.r);
-	}
-	else
-	{
-		hsv.h = M_2_3 + M_1_6 * (transform.r - transform.g);
-	}
-
-	hsv.h = inkClampf(hsv.h);
-	hsv.s = inkClampf(hsv.s);
-	hsv.v = inkClampf(hsv.v);
-
-	return hsv;*/
 }

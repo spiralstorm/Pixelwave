@@ -113,6 +113,13 @@ inkColor inkGradientColor(inkGradientFill* fill, inkPoint position)
 		return *((inkColor*)inkArrayElementAt(fill->colors, 0));
 	}
 
+	if (fill->type == inkGradientType_Radial)
+	{
+		position = inkPointAdd(position, inkPointMake(-0.5f, -0.5f));
+		float dist = inkPointDistanceFromZero(position);
+		position.x = dist * 2.0f;
+	}
+
 	switch(fill->spreadMethod)
 	{
 		case inkSpreadMethod_Pad:
@@ -164,7 +171,12 @@ inkColor inkGradientColor(inkGradientFill* fill, inkPoint position)
 	if (inkIsZerof(percentDiff) == false)
 		position.x = fabsf(position.x - lastPercent) / fabsf(percentDiff);
 
-	// inkColorInterpolate
-	// inkColorHSVInterpolate
-	return inkColorHSVInterpolate(*((inkColor*)inkArrayElementAt(fill->colors, prevIndex)), *((inkColor*)inkArrayElementAt(fill->colors, index)), inkClampf(position.x));
+	inkColor colorA = *((inkColor*)inkArrayElementAt(fill->colors, prevIndex));
+	inkColor colorB = *((inkColor*)inkArrayElementAt(fill->colors, index));
+	float percent = inkClampf(position.x);
+
+	if (fill->interpolationMethod == inkInterpolationMethod_LinearRGB)
+		return inkColorHSVInterpolate(colorA, colorB, percent);
+
+	return inkColorInterpolate(colorA, colorB, percent);
 }

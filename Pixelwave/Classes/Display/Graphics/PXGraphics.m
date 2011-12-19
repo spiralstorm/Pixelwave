@@ -71,6 +71,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 {
 	inkGradientFill info = inkGradientFillDefault;
 
+	info.type = (inkGradientType)type;
 	info.matrix = PXGraphicsMakeMatrixFromPXMatrix(matrix);
 	info.spreadMethod = (inkSpreadMethod)spreadMethod;
 	info.interpolationMethod = (inkInterpolationMethod)interpolationMethod;

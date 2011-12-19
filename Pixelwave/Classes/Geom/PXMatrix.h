@@ -117,6 +117,11 @@
 					rotation:(float)rotation
 						  tx:(float)tx
 						  ty:(float)ty;
+- (void) createGradientBoxWithWidth:(float)width
+							 height:(float)height
+						   rotation:(float)rotation
+								 tx:(float)tx
+								 ty:(float)ty;
 
 //-- ScriptName: transformPoint
 - (PXPoint *)transformPoint:(PXPoint *)point;

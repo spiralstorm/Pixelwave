@@ -333,6 +333,31 @@
 	[self translateX:_tx y:_ty];
 }
 
+- (void) createGradientBoxWithWidth:(float)_width
+							 height:(float)_height
+						   rotation:(float)_rotation
+								 tx:(float)_tx
+								 ty:(float)_ty
+{
+	return [self createBoxWithScaleX:1.0f / _width scaleY:1.0f / _height rotation:-_rotation tx:-_tx ty:-_ty];
+	/*if (PXMathIsZero(_width))
+		_width = 0.0f;
+	else
+		_width = 1.0f / _width;
+
+	if (PXMathIsZero(_height))
+		_height = 0.0f;
+	else
+		_height = 1.0f / _height;
+
+
+	[self identity];
+	[self translateX:-_tx y:-_ty];
+	[self rotate:_rotation];
+	[self scaleX:_width y:_height];
+// [self rotate:_rotation];*/
+}
+
 /**
  * Returns a point transformed by this matrix.
  *
