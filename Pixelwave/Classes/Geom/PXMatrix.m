@@ -41,6 +41,11 @@
 #import "PXPoint.h"
 #include "PXMathUtils.h"
 
+#include "inkGeometry.h"
+
+// 2 ^ -14
+static const float pxMatGradientConst = 0.0006103515625f;
+
 /**
  * A PXMatrix object that represents a two-dimensional transformation matrix.
  *
@@ -339,23 +344,46 @@
 								 tx:(float)_tx
 								 ty:(float)_ty
 {
-	return [self createBoxWithScaleX:1.0f / _width scaleY:1.0f / _height rotation:-_rotation tx:-_tx ty:-_ty];
-	/*if (PXMathIsZero(_width))
-		_width = 0.0f;
-	else
-		_width = 1.0f / _width;
-
-	if (PXMathIsZero(_height))
-		_height = 0.0f;
-	else
-		_height = 1.0f / _height;
-
+	_tx += _width  * 0.5f;
+	_ty += _height * 0.5f;
+	_width  *= pxMatGradientConst;
+	_height *= pxMatGradientConst;
 
 	[self identity];
-	[self translateX:-_tx y:-_ty];
-	[self rotate:_rotation];
 	[self scaleX:_width y:_height];
-// [self rotate:_rotation];*/
+	[self rotate:-_rotation];
+	[self translateX:_tx y:_ty];
+
+	_tx = b;
+	b = c;
+	c = _tx;
+}
+
+- (void) _gradientBoxInfoWidth:(float *)widthPtr height:(float *)heightPtr rotation:(float *)rotationPtr tx:(float *)txPtr ty:(float *)tyPtr
+{
+	inkMatrix matrix = inkMatrixMake(a, c, b, d, 0.0f, 0.0f);
+
+	float rot = -inkMatrixRotation(matrix);
+
+//	while (rot < 0.0f)
+//		rot += M_TAU;
+//	while (rot > M_TAU)
+//		rot -= M_TAU;
+
+	inkSize scale = inkMatrixSize(matrix);
+	scale.width  /= pxMatGradientConst;
+	scale.height /= pxMatGradientConst;
+
+	if (widthPtr)
+		*widthPtr  = scale.width;
+	if (heightPtr)
+		*heightPtr = scale.height;
+	if (rotationPtr)
+		*rotationPtr = rot;
+	if (txPtr)
+		*txPtr = tx - scale.width * 0.5f;
+	if (tyPtr)
+		*tyPtr = ty - scale.height * 0.5f;
 }
 
 /**

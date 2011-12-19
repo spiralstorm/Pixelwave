@@ -112,16 +112,10 @@
 - (void) translateX:(float)dx y:(float)dy;
 
 //-- ScriptName: createBox
-- (void) createBoxWithScaleX:(float)scaleX
-					  scaleY:(float)scaleY
-					rotation:(float)rotation
-						  tx:(float)tx
-						  ty:(float)ty;
-- (void) createGradientBoxWithWidth:(float)width
-							 height:(float)height
-						   rotation:(float)rotation
-								 tx:(float)tx
-								 ty:(float)ty;
+- (void) createBoxWithScaleX:(float)scaleX scaleY:(float)scaleY rotation:(float)rotation tx:(float)tx ty:(float)ty;
+
+//-- ScriptName: createGradientBox
+- (void) createGradientBoxWithWidth:(float)width height:(float)height rotation:(float)rotation tx:(float)tx ty:(float)ty;
 
 //-- ScriptName: transformPoint
 - (PXPoint *)transformPoint:(PXPoint *)point;
@@ -140,4 +134,8 @@
 //-- ScriptName: MatrixIdentity
 + (PXMatrix *)identityMatrix;
 
+@end
+
+@interface PXMatrix(Private)
+- (void) _gradientBoxInfoWidth:(float *)widthPtr height:(float *)heightPtr rotation:(float *)rotationPtr tx:(float *)txPtr ty:(float *)tyPtr;
 @end

@@ -43,6 +43,9 @@
 
 #define inkNotUsed(_val_) ((void)(_val_))
 
+#ifndef M_2POWNEG14
+#define M_2POWNEG14 0.00006103515625
+#endif
 #ifndef M_1_255
 #define M_1_255		0.00392156862745098039236779055745352
 #endif

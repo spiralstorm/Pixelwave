@@ -773,6 +773,9 @@ inkInline inkMatrix inkMatrixInvert(inkMatrix matrix)
 
 inkInline inkMatrix inkMatrixRotate(inkMatrix matrix, float angle)
 {
+//	float sinVal = sinf(angle);
+//	float cosVal = cosf(angle);
+
 	float sinVal = sinf(angle);
 	float cosVal = cosf(angle);
 
@@ -842,13 +845,16 @@ inkInline inkMatrix inkMatrixMakeBoxf(float scaleX, float scaleY, float rotation
 
 inkInline inkMatrix inkMatrixMakeGradientBox(inkSize size, float rotation, inkPoint translate)
 {
+//	[matrix2 translateX:50.0f y:0.0f];
+//	[matrix2 scaleX:1.0f/75.0f y:1.0f/100.0f];
+//	[matrix2 rotate:-4.258603374866164];
+
 	size.width  = inkIsZerof(size.width)  ? 0.0f : 1.0f / size.width;
 	size.height = inkIsZerof(size.height) ? 0.0f : 1.0f / size.height;
 
-	inkMatrix matrix = inkMatrixTranslate(inkMatrixIdentity, inkPointScale(translate, -1.0f));
-	matrix = inkMatrixRotate(inkMatrixIdentity, -rotation);
-	matrix = inkMatrixScale(matrix, inkSizeMake(size.width, size.height));
-	return matrix;
+	inkMatrix matrix = inkMatrixTranslate(inkMatrixIdentity, translate);
+	matrix = inkMatrixScale(matrix, size);
+	return inkMatrixRotate(matrix, -rotation);
 }
 
 inkInline inkMatrix inkMatrixMakeGradientBoxf(float width, float height, float rotation, float tx, float ty)

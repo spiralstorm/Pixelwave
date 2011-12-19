@@ -151,7 +151,7 @@ void inkGeneratorInitVertex(inkGenerator* generator, inkVertex* vertex, inkPoint
 		{
 			inkBitmapFill* bitmapFill = (inkBitmapFill *)fill;
 
-			inkPoint convertedPosition = inkGeneratorConvertPositionFromMatrix(inkPointMake(position.x, position.y), bitmapFill->matrix, invGLMatrix);
+			inkPoint convertedPosition = inkGeneratorConvertPositionFromMatrix(position, bitmapFill->matrix, invGLMatrix);
 
 			vertex->tex.x = convertedPosition.x * bitmapFill->bitmapInfo.one_textureWidth;
 			vertex->tex.y = convertedPosition.y * bitmapFill->bitmapInfo.one_textureHeight;
@@ -160,10 +160,14 @@ void inkGeneratorInitVertex(inkGenerator* generator, inkVertex* vertex, inkPoint
 		case inkFillType_Gradient:
 		{
 			inkGradientFill* gradientFill = (inkGradientFill *)fill;
+		//	position = inkMatrixTransformPoint(invGLMatrix, position);
+		//	inkPoint convertedPosition = inkMatrixTransformPoint(gradientFill->matrix, position);
 
-			//inkPoint oldPoint = position;
 			position = inkMatrixTransformPoint(invGLMatrix, position);
 			inkPoint convertedPosition = inkMatrixTransformPoint(gradientFill->matrix, position);
+
+		//	inkPoint convertedPosition = inkGeneratorConvertPositionFromMatrix(position, gradientFill->matrix, invGLMatrix);
+
 			//inkPoint convertedPosition = inkMatrixTransformPoint(inkMatrixMultiply(invGLMatrix, gradientFill->matrix), position);
 			//inkPoint convertedPosition = inkGeneratorConvertPositionFromMatrix(position, gradientFill->matrix, invGLMatrix);
 

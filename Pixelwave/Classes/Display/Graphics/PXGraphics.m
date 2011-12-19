@@ -72,7 +72,9 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 	inkGradientFill info = inkGradientFillDefault;
 
 	info.type = (inkGradientType)type;
-	info.matrix = PXGraphicsMakeMatrixFromPXMatrix(matrix);
+	float w, h, r, tx, ty;
+	[matrix _gradientBoxInfoWidth:&w height:&h rotation:&r tx:&tx ty:&ty];
+	info.matrix = inkMatrixMakeGradientBoxf(w, h, r, tx, ty);
 	info.spreadMethod = (inkSpreadMethod)spreadMethod;
 	info.interpolationMethod = (inkInterpolationMethod)interpolationMethod;
 	info.focalPointRatio = focalPointRatio;
