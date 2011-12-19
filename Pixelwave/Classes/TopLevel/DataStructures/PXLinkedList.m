@@ -1212,14 +1212,10 @@ _PXLLNode pxLinkedListBadNode;
 - (void) removeAllObjects
 {
 	// Remove the tail until there's nothing left
-	while (_tail)
+	while (_tail != nil)
 	{
 		[self removeLastObject];
 	}
-
-	_head = nil;
-	_tail = nil;
-	_nodeCount = 0;
 }
 
 /**
@@ -1329,6 +1325,9 @@ _PXLLNode pxLinkedListBadNode;
 	node->next = nil;
 	node->prev = nil;
 
+	// must happen before object is released
+	--_nodeCount;
+
 	if (_keepStrongReference)
 	{
 		[node->data release];
@@ -1342,8 +1341,6 @@ _PXLLNode pxLinkedListBadNode;
 	{
 		free(node);
 	}
-
-	--_nodeCount;
 }
 
 #pragma mark Swapping
