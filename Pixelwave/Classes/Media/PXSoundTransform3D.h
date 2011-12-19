@@ -141,6 +141,6 @@
 //-- ScriptName: make
 //-- ScriptArg[0]: 1.0f
 //-- ScriptArg[1]: 1.0f
-+ (PXSoundTransform3D *)soundTransform3DWithVolume:(float)volume pitch:(float)pitch;
++ (id)soundTransform3DWithVolume:(float)volume pitch:(float)pitch DEPRECATED_ATTRIBUTE;	// use soundTransformWithVolume:pitch: instead
 
 @end

@@ -75,6 +75,8 @@
 			  blueMult:(float)blueMultiplier
 			 alphaMult:(float)alphaMultiplier;
 
+- (id) initWithColorTransform:(PXColorTransform *)colorTransform;
+
 //-- ScriptName: setf
 - (void) setMultipliersWithRed:(float)red
 						 green:(float)green
@@ -92,9 +94,11 @@
 //-- ScriptArg[1]: 1.0f
 //-- ScriptArg[2]: 1.0f
 //-- ScriptArg[3]: 1.0f
-+ (PXColorTransform *)colorTransformWithRedMult:(float)redMultiplier
-									  greenMult:(float)greenMultiplier
-									   blueMult:(float)blueMultiplier
-									  alphaMult:(float)alphaMultiplier;
++ (id)colorTransformWithRedMult:(float)redMultiplier
+					  greenMult:(float)greenMultiplier
+					   blueMult:(float)blueMultiplier
+					  alphaMult:(float)alphaMultiplier;
+
++ (id)colorTransformWithcolorTransform:(PXColorTransform *)colorTransform;
 
 @end

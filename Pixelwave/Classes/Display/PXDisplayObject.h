@@ -329,8 +329,8 @@ typedef enum
 - (void) _setMatrix:(PXGLMatrix *)matrix;
 - (void) _setColorTransform:(PXGLColorTransform *)colorTransform;
 
-// Propegate the event to the children if there are any
-- (void) _dispatchAndPropegateEvent:(PXEvent *)event;
+// Propagate the event to the children if there are any
+- (void) _dispatchAndPropagateEvent:(PXEvent *)event;
 @end
 
 @interface PXDisplayObject (Override)

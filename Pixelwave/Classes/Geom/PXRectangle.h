@@ -105,6 +105,8 @@
 //-- ScriptArg[3]: 0.0f
 - (id) initWithX:(float)x y:(float)y width:(float)width height:(float)height;
 
+- (id) initWithRectangle:(PXRectangle *)rectangle;
+
 //-- ScriptName: set
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
@@ -149,6 +151,7 @@
 //-- ScriptArg[1]: 0.0f
 //-- ScriptArg[2]: 0.0f
 //-- ScriptArg[3]: 0.0f
-+ (PXRectangle *)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height;
++ (id)rectangleWithX:(float)x y:(float)y width:(float)width height:(float)height;
++ (id)rectangleWithRectangle:(PXRectangle *)rectangle;
 
 @end

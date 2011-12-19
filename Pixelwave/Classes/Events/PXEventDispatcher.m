@@ -480,7 +480,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	event->_target = target;
 	event->_currentTarget = event->_target;
 	event->_defaultPrevented = NO;
-	event->_stopPropegationLevel = 0;
+	event->_stopPropagationLevel = 0;
 	event->_eventPhase = PXEventPhase_Target; //Default
 
 	//return event;
@@ -628,8 +628,8 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	{
 		_PXEventListenerInvoke(listener, event);
 
-		// If user called event.stopPropegationNow()
-		if (event->_stopPropegationLevel == 2)
+		// If user called event.stopPropagationNow()
+		if (event->_stopPropagationLevel == 2)
 		{
 			break;
 		}

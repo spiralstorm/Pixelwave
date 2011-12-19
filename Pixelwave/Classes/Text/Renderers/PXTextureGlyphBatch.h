@@ -66,6 +66,9 @@
 @property (nonatomic) unsigned vertexCount;
 
 - (id) initWithVertexCount:(unsigned)vertexCount;
+- (id) initWithGlyphBatch:(PXTextureGlyphBatch *)glyphBatch;
+
++ (id)glyphBatchWithGlyphBatch:(PXTextureGlyphBatch *)glyphBatch;
 
 @end
 

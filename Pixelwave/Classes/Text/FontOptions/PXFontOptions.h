@@ -74,6 +74,8 @@ typedef enum
 - (id) initWithCharacterSets:(unsigned)characterSets
 		   specialCharacters:(NSString *)specialCharacters;
 
+- (id) initWithFontOptions:(PXFontOptions *)fontOptions;
+
 //-- ScriptName: defaultCharacterSets
 + (unsigned) defaultCharacterSets;
 //-- ScriptName: defaultSpecialCharacters
@@ -87,5 +89,6 @@ typedef enum
 //-- ScriptArg[1]: nil
 + (PXFontOptions *)fontOptionsWithCharacterSets:(unsigned)characterSets
 							  specialCharacters:(NSString *)specialCharacters;
++ (id)fontOptionsWithFontOptions:(PXFontOptions *)fontOptions;
 
 @end

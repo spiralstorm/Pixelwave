@@ -83,6 +83,7 @@
 
 /**
  * Initializes the color transform with the multipliers specified.
+ * This is the designated initializer.
  *
  * @param redMultiplier The red multiplier value ranging between 0.0f and 1.0f.
  * @param greenMultiplier The green multiplier value ranging between 0.0f and
@@ -107,14 +108,19 @@
 	return self;
 }
 
+- (id) initWithColorTransform:(PXColorTransform *)colorTransform
+{
+	return [self initWithRedMult: colorTransform->redMultiplier
+					   greenMult: colorTransform->greenMultiplier
+						blueMult: colorTransform->blueMultiplier
+					   alphaMult: colorTransform->alphaMultiplier];
+}
+
 #pragma mark NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	return [[[self class] allocWithZone:zone] initWithRedMult:redMultiplier
-													greenMult:greenMultiplier
-													 blueMult:blueMultiplier
-													alphaMult:alphaMultiplier];
+	return [[[self class] allocWithZone:zone] initWithColorTransform: self];
 }
 
 - (NSString *)description
@@ -185,9 +191,14 @@
  *
  * @return The created color transform.
  */
-+ (PXColorTransform *)colorTransformWithRedMult:(float)r greenMult:(float)g blueMult:(float)b alphaMult:(float)a
++ (id)colorTransformWithRedMult:(float)r greenMult:(float)g blueMult:(float)b alphaMult:(float)a
 {
-	return [[[PXColorTransform alloc] initWithRedMult:r greenMult:g blueMult:b alphaMult:a] autorelease];
+	return [[[self alloc] initWithRedMult:r greenMult:g blueMult:b alphaMult:a] autorelease];
+}
+
++ (id)colorTransformWithcolorTransform:(PXColorTransform *)colorTransform
+{
+	return [[[self alloc] initWithColorTransform:colorTransform] autorelease];
 }
 
 @end

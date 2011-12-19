@@ -71,6 +71,24 @@
 	return self;
 }
 
+- (id) initWithGlyphBatch:(PXTextureGlyphBatch *)glyphBatch
+{
+	self = [self initWithVertexCount:glyphBatch->_vertexCount];
+	
+	if (self != nil)
+	{
+		if ((_vertices != nil) && (glyphBatch->_vertices != nil))
+		{
+			memcpy(_vertices, glyphBatch->_vertices, (glyphBatch->_vertexCount * sizeof(PXGLColoredTextureVertex)));
+		}
+		
+		//_glName = glyphBatch->_glName;
+		_textureData = glyphBatch->_textureData;
+	}
+
+	return self;
+}
+
 - (void) dealloc
 {
 	[self reset];
@@ -82,20 +100,7 @@
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	PXTextureGlyphBatch *textureFontInfo = [[[self class] allocWithZone:zone] initWithVertexCount:_vertexCount];
-
-	if (!textureFontInfo)
-		return nil;
-	
-	if (_vertices && textureFontInfo->_vertices)
-	{
-		memcpy(textureFontInfo->_vertices, _vertices, (_vertexCount * sizeof(PXGLColoredTextureVertex)));
-	}
-	
-	//textureFontInfo.glName = _glName;
-	textureFontInfo->_textureData = _textureData;
-
-	return textureFontInfo;
+	return [[[self class] allocWithZone:zone] initWithGlyphBatch:self];
 }
 
 - (NSString *)description
@@ -147,6 +152,11 @@
 	}
 
 	_currentVertex = _vertices;
+}
+
++ (id)glyphBatchWithGlyphBatch:(PXTextureGlyphBatch *)glyphBatch
+{
+	return [[[self alloc] initWithGlyphBatch:glyphBatch] autorelease];
 }
 
 @end
