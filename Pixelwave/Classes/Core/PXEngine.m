@@ -176,7 +176,12 @@ void PXEngineInit(PXView *view)
 	// listeners it added once it gets deallocated.
 	pxEngineFrameListeners = [[PXLinkedList alloc] initWithWeakReferences:YES];
 
-	pxEngineCachedListeners = [[PXLinkedList alloc] initWithWeakReferences:YES];
+	// The cached listeners list is the only list that should have weakReferences set to NO.
+	// It's used as a temporary list that holds a retain to all the listener-target objects
+	// while an event is being dispatched. If weak references are set to YES, it's possible
+	// that the target will be deallocated by one of the listeners, and any listeners after
+	// it on the list will cause a crash.
+	pxEngineCachedListeners = [[PXLinkedList alloc] initWithWeakReferences:NO];
 
 	// Create a reusable enter frame event instead of creating one every frame.
 	pxEngineEnterFrameEvent = [[PXEvent alloc] initWithType:PXEvent_EnterFrame bubbles:NO cancelable:NO];
