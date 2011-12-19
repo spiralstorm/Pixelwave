@@ -61,6 +61,7 @@
 /**
  * Creates a new sound transform with the given #volume and
  * #pitch.
+ * This is the designated initializer.
  *
  * @param volume The amplitude of the sound.
  * @param pitch The frequency of the sound.
@@ -82,13 +83,16 @@
 	return self;
 }
 
+- (id) initWithSoundTransform: (PXSoundTransform *)transform
+{
+	return [self initWithVolume: transform->volume pitch: transform->pitch];
+}
+
 #pragma mark NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	PXSoundTransform *copy = [[[self class] allocWithZone:zone] initWithVolume:volume pitch:pitch];
-
-	return copy;
+	return [[[self class] allocWithZone:zone] initWithSoundTransform: self];
 }
 
 - (NSString *)description
@@ -119,9 +123,14 @@
  *	PXSoundTransform *transform = [PXSoundTransform soundTransformWithVolume:1.2f pitch:0.8f];
  *	// Volume will be 120% and pitch will be 80%
  */
-+ (PXSoundTransform *)soundTransformWithVolume:(float)volume pitch:(float)pitch
++ (id)soundTransformWithVolume:(float)volume pitch:(float)pitch
 {
-	return [[[PXSoundTransform alloc] initWithVolume:volume pitch:pitch] autorelease];
+	return [[[self alloc] initWithVolume:volume pitch:pitch] autorelease];
+}
+
++ (id)soundTransformWithSoundTransform:(PXSoundTransform *)transform
+{
+	return [[[self alloc] initWithSoundTransform: transform] autorelease];
 }
 
 @end

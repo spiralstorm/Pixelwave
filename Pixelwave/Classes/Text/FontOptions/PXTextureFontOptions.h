@@ -80,8 +80,13 @@
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: PXFontCharacterSet_None
 //-- ScriptArg[2]: nil
-+ (PXTextureFontOptions *)textureFontOptionsWithSize:(float)size
-									   characterSets:(unsigned)characterSets
-								   specialCharacters:(NSString *)specialCharacters;
++ (id)textureFontOptionsWithSize:(float)size
+				   characterSets:(unsigned)characterSets
+			   specialCharacters:(NSString *)specialCharacters
+DEPRECATED_ATTRIBUTE;	// use fontOptionsWithSize:characterSets:specialCharacters: instead
+
++ (id)fontOptionsWithSize:(float)size
+			characterSets:(unsigned)characterSets
+		specialCharacters:(NSString *)specialCharacters;
 
 @end

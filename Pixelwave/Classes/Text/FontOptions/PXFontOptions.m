@@ -80,6 +80,7 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 /**
  * Creates a new PXFontOptions. The font options holds information necessary to
  * build a font properly.
+ * This is the designated initializer.
  *
  * @param characterSets A single or multiple (or'ed together) PXFontCharacterSet(s).
  * @param specialCharacters Any characters not defined in the sets that you wish to include.
@@ -104,6 +105,11 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 	return self;
 }
 
+- (id) initWithFontOptions:(PXFontOptions *)fontOptions
+{
+	return [self initWithCharacterSets: PXFontCharacterSet_None specialCharacters: fontOptions->characters];
+}
+
 - (void) dealloc
 {
 	[characters release];
@@ -122,11 +128,7 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	PXFontOptions *options = [[self class] allocWithZone:zone];
-
-	options.characters = characters;
-
-	return options;
+	return [[[self class] allocWithZone:zone] initWithFontOptions: self];
 }
 
 - (NSString *)description
@@ -273,10 +275,15 @@ PXInline int PXFontOptionsCharacterComparer(const void *element1, const void *el
 + (PXFontOptions *)fontOptionsWithCharacterSets:(unsigned)characterSets
 							  specialCharacters:(NSString *)specialCharacters
 {
-	PXFontOptions *options = [[PXFontOptions alloc] initWithCharacterSets:characterSets
-														specialCharacters:specialCharacters];
+	PXFontOptions *options = [[self alloc] initWithCharacterSets:characterSets
+											   specialCharacters:specialCharacters];
 
 	return [options autorelease];
+}
+
++ (id)fontOptionsWithFontOptions:(PXFontOptions *)fontOptions
+{
+	return [[[self alloc] initWithFontOptions: fontOptions] autorelease];
 }
 
 @end

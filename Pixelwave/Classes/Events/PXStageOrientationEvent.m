@@ -60,8 +60,17 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
 @synthesize beforeOrientation;
 @synthesize afterOrientation;
 
+- (id) initWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable
+{
+	// nonsensical, but it's what you'd get without a specific implementation of this method
+	return [self initWithType: type bubbles: bubbles cancelable: cancelable
+			beforeOrientation: PXStageOrientation_Portrait
+			 afterOrientation: PXStageOrientation_Portrait];
+}
+
 /**
  * Creates a stage orientation event.
+ * This is the designated initializer.
  *
  * @param type A string representing the type of the event.
  * @param bubbles Describes whether the event participates in the bubbling phase of the
@@ -88,17 +97,24 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
 	return self;
 }
 
-#pragma mark NSObject overrides
-
-- (id) copyWithZone:(NSZone *)zone
+- (id) initWithEvent:(PXEvent *)event
 {
-	PXStageOrientationEvent *event = [super copyWithZone:zone];
+	if ([event isKindOfClass: [PXStageOrientationEvent class]])
+	{
+		PXStageOrientationEvent *orientationEvent = (PXStageOrientationEvent *)event;
+		self = [self initWithType: orientationEvent->_type
+						  bubbles: orientationEvent->_bubbles
+					   cancelable: orientationEvent->_cancelable
+				beforeOrientation: orientationEvent->beforeOrientation
+				 afterOrientation: orientationEvent->afterOrientation];
+	}
+	else
+		self = [super initWithEvent: event];
 
-	event->beforeOrientation = beforeOrientation;
-	event->afterOrientation = afterOrientation;
-
-	return event;
+	return self;
 }
+
+#pragma mark NSObject overrides
 
 - (NSString *)description
 {
@@ -145,6 +161,18 @@ NSString * const PXStageOrientationEvent_OrientationChange = @"orientationChange
 	}
 
 	return nil;
+}
+
++ (id)eventWithType:(NSString *)type
+			bubbles:(BOOL)bubbles
+		 cancelable:(BOOL)cancelable
+  beforeOrientation:(PXStageOrientation)beforeOrientation
+   afterOrientation:(PXStageOrientation)afterOrientation
+{
+	return [[[self alloc] initWithType:type bubbles:bubbles cancelable:cancelable
+					 beforeOrientation:beforeOrientation
+					  afterOrientation:afterOrientation]
+			autorelease];
 }
 
 @end

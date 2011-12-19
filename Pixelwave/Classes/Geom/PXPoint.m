@@ -49,6 +49,9 @@
 
 @synthesize x, y;
 
+/**
+ * Creates a new point at (0, 0).
+ */
 - (id) init
 {
 	return [self initWithX:0.0f y:0.0f];
@@ -56,6 +59,7 @@
 
 /**
  * Creates a new point at (x, y).
+ * This is the designated initializer.
  *
  * @param x The horizontal coordinate.
  * @param y The vertical coordinate.
@@ -76,6 +80,11 @@
 	return self;
 }
 
+- (id) initWithPoint:(PXPoint*)point
+{
+	return [self initWithX: point->x y: point->y];
+}
+
 - (void) dealloc
 {
 	[super dealloc];
@@ -85,7 +94,7 @@
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	return [[[self class] allocWithZone:zone] initWithX:x y:y];
+	return [[[self class] allocWithZone:zone] initWithPoint: self];
 }
 
 - (NSString *)description
@@ -333,7 +342,7 @@
  *	PXPoint *pt3 = [PXPoint pointByInterpolatingBetweenPointA:pt1 pointB:pt2 withCoefficientOfInterpolation:0.3f];
  *	// pt3 will be (-1.2f, -1.6f)
  */
-+ (PXPoint *)pointByInterpolatingBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2 withCoefficientOfInterpolation:(float)f
++ (id)pointByInterpolatingBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2 withCoefficientOfInterpolation:(float)f
 {
 	float _x = pt2->x;
 	float _y = pt2->y;
@@ -344,7 +353,7 @@
 	_x += deltaX;
 	_y += deltaY;
 
-	return [[[PXPoint alloc] initWithX:_x y:_y] autorelease];
+	return [[[self alloc] initWithX:_x y:_y] autorelease];
 }
 
 /**
@@ -361,9 +370,9 @@
  *	PXPoint *point = [PXPoint pointUsingPolarCoordWithLen:length angle:angle];
  *	// point will be (0.707107f, 0.707107f)
  */
-+ (PXPoint *)pointUsingPolarCoordWithLen:(float)len angle:(float)angle
++ (id)pointUsingPolarCoordWithLen:(float)len angle:(float)angle
 {
-	PXPoint *pt = [PXPoint new];
+	PXPoint *pt = [self new];
 
 	pt->x = cosf(angle) * len;
 	pt->y = sinf(angle) * len;
@@ -385,9 +394,14 @@
  *	PXPoint *point = [PXPoint pointWithX:4 y:5];
  *	// point will be (4, 5)
  */
-+ (PXPoint *)pointWithX:(float)x y:(float)y
++ (id)pointWithX:(float)x y:(float)y
 {
-	return [[[PXPoint alloc] initWithX:x y:y] autorelease];
+	return [[[self alloc] initWithX:x y:y] autorelease];
+}
+
++ (id)pointWithPoint:(PXPoint *)point
+{
+	return [[[self alloc] initWithPoint: point] autorelease];
 }
 
 @end

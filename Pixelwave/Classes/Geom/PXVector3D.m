@@ -98,11 +98,16 @@
 	return self;
 }
 
+- (id) initWithVector3D:(PXVector3D *)vector
+{
+	return [self initWithX:vector->x y:vector->y z:vector->z w:vector->w];
+}
+
 #pragma mark NSObject overrides
 
 - (id) copyWithZone:(NSZone *)zone
 {
-	return [[[self class] allocWithZone:zone] initWithX:x y:y z:z w:w];
+	return [[[self class] allocWithZone:zone] initWithVector3D:self];
 }
 
 - (NSString *)description
@@ -541,9 +546,9 @@
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f];
  *	// vector will be (5,7,4)
  */
-+ (PXVector3D *)vector3DWithX:(float)x y:(float)y z:(float)z
++ (id)vector3DWithX:(float)x y:(float)y z:(float)z
 {
-	return [PXVector3D vector3DWithX:x y:y z:z w:0.0f];
+	return [self vector3DWithX:x y:y z:z w:0.0f];
 }
 /**
  * Creates a new vector at (#x, #y, #z) with rotation #w.
@@ -559,9 +564,14 @@
  *	PXVector3D *vector = [[PXVector3D alloc] initWithX:5.0f y:7.0f z:4.0f w:0.0f];
  *	// vector will be (5,7,4) with angle of rotation 0
  */
-+ (PXVector3D *)vector3DWithX:(float)x y:(float)y z:(float)z w:(float)w
++ (id)vector3DWithX:(float)x y:(float)y z:(float)z w:(float)w
 {
-	return [[[PXVector3D alloc] initWithX:x y:y z:z w:w] autorelease];
+	return [[[self alloc] initWithX:x y:y z:z w:w] autorelease];
+}
+
++ (id)vector3DWithVector3D:(PXVector3D *)vector
+{
+	return [[[self alloc] initWithVector3D: vector] autorelease];
 }
 
 @end

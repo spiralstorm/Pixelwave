@@ -64,4 +64,11 @@ PXExtern NSString * const PXStageOrientationEvent_OrientationChange;
 		 cancelable:(BOOL)cancelable
   beforeOrientation:(PXStageOrientation)beforeOrientation
    afterOrientation:(PXStageOrientation)afterOrientation;
+
++ (id)eventWithType:(NSString *)type
+			bubbles:(BOOL)bubbles
+		 cancelable:(BOOL)cancelable
+  beforeOrientation:(PXStageOrientation)beforeOrientation
+   afterOrientation:(PXStageOrientation)afterOrientation;
+
 @end

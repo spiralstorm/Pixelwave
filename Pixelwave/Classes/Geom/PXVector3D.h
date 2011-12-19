@@ -82,6 +82,7 @@
 //-- ScriptArg[2]: 0.0f
 //-- ScriptArg[3]: 0.0f
 - (id) initWithX:(float)x y:(float)y z:(float)z w:(float)w;
+- (id) initWithVector3D:(PXVector3D *)vector;
 
 //-- ScriptIgnore
 - (void) setX:(float)x y:(float)y z:(float)z;
@@ -125,12 +126,13 @@
 + (float) distanceSquaredBetweenVectorA:(PXVector3D *)vectorA vectorB:(PXVector3D *)vectorB;
 
 //-- ScriptIgnore
-+ (PXVector3D *)vector3DWithX:(float)x y:(float)y z:(float)z;
++ (id)vector3DWithX:(float)x y:(float)y z:(float)z;
 //-- ScriptName: make
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
 //-- ScriptArg[2]: 0.0f
 //-- ScriptArg[3]: 0.0f
-+ (PXVector3D *)vector3DWithX:(float)x y:(float)y z:(float)z w:(float)w;
++ (id)vector3DWithX:(float)x y:(float)y z:(float)z w:(float)w;
++ (id)vector3DWithVector3D:(PXVector3D *)vector;
 
 @end

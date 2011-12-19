@@ -65,15 +65,15 @@ typedef enum
 
 typedef enum
 {
-	//@ Keeps the propegation going (it's default value).
-	_PXStopPropegationLevel_KeepGoing = 0,
-	//@ stopPropegation after the current node (only relevant when using the
+	//@ Keeps the propagation going (it's default value).
+	_PXStopPropagationLevel_KeepGoing = 0,
+	//@ stopPropagation after the current node (only relevant when using the
 	//@ displaylist event flow).
-	_PXStopPropegationLevel_StopAfter,
-	//@ stopPropegation now (like calling break; in the middle of the
+	_PXStopPropagationLevel_StopAfter,
+	//@ stopPropagation now (like calling break; in the middle of the
 	//@ dispatch loop for the current node)
-	_PXStopPropegationLevel_StopNow
-} _PXStopPropegationLevel;
+	_PXStopPropagationLevel_StopNow
+} _PXStopPropagationLevel;
 
 @interface PXEvent : NSObject <NSCopying, PXPooledObject>
 {
@@ -90,7 +90,7 @@ typedef enum
 	id _currentTarget;
 	PXEventPhase _eventPhase;
 
-	_PXStopPropegationLevel _stopPropegationLevel;
+	_PXStopPropagationLevel _stopPropagationLevel;
 
 	// These get re-set before the event gets dispatched
 	BOOL _defaultPrevented;
@@ -140,6 +140,7 @@ typedef enum
 //-- ScriptArg[1]: NO
 //-- ScriptArg[2]: NO
 - (id) initWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable;
+- (id) initWithEvent:(PXEvent *)event;
 
 //-- ScriptName: preventDefault
 - (void) preventDefault;
@@ -157,5 +158,6 @@ typedef enum
 //-- ScriptArg[1]: NO
 //-- ScriptArg[2]: NO
 + (id)eventWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable;
++ (id)eventWithEvent:(PXEvent *)event;
 
 @end

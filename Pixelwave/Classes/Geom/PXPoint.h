@@ -66,6 +66,8 @@
 //-- ScriptArg[1]: 0.0f
 - (id) initWithX:(float)x y:(float)y;
 
+- (id) initWithPoint:(PXPoint*)point;
+
 //-- ScriptName: set
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
@@ -93,12 +95,13 @@
 + (float) angleBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2;
 
 //-- ScriptName: interpolate
-+ (PXPoint *)pointByInterpolatingBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2 withCoefficientOfInterpolation:(float)f;
++ (id)pointByInterpolatingBetweenPointA:(PXPoint *)pt1 pointB:(PXPoint *)pt2 withCoefficientOfInterpolation:(float)f;
 //-- ScriptName: polar
-+ (PXPoint *)pointUsingPolarCoordWithLen:(float)len angle:(float)angle;
++ (id)pointUsingPolarCoordWithLen:(float)len angle:(float)angle;
 //-- ScriptName: make
 //-- ScriptArg[0]: 0.0f
 //-- ScriptArg[1]: 0.0f
-+ (PXPoint *)pointWithX:(float)x y:(float)y;
++ (id)pointWithX:(float)x y:(float)y;
++ (id)pointWithPoint:(PXPoint *)point;
 
 @end
