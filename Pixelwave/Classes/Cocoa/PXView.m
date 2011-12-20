@@ -55,9 +55,12 @@
 #import "PXStageOrientationEvent.h"
 
 #include "PXDebug.h"
+#include "PXGLPrivate.h"
+#include "PXMathUtils.h"
 
 @interface PXView(Private)
 - (void) updateOrientation;
+- (void) setupMSAA;
 - (BOOL) setupWithScaleFactor:(float)contentScaleFactor colorQuality:(PXViewColorQuality)colorQuality;
 
 - (void) touchHandeler:(NSSet *)touches function:(void(*)(UITouch *touch, CGPoint *pos))function;
@@ -88,6 +91,9 @@
 
 @synthesize colorQuality;
 @synthesize contentScaleFactorSupported;
+
+@synthesize enableAntiAliasing;
+@synthesize antiAliasingSampleCount;
 
 /**
  * @param frame The size of the newly created view.
@@ -190,6 +196,18 @@
 
 	PXEngineDealloc();
 
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, 0);
+	glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, 0);
+
+	glDeleteRenderbuffersOES(1, &renderbuffer);
+	renderbuffer = 0;
+
+	glDeleteFramebuffersOES(1, &framebuffer);
+	framebuffer = 0;
+
+	// To kill the msaa frame buffer if it exists
+	self.enableAntiAliasing = NO;
+
 	if (oldContext != eaglContext)
 		[EAGLContext setCurrentContext:oldContext];
 	else
@@ -210,6 +228,7 @@
 		return NO;
 	}
 
+	antiAliasingSampleCount = 2;
 	colorQuality = _colorQuality;
 
 	/////////////////
@@ -245,6 +264,7 @@
 	// on always use RGBA8 to simulate the effect
 	if (surfaceDither == YES && surfaceColorFormat == kEAGLColorFormatRGB565 && [[[UIDevice currentDevice] model] isEqualToString:@"iPhone Simulator"])
 	{
+		colorQuality = PXViewColorQuality_High;
 		surfaceColorFormat = kEAGLColorFormatRGBA8;
 	}
 
@@ -281,6 +301,24 @@
 	///////////////////////////
 	// Initialize the engine //
 	///////////////////////////
+
+	glGenFramebuffersOES(1, &framebuffer);
+	glGenRenderbuffersOES(1, &renderbuffer);
+
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, framebuffer);
+	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbuffer);
+	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, renderbuffer);
+
+	glBindFramebufferOES(GL_FRAMEBUFFER_OES, framebuffer);
+	boundFramebuffer = framebuffer;
+
+/*#ifdef __IPHONE_4_0
+	if (contentScaleFactorSupported == YES)
+	{
+		GLenum attachment = GL_DEPTH_ATTACHMENT_OES;
+		glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE, 1, &attachment);
+	}
+#endif*/
 
 	PXEngineInit(self);
 
@@ -397,9 +435,136 @@
 // 	[event release];
 // }
 
+- (void) setupMSAA
+{
+#ifdef __IPHONE_4_0
+	if (contentScaleFactorSupported == YES)
+	{
+		[self _bindFrameBufferDefault];
+
+		GLint backingWidth;
+		GLint backingHeight;
+		GLenum colorFormat;
+		GLenum depthFormat;
+
+		glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_WIDTH_OES, &backingWidth);
+		glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
+
+		[self _bindFrameBufferWithTarget:GL_FRAMEBUFFER_OES frameBuffer:msaaFramebuffer];
+	//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, msaaFramebuffer);
+		glBindRenderbufferOES(GL_RENDERBUFFER_OES, msaaRenderbuffer);
+
+		switch (colorQuality)
+		{
+			case PXViewColorQuality_High:
+				colorFormat = GL_RGBA4_OES;
+				depthFormat = GL_DEPTH_COMPONENT24_OES;
+				break;
+			case PXViewColorQuality_Low:
+			case PXViewColorQuality_Medium:
+			default:
+				colorFormat = GL_RGB5_A1_OES;
+				depthFormat = GL_DEPTH_COMPONENT16;
+				break;
+		}
+
+		// 4 will be the number of pixels that the MSAA buffer will use in order
+		// to make one pixel on the render buffer.
+		glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER_OES, antiAliasingSampleCount, colorFormat, backingWidth, backingHeight);
+		glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, msaaRenderbuffer);
+
+		// Bind the msaa depth buffer.
+		glBindRenderbufferOES(GL_RENDERBUFFER_OES, msaaDepthbuffer);
+		glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER_OES, antiAliasingSampleCount, depthFormat, backingWidth, backingHeight);
+		glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, msaaDepthbuffer);
+
+	//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, framebuffer);
+	//	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbuffer);
+
+	//	glBindFramebufferOES(GL_READ_FRAMEBUFFER_APPLE, msaaFramebuffer);
+	//	glBindFramebufferOES(GL_DRAW_FRAMEBUFFER_APPLE, framebuffer);
+
+	//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, framebuffer);
+		glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbuffer);
+
+	//	[eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(CAEAGLLayer*)self.layer];
+	//	[self _bindFrameBufferDefault];
+	}
+#endif
+}
+
 // MARK: -
 // MARK: Properties
 // MARK: -
+
+- (void) setEnableAntiAliasing:(BOOL)use
+{
+#ifdef __IPHONE_4_0
+	if (contentScaleFactorSupported)
+	{
+		if (use == enableAntiAliasing)
+			return;
+
+		enableAntiAliasing = use;
+
+		PXGLFlush();
+
+		// TODO: Enable this
+		if (use == YES)
+		{
+			glGenFramebuffersOES(1, &msaaFramebuffer);
+			glGenRenderbuffersOES(1, &msaaRenderbuffer);
+			glGenRenderbuffersOES(1, &msaaDepthbuffer);
+
+			[self setupMSAA];
+		}
+		else
+		{
+			glDeleteRenderbuffersOES(1, &msaaDepthbuffer);
+			msaaDepthbuffer = 0;
+			glDeleteRenderbuffersOES(1, &msaaRenderbuffer);
+			msaaRenderbuffer = 0;
+			glDeleteFramebuffersOES(1, &msaaFramebuffer);
+			msaaFramebuffer = 0;
+
+			[self _bindFrameBufferDefault];
+
+		//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, framebuffer);
+		//	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbuffer);
+		}
+	}
+	else
+		PXDebugLog(@"anti-aliasing not supported on this device.");
+#else
+	PXDebugLog(@"anti-aliasing not supported on this device.");
+#endif
+}
+
+- (void) antiAliasingSampleCount:(unsigned int)count
+{
+#ifdef __IPHONE_4_0
+	if (contentScaleFactorSupported)
+	{
+		count = PXMathClamp(count, 1, 4);
+
+		if (count == antiAliasingSampleCount)
+			return;
+
+		antiAliasingSampleCount = count;
+
+		if (self.enableAntiAliasing)
+		{
+			self.enableAntiAliasing = false;
+			self.enableAntiAliasing = true;
+			//[self setupMSAA];
+		}
+	}
+	else
+		PXDebugLog(@"anti-aliasing not supported on this device.");
+#else
+	PXDebugLog(@"anti-aliasing not supported on this device.");
+#endif
+}
 
 - (void) setContentScaleFactor:(float)_contentScaleFactor
 {
@@ -474,6 +639,35 @@
 // MARK: EAGL
 // MARK: -
 
+- (void) _bindFrameBufferWithTarget:(GLenum)target frameBuffer:(GLuint)_frameBuffer
+{
+	if (target != GL_FRAMEBUFFER_OES || boundFramebuffer == _frameBuffer)
+		return;
+
+	PXGLFlush();
+
+	boundFramebuffer = _frameBuffer;
+	glBindFramebufferOES(target, boundFramebuffer);
+}
+
+- (GLuint) _boundFrameBuffer
+{
+	return boundFramebuffer;
+}
+
+- (void) _bindFrameBufferDefault
+{
+#ifdef __IPHONE_4_0
+	if (contentScaleFactorSupported && enableAntiAliasing)
+	{
+		[self _bindFrameBufferWithTarget:GL_FRAMEBUFFER_OES frameBuffer:msaaFramebuffer];
+		return;
+	}
+#endif
+
+	[self _bindFrameBufferWithTarget:GL_FRAMEBUFFER_OES frameBuffer:framebuffer];
+}
+
 + (Class) layerClass
 {
 	return [CAEAGLLayer class];
@@ -481,6 +675,25 @@
 
 - (void) _swapBuffers
 {
+#ifdef __IPHONE_4_0
+	if (contentScaleFactorSupported && enableAntiAliasing)
+	{
+		[self _bindFrameBufferDefault];
+		//[self _setCurrentContext];
+
+	//	GLenum attachments[] = {GL_DEPTH_ATTACHMENT_OES};
+	//	glDiscardFramebufferEXT(GL_READ_FRAMEBUFFER_APPLE, 1, attachments);
+
+		glBindFramebufferOES(GL_READ_FRAMEBUFFER_APPLE, msaaFramebuffer);
+		glBindFramebufferOES(GL_DRAW_FRAMEBUFFER_APPLE, framebuffer);
+		// Call a resolve to combine both buffers
+		glResolveMultisampleFramebufferAPPLE();
+		// Present final image to screen
+		glBindFramebufferOES(GL_FRAMEBUFFER_OES, msaaFramebuffer);
+		glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbuffer);
+	}
+#endif
+
 	if ([eaglContext presentRenderbuffer:GL_RENDERBUFFER_OES] == NO)
 	{
 		PXDebugLog(@"PXView unable to swap buffers.");

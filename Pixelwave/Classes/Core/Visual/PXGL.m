@@ -49,9 +49,6 @@
 #import "PXGLUtils.h"
 #include "PXGLStatePrivate.h"
 
-GLuint pxGLFrameBuffer = 0;
-GLuint pxGLRenderBuffer = 0;
-
 #define PX_GL_MATRIX_STACK_SIZE 16
 #define PX_GL_COLOR_STACK_SIZE 16
 
@@ -94,7 +91,6 @@ GLfloat pxGLHalfPointSize = 0.0f;
 GLfloat pxGLLineWidth = 0.0f;
 
 GLuint pxGLTexture = 0;
-GLuint pxGLFramebuffer = 0;
 
 _PXGLArrayPointer pxGLPointSizePointer;
 _PXGLArrayPointer pxGLVertexPointer;
@@ -122,15 +118,6 @@ GLubyte pxGLAlpha = 0xFF;
  */
 void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 {
-	glGenFramebuffersOES(1, &pxGLFrameBuffer);
-	glGenRenderbuffersOES(1, &pxGLRenderBuffer);
-
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
-	glBindRenderbufferOES(GL_RENDERBUFFER_OES, pxGLRenderBuffer);
-	glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_RENDERBUFFER_OES, pxGLRenderBuffer);
-
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
-
 	PXGLClipRect(0, 0, width, height);
 
 	pxGLPointSizePointer.pointer = NULL;
@@ -207,15 +194,6 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 void PXGLDealloc()
 {
 	PXGLRendererDealloc();
-
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, 0);
-	glBindRenderbufferOES(GL_RENDERBUFFER_BINDING_OES, 0);
-
-	glDeleteRenderbuffersOES(1, &pxGLRenderBuffer);
-	pxGLRenderBuffer = 0;
-
-	glDeleteFramebuffersOES(1, &pxGLFrameBuffer);
-	pxGLFrameBuffer = 0;
 }
 
 /*
@@ -340,13 +318,6 @@ void PXGLSyncPXToGL()
 
 	// We need to check the texture parameters now...
 
-	glGetIntegerv(GL_FRAMEBUFFER_BINDING_OES, &nVal);
-	if (pxGLFramebuffer != nVal)
-	{
-		pxGLFramebuffer = nVal;
-		changed = true;
-	}
-
 	// If any of our values have changed, then we should flush the buffer
 	if (changed)
 		PXGLFlushBuffer();
@@ -407,8 +378,6 @@ void PXGLSyncGLToPX()
 	glColor4ub(pxGLRed, pxGLGreen, pxGLBlue, pxGLAlpha);
 	glLineWidth(pxGLLineWidth);
 	glPointSize(pxGLPointSize);
-
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFramebuffer);
 
 	// and enable the color array.
 	PXGLEnableColorArray();
@@ -497,32 +466,6 @@ GLuint PXGLDBGGetRenderCallCount()
 #endif
 
 	return 0;
-}
-
-/*
- * PXGLBindFramebuffer lets you create or use a named framebuffer object.
- * Calling PXGLBindFramebuffer with target set to GL_FRAMEBUFFER and
- * framebuffer set to the name of the new framebuffer object binds the
- * framebuffer object name.  When a framebuffer object is bound, the previous
- * binding is automatically broken.
- *
- * PXGLBindFramebuffer does a check to see if the buffer you are binding has
- * the same name as the one that is currently bound, if it is then it does not
- * change the buffer; this is done to help stop redundant gl state changes.
- *
- * @param GLenum target - Specifies the target to which the framebuffer object
- * is bound.  The symbolic constraint must be GL_FRAMEBUFFER.
- * @param GLuint framebuffer - Specifies the name of a framebuffer object.
- */
-void PXGLBindFramebuffer(GLenum target, GLuint framebuffer)
-{
-	if (target != GL_FRAMEBUFFER_OES || pxGLFramebuffer == framebuffer)
-		return;
-
-	PXGLFlushBuffer();
-
-	pxGLFramebuffer = framebuffer;
-	glBindFramebufferOES(GL_FRAMEBUFFER_OES, pxGLFramebuffer);
 }
 
 /*

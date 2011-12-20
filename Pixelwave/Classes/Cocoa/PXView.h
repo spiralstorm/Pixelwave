@@ -72,9 +72,20 @@ typedef enum
 {
 @private
 	EAGLContext *eaglContext;
-	
+
 	PXViewColorQuality colorQuality;
-	
+
+	GLuint framebuffer;
+	GLuint renderbuffer;
+	GLuint msaaFramebuffer;
+	GLuint msaaRenderbuffer;
+	GLuint msaaDepthbuffer;
+
+	GLuint boundFramebuffer;
+
+	BOOL enableAntiAliasing;
+	unsigned int antiAliasingSampleCount;
+
 	BOOL autoresize;
 	BOOL hasBeenCurrent;
 	BOOL contentScaleFactorSupported;
@@ -104,6 +115,9 @@ typedef enum
 
 @property (nonatomic, readonly) BOOL contentScaleFactorSupported;
 
+@property (nonatomic) BOOL enableAntiAliasing;
+@property (nonatomic) unsigned int antiAliasingSampleCount;
+
 //-- ScriptIgnore
 - (id) initWithFrame:(CGRect)frame contentScaleFactor:(float)scale;
 //-- ScriptIgnore
@@ -121,6 +135,11 @@ typedef enum
 @end
 
 @interface PXView(PrivateButPublic)
+
+- (void) _bindFrameBufferWithTarget:(GLenum)target frameBuffer:(GLuint)frameBuffer;
+- (GLuint) _boundFrameBuffer;
+- (void) _bindFrameBufferDefault;
+
 - (void) _setCurrentContext;
 - (BOOL) _isCurrentContext;
 - (void) _clearCurrentContext;

@@ -52,7 +52,6 @@ GLfloat PXGLGetContentScaleFactor();
 GLfloat PXGLGetOneOverContentScaleFactor();
 GLuint PXGLDBGGetRenderCallCount();
 
-void PXGLBindFramebuffer(GLenum target, GLuint framebuffer);
 GLuint PXGLBoundTexture();
 
 void PXGLBindTexture(GLenum target, GLuint texture);

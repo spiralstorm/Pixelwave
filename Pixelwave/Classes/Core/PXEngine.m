@@ -1177,7 +1177,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	////////////////////////////////////////
 
 	// Bind the renderToTexture buffer
-	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineRTTFBO);
+	[pxEngineView _bindFrameBufferWithTarget:GL_FRAMEBUFFER_OES frameBuffer:pxEngineRTTFBO];
 
 	// Bind the texture to the buffer
 	glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES, GL_COLOR_ATTACHMENT0_OES, GL_TEXTURE_2D, textureData->_glName, 0);
@@ -1336,7 +1336,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	}
 
 	// Switch back to main buffer
-	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
+	[pxEngineView _bindFrameBufferDefault];
 }
 
 // MARK: Extracting Pixel Data
@@ -1359,7 +1359,7 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 	// Change the state
 
 	// Bind the Texture FBO
-	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineRTTFBO);
+	[pxEngineView _bindFrameBufferWithTarget:GL_FRAMEBUFFER_OES frameBuffer:pxEngineRTTFBO];
 	// Connect the texture data to it
 	glFramebufferTexture2DOES(GL_FRAMEBUFFER_OES,
 							  GL_COLOR_ATTACHMENT0_OES,
@@ -1386,7 +1386,7 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 	PXGLSetViewSize(pxEngineViewSize.width, pxEngineViewSize.height, pxEngineView.contentScaleFactor, true);
 
 	// Bind the screen buffer back
-	PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxGLFrameBuffer);
+	[pxEngineView _bindFrameBufferDefault];
 }
 
 /**
