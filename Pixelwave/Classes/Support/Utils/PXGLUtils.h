@@ -130,71 +130,71 @@ typedef PXGLColorVertices* PXGLColorVerticesRef;
 // MARK: Make Functions
 // MARK: -
 
-PXInline_h PXGLVertex PXGLVertexMake(GLfloat x, GLfloat y);
-PXInline_h PXGLColorVertex PXGLColorVertexMake(GLfloat x, GLfloat y, GLubyte r, GLubyte g, GLubyte b, GLubyte a);
-PXInline_h PXGLTextureVertex PXGLTextureVertexMake(GLfloat x, GLfloat y, GLfloat s, GLfloat t);
-PXInline_h PXGLColoredTextureVertex PXGLColoredTextureVertexMake(GLfloat x, GLfloat y, GLubyte r, GLubyte g, GLubyte b, GLubyte a, GLfloat s, GLfloat t);
-PXInline_h PXGLMatrix PXGLMatrixMake(GLfloat a, GLfloat b, GLfloat c, GLfloat d, GLfloat tx, GLfloat ty);
-PXInline_h PXGLColorTransform PXGLColorTransformMake(GLfloat redMultiplier, GLfloat greenMultiplier, GLfloat blueMultiplier, GLfloat alphaMultiplier);
-PXInline_h PXGLAABB PXGLAABBMake(GLint xMin, GLint yMin, GLint xMax, GLint yMax);
-PXInline_h PXGLAABBf PXGLAABBfMakeWithInit();
-PXInline_h PXGLAABBf PXGLAABBfMake(GLfloat xMin, GLfloat yMin, GLfloat xMax, GLfloat yMax);
+PXGLVertex PXGLVertexMake(GLfloat x, GLfloat y);
+PXGLColorVertex PXGLColorVertexMake(GLfloat x, GLfloat y, GLubyte r, GLubyte g, GLubyte b, GLubyte a);
+PXGLTextureVertex PXGLTextureVertexMake(GLfloat x, GLfloat y, GLfloat s, GLfloat t);
+PXGLColoredTextureVertex PXGLColoredTextureVertexMake(GLfloat x, GLfloat y, GLubyte r, GLubyte g, GLubyte b, GLubyte a, GLfloat s, GLfloat t);
+PXGLMatrix PXGLMatrixMake(GLfloat a, GLfloat b, GLfloat c, GLfloat d, GLfloat tx, GLfloat ty);
+PXGLColorTransform PXGLColorTransformMake(GLfloat redMultiplier, GLfloat greenMultiplier, GLfloat blueMultiplier, GLfloat alphaMultiplier);
+PXGLAABB PXGLAABBMake(GLint xMin, GLint yMin, GLint xMax, GLint yMax);
+PXGLAABBf PXGLAABBfMakeWithInit();
+PXGLAABBf PXGLAABBfMake(GLfloat xMin, GLfloat yMin, GLfloat xMax, GLfloat yMax);
 
-PXInline_h PXGLColorVerticesRef PXGLColorVerticesRefMake(GLuint vertexCount, GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
-PXInline_h void PXGLColorVerticesRefFree(PXGLColorVertices* ref);
-PXInline_h PXGLColorVertices PXGLColorVerticesMake(GLuint vertexCount, GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
-PXInline_h void PXGLColorVerticesFree(PXGLColorVertices *colorVertices);
+PXGLColorVerticesRef PXGLColorVerticesRefMake(GLuint vertexCount, GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
+void PXGLColorVerticesRefFree(PXGLColorVertices* ref);
+PXGLColorVertices PXGLColorVerticesMake(GLuint vertexCount, GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
+void PXGLColorVerticesFree(PXGLColorVertices *colorVertices);
 
 // MARK: -
 // MARK: AABB Functions
 // MARK: -
 
 extern const PXGLAABB PXGLAABBReset;
-PXInline_h void PXGLAABBUpdate(PXGLAABB *toBeUpdated, PXGLAABB *checkVals);
-PXInline_h void PXGLAABBExpand(PXGLAABB *aabb, CGPoint point);
-PXInline_h void PXGLAABBExpandv(PXGLAABB *aabb, GLint x, GLint y);
-PXInline_h void PXGLAABBInflate(PXGLAABB *aabb, CGPoint point);
-PXInline_h void PXGLAABBInflatev(PXGLAABB *aabb, GLint x, GLint y);
-PXInline_h bool PXGLAABBIsReset(PXGLAABB *aabb);
-PXInline_h bool PXGLAABBContainsPoint(PXGLAABB *aabb, CGPoint point);
-PXInline_h bool PXGLAABBContainsPointv(PXGLAABB *aabb, GLint x, GLint y);
-PXInline_h bool PXGLAABBIsEqual(PXGLAABB *aabb1, PXGLAABB *aabb2);
+void PXGLAABBUpdate(PXGLAABB *toBeUpdated, PXGLAABB *checkVals);
+void PXGLAABBExpand(PXGLAABB *aabb, CGPoint point);
+void PXGLAABBExpandv(PXGLAABB *aabb, GLint x, GLint y);
+void PXGLAABBInflate(PXGLAABB *aabb, CGPoint point);
+void PXGLAABBInflatev(PXGLAABB *aabb, GLint x, GLint y);
+bool PXGLAABBIsReset(PXGLAABB *aabb);
+bool PXGLAABBContainsPoint(PXGLAABB *aabb, CGPoint point);
+bool PXGLAABBContainsPointv(PXGLAABB *aabb, GLint x, GLint y);
+bool PXGLAABBIsEqual(PXGLAABB *aabb1, PXGLAABB *aabb2);
 
 extern const PXGLAABBf PXGLAABBfReset;
-PXInline_h void PXGLAABBfUpdate(PXGLAABBf *toBeUpdated, PXGLAABBf *checkVals);
-PXInline_h void PXGLAABBfExpand(PXGLAABBf *aabb, CGPoint point);
-PXInline_h void PXGLAABBfExpandv(PXGLAABBf *aabb, GLfloat x, GLfloat y);
-PXInline_h void PXGLAABBfInflate(PXGLAABBf *aabb, CGPoint point);
-PXInline_h void PXGLAABBfInflatev(PXGLAABBf *aabb, GLfloat x, GLfloat y);
-PXInline_h bool PXGLAABBfIsReset(PXGLAABBf *aabb);
-PXInline_h bool PXGLAABBfContainsPoint(PXGLAABBf *aabb, CGPoint point);
-PXInline_h bool PXGLAABBfContainsPointv(PXGLAABBf *aabb, GLfloat x, GLfloat y);
-PXInline_h bool PXGLAABBfIsEqual(PXGLAABBf *aabb1, PXGLAABBf *aabb2);
+void PXGLAABBfUpdate(PXGLAABBf *toBeUpdated, PXGLAABBf *checkVals);
+void PXGLAABBfExpand(PXGLAABBf *aabb, CGPoint point);
+void PXGLAABBfExpandv(PXGLAABBf *aabb, GLfloat x, GLfloat y);
+void PXGLAABBfInflate(PXGLAABBf *aabb, CGPoint point);
+void PXGLAABBfInflatev(PXGLAABBf *aabb, GLfloat x, GLfloat y);
+bool PXGLAABBfIsReset(PXGLAABBf *aabb);
+bool PXGLAABBfContainsPoint(PXGLAABBf *aabb, CGPoint point);
+bool PXGLAABBfContainsPointv(PXGLAABBf *aabb, GLfloat x, GLfloat y);
+bool PXGLAABBfIsEqual(PXGLAABBf *aabb1, PXGLAABBf *aabb2);
 
 // MARK: -
 // MARK: Matrix Functions
 // MARK: -
 
-PXInline_h CGPoint PXGLMatrixConvertPoint(PXGLMatrix *matrix, CGPoint point);
-PXInline_h void PXGLMatrixConvertPointv(PXGLMatrix *matrix, GLfloat *x, GLfloat *y);
-PXInline_h void PXGLMatrixConvertPoints(PXGLMatrix *matrix, CGPoint *points, GLuint count);
-PXInline_h void PXGLMatrixConvertPointsv(PXGLMatrix *matrix, GLfloat *xs, GLfloat *ys, GLuint count);
-PXInline_h void PXGLMatrixConvert4Points(PXGLMatrix *matrix, CGPoint *point0, CGPoint *point1, CGPoint *point2, CGPoint *point3);
-PXInline_h void PXGLMatrixConvert4Pointsv(PXGLMatrix *matrix, GLfloat *x0, GLfloat *y0, GLfloat *x1, GLfloat *y1, GLfloat *x2, GLfloat *y2, GLfloat *x3, GLfloat *y3);
-PXInline_h CGRect PXGLMatrixConvertRect(PXGLMatrix *matrix, CGRect rect);
-PXInline_h void PXGLMatrixConvertRectv(PXGLMatrix *matrix, GLfloat *x, GLfloat *y, GLfloat *width, GLfloat *height);
-PXInline_h PXGLAABB PXGLMatrixConvertAABB(PXGLMatrix *matrix, PXGLAABB aabb);
-PXInline_h void PXGLMatrixConvertAABBv(PXGLMatrix *matrix, GLint *xMin, GLint *yMin, GLint *xMax, GLint *yMax);
-PXInline_h PXGLAABBf PXGLMatrixConvertAABBf(PXGLMatrix *matrix, PXGLAABBf aabb);
-PXInline_h void PXGLMatrixConvertAABBfv(PXGLMatrix *matrix, GLfloat *xMin, GLfloat *yMin, GLfloat *xMax, GLfloat *yMax);
+CGPoint PXGLMatrixConvertPoint(PXGLMatrix *matrix, CGPoint point);
+void PXGLMatrixConvertPointv(PXGLMatrix *matrix, GLfloat *x, GLfloat *y);
+void PXGLMatrixConvertPoints(PXGLMatrix *matrix, CGPoint *points, GLuint count);
+void PXGLMatrixConvertPointsv(PXGLMatrix *matrix, GLfloat *xs, GLfloat *ys, GLuint count);
+void PXGLMatrixConvert4Points(PXGLMatrix *matrix, CGPoint *point0, CGPoint *point1, CGPoint *point2, CGPoint *point3);
+void PXGLMatrixConvert4Pointsv(PXGLMatrix *matrix, GLfloat *x0, GLfloat *y0, GLfloat *x1, GLfloat *y1, GLfloat *x2, GLfloat *y2, GLfloat *x3, GLfloat *y3);
+CGRect PXGLMatrixConvertRect(PXGLMatrix *matrix, CGRect rect);
+void PXGLMatrixConvertRectv(PXGLMatrix *matrix, GLfloat *x, GLfloat *y, GLfloat *width, GLfloat *height);
+PXGLAABB PXGLMatrixConvertAABB(PXGLMatrix *matrix, PXGLAABB aabb);
+void PXGLMatrixConvertAABBv(PXGLMatrix *matrix, GLint *xMin, GLint *yMin, GLint *xMax, GLint *yMax);
+PXGLAABBf PXGLMatrixConvertAABBf(PXGLMatrix *matrix, PXGLAABBf aabb);
+void PXGLMatrixConvertAABBfv(PXGLMatrix *matrix, GLfloat *xMin, GLfloat *yMin, GLfloat *xMax, GLfloat *yMax);
 
-PXInline_h bool PXGLMatrixIsEqual(PXGLMatrix *matrixA, PXGLMatrix *matrixB);
+bool PXGLMatrixIsEqual(PXGLMatrix *matrixA, PXGLMatrix *matrixB);
 
 // MARK: -
 // MARK: Rect Functions
 // MARK: -
 
-PXInline_h bool _PXGLRectContainsAABB(_PXGLRect *rect, PXGLAABB *aabb);
+bool _PXGLRectContainsAABB(_PXGLRect *rect, PXGLAABB *aabb);
 
 #ifdef __cplusplus
 }

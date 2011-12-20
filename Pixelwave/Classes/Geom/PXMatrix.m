@@ -365,11 +365,6 @@ static const float pxMatGradientConst = 0.0006103515625f;
 
 	float rot = -inkMatrixRotation(matrix);
 
-//	while (rot < 0.0f)
-//		rot += M_TAU;
-//	while (rot > M_TAU)
-//		rot -= M_TAU;
-
 	inkSize scale = inkMatrixSize(matrix);
 	scale.width  /= pxMatGradientConst;
 	scale.height /= pxMatGradientConst;

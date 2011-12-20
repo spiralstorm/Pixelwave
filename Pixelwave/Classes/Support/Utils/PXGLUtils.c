@@ -56,7 +56,7 @@ const PXGLAABBf PXGLAABBfReset = {PXGLAABBfResetMin, PXGLAABBfResetMin, PXGLAABB
 // MARK: Make Functions
 // MARK: -
 
-PXInline_c PXGLVertex PXGLVertexMake(GLfloat x, GLfloat y)
+PXGLVertex PXGLVertexMake(GLfloat x, GLfloat y)
 {
 	PXGLVertex retVal;
 
@@ -65,7 +65,7 @@ PXInline_c PXGLVertex PXGLVertexMake(GLfloat x, GLfloat y)
 
 	return retVal;
 }
-PXInline_c PXGLColorVertex PXGLColorVertexMake(GLfloat x, GLfloat y,
+PXGLColorVertex PXGLColorVertexMake(GLfloat x, GLfloat y,
 												GLubyte r, GLubyte g, GLubyte b, GLubyte a)
 {
 	PXGLColorVertex retVal;
@@ -79,7 +79,7 @@ PXInline_c PXGLColorVertex PXGLColorVertexMake(GLfloat x, GLfloat y,
 
 	return retVal;
 }
-PXInline_c PXGLTextureVertex PXGLTextureVertexMake(GLfloat x, GLfloat y,
+PXGLTextureVertex PXGLTextureVertexMake(GLfloat x, GLfloat y,
 													GLfloat s, GLfloat t)
 {
 	PXGLTextureVertex retVal;
@@ -91,7 +91,7 @@ PXInline_c PXGLTextureVertex PXGLTextureVertexMake(GLfloat x, GLfloat y,
 
 	return retVal;
 }
-PXInline_c PXGLColoredTextureVertex PXGLColoredTextureVertexMake(GLfloat x, GLfloat y,
+PXGLColoredTextureVertex PXGLColoredTextureVertexMake(GLfloat x, GLfloat y,
 																  GLubyte r, GLubyte g, GLubyte b, GLubyte a,
 																  GLfloat s, GLfloat t)
 {
@@ -108,7 +108,7 @@ PXInline_c PXGLColoredTextureVertex PXGLColoredTextureVertexMake(GLfloat x, GLfl
 
 	return retVal;
 }
-PXInline_c PXGLMatrix PXGLMatrixMake(GLfloat a, GLfloat b,
+PXGLMatrix PXGLMatrixMake(GLfloat a, GLfloat b,
 									  GLfloat c, GLfloat d,
 									  GLfloat tx, GLfloat ty)
 {
@@ -123,7 +123,7 @@ PXInline_c PXGLMatrix PXGLMatrixMake(GLfloat a, GLfloat b,
 
 	return retVal;
 }
-PXInline_c PXGLColorTransform PXGLColorTransformMake(GLfloat redMultiplier,
+PXGLColorTransform PXGLColorTransformMake(GLfloat redMultiplier,
 													  GLfloat greenMultiplier,
 													  GLfloat blueMultiplier,
 													  GLfloat alphaMultiplier)
@@ -137,7 +137,7 @@ PXInline_c PXGLColorTransform PXGLColorTransformMake(GLfloat redMultiplier,
 
 	return retVal;
 }
-PXInline_c PXGLAABB PXGLAABBMake(GLint xMin,
+PXGLAABB PXGLAABBMake(GLint xMin,
 							 GLint yMin,
 							 GLint xMax,
 							 GLint yMax)
@@ -152,7 +152,7 @@ PXInline_c PXGLAABB PXGLAABBMake(GLint xMin,
 	return retVal;
 }
 
-PXInline_c PXGLAABBf PXGLAABBfMake(GLfloat xMin,
+PXGLAABBf PXGLAABBfMake(GLfloat xMin,
 							   GLfloat yMin,
 							   GLfloat xMax,
 							   GLfloat yMax)
@@ -167,7 +167,7 @@ PXInline_c PXGLAABBf PXGLAABBfMake(GLfloat xMin,
 	return retVal;
 }
 
-PXInline_c PXGLColorVerticesRef PXGLColorVerticesRefMake(unsigned vertexCount,
+PXGLColorVerticesRef PXGLColorVerticesRefMake(unsigned vertexCount,
 													 unsigned char red,
 													 unsigned char green,
 													 unsigned char blue,
@@ -193,7 +193,7 @@ PXInline_c PXGLColorVerticesRef PXGLColorVerticesRefMake(unsigned vertexCount,
 
 	return ref;
 }
-PXInline_c void PXGLColorVerticesRefFree(PXGLColorVertices * ref)
+void PXGLColorVerticesRefFree(PXGLColorVertices * ref)
 {
 	if (ref)
 	{
@@ -208,7 +208,7 @@ PXInline_c void PXGLColorVerticesRefFree(PXGLColorVertices * ref)
 	}
 }
 
-PXInline_c PXGLColorVertices PXGLColorVerticesMake(unsigned vertexCount,
+PXGLColorVertices PXGLColorVerticesMake(unsigned vertexCount,
 											   unsigned char red,
 											   unsigned char green,
 											   unsigned char blue,
@@ -235,7 +235,7 @@ PXInline_c PXGLColorVertices PXGLColorVerticesMake(unsigned vertexCount,
 
 	return ref;
 }
-PXInline_c void PXGLColorVerticesFree(PXGLColorVertices *colorVertices)
+void PXGLColorVerticesFree(PXGLColorVertices *colorVertices)
 {
 	if (colorVertices)
 	{
@@ -253,58 +253,58 @@ PXInline_c void PXGLColorVerticesFree(PXGLColorVertices *colorVertices)
 // MARK: AABB Functions
 // MARK: -
 
-/*PXInline_c PXGLAABB PXGLAABBReset()
+/*PXGLAABB PXGLAABBReset()
 {
 	return PXGLAABBMake(PXGLAABBResetMin, PXGLAABBResetMin, PXGLAABBResetMax, PXGLAABBResetMax);
 }*/
-PXInline_c void PXGLAABBUpdate(PXGLAABB *toBeUpdated, PXGLAABB *checkVals)
+void PXGLAABBUpdate(PXGLAABB *toBeUpdated, PXGLAABB *checkVals)
 {
 	*toBeUpdated = PXGLAABBMake(PXMathMin(toBeUpdated->xMin, checkVals->xMin),
 								PXMathMin(toBeUpdated->yMin, checkVals->yMin),
 								PXMathMax(toBeUpdated->xMax, checkVals->xMax),
 								PXMathMax(toBeUpdated->yMax, checkVals->yMax));
 }
-PXInline_c void PXGLAABBExpand(PXGLAABB *aabb, CGPoint point)
+void PXGLAABBExpand(PXGLAABB *aabb, CGPoint point)
 {
 	return PXGLAABBExpandv(aabb, roundf(point.x), roundf(point.y));
 }
-PXInline_c void PXGLAABBExpandv(PXGLAABB *aabb, GLint x, GLint y)
+void PXGLAABBExpandv(PXGLAABB *aabb, GLint x, GLint y)
 {
 	*aabb = PXGLAABBMake(PXMathMin(aabb->xMin, x),
 						 PXMathMin(aabb->yMin, y),
 						 PXMathMax(aabb->xMax, x),
 						 PXMathMax(aabb->yMax, y));
 }
-PXInline_c void PXGLAABBInflate(PXGLAABB *aabb, CGPoint point)
+void PXGLAABBInflate(PXGLAABB *aabb, CGPoint point)
 {
 	return PXGLAABBInflatev(aabb, roundf(point.x), roundf(point.y));
 }
-PXInline_c void PXGLAABBInflatev(PXGLAABB *aabb, GLint x, GLint y)
+void PXGLAABBInflatev(PXGLAABB *aabb, GLint x, GLint y)
 {
 	aabb->xMin -= x;
 	aabb->yMin -= y;
 	aabb->xMax += x;
 	aabb->yMax += y;
 }
-PXInline_c bool PXGLAABBIsReset(PXGLAABB *aabb)
+bool PXGLAABBIsReset(PXGLAABB *aabb)
 {
 	return (aabb->xMin == PXGLAABBResetMin ||
 			aabb->yMin == PXGLAABBResetMin ||
 			aabb->xMax == PXGLAABBResetMax ||
 			aabb->yMax == PXGLAABBResetMax);
 }
-PXInline_c bool PXGLAABBContainsPoint(PXGLAABB *aabb, CGPoint point)
+bool PXGLAABBContainsPoint(PXGLAABB *aabb, CGPoint point)
 {
 	return PXGLAABBContainsPointv(aabb, (GLint)(point.x), (GLint)(point.y));
 }
-PXInline_c bool PXGLAABBContainsPointv(PXGLAABB *aabb, GLint x, GLint y)
+bool PXGLAABBContainsPointv(PXGLAABB *aabb, GLint x, GLint y)
 {
 	return ((x >= aabb->xMin) &&
 			(x <= aabb->xMax) &&
 			(y >= aabb->yMin) &&
 			(y <= aabb->yMax));
 }
-PXInline_c bool PXGLAABBIsEqual(PXGLAABB *aabb1, PXGLAABB *aabb2)
+bool PXGLAABBIsEqual(PXGLAABB *aabb1, PXGLAABB *aabb2)
 {
 	return (aabb1->xMin == aabb2->xMin &&
 			aabb1->yMin == aabb2->yMin &&
@@ -316,58 +316,58 @@ PXInline_c bool PXGLAABBIsEqual(PXGLAABB *aabb1, PXGLAABB *aabb2)
 // MARK: AABBf Functions
 // MARK: -
 
-//PXInline_c PXGLAABBf PXGLAABBfReset()
+//PXGLAABBf PXGLAABBfReset()
 //{
 //	return PXGLAABBfMake(PXGLAABBfResetMin, PXGLAABBfResetMin, PXGLAABBfResetMax, PXGLAABBfResetMax);
 //}
-PXInline_c void PXGLAABBfUpdate(PXGLAABBf *toBeUpdated, PXGLAABBf *checkVals)
+void PXGLAABBfUpdate(PXGLAABBf *toBeUpdated, PXGLAABBf *checkVals)
 {
 	*toBeUpdated = PXGLAABBfMake(PXMathMin(toBeUpdated->xMin, checkVals->xMin),
 								 PXMathMin(toBeUpdated->yMin, checkVals->yMin),
 								 PXMathMax(toBeUpdated->xMax, checkVals->xMax),
 								 PXMathMax(toBeUpdated->yMax, checkVals->yMax));
 }
-PXInline_c void PXGLAABBfExpand(PXGLAABBf *aabb, CGPoint point)
+void PXGLAABBfExpand(PXGLAABBf *aabb, CGPoint point)
 {
 	return PXGLAABBfExpandv(aabb, point.x, point.y);
 }
-PXInline_c void PXGLAABBfExpandv(PXGLAABBf *aabb, GLfloat x, GLfloat y)
+void PXGLAABBfExpandv(PXGLAABBf *aabb, GLfloat x, GLfloat y)
 {
 	*aabb = PXGLAABBfMake(PXMathMin(aabb->xMin, x),
 						  PXMathMin(aabb->yMin, y),
 						  PXMathMax(aabb->xMax, x),
 						  PXMathMax(aabb->yMax, y));
 }
-PXInline_c void PXGLAABBfInflate(PXGLAABBf *aabb, CGPoint point)
+void PXGLAABBfInflate(PXGLAABBf *aabb, CGPoint point)
 {
 	return PXGLAABBfInflatev(aabb, point.x, point.y);
 }
-PXInline_c void PXGLAABBfInflatev(PXGLAABBf *aabb, GLfloat x, GLfloat y)
+void PXGLAABBfInflatev(PXGLAABBf *aabb, GLfloat x, GLfloat y)
 {
 	aabb->xMin -= x;
 	aabb->yMin -= y;
 	aabb->xMax += x;
 	aabb->yMax += y;
 }
-PXInline_c bool PXGLAABBfIsReset(PXGLAABBf *aabb)
+bool PXGLAABBfIsReset(PXGLAABBf *aabb)
 {
 	return (PXMathIsEqual(aabb->xMin, PXGLAABBfResetMin) ||
 			PXMathIsEqual(aabb->xMin, PXGLAABBfResetMin) ||
 			PXMathIsEqual(aabb->xMax, PXGLAABBfResetMax) ||
 			PXMathIsEqual(aabb->xMax, PXGLAABBfResetMax));
 }
-PXInline_c bool PXGLAABBfContainsPoint(PXGLAABBf *aabb, CGPoint point)
+bool PXGLAABBfContainsPoint(PXGLAABBf *aabb, CGPoint point)
 {
 	return PXGLAABBfContainsPointv(aabb, point.x, point.y);
 }
-PXInline_c bool PXGLAABBfContainsPointv(PXGLAABBf *aabb, GLfloat x, GLfloat y)
+bool PXGLAABBfContainsPointv(PXGLAABBf *aabb, GLfloat x, GLfloat y)
 {
 	return ((x >= aabb->xMin) &&
 			(x <= aabb->xMax) &&
 			(y >= aabb->yMin) &&
 			(y <= aabb->yMax));
 }
-PXInline_c bool PXGLAABBfIsEqual(PXGLAABBf *aabb1, PXGLAABBf *aabb2)
+bool PXGLAABBfIsEqual(PXGLAABBf *aabb1, PXGLAABBf *aabb2)
 {
 	return (PXMathIsEqual(aabb1->xMin, aabb2->xMin) &&
 			PXMathIsEqual(aabb1->xMin, aabb2->yMin) &&
@@ -379,7 +379,7 @@ PXInline_c bool PXGLAABBfIsEqual(PXGLAABBf *aabb1, PXGLAABBf *aabb2)
 // MARK: Matrix Functions
 // MARK: -
 
-PXInline_c CGPoint PXGLMatrixConvertPoint(PXGLMatrix *matrix,
+CGPoint PXGLMatrixConvertPoint(PXGLMatrix *matrix,
 									  CGPoint point)
 {
 	CGPoint retVal = point;
@@ -388,7 +388,7 @@ PXInline_c CGPoint PXGLMatrixConvertPoint(PXGLMatrix *matrix,
 
 	return retVal;
 }
-PXInline_c void PXGLMatrixConvertPointv(PXGLMatrix *matrix,
+void PXGLMatrixConvertPointv(PXGLMatrix *matrix,
 									float *x,
 									float *y)
 {
@@ -398,7 +398,7 @@ PXInline_c void PXGLMatrixConvertPointv(PXGLMatrix *matrix,
 	*x = (_x * matrix->a) + (_y * matrix->c) + matrix->tx;
 	*y = (_x * matrix->b) + (_y * matrix->d) + matrix->ty;
 }
-PXInline_c void PXGLMatrixConvertPoints(PXGLMatrix *matrix,
+void PXGLMatrixConvertPoints(PXGLMatrix *matrix,
 									CGPoint *points,
 									unsigned count)
 {
@@ -410,7 +410,7 @@ PXInline_c void PXGLMatrixConvertPoints(PXGLMatrix *matrix,
 		PXGLMatrixConvertPointv(matrix, &(point->x), &(point->y));
 	}
 }
-PXInline_c void PXGLMatrixConvertPointsv(PXGLMatrix *matrix,
+void PXGLMatrixConvertPointsv(PXGLMatrix *matrix,
 									 float *xs,
 									 float *ys,
 									 unsigned count)
@@ -424,7 +424,7 @@ PXInline_c void PXGLMatrixConvertPointsv(PXGLMatrix *matrix,
 		PXGLMatrixConvertPointv(matrix, curX, curY);
 	}
 }
-PXInline_c void PXGLMatrixConvert4Points(PXGLMatrix *matrix,
+void PXGLMatrixConvert4Points(PXGLMatrix *matrix,
 									 CGPoint *point0,
 									 CGPoint *point1,
 									 CGPoint *point2,
@@ -435,7 +435,7 @@ PXInline_c void PXGLMatrixConvert4Points(PXGLMatrix *matrix,
 	PXGLMatrixConvertPointv(matrix, &(point2->x), &(point2->y));
 	PXGLMatrixConvertPointv(matrix, &(point3->x), &(point3->y));
 }
-PXInline_c void PXGLMatrixConvert4Pointsv(PXGLMatrix *matrix,
+void PXGLMatrixConvert4Pointsv(PXGLMatrix *matrix,
 									  float *x0, float *y0,
 									  float *x1, float *y1,
 									  float *x2, float *y2,
@@ -447,7 +447,7 @@ PXInline_c void PXGLMatrixConvert4Pointsv(PXGLMatrix *matrix,
 	PXGLMatrixConvertPointv(matrix, x2, y2);
 	PXGLMatrixConvertPointv(matrix, x3, y3);
 }
-PXInline_c CGRect PXGLMatrixConvertRect(PXGLMatrix *matrix,
+CGRect PXGLMatrixConvertRect(PXGLMatrix *matrix,
 									CGRect rect)
 {
 	CGRect retVal = rect;
@@ -458,7 +458,7 @@ PXInline_c CGRect PXGLMatrixConvertRect(PXGLMatrix *matrix,
 
 	return retVal;
 }
-PXInline_c void PXGLMatrixConvertRectv(PXGLMatrix *matrix,
+void PXGLMatrixConvertRectv(PXGLMatrix *matrix,
 								   float *x, float *y,
 								   float *width, float *height)
 {
@@ -472,7 +472,7 @@ PXInline_c void PXGLMatrixConvertRectv(PXGLMatrix *matrix,
 	*height = aabb.yMax - aabb.yMin;
 }
 
-PXInline_c PXGLAABB PXGLMatrixConvertAABB(PXGLMatrix *matrix, PXGLAABB aabb)
+PXGLAABB PXGLMatrixConvertAABB(PXGLMatrix *matrix, PXGLAABB aabb)
 {
 	PXGLAABB retVal = aabb;
 
@@ -484,7 +484,7 @@ PXInline_c PXGLAABB PXGLMatrixConvertAABB(PXGLMatrix *matrix, PXGLAABB aabb)
 
 	return retVal;
 }
-PXInline_c void PXGLMatrixConvertAABBv(PXGLMatrix *matrix,
+void PXGLMatrixConvertAABBv(PXGLMatrix *matrix,
 								   GLint *xMin, GLint *yMin,
 								   GLint *xMax, GLint *yMax)
 {
@@ -501,7 +501,7 @@ PXInline_c void PXGLMatrixConvertAABBv(PXGLMatrix *matrix,
 	*yMax = ceilf(yMaxf);
 }
 
-PXInline_c PXGLAABBf PXGLMatrixConvertAABBf(PXGLMatrix *matrix, PXGLAABBf aabb)
+PXGLAABBf PXGLMatrixConvertAABBf(PXGLMatrix *matrix, PXGLAABBf aabb)
 {
 	PXGLAABBf retVal = aabb;
 
@@ -511,7 +511,7 @@ PXInline_c PXGLAABBf PXGLMatrixConvertAABBf(PXGLMatrix *matrix, PXGLAABBf aabb)
 
 	return retVal;
 }
-PXInline_c void PXGLMatrixConvertAABBfv(PXGLMatrix *matrix,
+void PXGLMatrixConvertAABBfv(PXGLMatrix *matrix,
 									GLfloat *xMin, GLfloat *yMin,
 									GLfloat *xMax, GLfloat *yMax)
 {
@@ -528,7 +528,7 @@ PXInline_c void PXGLMatrixConvertAABBfv(PXGLMatrix *matrix,
 	*yMax = fmaxf(p1.y, fmaxf(p2.y, fmaxf(p3.y, p4.y)));
 }
 
-PXInline_c bool PXGLMatrixIsEqual(PXGLMatrix *matrixA, PXGLMatrix *matrixB)
+bool PXGLMatrixIsEqual(PXGLMatrix *matrixA, PXGLMatrix *matrixB)
 {
 	if (matrixA == matrixB)
 		return true;
@@ -545,7 +545,7 @@ PXInline_c bool PXGLMatrixIsEqual(PXGLMatrix *matrixA, PXGLMatrix *matrixB)
 // MARK: Rect Functions
 // MARK: -
 
-PXInline_c bool _PXGLRectContainsAABB(_PXGLRect *rect, PXGLAABB *aabb)
+bool _PXGLRectContainsAABB(_PXGLRect *rect, PXGLAABB *aabb)
 {
 	// If max is less then, or min is greater then, then it is out of bounds.
 	if (aabb->xMax < rect->x ||

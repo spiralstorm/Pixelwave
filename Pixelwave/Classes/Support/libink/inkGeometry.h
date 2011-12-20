@@ -206,6 +206,7 @@ inkInline inkRect inkRectMake(inkPoint origin, inkSize size);
 inkInline inkRect inkRectMakef(float x, float y, float width, float height);
 
 inkInline inkRect inkRectFromBox(inkBox box);
+inkInline inkRect inkRectFromMinMaxBox(inkBox box);
 
 inkInline bool inkRectContainsPoint(inkRect rect, inkPoint point);
 inkInline bool inkRectContainsPointf(inkRect rect, float x, float y);
@@ -255,6 +256,10 @@ inkInline inkMatrix inkMatrixMakeGradientBoxf(float width, float height, float r
 
 inkInline inkPoint inkMatrixTransformPoint(inkMatrix matrix, inkPoint point);
 inkInline inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point);
+inkInline inkBox inkMatrixTransformBox(inkMatrix matrix, inkBox box);
+inkInline inkBox inkMatrixDeltaTransformBox(inkMatrix matrix, inkBox box);
+inkInline inkRect inkMatrixTransformRect(inkMatrix matrix, inkRect rect);
+inkInline inkRect inkMatrixDeltaTransformRect(inkMatrix matrix, inkRect rect);
 
 // MARK: -
 // MARK: Curve Declaration
@@ -598,6 +603,21 @@ inkInline inkRect inkRectFromBox(inkBox box)
 	return inkRectMake(box.pointA, inkSizeFromPoint(inkPointSubtract(box.pointC, box.pointA)));
 }
 
+inkInline inkRect inkRectFromMinMaxBox(inkBox box)
+{
+	inkRect rect;
+
+	rect.origin.x = fminf(box.pointA.x, fminf(box.pointB.x, fminf(box.pointC.x, box.pointD.x)));
+	rect.origin.y = fminf(box.pointA.y, fminf(box.pointB.y, fminf(box.pointC.y, box.pointD.y)));
+	rect.size.width  = fmaxf(box.pointA.x, fmaxf(box.pointB.x, fmaxf(box.pointC.x, box.pointD.x)));
+	rect.size.height = fmaxf(box.pointA.y, fmaxf(box.pointB.y, fmaxf(box.pointC.y, box.pointD.y)));
+	
+	rect.size.width  -= rect.origin.x;
+	rect.size.height -= rect.origin.y;
+
+	return rect;
+}
+
 inkInline bool inkRectContainsPoint(inkRect rect, inkPoint point)
 {
 	return !(point.x < rect.origin.x || point.x > (rect.origin.x + rect.size.width) || point.y < rect.origin.y || point.y > (rect.origin.y + rect.size.height));
@@ -845,16 +865,19 @@ inkInline inkMatrix inkMatrixMakeBoxf(float scaleX, float scaleY, float rotation
 
 inkInline inkMatrix inkMatrixMakeGradientBox(inkSize size, float rotation, inkPoint translate)
 {
-//	[matrix2 translateX:50.0f y:0.0f];
-//	[matrix2 scaleX:1.0f/75.0f y:1.0f/100.0f];
-//	[matrix2 rotate:-4.258603374866164];
-
+	inkSize halfSize = inkSizeMake(size.width * 0.5f, size.height * 0.5f);
 	size.width  = inkIsZerof(size.width)  ? 0.0f : 1.0f / size.width;
 	size.height = inkIsZerof(size.height) ? 0.0f : 1.0f / size.height;
 
-	inkMatrix matrix = inkMatrixTranslate(inkMatrixIdentity, translate);
+	inkMatrix matrix = inkMatrixIdentity;
+	matrix = inkMatrixTranslate(matrix, inkPointMake(-halfSize.width - translate.x, -halfSize.height - translate.y));
+
 	matrix = inkMatrixScale(matrix, size);
-	return inkMatrixRotate(matrix, -rotation);
+	matrix = inkMatrixRotate(matrix, -rotation);
+
+	matrix = inkMatrixTranslate(matrix, inkPointMultiply(inkPointMake(halfSize.width, halfSize.height), inkPointFromSize(size)));
+
+	return matrix;
 }
 
 inkInline inkMatrix inkMatrixMakeGradientBoxf(float width, float height, float rotation, float tx, float ty)
@@ -872,6 +895,40 @@ inkInline inkPoint inkMatrixDeltaTransformPoint(inkMatrix matrix, inkPoint point
 {
 	return inkPointMake((point.x * matrix.a) + (point.y * matrix.c),
 						(point.x * matrix.b) + (point.y * matrix.d));
+}
+
+inkInline inkBox inkMatrixTransformBox(inkMatrix matrix, inkBox box)
+{
+	box.pointA = inkMatrixTransformPoint(matrix, box.pointA);
+	box.pointB = inkMatrixTransformPoint(matrix, box.pointB);
+	box.pointC = inkMatrixTransformPoint(matrix, box.pointC);
+	box.pointD = inkMatrixTransformPoint(matrix, box.pointD);
+
+	return box;
+}
+
+inkInline inkBox inkMatrixDeltaTransformBox(inkMatrix matrix, inkBox box)
+{
+	box.pointA = inkMatrixDeltaTransformPoint(matrix, box.pointA);
+	box.pointB = inkMatrixDeltaTransformPoint(matrix, box.pointB);
+	box.pointC = inkMatrixDeltaTransformPoint(matrix, box.pointC);
+	box.pointD = inkMatrixDeltaTransformPoint(matrix, box.pointD);
+
+	return box;
+}
+
+inkInline inkRect inkMatrixTransformRect(inkMatrix matrix, inkRect rect)
+{
+	inkBox box = inkMatrixTransformBox(matrix, inkBoxFromRect(rect));
+
+	return inkRectFromMinMaxBox(box);
+}
+
+inkInline inkRect inkMatrixDeltaTransformRect(inkMatrix matrix, inkRect rect)
+{
+	inkBox box = inkMatrixDeltaTransformBox(matrix, inkBoxFromRect(rect));
+
+	return inkRectFromMinMaxBox(box);
 }
 
 #endif
