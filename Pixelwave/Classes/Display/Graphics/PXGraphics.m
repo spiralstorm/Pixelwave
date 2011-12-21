@@ -148,6 +148,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 @implementation PXGraphics
 
 @synthesize vertexCount;
+@synthesize convertTrianglesIntoStrips;
 
 - (id) init
 {
@@ -394,6 +395,14 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 	}
 
 	return false;
+}
+
+- (void) setConvertTrianglesIntoStrips:(bool)_convertTrianglesIntoStrips
+{
+	wasBuilt = false;
+	convertTrianglesIntoStrips = _convertTrianglesIntoStrips;
+
+	inkSetConvertTrianglesIntoStrips((inkCanvas*)vCanvas, convertTrianglesIntoStrips);
 }
 
 // MARK: -

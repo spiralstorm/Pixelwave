@@ -53,6 +53,7 @@
 	void *vCanvas;
 
 	bool wasBuilt;
+	bool convertTrianglesIntoStrips;
 
 	PXGLMatrix previousMatrix;
 
@@ -60,6 +61,7 @@
 }
 
 @property (nonatomic, readonly) unsigned int vertexCount;
+@property (nonatomic) bool convertTrianglesIntoStrips;
 
 - (void) beginFill:(unsigned int)color alpha:(float)alpha;
 - (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth;

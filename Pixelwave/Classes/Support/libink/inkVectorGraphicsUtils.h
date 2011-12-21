@@ -23,4 +23,6 @@ inkExtern void inkDrawPath(inkCanvas* canvas, inkArray* commands, inkArray* poin
 inkExtern void inkDrawSVGPath(inkCanvas* canvas, const char* path);
 inkExtern void inkDrawSVGPathv(inkCanvas* canvas, const char* path, inkPoint offset);
 
+inkExtern int inkDrawHersheyFont(inkCanvas* canvas, const char* path);
+
 #endif

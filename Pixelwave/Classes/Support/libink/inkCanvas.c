@@ -49,7 +49,8 @@ inkCanvas* inkCreate()
 		canvas->boundsWithStroke = inkRectZero;
 		canvas->previousControl = inkPointZero;
 		canvas->totalLength = 0.0f;
-	
+
+		inkSetConvertTrianglesIntoStrips(canvas, false);
 		inkSetIncompleteDrawStrategies(canvas, inkIncompleteDrawStrategy_Fade, inkIncompleteDrawStrategy_Full, 0.0f);
 		inkSetMaxLength(canvas, FLT_MAX);
 		inkSetCurveMultiplier(canvas, 0.1f);
@@ -262,4 +263,18 @@ void inkFreeCachedMemory(inkCanvas* canvas)
 	}
 
 	inkArrayClear(canvas->destroyUponClear);
+}
+
+void inkSetConvertTrianglesIntoStrips(inkCanvas* canvas, bool convertTrianglesIntoStrips)
+{
+	assert(canvas != NULL);
+
+	canvas->convertTrianglesIntoStrips = convertTrianglesIntoStrips;
+}
+
+bool inkGetConvertTrianglesIntoStrips(inkCanvas* canvas)
+{
+	assert(canvas != NULL);
+
+	return canvas->convertTrianglesIntoStrips;
 }

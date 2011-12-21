@@ -217,4 +217,10 @@ typedef enum
 	inkIncompleteDrawStrategy_Full
 } inkIncompleteDrawStrategy;
 
+typedef enum
+{
+	inkDrawType_Arrays = 0,
+	inkDrawType_Elements,
+} inkDrawType;
+
 #endif

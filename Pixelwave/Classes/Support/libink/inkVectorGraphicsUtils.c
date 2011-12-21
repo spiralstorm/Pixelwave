@@ -283,3 +283,43 @@ void inkDrawSVGPath(inkCanvas* canvas, const char* path)
 {
     inkDrawSVGPathv(canvas, path, inkPointZero);
 }
+
+int inkDrawHersheyFont(inkCanvas* canvas, const char* path)
+{
+	int xmax = 0;
+	int xmin = 0;
+	bool first = true;
+	bool pen = false;
+	inkPoint base = canvas->cursor;
+
+	while (*path)
+	{
+		char xc = (*(path++));
+		char yc = (*(path++));
+
+		if ( xc == ' ' && yc == 'R')
+		{
+			pen = false;
+			continue;
+		}
+
+		float xf = xc - 'R';
+		float yf = yc - 'R';
+
+		if ( xf > xmax || first ) xmax = xf;
+		if ( xf < xmin || first ) xmin = xf;
+		if ( pen )
+		{
+			inkLineTov(canvas,inkPointAdd(inkPointMake(xf, yf), base), false);
+		}
+		else
+		{
+			inkMoveTov(canvas,inkPointAdd(inkPointMake(xf, yf), base), false);
+			pen = true;
+		}
+
+		first = false;
+	}
+
+	return xmax - xmin;
+}

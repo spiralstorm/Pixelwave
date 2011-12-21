@@ -618,6 +618,9 @@ void inkBuild(inkCanvas* canvas)
 			minPointWithStroke = inkPointMake(fminf(minPointWithStroke.x, vertex->pos.x), fminf(minPointWithStroke.y, vertex->pos.y));
 			maxPointWithStroke = inkPointMake(fmaxf(maxPointWithStroke.x, vertex->pos.x), fmaxf(maxPointWithStroke.y, vertex->pos.y));
 		}
+
+		if (inkGetConvertTrianglesIntoStrips(canvas) == true)
+			inkRenderGroupConvertToStrips(renderGroup);
 	}
 
 	canvas->bounds = inkRectMake(minPoint, inkSizeFromPoint(inkPointSubtract(maxPoint, minPoint)));

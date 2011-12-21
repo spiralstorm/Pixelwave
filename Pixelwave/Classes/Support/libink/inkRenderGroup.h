@@ -16,9 +16,13 @@
 
 typedef struct
 {
-	inkArray *vertices;
+	inkArray* vertices;
+	inkArray* indices;
 
+	// GL_TRIANGLE_STRIP, ... etc
 	INKenum glDrawMode;
+
+	inkDrawType glDrawType;
 
 	inkPresetGLData glData;
 
@@ -30,5 +34,7 @@ inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLDa
 inkExtern void inkRenderGroupDestroy(inkRenderGroup* group);
 
 inkExtern inkVertex *inkRenderGroupNextVertex(inkRenderGroup* group);
+
+inkExtern void inkRenderGroupConvertToStrips(inkRenderGroup* group);
 
 #endif

@@ -45,6 +45,8 @@ typedef struct
 	float one_pixelsPerPoint;
 	float overDrawAllowance;
 
+	bool convertTrianglesIntoStrips;
+
 	inkIncompleteDrawStrategy incompleteFillStrategy;
 	inkIncompleteDrawStrategy incompleteStrokeStrategy;
 } inkCanvas;
@@ -76,5 +78,8 @@ inkExtern void inkRemoveAllRenderGroups(inkCanvas* canvas);
 
 inkExtern bool inkAddMemoryToFreeUponClear(inkCanvas* canvas, void* holder, inkDestroyFunction func);
 inkExtern void inkFreeCachedMemory(inkCanvas* canvas);
+
+inkExtern void inkSetConvertTrianglesIntoStrips(inkCanvas* canvas, bool convertTrianglesIntoStrips);
+inkExtern bool inkGetConvertTrianglesIntoStrips(inkCanvas* canvas);
 
 #endif
