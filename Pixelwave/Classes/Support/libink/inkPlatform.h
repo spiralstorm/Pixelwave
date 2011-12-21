@@ -10,7 +10,7 @@
 #define _INK_PLATFORM_H_
 
 // Apple
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(__MACH__)
 
 #include "AvailabilityMacros.h"
 

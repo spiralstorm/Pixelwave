@@ -83,16 +83,14 @@ void inkDestroy(inkCanvas* canvas)
 
 inkArray* inkRenderGroups(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return NULL;
+	assert(canvas != NULL);
 
 	return canvas->renderGroups;
 }
 
 inkPoint inkCursor(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return inkPointZero;
+	assert(canvas != NULL);
 
 	return canvas->cursor;
 }
@@ -104,8 +102,7 @@ inkRect inkBounds(inkCanvas* canvas)
 
 inkRect inkBoundsv(inkCanvas* canvas, bool withStroke)
 {
-	if (canvas == NULL)
-		return inkRectZero;
+	assert(canvas != NULL);
 
 	if (withStroke)
 		return canvas->boundsWithStroke;
@@ -115,8 +112,7 @@ inkRect inkBoundsv(inkCanvas* canvas, bool withStroke)
 
 void inkSetCurveMultiplier(inkCanvas* canvas, float curveMultiplier)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	curveMultiplier = fabsf(curveMultiplier);
 	if (inkIsZerof(curveMultiplier))
@@ -127,40 +123,35 @@ void inkSetCurveMultiplier(inkCanvas* canvas, float curveMultiplier)
 
 float inkCurveMultiplier(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return 0.0f;
+	assert(canvas != NULL);
 
 	return canvas->curveMultiplier;
 }
 
 float inkTotalLength(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return 0.0f;
+	assert(canvas != NULL);
 
 	return canvas->totalLength;
 }
 
 void inkSetMaxLength(inkCanvas* canvas, float length)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	canvas->maxLength = fabsf(length);
 }
 
 float inkMaxLength(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return 0.0f;
+	assert(canvas != NULL);
 
 	return canvas->maxLength;
 }
 
 void inkSetIncompleteDrawStrategies(inkCanvas* canvas, inkIncompleteDrawStrategy incompleteFillStrategy, inkIncompleteDrawStrategy incompleteStrokeStrategy, float overDrawAllowance)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	canvas->incompleteFillStrategy = incompleteFillStrategy;
 	canvas->incompleteStrokeStrategy = incompleteStrokeStrategy;
@@ -169,8 +160,7 @@ void inkSetIncompleteDrawStrategies(inkCanvas* canvas, inkIncompleteDrawStrategy
 
 void inkSetPixelsPerPoint(inkCanvas* canvas, float pixelsPerPoint)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	pixelsPerPoint = fabsf(pixelsPerPoint);
 	if (pixelsPerPoint <= 0.0f)
@@ -182,16 +172,14 @@ void inkSetPixelsPerPoint(inkCanvas* canvas, float pixelsPerPoint)
 
 float inkPixelsPerPoint(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return 1.0f;
+	assert(canvas != NULL);
 
 	return canvas->pixelsPerPoint;
 }
 
 void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	inkCommand *command = inkCommandCreate(type, data);
 
@@ -208,8 +196,7 @@ void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data)
 
 void inkRemoveAllCommands(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	if (canvas->commandList != NULL)
 	{
@@ -226,8 +213,7 @@ void inkRemoveAllCommands(inkCanvas* canvas)
 
 void inkRemoveAllRenderGroups(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	if (canvas->renderGroups != NULL)
 	{
@@ -246,8 +232,7 @@ void inkRemoveAllRenderGroups(inkCanvas* canvas)
 
 bool inkAddMemoryToFreeUponClear(inkCanvas* canvas, void* holder, inkDestroyFunction func)
 {
-	if (canvas == NULL)
-		return false;
+	assert(canvas != NULL);
 
 	unsigned int previousCount = inkArrayCount(canvas->destroyUponClear);
 	inkObject** objPtr = inkArrayPush(canvas->destroyUponClear);
@@ -267,8 +252,7 @@ bool inkAddMemoryToFreeUponClear(inkCanvas* canvas, void* holder, inkDestroyFunc
 
 void inkFreeCachedMemory(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	inkObject* obj;
 

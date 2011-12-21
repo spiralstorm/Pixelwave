@@ -39,6 +39,8 @@
 
 #import <UIKit/UIKit.h>
 
+#include "inkGL.h"
+
 @class PXView;
 @class PXStage;
 @class PXDisplayObject;

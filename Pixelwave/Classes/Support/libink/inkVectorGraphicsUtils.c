@@ -72,8 +72,10 @@ void inkDrawRoundRect(inkCanvas* canvas, inkRect rect, inkSize ellipseSize)
 
 void inkDrawPath(inkCanvas* canvas, inkArray* commands, inkArray* points, inkWindingRule winding)
 {
+	assert(canvas != NULL);
+
     // TODO: Write this directly into the command queue, becuase it's faster
-	if (canvas == NULL || commands == NULL || points == NULL)
+	if (commands == NULL || points == NULL)
 		return;
 
 	unsigned int pointCount = inkArrayCount(points);

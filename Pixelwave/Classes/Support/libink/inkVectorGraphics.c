@@ -30,7 +30,9 @@ void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGener
 
 inkInline inkPoint inkPosition(inkCanvas* canvas, inkPoint position, bool relative)
 {
-	if (canvas == NULL || relative == false)
+	assert(canvas != NULL);
+
+	if (relative == false)
 		return position;
 
 	return inkPointAdd(canvas->cursor, position);
@@ -38,8 +40,7 @@ inkInline inkPoint inkPosition(inkCanvas* canvas, inkPoint position, bool relati
 
 inkInline void inkSetCursor(inkCanvas* canvas, inkPoint position)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	canvas->cursor = position;
 }
@@ -58,8 +59,7 @@ unsigned int inkArcLengthSegmentCount(inkCanvas* canvas, float arcLength)
 
 void inkClear(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	inkRemoveAllCommands(canvas);
 	inkRemoveAllRenderGroups(canvas);
@@ -97,8 +97,7 @@ void inkCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool rela
 
 void inkQuadraticCurveTov(inkCanvas* canvas, inkPoint control, inkPoint anchor, bool relative, bool reflect)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	if (reflect == false)
 		control = inkPosition(canvas, control, relative);
@@ -240,16 +239,14 @@ inkPoint inkUpdatePositionv(inkPoint point, void* canvas)
 
 inkPoint inkUpdatePosition(inkCanvas* canvas, inkPoint point)
 {
-	if (canvas == NULL)
-		return inkPointZero;
+	assert(canvas != NULL);
 
 	return inkMatrixTransformPoint(canvas->matrix, point);
 }
 
 void inkInternalLineTo(inkCanvas* canvas, inkPoint point, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	if (canvas->totalLength >= canvas->maxLength || inkIsZerof(canvas->maxLength))
 		return;
@@ -306,8 +303,7 @@ void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGener
 
 void inkFadeStrategyRenderGroups(inkCanvas* canvas, float red, float green, float blue, float alpha)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	if (canvas->incompleteFillStrategy != inkIncompleteDrawStrategy_Fade &&
 		canvas->incompleteStrokeStrategy != inkIncompleteDrawStrategy_Fade)
@@ -346,8 +342,7 @@ void inkFadeStrategyRenderGroups(inkCanvas* canvas, float red, float green, floa
 
 void inkHandleIncompleteGenerator(inkCanvas* canvas, inkGenerator* generator, inkIncompleteDrawStrategy strategy, float alphaMult)
 {
-	if (generator == NULL)
-		return;
+	assert(generator != NULL);
 
 	switch(strategy)
 	{
@@ -368,8 +363,7 @@ void inkHandleIncompleteGenerator(inkCanvas* canvas, inkGenerator* generator, in
 
 void inkHandleIncompleteDraw(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	float alphaMult = 0.0f;
 	if (canvas->overDrawAllowance != 0.0f)
@@ -395,8 +389,7 @@ void inkHandleIncompleteDraw(inkCanvas* canvas, inkFillGenerator* fillGenerator,
 // tessellator.
 void inkBuild(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	inkRemoveAllRenderGroups(canvas);
 
@@ -728,8 +721,7 @@ inkRenderGroup* inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoun
 
 void inkPushMatrix(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	inkMatrix* matrixPtr = inkArrayPush(canvas->matrixStack);
 
@@ -741,8 +733,7 @@ void inkPushMatrix(inkCanvas* canvas)
 
 void inkPopMatrix(inkCanvas* canvas)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	inkArrayPop(canvas->matrixStack);
 
@@ -760,24 +751,21 @@ void inkPopMatrix(inkCanvas* canvas)
 
 void inkLoadMatrix(inkCanvas* canvas, inkMatrix matrix)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	canvas->matrix = matrix;
 }
 
 void inkMultMatrix(inkCanvas* canvas, inkMatrix matrix)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	canvas->matrix = inkMatrixMultiply(canvas->matrix, matrix);
 }
 
 void inkRotate(inkCanvas* canvas, float radians)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	canvas->matrix = inkMatrixRotate(canvas->matrix, radians);
 }
@@ -789,8 +777,7 @@ void inkRotatef(inkCanvas* canvas, float radians)
 
 void inkScale(inkCanvas* canvas, inkSize scale)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	canvas->matrix = inkMatrixScale(canvas->matrix, scale);
 }
@@ -802,8 +789,7 @@ void inkScalef(inkCanvas* canvas, float x, float y)
 
 void inkTranslate(inkCanvas* canvas, inkPoint offset)
 {
-	if (canvas == NULL)
-		return;
+	assert(canvas != NULL);
 
 	canvas->matrix = inkMatrixTranslate(canvas->matrix, offset);
 }
@@ -813,6 +799,70 @@ void inkTranslatef(inkCanvas* canvas, float x, float y)
 	inkTranslate(canvas, inkPointMake(x, y));
 }
 
+void inkDrawCompareAndSetStates(inkRenderer* renderer, inkPresetGLData* origState, inkPresetGLData* stateIn, inkPresetGLData* newState)
+{
+	assert(renderer != NULL);
+	assert(origState != NULL);
+	assert(stateIn != NULL);
+	assert(newState != NULL);
+
+#ifdef GL_POINT_SIZE
+	if (renderer->pointSizeFunc != NULL && stateIn->pointSize != newState->pointSize)
+		renderer->pointSizeFunc(newState->pointSize);
+#endif
+
+#ifdef GL_LINE_WIDTH
+	if (renderer->lineWidthFunc != NULL && stateIn->lineWidth != newState->lineWidth)
+		renderer->lineWidthFunc(newState->lineWidth);
+#endif
+
+	if (stateIn->textureName != newState->textureName)
+	{
+		if (stateIn->textureName != 0)
+		{
+			if (origState->magFilter != stateIn->magFilter)
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, stateIn->magFilter);
+			if (origState->minFilter != stateIn->minFilter)
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, stateIn->minFilter);
+			if (origState->wrapS != stateIn->wrapS)
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, stateIn->wrapS);
+			if (origState->wrapT != stateIn->wrapT)
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, stateIn->wrapT);
+		}
+
+		if (newState->textureName != 0)
+		{
+			renderer->disableClientFunc(GL_COLOR_ARRAY);
+			renderer->enableClientFunc(GL_TEXTURE_COORD_ARRAY);
+
+			renderer->enableFunc(GL_TEXTURE_2D);
+			renderer->textureFunc(GL_TEXTURE_2D, newState->textureName);
+
+			renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &origState->magFilter);
+			renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &origState->minFilter);
+			renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &origState->wrapS);
+			renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &origState->wrapT);
+
+			if (origState->magFilter != newState->magFilter)
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, newState->magFilter);
+			if (origState->minFilter != newState->minFilter)
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, newState->minFilter);
+			if (origState->wrapS != newState->wrapS)
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, newState->wrapS);
+			if (origState->wrapT != newState->wrapT)
+				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, newState->wrapT);
+		}
+		else
+		{
+			renderer->disableFunc(GL_TEXTURE_2D);
+			renderer->enableClientFunc(GL_COLOR_ARRAY);
+			renderer->disableClientFunc(GL_TEXTURE_COORD_ARRAY);
+		}
+	}
+
+	*stateIn = *newState;
+}
+
 unsigned int inkDraw(inkCanvas* canvas)
 {
 	return inkDrawv(canvas, (inkRenderer*)&inkRendererDefault);
@@ -820,9 +870,30 @@ unsigned int inkDraw(inkCanvas* canvas)
 
 unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 {
+	assert(canvas != NULL);
+	assert(renderer != NULL);
+
+	assert(renderer->enableFunc);
+	assert(renderer->disableFunc);
+	assert(renderer->enableClientFunc);
+	assert(renderer->disableClientFunc);
+	assert(renderer->getBooleanFunc);
+	assert(renderer->getFloatFunc);
+	assert(renderer->getIntegerFunc);
+	//assert(renderer->pointSizeFunc); // Optional
+	//assert(renderer->lineWidthFunc); // Optional
+	assert(renderer->textureFunc);
+	assert(renderer->getTexParamFunc);
+	assert(renderer->setTexParamFunc);
+	assert(renderer->vertexFunc);
+	assert(renderer->textureCoordinateFunc);
+	assert(renderer->colorFunc);
+	assert(renderer->drawArraysFunc);
+	assert(renderer->drawElementsFunc);
+
 	inkArray* renderGroups = inkRenderGroups(canvas);
 
-	if (renderer == NULL || renderGroups == NULL)
+	if (renderGroups == NULL)
 		return 0;
 
 	inkRenderGroup* renderGroup;
@@ -832,15 +903,17 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 	unsigned int vertexArrayCount;
 	unsigned int totalVertexCount = 0;
 
+	inkPresetGLData startedGLData;
 	inkPresetGLData previousGLData;
+	inkPresetGLData origGLData;
 
 	renderer->getIntegerFunc(GL_TEXTURE_BINDING_2D, (int*)&previousGLData.textureName);
 	if (previousGLData.textureName != 0)
 	{
-		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &previousGLData.magFilter);
-		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &previousGLData.minFilter);
-		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &previousGLData.wrapS);
-		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &previousGLData.wrapT);
+		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &startedGLData.magFilter);
+		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &startedGLData.minFilter);
+		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &startedGLData.wrapS);
+		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &startedGLData.wrapT);
 
 		renderer->disableClientFunc(GL_COLOR_ARRAY);
 		renderer->enableClientFunc(GL_TEXTURE_COORD_ARRAY);
@@ -853,90 +926,22 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 		renderer->enableClientFunc(GL_COLOR_ARRAY);
 		renderer->disableClientFunc(GL_TEXTURE_COORD_ARRAY);
 	}
-	renderer->getFloatFunc(GL_POINT_SIZE, &previousGLData.pointSize);
-	renderer->getFloatFunc(GL_LINE_WIDTH, &previousGLData.lineWidth);
 
-	inkPresetGLData origGLData = previousGLData;
-	inkPresetGLData startState = previousGLData;
+#ifdef GL_POINT_SIZE
+	renderer->getFloatFunc(GL_POINT_SIZE, &startedGLData.pointSize);
+#endif
+#ifdef GL_LINE_WIDTH
+	renderer->getFloatFunc(GL_LINE_WIDTH, &startedGLData.lineWidth);
+#endif
+
+	previousGLData = startedGLData;
+	origGLData = startedGLData;
 
 	inkArrayPtrForEach(renderGroups, renderGroup)
 	{
 		vertexArray = renderGroup->vertices;
 
-		if (previousGLData.pointSize != renderGroup->glData.pointSize)
-		{
-			previousGLData.pointSize = renderGroup->glData.pointSize;
-			renderer->pointSizeFunc(renderGroup->glData.pointSize);
-		}
-
-		if (previousGLData.lineWidth != renderGroup->glData.lineWidth)
-		{
-			previousGLData.lineWidth = renderGroup->glData.lineWidth;
-			renderer->lineWidthFunc(renderGroup->glData.lineWidth);
-		}
-
-		if (previousGLData.textureName != renderGroup->glData.textureName)
-		{
-			if (origGLData.textureName != 0)
-			{
-				if (origGLData.magFilter != previousGLData.magFilter)
-					renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, origGLData.magFilter);
-				if (origGLData.minFilter != previousGLData.minFilter)
-					renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, origGLData.minFilter);
-				if (origGLData.wrapS != previousGLData.wrapS)
-					renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, origGLData.wrapS);
-				if (origGLData.wrapT != previousGLData.wrapT)
-					renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, origGLData.wrapT);
-			}
-
-			previousGLData.textureName = renderGroup->glData.textureName;
-
-			if (previousGLData.textureName != 0)
-			{
-				renderer->disableClientFunc(GL_COLOR_ARRAY);
-				renderer->enableClientFunc(GL_TEXTURE_COORD_ARRAY);
-
-				renderer->enableFunc(GL_TEXTURE_2D);
-				renderer->textureFunc(GL_TEXTURE_2D, renderGroup->glData.textureName);
-
-				renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &previousGLData.magFilter);
-				renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &previousGLData.minFilter);
-				renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, &previousGLData.wrapS);
-				renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, &previousGLData.wrapT);
-			}
-			else
-			{
-				renderer->disableFunc(GL_TEXTURE_2D);
-				renderer->enableClientFunc(GL_COLOR_ARRAY);
-				renderer->disableClientFunc(GL_TEXTURE_COORD_ARRAY);
-			}
-
-			origGLData = previousGLData;
-		}
-
-		if (previousGLData.textureName != 0)
-		{
-			if (previousGLData.magFilter != renderGroup->glData.magFilter)
-			{
-				previousGLData.magFilter = renderGroup->glData.magFilter;
-				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, renderGroup->glData.magFilter);
-			}
-			if (previousGLData.minFilter != renderGroup->glData.minFilter)
-			{
-				previousGLData.minFilter = renderGroup->glData.minFilter;
-				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, renderGroup->glData.minFilter);
-			}
-			if (previousGLData.wrapS != renderGroup->glData.wrapS)
-			{
-				previousGLData.wrapS = renderGroup->glData.wrapS;
-				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, renderGroup->glData.wrapS);
-			}
-			if (previousGLData.wrapT != renderGroup->glData.wrapT)
-			{
-				previousGLData.wrapT = renderGroup->glData.wrapT;
-				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, renderGroup->glData.wrapT);
-			}
-		}
+		inkDrawCompareAndSetStates(renderer, &origGLData, &previousGLData, &renderGroup->glData);
 
 		if (vertexArray != NULL)
 		{
@@ -953,35 +958,7 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 		}
 	}
 
-	if (origGLData.textureName != previousGLData.textureName)
-	{
-		if (origGLData.textureName != 0)
-		{
-			if (origGLData.magFilter != previousGLData.magFilter)
-				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, origGLData.magFilter);
-			if (origGLData.minFilter != previousGLData.minFilter)
-				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, origGLData.minFilter);
-			if (origGLData.wrapS != previousGLData.wrapS)
-				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, origGLData.wrapS);
-			if (origGLData.wrapT != previousGLData.wrapT)
-				renderer->setTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, origGLData.wrapT);
-		}
-
-		if (startState.textureName != 0)
-		{
-			renderer->disableClientFunc(GL_COLOR_ARRAY);
-			renderer->enableClientFunc(GL_TEXTURE_COORD_ARRAY);
-
-			renderer->enableFunc(GL_TEXTURE_2D);
-			renderer->textureFunc(GL_TEXTURE_2D, startState.textureName);
-		}
-		else
-		{
-			renderer->disableFunc(GL_TEXTURE_2D);
-			renderer->enableClientFunc(GL_COLOR_ARRAY);
-			renderer->disableClientFunc(GL_TEXTURE_COORD_ARRAY);
-		}
-	}
+	inkDrawCompareAndSetStates(renderer, &origGLData, &previousGLData, &startedGLData);
 
 	return totalVertexCount;
 }

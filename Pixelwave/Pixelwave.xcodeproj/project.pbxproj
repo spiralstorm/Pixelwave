@@ -3090,6 +3090,7 @@
 				OTHER_CFLAGS = (
 					"-DFT2_BUILD_LIBRARY",
 					"-DDARWIN_NO_CARBON",
+					"-DNDEBUG",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = Pixelwave;
