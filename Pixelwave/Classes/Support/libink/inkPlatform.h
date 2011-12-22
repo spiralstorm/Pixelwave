@@ -20,14 +20,18 @@
 #include "TargetConditionals.h"
 #endif // includes for apple
 
+#endif // #if apple
+
+// NOTE:	Any TARGET_ is ALWAYS defined for apple, thus it is checked with
+//			regular if, not ifdef
+
 // ios
 #if TARGET_OS_IPHONE || TARGET_IPHONE_SIMULATOR
 #define INK_PLATFORM_IOS
 
 // osx
-#elif defined(__MACOSX__) || defined(__MACOS__)
+#elif TARGET_OS_MAC || defined(__MACOSX__) || defined(__MACOS__)
 #define INK_PLATFORM_OSX
-#endif // #if apple
 
 // windows
 #elif defined(WIN32) || defined(__WIN32) || defined(__WIN32__)
