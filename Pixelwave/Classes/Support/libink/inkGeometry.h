@@ -269,6 +269,12 @@ float inkCurveLength(inkCurveType curveType, inkPoint start, inkPoint controlA, 
 void inkCurveApproximation(inkCurveType curveType, inkPoint start, inkPoint controlA, inkPoint controlB, inkPoint anchor, unsigned int precicion, inkCurveNewPointCallback newPointFunc, void* newPointUserData);
 
 // MARK: -
+// MARK: Vertex Declarations
+// MARK: -
+
+inkInline bool inkVertexIsEqual(inkVertex vertexA, inkVertex vertexB);
+
+// MARK: -
 // MARK: Math Implemenations
 // MARK: -
 
@@ -929,6 +935,12 @@ inkInline inkRect inkMatrixDeltaTransformRect(inkMatrix matrix, inkRect rect)
 	inkBox box = inkMatrixDeltaTransformBox(matrix, inkBoxFromRect(rect));
 
 	return inkRectFromMinMaxBox(box);
+}
+
+inkInline bool inkVertexIsEqual(inkVertex vertexA, inkVertex vertexB)
+{
+	//return inkPointIsEqual(vertexA.pos, vertexB.pos) && inkColorIsEqual(vertexA.color, vertexB.color) && inkPointIsEqual(vertexA.tex, vertexB.tex);
+	return (vertexA.pos.x == vertexB.pos.x) && (vertexA.pos.y == vertexB.pos.y) && inkColorIsEqual(vertexA.color, vertexB.color) && (vertexA.tex.x == vertexB.tex.x) && (vertexA.tex.y == vertexB.tex.y);
 }
 
 #endif

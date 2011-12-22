@@ -9,6 +9,8 @@
 #ifndef _INK_PLATFORM_H_
 #define _INK_PLATFORM_H_
 
+#if !defined(INK_PLATFORM_IOS) && !defined(INK_PLATFORM_OSX) && !defined(INK_PLATFORM_WINDOWS) && !defined(INK_PLATFORM_LINUX) && !defined(INK_PLATFORM_ANDROID)
+
 // Apple
 #if defined(__APPLE__) || defined(__MACH__)
 
@@ -39,5 +41,7 @@
 #else
 #define INK_PLATFORM_UNKOWN
 #endif // Platform search
+
+#endif
 
 #endif

@@ -35,6 +35,7 @@ inkInline inkColor inkColorApplyTransform(inkColor color, inkColorTransform tran
 inkInline inkColorTransform inkColorTransformMake(float r, float g, float b, float a);
 inkInline inkColorTransform inkColorTransformFromColor(inkColor color);
 inkInline inkColorHSV inkColorHSVMake(float h, float s, float v);
+inkInline bool inkColorIsEqual(inkColor colorA, inkColor colorB);
 
 inkExtern inkColor inkColorInterpolate(inkColor colorA, inkColor colorB, float percent);
 inkExtern inkColor inkColorHSVInterpolate(inkColor colorA, inkColor colorB, float percent);
@@ -235,6 +236,11 @@ inkInline inkColorTransform inkColorTransformFromColor(inkColor color)
 inkInline inkColor inkColorApplyTransform(inkColor color, inkColorTransform transform)
 {
 	return inkColorMake(color.r * transform.r, color.g * transform.g, color.b * transform.b, color.a * transform.a);
+}
+
+inkInline bool inkColorIsEqual(inkColor colorA, inkColor colorB)
+{
+	return (colorA.r == colorB.r) && (colorA.g == colorB.g) && (colorA.b == colorB.b) && (colorA.a == colorB.a);
 }
 
 #endif

@@ -87,7 +87,8 @@
 	if (_graphics == nil)
 	{
 		_graphics = [[PXGraphics alloc] init];
-		_renderMode = PXRenderMode_BatchAndManageStates;
+	//	_renderMode = PXRenderMode_BatchAndManageStates;
+		_renderMode = PXRenderMode_Custom;
 	}
 
 	return _graphics;

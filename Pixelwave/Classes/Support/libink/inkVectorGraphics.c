@@ -599,10 +599,15 @@ void inkBuild(inkCanvas* canvas)
 	inkPoint minPointWithStroke = inkPointMax;
 	inkPoint maxPointWithStroke = inkPointMin;
 
+//	unsigned int totalVerticesBeforeStrips = 0;
+//	unsigned int totalVerticesAsStrips = 0;
+//	unsigned int totalVerticesAsElements = 0;
+
 	inkArrayPtrForEach(renderGroups, renderGroup)
 	{
 		vertexArray = renderGroup->vertices;
 		vertexCount = inkArrayCount(vertexArray);
+		//totalVerticesBeforeStrips += vertexCount;
 
 		if (vertexCount == 0)
 			continue;
@@ -621,7 +626,18 @@ void inkBuild(inkCanvas* canvas)
 
 		if (inkGetConvertTrianglesIntoStrips(canvas) == true)
 			inkRenderGroupConvertToStrips(renderGroup);
+
+//		totalVerticesAsStrips += inkArrayCount(renderGroup->vertices);
+		//inkRenderGroupConvertToElements(renderGroup);
 	}
+
+	/*inkArrayPtrForEach(renderGroups, renderGroup)
+	{
+		inkRenderGroupConvertToElements(renderGroup);
+	//	totalVerticesAsElements += inkArrayCount(renderGroup->vertices);
+	}*/
+
+	//printf("orig = %u, strips = %u, elements = %u\n", totalVerticesBeforeStrips, totalVerticesAsStrips, totalVerticesAsElements);
 
 	canvas->bounds = inkRectMake(minPoint, inkSizeFromPoint(inkPointSubtract(maxPoint, minPoint)));
 	canvas->boundsWithStroke = inkRectMake(minPointWithStroke, inkSizeFromPoint(inkPointSubtract(maxPointWithStroke, minPointWithStroke)));
@@ -948,7 +964,7 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 
 		if (vertexArray != NULL)
 		{
-			vertices = vertexArray->elements;
+			vertices = (inkVertex*)(vertexArray->elements);
 
 			vertexArrayCount = inkArrayCount(vertexArray);
 			totalVertexCount += vertexArrayCount;
@@ -957,7 +973,25 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 			renderer->textureCoordinateFunc(2, GL_FLOAT, sizeof(inkVertex), &(vertices->tex));
 			renderer->colorFunc(4, GL_UNSIGNED_BYTE, sizeof(inkVertex), &(vertices->color));
 
-			renderer->drawArraysFunc(renderGroup->glDrawMode, 0, vertexArrayCount);
+			switch(renderGroup->glDrawType)
+			{
+				case inkDrawType_Arrays:
+					renderer->drawArraysFunc(renderGroup->glDrawMode, 0, vertexArrayCount);
+					break;
+				case inkDrawType_Elements:
+				{
+					unsigned int indexCount = inkArrayCount(renderGroup->indices);
+					if (indexCount == 0)
+						break;
+
+					//glDrawElements(<#GLenum mode#>, <#GLsizei count#>, <#GLenum type#>, <#const GLvoid *indices#>)
+					unsigned int* indices = (unsigned int*)(renderGroup->indices->elements);
+					renderer->drawElementsFunc(renderGroup->glDrawMode, indexCount, GL_UNSIGNED_INT, indices);
+				}
+					break;
+				default:
+					break;
+			}
 		}
 	}
 

@@ -17,9 +17,9 @@ inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData,
 	if (renderGroup != NULL)
 	{
 		renderGroup->vertices = inkArrayCreate(sizeof(inkVertex));
-		renderGroup->indices = inkArrayCreate(sizeof(GLuint));
+		renderGroup->indices = NULL;
 
-		if (renderGroup->vertices == NULL || renderGroup->indices == NULL)
+		if (renderGroup->vertices == NULL)
 		{
 			inkRenderGroupDestroy(renderGroup);
 			return NULL;
@@ -68,9 +68,7 @@ inkInline bool inkRenderGroupAddNewVertex(inkArray* newArray, inkVertex vertex)
 
 void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 {
-//	return;
-	if (renderGroup == NULL)
-		return;
+	assert(renderGroup);
 
 	if (renderGroup->glDrawMode == GL_TRIANGLE_STRIP)
 		return;
@@ -136,6 +134,77 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 	}
 
 	renderGroup->glDrawMode = GL_TRIANGLE_STRIP;
+
+	inkArrayDestroy(renderGroup->vertices);
+	renderGroup->vertices = newVertices;
+}
+
+void inkRenderGroupConvertToElements(inkRenderGroup* renderGroup)
+{
+	assert(renderGroup);
+
+	if (renderGroup->glDrawType == inkDrawType_Elements)
+		return;
+
+	if (renderGroup->indices == NULL)
+		renderGroup->indices = inkArrayCreate(sizeof(unsigned int));
+	else
+		inkArrayClear(renderGroup->indices);
+
+	if (renderGroup->indices == NULL)
+		return;
+
+	inkArray* newVertices = inkArrayCreate(sizeof(inkVertex));
+	if (newVertices == NULL)
+		return;
+
+	unsigned int index = 0;
+	unsigned int counter = 0;
+	inkVertex* vertex;
+	unsigned int* indexPtr;
+	bool unique = false;
+
+	inkArrayForEach(renderGroup->vertices, vertex)
+	{
+		//if (index == 0)
+		//	unique = true;
+		//else
+		//{
+			unique = true;
+
+			inkVertex* prev;
+			// TODO: Improve this, try looping backwards
+		index = 0;
+			inkArrayForEach(newVertices, prev)
+			{
+				if (inkVertexIsEqual(*prev, *vertex))
+				{
+					unique = false;
+					break;
+				}
+				++index;
+			}
+		//}
+
+		if (unique == true)
+		{
+			inkRenderGroupAddNewVertex(newVertices, *vertex);
+			index = counter;
+			++counter;
+		}
+
+		indexPtr = (unsigned int*)inkArrayPush(renderGroup->indices);
+		assert(indexPtr);
+		//if (indexPtr != NULL)
+		//{
+			*indexPtr = index;
+		//}
+	}
+
+	//if (dups > 0)
+	//printf("dups = %u\n", dups);
+
+	renderGroup->glDrawType = inkDrawType_Elements;
 
 	inkArrayDestroy(renderGroup->vertices);
 	renderGroup->vertices = newVertices;

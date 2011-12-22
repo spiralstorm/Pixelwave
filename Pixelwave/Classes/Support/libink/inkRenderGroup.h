@@ -36,5 +36,6 @@ inkExtern void inkRenderGroupDestroy(inkRenderGroup* group);
 inkExtern inkVertex *inkRenderGroupNextVertex(inkRenderGroup* group);
 
 inkExtern void inkRenderGroupConvertToStrips(inkRenderGroup* group);
+inkExtern void inkRenderGroupConvertToElements(inkRenderGroup* group);
 
 #endif
