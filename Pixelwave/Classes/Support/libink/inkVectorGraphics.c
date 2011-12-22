@@ -625,17 +625,25 @@ void inkBuild(inkCanvas* canvas)
 		}
 
 		if (inkGetConvertTrianglesIntoStrips(canvas) == true)
+		{
 			inkRenderGroupConvertToStrips(renderGroup);
+			inkRenderGroupConvertToElements(renderGroup);
+		}
 
 //		totalVerticesAsStrips += inkArrayCount(renderGroup->vertices);
 		//inkRenderGroupConvertToElements(renderGroup);
 	}
 
-	inkArrayPtrForEach(renderGroups, renderGroup)
-	{
-	//	inkRenderGroupConvertToElements(renderGroup);
-	//	totalVerticesAsElements += inkArrayCount(renderGroup->vertices);
-	}
+	//if (inkGetConvertTrianglesIntoStrips(canvas) == true)
+	/*{
+		inkArrayPtrForEach(renderGroups, renderGroup)
+		{
+			assert(renderGroup->glDrawMode == GL_TRIANGLE_STRIP);
+				
+			inkRenderGroupConvertToElements(renderGroup);
+		//	totalVerticesAsElements += inkArrayCount(renderGroup->vertices);
+		}
+	}*/
 
 	//printf("orig = %u, strips = %u, elements = %u\n", totalVerticesBeforeStrips, totalVerticesAsStrips, totalVerticesAsElements);
 
@@ -666,7 +674,6 @@ inkRenderGroup* inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoun
 	else if (useBoundingBox == true)
 		return inkArrayElementAt(renderGroups, 0);
 
-	//point = inkPointMake(31.025f, 119.0f);
 	inkArrayPtrForEach(renderGroups, renderGroup)
 	{
 		vertexArray = renderGroup->vertices;
@@ -677,12 +684,12 @@ inkRenderGroup* inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoun
 		if (renderGroup->isStroke == true && useStroke == false)
 			continue;
 
-		index = 0;
+		//index = 0;
 
 		firstPoint = *((inkPoint*)inkArrayElementAt(vertexArray, 0));
 		triangle.pointC = *((inkPoint*)inkArrayElementAt(vertexArray, vertexCount - 1));
 
-		inkArrayForEach(vertexArray, vertex)
+		inkArrayForEachv(vertexArray, vertex, index = 0, ++index)
 		{
 			triangle.pointA = triangle.pointB;
 			triangle.pointB = triangle.pointC;
@@ -730,8 +737,6 @@ inkRenderGroup* inkContainsPoint(inkCanvas* canvas, inkPoint point, bool useBoun
 
 					break;
 			}
-
-			++index;
 		}
 	}
 
@@ -825,7 +830,7 @@ void inkDrawCompareAndSetStates(inkRenderer* renderer, inkPresetGLData* origStat
 	assert(stateIn != NULL);
 	assert(newState != NULL);
 
-#ifdef GL_POINT_SIZE
+/*#ifdef GL_POINT_SIZE
 	if (renderer->pointSizeFunc != NULL && stateIn->pointSize != newState->pointSize)
 		renderer->pointSizeFunc(newState->pointSize);
 #endif
@@ -833,7 +838,7 @@ void inkDrawCompareAndSetStates(inkRenderer* renderer, inkPresetGLData* origStat
 #ifdef GL_LINE_WIDTH
 	if (renderer->lineWidthFunc != NULL && stateIn->lineWidth != newState->lineWidth)
 		renderer->lineWidthFunc(newState->lineWidth);
-#endif
+#endif*/
 
 	if (stateIn->textureName != newState->textureName)
 	{
@@ -925,9 +930,14 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 	inkPresetGLData startedGLData;
 	inkPresetGLData previousGLData;
 	inkPresetGLData origGLData;
+	startedGLData.textureName = 0;
 
-	renderer->getIntegerFunc(GL_TEXTURE_BINDING_2D, (int*)&previousGLData.textureName);
-	if (previousGLData.textureName != 0)
+	if (renderer->isEnabledFunc(GL_TEXTURE_2D))
+	{
+		renderer->getIntegerFunc(GL_TEXTURE_BINDING_2D, (int*)&startedGLData.textureName);
+	}
+
+	if (startedGLData.textureName != 0)
 	{
 		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, &startedGLData.magFilter);
 		renderer->getTexParamFunc(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, &startedGLData.minFilter);
@@ -946,12 +956,12 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 		renderer->disableClientFunc(GL_TEXTURE_COORD_ARRAY);
 	}
 
-#ifdef GL_POINT_SIZE
+/*#ifdef GL_POINT_SIZE
 	renderer->getFloatFunc(GL_POINT_SIZE, &startedGLData.pointSize);
 #endif
 #ifdef GL_LINE_WIDTH
 	renderer->getFloatFunc(GL_LINE_WIDTH, &startedGLData.lineWidth);
-#endif
+#endif*/
 
 	previousGLData = startedGLData;
 	origGLData = startedGLData;
@@ -959,6 +969,10 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 	inkArrayPtrForEach(renderGroups, renderGroup)
 	{
 		vertexArray = renderGroup->vertices;
+		vertexArrayCount = inkArrayCount(vertexArray);
+
+		if (vertexArray == NULL || vertexArrayCount == 0)
+			continue;
 
 		inkDrawCompareAndSetStates(renderer, &origGLData, &previousGLData, &renderGroup->glData);
 
@@ -966,7 +980,6 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 		{
 			vertices = (inkVertex*)(vertexArray->elements);
 
-			vertexArrayCount = inkArrayCount(vertexArray);
 			totalVertexCount += vertexArrayCount;
 
 			renderer->vertexFunc(2, GL_FLOAT, sizeof(inkVertex), &(vertices->pos));
@@ -984,7 +997,6 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 					if (indexCount == 0)
 						break;
 
-					//glDrawElements(<#GLenum mode#>, <#GLsizei count#>, <#GLenum type#>, <#const GLvoid *indices#>)
 					unsigned int* indices = (unsigned int*)(renderGroup->indices->elements);
 					renderer->drawElementsFunc(renderGroup->glDrawMode, indexCount, GL_UNSIGNED_INT, indices);
 				}

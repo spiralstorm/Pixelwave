@@ -637,9 +637,10 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		unsigned int startIndex = 1;
 		bool dontIncreaseStartIndex = false;
 
-		inkArrayForEach(vertices, vertex)
+		inkArrayForEachv(vertices, vertex, index = 0, ++index)
 		{
-			if (index++ == 0)
+			//if (index++ == 0)
+			if (index == 0)
 			{
 				continue;
 			}
@@ -660,16 +661,17 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 		clockwise = sum >= 0.0f;
 
-		index = 0;
+		//index = 0;
 
 		// TODO:	inkTessellatorVertex copies the vertex right now, make sure
 		//			this will ALWAYS be the case, or this will fail.
-		inkArrayForEach(vertices, vertex)
+		inkArrayForEachv(vertices, vertex, index = 0, (vA = vB, ++index))
 		{
 			vB = *vertex;
 
 			if (index < startIndex)
-				goto continueStatement;
+				continue;
+			//	goto continueStatement;
 
 			if (closedLoop == false)
 			{
@@ -703,9 +705,9 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 				has = false;
 			}
 
-		continueStatement:
-			vA = vB;
-			++index;
+		//continueStatement:
+		//	vA = vB;
+		//	++index;
 		}
 
 		if (closedLoop)

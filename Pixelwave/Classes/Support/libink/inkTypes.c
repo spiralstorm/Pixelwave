@@ -10,7 +10,7 @@
 
 #include "inkGLU.h"
 
-#define _inkRendererDefault {inkglEnable, inkglDisable, inkglEnableClientState, inkglDisableClientState, inkglGetBooleanv, inkglGetFloatv, inkglGetIntegerv, inkglPointSize, inkglLineWidth, inkglBindTexture, inkglGetTexParameteriv, inkglTexParameteri, inkglVertexPointer, inkglTexCoordPointer, inkglColorPointer, inkglDrawArrays, inkglDrawElements}
+#define _inkRendererDefault {inkglEnable, inkglDisable, inkglEnableClientState, inkglDisableClientState, inkglGetBooleanv, inkglGetFloatv, inkglGetIntegerv, inkglPointSize, inkglLineWidth, inkglBindTexture, inkglGetTexParameteriv, inkglTexParameteri, inkglVertexPointer, inkglTexCoordPointer, inkglColorPointer, inkglDrawArrays, inkglDrawElements, inkglIsEnabled}
 
 const inkPresetGLData inkPresetGLDataDefault = _inkPresetGLDataDefault;
 const inkSpreadMethod inkSpreadMethodDefault = _inkSpreadMethodDefault;
@@ -39,10 +39,11 @@ void inkglTexCoordPointer(int size, unsigned int type, int stride, const void *p
 void inkglColorPointer(int size, unsigned int type, int stride, const void *pointer) {glColorPointer(size, type, stride, pointer);}
 void inkglDrawArrays(unsigned int mode, int first, int count) {glDrawArrays(mode, first, count);}
 void inkglDrawElements(unsigned int mode, int count, unsigned int type, const void *indices) {glDrawElements(mode, count, type, indices);}
+bool inkglIsEnabled(unsigned int cap) {return glIsEnabled(cap);}
 
 const inkRenderer inkRendererDefault = _inkRendererDefault;
 
-inkRenderer inkRendererMake(inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkGetBooleanFunction getBooleanFunc, inkGetFloatFunction getFloatFunc, inkGetIntegerFunction getIntegerFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkGetTexParameterFunction getTexParamFunc, inkSetTexParameterFunction setTexParamFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc)
+inkRenderer inkRendererMake(inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkGetBooleanFunction getBooleanFunc, inkGetFloatFunction getFloatFunc, inkGetIntegerFunction getIntegerFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkGetTexParameterFunction getTexParamFunc, inkSetTexParameterFunction setTexParamFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc, inkIsEnabledFunction isEnabledFunc)
 {
 	inkRenderer renderer;
 
@@ -63,6 +64,7 @@ inkRenderer inkRendererMake(inkStateFunction enableFunc, inkStateFunction disabl
 	renderer.colorFunc = colorFunc;
 	renderer.drawArraysFunc = drawArraysFunc;
 	renderer.drawElementsFunc = drawElementsFunc;
+	renderer.isEnabledFunc = isEnabledFunc;
 
 	return renderer;
 }

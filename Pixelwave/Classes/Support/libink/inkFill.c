@@ -147,11 +147,11 @@ inkColor inkGradientColor(inkGradientFill* fill, inkPoint position)
 	}
 
 	unsigned int prevIndex = 0;
-	unsigned int index = 0;
+	unsigned int index;
 	float curPercent = 0.0f;
 	float lastPercent = 1.0f;
 	float* percentPtr;
-	inkArrayForEach(fill->ratios, percentPtr)
+	inkArrayForEachv(fill->ratios, percentPtr, index = 0, ++index)
 	{
 		curPercent = *percentPtr;
 
@@ -160,7 +160,7 @@ inkColor inkGradientColor(inkGradientFill* fill, inkPoint position)
 
 		lastPercent = curPercent;
 		prevIndex = index;
-		++index;
+		//++index;
 	}
 
 	if (index == count)

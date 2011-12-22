@@ -66,6 +66,7 @@ inkTessellator *inkTessellatorCreate()
 		tessellator->polygonBegan = false;
 		tessellator->contourBegan = false;
 		tessellator->isStroke = false;
+
 		inkTessellatorInitialize(tessellator);
 	}
 

@@ -37,6 +37,8 @@ typedef void (*inkGetIntegerFunction)(unsigned int, int*);
 typedef void (*inkGetTexParameterFunction)(unsigned int, unsigned int, int*);
 typedef void (*inkSetTexParameterFunction)(unsigned int, unsigned int, int);
 
+typedef bool (*inkIsEnabledFunction)(unsigned int);
+
 typedef ssize_t (*inkDataWriter)(void *user, const void *buf, size_t count);
 typedef ssize_t (*inkDataReader)(void *user, const void *buf, size_t count);
 
@@ -74,11 +76,12 @@ typedef struct
 	inkPointerFunction colorFunc;
 	inkDrawArraysFunction drawArraysFunc;
 	inkDrawElementsFunction drawElementsFunc;
+	inkIsEnabledFunction isEnabledFunc;
 } inkRenderer;
 
 inkExtern const inkRenderer inkRendererDefault;
 
-inkExtern inkRenderer inkRendererMake(inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkGetBooleanFunction getBooleanFunc, inkGetFloatFunction getFloatFunc, inkGetIntegerFunction getIntegerFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkGetTexParameterFunction getTexParamFunc, inkSetTexParameterFunction setTexParamFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc);
+inkExtern inkRenderer inkRendererMake(inkStateFunction enableFunc, inkStateFunction disableFunc, inkStateFunction enableClientFunc, inkStateFunction disableClientFunc, inkGetBooleanFunction getBooleanFunc, inkGetFloatFunction getFloatFunc, inkGetIntegerFunction getIntegerFunc, inkPointSizeFunction pointSizeFunc, inkLineWidthFunction lineWidthFunc, inkTextureFunction textureFunc, inkGetTexParameterFunction getTexParamFunc, inkSetTexParameterFunction setTexParamFunc, inkPointerFunction vertexFunc, inkPointerFunction textureCoordinateFunc, inkPointerFunction colorFunc, inkDrawArraysFunction drawArraysFunc, inkDrawElementsFunction drawElementsFunc, inkIsEnabledFunction isEnabledFunc);
 
 typedef unsigned int INKenum;
 

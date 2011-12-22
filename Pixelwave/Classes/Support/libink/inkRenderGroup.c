@@ -87,7 +87,7 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 
 	if (renderGroup->glDrawMode != GL_TRIANGLES && renderGroup->glDrawMode != GL_TRIANGLE_FAN)
 	{
-	//	inkArrayClear(renderGroup->vertices);
+		inkArrayClear(renderGroup->vertices);
 		return;
 	}
 
@@ -112,10 +112,10 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 			inkVertex* vertex;
 
 			int state = 0;
-			unsigned int index = 0;
+			unsigned int index;
 			--vertexCount;
 
-			inkArrayForEach(renderGroup->vertices, vertex)
+			inkArrayForEachv(renderGroup->vertices, vertex, index = 0, ++index)
 			{
 				if (index != 0 && index != vertexCount)
 				{
@@ -131,7 +131,7 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 
 				if (++state == 3)
 					state = 0;
-				++index;
+				//++index;
 			}
 		}
 			break;
@@ -144,9 +144,9 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 			unsigned int startIndex = 0;
 			unsigned int lastIndex = 1;
 
-			unsigned int index = 0;
+			unsigned int index;
 
-			inkArrayForEach(renderGroup->vertices, vertex)
+			inkArrayForEachv(renderGroup->vertices, vertex, index = 0, ++index)
 			{
 				/*if (index == 0)
 				{
@@ -171,7 +171,7 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 
 				inkRenderGroupAddNewVertex(newVertices, *vertex);
 
-				++index;
+				//++index;
 			}
 		}
 			break;
@@ -207,6 +207,7 @@ void inkRenderGroupConvertToElements(inkRenderGroup* renderGroup)
 
 	unsigned int index = 0;
 	unsigned int counter = 0;
+	unsigned int count;
 	inkVertex* vertex;
 	inkVertex* prev;
 	bool unique = false;
@@ -215,16 +216,18 @@ void inkRenderGroupConvertToElements(inkRenderGroup* renderGroup)
 	{
 		unique = true;
 
+		count = inkArrayCount(newVertices);
 		// TODO: Improve this, try looping backwards
-		index = 0;
-		inkArrayForEach(newVertices, prev)
+		//index = 0;
+		//inkArrayForEachv(newVertices, prev, index = 0, ++index)
+		inkArrayForEachRevv(newVertices, prev, index = count - 1, --index)
 		{
 			if (inkVertexIsEqual(*prev, *vertex))
 			{
 				unique = false;
 				break;
 			}
-			++index;
+			//++index;
 		}
 
 		if (unique == true)

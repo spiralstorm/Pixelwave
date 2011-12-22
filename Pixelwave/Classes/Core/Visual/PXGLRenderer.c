@@ -702,7 +702,7 @@ void PXGLFlushBufferToGL()
 		if (pxGLDrawElements)
 		{
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, PXGLBufferIndexID);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, pxGLSizeOfIndex * pxGLIndexBuffer.size, pxGLIndexBuffer.array, GL_DYNAMIC_DRAW);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * pxGLIndexBuffer.size, pxGLIndexBuffer.array, GL_DYNAMIC_DRAW);
 			glDrawElements(pxGLDrawMode, pxGLIndexBuffer.size, GL_UNSIGNED_INT, (GLvoid *)(0));
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		}

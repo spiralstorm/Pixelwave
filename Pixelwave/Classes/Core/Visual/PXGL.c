@@ -1583,6 +1583,11 @@ void PXGLBlendFunc(GLenum sfactor, GLenum dfactor)
 	pxGLState.blendDestination = dfactor;
 }
 
+bool PXGLIsEnabled(GLenum cap)
+{
+	return PX_IS_BIT_ENABLED(pxGLState.state, PXGLGLStateToPXState(cap));
+}
+
 /*
  * PXGLPopMatrix pops the current matrix stack, replacing the current matrix
  * with the one below it on the stack.

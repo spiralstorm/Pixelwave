@@ -44,90 +44,84 @@
 #include "PXGLState.h"
 #include "PXHeaderUtils.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+PXExtern GLfloat PXGLGetContentScaleFactor();
+PXExtern GLfloat PXGLGetOneOverContentScaleFactor();
+PXExtern GLuint PXGLDBGGetRenderCallCount();
 
-GLfloat PXGLGetContentScaleFactor();
-GLfloat PXGLGetOneOverContentScaleFactor();
-GLuint PXGLDBGGetRenderCallCount();
+PXExtern GLuint PXGLBoundTexture();
 
-GLuint PXGLBoundTexture();
+PXExtern void PXGLBindTexture(GLenum target, GLuint texture);
+PXExtern void PXGLColor4f(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
+PXExtern void PXGLColor4ub(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
+PXExtern void PXGLColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+PXExtern void PXGLDisable(GLenum cap);
+PXExtern void PXGLDisableClientState(GLenum array);
+PXExtern void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count);
+PXExtern void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
+PXExtern void PXGLEnable(GLenum cap);
+PXExtern void PXGLEnableClientState(GLenum array);
+PXExtern void PXGLLineWidth(GLfloat width);
+PXExtern void PXGLPointSize(GLfloat size);
+PXExtern void PXGLPointSizePointer(GLenum type, GLsizei stride, const GLvoid *pointer);
+PXExtern void PXGLPopMatrix();
+PXExtern void PXGLPushMatrix();
+PXExtern void PXGLTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+PXExtern void PXGLTexParameteri(GLenum target, GLenum pname, GLint param);
+PXExtern void PXGLVertexPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
 
-void PXGLBindTexture(GLenum target, GLuint texture);
-void PXGLColor4f(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha);
-void PXGLColor4ub(GLubyte red, GLubyte green, GLubyte blue, GLubyte alpha);
-void PXGLColorPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
-void PXGLDisable(GLenum cap);
-void PXGLDisableClientState(GLenum array);
-void PXGLDrawArrays(GLenum mode, GLint first, GLsizei count);
-void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *indices);
-void PXGLEnable(GLenum cap);
-void PXGLEnableClientState(GLenum array);
-void PXGLLineWidth(GLfloat width);
-void PXGLPointSize(GLfloat size);
-void PXGLPointSizePointer(GLenum type, GLsizei stride, const GLvoid *pointer);
-void PXGLPopMatrix();
-void PXGLPushMatrix();
-void PXGLTexCoordPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
-void PXGLTexParameteri(GLenum target, GLenum pname, GLint param);
-void PXGLVertexPointer(GLint size, GLenum type, GLsizei stride, const GLvoid *pointer);
+PXExtern void PXGLGetBooleanv(GLenum pname, GLboolean *params);
+PXExtern void PXGLGetFloatv(GLenum pname, GLfloat *params);
+PXExtern void PXGLGetIntegerv(GLenum pname, GLint *params);
+PXExtern void PXGLGetTexParameteriv(GLenum target, GLenum pname, GLint *params);
 
-void PXGLGetBooleanv(GLenum pname, GLboolean *params);
-void PXGLGetFloatv(GLenum pname, GLfloat *params);
-void PXGLGetIntegerv(GLenum pname, GLint *params);
-void PXGLGetTexParameteriv(GLenum target, GLenum pname, GLint *params);
+PXExtern void PXGLShadeModel(GLenum mode);
 
-void PXGLShadeModel(GLenum mode);
+PXExtern void PXGLTexEnvf(GLenum target, GLenum pname, GLfloat param);
+PXExtern void PXGLTexEnvi(GLenum target, GLenum pname, GLint param);
+PXExtern void PXGLTexEnvx(GLenum target, GLenum pname, GLfixed param);
+PXExtern void PXGLTexEnvfv(GLenum target, GLenum pname, const GLfloat *params);
+PXExtern void PXGLTexEnviv(GLenum target, GLenum pname, const GLint *params);
+PXExtern void PXGLTexEnvxv(GLenum target, GLenum pname, const GLfixed *params);
 
-void PXGLTexEnvf(GLenum target, GLenum pname, GLfloat param);
-void PXGLTexEnvi(GLenum target, GLenum pname, GLint param);
-void PXGLTexEnvx(GLenum target, GLenum pname, GLfixed param);
-void PXGLTexEnvfv(GLenum target, GLenum pname, const GLfloat *params);
-void PXGLTexEnviv(GLenum target, GLenum pname, const GLint *params);
-void PXGLTexEnvxv(GLenum target, GLenum pname, const GLfixed *params);
+PXExtern void PXGLBlendFunc(GLenum sfactor, GLenum dfactor);
 
-void PXGLBlendFunc(GLenum sfactor, GLenum dfactor);
+PXExtern bool PXGLIsEnabled(GLenum cap);
 
-void PXGLPopMatrix();
-void PXGLPushMatrix();
-void PXGLLoadIdentity();
-void PXGLTranslate(GLfloat x, GLfloat y);
-void PXGLScale(GLfloat x, GLfloat y);
-void PXGLRotate(GLfloat angle);
-void PXGLMultMatrix(PXGLMatrix *mat);
-void PXGLLoadMatrixToGL();
-void PXGLResetMatrixStack();
-PXGLMatrix PXGLCurrentMatrix();
+PXExtern void PXGLPopMatrix();
+PXExtern void PXGLPushMatrix();
+PXExtern void PXGLLoadIdentity();
+PXExtern void PXGLTranslate(GLfloat x, GLfloat y);
+PXExtern void PXGLScale(GLfloat x, GLfloat y);
+PXExtern void PXGLRotate(GLfloat angle);
+PXExtern void PXGLMultMatrix(PXGLMatrix *mat);
+PXExtern void PXGLLoadMatrixToGL();
+PXExtern void PXGLResetMatrixStack();
+PXExtern PXGLMatrix PXGLCurrentMatrix();
 
-void PXGLPopColorTransform();
-void PXGLPushColorTransform();
-void PXGLLoadColorTransformIdentity();
-void PXGLResetColorTransformStack();
-void PXGLSetColorTransform(PXGLColorTransform *transform);
+PXExtern void PXGLPopColorTransform();
+PXExtern void PXGLPushColorTransform();
+PXExtern void PXGLLoadColorTransformIdentity();
+PXExtern void PXGLResetColorTransformStack();
+PXExtern void PXGLSetColorTransform(PXGLColorTransform *transform);
 
-void PXGLMatrixMult(PXGLMatrix *store, PXGLMatrix *mat1, PXGLMatrix *mat2);
-void PXGLMatrixInvert(PXGLMatrix *mat);
-void PXGLMatrixIdentity(PXGLMatrix *mat);
-void PXGLColorTransformIdentity(PXGLColorTransform *transform);
+PXExtern void PXGLMatrixMult(PXGLMatrix *store, PXGLMatrix *mat1, PXGLMatrix *mat2);
+PXExtern void PXGLMatrixInvert(PXGLMatrix *mat);
+PXExtern void PXGLMatrixIdentity(PXGLMatrix *mat);
+PXExtern void PXGLColorTransformIdentity(PXGLColorTransform *transform);
 
-PXInline_h void PXGLMatrixRotate(PXGLMatrix *mat, GLfloat radians);
-PXInline_h void PXGLMatrixScale(PXGLMatrix *mat, GLfloat x, GLfloat y);
-PXInline_h void PXGLMatrixTranslate(PXGLMatrix *mat, GLfloat x, GLfloat y);
-PXInline_h void PXGLMatrixTransform(PXGLMatrix *mat, GLfloat angle, GLfloat scaleX, GLfloat scaleY, GLfloat x, GLfloat y);
+PXExtern void PXGLMatrixRotate(PXGLMatrix *mat, GLfloat radians);
+PXExtern void PXGLMatrixScale(PXGLMatrix *mat, GLfloat x, GLfloat y);
+PXExtern void PXGLMatrixTranslate(PXGLMatrix *mat, GLfloat x, GLfloat y);
+PXExtern void PXGLMatrixTransform(PXGLMatrix *mat, GLfloat angle, GLfloat scaleX, GLfloat scaleY, GLfloat x, GLfloat y);
 
-PXInline_h PXGLState _PXGLDefaultState();
-PXInline_h void _PXGLStateEnable(PXGLState *state, GLenum cap);
-PXInline_h void _PXGLStateDisable(PXGLState *state, GLenum cap);
-PXInline_h void _PXGLStateEnableClientState(PXGLState *state, GLenum array);
-PXInline_h void _PXGLStateDisableClientState(PXGLState *state, GLenum array);
-//PXInline_h void _PXGLStateBindTexture(PXGLState *state, GLuint texture);
-PXInline_h void _PXGLStateBlendFunc(PXGLState *state, GLenum sfactor, GLenum dfactor);
-PXInline_h bool _PXGLStateIsEnabled(PXGLState *state, GLenum cap);
-PXInline_h void _PXGLStateGetIntegerv(PXGLState *state, GLenum pname, GLint *params);
-
-#ifdef __cplusplus
-}
-#endif
+PXExtern PXGLState _PXGLDefaultState();
+PXExtern void _PXGLStateEnable(PXGLState *state, GLenum cap);
+PXExtern void _PXGLStateDisable(PXGLState *state, GLenum cap);
+PXExtern void _PXGLStateEnableClientState(PXGLState *state, GLenum array);
+PXExtern void _PXGLStateDisableClientState(PXGLState *state, GLenum array);
+//PXExtern void _PXGLStateBindTexture(PXGLState *state, GLuint texture);
+PXExtern void _PXGLStateBlendFunc(PXGLState *state, GLenum sfactor, GLenum dfactor);
+PXExtern bool _PXGLStateIsEnabled(PXGLState *state, GLenum cap);
+PXExtern void _PXGLStateGetIntegerv(PXGLState *state, GLenum pname, GLint *params);
 
 #endif
