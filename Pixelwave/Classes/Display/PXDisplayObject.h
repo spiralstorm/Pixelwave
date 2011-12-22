@@ -97,6 +97,7 @@ typedef enum
 
 	// Optimization, low level c functions
 	void (*_impRenderGL)(id, SEL);
+	void (*_impPostFrame)(id, SEL);
 
 	// Transform properties
 	float _rotation;
@@ -336,6 +337,7 @@ typedef enum
 
 @interface PXDisplayObject (Override)
 - (void) _renderGL;
+- (void) _postFrame;
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag;
 - (BOOL) _containsPointWithLocalX:(float)x localY:(float)y shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke;
 - (void) _measureLocalBounds:(CGRect *)retBounds;

@@ -518,6 +518,27 @@ void PXEngineRemoveFrameListener(PXDisplayObject *displayObject)
 	[pxEngineFrameListeners removeObject:displayObject];
 }
 
+void PXEngineDispatchPostFrameEvents(PXDisplayObject *displayObject)
+{
+	if (displayObject == NULL)
+		return;
+
+	displayObject->_impPostFrame(displayObject, nil);
+
+	if (PX_IS_BIT_ENABLED(displayObject->_flags, _PXDisplayObjectFlags_isContainer))
+	{
+		PXDisplayObjectContainer *container = (PXDisplayObjectContainer *)displayObject;
+
+		PXDisplayObject *child;
+		unsigned index;
+
+		for (index = 0, child = container->_childrenHead; index < container->_numChildren; ++index, child = child->_next)
+		{
+			PXEngineDispatchPostFrameEvents(child);
+		}
+	}
+}
+
 void PXEngineDispatchFrameEvents()
 {
 	if (pxEngineFrameListeners.count == 0)
@@ -546,6 +567,8 @@ void PXEngineDispatchFrameEvents()
 	}
 
 	[pxEngineCachedListeners removeAllObjects];
+
+	PXEngineDispatchPostFrameEvents(pxEngineStage);
 }
 
 // MARK: Registering Render Event Listeners

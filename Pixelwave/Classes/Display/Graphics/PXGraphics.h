@@ -107,5 +107,6 @@
 - (CGRect) _measureLocalBoundsWithDisplayObject:(PXDisplayObject *)displayObject useStroke:(BOOL)useStroke;
 - (BOOL) _containsLocalPoint:(CGPoint)point displayObject:(PXDisplayObject *)displayObject shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke;
 
+- (void) _postFrame:(PXDisplayObject *)displayObject;
 - (void) _renderGL;
 @end

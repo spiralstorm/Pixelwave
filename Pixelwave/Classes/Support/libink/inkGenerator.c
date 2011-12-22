@@ -173,6 +173,7 @@ void inkGeneratorInitVertex(inkGenerator* generator, inkVertex* vertex, inkPoint
 
 			//printf("Converted [(%3.4f, %3.4f)] (%3.4f, %3.4f) into (%3.4f, %3.4f)\n", oldPoint.x, oldPoint.y, position.x, position.y, convertedPosition.x, convertedPosition.y);
 			vertex->color = inkGradientColor(gradientFill, convertedPosition);
+			//vertex->color = inkColorLinen;
 		}
 			break;
 		default:

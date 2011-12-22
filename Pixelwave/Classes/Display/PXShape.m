@@ -90,6 +90,11 @@
 	return [_graphics _containsLocalPoint:CGPointMake(x, y) displayObject:self shapeFlag:shapeFlag useStroke:YES];
 }
 
+- (void) _postFrame
+{
+	[_graphics _postFrame:self];
+}
+
 - (void) _renderGL
 {
 	//Render the graphics object

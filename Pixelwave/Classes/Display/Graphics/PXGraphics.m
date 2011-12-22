@@ -384,8 +384,9 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 
 		inkMatrix iMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
 
-		float contentScaleFactor = PXEngineGetContentScaleFactor();
-		inkSetPixelsPerPoint((inkCanvas*)vCanvas, contentScaleFactor);
+	//	float contentScaleFactor = PXEngineGetContentScaleFactor();
+	//	inkSetPixelsPerPoint((inkCanvas*)vCanvas, contentScaleFactor);
+	//	inkSetPixelsPerPoint((inkCanvas*)vCanvas, 0.01f);
 		inkPushMatrix((inkCanvas*)vCanvas);
 		inkMultMatrix((inkCanvas*)vCanvas, iMatrix);
 		inkBuild((inkCanvas*)vCanvas);
@@ -454,21 +455,29 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 	return [self _containsGlobalPoint:PXUtilsLocalToGlobal(displayObject, point) shapeFlag:shapeFlag useStroke:YES];
 }
 
+- (void) _postFrame:(PXDisplayObject *)displayObject
+{
+	PXGLMatrix matrix;
+	PXGLMatrixIdentity(&matrix);
+	PXStage *stage = PXEngineGetStage();
+
+	if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
+		return;
+
+	PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
+
+	[self build:matrix];
+}
+
 - (void) _renderGL
 {
-	BOOL print = NO;
-
 	PXGLMatrix matrix = PXGLCurrentMatrix();
 
-	print = [self build:matrix];
-
+	//[self build:matrix];
 	PXGLLoadIdentity();
 	vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);
 	//vertexCount = inkDraw((inkCanvas*)vCanvas);
 	PXGLMultMatrix(&matrix);
-
-//	if (print)
-//		printf("PXGraphics::_renderGL totalVertices = %u\n", vertexCount);
 }
 
 @end

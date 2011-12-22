@@ -122,6 +122,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	if (self)
 	{
 		_impRenderGL = (void (*)(id, SEL))[self methodForSelector:@selector(_renderGL)];
+		_impPostFrame = (void (*)(id, SEL))[self methodForSelector:@selector(_postFrame)];
 
 		userData = NULL;
 
@@ -939,6 +940,10 @@ static unsigned int _pxDisplayObjectCount = 0;
 // MARK: GL Rendering
 
 - (void) _renderGL
+{
+}
+
+- (void) _postFrame
 {
 }
 
