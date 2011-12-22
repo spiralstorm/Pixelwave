@@ -212,7 +212,7 @@ PXInline_c void PXDebugLog(NSString *format, ...)
  */
 + (float) timeBetweenFrames
 {
-	PXDebugInformIfCalculateFrameRateOn(@"timeBetweenFrames");
+	PXDebugInformIfCalculateFrameRateOn("timeBetweenFrames");
 
 	return _PXEngineDBGGetTimeBetweenFrames();
 }
@@ -227,7 +227,7 @@ PXInline_c void PXDebugLog(NSString *format, ...)
  */
 + (float) timeBetweenLogic
 {
-	PXDebugInformIfCalculateFrameRateOn(@"timeBetweenLogic");
+	PXDebugInformIfCalculateFrameRateOn("timeBetweenLogic");
 
 	return _PXEngineDBGGetTimeBetweenLogic();
 }
@@ -238,7 +238,7 @@ PXInline_c void PXDebugLog(NSString *format, ...)
  */
 + (float) timeBetweenRendering
 {
-	PXDebugInformIfCalculateFrameRateOn(@"timeBetweenRendering");
+	PXDebugInformIfCalculateFrameRateOn("timeBetweenRendering");
 
 	return _PXEngineDBGGetTimeBetweenRendering();
 }
@@ -255,7 +255,7 @@ PXInline_c void PXDebugLog(NSString *format, ...)
  */
 + (float) timeWaiting
 {
-	PXDebugInformIfCalculateFrameRateOn(@"timeWaiting");
+	PXDebugInformIfCalculateFrameRateOn("timeWaiting");
 
 	return _PXEngineDBGGetTimeWaiting();
 }

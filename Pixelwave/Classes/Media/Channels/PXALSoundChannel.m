@@ -48,6 +48,7 @@
 
 #include "PXMathUtils.h"
 #import "PXDebugUtils.h"
+#import "PXDebug.h"
 
 @interface PXALSoundChannel(Private)
 - (BOOL) errorOccured;

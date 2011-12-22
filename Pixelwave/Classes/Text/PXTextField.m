@@ -558,7 +558,7 @@
 
 	if (!renderer)
 	{
-		self.font = PXTextFieldDefaultFont;
+		self.font = [NSString stringWithFormat:@"%s", PXTextFieldDefaultFont];
 	}
 
 	isValid = YES;

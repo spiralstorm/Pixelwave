@@ -49,6 +49,7 @@
 #import "PXDebugUtils.h"
 
 #import "PXPoint.h"
+#import "PXDebug.h"
 
 /*
  * DEFINEs for looping the linked list.

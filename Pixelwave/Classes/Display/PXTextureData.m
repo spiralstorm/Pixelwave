@@ -47,6 +47,7 @@
 
 #import "PXExceptionUtils.h"
 #import "PXDebugUtils.h"
+#import "PXDebug.h"
 
 #import "PXTextureParser.h"
 

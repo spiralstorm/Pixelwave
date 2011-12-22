@@ -40,7 +40,7 @@
 #import "PXDebugUtils.h"
 
 #include "PXPrivateUtils.h"
-#import "PXAL.h"
+#include "PXAL.h"
 
 #include "PXSettings.h"
 
@@ -49,7 +49,7 @@ uint32_t pxDebugSettings = 0;
 //NSString *pxDebugALErrorPrefix = nil;
 #endif
 
-PXInline_c void PXDebugEnableSetting(PXDebugSetting flag)
+void PXDebugEnableSetting(PXDebugSetting flag)
 {
 #ifdef PX_DEBUG_MODE
 	PX_ENABLE_BIT(pxDebugSettings, flag);
@@ -57,7 +57,8 @@ PXInline_c void PXDebugEnableSetting(PXDebugSetting flag)
 	PX_NOT_USED(flag);
 #endif
 }
-PXInline_c void PXDebugDisableSetting(PXDebugSetting flag)
+
+void PXDebugDisableSetting(PXDebugSetting flag)
 {
 #ifdef PX_DEBUG_MODE
 	PX_DISABLE_BIT(pxDebugSettings, flag);
@@ -65,7 +66,8 @@ PXInline_c void PXDebugDisableSetting(PXDebugSetting flag)
 	PX_NOT_USED(flag);
 #endif
 }
-PXInline_c BOOL PXDebugIsEnabled(PXDebugSetting flag)
+
+bool PXDebugIsEnabled(PXDebugSetting flag)
 {
 #ifdef PX_DEBUG_MODE
 	return PX_IS_BIT_ENABLED(pxDebugSettings, flag);
@@ -76,7 +78,7 @@ PXInline_c BOOL PXDebugIsEnabled(PXDebugSetting flag)
 #endif
 }
 
-/*PXInline_c void PXDebugALBeginErrorChecks(NSString *prefix)
+/*void PXDebugALBeginErrorChecks(NSString *prefix)
 {
 #ifdef PX_DEBUG_MODE
 	if (PXDebugIsEnabled(PXDebugSetting_ThoroughALErrorChecks))
@@ -98,7 +100,7 @@ PXInline_c BOOL PXDebugIsEnabled(PXDebugSetting flag)
 #endif
 }
 
-PXInline_c BOOL PXDebugALErrorCheck(NSString *functionName)
+bool PXDebugALErrorCheck(NSString *functionName)
 {
 #ifdef PX_DEBUG_MODE
 	if (PXDebugIsEnabled(PXDebugSetting_ThoroughALErrorChecks))
@@ -132,44 +134,44 @@ PXInline_c void PXDebugALEndErrorChecks()
 #endif
 }*/
 
-PXInline_c void PXDebugInformIfCalculateFrameRateOn(NSString *methodName)
+PXInline_c void PXDebugInformIfCalculateFrameRateOn(const char* methodName)
 {
 #ifdef PX_DEBUG_MODE
 	if (!PXDebugIsEnabled(PXDebugSetting_CalculateFrameRate))
 	{
-		PXDebugLog (@"[PXDebug %@] can not be calculated unless PXDebugSetting_CalculateFrameRate is turned on\n", methodName);
+		printf("[PXDebug %s] can not be calculated unless PXDebugSetting_CalculateFrameRate is turned on\n", methodName);
 	}
 #else
 	PX_NOT_USED(methodName);
 #endif
 }
 
-PXInline_c NSString *PXDebugALErrorInfo(int error)
+PXInline_c const char* PXDebugALErrorInfo(int error)
 {
 #ifdef PX_DEBUG_MODE
 	//	if (PXDebugIsEnabled(PXDebugSetting_ThoroughALErrorChecks))
 	//	{
 	if (error == AL_NO_ERROR)
 	{
-		return [NSString stringWithString:@"no error"];
+		return "no error";
 	}
 	
 	switch (error)
 	{
 		case AL_INVALID_NAME:
-			return [NSString stringWithString:@"invalid name"];
+			return "invalid name";
 		case AL_INVALID_ENUM:
-			return [NSString stringWithString:@"invalid enum"];
+			return "invalid enum";
 		case AL_INVALID_VALUE:
-			return [NSString stringWithString:@"invalid value"];
+			return "invalid value";
 		case AL_INVALID_OPERATION:
-			return [NSString stringWithString:@"invalid operation"];
+			return "invalid operation";
 		case AL_OUT_OF_MEMORY:
-			return [NSString stringWithString:@"out of memory"];
+			return "out of memory";
 		case 0xFFFFFFFF:
-			return [NSString stringWithString:@"too many sounds playing"];
+			return "too many sounds playing";
 		default:
-			return [NSString stringWithString:@"unknown error"];
+			return "unknown error";
 	}
 	//	}
 #else

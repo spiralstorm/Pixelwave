@@ -93,7 +93,7 @@
 		2DAF67D811C58E2800A66884 /* PXTextureData.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DAF67C211C58E2800A66884 /* PXTextureData.h */; };
 		2DAF67D911C58E2800A66884 /* PXTextureData.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAF67C311C58E2800A66884 /* PXTextureData.m */; };
 		2DAF67DF11C58E4100A66884 /* PXSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DAF67DD11C58E4100A66884 /* PXSettings.h */; };
-		2DAF67E011C58E4100A66884 /* PXSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DAF67DE11C58E4100A66884 /* PXSettings.m */; };
+		2DAF67E011C58E4100A66884 /* PXSettings.c in Sources */ = {isa = PBXBuildFile; fileRef = 2DAF67DE11C58E4100A66884 /* PXSettings.c */; };
 		2DBD51CE1325768000BF4977 /* PXSoundModifiers.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DBD51CC1325768000BF4977 /* PXSoundModifiers.h */; };
 		2DBD51CF1325768000BF4977 /* PXSoundModifiers.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DBD51CD1325768000BF4977 /* PXSoundModifiers.m */; };
 		2DBD51D6132577D700BF4977 /* PXTextureModifiers.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DBD51D4132577D700BF4977 /* PXTextureModifiers.h */; };
@@ -542,10 +542,10 @@
 		52D7FF4D13E8623C00FABF6C /* PXEnginePrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 52D7FF4C13E8623C00FABF6C /* PXEnginePrivate.h */; };
 		52D7FF7513E865E600FABF6C /* PXEnginePrivate.m in Sources */ = {isa = PBXBuildFile; fileRef = 52D7FF7413E865E600FABF6C /* PXEnginePrivate.m */; };
 		52DAB8991278A744002894E7 /* PXGL.h in Headers */ = {isa = PBXBuildFile; fileRef = 52DAB8941278A744002894E7 /* PXGL.h */; };
-		52DAB89A1278A744002894E7 /* PXGL.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB8951278A744002894E7 /* PXGL.m */; };
+		52DAB89A1278A744002894E7 /* PXGL.c in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB8951278A744002894E7 /* PXGL.c */; };
 		52DAB89B1278A744002894E7 /* PXGLPrivate.h in Headers */ = {isa = PBXBuildFile; fileRef = 52DAB8961278A744002894E7 /* PXGLPrivate.h */; };
 		52DAB89C1278A744002894E7 /* PXGLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 52DAB8971278A744002894E7 /* PXGLRenderer.h */; };
-		52DAB89D1278A744002894E7 /* PXGLRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB8981278A744002894E7 /* PXGLRenderer.m */; };
+		52DAB89D1278A744002894E7 /* PXGLRenderer.c in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB8981278A744002894E7 /* PXGLRenderer.c */; };
 		52DAB8A11278A758002894E7 /* PXAL.h in Headers */ = {isa = PBXBuildFile; fileRef = 52DAB89E1278A758002894E7 /* PXAL.h */; };
 		52DAB8A21278A758002894E7 /* PXSoundEngine.h in Headers */ = {isa = PBXBuildFile; fileRef = 52DAB89F1278A758002894E7 /* PXSoundEngine.h */; };
 		52DAB8A31278A758002894E7 /* PXSoundEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DAB8A01278A758002894E7 /* PXSoundEngine.m */; };
@@ -672,7 +672,7 @@
 		2DAF67C211C58E2800A66884 /* PXTextureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PXTextureData.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2DAF67C311C58E2800A66884 /* PXTextureData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXTextureData.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		2DAF67DD11C58E4100A66884 /* PXSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSettings.h; sourceTree = "<group>"; };
-		2DAF67DE11C58E4100A66884 /* PXSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSettings.m; sourceTree = "<group>"; };
+		2DAF67DE11C58E4100A66884 /* PXSettings.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXSettings.c; sourceTree = "<group>"; };
 		2DBD51CC1325768000BF4977 /* PXSoundModifiers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSoundModifiers.h; sourceTree = "<group>"; };
 		2DBD51CD1325768000BF4977 /* PXSoundModifiers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSoundModifiers.m; sourceTree = "<group>"; };
 		2DBD51D4132577D700BF4977 /* PXTextureModifiers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureModifiers.h; sourceTree = "<group>"; };
@@ -1122,10 +1122,10 @@
 		52D7FF4C13E8623C00FABF6C /* PXEnginePrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXEnginePrivate.h; sourceTree = "<group>"; };
 		52D7FF7413E865E600FABF6C /* PXEnginePrivate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXEnginePrivate.m; sourceTree = "<group>"; };
 		52DAB8941278A744002894E7 /* PXGL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGL.h; sourceTree = "<group>"; };
-		52DAB8951278A744002894E7 /* PXGL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGL.m; sourceTree = "<group>"; };
+		52DAB8951278A744002894E7 /* PXGL.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGL.c; sourceTree = "<group>"; };
 		52DAB8961278A744002894E7 /* PXGLPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLPrivate.h; sourceTree = "<group>"; };
 		52DAB8971278A744002894E7 /* PXGLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXGLRenderer.h; sourceTree = "<group>"; };
-		52DAB8981278A744002894E7 /* PXGLRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXGLRenderer.m; sourceTree = "<group>"; };
+		52DAB8981278A744002894E7 /* PXGLRenderer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXGLRenderer.c; sourceTree = "<group>"; };
 		52DAB89E1278A758002894E7 /* PXAL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAL.h; sourceTree = "<group>"; };
 		52DAB89F1278A758002894E7 /* PXSoundEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSoundEngine.h; sourceTree = "<group>"; };
 		52DAB8A01278A758002894E7 /* PXSoundEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXSoundEngine.m; sourceTree = "<group>"; };
@@ -1503,7 +1503,7 @@
 			isa = PBXGroup;
 			children = (
 				2DAF67DD11C58E4100A66884 /* PXSettings.h */,
-				2DAF67DE11C58E4100A66884 /* PXSettings.m */,
+				2DAF67DE11C58E4100A66884 /* PXSettings.c */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -2328,12 +2328,12 @@
 			isa = PBXGroup;
 			children = (
 				52DAB8941278A744002894E7 /* PXGL.h */,
-				52DAB8951278A744002894E7 /* PXGL.m */,
+				52DAB8951278A744002894E7 /* PXGL.c */,
 				52DAB8961278A744002894E7 /* PXGLPrivate.h */,
 				5280DE321333FB1600B0F353 /* PXGLState.h */,
 				5280DEA4133407AF00B0F353 /* PXGLStatePrivate.h */,
 				52DAB8971278A744002894E7 /* PXGLRenderer.h */,
-				52DAB8981278A744002894E7 /* PXGLRenderer.m */,
+				52DAB8981278A744002894E7 /* PXGLRenderer.c */,
 			);
 			path = Visual;
 			sourceTree = "<group>";
@@ -2831,7 +2831,7 @@
 				2DAF67D511C58E2800A66884 /* PXStage.m in Sources */,
 				2DAF67D711C58E2800A66884 /* PXTexture.m in Sources */,
 				2DAF67D911C58E2800A66884 /* PXTextureData.m in Sources */,
-				2DAF67E011C58E4100A66884 /* PXSettings.m in Sources */,
+				2DAF67E011C58E4100A66884 /* PXSettings.c in Sources */,
 				52C63BF011E505870010A572 /* png.c in Sources */,
 				52C63BF311E505870010A572 /* pngerror.c in Sources */,
 				52C63BF411E505870010A572 /* pngget.c in Sources */,
@@ -2881,8 +2881,8 @@
 				5231F5E7124D5970002B8A27 /* ftsynth.c in Sources */,
 				5231F5E8124D5970002B8A27 /* ftsystem.c in Sources */,
 				5231F62C124D5970002B8A27 /* truetype.c in Sources */,
-				52DAB89A1278A744002894E7 /* PXGL.m in Sources */,
-				52DAB89D1278A744002894E7 /* PXGLRenderer.m in Sources */,
+				52DAB89A1278A744002894E7 /* PXGL.c in Sources */,
+				52DAB89D1278A744002894E7 /* PXGLRenderer.c in Sources */,
 				52DAB8A31278A758002894E7 /* PXSoundEngine.m in Sources */,
 				52DAB8C41278A796002894E7 /* PXSound.m in Sources */,
 				52DAB8C61278A796002894E7 /* PXSoundChannel.m in Sources */,

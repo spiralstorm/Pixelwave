@@ -45,6 +45,7 @@
 #import "PXDebugUtils.h"
 
 #include "PXPrivateUtils.h"
+#import "PXDebug.h"
 
 // Pooled nodes
 static _PXLLNode **pxLLPooledNodesStack = 0; // C-array

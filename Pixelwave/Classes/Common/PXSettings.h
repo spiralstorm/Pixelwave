@@ -94,7 +94,7 @@ PXExtern const float PXEngineTapDuration;
 #define PX_ENGINE_IDLE_TIME_INCLUDES_BETWEEN_SYSTEM_CALLS 0
 
 // Text
-PXExtern NSString * const PXTextFieldDefaultFont;
+PXExtern const char * const PXTextFieldDefaultFont;
 
 // Using libpng or CoreImage
 #define PX_TEXTURE_PARSER_USE_LIBPNG 1

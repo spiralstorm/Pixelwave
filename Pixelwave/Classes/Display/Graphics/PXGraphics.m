@@ -387,7 +387,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 		float contentScaleFactor = PXEngineGetContentScaleFactor();
 		inkSetPixelsPerPoint((inkCanvas*)vCanvas, contentScaleFactor);
 		inkPushMatrix((inkCanvas*)vCanvas);
-	//	inkMultMatrix((inkCanvas*)vCanvas, iMatrix);
+		inkMultMatrix((inkCanvas*)vCanvas, iMatrix);
 		inkBuild((inkCanvas*)vCanvas);
 		inkPopMatrix((inkCanvas*)vCanvas);
 
@@ -463,8 +463,8 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 	print = [self build:matrix];
 
 	PXGLLoadIdentity();
-	//vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);
-	vertexCount = inkDraw((inkCanvas*)vCanvas);
+	vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);
+	//vertexCount = inkDraw((inkCanvas*)vCanvas);
 	PXGLMultMatrix(&matrix);
 
 //	if (print)

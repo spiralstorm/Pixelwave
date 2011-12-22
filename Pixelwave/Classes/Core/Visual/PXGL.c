@@ -40,14 +40,14 @@
 #include "PXSettings.h"
 #include "PXGL.h"
 #include "PXGLPrivate.h"
-#import "PXGLRenderer.h"
-#import "PXGLException.h"
+#include "PXGLRenderer.h"
 
 #include "PXPrivateUtils.h"
-#import "PXDebugUtils.h"
+#include "PXDebugUtils.h"
 
-#import "PXGLUtils.h"
+#include "PXGLUtils.h"
 #include "PXGLStatePrivate.h"
+#include <limits.h>
 
 #define PX_GL_MATRIX_STACK_SIZE 16
 #define PX_GL_COLOR_STACK_SIZE 16
@@ -1338,6 +1338,8 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	if (!pxGLVertexPointer.pointer || count == 0)
 		return;
 
+	// TODO: Remove this
+	//PXGLFlushBuffer();
 	const GLushort *indices = ids;
 
 	PX_ENABLE_BIT(pxGLState.state, PX_GL_DRAW_ELEMENTS);
@@ -1468,7 +1470,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 
 		bucket = buckets + eVal;
 
-		if (!(bucket->vertex))
+		//if (!(bucket->vertex))
 		{
 			++usedVertexCount;
 

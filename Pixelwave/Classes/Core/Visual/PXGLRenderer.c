@@ -38,11 +38,9 @@
  */
 
 #include "PXGLRenderer.h"
-#include "PXGLException.h"
 #include "PXSettings.h"
 #include "PXGLPrivate.h"
 
-#import "PXDebug.h"
 #include "PXPrivateUtils.h"
 #include "PXGLStatePrivate.h"
 

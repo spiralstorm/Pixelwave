@@ -40,12 +40,8 @@
 #ifndef _PX_DEBUG_UTILS_H_
 #define _PX_DEBUG_UTILS_H_
 
-#import "PXDebug.h"
+//#import "PXDebug.h"
 #include "PXHeaderUtils.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 typedef enum
 {
@@ -58,16 +54,12 @@ typedef enum
 	PXDebugSetting_DrawHitAreas					= 0x00000020,
 	PXDebugSetting_All							= 0xFFFFFFFF
 } PXDebugSetting;
-	
-PXInline_h void PXDebugEnableSetting(PXDebugSetting flag);
-PXInline_h void PXDebugDisableSetting(PXDebugSetting flag);
-PXInline_h BOOL PXDebugIsEnabled(PXDebugSetting flag);
 
-PXInline_h void PXDebugInformIfCalculateFrameRateOn(NSString *methodName);
-PXInline_h NSString *PXDebugALErrorInfo(int error);
-	
-#ifdef __cplusplus
-}
-#endif
+PXExtern void PXDebugEnableSetting(PXDebugSetting flag);
+PXExtern void PXDebugDisableSetting(PXDebugSetting flag);
+PXExtern bool PXDebugIsEnabled(PXDebugSetting flag);
+
+PXExtern void PXDebugInformIfCalculateFrameRateOn(const char* methodName);
+PXExtern const char* PXDebugALErrorInfo(int error);
 
 #endif

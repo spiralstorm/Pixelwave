@@ -43,6 +43,7 @@
 #include "PXPrivateUtils.h"
 
 #import "PXDebugUtils.h"
+#import "PXDebug.h"
 
 NSString * const PXEvent_EnterFrame = @"enterFrame";
 NSString * const PXEvent_Added = @"added";

@@ -44,6 +44,7 @@
 #include "PXTouchEngine.h"
 
 #import "PXLinkedList.h"
+#import "PXDebug.h"
 
 @interface PXEngine : NSObject
 {
