@@ -35,4 +35,8 @@
 #error "GL is not defined."
 #endif
 
+#ifndef INK_GL_ES
+#define glOrthof glOrtho
+#endif
+
 #endif

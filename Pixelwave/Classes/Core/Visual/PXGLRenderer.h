@@ -72,30 +72,30 @@ void PXGLDisableColorArray();
 
 // TODO Later: Change these to use PXArrayBuffer.
 unsigned PXGLGetCurrentVertexIndex();
-void PXGLSetCurrentVertexIndex(unsigned index);
+void PXGLSetCurrentVertexIndex(unsigned int index);
 unsigned PXGLGetCurrentIndex();
-void PXGLSetCurrentIndex(unsigned index);
+void PXGLSetCurrentIndex(unsigned int index);
 unsigned PXGLGetCurrentPointSizeIndex();
-void PXGLSetCurrentPointSizeIndex(unsigned index);
+void PXGLSetCurrentPointSizeIndex(unsigned int index);
 
 //PXGLColoredTextureVertex *PXGLNextVertex();
-PXGLColoredTextureVertex *PXGLGetVertexAt(unsigned index);
+PXGLColoredTextureVertex *PXGLGetVertexAt(unsigned int index);
 PXGLColoredTextureVertex *PXGLCurrentVertex();
-PXGLColoredTextureVertex *PXGLAskForVertices(unsigned count);
-void PXGLUsedVertices(unsigned count);
+PXGLColoredTextureVertex *PXGLAskForVertices(unsigned int count);
+void PXGLUsedVertices(unsigned int count);
 
-GLushort *PXGLGetIndexAt(unsigned index);
-GLushort *PXGLCurrentIndex();
-GLushort *PXGLAskForIndices(unsigned count);
-void PXGLUsedIndices(unsigned count);
+GLuint *PXGLGetIndexAt(unsigned int index);
+GLuint *PXGLCurrentIndex();
+GLuint *PXGLAskForIndices(unsigned int count);
+void PXGLUsedIndices(unsigned int count);
 
 //GLfloat *PXGLNextPointSize();
-GLfloat *PXGLGetPointSizeAt(unsigned index);
+GLfloat *PXGLGetPointSizeAt(unsigned int index);
 GLfloat *PXGLCurrentPointSize();
-GLfloat *PXGLAskForPointSizes(unsigned count);
-void PXGLUsedPointSizes(unsigned count);
+GLfloat *PXGLAskForPointSizes(unsigned int count);
+void PXGLUsedPointSizes(unsigned int count);
 
-PXGLElementBucket *PXGLGetElementBuckets(unsigned maxBucketVal);
+PXGLElementBucket *PXGLGetElementBuckets(unsigned int maxBucketVal);
 
 void PXGLRendererPreRender();
 void PXGLRendererPostRender();

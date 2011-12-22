@@ -631,11 +631,11 @@ void inkBuild(inkCanvas* canvas)
 		//inkRenderGroupConvertToElements(renderGroup);
 	}
 
-	/*inkArrayPtrForEach(renderGroups, renderGroup)
+	inkArrayPtrForEach(renderGroups, renderGroup)
 	{
-		inkRenderGroupConvertToElements(renderGroup);
+	//	inkRenderGroupConvertToElements(renderGroup);
 	//	totalVerticesAsElements += inkArrayCount(renderGroup->vertices);
-	}*/
+	}
 
 	//printf("orig = %u, strips = %u, elements = %u\n", totalVerticesBeforeStrips, totalVerticesAsStrips, totalVerticesAsElements);
 
