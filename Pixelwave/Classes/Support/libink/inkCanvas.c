@@ -13,8 +13,6 @@
 
 #include "inkObject.h"
 
-#include <stdio.h>
-
 inkTessellator* inkSharedFillTesselator = NULL;
 unsigned int inkSharedFillTessellatorUseCount = 0;
 

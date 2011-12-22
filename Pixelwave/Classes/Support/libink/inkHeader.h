@@ -9,6 +9,10 @@
 #ifndef _INK_HEADER_H_
 #define _INK_HEADER_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <stdlib.h>
 #include <float.h>
 #include <stddef.h>
@@ -19,6 +23,13 @@
 #include <math.h>
 #include <stdio.h>
 #include <setjmp.h>
+#include <limits.h>
+#include <stdio.h>
+#include <ctype.h>
+
+#ifdef __cplusplus
+}
+#endif
 
 #ifdef __cplusplus
 #define inkExtern extern "C"
@@ -43,9 +54,6 @@
 
 #define inkNotUsed(_val_) ((void)(_val_))
 
-#ifndef M_2POWNEG14
-#define M_2POWNEG14 0.00006103515625
-#endif
 #ifndef M_1_255
 #define M_1_255		0.00392156862745098039236779055745352
 #endif
