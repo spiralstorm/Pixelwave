@@ -149,6 +149,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 
 @synthesize vertexCount;
 @synthesize convertTrianglesIntoStrips;
+@synthesize defineOnceAndLocal;
 
 - (id) init
 {
@@ -167,6 +168,7 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 		textureDataList = [[NSMutableArray alloc] init];
 	}
 
+	defineOnceAndLocal = false;
 	wasBuilt = false;
 	//previousSize = CGSizeMake(1.0f, 1.0f);
 	PXGLMatrixIdentity(&previousMatrix);
@@ -370,14 +372,25 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 
 	PXGLMatrix matrix;
 	PXGLMatrixIdentity(&matrix);
-	PXGLMatrixMult(&matrix, &matrix, &stage->_matrix);
-	PXUtilsDisplayObjectMultiplyDown(stage, obj, &matrix);
+
+	if (defineOnceAndLocal == false)
+	{
+		PXGLMatrixMult(&matrix, &matrix, &stage->_matrix);
+		PXUtilsDisplayObjectMultiplyDown(stage, obj, &matrix);
+	}
+
 	return [self build:matrix];
+}
+
+- (void) setDefineOnceAndLocal:(bool)_defineOnceAndLocal
+{
+	defineOnceAndLocal = _defineOnceAndLocal;
+	wasBuilt = false;
 }
 
 - (BOOL) build:(PXGLMatrix)matrix
 {
-	if (wasBuilt == false || PXGLMatrixIsEqual(&matrix, &previousMatrix) == false)
+	if (wasBuilt == false || (defineOnceAndLocal == false && PXGLMatrixIsEqual(&matrix, &previousMatrix) == false))
 	{
 		previousMatrix = matrix;
 		wasBuilt = true;
@@ -418,6 +431,9 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 
 - (CGRect) _measureLocalBoundsWithDisplayObject:(PXDisplayObject *)displayObject useStroke:(BOOL)useStroke
 {
+	if (defineOnceAndLocal == true)
+		return [self _measureGlobalBoundsUseStroke:useStroke];
+
 	PXGLMatrix matrix;
 	PXGLMatrixIdentity(&matrix);
 	PXStage *stage = PXEngineGetStage();
@@ -439,8 +455,11 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 
 - (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
 {
-	PXStage *stage = PXEngineGetStage();
-	point = PXEnginePointStageToGL(point, stage);
+	if (defineOnceAndLocal == false)
+	{
+		PXStage *stage = PXEngineGetStage();
+		point = PXEnginePointStageToGL(point, stage);
+	}
 	//PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(point.x, point.y, stage);
 
 	// inkContainsPoint asks if you are using the bounds, not the shape flag;
@@ -452,19 +471,31 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 {
 	[self buildWithDisplayObject:displayObject];
 
-	return [self _containsGlobalPoint:PXUtilsLocalToGlobal(displayObject, point) shapeFlag:shapeFlag useStroke:YES];
+	if (defineOnceAndLocal == false)
+		return [self _containsGlobalPoint:PXUtilsLocalToGlobal(displayObject, point) shapeFlag:shapeFlag useStroke:YES];
+
+	return [self _containsGlobalPoint:point shapeFlag:shapeFlag useStroke:YES];
 }
 
 - (void) _postFrame:(PXDisplayObject *)displayObject
 {
-	PXGLMatrix matrix;
-	PXGLMatrixIdentity(&matrix);
-	PXStage *stage = PXEngineGetStage();
-
-	if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
+	if (displayObject == NULL)
 		return;
 
-	PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
+	PXGLMatrix matrix;
+	PXGLMatrixIdentity(&matrix);
+
+	if (defineOnceAndLocal == false)
+	{
+		PXStage *stage = PXEngineGetStage();
+
+		if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
+			return;
+
+		PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
+	}
+//	else
+//		matrix = displayObject->_matrix;
 
 	[self build:matrix];
 }
@@ -474,10 +505,12 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 	PXGLMatrix matrix = PXGLCurrentMatrix();
 
 	//[self build:matrix];
-	PXGLLoadIdentity();
+	if (defineOnceAndLocal == false)
+		PXGLLoadIdentity();
 	vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);
 	//vertexCount = inkDraw((inkCanvas*)vCanvas);
-	PXGLMultMatrix(&matrix);
+	if (defineOnceAndLocal == false)
+		PXGLMultMatrix(&matrix);
 }
 
 @end

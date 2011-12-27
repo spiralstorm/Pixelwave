@@ -54,6 +54,7 @@
 
 	bool wasBuilt;
 	bool convertTrianglesIntoStrips;
+	bool defineOnceAndLocal;
 
 	PXGLMatrix previousMatrix;
 
@@ -62,6 +63,7 @@
 
 @property (nonatomic, readonly) unsigned int vertexCount;
 @property (nonatomic) bool convertTrianglesIntoStrips;
+@property (nonatomic) bool defineOnceAndLocal;
 
 - (void) beginFill:(unsigned int)color alpha:(float)alpha;
 - (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth;
