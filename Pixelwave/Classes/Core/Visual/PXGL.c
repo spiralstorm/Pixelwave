@@ -1551,7 +1551,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 
 			nX = bucket->vertex->x;
 			nY = bucket->vertex->y;
-å
+
 			// Lets figure out the bounding box
 			PXGLAABBExpandv(&aabb, nX, nY);
 		}
