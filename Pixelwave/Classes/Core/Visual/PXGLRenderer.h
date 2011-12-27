@@ -49,6 +49,8 @@
 #define PX_GL_VERTEX_COLOR_ONE 1
 #define PX_GL_VERTEX_COLOR_MULTIPLE 2
 
+#define PXGLElementsType GLushort
+
 extern PXGLState pxGLDefaultState;
 extern PXGLState pxGLState;
 extern PXGLState pxGLStateInGL;
@@ -59,7 +61,7 @@ typedef struct
 {
 	PXGLColoredTextureVertex *vertex;
 	GLfloat *pointSize;
-	GLuint vertexIndex;
+	PXGLElementsType vertexIndex;
 } PXGLElementBucket;
 
 void PXGLRendererInit();
@@ -84,9 +86,9 @@ PXGLColoredTextureVertex *PXGLCurrentVertex();
 PXGLColoredTextureVertex *PXGLAskForVertices(unsigned int count);
 void PXGLUsedVertices(unsigned int count);
 
-GLuint *PXGLGetIndexAt(unsigned int index);
-GLuint *PXGLCurrentIndex();
-GLuint *PXGLAskForIndices(unsigned int count);
+PXGLElementsType *PXGLGetIndexAt(unsigned int index);
+PXGLElementsType *PXGLCurrentIndex();
+PXGLElementsType *PXGLAskForIndices(unsigned int count);
 void PXGLUsedIndices(unsigned int count);
 
 //GLfloat *PXGLNextPointSize();

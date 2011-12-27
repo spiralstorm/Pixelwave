@@ -997,8 +997,8 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 					if (indexCount == 0)
 						break;
 
-					unsigned int* indices = (unsigned int*)(renderGroup->indices->elements);
-					renderer->drawElementsFunc(renderGroup->glDrawMode, indexCount, GL_UNSIGNED_INT, indices);
+					unsigned short* indices = (unsigned short*)(renderGroup->indices->elements);
+					renderer->drawElementsFunc(renderGroup->glDrawMode, indexCount, GL_UNSIGNED_SHORT, indices);
 				}
 					break;
 				default:

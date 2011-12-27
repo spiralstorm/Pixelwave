@@ -104,6 +104,7 @@
 		2DD9E9AD10EBFDE400710F4E /* PXMathUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DD9E9AA10EBFDE400710F4E /* PXMathUtils.h */; };
 		2DD9E9AE10EBFDE400710F4E /* PXColorUtils.c in Sources */ = {isa = PBXBuildFile; fileRef = 2DD9E9AB10EBFDE400710F4E /* PXColorUtils.c */; };
 		2DD9E9AF10EBFDE400710F4E /* PXColorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DD9E9AC10EBFDE400710F4E /* PXColorUtils.h */; };
+		520BFC0214A3F01600A70C53 /* inkObject.c in Sources */ = {isa = PBXBuildFile; fileRef = 520BFC0114A3F01600A70C53 /* inkObject.c */; };
 		5218AD61149C130A0063BAAB /* inkColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5218AD60149C13040063BAAB /* inkColor.h */; };
 		5218AD63149C13880063BAAB /* inkColor.c in Sources */ = {isa = PBXBuildFile; fileRef = 5218AD62149C13850063BAAB /* inkColor.c */; };
 		5230170013706DC8000FE6D6 /* PXZwopAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */; };
@@ -683,6 +684,7 @@
 		2DD9E9AA10EBFDE400710F4E /* PXMathUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXMathUtils.h; sourceTree = "<group>"; };
 		2DD9E9AB10EBFDE400710F4E /* PXColorUtils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = PXColorUtils.c; sourceTree = "<group>"; };
 		2DD9E9AC10EBFDE400710F4E /* PXColorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXColorUtils.h; sourceTree = "<group>"; };
+		520BFC0114A3F01600A70C53 /* inkObject.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkObject.c; sourceTree = "<group>"; };
 		5218AD60149C13040063BAAB /* inkColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkColor.h; sourceTree = "<group>"; };
 		5218AD62149C13850063BAAB /* inkColor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkColor.c; sourceTree = "<group>"; };
 		523016FE13706DC8000FE6D6 /* PXZwopAtlasParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXZwopAtlasParser.h; sourceTree = "<group>"; };
@@ -2057,10 +2059,11 @@
 				526DA3DC146B223100566FF2 /* inkHeader.h */,
 				526DA3C4146B19FC00566FF2 /* inkTypes.h */,
 				52B43E331475CDBF004FD599 /* inkTypes.c */,
+				52A22E47146DC621002B41BC /* inkObject.c */,
 				5218AD60149C13040063BAAB /* inkColor.h */,
 				5218AD62149C13850063BAAB /* inkColor.c */,
 				52A22E46146DC620002B41BC /* inkObject.h */,
-				52A22E47146DC621002B41BC /* inkObject.c */,
+				520BFC0114A3F01600A70C53 /* inkObject.c */,
 				526DA3D8146B1CE700566FF2 /* inkArray.h */,
 				526DA3D9146B1CE800566FF2 /* inkArray.c */,
 				526DA3F2146B368F00566FF2 /* inkGeometry.h */,
@@ -3021,6 +3024,7 @@
 				52A22E981475C30B002B41BC /* registry.c in Sources */,
 				52B43E341475CDC0004FD599 /* inkTypes.c in Sources */,
 				5218AD63149C13880063BAAB /* inkColor.c in Sources */,
+				520BFC0214A3F01600A70C53 /* inkObject.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

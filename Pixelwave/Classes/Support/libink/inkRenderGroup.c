@@ -66,9 +66,9 @@ inkInline bool inkRenderGroupAddNewVertex(inkArray* newArray, inkVertex vertex)
 	return true;
 }
 
-inkInline bool inkRenderGroupAddNewIndex(inkArray* indices, unsigned int index)
+inkInline bool inkRenderGroupAddNewIndex(inkArray* indices, unsigned short index)
 {
-	unsigned int* indexPtr = inkArrayPush(indices);
+	unsigned short* indexPtr = inkArrayPush(indices);
 
 	if (indexPtr == NULL)
 		return false;
@@ -92,7 +92,7 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 	}
 
 	if (renderGroup->indices == NULL)
-		renderGroup->indices = inkArrayCreate(sizeof(unsigned int));
+		renderGroup->indices = inkArrayCreate(sizeof(unsigned short));
 	else
 		inkArrayClear(renderGroup->indices);
 
@@ -112,7 +112,7 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 			inkVertex* vertex;
 
 			int state = 0;
-			unsigned int index;
+			unsigned short index;
 			--vertexCount;
 
 			inkArrayForEachv(renderGroup->vertices, vertex, index = 0, ++index)
@@ -141,10 +141,10 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 		//	inkVertex lastVertex;
 			inkVertex* vertex;
 
-			unsigned int startIndex = 0;
-			unsigned int lastIndex = 1;
+			unsigned short startIndex = 0;
+			unsigned short lastIndex = 1;
 
-			unsigned int index;
+			unsigned short index;
 
 			inkArrayForEachv(renderGroup->vertices, vertex, index = 0, ++index)
 			{
@@ -194,7 +194,7 @@ void inkRenderGroupConvertToElements(inkRenderGroup* renderGroup)
 		return;
 
 	if (renderGroup->indices == NULL)
-		renderGroup->indices = inkArrayCreate(sizeof(unsigned int));
+		renderGroup->indices = inkArrayCreate(sizeof(unsigned short));
 	else
 		inkArrayClear(renderGroup->indices);
 
@@ -205,8 +205,8 @@ void inkRenderGroupConvertToElements(inkRenderGroup* renderGroup)
 	if (newVertices == NULL)
 		return;
 
-	unsigned int index = 0;
-	unsigned int counter = 0;
+	unsigned short index = 0;
+	unsigned short counter = 0;
 	unsigned int count;
 	inkVertex* vertex;
 	inkVertex* prev;

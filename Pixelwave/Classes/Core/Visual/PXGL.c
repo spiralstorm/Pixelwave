@@ -1340,7 +1340,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	if (!pxGLVertexPointer.pointer || count == 0)
 		return;
 
-	const GLuint *indices = ids;
+	const PXGLElementsType *indices = ids;
 
 	PX_ENABLE_BIT(pxGLState.state, PX_GL_DRAW_ELEMENTS);
 	PXGLSetupEnables();
@@ -1348,7 +1348,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	PXGLSetDrawMode(mode);
 
 	PXGLColoredTextureVertex *point;
-	GLuint *index;
+	PXGLElementsType *index;
 	GLfloat *pointSize;
 
 	GLsizei vertexStride = pxGLVertexPointer.stride;
@@ -1385,6 +1385,28 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	unsigned vertexIndex = 0;
 
 	unsigned oldIndex = PXGLGetCurrentIndex();
+	size_t maxSize;
+
+	switch(sizeof(PXGLElementsType))
+	{
+		case sizeof(GLubyte):
+			maxSize = UCHAR_MAX;
+			break;
+		case sizeof(GLuint):
+			maxSize = UINT_MAX;
+			break;
+		case sizeof(GLushort):
+		default:
+			maxSize = USHRT_MAX;
+			break;
+	}
+
+	if (oldIndex + count >= maxSize)
+	{
+		PXGLFlushBuffer();
+		oldIndex = PXGLGetCurrentIndex();
+	}
+
 	unsigned oldVertexIndex = PXGLGetCurrentVertexIndex();
 	unsigned oldPointSizeIndex = PXGLGetCurrentPointSizeIndex();
 
@@ -1403,8 +1425,8 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	point = PXGLAskForVertices(count);
 
 	// For strips
-	GLuint *preFirstIndex;
-	GLuint *firstIndex;
+	PXGLElementsType *preFirstIndex;
+	PXGLElementsType *firstIndex;
 
 	if (isStrip)
 	{
@@ -1434,7 +1456,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	int nX;
 	int nY;
 
-	const GLuint *curIndex;
+	const PXGLElementsType *curIndex;
 	GLsizei counter;
 
 	// Create an arbitrary amount of buckets. We will expand this if needed.

@@ -66,7 +66,7 @@ typedef struct
 	unsigned int size;
 	unsigned int maxSize;
 
-	GLuint *array;
+	PXGLElementsType *array;
 } _PXGLIndexBuffer;
 
 typedef struct
@@ -86,7 +86,7 @@ typedef struct
 } _PXGLElementBucketBuffer;
 
 PXGLColoredTextureVertex *pxGLVertexBufferCurrentObject = NULL;
-GLuint *pxGLIndexBufferCurrentObject = NULL;
+PXGLElementsType *pxGLIndexBufferCurrentObject = NULL;
 GLfloat *pxGLPointSizeBufferCurrentObject = NULL;
 PXGLElementBucket *pxGLElementBucketBufferCurrentObject = NULL;
 
@@ -149,7 +149,7 @@ void PXGLRendererInit()
 
 	pxGLIndexBuffer.size = 0;
 	pxGLIndexBuffer.maxSize = PX_GL_RENDERER_MIN_BUFFER_SIZE;
-	pxGLIndexBuffer.array = malloc(sizeof(GLuint) * pxGLIndexBuffer.maxSize);
+	pxGLIndexBuffer.array = malloc(sizeof(PXGLElementsType) * pxGLIndexBuffer.maxSize);
 
 	pxGLPointSizeBuffer.size = 0;
 	pxGLPointSizeBuffer.maxSize = PX_GL_RENDERER_MIN_BUFFER_SIZE;
@@ -421,7 +421,7 @@ void PXGLUsedVertices(unsigned count)
  *
  * @return - A pointer to the index at the given index.
  */
-GLuint *PXGLGetIndexAt(unsigned index)
+PXGLElementsType *PXGLGetIndexAt(unsigned index)
 {
 	assert(pxGLIndexBuffer.size != 0 && index < pxGLIndexBuffer.size);
 
@@ -434,20 +434,20 @@ GLuint *PXGLGetIndexAt(unsigned index)
  *
  * @return - A pointer to the current index.
  */
-GLuint *PXGLCurrentIndex()
+PXGLElementsType *PXGLCurrentIndex()
 {
 	assert(pxGLIndexBuffer.size != 0);
 
 	return pxGLIndexBufferCurrentObject - 1;
 }
 
-GLuint *PXGLAskForIndices(unsigned count)
+PXGLElementsType *PXGLAskForIndices(unsigned count)
 {
 	while (pxGLIndexBuffer.size + count >= pxGLIndexBuffer.maxSize)
 	{
 		//Lets double the size of the array
 		pxGLIndexBuffer.maxSize <<= 1;
-		pxGLIndexBuffer.array = realloc(pxGLIndexBuffer.array, sizeof(GLuint) * pxGLIndexBuffer.maxSize);
+		pxGLIndexBuffer.array = realloc(pxGLIndexBuffer.array, sizeof(PXGLElementsType) * pxGLIndexBuffer.maxSize);
 		pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array + pxGLIndexBuffer.size;
 	}
 
@@ -577,7 +577,7 @@ void PXGLConsolidateBuffer()
 		if (newMaxSize > PX_GL_RENDERER_MIN_BUFFER_SIZE)
 		{
 			pxGLIndexBuffer.maxSize = newMaxSize;
-			pxGLIndexBuffer.array = realloc(pxGLIndexBuffer.array, sizeof(GLuint) * pxGLIndexBuffer.maxSize);
+			pxGLIndexBuffer.array = realloc(pxGLIndexBuffer.array, sizeof(PXGLElementsType) * pxGLIndexBuffer.maxSize);
 			pxGLIndexBufferCurrentObject = pxGLIndexBuffer.array + pxGLIndexBuffer.size;
 		}
 	}
@@ -634,8 +634,23 @@ PXInline void PXGLDraw()
 
 	if (pxGLDrawElements)
 	{
+		GLenum type;
+		switch(sizeof(PXGLElementsType))
+		{
+			case sizeof(GLubyte):
+				type = GL_UNSIGNED_BYTE;
+				break;
+			case sizeof(GLuint):
+				type = GL_UNSIGNED_INT;
+				break;
+			case sizeof(GLushort):
+			default:
+				type = GL_UNSIGNED_SHORT;
+				break;
+		}
+		
 		for (start = 0; amountToDraw > 0; start += PX_GL_RENDERER_MAX_VERTICES_MINUS_2, amountToDraw -= PX_GL_RENDERER_MAX_VERTICES_MINUS_2)
-			glDrawElements(pxGLDrawMode, ((amountToDraw < PX_GL_RENDERER_MAX_VERTICES) ? amountToDraw : PX_GL_RENDERER_MAX_VERTICES), GL_UNSIGNED_INT, pxGLIndexBuffer.array + start);
+			glDrawElements(pxGLDrawMode, ((amountToDraw < PX_GL_RENDERER_MAX_VERTICES) ? amountToDraw : PX_GL_RENDERER_MAX_VERTICES), type, pxGLIndexBuffer.array + start);
 	}
 	else
 	{
@@ -702,7 +717,7 @@ void PXGLFlushBufferToGL()
 		if (pxGLDrawElements)
 		{
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, PXGLBufferIndexID);
-			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * pxGLIndexBuffer.size, pxGLIndexBuffer.array, GL_DYNAMIC_DRAW);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(PXGLElementsType) * pxGLIndexBuffer.size, pxGLIndexBuffer.array, GL_DYNAMIC_DRAW);
 			glDrawElements(pxGLDrawMode, pxGLIndexBuffer.size, GL_UNSIGNED_INT, (GLvoid *)(0));
 			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		}
