@@ -51,7 +51,7 @@ inkCanvas* inkCreate()
 		inkSetConvertTrianglesIntoStrips(canvas, false);
 		inkSetIncompleteDrawStrategies(canvas, inkIncompleteDrawStrategy_Fade, inkIncompleteDrawStrategy_Full, 0.0f);
 		inkSetMaxLength(canvas, FLT_MAX);
-		inkSetCurveMultiplier(canvas, 0.1f);
+		inkSetCurveMultiplier(canvas, 0.2f);
 		inkSetPixelsPerPoint(canvas, 1.0f);
 	}
 

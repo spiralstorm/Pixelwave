@@ -399,7 +399,7 @@ float inkCurveLength(inkCurveType curveType, inkPoint start, inkPoint controlA, 
 	approximator.totalDistance = 0.0f;
 	approximator.previousPoint = start;
 
-	inkCurveApproximation(curveType, start, controlA, controlB, end, 10, inkCurveLengthAdd, (void*)(&approximator));
+	inkCurveApproximation(curveType, start, controlA, controlB, end, 16, inkCurveLengthAdd, (void*)(&approximator));
 	return approximator.totalDistance;
 }
 

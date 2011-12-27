@@ -20,15 +20,17 @@
 typedef struct
 {
 	inkArray* vertices; // Weak
+	inkArray* isCurves; // Weak
 	void* fill; // Weak
 	inkMatrix invGLMatrix;
 } inkStrokeGeneratorRasterizeObject;
 
-inkInline inkStrokeGeneratorRasterizeObject inkStrokeGeneratorRasterizeObjectMake(inkArray* vertices, void* fill, inkMatrix invGLMatrix)
+inkInline inkStrokeGeneratorRasterizeObject inkStrokeGeneratorRasterizeObjectMake(inkArray* vertices, inkArray* isCurves, void* fill, inkMatrix invGLMatrix)
 {
 	inkStrokeGeneratorRasterizeObject object;
 
 	object.vertices = vertices;
+	object.isCurves = isCurves;
 	object.fill = fill;
 	object.invGLMatrix = invGLMatrix;
 
@@ -105,12 +107,12 @@ void inkStrokeGeneratorMoveTo(inkStrokeGenerator* strokeGenerator, inkPoint posi
 	inkGeneratorMoveTo(strokeGenerator->generator, position, inkStrokeGeneratorEndConcat, strokeGenerator);
 }
 
-void inkStrokeGeneratorLineTo(inkStrokeGenerator* strokeGenerator, inkPoint position)
+void inkStrokeGeneratorLineTo(inkStrokeGenerator* strokeGenerator, inkPoint position, bool isCurve)
 {
 	if (strokeGenerator == NULL)
 		return;
 
-	inkGeneratorLineTo(strokeGenerator->generator, position);
+	inkGeneratorLineTo(strokeGenerator->generator, position, isCurve);
 }
 
 inkInline void inkStrokeGeneratorAddDrawPoint(inkStrokeGenerator* strokeGenerator, inkPoint point, inkTessellator* tessellator, void* fill, inkMatrix invGLMatrix)
@@ -195,8 +197,10 @@ void inkStrokeGeneratorCap(inkStrokeGenerator* strokeGenerator, inkCapsStyle sty
 	}
 }
 
-bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* stroke, inkTessellator* tessellator, inkCanvas* canvas, inkBox* previousBox, inkBox* nowBox, inkVertex vA, inkVertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise, inkMatrix invGLMatrix)
+bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* stroke, inkTessellator* tessellator, inkCanvas* canvas, inkBox* previousBox, inkBox* nowBox, inkVertex vA, inkVertex vB, float halfScalar, void* fill, bool start, bool end, inkPoint *lastPointPtr, inkPoint* innerIntersectionPtr, bool clockwise, inkMatrix invGLMatrix, bool noJoints)
 {
+	//noJoints = false;
+
 	inkBox box = inkBoxZero;
 
 	// Needs to be declared and set prior to using the goto.
@@ -370,19 +374,49 @@ bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* strok
 			miter = (M_PI - fabsf(angleDiff)) * M_1_PI;
 		}
 
+		inkJointStyle jointStyle;
+		if (noJoints == true)
+			jointStyle = inkJointStyle_None;
+		else
+			jointStyle = stroke->joints;
+
 		if (flip)
 		{
-			inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, invGLMatrix);
-			inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerB, tessellator, fill, invGLMatrix);
-			inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, invGLMatrix);
-			inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, invGLMatrix);
+			if (jointStyle == inkJointStyle_None)
+			{
+			//	inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, invGLMatrix);
+			//	inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerB, tessellator, fill, invGLMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, invGLMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, invGLMatrix);
+				localLastPointPtr = &outerA;
+				innerIntersection = innerA;
+			}
+			else
+			{
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, invGLMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerB, tessellator, fill, invGLMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, invGLMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, invGLMatrix);
+			}
 		}
 		else
 		{
-			inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerB, tessellator, fill, invGLMatrix);
-			inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, invGLMatrix);
-			inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, invGLMatrix);
-			inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, invGLMatrix);
+			if (jointStyle == inkJointStyle_None)
+			{
+			//	inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerB, tessellator, fill, invGLMatrix);
+			//	inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, invGLMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, invGLMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, invGLMatrix);
+				localLastPointPtr = &outerA;
+				innerIntersection = innerA;
+			}
+			else
+			{
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerB, tessellator, fill, invGLMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, invGLMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, innerA, tessellator, fill, invGLMatrix);
+				inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, invGLMatrix);
+			}
 		}
 
 	//	inkStrokeGeneratorAddDrawPoint(innerA, tessellator, fill);
@@ -407,7 +441,7 @@ bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* strok
 		}
 		goto endStatement;*/
 
-		switch(stroke->joints)
+		switch(jointStyle)
 		{
 			// Let bevel fall into miter, I changed the miter limit for this
 			case inkJointStyle_Bevel:
@@ -506,6 +540,7 @@ bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* strok
 				innerIntersection = innerB;
 			}
 				break;
+			case inkJointStyle_None:
 			default:
 				break;
 		}
@@ -561,6 +596,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		return;
 
 	inkArray* vertices = rasterizeObject->vertices;
+	inkArray* isCurves = rasterizeObject->isCurves;
 
 	inkGenerator* generator = strokeGenerator->generator;
 	inkTessellator* tessellator = generator->tessellator;
@@ -573,12 +609,16 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 //	inkTessellatorBegin(GL_POINTS, tessellator);
 
 	inkVertex* vertex;
+	bool* isCurveItr;
 
 	void* fill = rasterizeObject->fill;
 	inkMatrix invGLMatrix = rasterizeObject->invGLMatrix;
 
 	inkVertex vA;
 	inkVertex vB;
+
+	bool isCurveA;
+	bool isCurveB;
 
 	inkBox previousBox;
 	inkBox* previousBoxPtr = NULL;
@@ -592,6 +632,8 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 	vA = *((inkVertex *)(inkArrayElementAt(vertices, 0)));
 	vB = *((inkVertex *)(inkArrayElementAt(vertices, count - 1)));
+	isCurveA = *((bool *)(inkArrayElementAt(isCurves, 0)));
+	isCurveB = *((bool *)(inkArrayElementAt(isCurves, count - 1)));
 
 	bool closedLoop = inkIsEqualf(vA.pos.x, vB.pos.x) && inkIsEqualf(vA.pos.y, vB.pos.y);
 	bool start = count == 2;
@@ -607,10 +649,12 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 			return;
 
 		vA = *((inkVertex *)(inkArrayElementAt(vertices, count - 2)));
+		isCurveA = *((bool *)(inkArrayElementAt(isCurves, count - 2)));
 	}
 	else
 	{
 		vA = vB;
+		isCurveA = isCurveB;
 	}
 
 	bool clockwise;
@@ -622,6 +666,7 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 	//if (count > 2)
 	{
 		vA = vB;
+		isCurveA = isCurveB;
 
 		unsigned int index = 0;
 
@@ -661,13 +706,17 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 
 		clockwise = sum >= 0.0f;
 
+		bool noJoints = false;
+
 		//index = 0;
 
+		isCurveItr = (bool*)inkArrayElementAt(isCurves, 0);
 		// TODO:	inkTessellatorVertex copies the vertex right now, make sure
 		//			this will ALWAYS be the case, or this will fail.
-		inkArrayForEachv(vertices, vertex, index = 0, (vA = vB, ++index))
+		inkArrayForEachv(vertices, vertex, index = 0, (vA = vB, isCurveA = isCurveB, ++index, ++isCurveItr))
 		{
 			vB = *vertex;
+			isCurveB = *isCurveItr;
 
 			if (index < startIndex)
 				continue;
@@ -679,15 +728,17 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 				end = (index == count - 1);
 			}
 
+			noJoints = isCurveA && isCurveB;
+
 			if (has == true || index == startIndex)
 			{
-				inkStrokeGeneratorAdd(strokeGenerator, strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, NULL, NULL, clockwise, invGLMatrix);
+				inkStrokeGeneratorAdd(strokeGenerator, strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, NULL, NULL, clockwise, invGLMatrix, noJoints);
 				previousBoxPtr = &previousBox;
 			}
 			else
 			{
 				testHas = true;
-				flipFirst = inkStrokeGeneratorAdd(strokeGenerator, strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, &lastPoint, &innerIntersection, clockwise, invGLMatrix);
+				flipFirst = inkStrokeGeneratorAdd(strokeGenerator, strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, &testBox, vA, vB, halfScalar, fill, start, end, &lastPoint, &innerIntersection, clockwise, invGLMatrix, noJoints);
 			}
 
 			if (inkBoxIsEqual(testBox, inkBoxZero) == false)
@@ -713,7 +764,10 @@ void inkStrokeGeneratorEndRasterizeGroup(inkStrokeGenerator* strokeGenerator, in
 		if (closedLoop)
 		{
 			vB = *((inkVertex *)(inkArrayElementAt(vertices, startIndex)));
-			inkStrokeGeneratorAdd(strokeGenerator, strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, NULL, vA, vB, halfScalar, fill, false, false, NULL, NULL, clockwise, invGLMatrix);
+			isCurveB = *((bool *)(inkArrayElementAt(isCurves, startIndex)));
+			noJoints = isCurveA && isCurveB;
+
+			inkStrokeGeneratorAdd(strokeGenerator, strokeGenerator->stroke, tessellator, strokeGenerator->canvas, previousBoxPtr, NULL, vA, vB, halfScalar, fill, false, false, NULL, NULL, clockwise, invGLMatrix, noJoints);
 
 			// ROOT of the closed loop issue, need to look into it.
 			if (flipFirst == true)
@@ -755,6 +809,6 @@ void inkStrokeGeneratorEndConcat(void* generator)
 	if (rasterizeObject == NULL)
 		return;
 
-	*rasterizeObject = inkStrokeGeneratorRasterizeObjectMake(strokeGenerator->generator->currentVertices, strokeGenerator->generator->fill, strokeGenerator->generator->invGLMatrix);
+	*rasterizeObject = inkStrokeGeneratorRasterizeObjectMake(strokeGenerator->generator->currentVertices, strokeGenerator->generator->currentIsCurveGroup, strokeGenerator->generator->fill, strokeGenerator->generator->invGLMatrix);
 	strokeGenerator->generator->currentVertices = NULL;
 }

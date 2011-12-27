@@ -21,14 +21,16 @@ inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill, inkMat
 		generator->tessellator = tessellator;
 
 		generator->vertexGroupList = inkArrayCreate(sizeof(inkArray *));
+		generator->isCurveGroupList = inkArrayCreate(sizeof(inkArray *));
 
-		if (generator->vertexGroupList == NULL)
+		if (generator->vertexGroupList == NULL || generator->isCurveGroupList == NULL)
 		{
 			inkGeneratorDestroy(generator);
 			return NULL;
 		}
 
 		generator->currentVertices = NULL;
+		generator->currentIsCurveGroup = NULL;
 		generator->fill = fill;
 		generator->invGLMatrix = invGLMatrix;
 	}
@@ -42,6 +44,7 @@ void inkGeneratorDestroy(inkGenerator* generator)
 	{
 		inkGeneratorRemoveAllVertices(generator);
 		inkArrayDestroy(generator->vertexGroupList);
+		inkArrayDestroy(generator->isCurveGroupList);
 
 		free(generator);
 	}
@@ -49,7 +52,7 @@ void inkGeneratorDestroy(inkGenerator* generator)
 
 void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGeneratorEndFunction endFunction, void *userData)
 {
-	if (generator == NULL || generator->vertexGroupList == NULL)
+	if (generator == NULL || generator->vertexGroupList == NULL || generator->isCurveGroupList == NULL)
 		return;
 
 	if (endFunction != NULL)
@@ -57,33 +60,51 @@ void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGenerator
 	else
 		inkGeneratorEnd(generator);
 
+	unsigned int vertexGroupListCount = inkArrayCount(generator->vertexGroupList);
+	unsigned int isCurveGroupListCount = inkArrayCount(generator->isCurveGroupList);
+
+	inkArray** verticesPtr = NULL;
+	inkArray** isCurvePtr = NULL;
 	inkArray* vertices = inkArrayCreate(sizeof(inkVertex));
+	inkArray* isCurves = inkArrayCreate(sizeof(bool));
 
-	if (vertices == NULL)
-		return;
+	if (vertices == NULL || isCurves == NULL)
+		goto errorCleanup;
 
-	inkArray** verticesPtr = inkArrayPush(generator->vertexGroupList);
+	verticesPtr = inkArrayPush(generator->vertexGroupList);
+	isCurvePtr = inkArrayPush(generator->isCurveGroupList);
 
-	if (verticesPtr == NULL)
-	{
-		inkArrayDestroy(vertices);
-		return;
-	}
+	if (verticesPtr == NULL || isCurvePtr == NULL)
+		goto errorCleanup;
 
 	*verticesPtr = vertices;
 	generator->currentVertices = vertices;
 
+	*isCurvePtr = isCurves;
+	generator->currentIsCurveGroup = isCurves;
+
 	generator->previous = position;
 
-	inkGeneratorAddVertex(generator, generator->previous, generator->fill, generator->invGLMatrix);
+	inkGeneratorAddVertex(generator, generator->previous, generator->fill, generator->invGLMatrix, false);
+
+	return;
+
+errorCleanup:
+	if (vertices != NULL)
+		inkArrayDestroy(vertices);
+	if (isCurves != NULL)
+		inkArrayDestroy(isCurves);
+
+	inkArrayUpdateCount(generator->vertexGroupList, vertexGroupListCount);
+	inkArrayUpdateCount(generator->isCurveGroupList, isCurveGroupListCount);
 }
 
-void inkGeneratorLineTo(inkGenerator* generator, inkPoint position)
+void inkGeneratorLineTo(inkGenerator* generator, inkPoint position, bool isCurve)
 {
 	if (generator == NULL)
 		return;
 
-	inkGeneratorAddVertex(generator, position, generator->fill, generator->invGLMatrix);
+	inkGeneratorAddVertex(generator, position, generator->fill, generator->invGLMatrix, isCurve);
 	generator->previous = position;
 }
 
@@ -181,12 +202,15 @@ void inkGeneratorInitVertex(inkGenerator* generator, inkVertex* vertex, inkPoint
 	}
 }
 
-void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position, void* fill, inkMatrix matrix)
+void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position, void* fill, inkMatrix matrix, bool isCurve)
 {
 	if (generator == NULL || generator->currentVertices == NULL)
 		return;
 
 	inkVertex* vertex = (inkVertex*)inkArrayPush(generator->currentVertices);
+	bool* isCurvePtr = (bool*)inkArrayPush(generator->currentIsCurveGroup);
+	if (isCurvePtr != NULL)
+		*isCurvePtr = isCurve;
 
 	inkGeneratorInitVertex(generator, vertex, position, fill, matrix);
 }
@@ -199,29 +223,27 @@ void inkGeneratorRemoveAllVertices(inkGenerator* generator)
 	if (generator->vertexGroupList != NULL)
 	{
 		inkArray* array;
-		/*
-		unsigned int index;
-		inkArrayPtrForEachv(generator->vertexGroupList, array, index = 0, ++index)
-		{
-			inkArray* arr2;
-			unsigned int index2;
-			inkArrayPtrForEach(generator->vertexGroupList, arr2, index2 = 0, ++index2)
-			{
-				if (index2++ <= index)
-					continue;
 
-				assert(arr2 != array);
-			}
-		}*/
 		inkArrayPtrForEach(generator->vertexGroupList, array)
 		{
 			inkArrayDestroy(array);
 		}
 
 		inkArrayClear(generator->vertexGroupList);
-		//inkArrayDestroy(generator->vertexGroupList);
-		//generator->vertexGroupList = inkArrayCreate(sizeof(inkArray*));
 		generator->currentVertices = NULL;
+	}
+
+	if (generator->isCurveGroupList != NULL)
+	{
+		inkArray* array;
+
+		inkArrayPtrForEach(generator->isCurveGroupList, array)
+		{
+			inkArrayDestroy(array);
+		}
+
+		inkArrayClear(generator->isCurveGroupList);
+		generator->currentIsCurveGroup = NULL;
 	}
 }
 

@@ -25,7 +25,7 @@ typedef struct
 inkPoint inkUpdatePositionv(inkPoint point, void* canvas);
 inkPoint inkUpdatePosition(inkCanvas* canvas, inkPoint point);
 
-void inkInternalLineTo(inkCanvas* canvas, inkPoint point, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator);
+void inkInternalLineTo(inkCanvas* canvas, inkPoint point, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator, bool isCurve);
 void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator, inkCurveType curveType, inkPoint controlA, inkPoint controlB, inkPoint anchor);
 
 inkInline inkPoint inkPosition(inkCanvas* canvas, inkPoint position, bool relative)
@@ -47,7 +47,7 @@ inkInline void inkSetCursor(inkCanvas* canvas, inkPoint position)
 
 unsigned int inkArcLengthSegmentCount(inkCanvas* canvas, float arcLength)
 {
-	unsigned int count = lroundf(fabsf(arcLength));
+	unsigned int count = ceilf(fabsf(arcLength));
 
 	count *= canvas->pixelsPerPoint * canvas->curveMultiplier;
 
@@ -244,7 +244,7 @@ inkPoint inkUpdatePosition(inkCanvas* canvas, inkPoint point)
 	return inkMatrixTransformPoint(canvas->matrix, point);
 }
 
-void inkInternalLineTo(inkCanvas* canvas, inkPoint point, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator)
+void inkInternalLineTo(inkCanvas* canvas, inkPoint point, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator, bool isCurve)
 {
 	assert(canvas != NULL);
 
@@ -262,8 +262,8 @@ void inkInternalLineTo(inkCanvas* canvas, inkPoint point, inkFillGenerator* fill
 		}
 	}
 
-	inkFillGeneratorLineTo(fillGenerator, point);
-	inkStrokeGeneratorLineTo(strokeGenerator, point);
+	inkFillGeneratorLineTo(fillGenerator, point, isCurve);
+	inkStrokeGeneratorLineTo(strokeGenerator, point, isCurve);
 
 	canvas->totalLength += additionalDistance;
 	canvas->cursor = point;
@@ -274,7 +274,7 @@ void inkCurveAdd(inkPoint point, void* userData)
 	if (userData == NULL)
 		return;
 
-	inkInternalLineTo(((inkCurveGenerators*)userData)->canvas, point, ((inkCurveGenerators*)userData)->fillGenerator, ((inkCurveGenerators*)userData)->strokeGenerator);
+	inkInternalLineTo(((inkCurveGenerators*)userData)->canvas, point, ((inkCurveGenerators*)userData)->fillGenerator, ((inkCurveGenerators*)userData)->strokeGenerator, true);
 }
 
 void inkCurve(inkCanvas* canvas, inkFillGenerator* fillGenerator, inkStrokeGenerator* strokeGenerator, inkCurveType curveType, inkPoint controlA, inkPoint controlB, inkPoint anchor)
@@ -425,7 +425,7 @@ void inkBuild(inkCanvas* canvas)
 				inkLineToCommand* command = (inkPoint*)(commandData);
 
 				inkPoint point = inkUpdatePosition(canvas, *command);
-				inkInternalLineTo(canvas, point, fillGenerator, strokeGenerator);
+				inkInternalLineTo(canvas, point, fillGenerator, strokeGenerator, false);
 			}
 				break;
 			case inkCommandType_QuadraticCurveTo:

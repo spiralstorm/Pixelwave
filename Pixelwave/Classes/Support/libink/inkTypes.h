@@ -143,7 +143,8 @@ typedef enum
 {
 	inkJointStyle_Bevel = 0,
 	inkJointStyle_Miter,
-	inkJointStyle_Round
+	inkJointStyle_Round,
+	inkJointStyle_None
 } inkJointStyle;
 
 #define _inkJointStyleDefault inkJointStyle_Round

@@ -27,7 +27,7 @@ inkExtern inkFillGenerator* inkFillGeneratorCreate(inkTessellator* tessellator, 
 inkExtern void inkFillGeneratorDestroy(inkFillGenerator* generator);
 
 inkExtern void inkFillGeneratorMoveTo(inkFillGenerator* generator, inkPoint position);
-inkExtern void inkFillGeneratorLineTo(inkFillGenerator* generator, inkPoint position);
+inkExtern void inkFillGeneratorLineTo(inkFillGenerator* generator, inkPoint position, bool isCurve);
 inkExtern void inkFillGeneratorEnd(inkFillGenerator* generator);
 
 #endif

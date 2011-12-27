@@ -54,12 +54,12 @@ void inkFillGeneratorMoveTo(inkFillGenerator* fillGenerator, inkPoint position)
 	inkGeneratorMoveTo(fillGenerator->generator, position, NULL, NULL);
 }
 
-void inkFillGeneratorLineTo(inkFillGenerator* fillGenerator, inkPoint position)
+void inkFillGeneratorLineTo(inkFillGenerator* fillGenerator, inkPoint position, bool isCurve)
 {
 	if (fillGenerator == NULL)
 		return;
 
-	inkGeneratorLineTo(fillGenerator->generator, position);
+	inkGeneratorLineTo(fillGenerator->generator, position, isCurve);
 }
 
 void inkFillGeneratorEnd(inkFillGenerator* fillGenerator)

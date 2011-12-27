@@ -38,7 +38,7 @@ inkExtern void inkStrokeGeneratorDestroy(inkStrokeGenerator* generator);
 inkExtern void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill, inkMatrix invGLMatrix);
 
 inkExtern void inkStrokeGeneratorMoveTo(inkStrokeGenerator* generator, inkPoint position);
-inkExtern void inkStrokeGeneratorLineTo(inkStrokeGenerator* generator, inkPoint position);
+inkExtern void inkStrokeGeneratorLineTo(inkStrokeGenerator* generator, inkPoint position, bool isCurve);
 inkExtern void inkStrokeGeneratorEnd(inkStrokeGenerator* generator);
 
 #endif

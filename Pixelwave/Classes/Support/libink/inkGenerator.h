@@ -31,6 +31,9 @@ typedef struct _inkGenerator
 	inkArray* vertexGroupList;
 	inkArray* currentVertices;
 
+	inkArray* isCurveGroupList;
+	inkArray* currentIsCurveGroup;
+
 	inkPoint previous;
 
 	void* fill;
@@ -40,11 +43,11 @@ inkExtern inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fi
 inkExtern void inkGeneratorDestroy(inkGenerator* generator);
 
 inkExtern void inkGeneratorMoveTo(inkGenerator* generator, inkPoint position, inkGeneratorEndFunction endFunction, void *userData);
-inkExtern void inkGeneratorLineTo(inkGenerator* generator, inkPoint position);
+inkExtern void inkGeneratorLineTo(inkGenerator* generator, inkPoint position, bool isCurve);
 inkExtern void inkGeneratorEnd(inkGenerator* generator);
 
 inkExtern void inkGeneratorInitVertex(inkGenerator* generator, inkVertex* vertex, inkPoint position, void* fill, inkMatrix invGLMatrix);
-inkExtern void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position, void* fill, inkMatrix invGLMatrix);
+inkExtern void inkGeneratorAddVertex(inkGenerator* generator, inkPoint position, void* fill, inkMatrix matrix, bool isCurve);
 inkExtern void inkGeneratorRemoveAllVertices(inkGenerator* generator);
 
 inkExtern void inkGeneratorMultColor(inkGenerator* generator, float red, float green, float blue, float alpha);
