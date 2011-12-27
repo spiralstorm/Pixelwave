@@ -122,7 +122,6 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 					if (state == 0 || state == 2)
 					{
 						inkRenderGroupAddNewIndex(renderGroup->indices, index);
-					//	inkRenderGroupAddNewVertex(newVertices, *vertex);
 					}
 				}
 
@@ -131,14 +130,11 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 
 				if (++state == 3)
 					state = 0;
-				//++index;
 			}
 		}
 			break;
 		case GL_TRIANGLE_FAN:
 		{
-		//	inkVertex startVertex;
-		//	inkVertex lastVertex;
 			inkVertex* vertex;
 
 			unsigned short startIndex = 0;
@@ -148,30 +144,16 @@ void inkRenderGroupConvertToStrips(inkRenderGroup* renderGroup)
 
 			inkArrayForEachv(renderGroup->vertices, vertex, index = 0, ++index)
 			{
-				/*if (index == 0)
-				{
-					startVertex = *vertex;
-				}
-				else if (index == 1)
-				{
-					lastVertex = *vertex;
-				}*/
 				if (index > 1)
 				{
 					inkRenderGroupAddNewIndex(renderGroup->indices, startIndex);
 					inkRenderGroupAddNewIndex(renderGroup->indices, lastIndex);
 					inkRenderGroupAddNewIndex(renderGroup->indices, index);
-				//	inkRenderGroupAddNewVertex(newVertices, startVertex);
-				//	inkRenderGroupAddNewVertex(newVertices, lastVertex);
-				//	inkRenderGroupAddNewVertex(newVertices, *vertex);
 
-				//	lastVertex = *vertex;
 					lastIndex = index;
 				}
 
 				inkRenderGroupAddNewVertex(newVertices, *vertex);
-
-				//++index;
 			}
 		}
 			break;
@@ -217,9 +199,7 @@ void inkRenderGroupConvertToElements(inkRenderGroup* renderGroup)
 		unique = true;
 
 		count = inkArrayCount(newVertices);
-		// TODO: Improve this, try looping backwards
-		//index = 0;
-		//inkArrayForEachv(newVertices, prev, index = 0, ++index)
+		// TODO: Improve this
 		inkArrayForEachRevv(newVertices, prev, index = count - 1, --index)
 		{
 			if (inkVertexIsEqual(*prev, *vertex))
@@ -227,7 +207,6 @@ void inkRenderGroupConvertToElements(inkRenderGroup* renderGroup)
 				unique = false;
 				break;
 			}
-			//++index;
 		}
 
 		if (unique == true)

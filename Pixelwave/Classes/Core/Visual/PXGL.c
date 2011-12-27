@@ -1340,8 +1340,6 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	if (!pxGLVertexPointer.pointer || count == 0)
 		return;
 
-	const PXGLElementsType *indices = ids;
-
 	PX_ENABLE_BIT(pxGLState.state, PX_GL_DRAW_ELEMENTS);
 	PXGLSetupEnables();
 
@@ -1456,7 +1454,7 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	int nX;
 	int nY;
 
-	const PXGLElementsType *curIndex;
+//	const PXGLElementsType *curIndex;
 	GLsizei counter;
 
 	// Create an arbitrary amount of buckets. We will expand this if needed.
@@ -1470,14 +1468,31 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 	PXGLElementBucket *buckets = PXGLGetElementBuckets(maxIndex + 1);
 	PXGLElementBucket *bucket;
 
-	for (counter = 0, curIndex = indices + counter; counter < count; ++counter, ++curIndex, ++index)
+	const GLvoid *curID = ids;
+
+	for (counter = 0; counter < count; ++counter, ++index)
 	{
 		// Get the next available point, this method needs to also change the
 		// size of the array accordingly. If the array ever gets larger then
 		// MAX_VERTICES, we should flush it. Keep in mind that if we do that
 		// here, then offset and translation needs to change also.
 
-		eVal = *curIndex;
+		switch(type)
+		{
+			case GL_UNSIGNED_BYTE:
+				eVal = (PXGLElementsType)(*(GLubyte *)(curID));
+				curID = (GLubyte *)(curID) + 1;
+				break;
+			case GL_UNSIGNED_INT:
+				eVal = (PXGLElementsType)(*(GLuint *)(curID));
+				curID = (GLuint *)(curID) + 1;
+				break;
+			case GL_UNSIGNED_SHORT:
+			default:
+				eVal = (PXGLElementsType)(*(GLushort *)(curID));
+				curID = (GLushort *)(curID) + 1;
+				break;
+		}
 
 		if (eVal > maxIndex)
 		{
@@ -1536,24 +1551,9 @@ void PXGLDrawElements(GLenum mode, GLsizei count, GLenum type, const GLvoid *ids
 
 			nX = bucket->vertex->x;
 			nY = bucket->vertex->y;
-
-			/*if (isPointSizeArray)
-			{
-				halfPointSize = *(bucket->pointSize) * 0.5f;
-
-				PXGLAABBExpandv(&aabb, nX - halfPointSize, nY - halfPointSize);
-				PXGLAABBExpandv(&aabb, nX + halfPointSize, nY + halfPointSize);
-			}
-			else if (mode == GL_POINTS)
-			{
-				PXGLAABBExpandv(&aabb, nX - pxGLHalfPointSize, nY - pxGLHalfPointSize);
-				PXGLAABBExpandv(&aabb, nX + pxGLHalfPointSize, nY + pxGLHalfPointSize);
-			}
-			else
-			{*/
-				// Lets figure out the bounding box
-				PXGLAABBExpandv(&aabb, nX, nY);
-			//}
+å
+			// Lets figure out the bounding box
+			PXGLAABBExpandv(&aabb, nX, nY);
 		}
 
 		*index = bucket->vertexIndex;
