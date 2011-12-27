@@ -541,32 +541,32 @@ void PXEngineDispatchPostFrameEvents(PXDisplayObject *displayObject)
 
 void PXEngineDispatchFrameEvents()
 {
-	if (pxEngineFrameListeners.count == 0)
-		return;
-
-	PXDisplayObject *child = nil;
-
-	// Dispatch it on all listeners (listeners must be PXDisplayObject's, but
-	// aren't necessarily on the display list, don't have to have a non-nil
-	// 'parent')
-	PXLinkedListForEach(pxEngineFrameListeners, child)
+	if (pxEngineFrameListeners.count != 0)
 	{
-		[pxEngineCachedListeners addObject:child];
-	}
+		PXDisplayObject *child = nil;
 
-	// From Flash API:
-	// Note:	This event has neither a "capture phase" nor a "bubble phase",
-	//			which means that event listeners must be added directly to any
-	//			potential targets, whether the target is on the display list or
-	//			not.
-	PXLinkedListForEach(pxEngineCachedListeners, child)
-	{
-		// The enterFrame event doesn't follow the event flow, even though it's
-		// dispatched into the display list in some cases
-		[child _dispatchEventNoFlow:pxEngineEnterFrameEvent];
-	}
+		// Dispatch it on all listeners (listeners must be PXDisplayObject's, but
+		// aren't necessarily on the display list, don't have to have a non-nil
+		// 'parent')
+		PXLinkedListForEach(pxEngineFrameListeners, child)
+		{
+			[pxEngineCachedListeners addObject:child];
+		}
 
-	[pxEngineCachedListeners removeAllObjects];
+		// From Flash API:
+		// Note:	This event has neither a "capture phase" nor a "bubble phase",
+		//			which means that event listeners must be added directly to any
+		//			potential targets, whether the target is on the display list or
+		//			not.
+		PXLinkedListForEach(pxEngineCachedListeners, child)
+		{
+			// The enterFrame event doesn't follow the event flow, even though it's
+			// dispatched into the display list in some cases
+			[child _dispatchEventNoFlow:pxEngineEnterFrameEvent];
+		}
+
+		[pxEngineCachedListeners removeAllObjects];
+	}
 
 	PXEngineDispatchPostFrameEvents(pxEngineStage);
 }
