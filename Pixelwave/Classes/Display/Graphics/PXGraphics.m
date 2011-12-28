@@ -142,73 +142,20 @@ inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType typ
 	return info;
 }
 
-PXInline inkPoint PXGraphicsInkPointToPXPoint(inkPoint point, PXDisplayObject *displayObject)
-{
-	if (displayObject == NULL)
-		return inkPointZero;
-
-	PXGLMatrix matrix;
-	PXGLMatrixIdentity(&matrix);
-
-	PXStage *stage = PXEngineGetStage();
-
-	if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
-		return inkPointZero;
-
-	PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
-
-	inkMatrix mat = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-	inkSize scale = inkMatrixSize(mat);
-
-	point = inkPointDivide(point, inkPointFromSize(scale));
-
-	//PXUtilsLocalToGlobal(displayObject, point)
-	point = inkMatrixTransformPoint(mat, point);
-
-	return point = inkMatrixTransformPoint(mat, point);
-}
-
-PXInline inkPoint PXGraphicsPXPointToInkPoint(inkPoint point, PXDisplayObject *displayObject)
-{
-	if (displayObject == NULL)
-		return inkPointZero;
-
-	inkPoint origPoint = point;
-
-	PXGLMatrix matrix;
-	PXGLMatrixIdentity(&matrix);
-
-	PXStage *stage = PXEngineGetStage();
-
-	if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
-		return inkPointZero;
-
-	//PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
-
-	inkMatrix mat = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-	inkSize scale = inkMatrixSize(mat);
-
-	point = inkMatrixTransformPoint(inkMatrixInvert(mat), point);
-	//point = inkMatrixTransformPoint(mat, point);
-	printf("Apoint = (%f, %f), orig = (%f, %f)\n", point.x, point.y, origPoint.x, origPoint.y);
-	CGPoint cPoint = CGPointMake(point.x, point.y);
-	//cPoint = PXEnginePointStageToGL(cPoint, stage);
-	point = inkPointMake(cPoint.x, cPoint.y);
-	//printf("Bpoint = (%f, %f), orig = (%f, %f)\n", point.x, point.y, origPoint.x, origPoint.y);
-
-	point = origPoint;
-	return inkPointMultiply(point, inkPointFromSize(scale));
-}
-
 @interface PXGraphics(Private)
 - (BOOL) buildWithDisplayObject:(PXDisplayObject *)obj;
 - (BOOL) build:(PXGLMatrix)matrix;
+- (inkPoint) pxPointToInkPoint:(inkPoint)point displayObject:(PXDisplayObject *)displayObject;
+- (inkPoint) pxPointToInkPoint:(inkPoint)point displayObject:(PXDisplayObject *)displayObject;
 @end
 
 @implementation PXGraphics
 
 @synthesize vertexCount;
 @synthesize convertTrianglesIntoStrips;
+@synthesize buildStyle;
+@synthesize scaleRebuildEpsilon;
+@synthesize curvePrecision;
 
 - (id) init
 {
@@ -228,8 +175,12 @@ PXInline inkPoint PXGraphicsPXPointToInkPoint(inkPoint point, PXDisplayObject *d
 	}
 
 	wasBuilt = false;
-	//previousSize = CGSizeMake(1.0f, 1.0f);
-	PXGLMatrixIdentity(&previousMatrix);
+	buildStyle = PXGraphicsBuildStyle_Hybrid;
+	scaleRebuildEpsilon = 0.001f;
+	//scaleRebuildEpsilon = 0.05f;
+	curvePrecision = inkCurveMultiplier((inkCanvas*)vCanvas);
+
+	PXGLMatrixIdentity(&graphicsMatrix);
 
 	return self;
 }
@@ -241,6 +192,34 @@ PXInline inkPoint PXGraphicsPXPointToInkPoint(inkPoint point, PXDisplayObject *d
 	[textureDataList release];
 
 	[super dealloc];
+}
+
+- (void) setBuildStyle:(PXGraphicsBuildStyle)_buildStyle
+{
+	if (buildStyle != _buildStyle)
+	{
+		buildStyle = _buildStyle;
+		wasBuilt = false;
+	}
+}
+
+- (void) setScaleRebuildEpsilon:(float)_scaleRebuildEpsilon
+{
+	if (scaleRebuildEpsilon != _scaleRebuildEpsilon)
+	{
+		scaleRebuildEpsilon = _scaleRebuildEpsilon;
+		wasBuilt = false;
+	}
+}
+
+- (void) setCurvePrecision:(float)_curvePrecision
+{
+	if (curvePrecision != _curvePrecision)
+	{
+		curvePrecision = _curvePrecision;
+		inkSetCurveMultiplier((inkCanvas*)vCanvas, curvePrecision);
+		wasBuilt = false;
+	}
 }
 
 // MARK: -
@@ -421,53 +400,71 @@ PXInline inkPoint PXGraphicsPXPointToInkPoint(inkPoint point, PXDisplayObject *d
 	}
 }
 
-- (BOOL) buildWithDisplayObject:(PXDisplayObject *)displayObject
+- (inkMatrix) inkMatrixFromDisplayObject:(PXDisplayObject *)displayObject
 {
 	if (displayObject == NULL)
-		return NO;
-	
+		return inkMatrixIdentity;
+
 	PXGLMatrix matrix;
 	PXGLMatrixIdentity(&matrix);
-	
+
 	PXStage *stage = PXEngineGetStage();
-	
+
 	if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
-		return NO;
+		return inkMatrixIdentity;
 
-	PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
+//	PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
 
-	inkMatrix mat = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-	inkSize scale = inkMatrixSize(mat);
+	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+}
 
-	PXGLMatrixIdentity(&matrix);
-	PXGLMatrixScale(&matrix, scale.width, scale.height);
-
-	buildScale = CGSizeMake(scale.width, scale.height);
-
-	return [self build:matrix];
-
-	/*PXStage *stage = PXEngineGetStage();
-
-	if (stage == NULL || obj == NULL)
-		return NO;
-
+- (BOOL) buildWithDisplayObject:(PXDisplayObject *)displayObject
+{
 	PXGLMatrix matrix;
 	PXGLMatrixIdentity(&matrix);
 
-	if (defineOnceAndLocal == false)
+	bool cancelBuild = false;
+
+	if (buildStyle != PXGraphicsBuildStyle_GL)
 	{
-		PXGLMatrixMult(&matrix, &matrix, &stage->_matrix);
-		PXUtilsDisplayObjectMultiplyDown(stage, obj, &matrix);
+		inkMatrix mat = [self inkMatrixFromDisplayObject:displayObject];
+		inkSize scale = inkMatrixSize(mat);
+
+		PXGLMatrixScale(&matrix, scale.width, scale.height);
+
+		buildScale = CGSizeMake(scale.width, scale.height);
+
+		if (wasBuilt == true && buildStyle != PXGraphicsBuildStyle_Hybrid)
+		{
+			cancelBuild = true;
+		}
+		else
+		{
+			if (buildStyle == PXGraphicsBuildStyle_Hybrid)
+			{
+				if (wasBuilt == false ||
+					PXMathIsNearlyEqual(previousBuildScale.width,  buildScale.width,  scaleRebuildEpsilon) == false ||
+					PXMathIsNearlyEqual(previousBuildScale.height, buildScale.height, scaleRebuildEpsilon) == false)
+				{
+					previousBuildScale = buildScale;
+				}
+				else
+					cancelBuild = true;
+			}
+		}
 	}
 
-	return [self build:matrix];*/
+	if (cancelBuild == true)
+		return false;
+
+	return [self build:matrix];
 }
 
 - (BOOL) build:(PXGLMatrix)matrix
 {
-	if (wasBuilt == false || PXGLMatrixIsEqual(&matrix, &previousMatrix) == false)
+	if (wasBuilt == false || (buildStyle == PXGraphicsBuildStyle_Hybrid && PXGLMatrixIsEqual(&matrix, &graphicsMatrix) == false))
 	{
-		previousMatrix = matrix;
+		graphicsMatrix = matrix;
 		wasBuilt = true;
 
 		inkMatrix iMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
@@ -493,124 +490,100 @@ PXInline inkPoint PXGraphicsPXPointToInkPoint(inkPoint point, PXDisplayObject *d
 	inkSetConvertTrianglesIntoStrips((inkCanvas*)vCanvas, convertTrianglesIntoStrips);
 }
 
+- (inkPoint) inkPointToPXPoint:(inkPoint)point displayObject:(PXDisplayObject *)displayObject
+{
+	if (buildStyle == PXGraphicsBuildStyle_GL)
+		return point;
+
+	//inkMatrix mat = [self inkMatrixFromDisplayObject:displayObject];
+	inkMatrix mat = inkMatrixMake(graphicsMatrix.a, graphicsMatrix.b, graphicsMatrix.c, graphicsMatrix.d, graphicsMatrix.tx, graphicsMatrix.ty);
+
+	inkSize scale = inkMatrixSize(mat);
+
+	if (scale.width == 0.0f || scale.height == 0.0f)
+		return inkPointZero;
+
+	mat = inkMatrixMake(1.0f / scale.width, 0.0f, 0.0f, 1.0f / scale.height, 0.0f, 0.0f);
+
+	point = inkMatrixTransformPoint(mat, point);
+
+	return point;
+}
+
+- (inkPoint) pxPointToInkPoint:(inkPoint)point displayObject:(PXDisplayObject *)displayObject
+{
+	if (buildStyle == PXGraphicsBuildStyle_GL)
+		return point;
+
+	inkMatrix mat = inkMatrixMake(graphicsMatrix.a, graphicsMatrix.b, graphicsMatrix.c, graphicsMatrix.d, graphicsMatrix.tx, graphicsMatrix.ty);
+
+	inkSize scale = inkMatrixSize(mat);
+
+	if (scale.width == 0.0f || scale.height == 0.0f)
+		return inkPointZero;
+
+	mat = inkMatrixMake(scale.width, 0.0f, 0.0f, scale.height, 0.0f, 0.0f);
+
+	point = inkMatrixTransformPoint(mat, point);
+
+	return point;
+}
+
 // MARK: -
 // MARK: Override
 // MARK: -
 
-/*- (CGRect) _measureGlobalBoundsUseStroke:(BOOL)useStroke
-{
-	inkRect bounds = inkBoundsv((inkCanvas*)vCanvas, useStroke);
-	return CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
-}*/
-
 - (CGRect) _measureLocalBoundsWithDisplayObject:(PXDisplayObject *)displayObject useStroke:(BOOL)useStroke
 {
-	inkRect bounds = inkBoundsv((inkCanvas*)vCanvas, useStroke);
-
-	// TODO: Fix this, it is terribly wrong!
-	return CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
-
-	/*if (defineOnceAndLocal == true)
-		return [self _measureGlobalBoundsUseStroke:useStroke];
-
-	PXGLMatrix matrix;
-	PXGLMatrixIdentity(&matrix);
-	PXStage *stage = PXEngineGetStage();
-
-	if (!PXUtilsDisplayObjectMultiplyUp((PXDisplayObject*)stage, displayObject, &matrix))
-		return CGRectZero;
-
 	[self buildWithDisplayObject:displayObject];
 
-	CGRect bounds = [self _measureGlobalBoundsUseStroke:useStroke];
+	inkRect bounds = inkBoundsv((inkCanvas*)vCanvas, useStroke);
 
-	PXGLAABBf aabb = PXGLAABBfMake(bounds.origin.x, bounds.origin.y, bounds.origin.x + bounds.size.width, bounds.origin.y + bounds.size.height);
-	aabb = PXEngineAABBfGLToStage(aabb, stage);
-	//PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(&aabb, stage);
-	aabb = PXGLMatrixConvertAABBf(&matrix, aabb);
+	inkBox box = inkBoxFromRect(bounds);
+	box.pointA = [self inkPointToPXPoint:box.pointA displayObject:displayObject];
+	box.pointB = [self inkPointToPXPoint:box.pointB displayObject:displayObject];
+	box.pointC = [self inkPointToPXPoint:box.pointC displayObject:displayObject];
+	box.pointD = [self inkPointToPXPoint:box.pointD displayObject:displayObject];
 
-	return CGRectMake(aabb.xMin, aabb.yMin, aabb.xMax - aabb.xMin, aabb.yMax - aabb.yMin);*/
+	bounds = inkRectFromMinMaxBox(box);
+
+	return CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
 }
-
-/*- (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
-{
-	if (defineOnceAndLocal == false)
-	{
-		PXStage *stage = PXEngineGetStage();
-		point = PXEnginePointStageToGL(point, stage);
-	}
-	//PX_ENGINE_CONVERT_POINT_FROM_STAGE_ORIENTATION(point.x, point.y, stage);
-
-	// inkContainsPoint asks if you are using the bounds, not the shape flag;
-	// therefore it is the opposite of the shape flag.
-	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake(point.x, point.y), !shapeFlag, useStroke) != NULL;
-}*/
 
 - (BOOL) _containsLocalPoint:(CGPoint)point displayObject:(PXDisplayObject *)displayObject shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
 {
-	return inkContainsPoint((inkCanvas*)vCanvas, PXGraphicsPXPointToInkPoint(inkPointMake(point.x, point.y), displayObject), !shapeFlag, useStroke) != NULL;
+	[self buildWithDisplayObject:displayObject];
 
-	/*if (defineOnceAndLocal == false)
-		return [self _containsGlobalPoint:PXUtilsLocalToGlobal(displayObject, point) shapeFlag:shapeFlag useStroke:YES];
+	inkPoint iPoint = [self pxPointToInkPoint:inkPointMake(point.x, point.y) displayObject:displayObject];
 
-	return [self _containsGlobalPoint:point shapeFlag:shapeFlag useStroke:YES];*/
+	return inkContainsPoint((inkCanvas*)vCanvas, iPoint, !shapeFlag, useStroke) != NULL;
 }
 
 - (void) _postFrame:(PXDisplayObject *)displayObject
 {
 	[self buildWithDisplayObject:displayObject];
-
-	/*if (displayObject == NULL)
-		return;
-
-	PXGLMatrix matrix;
-	PXGLMatrixIdentity(&matrix);
-
-	PXStage *stage = PXEngineGetStage();
-
-	if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
-		return;
-
-	PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
-
-	inkMatrix mat = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-	inkSize scale = inkMatrixSize(mat);
-
-	PXGLMatrixIdentity(&matrix);
-	PXGLMatrixScale(&matrix, scale.width, scale.height);
-
-	[self build:matrix];*/
 }
 
 - (void) _renderGL
 {
+	if (buildStyle == PXGraphicsBuildStyle_GL)
+	{
+		vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);
+		return;
+	}
+
 	PXGLMatrix origMatrix = PXGLCurrentMatrix();
-	PXGLMatrix matrix = origMatrix;
-
-//	inkMatrix mat = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
-//	float rotation = inkMatrixRotation(mat);
-//	inkSize scale = inkMatrixSize(mat);
-//	inkPoint translate = inkPointMake(mat.tx, mat.ty);
-
-//	if (scale.width == 0.0f || scale.height == 0.0f)
-//		return;
-
-//	mat = inkMatrixMakeBox(inkSizeMake(1.0f, 1.0f), rotation, translate);
-//	mat = inkMatrixMakeBox(inkSizeMake(1.0f/buildScale.width, 1.0f/buildScale.height), rotation, translate);
-
-///	matrix = PXGLMatrixMake(mat.a, mat.b, mat.c, mat.d, mat.tx, mat.ty);
-
-//	buildScale = CGSizeMake(scale.width, scale.height);
+	glMatrix = origMatrix;
 
 	if (buildScale.width == 0.0f || buildScale.height == 0.0f)
 		return;
 
 	PXGLMatrix mat2 = PXGLMatrixMake(1.0f / buildScale.width, 0.0f, 0.0f, 1.0f / buildScale.height, 0.0f, 0.0f);
 
-	PXGLMatrixMult(&matrix, &matrix, &mat2);
+	PXGLMatrixMult(&glMatrix, &glMatrix, &mat2);
 
 	PXGLLoadIdentity();
-	PXGLMultMatrix(&matrix);
+	PXGLMultMatrix(&glMatrix);
 
 	vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);
 

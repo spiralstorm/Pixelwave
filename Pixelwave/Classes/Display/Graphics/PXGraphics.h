@@ -46,6 +46,13 @@
 @class PXMatrix;
 @class PXDisplayObject;
 
+typedef enum
+{
+	PXGraphicsBuildStyle_Once = 0,
+	PXGraphicsBuildStyle_Hybrid,
+	PXGraphicsBuildStyle_GL
+} PXGraphicsBuildStyle;
+
 @interface PXGraphics : NSObject
 {
 @protected
@@ -54,16 +61,27 @@
 
 	bool wasBuilt;
 	bool convertTrianglesIntoStrips;
+//	bool onlyBuildOnce;
 
-	PXGLMatrix previousMatrix;
+	PXGLMatrix graphicsMatrix;
+	PXGLMatrix glMatrix;
 
 	NSMutableArray* textureDataList;
 
 	CGSize buildScale;
+	CGSize previousBuildScale;
+	float scaleRebuildEpsilon;
+	float curvePrecision;
+
+	PXGraphicsBuildStyle buildStyle;
 }
+
+@property (nonatomic) PXGraphicsBuildStyle buildStyle;
 
 @property (nonatomic, readonly) unsigned int vertexCount;
 @property (nonatomic) bool convertTrianglesIntoStrips;
+@property (nonatomic) float scaleRebuildEpsilon;
+@property (nonatomic) float curvePrecision;
 
 - (void) beginFill:(unsigned int)color alpha:(float)alpha;
 - (void) beginFillWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth;

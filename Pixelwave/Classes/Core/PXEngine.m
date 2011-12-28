@@ -720,6 +720,12 @@ void PXEngineRender()
 		PXDisplayObject *doAABB;
 		PXDisplayObject **curDisplayObject;
 
+		PXGLShadeModel(GL_SMOOTH);
+		PXGLDisable(GL_TEXTURE_2D);
+		PXGLColor4ub(0xFF, 0, 0, 0xFF);
+		PXGLLineWidth(1.0f);
+		PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
+
 		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
 		{
 			doAABB = *curDisplayObject;
@@ -742,10 +748,6 @@ void PXEngineRender()
 			vertices[2] = PXGLVertexMake((aabb.xMax), (aabb.yMax));
 			vertices[3] = PXGLVertexMake((aabb.xMax), (aabb.yMin));
 
-			PXGLShadeModel(GL_SMOOTH);
-			PXGLDisable(GL_TEXTURE_2D);
-			PXGLColor4ub(0xFF, 0, 0, 0xFF);
-			PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
 			PXGLDrawArrays(GL_LINE_LOOP, 0, 4);
 		}
 	}
@@ -763,6 +765,12 @@ void PXEngineRender()
 		CGPoint topRight;
 		CGPoint bottomLeft;
 		CGPoint bottomRight;
+	
+		PXGLShadeModel(GL_SMOOTH);
+		PXGLDisable(GL_TEXTURE_2D);
+		PXGLColor4ub(0, 0, 0xFF, 0xFF);
+		PXGLLineWidth(5.0f);
+		PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
 
 		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
 		{
@@ -794,10 +802,6 @@ void PXEngineRender()
 			vertices[2] = PXGLVertexMake(bottomRight.x, bottomRight.y);
 			vertices[3] = PXGLVertexMake(topRight.x, topRight.y);
 
-			PXGLShadeModel(GL_SMOOTH);
-			PXGLDisable(GL_TEXTURE_2D);
-			PXGLColor4ub(0, 0, 0xFF, 0xFF);
-			PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
 			PXGLDrawArrays(GL_LINE_LOOP, 0, 4);
 		}
 	}
