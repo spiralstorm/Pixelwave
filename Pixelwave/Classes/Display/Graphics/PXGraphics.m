@@ -55,9 +55,11 @@
 #import "PXEngineUtils.h"
 #import "PXEnginePrivate.h"
 
+#define PXGraphicsNormalMatrixMult
+
 const inkRenderer pxGraphicsInkRenderer = {PXGLEnable, PXGLDisable, PXGLEnableClientState, PXGLDisableClientState, PXGLGetBooleanv, PXGLGetFloatv, PXGLGetIntegerv, PXGLPointSize, PXGLLineWidth, PXGLBindTexture, PXGLGetTexParameteriv, PXGLTexParameteri, PXGLVertexPointer, PXGLTexCoordPointer, PXGLColorPointer, PXGLDrawArrays, PXGLDrawElements, PXGLIsEnabled};
 
-static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
+PXInline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 {
 	if (matrix == nil)
 	{
@@ -67,7 +69,7 @@ static inline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
 }
 
-static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType type, NSArray *colors, NSArray *alphas, NSArray *ratios, PXMatrix *matrix, PXSpreadMethod spreadMethod, PXInterpolationMethod interpolationMethod, float focalPointRatio)
+inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType type, NSArray *colors, NSArray *alphas, NSArray *ratios, PXMatrix *matrix, PXSpreadMethod spreadMethod, PXInterpolationMethod interpolationMethod, float focalPointRatio)
 {
 	inkGradientFill info = inkGradientFillDefault;
 
@@ -140,6 +142,64 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 	return info;
 }
 
+PXInline inkPoint PXGraphicsInkPointToPXPoint(inkPoint point, PXDisplayObject *displayObject)
+{
+	if (displayObject == NULL)
+		return inkPointZero;
+
+	PXGLMatrix matrix;
+	PXGLMatrixIdentity(&matrix);
+
+	PXStage *stage = PXEngineGetStage();
+
+	if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
+		return inkPointZero;
+
+	PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
+
+	inkMatrix mat = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+	inkSize scale = inkMatrixSize(mat);
+
+	point = inkPointDivide(point, inkPointFromSize(scale));
+
+	//PXUtilsLocalToGlobal(displayObject, point)
+	point = inkMatrixTransformPoint(mat, point);
+
+	return point = inkMatrixTransformPoint(mat, point);
+}
+
+PXInline inkPoint PXGraphicsPXPointToInkPoint(inkPoint point, PXDisplayObject *displayObject)
+{
+	if (displayObject == NULL)
+		return inkPointZero;
+
+	inkPoint origPoint = point;
+
+	PXGLMatrix matrix;
+	PXGLMatrixIdentity(&matrix);
+
+	PXStage *stage = PXEngineGetStage();
+
+	if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
+		return inkPointZero;
+
+	//PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
+
+	inkMatrix mat = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+	inkSize scale = inkMatrixSize(mat);
+
+	point = inkMatrixTransformPoint(inkMatrixInvert(mat), point);
+	//point = inkMatrixTransformPoint(mat, point);
+	printf("Apoint = (%f, %f), orig = (%f, %f)\n", point.x, point.y, origPoint.x, origPoint.y);
+	CGPoint cPoint = CGPointMake(point.x, point.y);
+	//cPoint = PXEnginePointStageToGL(cPoint, stage);
+	point = inkPointMake(cPoint.x, cPoint.y);
+	//printf("Bpoint = (%f, %f), orig = (%f, %f)\n", point.x, point.y, origPoint.x, origPoint.y);
+
+	point = origPoint;
+	return inkPointMultiply(point, inkPointFromSize(scale));
+}
+
 @interface PXGraphics(Private)
 - (BOOL) buildWithDisplayObject:(PXDisplayObject *)obj;
 - (BOOL) build:(PXGLMatrix)matrix;
@@ -149,7 +209,6 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 
 @synthesize vertexCount;
 @synthesize convertTrianglesIntoStrips;
-@synthesize defineOnceAndLocal;
 
 - (id) init
 {
@@ -168,7 +227,6 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 		textureDataList = [[NSMutableArray alloc] init];
 	}
 
-	defineOnceAndLocal = false;
 	wasBuilt = false;
 	//previousSize = CGSizeMake(1.0f, 1.0f);
 	PXGLMatrixIdentity(&previousMatrix);
@@ -363,9 +421,32 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 	}
 }
 
-- (BOOL) buildWithDisplayObject:(PXDisplayObject *)obj
+- (BOOL) buildWithDisplayObject:(PXDisplayObject *)displayObject
 {
+	if (displayObject == NULL)
+		return NO;
+	
+	PXGLMatrix matrix;
+	PXGLMatrixIdentity(&matrix);
+	
 	PXStage *stage = PXEngineGetStage();
+	
+	if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
+		return NO;
+
+	PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
+
+	inkMatrix mat = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+	inkSize scale = inkMatrixSize(mat);
+
+	PXGLMatrixIdentity(&matrix);
+	PXGLMatrixScale(&matrix, scale.width, scale.height);
+
+	buildScale = CGSizeMake(scale.width, scale.height);
+
+	return [self build:matrix];
+
+	/*PXStage *stage = PXEngineGetStage();
 
 	if (stage == NULL || obj == NULL)
 		return NO;
@@ -379,26 +460,19 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 		PXUtilsDisplayObjectMultiplyDown(stage, obj, &matrix);
 	}
 
-	return [self build:matrix];
-}
-
-- (void) setDefineOnceAndLocal:(bool)_defineOnceAndLocal
-{
-	defineOnceAndLocal = _defineOnceAndLocal;
-	wasBuilt = false;
+	return [self build:matrix];*/
 }
 
 - (BOOL) build:(PXGLMatrix)matrix
 {
-	if (wasBuilt == false || (defineOnceAndLocal == false && PXGLMatrixIsEqual(&matrix, &previousMatrix) == false))
+	if (wasBuilt == false || PXGLMatrixIsEqual(&matrix, &previousMatrix) == false)
 	{
 		previousMatrix = matrix;
 		wasBuilt = true;
 
 		inkMatrix iMatrix = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
 
-	//	float contentScaleFactor = PXEngineGetContentScaleFactor();
-	//	inkSetPixelsPerPoint((inkCanvas*)vCanvas, contentScaleFactor);
+		inkSetPixelsPerPoint((inkCanvas*)vCanvas, PXEngineGetContentScaleFactor());
 	//	inkSetPixelsPerPoint((inkCanvas*)vCanvas, 0.01f);
 		inkPushMatrix((inkCanvas*)vCanvas);
 		inkMultMatrix((inkCanvas*)vCanvas, iMatrix);
@@ -423,15 +497,20 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 // MARK: Override
 // MARK: -
 
-- (CGRect) _measureGlobalBoundsUseStroke:(BOOL)useStroke
+/*- (CGRect) _measureGlobalBoundsUseStroke:(BOOL)useStroke
 {
 	inkRect bounds = inkBoundsv((inkCanvas*)vCanvas, useStroke);
 	return CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
-}
+}*/
 
 - (CGRect) _measureLocalBoundsWithDisplayObject:(PXDisplayObject *)displayObject useStroke:(BOOL)useStroke
 {
-	if (defineOnceAndLocal == true)
+	inkRect bounds = inkBoundsv((inkCanvas*)vCanvas, useStroke);
+
+	// TODO: Fix this, it is terribly wrong!
+	return CGRectMake(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
+
+	/*if (defineOnceAndLocal == true)
 		return [self _measureGlobalBoundsUseStroke:useStroke];
 
 	PXGLMatrix matrix;
@@ -450,10 +529,10 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 	//PX_ENGINE_CONVERT_AABB_TO_STAGE_ORIENTATION(&aabb, stage);
 	aabb = PXGLMatrixConvertAABBf(&matrix, aabb);
 
-	return CGRectMake(aabb.xMin, aabb.yMin, aabb.xMax - aabb.xMin, aabb.yMax - aabb.yMin);
+	return CGRectMake(aabb.xMin, aabb.yMin, aabb.xMax - aabb.xMin, aabb.yMax - aabb.yMin);*/
 }
 
-- (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
+/*- (BOOL) _containsGlobalPoint:(CGPoint)point shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
 {
 	if (defineOnceAndLocal == false)
 	{
@@ -465,52 +544,78 @@ static inline inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGr
 	// inkContainsPoint asks if you are using the bounds, not the shape flag;
 	// therefore it is the opposite of the shape flag.
 	return inkContainsPoint((inkCanvas*)vCanvas, inkPointMake(point.x, point.y), !shapeFlag, useStroke) != NULL;
-}
+}*/
 
 - (BOOL) _containsLocalPoint:(CGPoint)point displayObject:(PXDisplayObject *)displayObject shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke
 {
-	[self buildWithDisplayObject:displayObject];
+	return inkContainsPoint((inkCanvas*)vCanvas, PXGraphicsPXPointToInkPoint(inkPointMake(point.x, point.y), displayObject), !shapeFlag, useStroke) != NULL;
 
-	if (defineOnceAndLocal == false)
+	/*if (defineOnceAndLocal == false)
 		return [self _containsGlobalPoint:PXUtilsLocalToGlobal(displayObject, point) shapeFlag:shapeFlag useStroke:YES];
 
-	return [self _containsGlobalPoint:point shapeFlag:shapeFlag useStroke:YES];
+	return [self _containsGlobalPoint:point shapeFlag:shapeFlag useStroke:YES];*/
 }
 
 - (void) _postFrame:(PXDisplayObject *)displayObject
 {
-	if (displayObject == NULL)
+	[self buildWithDisplayObject:displayObject];
+
+	/*if (displayObject == NULL)
 		return;
 
 	PXGLMatrix matrix;
 	PXGLMatrixIdentity(&matrix);
 
-	if (defineOnceAndLocal == false)
-	{
-		PXStage *stage = PXEngineGetStage();
+	PXStage *stage = PXEngineGetStage();
 
-		if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
-			return;
+	if (!PXUtilsDisplayObjectMultiplyDown(stage, displayObject, &matrix))
+		return;
 
-		PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
-	}
-//	else
-//		matrix = displayObject->_matrix;
+	PXGLMatrixMult(&matrix, &stage->_matrix, &matrix);
 
-	[self build:matrix];
+	inkMatrix mat = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+	inkSize scale = inkMatrixSize(mat);
+
+	PXGLMatrixIdentity(&matrix);
+	PXGLMatrixScale(&matrix, scale.width, scale.height);
+
+	[self build:matrix];*/
 }
 
 - (void) _renderGL
 {
-	PXGLMatrix matrix = PXGLCurrentMatrix();
+	PXGLMatrix origMatrix = PXGLCurrentMatrix();
+	PXGLMatrix matrix = origMatrix;
 
-	//[self build:matrix];
-	if (defineOnceAndLocal == false)
-		PXGLLoadIdentity();
+//	inkMatrix mat = inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
+//	float rotation = inkMatrixRotation(mat);
+//	inkSize scale = inkMatrixSize(mat);
+//	inkPoint translate = inkPointMake(mat.tx, mat.ty);
+
+//	if (scale.width == 0.0f || scale.height == 0.0f)
+//		return;
+
+//	mat = inkMatrixMakeBox(inkSizeMake(1.0f, 1.0f), rotation, translate);
+//	mat = inkMatrixMakeBox(inkSizeMake(1.0f/buildScale.width, 1.0f/buildScale.height), rotation, translate);
+
+///	matrix = PXGLMatrixMake(mat.a, mat.b, mat.c, mat.d, mat.tx, mat.ty);
+
+//	buildScale = CGSizeMake(scale.width, scale.height);
+
+	if (buildScale.width == 0.0f || buildScale.height == 0.0f)
+		return;
+
+	PXGLMatrix mat2 = PXGLMatrixMake(1.0f / buildScale.width, 0.0f, 0.0f, 1.0f / buildScale.height, 0.0f, 0.0f);
+
+	PXGLMatrixMult(&matrix, &matrix, &mat2);
+
+	PXGLLoadIdentity();
+	PXGLMultMatrix(&matrix);
+
 	vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);
-	//vertexCount = inkDraw((inkCanvas*)vCanvas);
-	if (defineOnceAndLocal == false)
-		PXGLMultMatrix(&matrix);
+
+	PXGLLoadIdentity();
+	PXGLMultMatrix(&origMatrix);
 }
 
 @end

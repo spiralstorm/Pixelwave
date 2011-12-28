@@ -23,6 +23,9 @@ void inkDrawCircle(inkCanvas* canvas, inkPoint position, float radius)
 
 void inkDrawEllipse(inkCanvas* canvas, inkRect boundingRect)
 {
+	if (inkRectIsEmpty(boundingRect))
+		return;
+
 	inkSize halfBoundingSize = inkSizeMake(boundingRect.size.width * 0.5f, boundingRect.size.height * 0.5f);
 	inkPoint position = inkPointAdd(boundingRect.origin, inkPointFromSize(halfBoundingSize));
 
@@ -46,6 +49,9 @@ void inkDrawEllipse(inkCanvas* canvas, inkRect boundingRect)
 
 void inkDrawRect(inkCanvas* canvas, inkRect rect)
 {
+	if (inkRectIsEmpty(rect))
+		return;
+
 	inkBox box = inkBoxFromRect(rect);
 
     inkMoveTo(canvas, box.pointA);
@@ -57,6 +63,9 @@ void inkDrawRect(inkCanvas* canvas, inkRect rect)
 
 void inkDrawRoundRect(inkCanvas* canvas, inkRect rect, inkSize ellipseSize)
 {
+	if (inkRectIsEmpty(rect))
+		return;
+
 	inkMoveTof(canvas, rect.origin.x + ellipseSize.width, rect.origin.y);
 	inkLineTof(canvas, rect.origin.x + rect.size.width - ellipseSize.width, rect.origin.y);
 	inkQuadraticCurveTof(canvas, rect.origin.x + rect.size.width, rect.origin.y, rect.origin.x + rect.size.width, rect.origin.y + ellipseSize.height);
