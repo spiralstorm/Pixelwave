@@ -8,7 +8,9 @@
 
 #include "inkConvexPolygon.h"
 
-void inkConvexPolygons(inkCanvas* canvas, inkConvexPolygonGroup* polygonGroup);
+#include "inkRenderGroup.h"
+
+void inkConvexPolygons(inkCanvas* canvas, inkConvexPolygonGroup* polygonGroup, inkConvexPolygonMode mode);
 
 inkConvexPolygon* inkConvexPolygonCreate()
 {
@@ -38,7 +40,7 @@ void inkConvexPolygonDestroy(inkConvexPolygon* polygon)
 	free(polygon);
 }
 
-inkConvexPolygonGroup* inkConvexPolygonGroupCreate(inkCanvas* canvas)
+inkConvexPolygonGroup* inkConvexPolygonGroupCreate(inkCanvas* canvas, inkConvexPolygonMode mode)
 {
 	inkConvexPolygonGroup* polygonGroup = malloc(sizeof(inkConvexPolygonGroup));
 
@@ -52,7 +54,7 @@ inkConvexPolygonGroup* inkConvexPolygonGroupCreate(inkCanvas* canvas)
 			return NULL;
 		}
 
-		inkConvexPolygons(canvas, polygonGroup);
+		inkConvexPolygons(canvas, polygonGroup, mode);
 
 		if (inkArrayCount(polygonGroup->polygons) == 0)
 		{
@@ -109,21 +111,23 @@ inkConvexPolygon* inkConvexPolygonFromRenderGroup(inkRenderGroup* renderGroup)
 
 	inkVertex* vertex;
 	inkPoint* pointPtr;
+	inkPoint point;
 
 	inkArrayForEach(renderGroup->vertices, vertex)
 	{
 		pointPtr = inkArrayPush(points);
+		point = inkMatrixTransformPoint(renderGroup->invGLMatrix, vertex->pos);
 
 		if (pointPtr != NULL)
 		{
-			*pointPtr = vertex->pos;
+			*pointPtr = point;
 		}
 
 		pointPtr = inkArrayPush(convexPolygon->points);
 
 		if (pointPtr != NULL)
 		{
-			*pointPtr = vertex->pos;
+			*pointPtr = point;
 		}
 	}
 
@@ -167,7 +171,7 @@ inkConvexPolygon* inkConvexPolygonFromRenderGroup(inkRenderGroup* renderGroup)
 	return convexPolygon;
 }
 
-void inkConvexPolygons(inkCanvas* canvas, inkConvexPolygonGroup* polygonGroup)
+void inkConvexPolygons(inkCanvas* canvas, inkConvexPolygonGroup* polygonGroup, inkConvexPolygonMode mode)
 {
 	assert(canvas);
 
@@ -178,6 +182,21 @@ void inkConvexPolygons(inkCanvas* canvas, inkConvexPolygonGroup* polygonGroup)
 
 	inkArrayPtrForEach(renderGroups, renderGroup)
 	{
+		switch(mode)
+		{
+			case inkConvexPolygonMode_Polygon:
+				if (renderGroup->isStroke == true)
+					continue;
+				break;
+			case inkConvexPolygonMode_Stroke:
+				if (renderGroup->isStroke == false)
+					continue;
+				break;
+			case inkConvexPolygonMode_StrokeAndPolygon:
+			default:
+				break;
+		}
+
 		polygon = inkConvexPolygonFromRenderGroup(renderGroup);
 
 		if (polygon != NULL)

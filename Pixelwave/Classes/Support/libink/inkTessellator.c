@@ -66,6 +66,7 @@ inkTessellator *inkTessellatorCreate()
 		tessellator->polygonBegan = false;
 		tessellator->contourBegan = false;
 		tessellator->isStroke = false;
+		tessellator->invGLMatrix = inkMatrixIdentity;
 
 		inkTessellatorInitialize(tessellator);
 	}
@@ -199,6 +200,14 @@ void inkTessellatorSetIsStroke(inkTessellator* tessellator, bool isStroke)
 	tessellator->isStroke = isStroke;
 }
 
+void inkTessellatorSetInvGLMatrix(inkTessellator* tessellator, inkMatrix invGLMatrix)
+{
+	if (tessellator == NULL)
+		return;
+
+	tessellator->invGLMatrix = invGLMatrix;
+}
+
 void inkTessellatorBegin(INKenum type, inkTessellator* tessellator)
 {
 	inkTessellatorBeginCallback(type, tessellator);
@@ -233,7 +242,7 @@ void inkTessellatorBeginCallback(GLenum type, inkTessellator* tessellator)
 	if (renderGroupPtr == NULL)
 		return;
 
-	*renderGroupPtr = inkRenderGroupCreate(type, tessellator->glData, tessellator->userData, tessellator->isStroke);
+	*renderGroupPtr = inkRenderGroupCreate(type, tessellator->glData, tessellator->userData, tessellator->invGLMatrix, tessellator->isStroke);
 	tessellator->currentRenderGroup = *renderGroupPtr;
 }
 

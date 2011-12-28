@@ -25,6 +25,7 @@ inkFillGenerator* inkFillGeneratorCreate(inkTessellator* tessellator, inkArray* 
 		fillGenerator->generator = generator;
 
 		inkTessellatorSetGLData(tessellator, inkFillUpdateGLData(fill, inkTessellatorGetGLData(tessellator)));
+		inkTessellatorSetInvGLMatrix(tessellator, invGLMatrix);
 
 		inkTessellatorBeginPolygon(tessellator, renderGroups);
 	}

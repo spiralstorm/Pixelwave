@@ -28,6 +28,8 @@ typedef struct
 	inkPresetGLData glData;
 	void* userData;
 
+	inkMatrix invGLMatrix;
+
 	bool contourBegan;
 	bool polygonBegan;
 	bool isStroke;
@@ -43,6 +45,7 @@ inkExtern inkPresetGLData inkTessellatorGetGLData(inkTessellator* tessellator);
 inkExtern void inkTessellatorSetGLData(inkTessellator* tessellator, inkPresetGLData glData);
 
 inkExtern void inkTessellatorSetIsStroke(inkTessellator* tessellator, bool isStroke);
+inkExtern void inkTessellatorSetInvGLMatrix(inkTessellator* tessellator, inkMatrix invGLMatrix);
 
 inkExtern void inkTessellatorBeginPolygon(inkTessellator* tessellator, inkArray *renderGroups);
 inkExtern void inkTessellatorEndPolygon(inkTessellator* tessellator);

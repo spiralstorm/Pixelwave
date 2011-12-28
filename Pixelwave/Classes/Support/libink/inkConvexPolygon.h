@@ -26,10 +26,17 @@ typedef struct
 	inkArray* polygons;
 } inkConvexPolygonGroup;
 
+typedef enum
+{
+	inkConvexPolygonMode_Stroke,
+	inkConvexPolygonMode_Polygon,
+	inkConvexPolygonMode_StrokeAndPolygon
+} inkConvexPolygonMode;
+
 inkExtern inkConvexPolygon* inkConvexPolygonCreate();
 inkExtern void inkConvexPolygonDestroy(inkConvexPolygon* polygon);
 
-inkExtern inkConvexPolygonGroup* inkConvexPolygonGroupCreate(inkCanvas* canvas);
+inkExtern inkConvexPolygonGroup* inkConvexPolygonGroupCreate(inkCanvas* canvas, inkConvexPolygonMode mode);
 inkExtern void inkConvexPolygonGroupDestroy(inkConvexPolygonGroup* polygon);
 
 #endif

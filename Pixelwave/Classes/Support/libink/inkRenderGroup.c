@@ -10,7 +10,7 @@
 
 #include "inkGL.h"
 
-inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData, void* userData, bool isStroke)
+inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData, void* userData, inkMatrix invGLMatrix, bool isStroke)
 {
 	inkRenderGroup* renderGroup = malloc(sizeof(inkRenderGroup));
 
@@ -30,6 +30,7 @@ inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData,
 		renderGroup->userData = userData;
 		renderGroup->isStroke = isStroke;
 		renderGroup->glDrawType = inkDrawType_Arrays;
+		renderGroup->invGLMatrix = invGLMatrix;
 	}
 
 	return renderGroup;

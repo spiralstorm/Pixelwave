@@ -65,6 +65,7 @@ inkStrokeGenerator* inkStrokeGeneratorCreate(inkTessellator* tessellator, inkCan
 		strokeGenerator->stroke = stroke;
 		strokeGenerator->canvas = canvas;
 
+		inkTessellatorSetInvGLMatrix(tessellator, invGLMatrix);
 		inkTessellatorBeginPolygon(tessellator, renderGroups);
 	}
 
@@ -96,6 +97,7 @@ void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill, 
 
 	strokeGenerator->generator->fill = fill;
 	strokeGenerator->generator->invGLMatrix = invGLMatrix;
+	inkTessellatorSetInvGLMatrix(strokeGenerator->generator->tessellator, invGLMatrix);
 	inkTessellatorSetGLData(strokeGenerator->generator->tessellator, inkFillUpdateGLData(fill, inkTessellatorGetGLData(strokeGenerator->generator->tessellator)));
 }
 
