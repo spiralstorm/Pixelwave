@@ -29,6 +29,7 @@ typedef struct
 inkExtern inkConvexPolygon* inkConvexPolygonCreate();
 inkExtern void inkConvexPolygonDestroy(inkConvexPolygon* polygon);
 
+inkExtern inkConvexPolygonGroup* inkConvexPolygonGroupCreate(inkCanvas* canvas);
 inkExtern void inkConvexPolygonGroupDestroy(inkConvexPolygonGroup* polygon);
 
 #endif
