@@ -725,6 +725,7 @@ void PXEngineRender()
 		PXGLColor4ub(0xFF, 0, 0, 0xFF);
 		PXGLLineWidth(1.0f);
 		PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
+		PXGLDisableClientState(GL_COLOR_ARRAY);
 
 		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
 		{
@@ -769,8 +770,9 @@ void PXEngineRender()
 		PXGLShadeModel(GL_SMOOTH);
 		PXGLDisable(GL_TEXTURE_2D);
 		PXGLColor4ub(0, 0, 0xFF, 0xFF);
-		PXGLLineWidth(5.0f);
+		PXGLLineWidth(1.0f);
 		PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
+		PXGLDisableClientState(GL_COLOR_ARRAY);
 
 		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
 		{

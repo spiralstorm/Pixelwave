@@ -260,6 +260,11 @@ inkColor inkColorFromHSV(inkColorHSV hsv)
 	return inkColorFromTransform(ct);
 }
 
+inkColorTransform inkColorTransformFromHSV(inkColorHSV hsv)
+{
+	return inkColorTransformFromColor(inkColorFromHSV(hsv));
+}
+
 inkColorHSV inkColorHSVFromColor(inkColor color)
 {
 	return inkColorHSVFromTransform(inkColorTransformFromColor(color));

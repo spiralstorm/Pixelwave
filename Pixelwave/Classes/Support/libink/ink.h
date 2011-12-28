@@ -17,5 +17,6 @@
 #include "inkVectorGraphics.h"
 #include "inkVectorGraphicsUtils.h"
 #include "inkRenderGroup.h"
+#include "inkConvexPolygon.h"
 
 #endif

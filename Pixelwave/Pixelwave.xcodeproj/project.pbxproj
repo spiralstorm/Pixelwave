@@ -246,6 +246,8 @@
 		523439FF130D81A10083DA1A /* PXTextureModifierLA88.m in Sources */ = {isa = PBXBuildFile; fileRef = 523439FD130D81A10083DA1A /* PXTextureModifierLA88.m */; };
 		52343C96130DCB0A0083DA1A /* PXTextureFormatUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 52343C94130DCB0A0083DA1A /* PXTextureFormatUtils.h */; };
 		52343C97130DCB0A0083DA1A /* PXTextureFormatUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 52343C95130DCB0A0083DA1A /* PXTextureFormatUtils.m */; };
+		5234ED6414ABCC9B00F0A71D /* inkConvexPolygon.h in Headers */ = {isa = PBXBuildFile; fileRef = 5234ED6314ABCC9B00F0A71D /* inkConvexPolygon.h */; };
+		5234ED6614ABCCBE00F0A71D /* inkConvexPolygon.c in Sources */ = {isa = PBXBuildFile; fileRef = 5234ED6514ABCCBE00F0A71D /* inkConvexPolygon.c */; };
 		5238EF1813607C5E00A12477 /* PXHeaderUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 5238EF1713607C5E00A12477 /* PXHeaderUtils.h */; };
 		523932A31365DE48009F9EDB /* cff.c in Sources */ = {isa = PBXBuildFile; fileRef = 5239325D1365DE48009F9EDB /* cff.c */; };
 		523932A51365DE48009F9EDB /* cffcmap.h in Headers */ = {isa = PBXBuildFile; fileRef = 5239325F1365DE48009F9EDB /* cffcmap.h */; };
@@ -825,6 +827,8 @@
 		523439FD130D81A10083DA1A /* PXTextureModifierLA88.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureModifierLA88.m; sourceTree = "<group>"; };
 		52343C94130DCB0A0083DA1A /* PXTextureFormatUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXTextureFormatUtils.h; sourceTree = "<group>"; };
 		52343C95130DCB0A0083DA1A /* PXTextureFormatUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXTextureFormatUtils.m; sourceTree = "<group>"; };
+		5234ED6314ABCC9B00F0A71D /* inkConvexPolygon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = inkConvexPolygon.h; sourceTree = "<group>"; };
+		5234ED6514ABCCBE00F0A71D /* inkConvexPolygon.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = inkConvexPolygon.c; sourceTree = "<group>"; };
 		5238EF1713607C5E00A12477 /* PXHeaderUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXHeaderUtils.h; sourceTree = "<group>"; };
 		5239325D1365DE48009F9EDB /* cff.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = cff.c; sourceTree = "<group>"; };
 		5239325F1365DE48009F9EDB /* cffcmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = cffcmap.h; sourceTree = "<group>"; };
@@ -2087,6 +2091,8 @@
 				526DA3E7146B306000566FF2 /* inkRenderGroup.c */,
 				526DA3EA146B326500566FF2 /* inkCommand.h */,
 				526DA3EB146B326500566FF2 /* inkCommand.c */,
+				5234ED6314ABCC9B00F0A71D /* inkConvexPolygon.h */,
+				5234ED6514ABCCBE00F0A71D /* inkConvexPolygon.c */,
 			);
 			path = libink;
 			sourceTree = "<group>";
@@ -2743,6 +2749,7 @@
 				5257AA1C1497BE63003BA330 /* inkGL.h in Headers */,
 				5257AA1E1497C04B003BA330 /* inkPlatform.h in Headers */,
 				5218AD61149C130A0063BAAB /* inkColor.h in Headers */,
+				5234ED6414ABCC9B00F0A71D /* inkConvexPolygon.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3021,6 +3028,7 @@
 				52B43E341475CDC0004FD599 /* inkTypes.c in Sources */,
 				5218AD63149C13880063BAAB /* inkColor.c in Sources */,
 				520BFC0214A3F01600A70C53 /* inkObject.c in Sources */,
+				5234ED6614ABCCBE00F0A71D /* inkConvexPolygon.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

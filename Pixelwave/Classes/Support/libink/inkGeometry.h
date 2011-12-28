@@ -151,6 +151,9 @@ bool inkPointIsNan(inkPoint point);
 inkPoint inkClosestPointToLine(inkPoint point, inkLine line);
 float inkPointDistanceToLine(inkPoint point, inkLine line);
 
+inkInline int inkPointCompareX(const inkPoint* pointA, const inkPoint* pointB);
+inkInline int inkPointCompareY(const inkPoint* pointA, const inkPoint* pointB);
+
 // MARK: -
 // MARK: Size Declarations
 // MARK: -
@@ -183,6 +186,7 @@ inkInline inkTriangle inkTriangleMake(inkPoint pointA, inkPoint pointB, inkPoint
 inkInline inkTriangle inkTriangleMakef(float x1, float y1, float x2, float y2, float x3, float y3);
 
 inkInline inkTriangle inkTriangleXOrder(inkTriangle triangle);
+inkInline float inkTriangleCCW(inkTriangle triangle);
 
 inkLine inkTriangleBisectionTraverser(inkTriangle triangle, float halfScalar);
 bool inkTriangleContainsPoint(inkTriangle triangle, inkPoint point);
@@ -493,6 +497,16 @@ inkInline bool inkPointIsEqual(inkPoint pointA, inkPoint pointB)
 	return inkIsEqualf(pointA.x, pointB.x) && inkIsEqualf(pointA.y, pointB.y);
 }
 
+inkInline int inkPointCompareX(const inkPoint* pointA, const inkPoint* pointB)
+{
+	return (pointA->x - pointB->x) * 10000.0f;
+}
+
+inkInline int inkPointCompareY(const inkPoint* pointA, const inkPoint* pointB)
+{
+	return (pointA->y - pointB->y) * 10000.0f;
+}
+
 // MARK: -
 // MARK: Size Implemenations
 // MARK: -
@@ -578,6 +592,12 @@ inkInline inkTriangle inkTriangleXOrder(inkTriangle triangle)
 	}
 
 	return triangle;
+}
+
+inkInline float inkTriangleCCW(inkTriangle triangle)
+{
+	//return (p2->x - p1->x)*(p3->y - p1->y) - (p2->y - p1->y)*(p3->x - p1->x);
+	return (triangle.pointB.x - triangle.pointA.x) * (triangle.pointC.y - triangle.pointA.y) - (triangle.pointB.y - triangle.pointA.y) *(triangle.pointC.x - triangle.pointA.x);
 }
 
 // MARK: -

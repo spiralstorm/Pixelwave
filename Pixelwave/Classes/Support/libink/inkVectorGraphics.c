@@ -909,7 +909,7 @@ unsigned int inkDrawv(inkCanvas* canvas, inkRenderer* renderer)
 	assert(renderer->textureFunc);
 	assert(renderer->getTexParamFunc);
 	assert(renderer->setTexParamFunc);
-	assert(renderer->vertexFunc);
+	assert(renderer->vertexFunc); 
 	assert(renderer->textureCoordinateFunc);
 	assert(renderer->colorFunc);
 	assert(renderer->drawArraysFunc);

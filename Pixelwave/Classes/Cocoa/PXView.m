@@ -241,8 +241,8 @@
 	// Set the drawable properties
 
 	NSNumber *surfaceRetainedBacking = [NSNumber numberWithBool:NO];
-	NSString *surfaceColorFormat = kEAGLColorFormatRGBA8;
-	BOOL surfaceDither = NO;
+	NSString *surfaceColorFormat;
+	BOOL surfaceDither;
 
 	switch (_colorQuality)
 	{
@@ -255,6 +255,7 @@
 			surfaceDither = YES;
 			break;
 		case PXViewColorQuality_High:
+		default:
 			surfaceColorFormat = kEAGLColorFormatRGBA8;
 			surfaceDither = NO;
 			break;
