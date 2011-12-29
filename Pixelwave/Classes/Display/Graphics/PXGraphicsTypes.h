@@ -82,30 +82,4 @@ typedef enum
 	PXPathCommand_WideLineTo = inkPathCommand_WideLineTo
 } PXPathCommand;
 
-/*
-typedef enum
-{
-	inkCommandType_MoveTo = 0,
-	inkCommandType_LineTo,
-	inkCommandType_QuadraticCurveTo,
-	inkCommandType_CubicCurveTo,
-	inkCommandType_SolidFill,
-	inkCommandType_BitmapFill,
-	inkCommandType_GradientFill,
-	inkCommandType_LineStyle,
-	inkCommandType_LineBitmap,
-	inkCommandType_LineGradient,
-	inkCommandType_EndFill
-} PXCommandType;
-
-typedef enum
-{
-	inkWindingRule_EvenOdd = 0,
-	inkWindingRule_NonZero,
-	inkWindingRule_Positive,
-	inkWindingRule_Negative,
-	inkWindingRule_AbsGeqTwo
-} PXWindingRule;
-*/
-
 #endif

@@ -452,13 +452,11 @@
 		glGetRenderbufferParameterivOES(GL_RENDERBUFFER_OES, GL_RENDERBUFFER_HEIGHT_OES, &backingHeight);
 
 		[self _bindFrameBufferWithTarget:GL_FRAMEBUFFER_OES frameBuffer:msaaFramebuffer];
-	//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, msaaFramebuffer);
 		glBindRenderbufferOES(GL_RENDERBUFFER_OES, msaaRenderbuffer);
 
 		switch (colorQuality)
 		{
 			case PXViewColorQuality_High:
-				//colorFormat = GL_RGBA4_OES;
 				colorFormat = GL_RGBA8_OES;
 				depthFormat = GL_DEPTH_COMPONENT24_OES;
 				break;
@@ -480,17 +478,7 @@
 		glRenderbufferStorageMultisampleAPPLE(GL_RENDERBUFFER_OES, antiAliasingSampleCount, depthFormat, backingWidth, backingHeight);
 		glFramebufferRenderbufferOES(GL_FRAMEBUFFER_OES, GL_DEPTH_ATTACHMENT_OES, GL_RENDERBUFFER_OES, msaaDepthbuffer);
 
-	//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, framebuffer);
-	//	glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbuffer);
-
-	//	glBindFramebufferOES(GL_READ_FRAMEBUFFER_APPLE, msaaFramebuffer);
-	//	glBindFramebufferOES(GL_DRAW_FRAMEBUFFER_APPLE, framebuffer);
-
-	//	glBindFramebufferOES(GL_FRAMEBUFFER_OES, framebuffer);
 		glBindRenderbufferOES(GL_RENDERBUFFER_OES, renderbuffer);
-
-	//	[eaglContext renderbufferStorage:GL_RENDERBUFFER_OES fromDrawable:(CAEAGLLayer*)self.layer];
-	//	[self _bindFrameBufferDefault];
 	}
 #endif
 }

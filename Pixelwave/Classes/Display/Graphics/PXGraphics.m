@@ -152,7 +152,7 @@ inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType typ
 @implementation PXGraphics
 
 @synthesize vertexCount;
-@synthesize convertTrianglesIntoStrips;
+//@synthesize convertTrianglesIntoStrips;
 @synthesize buildStyle;
 @synthesize scaleRebuildEpsilon;
 @synthesize curvePrecision;
@@ -483,13 +483,13 @@ inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType typ
 	return false;
 }
 
-- (void) setConvertTrianglesIntoStrips:(bool)_convertTrianglesIntoStrips
+/*- (void) setConvertTrianglesIntoStrips:(bool)_convertTrianglesIntoStrips
 {
 	wasBuilt = false;
 	convertTrianglesIntoStrips = _convertTrianglesIntoStrips;
 
 	inkSetConvertTrianglesIntoStrips((inkCanvas*)vCanvas, convertTrianglesIntoStrips);
-}
+}*/
 
 - (inkPoint) inkPointToPXPoint:(inkPoint)point displayObject:(PXDisplayObject *)displayObject
 {

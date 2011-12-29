@@ -48,8 +48,27 @@
 
 typedef enum
 {
+	//@ This mode only builds your polygons and stroke once, meaning that no
+	//@ recalculations are done for scaling. Rotation and translation will still
+	//@ work though as they will be handled by GL. This mode should be used if
+	//@ you need high accuracy with strokes and does not require any scaling or
+	//@ skewing after you are done building the object.
 	PXGraphicsBuildStyle_Once = 0,
+	//@ This mode will build rebuild your polygons and strokes everytime the
+	//@ scale of the object has changed, rotation and translation will still be
+	//@ handled by gl. This mode should be used if you need high accuracy with
+	//@ strokes and your polygon changes it's scale or is skewed.
+	//@ NOTE: To gain extra performance in this mode, you can change the
+	//@ 'scaleRebuildEpsilon' value, which will give a tolerance to scaling and
+	//@ skewing before rebuilding. The way it is calculated is by
+	//@ (newScale - epsilon <= oldScale <= newScale + epsilon). The oldScale is
+	//@ the actual scale the polygons were built with, so it will only be updated
+	//@ upon rebuilding.
 	PXGraphicsBuildStyle_Hybrid,
+	//@ This mode will let gl handle scaling, rotation and translation. Meaning
+	//@ that your stroke will be stretched if scaling changes. This mode has the
+	//@ highest performance of any mode, however should not be used if you wish
+	//@ to have accurate strokes.
 	PXGraphicsBuildStyle_GL
 } PXGraphicsBuildStyle;
 
@@ -61,8 +80,7 @@ typedef enum
 	void *vCanvas;
 
 	bool wasBuilt;
-	bool convertTrianglesIntoStrips;
-//	bool onlyBuildOnce;
+	//bool convertTrianglesIntoStrips;
 
 	PXGLMatrix graphicsMatrix;
 	PXGLMatrix glMatrix;
@@ -80,7 +98,7 @@ typedef enum
 @property (nonatomic) PXGraphicsBuildStyle buildStyle;
 
 @property (nonatomic, readonly) unsigned int vertexCount;
-@property (nonatomic) bool convertTrianglesIntoStrips;
+//@property (nonatomic) bool convertTrianglesIntoStrips;
 @property (nonatomic) float scaleRebuildEpsilon;
 @property (nonatomic) float curvePrecision;
 
