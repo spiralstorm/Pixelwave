@@ -119,6 +119,8 @@ inkInline float inkRoundToNearestf(float val, float nearest);
 inkInline float inkClampf(float val);
 inkInline float inkReflectf(float val);
 inkInline float inkRepeatf(float val);
+inkInline float inkMinfv(unsigned int count, float val0, ...);
+inkInline float inkMaxfv(unsigned int count, float val0, ...);
 
 // MARK: -
 // MARK: Point Declarations
@@ -380,6 +382,44 @@ inkInline float inkRepeatf(float val)
 		return 1.0f;
 
 	return inkClampf(val < 0.0f ? 1.0f - remain : remain);
+}
+
+inkInline float inkMinfv(unsigned int count, float val0, ...)
+{
+	if (count <= 1)
+		return val0;
+
+	float val = val0;
+
+	va_list vl;
+	va_start(vl, val0);
+	unsigned int index;
+	for (index = 0; index < count; ++index)
+	{
+		val = fminf(val, va_arg(vl, float));
+	}
+	va_end(vl);
+
+	return val;
+}
+
+inkInline float inkMaxfv(unsigned int count, float val0, ...)
+{
+	if (count <= 1)
+		return val0;
+
+	float val = val0;
+
+	va_list vl;
+	va_start(vl, val0);
+	unsigned int index;
+	for (index = 0; index < count; ++index)
+	{
+		val = fmaxf(val, va_arg(vl, float));
+	}
+	va_end(vl);
+
+	return val;
 }
 
 // MARK: -
