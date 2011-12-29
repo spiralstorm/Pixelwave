@@ -35,6 +35,8 @@ typedef struct
 inkExtern inkRenderGroup* inkRenderGroupCreate(INKenum glDrawMode, inkPresetGLData glData, void* userData, inkMatrix invGLMatrix, bool isStroke);
 inkExtern void inkRenderGroupDestroy(inkRenderGroup* group);
 
+inkExtern inkRenderGroup* inkRenderGroupCopy(inkRenderGroup* group);
+
 inkExtern inkVertex *inkRenderGroupNextVertex(inkRenderGroup* group);
 
 inkExtern void inkRenderGroupConvertToStrips(inkRenderGroup* group);

@@ -130,6 +130,11 @@ inkInline void inkTessellatorInitialize(inkTessellator* tessellator)
 
 	GLUtesselator* gluTessellator = tessellator->gluTessellator;
 
+//	gluTessProperty(gluTessellator, GLU_TESS_BOUNDARY_ONLY, 1);
+
+	// For performance, give it to glu rather then have it calculate it
+	gluTessNormal(gluTessellator, 0, 0, 1);
+
 	gluTessProperty(gluTessellator, GLU_TESS_WINDING_RULE, GLU_TESS_WINDING_ODD);
 
 	gluTessCallback(gluTessellator, GLU_TESS_BEGIN_DATA, inkTessellatorBeginCallback);

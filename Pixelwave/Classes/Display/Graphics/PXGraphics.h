@@ -56,6 +56,7 @@ typedef enum
 @interface PXGraphics : NSObject
 {
 @protected
+@public
 	unsigned int vertexCount;
 	void *vCanvas;
 

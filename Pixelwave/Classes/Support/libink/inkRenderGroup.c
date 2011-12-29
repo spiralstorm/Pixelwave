@@ -47,6 +47,48 @@ void inkRenderGroupDestroy(inkRenderGroup* renderGroup)
 	}
 }
 
+inkRenderGroup* inkRenderGroupCopy(inkRenderGroup* group)
+{
+	if (group == NULL)
+		return NULL;
+
+	inkRenderGroup* copyGroup = inkRenderGroupCreate(group->glDrawMode, group->glData, group->userData, group->invGLMatrix, group->isStroke);
+
+	inkVertex* vertex;
+	inkVertex* copyVertex;
+
+	inkArrayForEach(group->vertices, vertex)
+	{
+		copyVertex = inkRenderGroupNextVertex(copyGroup);
+		if (copyVertex)
+		{
+			*copyVertex = *vertex;
+		}
+	}
+
+	if (group->indices != NULL)
+	{
+		copyGroup->indices = inkArrayCreate(sizeof(unsigned short));
+
+		if (copyGroup->indices != NULL)
+		{
+			unsigned short *index;
+			unsigned short *copyIndex;
+
+			inkArrayForEach(group->indices, index)
+			{
+				copyIndex = inkArrayPush(copyGroup->indices);
+				if (copyIndex)
+				{
+					*copyIndex = *index;
+				}
+			}
+		}
+	}
+
+	return copyGroup;
+}
+
 inkVertex* inkRenderGroupNextVertex(inkRenderGroup* renderGroup)
 {
 	if (renderGroup == NULL || renderGroup->vertices == NULL)

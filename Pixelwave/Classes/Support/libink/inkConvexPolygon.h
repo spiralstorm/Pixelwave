@@ -37,6 +37,6 @@ inkExtern inkConvexPolygon* inkConvexPolygonCreate();
 inkExtern void inkConvexPolygonDestroy(inkConvexPolygon* polygon);
 
 inkExtern inkConvexPolygonGroup* inkConvexPolygonGroupCreate(inkCanvas* canvas, inkConvexPolygonMode mode);
-inkExtern void inkConvexPolygonGroupDestroy(inkConvexPolygonGroup* polygon);
+inkExtern void inkConvexPolygonGroupDestroy(inkConvexPolygonGroup* polygonGroup);
 
 #endif
