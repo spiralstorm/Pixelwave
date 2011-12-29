@@ -246,6 +246,7 @@ inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType typ
 
 - (void) beginFillWithGradientType:(PXGradientType)type colors:(NSArray *)colors alphas:(NSArray *)alphas ratios:(NSArray *)ratios matrix:(PXMatrix *)matrix spreadMethod:(PXSpreadMethod)spreadMethod interpolationMethod:(PXInterpolationMethod)interpolationMethod focalPointRatio:(float)focalPointRatio
 {
+	//inkBeginFill((inkCanvas*)vCanvas, inkSolidFillMake(0xFF00FF, 1.0f));
 	inkGradientFill gradientInfo = PXGraphicsGradientInfoMake((inkCanvas*)vCanvas, type, colors, alphas, ratios, matrix, spreadMethod, interpolationMethod, focalPointRatio);
 
 	inkBeginGradientFill((inkCanvas*)vCanvas, gradientInfo);

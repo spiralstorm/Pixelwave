@@ -52,6 +52,7 @@ inkCanvas* inkCreate()
 		inkSetIncompleteDrawStrategies(canvas, inkIncompleteDrawStrategy_Fade, inkIncompleteDrawStrategy_Full, 0.0f);
 		inkSetMaxLength(canvas, FLT_MAX);
 		inkSetCurveMultiplier(canvas, 0.2f);
+		//inkSetCurveMultiplier(canvas, 0.01f);
 		inkSetPixelsPerPoint(canvas, 1.0f);
 	}
 

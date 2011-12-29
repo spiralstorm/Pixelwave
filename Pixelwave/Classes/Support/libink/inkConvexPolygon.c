@@ -95,15 +95,12 @@ inkConvexPolygon* inkConvexPolygonFromPoints(inkArray* points)
 		return NULL;
 
 	size_t count = inkArrayCount(points);
-	if (count == 0)
+	if (count < 3)
 		return NULL;
 
 	inkConvexPolygon* convexPolygon = inkConvexPolygonCreate();
 	if (convexPolygon == NULL)
-	{
-		inkArrayDestroy(points);
 		return NULL;
-	}
 
 	inkPoint* pointPtr;
 	inkPoint* point;
@@ -113,16 +110,13 @@ inkConvexPolygon* inkConvexPolygonFromPoints(inkArray* points)
 		pointPtr = inkArrayPush(convexPolygon->points);
 
 		if (pointPtr != NULL)
-		{
 			*pointPtr = *point;
-		}
 	}
 
-	count = inkArrayCount(points);
+	count = inkArrayCount(convexPolygon->points);
 	if (count == 0)
 	{
 		inkConvexPolygonDestroy(convexPolygon);
-		inkArrayDestroy(points);
 		return NULL;
 	}
 
@@ -156,6 +150,12 @@ inkConvexPolygon* inkConvexPolygonFromPoints(inkArray* points)
 	--k;
 
 	inkArrayUpdateCount(convexPolygon->points, k);
+
+	if (inkArrayCount(convexPolygon->points) < 3)
+	{
+		inkConvexPolygonDestroy(convexPolygon);
+		return NULL;
+	}
 
 	return convexPolygon;
 }
@@ -550,9 +550,10 @@ bool inkConvexPolygonIsConvex(inkArray* points, bool clockwise)
 		//if (clockwise == true)
 		//{
 		val = inkPointPerp(inkPointSubtract(triangle.pointB, triangle.pointA), inkPointSubtract(triangle.pointC, triangle.pointB));
+
 		if (val > 0.0f && clockwise == true)
 			return false;
-		else if (val <= 0.0f && clockwise == false)
+		else if (val < 0.0f && clockwise == false)
 			return false;
 		/*	{
 				return false;

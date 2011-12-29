@@ -458,7 +458,8 @@
 		switch (colorQuality)
 		{
 			case PXViewColorQuality_High:
-				colorFormat = GL_RGBA4_OES;
+				//colorFormat = GL_RGBA4_OES;
+				colorFormat = GL_RGBA8_OES;
 				depthFormat = GL_DEPTH_COMPONENT24_OES;
 				break;
 			case PXViewColorQuality_Low:
