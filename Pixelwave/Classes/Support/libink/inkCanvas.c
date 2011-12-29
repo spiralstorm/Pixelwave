@@ -128,7 +128,7 @@ float inkCurveMultiplier(inkCanvas* canvas)
 	return canvas->curveMultiplier;
 }
 
-float inkTotalLength(inkCanvas* canvas)
+float inkGetTotalLength(inkCanvas* canvas)
 {
 	assert(canvas != NULL);
 
@@ -142,7 +142,7 @@ void inkSetMaxLength(inkCanvas* canvas, float length)
 	canvas->maxLength = fabsf(length);
 }
 
-float inkMaxLength(inkCanvas* canvas)
+float inkGetMaxLength(inkCanvas* canvas)
 {
 	assert(canvas != NULL);
 
@@ -170,7 +170,7 @@ void inkSetPixelsPerPoint(inkCanvas* canvas, float pixelsPerPoint)
 	canvas->one_pixelsPerPoint = 1.0f / pixelsPerPoint;
 }
 
-float inkPixelsPerPoint(inkCanvas* canvas)
+float inkGetPixelsPerPoint(inkCanvas* canvas)
 {
 	assert(canvas != NULL);
 
@@ -230,7 +230,7 @@ void inkRemoveAllRenderGroups(inkCanvas* canvas)
 	canvas->totalLength = 0.0f;
 }
 
-bool inkAddMemoryToFreeUponClear(inkCanvas* canvas, void* holder, inkDestroyFunction func)
+bool inkFreeUponClear(inkCanvas* canvas, void* holder, inkDestroyFunction func)
 {
 	assert(canvas != NULL);
 

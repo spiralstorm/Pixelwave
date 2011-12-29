@@ -22,7 +22,7 @@ typedef struct _inkGenerator
 	// to the normal generator then you must use the first argument to grab the
 	// correct value. Well, if I have a pointer as my first value back to
 	// myself, then the first value is uniformed across all structure types.
-	struct _inkGenerator *me;
+	struct _inkGenerator* me;
 
 	inkMatrix invGLMatrix;
 

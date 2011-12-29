@@ -45,6 +45,8 @@
 
 - (void) _sendToGraphicsAsStroke:(PXGraphics *)graphics
 {
+	// Don't need to do anything here, the stroke grabs the information directly
+	// from this fill.
 	return;
 }
 

@@ -94,7 +94,7 @@
 	if ([fill isKindOfClass:[PXGraphicsSolidFill class]])
 	{
 		color = ((PXGraphicsSolidFill *)fill).color;
-		alpha = ((PXGraphicsSolidFill *)fill).color;
+		alpha = ((PXGraphicsSolidFill *)fill).alpha;
 	}
 
 	[graphics lineStyleWithThickness:thickness color:color alpha:alpha pixelHinting:pixelHinting scaleMode:scaleMode caps:caps joints:joints miterLimit:miterLimit];

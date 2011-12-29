@@ -32,7 +32,7 @@ typedef struct
 	inkCanvas* canvas;
 } inkStrokeGenerator;
 
-inkExtern inkStrokeGenerator *inkStrokeGeneratorCreate(inkTessellator* tessellator, inkCanvas* canvas, inkArray *renderGroups, inkStroke* stroke, inkMatrix matrix);
+inkExtern inkStrokeGenerator *inkStrokeGeneratorCreate(inkTessellator* tessellator, inkCanvas* canvas, inkArray* renderGroups, inkStroke* stroke, inkMatrix matrix);
 inkExtern void inkStrokeGeneratorDestroy(inkStrokeGenerator* generator);
 
 inkExtern void inkStrokeGeneratorSetFill(inkStrokeGenerator* strokeGenerator, void* fill, inkMatrix invGLMatrix);

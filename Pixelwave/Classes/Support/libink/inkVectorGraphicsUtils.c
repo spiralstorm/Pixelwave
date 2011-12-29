@@ -8,9 +8,6 @@
 
 #include "inkVectorGraphicsUtils.h"
 
-#include "inkTypes.h"
-#include "inkVectorGraphics.h"
-
 #define _inkVectorGraphicsUtilsCurveCount 8
 const unsigned int inkVectorGraphicsUtilsCurveCount = _inkVectorGraphicsUtilsCurveCount;
 const float inkVectorGraphicsUtilsPI_CurveCount = M_PI / (float)_inkVectorGraphicsUtilsCurveCount;

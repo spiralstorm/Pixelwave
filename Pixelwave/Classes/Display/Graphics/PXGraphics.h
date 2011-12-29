@@ -53,6 +53,7 @@ typedef enum
 	//@ work though as they will be handled by GL. This mode should be used if
 	//@ you need high accuracy with strokes and does not require any scaling or
 	//@ skewing after you are done building the object.
+	//@ **Best for graphics with strokes that don't need scaling.**
 	PXGraphicsBuildStyle_Once = 0,
 	//@ This mode will build rebuild your polygons and strokes everytime the
 	//@ scale of the object has changed, rotation and translation will still be
@@ -62,13 +63,15 @@ typedef enum
 	//@ 'scaleRebuildEpsilon' value, which will give a tolerance to scaling and
 	//@ skewing before rebuilding. The way it is calculated is by
 	//@ (newScale - epsilon <= oldScale <= newScale + epsilon). The oldScale is
-	//@ the actual scale the polygons were built with, so it will only be updated
-	//@ upon rebuilding.
+	//@ the actual scale the polygons were built with, so it will only be
+	//@ updated upon rebuilding.
+	//@ **Best for graphics with strokes that need scaling**
 	PXGraphicsBuildStyle_Hybrid,
 	//@ This mode will let gl handle scaling, rotation and translation. Meaning
 	//@ that your stroke will be stretched if scaling changes. This mode has the
 	//@ highest performance of any mode, however should not be used if you wish
 	//@ to have accurate strokes.
+	//@ **Best for graphics without strokes**
 	PXGraphicsBuildStyle_GL
 } PXGraphicsBuildStyle;
 
@@ -78,9 +81,6 @@ typedef enum
 @public
 	unsigned int vertexCount;
 	void *vCanvas;
-
-	bool wasBuilt;
-	//bool convertTrianglesIntoStrips;
 
 	PXGLMatrix graphicsMatrix;
 	PXGLMatrix glMatrix;
@@ -93,6 +93,8 @@ typedef enum
 	float curvePrecision;
 
 	PXGraphicsBuildStyle buildStyle;
+	bool wasBuilt;
+	//bool convertTrianglesIntoStrips;
 }
 
 @property (nonatomic) PXGraphicsBuildStyle buildStyle;

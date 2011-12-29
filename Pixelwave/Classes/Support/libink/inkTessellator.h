@@ -19,11 +19,11 @@
 
 typedef struct
 {
-	void *gluTessellator;
+	void* gluTessellator;
 
-	inkArray *renderGroups; // Weak
-	inkRenderGroup *currentRenderGroup; // Weak
-	inkArray *vertexPtrs;
+	inkArray* renderGroups; // Weak
+	inkRenderGroup* currentRenderGroup; // Weak
+	inkArray* vertexPtrs;
 
 	inkPresetGLData glData;
 	void* userData;

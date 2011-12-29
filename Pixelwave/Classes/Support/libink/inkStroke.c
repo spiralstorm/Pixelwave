@@ -18,7 +18,10 @@ inkStroke inkStrokeMake(float thickness, bool pixelHinting, inkLineScaleMode sca
 {
 	inkStroke stroke;
 
-	stroke.origThickness = fabsf(thickness);
+	if (isnan(thickness) == false)
+		stroke.origThickness = fabsf(thickness);
+	else
+		stroke.origThickness = thickness;
 	stroke.thickness = stroke.origThickness;
 	stroke.pixelHinting = pixelHinting;
 	stroke.scaleMode = scaleMode;

@@ -516,7 +516,7 @@ void inkBuild(inkCanvas* canvas)
 
 					if (command->stroke.pixelHinting == true)
 					{
-						float minThickness = 1.0f / inkPixelsPerPoint(canvas);
+						float minThickness = 1.0f / inkGetPixelsPerPoint(canvas);
 						command->stroke.thickness = inkRoundToNearestf(command->stroke.thickness, minThickness);
 						command->stroke.thickness = fmaxf(minThickness, command->stroke.thickness);
 					}

@@ -62,9 +62,7 @@ const inkRenderer pxGraphicsInkRenderer = {PXGLEnable, PXGLDisable, PXGLEnableCl
 PXInline inkMatrix PXGraphicsMakeMatrixFromPXMatrix(PXMatrix *matrix)
 {
 	if (matrix == nil)
-	{
 		return inkMatrixIdentity;
-	}
 
 	return inkMatrixMake(matrix.a, matrix.b, matrix.c, matrix.d, matrix.tx, matrix.ty);
 }
@@ -109,8 +107,8 @@ inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType typ
 		return info;
 	}
 
-	inkAddMemoryToFreeUponClear(canvas, info.colors, (void(*)(void*))inkArrayDestroy);
-	inkAddMemoryToFreeUponClear(canvas, info.ratios, (void(*)(void*))inkArrayDestroy);
+	inkFreeUponClear(canvas, info.colors, (void(*)(void*))inkArrayDestroy);
+	inkFreeUponClear(canvas, info.ratios, (void(*)(void*))inkArrayDestroy);
 
 	unsigned int index = 0;
 

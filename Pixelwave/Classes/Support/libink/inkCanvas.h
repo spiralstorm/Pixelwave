@@ -62,21 +62,21 @@ inkExtern inkRect inkBoundsv(inkCanvas* canvas, bool withStroke);
 inkExtern void inkSetCurveMultiplier(inkCanvas* canvas, float curveMultiplier);
 inkExtern float inkCurveMultiplier(inkCanvas* canvas);
 
-inkExtern float inkTotalLength(inkCanvas* canvas);
+inkExtern float inkGetTotalLength(inkCanvas* canvas);
 inkExtern void inkSetMaxLength(inkCanvas* canvas, float length);
-inkExtern float inkMaxLength(inkCanvas* canvas);
+inkExtern float inkGetMaxLength(inkCanvas* canvas);
 
 inkExtern void inkSetIncompleteDrawStrategies(inkCanvas* canvas, inkIncompleteDrawStrategy incompleteFillStrategy, inkIncompleteDrawStrategy incompleteStrokeStrategy, float overDrawAllowance);
 
 inkExtern void inkSetPixelsPerPoint(inkCanvas* canvas, float pixelHint);
-inkExtern float inkPixelsPerPoint(inkCanvas* canvas);
+inkExtern float inkGetPixelsPerPoint(inkCanvas* canvas);
 
 inkExtern void inkAddCommand(inkCanvas* canvas, inkCommandType type, void* data);
 inkExtern void inkRemoveAllCommands(inkCanvas* canvas);
 
 inkExtern void inkRemoveAllRenderGroups(inkCanvas* canvas);
 
-inkExtern bool inkAddMemoryToFreeUponClear(inkCanvas* canvas, void* holder, inkDestroyFunction func);
+inkExtern bool inkFreeUponClear(inkCanvas* canvas, void* holder, inkDestroyFunction func);
 inkExtern void inkFreeCachedMemory(inkCanvas* canvas);
 
 inkExtern void inkSetConvertTrianglesIntoStrips(inkCanvas* canvas, bool convertTrianglesIntoStrips);

@@ -714,6 +714,8 @@ void PXEngineRender()
 	if (PXDebugIsEnabled(PXDebugSetting_DrawBoundingBoxes))
 	{
 		PXGLVertex vertices[4];
+		//unsigned int colors[4] = {0xFF22FFFF, 0xFFAAFFFF, 0xFF22FFFF, 0xFFAAFFFF};
+		unsigned int colors[4] = {0xFF22FFFF, 0xFFFF22FF, 0xFF22FFFF, 0xFFFF22FF};
 
 		PXGLAABB aabb;
 		PXGLAABB *aabbPtr;
@@ -722,10 +724,11 @@ void PXEngineRender()
 
 		PXGLShadeModel(GL_SMOOTH);
 		PXGLDisable(GL_TEXTURE_2D);
-		PXGLColor4ub(0xFF, 0, 0, 0xFF);
+		//PXGLColor4ub(0xFF, 0, 0, 0xFF);
 		PXGLLineWidth(1.0f);
 		PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
-		PXGLDisableClientState(GL_COLOR_ARRAY);
+		PXGLEnableClientState(GL_COLOR_ARRAY);
+		PXGLColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
 
 		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
 		{
@@ -756,6 +759,8 @@ void PXEngineRender()
 	if (PXDebugIsEnabled(PXDebugSetting_DrawHitAreas))
 	{
 		PXGLVertex vertices[4];
+		//unsigned int colors[4] = {0xFFFF22FF, 0xFFFFAAFF, 0xFFFF22FF, 0xFFFFAAFF};
+		unsigned int colors[4] = {0xFFFFFF22, 0xFF22FF22, 0xFFFFFF22, 0xFF22FF22};
 
 		PXDisplayObject *doAABB;
 		PXDisplayObject **curDisplayObject;
@@ -769,10 +774,11 @@ void PXEngineRender()
 	
 		PXGLShadeModel(GL_SMOOTH);
 		PXGLDisable(GL_TEXTURE_2D);
-		PXGLColor4ub(0, 0, 0xFF, 0xFF);
+		//PXGLColor4ub(0, 0, 0xFF, 0xFF);
 		PXGLLineWidth(1.0f);
 		PXGLVertexPointer(2, GL_FLOAT, 0, vertices);
-		PXGLDisableClientState(GL_COLOR_ARRAY);
+		PXGLColorPointer(4, GL_UNSIGNED_BYTE, 0, colors);
+		PXGLEnableClientState(GL_COLOR_ARRAY);
 
 		for (index = 0, curDisplayObject = pxEngineDOBuffer.array; index < pxEngineDOBuffer.size; ++index, ++curDisplayObject)
 		{
