@@ -50,7 +50,7 @@
 
 	PXTextureData *textureData;
 	PXTextureGlyphBatch *textureGlyphBatch;
-	
+
 	unsigned int smoothingType;
 }
 

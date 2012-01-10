@@ -77,7 +77,7 @@
 			[self release];
 			return nil;
 		}
-		
+
 		textureData->_smoothingType = GL_NEAREST;
 
 		textureGlyphBatch = [[PXTextureGlyphBatch alloc] initWithVertexCount:4];
@@ -127,7 +127,7 @@
 	{
 		return;
 	}
-	
+
 	// We need the next power of two for our texture, so lets find it!
 	unsigned texWidth = size.width > size.height ? size.width : size.height;
 	unsigned texHeight;
@@ -203,7 +203,7 @@
 	{
 		PXGLTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, textureData->_smoothingType);
 		PXGLTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, textureData->_smoothingType);
-		
+
 		GLuint internalFormat = GL_ALPHA;
 		glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, texWidth, texHeight, 0, internalFormat, GL_UNSIGNED_BYTE, data);
 	}

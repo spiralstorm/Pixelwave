@@ -238,7 +238,7 @@
 		{
 			fontFuser = [[fuserType alloc] initWithParser:self options:options];
 		}
-		
+
 		if (!fontFuser)
 		{
 			[self release];

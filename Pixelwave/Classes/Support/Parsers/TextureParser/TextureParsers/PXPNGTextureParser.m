@@ -58,7 +58,7 @@ typedef struct
 {
 	void *bytes;
 	void *curByte;
-	
+
 	unsigned byteCount;
 	unsigned bytePos;
 } PXPNGByteData;
@@ -231,7 +231,7 @@ void PXPNGTextureParserLoadPNGFromBytes(png_structp pngPtr, png_bytep bytePtr, p
 	{
 		row_pointers[row] = malloc(rowBytes);
 	}
-	
+
 	png_read_image(*pngPtr, row_pointers);
 
 	//We need to convert the image to a power of 2 by power of 2 image, so

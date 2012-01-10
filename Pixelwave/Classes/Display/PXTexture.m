@@ -414,11 +414,11 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 	else
 	{
 		paddingEnabled = NO;
-		
+
 		// Our hit area is the same as our drawing area
 		PX_DISABLE_BIT(_flags, _PXDisplayObjectFlags_useCustomHitArea);
 	}
-	
+
 	anchorsInvalidated = YES;
 }
 
@@ -539,7 +539,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 
 	PXGLAABBf aabb = PXTextureCalcAABB(verts, numVerts, padding, paddingEnabled);
 	CGSize size = CGSizeMake(aabb.xMax - aabb.xMin, aabb.yMax - aabb.yMin);
-	
+
 	*retBounds = CGRectMake(aabb.xMin, aabb.yMin, size.width, size.height);
 }
 
@@ -567,7 +567,7 @@ PXGLAABBf PXTextureCalcAABB(PXGLTextureVertex *verts, unsigned numVerts, _PXText
 	{
 		// These copied lines are the same as [self validateVertices].
 		// We copy and paste for performance
-		
+
 		// <COPY>
 		if (resetClipFlag)
 		{

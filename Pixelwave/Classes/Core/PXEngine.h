@@ -84,11 +84,11 @@ float PXEngineGetViewWidth();
 float PXEngineGetViewHeight();
 
 void PXEngineSetMultiTouchEnabled(BOOL enabled);
-	
+
 //////////////////////////
 // Content scale factor //
 //////////////////////////
-	
+
 void PXEngineSetContentScaleFactor(float scale);
 float PXEngineGetContentScaleFactor();
 float PXEngineGetOneOverContentScaleFactor();
@@ -105,7 +105,7 @@ void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pi
 ///////////////////////////////////
 // Working with the stage / root //
 ///////////////////////////////////
-	
+
 //void PXEngineConvertPointToStageOrientation(float *x, float *y);
 PXStage *PXEngineGetStage();
 
@@ -122,7 +122,7 @@ void PXEngineInvalidateStage();
 /////////////////////////////
 // Control the engine loop //
 /////////////////////////////
-	
+
 void PXEngineSetRunning(bool val);
 bool PXEngineGetRunning();
 
@@ -134,7 +134,7 @@ float PXEngineGetRenderFrameRate();
 ///////////////////////////////
 // Broadcast event listeners //
 ///////////////////////////////
-	
+
 void PXEngineAddFrameListener(PXDisplayObject *displayObject);
 void PXEngineRemoveFrameListener(PXDisplayObject *displayObject);
 void PXEngineAddRenderListener(PXDisplayObject *displayObject);

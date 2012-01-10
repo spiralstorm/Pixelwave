@@ -432,7 +432,7 @@
 	 ALint curByte;
 	 AL_
 	 alGetSourcei(sourceID, AL_SAMPLE_OFFSET, &curByte);
-	 
+
 	 if (format == AL_FORMAT_STEREO8 || format == AL_FORMAT_MONO8)
 	 {
 	 UInt8 * curBytes = (UInt8 *)(&curByte);
@@ -443,7 +443,7 @@
 	 UInt16 * curBytes = (UInt16 *)(&curByte);
 	 leftPeak = (float)curBytes[0]/(float)UINT16_MAX;
 	 }
-	 
+
 	 return leftPeak;
 }
 
@@ -454,11 +454,11 @@
 	 float rightPeak = 0.0f;
 	 ALint curByte;
 	 alGetSourcei(sourceID, AL_SAMPLE_OFFSET, &curByte);
-	 
+
 	 int byteID = 1;
 	 if (format == AL_FORMAT_MONO8 || format == AL_FORMAT_MONO16)
 	 byteID = 0;
-	 
+
 	 if (format == AL_FORMAT_STEREO8 || format == AL_FORMAT_MONO8)
 	 {
 	 UInt8 * curBytes = (UInt8 *)(&curByte);
@@ -469,7 +469,7 @@
 	 UInt16 * curBytes = (UInt16 *)(&curByte);
 	 rightPeak = (float)curBytes[byteID]/(float)UINT16_MAX;
 	 }
-	 
+
 	 return rightPeak;
 }*/
 

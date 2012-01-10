@@ -196,11 +196,11 @@ static PXObjectPool *pxSharedObjectPool = nil;
 		[pools setObject:list forKey:typeClass];
 		[list release];
 	}
-	
+
 	[list addObject:object];
 
 	[object release];
-	
+
 	if ([object conformsToProtocol:@protocol(PXPooledObject)])
 	{
 		if ([object respondsToSelector:@selector(reset)])

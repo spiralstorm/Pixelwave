@@ -90,7 +90,7 @@ void b2CollideEdgeAndCircle(b2Manifold* manifold,
 		manifold->points[0].localPoint = circleB->m_p;
 		return;
 	}
-	
+
 	// Region B
 	if (u <= 0.0f)
 	{
@@ -458,7 +458,7 @@ void b2CollideEdgeAndPolygon(	b2Manifold* manifold,
 
 	b2Vec2 tangent = v12 - v11;
 	tangent.Normalize();
-	
+
 	b2Vec2 normal = b2Cross(tangent, 1.0f);
 	b2Vec2 planePoint = 0.5f * (v11 + v12);
 
@@ -506,7 +506,7 @@ void b2CollideEdgeAndPolygon(	b2Manifold* manifold,
 	for (int32 i = 0; i < b2_maxManifoldPoints; ++i)
 	{
 		float32 separation;
-		
+
 		separation = b2Dot(normal, clipPoints2[i].v) - frontOffset;
 
 		if (separation <= totalRadius)

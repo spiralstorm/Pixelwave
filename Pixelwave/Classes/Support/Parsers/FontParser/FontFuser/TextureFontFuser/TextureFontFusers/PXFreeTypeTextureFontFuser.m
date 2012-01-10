@@ -89,7 +89,7 @@
 
 	PXFreeTypeFontParser *ftParser = (PXFreeTypeFontParser *)parser;
 	PXTextureFontOptions *tfOptions = (PXTextureFontOptions *)options;
-	
+
 	return [self _parseFontWithOptions:tfOptions parser:ftParser];
 }
 
@@ -97,14 +97,14 @@
 {
 	[textureData release];
 	textureData = nil;
-	
+
 	if (vTextureFontInfo)
 	{
 		PXTextureFontTextureInfo *textureFontInfo = (PXTextureFontTextureInfo *)(vTextureFontInfo);
 		PXTextureFontTextureInfoFree(textureFontInfo);
 		vTextureFontInfo = NULL;
 	}
-	
+
 	[super dealloc];
 }
 

@@ -108,7 +108,7 @@
 {
 	if (!mat)
 		return;
-	
+
 	PXGLMatrix sMat;
 
 	sMat.a = mat.a;

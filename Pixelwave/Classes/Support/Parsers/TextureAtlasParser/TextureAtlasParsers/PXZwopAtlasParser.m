@@ -94,34 +94,34 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 	/////////////////////
 	// Parse the PList //
 	/////////////////////
-	
+
 	NSDictionary *dict = [PXZwopAtlasParser dictionaryFromData:data];
-	
+
 	if (!dict)
 		return NO;
-	
+
 	NSDictionary *framesDict = [dict objectForKey:@"frames"];
-	
+
 	if (!framesDict)
 		return NO;
-	
+
 	int numFrames = [framesDict count];
-	
+
 	// No frames, no service.
 	if (numFrames <= 0)
 		return NO;
-	
+
 	[self _setupWithTotalFrames:numFrames];
-	
+
 	///////////////////////////
 	// Read the texture data //
 	///////////////////////////
-	
+
 	// Release the old one if it exists
 	//PXTextureData *textureData = nil;
-	
+
 	NSString *imagePath = nil;
-	
+
 	// Limitations due to current PList file not storing the image name:
 	{
 		// Since the current PList file format doesn't tell us the name of the
@@ -129,7 +129,7 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 		// hard-drive
 		if (!origin)
 			return NO;
-		
+
 		// Since the current PList file doesn't tell us the name of the image,
 		// we have to assume that it's the same as the atlas file name. But
 		// since we don't know the extension we have to try all the possible
@@ -138,30 +138,30 @@ NSNumberFormatter *pxZwopAtlasParserNumberFormatter = nil;
 		if (!imagePath)
 			return NO;
 	}
-	
+
 	// Dilemma: Should we get the contentScaleFactor from the file name of the
 	// atlas or from the file name of the images?
 	// Here we just use the file name of the atlas...
 	PXTextureLoader *loader = [[PXTextureLoader alloc] initWithContentsOfFile:imagePath modifier:modifier];
-	
+
 	if (!loader)
 		return NO;
-	
+
 	// Require the image to be the same contentScaleFactor as the atlas.
 	[loader setContentScaleFactor:contentScaleFactor];
-	
+
 	[self _addTextureLoader:loader];
-	
+
 	//textureData = [loader newTextureData];
 	[loader release];
-	
+
 	//if (!textureData)
 	//	return NO;
-	
+
 	/////////////////////////
 	// Read the frame data //
 	/////////////////////////
-	
+
 	// We'll have to divide all the coordinate  values stored in the files by
 	// the content scale factor to convert them from PIXELS to POINTS.
 	float invScaleFactor = 1.0f / contentScaleFactor;

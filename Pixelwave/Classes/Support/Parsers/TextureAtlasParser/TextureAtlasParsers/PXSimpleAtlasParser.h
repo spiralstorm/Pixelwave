@@ -66,10 +66,10 @@ typedef struct
 @private
 	// The texture data of the atlas
 	NSMutableArray *textureLoaders;
-	
+
 	// The list of all the frame names
 	NSMutableArray *names;
-	
+
 	// The frame list
 	ushort totalFrames, numFrames;
 	PXGenericAtlasParserFrame *frames;

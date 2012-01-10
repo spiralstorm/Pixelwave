@@ -86,7 +86,7 @@
 - (id) init
 {
 	PXThrow(PXException, @"RegexPatterns objects should not be initialized directly. Use [PXRegexPattern patternWithRegex:] instead");
-	
+
 	[self release];
 	return nil;
 }
@@ -342,7 +342,7 @@
 + (PXRegexPattern *)patternWithRegex:(NSString *)regex flags:(unsigned)flags
 {
 	PXRegexPattern *pattern = [[PXRegexPattern alloc] _initWithRegex:regex flags:flags];	
-	
+
 	return [pattern autorelease];
 }
 

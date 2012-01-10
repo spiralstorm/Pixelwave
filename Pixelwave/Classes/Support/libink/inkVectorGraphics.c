@@ -639,7 +639,7 @@ void inkBuild(inkCanvas* canvas)
 		inkArrayPtrForEach(renderGroups, renderGroup)
 		{
 			assert(renderGroup->glDrawMode == GL_TRIANGLE_STRIP);
-				
+
 			inkRenderGroupConvertToElements(renderGroup);
 		//	totalVerticesAsElements += inkArrayCount(renderGroup->vertices);
 		}

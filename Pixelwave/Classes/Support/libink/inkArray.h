@@ -14,9 +14,9 @@
 typedef struct
 {
 	void *elements;
-	
+
 	unsigned int count;
-	
+
 	size_t _byteCount;
 	size_t _usedSize;
 	size_t _elementSize;

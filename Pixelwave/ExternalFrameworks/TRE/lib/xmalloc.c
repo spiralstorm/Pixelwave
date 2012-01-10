@@ -22,7 +22,7 @@
 #define XMALLOC_INTERNAL 1
 #include "xmalloc.h"
 
-
+
 /*
   Internal stuff.
 */
@@ -184,7 +184,7 @@ xmalloc_init(void)
 }
 
 
-
+
 /*
   Public API.
 */

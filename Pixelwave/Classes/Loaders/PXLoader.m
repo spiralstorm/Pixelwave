@@ -218,11 +218,11 @@
 + (BOOL) fileExistsAtPath:(NSString *)path
 {
 	path = [self absolutePathFromPath:path];
-	
+
 	NSFileManager *manager = [NSFileManager new];
 	BOOL exists = [manager fileExistsAtPath:path];
 	[manager release];
-	
+
 	return exists;
 }
 
@@ -299,19 +299,19 @@
 	{
 		basePath = [[NSBundle mainBundle] resourcePath];
 	}
-	
+
 	NSFileManager *fm = [[NSFileManager alloc] init];
 	NSArray *files = [fm contentsOfDirectoryAtPath:basePath error:nil];
 	[fm release];
-	
+
 	if (!files)
 		return nil;
-	
+
 	// Looping variables
 	//NSString *path = nil;
 	NSString *fileName = nil;
 	NSString *ext = nil;
-	
+
 	for (fileName in files)
 	{
 		//fileName = [path lastPathComponent];
@@ -324,10 +324,10 @@
 			{
 				return [basePath stringByAppendingPathComponent:fileName];
 			}
-			
+
 		}
 	}
-	
+
 	return nil;
 }
 

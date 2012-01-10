@@ -72,11 +72,11 @@ extern "C" {
 
 // General
 #import "PXSettings.h"
-	
+
 // Top Level
 #import "PXTopLevel.h"
 #import "PXMath.h"
-	
+
 // Cocoa
 #import "PXView.h"
 
@@ -92,13 +92,13 @@ extern "C" {
 #import "PXTexturePadding.h"
 #import "PXTextureData.h"
 #import "PXSimpleButton.h"
-	
+
 // Events
 #import "PXEventDispatcher.h"
 #import "PXEvent.h"
 #import "PXTouchEvent.h"
 #import "PXStageOrientationEvent.h"
-	
+
 // Geometry
 #import "PXTransform.h"
 #import "PXColorTransform.h"
@@ -106,7 +106,7 @@ extern "C" {
 #import "PXRectangle.h"
 #import "PXPoint.h"
 #import "PXVector3D.h"
-	
+
 // Media
 #import "PXSoundMixer.h"
 #import "PXSoundListener.h"
@@ -114,7 +114,7 @@ extern "C" {
 #import "PXSoundTransform3D.h"
 #import "PXSound.h"
 #import "PXSoundChannel.h"
-	
+
 // Text
 #import "PXFont.h"
 #import "PXTextField.h"
@@ -130,7 +130,7 @@ extern "C" {
 // - TextureAtlas
 #import "PXTextureAtlas.h"
 #import "PXAtlasFrame.h"
-	
+
 // - Modifiers
 #import "PXSoundModifier.h"
 #import "PXTextureModifier.h"
@@ -140,7 +140,7 @@ extern "C" {
 // - Regex
 #import "PXRegexMatcher.h"
 #import "PXRegexPattern.h"
-	
+
 // TODO: Include public protocols (Such as PXPooledObject)
 
 // Debug

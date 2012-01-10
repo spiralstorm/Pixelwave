@@ -371,7 +371,7 @@ private:
 	friend class b2Island;
 	friend class b2ContactManager;
 	friend class b2ContactSolver;
-	
+
 	friend class b2DistanceJoint;
 	friend class b2GearJoint;
 	friend class b2LineJoint;

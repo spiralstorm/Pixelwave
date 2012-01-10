@@ -194,7 +194,7 @@
 	id<PXEventDispatcher> target;
 
 	NSMutableDictionary *eventListeners;
-	
+
 	BOOL dispatchEvents;
 }
 

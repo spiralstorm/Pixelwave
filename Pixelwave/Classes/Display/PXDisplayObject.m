@@ -221,7 +221,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 {
 	if (_parent)
 		return _parent.stage;
-	
+
 	return nil;
 }
 
@@ -229,10 +229,10 @@ static unsigned int _pxDisplayObjectCount = 0;
 {
 	if (self == PXEngineGetRoot())
 		return self;
-	
+
 	if (_parent)
 		return _parent.root;
-	
+
 	return nil;
 }
 
@@ -263,12 +263,12 @@ static unsigned int _pxDisplayObjectCount = 0;
 - (void) _setMatrix:(PXGLMatrix *)mat
 {
 	_matrix = *mat;
-	
+
 	float mult = (_matrix.a < 0.0f ? -1.0f : 1.0f);
 	//	mult = 1.0f;
 	_scaleX = sqrtf(_matrix.a * _matrix.a + _matrix.b * _matrix.b) * mult;
 	_scaleY = sqrtf(_matrix.d * _matrix.d + _matrix.c * _matrix.c) * (_matrix.d < 0.0f ? -1.0f : 1.0f);
-	
+
 	//float det = _matrix.a * _matrix.d - _matrix.b * _matrix.c;
 	//float sX = _scaleX * (det < 0.0f ? -1.0f : 1.0f);
 	float angle = atan2f(_matrix.b, _matrix.a * mult);
@@ -955,7 +955,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 
 	// 1 = enterFrame
 	// 2 = render
-	
+
 	if (!useCapture)
 	{
 		// If this is an ENTER_FRAME event, and I'm not already listening
@@ -971,7 +971,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 				engineListenerToAdd = 2;
 		}
 	}
-	
+
 	BOOL added = [super addEventListenerOfType:type listener:listener useCapture:useCapture priority:priority];
 
 	if (!added)
@@ -998,7 +998,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 			default:
 				break;
 		}
-		
+
 	}
 
 	return YES;
@@ -1061,36 +1061,36 @@ static unsigned int _pxDisplayObjectCount = 0;
 	///////////////////
 	// Preconditions //
 	///////////////////
-	
+
 	// If I don't have a parent, thus I'm not on a display list, the event
 	// flow is irrelevant
 	if (!_parent)
 		return [super dispatchEvent:event];
-	
+
 	// If the user doesn't want to hear from me, forget about it.
 	if (!self.dispatchEvents)
 		return NO;
-	
+
 	// Even we can't dispatch nil
 	if (!event)
 	{
 		PXThrowNilParam(event);
 		return NO;
 	}
-	
+
 	// Get a retain on the event, or copy it if it's currently being used.
 	// Either way we increment the retain count
 	if (event->_isBeingDispatched)
 		event = [event copy];
 	else
 		[event retain];
-	
+
 	////////////////////
 	// Prep the event //
 	////////////////////
-	
+
 	[self _prepEvent:event];
-	
+
 	////////////////////////////////
 	// Start processing the event //
 	////////////////////////////////
@@ -1109,7 +1109,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	[ancestors removeAllObjects];
 
 	PXDisplayObject *node;
-	
+
 	node = _parent;
 	while (node)
 	{
@@ -1123,7 +1123,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	/////////////////////////////////////
 	// Invoke with the 'capture' phase //
 	/////////////////////////////////////
-	
+
 	PXLinkedListForEachReverse(ancestors, node)
 	{
 		[node _invokeEvent:event withCurrentTarget:node eventPhase:PXEventPhase_Capture];
@@ -1138,7 +1138,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	////////////////////////////////////
 	// Invoke with the 'target' phase //
 	////////////////////////////////////
-	
+
 	if (!propegationStopped)
 	{
 		[self _invokeEvent:event withCurrentTarget:self eventPhase:PXEventPhase_Target];
@@ -1148,18 +1148,18 @@ static unsigned int _pxDisplayObjectCount = 0;
 	//////////////////////////////////////
 	// Invoke with the 'bubbling' phase //
 	//////////////////////////////////////
-	
+
 	if (event.bubbles && !propegationStopped)
 	{
-		
+
 		/* It's been tested and This is not TRUE (that's why it's commented
 		 out):
-		 
+
 		// Create a new list of the ancestors. This lets things refresh between
 		// the capture and bubble phase (ex: if the item was removed from the
 		// stage by one of the listeners during the capture or target phase, the
 		// stage won't get the bubbling event.
-		
+
 		[ancestors removeAllObjects];
 		node = _parent;
 		while (node)
@@ -1168,7 +1168,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 			node = node->_parent;
 		}
 		*/
-		
+
 		// Loop through the ancestors, up the chain
 		//PXLinkedListForEach(ancestors, object)
 		for (node in ancestors)
@@ -1190,15 +1190,15 @@ static unsigned int _pxDisplayObjectCount = 0;
 
 	// We're done with the event
 	event->_isBeingDispatched = NO;
-	
+
 	// Let go of my temporary hold
 	[self release];
-	
+
 	BOOL defaultPrevented = event->_defaultPrevented;
-	
+
 	// Release hold on the event
 	[event release];
-	
+
 	return !defaultPrevented;
 }
 
@@ -1207,7 +1207,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 	// Checks whether an event listener is registered with this EventDispatcher
 	// object or any of its ancestors for the specified event type.
 	// (Using recursive function calls to go up the chain)
-	
+
 	// If I listen to the event, it's all good
 	if ([self hasEventListenerOfType:type])
 		return YES;
@@ -1216,10 +1216,10 @@ static unsigned int _pxDisplayObjectCount = 0;
 	// See if my parent does
 	if (!_parent)
 		return [_parent willTrigger:type];
-	
+
 	// Nothing
 	return NO;
-	
+
 }
 
 // MARK: Private public Functions

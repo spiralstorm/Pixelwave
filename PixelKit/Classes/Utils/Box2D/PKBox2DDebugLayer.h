@@ -51,7 +51,7 @@ class PKB2DebugDraw;
 @private
 	b2World *physicsWorld;
 	PKB2DebugDraw *debugDrawer;
-	
+
 	PKBox2DTouchPicker *touchPicker;
 }
 

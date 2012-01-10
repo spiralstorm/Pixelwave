@@ -128,7 +128,7 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 	{
 		return NO;
 	}
-	
+
 	if (![parser isKindOfClass:[PXFNTTextureFontFuser parserType]])
 	{
 		return NO;
@@ -153,12 +153,12 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 	// for speed.
 	[charToLoaderID release];
 	charToLoaderID = nil;
-	
+
 	// Store the loader by the loader ID which is defined by the character
 	// dictionary above. These double dictionaries are done for speed.
 	[loaderIDToLoader release];
 	loaderIDToLoader = nil;
-	
+
 	[super dealloc];
 }
 
@@ -323,7 +323,7 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 	//PXRegexPattern *linePattern = [[PXRegexPattern alloc] initWithRegex:@"(\\w*)=(([0-9-]+,[0-9,-]+)|([0-9-]+)|\"([^\"]*)\")"];
 	PXRegexPattern *keyPattern = [PXRegexPattern patternWithRegex:@"^(\\w+)\\s(.*)$"];
 	PXRegexPattern *linePattern = [PXRegexPattern patternWithRegex:@"(\\w*)=(([0-9-]+,[0-9,-]+)|([0-9-]+)|\"([^\"]*)\")"];
-	
+
 	// If we failed to make something, free up what we had, and give up.
 	//if (!info->numberFormatter || !keyPattern || !keyMatcher || !linePattern || !lineMatcher)
 	if (!info->numberFormatter || !keyPattern || !linePattern)
@@ -354,7 +354,7 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 	{
 		tfOptions = (PXTextureFontOptions *)options;
 	}
-	
+
 	//keyMatcher.string = fileString;
 	PXRegexMatcher *keyMatcher = [[PXRegexMatcher alloc] initWithPattern:keyPattern input:fileString];
 	PXRegexMatcher *lineMatcher = [[PXRegexMatcher alloc] initWithPattern:linePattern];
@@ -539,7 +539,7 @@ PXInline void PXFNTTextureFontFuserHandleColumnKerning(PXFNTTextureFontExtractio
 
 	//[keyPattern release];
 	//[linePattern release];
-	
+
 	[keyMatcher release];
 	[lineMatcher release];
 

@@ -80,7 +80,7 @@ NSString *_alGetErrorString(ALenum error)
 ALenum _alBeginDebug(NSString *value1)
 {
 	ALenum error = alGetError();
-	
+
 	if (error != AL_NO_ERROR)
 	{
 		PXDebugLog(@"%@ lingering error - ErrorID:0x%X, info:%@",
@@ -88,13 +88,13 @@ ALenum _alBeginDebug(NSString *value1)
 				   error,
 				   _alGetErrorString(error));
 	}
-	
+
 	return error;
 }
 ALenum _alEndDebug(NSString *value1)
 {
 	ALenum error = alGetError();
-	
+
 	if (error != AL_NO_ERROR)
 	{
 		PXDebugLog(@"%@ error - ErrorID:0x%X, info:%@",
@@ -102,9 +102,9 @@ ALenum _alEndDebug(NSString *value1)
 				   error,
 				   _alGetErrorString(error));
 	}
-	
+
 	pxALDebugLastError = error;
-	
+
 	return error;
 }
 
@@ -127,7 +127,7 @@ ALboolean _alIsEnabled (ALenum capability)
 	_alBeginDebug(@"alIsEnabled");
 	ALboolean ret = alIsEnabled(capability);
 	_alEndDebug(@"alIsEnabled");
-	
+
 	return ret;
 }
 
@@ -136,7 +136,7 @@ const ALchar* _alGetString (ALenum param)
 	_alBeginDebug(@"alGetString");
 	const ALchar* ret = alGetString(param);
 	_alEndDebug(@"alGetString");
-	
+
 	return ret;
 }
 
@@ -181,7 +181,7 @@ ALint _alGetInteger (ALenum param)
 	_alBeginDebug(@"alGetInteger");
 	ALint ret = alGetInteger(param);
 	_alEndDebug(@"alGetInteger");
-	
+
 	return ret;
 }
 
@@ -190,7 +190,7 @@ ALfloat _alGetFloat (ALenum param)
 	_alBeginDebug(@"alGetFloat");
 	ALfloat ret = alGetFloat(param);
 	_alEndDebug(@"alGetFloat");
-	
+
 	return ret;
 }
 
@@ -199,7 +199,7 @@ ALdouble _alGetDouble (ALenum param)
 	_alBeginDebug(@"alGetDouble");
 	ALdouble ret = alGetDouble(param);
 	_alEndDebug(@"alGetDouble");
-	
+
 	return ret;
 }
 
@@ -213,7 +213,7 @@ ALboolean _alIsExtensionPresent (const ALchar* extname)
 	_alBeginDebug(@"alIsExtensionPresent");
 	ALboolean ret = alIsExtensionPresent(extname);
 	_alEndDebug(@"alIsExtensionPresent");
-	
+
 	return ret;
 }
 
@@ -222,7 +222,7 @@ void* _alGetProcAddress (const ALchar* fname)
 	_alBeginDebug(@"alGetProcAddress");
 	void* ret = alGetProcAddress(fname);
 	_alEndDebug(@"alGetProcAddress");
-	
+
 	return ret;
 }
 
@@ -231,7 +231,7 @@ ALenum _alGetEnumValue (const ALchar* ename)
 	_alBeginDebug(@"alGetEnumValue");
 	ALenum ret = alGetEnumValue(ename);
 	_alEndDebug(@"alGetEnumValue");
-	
+
 	return ret;
 }
 
@@ -338,7 +338,7 @@ ALboolean _alIsSource (ALuint sid)
 	_alBeginDebug(@"alIsSource");
 	ALboolean ret = alIsSource(sid);
 	_alEndDebug(@"alIsSource");
-	
+
 	return ret;
 }
 
@@ -515,7 +515,7 @@ ALboolean _alIsBuffer (ALuint bid)
 	_alBeginDebug(@"alIsBuffer");
 	ALboolean ret = alIsBuffer(bid);
 	_alEndDebug(@"alIsBuffer");
-	
+
 	return ret;
 }
 
@@ -646,7 +646,7 @@ NSString *_alcGetErrorString(ALCenum error)
 	{
 		return [NSString stringWithString:@"no error"];
 	}
-	
+
 	switch (error)
 	{
 		case ALC_INVALID_DEVICE:
@@ -662,14 +662,14 @@ NSString *_alcGetErrorString(ALCenum error)
 		default:
 			return [NSString stringWithString:@"unknown error"];
 	}
-	
+
 	return nil;
 }
 
 ALCenum _alcBeginDebug(ALCdevice *device, NSString *value1)
 {
 	ALCenum error = alcGetError(device);
-	
+
 	if (error != ALC_NO_ERROR)
 	{
 		PXDebugLog(@"%@ lingering error - ErrorID:0x%X, info:%@",
@@ -677,13 +677,13 @@ ALCenum _alcBeginDebug(ALCdevice *device, NSString *value1)
 				   error,
 				   _alcGetErrorString(error));
 	}
-	
+
 	return error;
 }
 ALCenum _alcEndDebug(ALCdevice *device, NSString *value1)
 {
 	ALCenum error = alcGetError(device);
-	
+
 	if (error != ALC_NO_ERROR)
 	{
 		PXDebugLog(@"%@ error - ErrorID:0x%X, info:%@",
@@ -691,7 +691,7 @@ ALCenum _alcEndDebug(ALCdevice *device, NSString *value1)
 				   error,
 				   _alcGetErrorString(error));
 	}
-	
+
 	pxALCDebugLastError = error;
 	return error;
 }
@@ -702,7 +702,7 @@ ALCcontext *    _alcCreateContext(ALCdevice *device, const ALCint* attrlist)
 	_alcBeginDebug(device, @"alcCreateContext");
 	ALCcontext *ret = alcCreateContext(device, attrlist);
 	_alcEndDebug(device, @"alcCreateContext");
-	
+
 	return ret;
 }
 ALCboolean      _alcMakeContextCurrent(_ALCcontext *context)
@@ -710,7 +710,7 @@ ALCboolean      _alcMakeContextCurrent(_ALCcontext *context)
 	//	_alcBeginDebug(@"alcMakeContextCurrent");
 	ALCboolean ret = alcMakeContextCurrent(context);
 	//	_alcEndDebug(@"alcMakeContextCurrent");
-	
+
 	return ret;
 }
 void            _alcProcessContext(ALCcontext *context)
@@ -736,7 +736,7 @@ ALCcontext *    _alcGetCurrentContext(void)
 	//	_alcBeginDebug(@"alcGetCurrentContext");
 	ALCcontext *ret = alcGetCurrentContext( );
 	//	_alcEndDebug(@"alcGetCurrentContext");
-	
+
 	return ret;
 }
 ALCdevice*      _alcGetContextsDevice(ALCcontext *context)
@@ -744,7 +744,7 @@ ALCdevice*      _alcGetContextsDevice(ALCcontext *context)
 	//	_alcBeginDebug(@"alcGetContextsDevice");
 	_ALCdevice *ret = alcGetContextsDevice(context);
 	//	_alcEndDebug(@"alcGetContextsDevice");
-	
+
 	return ret;
 }
 ALCdevice *     _alcOpenDevice(const ALCchar *devicename)
@@ -752,7 +752,7 @@ ALCdevice *     _alcOpenDevice(const ALCchar *devicename)
 	//	_alcBeginDebug(@"alcOpenDevice");
 	ALCdevice *ret = alcOpenDevice(devicename);
 	_alcEndDebug(ret, @"alcOpenDevice");
-	
+
 	return ret;
 }
 ALCboolean      _alcCloseDevice(ALCdevice *device)
@@ -760,7 +760,7 @@ ALCboolean      _alcCloseDevice(ALCdevice *device)
 	_alcBeginDebug(device, @"alcCloseDevice");
 	ALCboolean ret = alcCloseDevice(device);
 	_alcEndDebug(device, @"alcCloseDevice");
-	
+
 	return ret;
 }
 _ALCenum         _alcGetError(ALCdevice *device)
@@ -772,7 +772,7 @@ _ALCboolean      _alcIsExtensionPresent(ALCdevice *device, const ALCchar *extnam
 	_alcBeginDebug(device, @"alcIsExtensionPresent");
 	_ALCboolean ret = alcIsExtensionPresent(device, extname);
 	_alcEndDebug(device, @"alcIsExtensionPresent");
-	
+
 	return ret;
 }
 void  *         _alcGetProcAddress(ALCdevice *device, const ALCchar *funcname)
@@ -780,7 +780,7 @@ void  *         _alcGetProcAddress(ALCdevice *device, const ALCchar *funcname)
 	_alcBeginDebug(device, @"alcGetProcAddress");
 	void *ret = alcGetProcAddress(device, funcname);
 	_alcEndDebug(device, @"alcGetProcAddress");
-	
+
 	return ret;
 }
 ALCenum         _alcGetEnumValue(ALCdevice *device, const ALCchar *enumname)
@@ -788,7 +788,7 @@ ALCenum         _alcGetEnumValue(ALCdevice *device, const ALCchar *enumname)
 	_alcBeginDebug(device, @"alcGetEnumValue");
 	ALCenum ret = alcGetEnumValue(device, enumname);
 	_alcEndDebug(device, @"alcGetEnumValue");
-	
+
 	return ret;
 }
 const ALCchar * _alcGetString(ALCdevice *device, ALCenum param)
@@ -796,7 +796,7 @@ const ALCchar * _alcGetString(ALCdevice *device, ALCenum param)
 	_alcBeginDebug(device, @"alcGetString");
 	const ALCchar *ret = alcGetString(device, param);
 	_alcEndDebug(device, @"alcGetString");
-	
+
 	return ret;
 }
 void            _alcGetIntegerv(ALCdevice *device, ALCenum param, ALCsizei size, ALCint *data)
@@ -810,7 +810,7 @@ ALCdevice*      _alcCaptureOpenDevice(const ALCchar *devicename, ALCuint frequen
 	//_alcBeginDebug(@"alcCaptureOpenDevice");
 	ALCdevice *ret = alcCaptureOpenDevice(devicename, frequency, format, buffersize);
 	_alcEndDebug(ret, @"alcCaptureOpenDevice");
-	
+
 	return ret;
 }
 ALCboolean      _alcCaptureCloseDevice(ALCdevice *device)
@@ -818,7 +818,7 @@ ALCboolean      _alcCaptureCloseDevice(ALCdevice *device)
 	_alcBeginDebug(device, @"alcCaptureCloseDevice");
 	ALCboolean ret = alcCaptureCloseDevice(device);
 	_alcEndDebug(device, @"alcCaptureCloseDevice");
-	
+
 	return ret;
 }
 void            _alcCaptureStart(ALCdevice *device)

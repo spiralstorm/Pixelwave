@@ -65,7 +65,7 @@
 {
 	//return [self _initWithLength:0];
 	PXThrow(PXException, @"Sound objects should not be initialized directly. Use SoundLoader instead");
-	
+
 	[self release];
 	return nil;
 }

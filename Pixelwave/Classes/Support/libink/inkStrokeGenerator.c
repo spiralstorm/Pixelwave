@@ -486,10 +486,10 @@ bool inkStrokeGeneratorAdd(inkStrokeGenerator* strokeGenerator, inkStroke* strok
 				{
 					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerA, tessellator, fill, invGLMatrix);
 					inkStrokeGeneratorAddDrawPoint(strokeGenerator, outerB, tessellator, fill, invGLMatrix);
-					
+
 					inkPoint nA = inkPointInterpolate(outerA, outerIntersection, percentDist);
 					inkPoint nB = inkPointInterpolate(outerB, outerIntersection, percentDist);
-					
+
 					inkStrokeGeneratorAddDrawPoint(strokeGenerator, nA, tessellator, fill, invGLMatrix);
 					inkStrokeGeneratorAddDrawPoint(strokeGenerator, nB, tessellator, fill, invGLMatrix);
 					inkStrokeGeneratorAddDrawPoint(strokeGenerator, nB, tessellator, fill, invGLMatrix);
@@ -570,19 +570,19 @@ void inkStrokeGeneratorEnd(inkStrokeGenerator* strokeGenerator)
 {
 	if (strokeGenerator == NULL)
 		return;
-	
+
 	if (strokeGenerator->generator->currentVertices != NULL)
 	{
 		inkStrokeGeneratorEndConcat(strokeGenerator);
 	}
-	
+
 	inkStrokeGeneratorRasterizeObject* rasterizeObject;
-	
+
 	inkArrayForEach(strokeGenerator->rasterizeGroups, rasterizeObject)
 	{
 		inkStrokeGeneratorEndRasterizeGroup(strokeGenerator, rasterizeObject);
 	}
-	
+
 	// Make sure to clear at the end
 	inkArrayClear(strokeGenerator->rasterizeGroups);
 }

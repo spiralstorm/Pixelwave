@@ -200,7 +200,7 @@
 		PXThrowNilParam(_fontName);
 		return;
 	}
-	
+
 	// Release our old fontName
 	[fontName release];
 	// Copy the new one.
@@ -225,7 +225,7 @@
 		// If it didn't exist in our library, perhaps it is a system font?  Set
 		// our font size, and check if it is a system font.
 		UIFont *uiFont = [UIFont fontWithName:fontName size:_fontSize];
-		
+
 		// If the font exists in the system, use it
 		if (uiFont)
 		{

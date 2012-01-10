@@ -86,12 +86,12 @@
 
 	if (!textureFontInfo)
 		return nil;
-	
+
 	if (_vertices && textureFontInfo->_vertices)
 	{
 		memcpy(textureFontInfo->_vertices, _vertices, (_vertexCount * sizeof(PXGLColoredTextureVertex)));
 	}
-	
+
 	//textureFontInfo.glName = _glName;
 	textureFontInfo->_textureData = _textureData;
 
@@ -242,10 +242,10 @@ PXInline_c unsigned PXTextureGlyphBatchConcatBoxWithColor(PXGLColoredTextureVert
 {
 	PXGLColoredTextureVertex *vertex = *currentVertex;
 	unsigned addedVertexCount = 0;
-	
+
 	//	if (!vertex)
 	//		return 0;
-	
+
 	// If it is not 0, then make an extra top left
 	// Top left -> bottom left -> top right -> bottom right
 	// If it is not the last (and there isn't only 1 character, then make an
@@ -257,17 +257,17 @@ PXInline_c unsigned PXTextureGlyphBatchConcatBoxWithColor(PXGLColoredTextureVert
 		vertex->x = x.min;	vertex->y = y.min;
 		vertex->s = s.min;	vertex->t = t.min;
 		vertex->r = red;	vertex->g = green;	vertex->b = blue;	vertex->a = alpha;
-		
+
 		++vertex;
 		++addedVertexCount;
 	}
-	
+
 	vertex->x = x.min;	vertex->y = y.min;
 	vertex->s = s.min;	vertex->t = t.min;
 	vertex->r = red;	vertex->g = green;	vertex->b = blue;	vertex->a = alpha;
-	
+
 	++vertex;
-	
+
 	vertex->x = x.min;	vertex->y = y.max;
 	vertex->s = s.min;	vertex->t = t.max;
 	vertex->r = red;	vertex->g = green;	vertex->b = blue;	vertex->a = alpha;
@@ -279,15 +279,15 @@ PXInline_c unsigned PXTextureGlyphBatchConcatBoxWithColor(PXGLColoredTextureVert
 	vertex->r = red;	vertex->g = green;	vertex->b = blue;	vertex->a = alpha;
 
 	++vertex;
-	
+
 	vertex->x = x.max;	vertex->y = y.max;
 	vertex->s = s.max;	vertex->t = t.max;
 	vertex->r = red;	vertex->g = green;	vertex->b = blue;	vertex->a = alpha;
 
 	++vertex;
-	
+
 	addedVertexCount += 4;
-	
+
 	if (!isLast)
 	{
 		vertex->x = x.max;	vertex->y = y.max;

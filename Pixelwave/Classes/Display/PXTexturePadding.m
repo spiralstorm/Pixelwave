@@ -57,7 +57,7 @@
 - (id) initWithTop:(float)top right:(float)right bottom:(float)bottom left:(float)left
 {
 	self = [super init];
-	
+
 	if (self)
 	{
 		_padding = _PXTexturePaddingMake(top, right, bottom, left);

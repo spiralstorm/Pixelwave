@@ -22,7 +22,7 @@
 + (NSData *)dataWithJSONObject:(id)obj options:(EJSONWritingOptions)opt error:(NSError **)error
     {
     #pragma unused (opt)
-    
+
     CJSONSerializer *theSerializer = [CJSONSerializer serializer];
     NSData *theData = [theSerializer serializeObject:obj error:error];
     return(theData);

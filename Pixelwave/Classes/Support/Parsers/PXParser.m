@@ -243,12 +243,12 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 {
 	//PXLinkedList *ret = [[PXLinkedList alloc] init];
 	PXLinkedList *extensions = [[PXLinkedList alloc] init];
-	
+
 	// Get all the supported file extensions from the parsers
 	PXLinkedList *parsers = [PXParser parsersForBaseClass:[self class]];
-	
+
 	NSMutableSet *set = [[NSMutableSet alloc] init];
-	
+
 	for (Class parserType in parsers)
 	{
 		// Check for redundant extensions
@@ -257,14 +257,14 @@ PXInline void PXParserRemoveBaseClass(Class baseClass);
 		for (NSString *ext in extensions)
 		{
 			ext = [ext lowercaseString];
-			
+
 			// Redundant objects are ignored by sets.
 			[set addObject:ext];
 		}
 	}
-	
+
 	[extensions release];
-	
+
 	NSArray *retVal = [set allObjects];
 	[set release];
 	return retVal;

@@ -119,7 +119,7 @@ private:
 	void RemoveLeaf(int32 node);
 
 	int32 ComputeHeight(int32 nodeId) const;
-	
+
 	int32 CountLeaves(int32 nodeId) const;
 
 	int32 m_root;

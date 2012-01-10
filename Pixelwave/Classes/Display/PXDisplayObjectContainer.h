@@ -80,7 +80,7 @@
 - (PXDisplayObject *)addChild:(PXDisplayObject *)child;
 // O(n)
 //-- ScriptName: addChildAt
-- (PXDisplayObject *)addChild:(PXDisplayObject *)child atIndex:(int) index;
+- (PXDisplayObject *)addChild:(PXDisplayObject *)child atIndex:(int)index;
 
 // O(n)
 //-- ScriptName: contains

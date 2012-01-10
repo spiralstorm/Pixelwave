@@ -83,12 +83,12 @@
 	if (self)
 	{
 		// TODO Later: Check if the function accepts type of PXEvent?
-		
+
 		_target = target;
 		_selector = selector;
 		_listenerRef = (PXEventListenerFuncRef)[_target methodForSelector:_selector];
 	}
-	
+
 	return self;
 }
 

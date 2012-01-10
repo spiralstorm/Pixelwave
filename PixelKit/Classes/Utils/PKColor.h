@@ -99,7 +99,7 @@ typedef union
 {
 	PKRGBABE asRGBA;
 	PKARGBBE asARGB;
-	
+
 	int asInt;
 	unsigned asUInt;
 } PKColorBE;
@@ -196,7 +196,7 @@ PXInline PKColorBE PKColorBEMakeRGBA(unsigned char red,
 
 	return retVal;
 }
-	
+
 PXInline PKColorBE PKColorBEMakeARGB(unsigned char alpha,
 									 unsigned char red,
 									 unsigned char green,

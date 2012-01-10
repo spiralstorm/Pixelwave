@@ -49,7 +49,7 @@
 @private
 	// contexts holds on to the parsed data
 	//CGContextRef context;
-	
+
 	CGImageRef cgImage;
 	UIImageOrientation cgImageOrientation;
 }

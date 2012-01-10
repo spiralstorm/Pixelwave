@@ -293,7 +293,7 @@ GLUhalfEdge *__gl_meshMakeEdge( GLUmesh *mesh )
   MakeFace( newFace, e, &mesh->fHead );
   return e;
 }
-  
+
 
 /* __gl_meshSplice( eOrg, eDst ) is the basic operation for changing the
  * mesh connectivity and topology.  It changes the mesh so that
@@ -603,7 +603,7 @@ GLUmesh *__gl_meshNewMesh( void )
   if (mesh == NULL) {
      return NULL;
   }
-  
+
   v = &mesh->vHead;
   f = &mesh->fHead;
   e = &mesh->eHead;

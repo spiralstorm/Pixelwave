@@ -220,41 +220,41 @@
 	///////////
 
 	child->_parent = self;
-	
+
 	// According to the API docs added events come after the child's been added	
 	if (dispatchEvents)
 	{
 		// Keep a hold of child
 		[child retain];
-		
+
 		PXEvent *e = nil;
-		
+
 		// ADDED event
 		e = [[PXEvent alloc] initWithType:PXEvent_Added
 							   bubbles:YES
 							 cancelable:NO];
 		[child dispatchEvent:e];
 		[e release];
-		
+
 		// If the child is still on the display list
 		if (child.stage)
 		{
 			// ADDED_TO_STAGE event
-			
+
 			// Yay this new child is going to be on the on stage display list!			
 			// dispatch ADDED_TO_STAGE event
-			
+
 			e = [[PXEvent alloc] initWithType:PXEvent_AddedToStage
 											bubbles:NO
 										  cancelable:NO];
-			
+
 			[child _dispatchAndPropegateEvent:e];
 			// Note child is not guaranteed to be in the display list, or even
 			// exist at this point
-			
+
 			[e release];
 		}
-		
+
 		// Release the child
 		[child release];
 	}
@@ -281,13 +281,13 @@
 		PXThrowNilParam(child);
 		return child;
 	}
-	
+
 	if (child == self)
 	{
 		PXThrow(PXArgumentException, @"An object cannot be added as a child of itself.");
 		return child;
 	}
-	
+
 	_impAddChildBefore(self, nil, child, nil, PXEngineGetStage().dispatchesDisplayListEvents);
 
 	return child;
@@ -318,13 +318,13 @@
 		PXThrowNilParam(child);
 		return child;
 	}
-	
+
 	if (child == self)
 	{
 		PXThrow(PXArgumentException, @"An object cannot be added as a child of itself.");
 		return child;
 	}
-	
+
 	if (index < 0 || index > _numChildren)
 	{
 		PXThrowIndexOutOfBounds;
@@ -629,7 +629,7 @@
 		PXThrowNilParam(child);
 		return -1;
 	}
-	
+
 	if (childToCheck->_parent != self)
 	{
 		PXThrowDispNotChild;
@@ -767,30 +767,30 @@
 - (void) setIndex:(int)index ofChild:(PXDisplayObject *)child
 {
 	// Check preconditions
-	
+
 	if (!child)
 	{
 		PXThrowNilParam(child);
 		return;
 	}
-	
+
 	if (index < 0 || index >= _numChildren)
 	{
 		PXThrowIndexOutOfBounds;
 		return;
 	}
-	
+
 	if (child->_parent != self)
 	{
 		PXThrowDispNotChild;
 		return;
 	}
-	
+
 	// Make the switch //
-	
+
 	// First remove the child from the list, but without dispatching events
 	_impRemoveChild(self, nil, child, NO);
-	
+
 	if (index == _numChildren)
 	{
 		// An optimization: Add it back at the end of the list
@@ -1073,7 +1073,7 @@
 		{
 			container = (PXDisplayObjectContainer *)(loopChild);
 			addList = [container objectsUnderPoint:point];
-			
+
 			[list addObjectsFromArray:addList];
 		}
 	}
@@ -1091,26 +1091,26 @@
 	// Dispatch my event
 	//[super _dispatchAddedToStage];
 	[super _dispatchAndPropegateEvent:event];
-	
+
 	// If I have no children, don't bother
 	if (_numChildren <= 0)
 		return;
-	
+
 	// Loop through the children.
 	// In the flash player when doing this the children aren't cached in a list
 	// so care must be taken when looping through them because any event
 	// listener may remove one of the children
-	
+
 	PXDisplayObject *child = nil;
-	
+
 	// The following behavior was reverse-engineered by fiddling with the flash
 	// player to the best of my ability.	
 	int childIndex;
-	
+
 	PXEvent *eCopy = nil;
-	
+
 	child = [self childAtIndex:0];
-	
+
 	for (; child;)
 	{
 		//[child _dispatchAddedToStage];
@@ -1119,21 +1119,21 @@
 		[child _dispatchAndPropegateEvent:eCopy];
 		[eCopy release];
 		eCopy = nil;
-		
+
 		// If the listener removed the child from me, stop here
 		if (child->_parent != self)
 			break;
-		
+
 		// Grab the next child on the list.
-		
+
 		// This has to be queried every loop because the order of the children
 		// may have changed
 		childIndex = [self indexOfChild:child];
-		
+
 		// If that was the last child, you're done
 		if (childIndex >= _numChildren - 1)
 			break;
-		
+
 		child = [self childAtIndex:childIndex + 1];
 	}
 }

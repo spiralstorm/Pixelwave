@@ -268,7 +268,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 	}
 
 	listener->_priority = priority;
-	
+
 	return YES;
 }
 
@@ -304,7 +304,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 		PXThrowNilParam(listener);
 		return NO;
 	}
-	
+
 	// Can't remove an event listeners if there aren't any
 	if (!eventListeners)
 		return NO;
@@ -342,7 +342,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 		[eventListeners release];
 		eventListeners = nil;
 	}
-	
+
 	return YES;
 }
 
@@ -506,13 +506,13 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 		PXThrowNilParam(event);
 		return NO;
 	}
-	
+
 	if (!dispatchEvents)
 		return NO;
-	
+
 	if (!event)
 		return NO;
-	
+
 	// Get a retain on the event
 	// If the event is currently being dispatched, make a copy of it and
 	// dispatch that.
@@ -522,7 +522,7 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 		event = [event copy];
 	else
 		[event retain];
-	
+
 	////////////////////
 	// Prep the event //
 	////////////////////
@@ -552,10 +552,10 @@ PXEventListener *PXGetSimilarListener(PXEventListener *listener, PXLinkedList *l
 
 	event->_isBeingDispatched = NO;
 	BOOL defaultPrevented = event->_defaultPrevented;
-	
+
 	// Release the event
 	[event release];
-	
+
 	return !defaultPrevented;
 }
 

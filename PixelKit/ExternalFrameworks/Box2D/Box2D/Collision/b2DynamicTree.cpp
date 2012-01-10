@@ -361,7 +361,7 @@ void b2DynamicTree::Rebalance(int32 iterations)
 		while (m_nodes[node].IsLeaf() == false)
 		{
 			int32* children = &m_nodes[node].child1;
-			
+
 			// Child selector based on a bit in the path
 			int32 selector = (m_path >> bit) & 1;
 

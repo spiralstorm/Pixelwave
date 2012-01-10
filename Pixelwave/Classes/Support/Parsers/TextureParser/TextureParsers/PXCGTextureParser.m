@@ -61,7 +61,7 @@
 {
 	//CGContextRelease(context);
 	//context = 0;
-	
+
 	cgImage = 0;
 
 	[super dealloc];
@@ -118,16 +118,16 @@
 	CGImageAlphaInfo info;
 	CGAffineTransform transform;
 	CGSize imageSize;
-	
+
 	if (image == NULL)
 	{
 		return NO;
 	}
-	
+
 	if (_pixelFormat == 0)
 	{
 		info = CGImageGetAlphaInfo(image);
-		
+
 		hasAlpha = ((info == kCGImageAlphaPremultipliedLast) || (info == kCGImageAlphaPremultipliedFirst) || (info == kCGImageAlphaLast) || (info == kCGImageAlphaFirst) ? YES : NO);
 		if (CGImageGetColorSpace(image))
 		{
@@ -139,7 +139,7 @@
 #ifdef PIXELWAVE_DEBUG
 					if ((CGImageGetBitsPerComponent(image) != 8) && (CGImageGetBitsPerPixel(image) != 16))
 						PXDebugLog(@"Unoptimal image pixel format for image");
-					
+
 #endif
 				}
 				else
@@ -148,7 +148,7 @@
 #ifdef PIXELWAVE_DEBUG
 					if ((CGImageGetBitsPerComponent(image) != 8) && (CGImageGetBitsPerPixel(image) != 8))
 						PXDebugLog(@"Unoptimal image pixel format for image");
-					
+
 #endif
 				}
 			}
@@ -166,7 +166,7 @@
 #ifdef PIXELWAVE_DEBUG
 						if ((CGImageGetBitsPerComponent(image) != 8) && (CGImageGetBitsPerPixel(image) != 24))
 							PXDebugLog(@"Unoptimal image pixel format for image");
-						
+
 #endif
 					}
 				}
@@ -178,66 +178,66 @@
 #ifdef PIXELWAVE_DEBUG
 			if ((CGImageGetBitsPerComponent(image) != 8) && (CGImageGetBitsPerPixel(image) != 8))
 				PXDebugLog(@"Unoptimal image pixel format for image");
-			
+
 #endif
 		}
 	}
-	
+
 	imageSize = CGSizeMake(CGImageGetWidth(image), CGImageGetHeight(image));
 	switch (orientation)
 	{
-			
+
 		case UIImageOrientationUp:         //EXIF = 1
 			transform = CGAffineTransformIdentity;
 			break;
-			
+
 		case UIImageOrientationUpMirrored:         //EXIF = 2
 			transform = CGAffineTransformMakeTranslation(imageSize.width, 0.0);
 			transform = CGAffineTransformScale(transform, -1.0, 1.0);
 			break;
-			
+
 		case UIImageOrientationDown:         //EXIF = 3
 			transform = CGAffineTransformMakeTranslation(imageSize.width, imageSize.height);
 			transform = CGAffineTransformRotate(transform, M_PI);
 			break;
-			
+
 		case UIImageOrientationDownMirrored:         //EXIF = 4
 			transform = CGAffineTransformMakeTranslation(0.0, imageSize.height);
 			transform = CGAffineTransformScale(transform, 1.0, -1.0);
 			break;
-			
+
 		case UIImageOrientationLeftMirrored:         //EXIF = 5
 			transform = CGAffineTransformMakeTranslation(imageSize.height, imageSize.width);
 			transform = CGAffineTransformScale(transform, -1.0, 1.0);
 			transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
 			break;
-			
+
 		case UIImageOrientationLeft:         //EXIF = 6
 			transform = CGAffineTransformMakeTranslation(0.0, imageSize.width);
 			transform = CGAffineTransformRotate(transform, 3.0 * M_PI / 2.0);
 			break;
-			
+
 		case UIImageOrientationRightMirrored:         //EXIF = 7
 			transform = CGAffineTransformMakeScale(-1.0, 1.0);
 			transform = CGAffineTransformRotate(transform, M_PI / 2.0);
 			break;
-			
+
 		case UIImageOrientationRight:         //EXIF = 8
 			transform = CGAffineTransformMakeTranslation(imageSize.height, 0.0);
 			transform = CGAffineTransformRotate(transform, M_PI / 2.0);
 			break;
-			
+
 		default:
 			[NSException raise:NSInternalInconsistencyException format:@"Invalid image orientation"];
-			
+
 	}
-	
+
 	if ((orientation == UIImageOrientationLeftMirrored) || (orientation == UIImageOrientationLeft) || (orientation == UIImageOrientationRightMirrored) || (orientation == UIImageOrientationRight))
 		imageSize = CGSizeMake(imageSize.height, imageSize.width);
-	
+
 	width  = PXMathNextPowerOfTwo(imageSize.width);
 	height = PXMathNextPowerOfTwo(imageSize.height);
-	
+
 	while ((width > pxKMaxTextureSize) || (height > pxKMaxTextureSize))
 	{
 #ifdef PIXELWAVE_DEBUG
@@ -249,10 +249,10 @@
 		imageSize.width *= 0.5f;
 		imageSize.height *= 0.5f;
 	}
-	
+
 	switch (_pixelFormat)
 	{
-			
+
 		case PXTextureDataPixelFormat_RGBA8888:
 		case PXTextureDataPixelFormat_RGBA4444:
 			colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -263,7 +263,7 @@
 			_context = CGBitmapContextCreate(_data, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
 			CGColorSpaceRelease(colorSpace);
 			break;
-			
+
 		case PXTextureDataPixelFormat_RGBA5551:
 			colorSpace = CGColorSpaceCreateDeviceRGB();
 
@@ -273,7 +273,7 @@
 			_context = CGBitmapContextCreate(_data, width, height, 5, 2 * width, colorSpace, kCGImageAlphaNoneSkipFirst | kCGBitmapByteOrder16Little);
 			CGColorSpaceRelease(colorSpace);
 			break;
-			
+
 		case PXTextureDataPixelFormat_RGB888:
 		case PXTextureDataPixelFormat_RGB565:
 			colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -284,7 +284,7 @@
 			_context = CGBitmapContextCreate(_data, width, height, 8, 4 * width, colorSpace, kCGImageAlphaNoneSkipLast | kCGBitmapByteOrder32Big);
 			CGColorSpaceRelease(colorSpace);
 			break;
-			
+
 		case PXTextureDataPixelFormat_L8:
 			colorSpace = CGColorSpaceCreateDeviceGray();
 
@@ -294,14 +294,14 @@
 			_context = CGBitmapContextCreate(_data, width, height, 8, width, colorSpace, kCGImageAlphaNone);
 			CGColorSpaceRelease(colorSpace);
 			break;
-			
+
 		case PXTextureDataPixelFormat_A8:
 			_byteCount = height * width;
 			_data = malloc(_byteCount);
 
 			_context = CGBitmapContextCreate(_data, width, height, 8, width, NULL, kCGImageAlphaOnly);
 			break;
-			
+
 		case PXTextureDataPixelFormat_LA88:
 			colorSpace = CGColorSpaceCreateDeviceRGB();
 
@@ -311,19 +311,19 @@
 			_context = CGBitmapContextCreate(_data, width, height, 8, 4 * width, colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
 			CGColorSpaceRelease(colorSpace);
 			break;
-			
+
 		default:
 			[NSException raise:NSInternalInconsistencyException format:@"Invalid pixel format"];
-			
+
 	}
-	
+
 	if (_context == NULL)
 	{
 		PXDebugLog(@"Failed creating CGBitmapContext");
 		free(_data);
 		return NO;
 	}
-	
+
 	if (sizeToFit)
 		CGContextScaleCTM(_context, (CGFloat)width / imageSize.width, (CGFloat)height / imageSize.height);
 	else
@@ -331,16 +331,16 @@
 		CGContextClearRect(_context, CGRectMake(0, 0, width, height));
 		CGContextTranslateCTM(_context, 0, height - imageSize.height);
 	}
-	
+
 	if (!CGAffineTransformIsIdentity(transform))
 		CGContextConcatCTM(_context, transform);
-	
+
 	CGContextDrawImage(_context, CGRectMake(0, 0, CGImageGetWidth(image), CGImageGetHeight(image)), image);
-	
+
 	// TODO: Make sure this works
 	CGContextRelease(_context);
 	_context = 0;
-	
+
 	// Convert "-RRRRRGGGGGBBBBB" to "RRRRRGGGGGBBBBBA"
 	if (_pixelFormat == PXTextureDataPixelFormat_RGBA5551)
 	{
@@ -349,7 +349,7 @@
 		{
 			*outPixel16 = *outPixel16 << 1 | 0x0001;
 		}
-		
+
 #ifdef PIXELWAVE_DEBUG
 		PXDebugLog(@"Falling off fast-path converting pixel data from ARGB1555 to RGBA5551");
 #endif
@@ -370,7 +370,7 @@
 			*outPixel8++ = *inPixel8++;
 			inPixel8++;
 		}
-		
+
 		free(_data);
 
 		_data = tempData;
@@ -389,7 +389,7 @@
 		outPixel16 = (unsigned short *)tempData;
 		for (i = 0; i < width * height; ++i, ++inPixel32)
 			*outPixel16++ = ((((*inPixel32 >> 0) & 0xFF) >> 3) << 11) | ((((*inPixel32 >> 8) & 0xFF) >> 2) << 5) | ((((*inPixel32 >> 16) & 0xFF) >> 3) << 0);
-		
+
 		free(_data);
 
 		_data = tempData;
@@ -408,7 +408,7 @@
 		outPixel16 = (unsigned short *)tempData;
 		for (i = 0; i < width * height; ++i, ++inPixel32)
 			*outPixel16++ = ((((*inPixel32 >> 0) & 0xFF) >> 4) << 12) | ((((*inPixel32 >> 8) & 0xFF) >> 4) << 8) | ((((*inPixel32 >> 16) & 0xFF) >> 4) << 4) | ((((*inPixel32 >> 24) & 0xFF) >> 4) << 0);
-		
+
 		free(_data);
 
 		_data = tempData;
@@ -464,15 +464,15 @@
 			modifier:(id<PXTextureModifier>)_modifier
 			  origin:(NSString *)_origin
 {	
-	
+
 	UIImage *uiImage = [[UIImage alloc] initWithData:_data];
 	cgImage = [uiImage CGImage];
 	cgImageOrientation = [uiImage imageOrientation];
-	
+
 	self = [super _initWithData:_data modifier:_modifier origin:_origin];
-	
+
 	[uiImage release];
-	
+
 	return self;
 }
 
@@ -487,7 +487,7 @@
 {
 	cgImage = image;
 	cgImageOrientation = orientation;
-	
+
 	// This will invoke [_parse]
 	self = [super _initWithData:nil modifier:_modifier origin:nil];
 
@@ -495,7 +495,7 @@
 	{
 		contentScaleFactor = scaleFactor;
 	}
-	
+
 	return self;
 }
 
@@ -511,7 +511,7 @@
 
 	[uiImage release];
 	 */
-	
+
 	BOOL s = [self processCGImage:cgImage
 					  orientation:cgImageOrientation
 						sizeToFit:NO

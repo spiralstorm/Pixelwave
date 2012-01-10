@@ -149,7 +149,7 @@
 	{
 		[textureDatas release];
 		textureDatas = nil;
-		
+
 		return nil;
 	}
 

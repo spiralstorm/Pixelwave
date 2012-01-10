@@ -106,7 +106,7 @@
 {
 	if (!_soundTransform)
 		return;
-	
+
 	soundTransform.volume = _soundTransform.volume;
 	soundTransform.pitch  = _soundTransform.pitch;
 }

@@ -73,7 +73,7 @@ bool PXDebugIsEnabled(PXDebugSetting flag)
 	return PX_IS_BIT_ENABLED(pxDebugSettings, flag);
 #else
 	PX_NOT_USED(flag);
-	
+
 	return NO;
 #endif
 }
@@ -113,7 +113,7 @@ bool PXDebugALErrorCheck(NSString *functionName)
 					   functionName,
 					   error,
 					   PXDebugALErrorInfo(error));
-			
+
 			return YES;
 		}
 
@@ -122,7 +122,7 @@ bool PXDebugALErrorCheck(NSString *functionName)
 #else
 	PX_NOT_USED(functionName);
 #endif
-	
+
 	return NO;
 }
 
@@ -155,7 +155,7 @@ PXInline_c const char* PXDebugALErrorInfo(int error)
 	{
 		return "no error";
 	}
-	
+
 	switch (error)
 	{
 		case AL_INVALID_NAME:
@@ -177,6 +177,6 @@ PXInline_c const char* PXDebugALErrorInfo(int error)
 #else
 	PX_NOT_USED(error);
 #endif
-	
+
 	return nil;
 }

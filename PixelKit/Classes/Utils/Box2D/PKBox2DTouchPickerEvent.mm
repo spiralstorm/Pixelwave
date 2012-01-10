@@ -45,7 +45,7 @@ NSString * const PKBox2DTouchPickerEvent_PickEnd = @"pickEnd";
 @implementation PKBox2DTouchPickerEvent
 
 @synthesize fixture, nativeTouch;
-	
+
 - (id) initWithType:(NSString *)type cancelable:(BOOL)cancelable fixture:(b2Fixture *)_fixture nativeTouch:(UITouch *)_nativeTouch
 {
 	self = [super initWithType:type bubbles:NO cancelable:cancelable];
@@ -54,7 +54,7 @@ NSString * const PKBox2DTouchPickerEvent_PickEnd = @"pickEnd";
 		fixture = _fixture;
 		nativeTouch = _nativeTouch;
     }
-    
+
     return self;
 }
 
@@ -62,14 +62,14 @@ NSString * const PKBox2DTouchPickerEvent_PickEnd = @"pickEnd";
 {
 	fixture = NULL;
 	nativeTouch = nil;
-	
+
 	[super dealloc];
 }
 
 - (id) copyWithZone:(NSZone *)zone
 {
 	PKBox2DTouchPickerEvent *event = [[PKBox2DTouchPickerEvent allocWithZone:zone] initWithType:self.type cancelable:self.cancelable fixture:fixture nativeTouch:nativeTouch];
-	
+
 	return event;
 }
 

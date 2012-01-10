@@ -477,5 +477,5 @@ PXInline void PXMathTriangle3DSet(PXMathTriangle3D *triangle,
 #ifdef __cplusplus
 }
 #endif
-	
+
 #endif

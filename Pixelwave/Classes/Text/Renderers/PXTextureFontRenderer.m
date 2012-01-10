@@ -372,7 +372,7 @@
 	NSEnumerator *enumerator = [glNameToTextureGlyphBatch objectEnumerator];
     id obj;
 	PXTextureGlyphBatch *textureGlyphBatch;
-	
+
 	PXTextureData *textureData = nil;
 
     while (obj = [enumerator nextObject])

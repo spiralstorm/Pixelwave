@@ -441,7 +441,7 @@ void PXGLMatrixConvert4Pointsv(PXGLMatrix *matrix,
 									  float *x2, float *y2,
 									  float *x3, float *y3)
 {
-	
+
 	PXGLMatrixConvertPointv(matrix, x0, y0);
 	PXGLMatrixConvertPointv(matrix, x1, y1);
 	PXGLMatrixConvertPointv(matrix, x2, y2);

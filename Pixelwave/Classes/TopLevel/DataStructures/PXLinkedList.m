@@ -259,7 +259,7 @@ _PXLLNode pxLinkedListBadNode;
 			{
 				[self addObject:object];
 			}
-			
+
 			str = [[NSString alloc] initWithFormat:@"PX.object.%u", i];
 			object = [aDecoder decodeObjectForKey:str];
 			[str release];
@@ -267,7 +267,7 @@ _PXLLNode pxLinkedListBadNode;
 		}
 		while (object != nil);
 	}
-	
+
 	return self;
 }
 
@@ -443,7 +443,7 @@ _PXLLNode pxLinkedListBadNode;
 		PXThrowNilParam(object);
 		return NO;
 	}
-	
+
 	_PXLLNode *node;
 	unsigned index;
 	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
@@ -483,7 +483,7 @@ _PXLLNode pxLinkedListBadNode;
 		PXThrowNilParam(object);
 		return -1;
 	}
-	
+
 	_PXLLNode *node;
 	unsigned index;
 	for (index = 0, node = _head; index < _nodeCount; ++index, node = node->next)
@@ -668,7 +668,7 @@ _PXLLNode pxLinkedListBadNode;
 		PXThrowNilParam(object);
 		return;
 	}
-		
+
 	// A slight optimization for edge cases
 	if (indexOfObject == 0)
 	{

@@ -59,10 +59,10 @@ private:
 
 void PKB2DebugDraw::setGLState()
 {
-	PXGLDisable( GL_TEXTURE_2D );
-	PXGLDisableClientState( GL_TEXTURE_COORD_ARRAY );
-	PXGLDisableClientState( GL_COLOR_ARRAY );
-	PXGLDisableClientState( GL_POINT_SIZE_ARRAY_OES );
+	PXGLDisable(GL_TEXTURE_2D);
+	PXGLDisableClientState(GL_TEXTURE_COORD_ARRAY);
+	PXGLDisableClientState(GL_COLOR_ARRAY);
+	PXGLDisableClientState(GL_POINT_SIZE_ARRAY_OES);
 }
 
 void PKB2DebugDraw::DrawPolygon(const b2Vec2* vertices, int32 vertexCount, const b2Color& color)
@@ -187,7 +187,7 @@ void PKB2DebugDraw::DrawTransform(const b2Transform& xf)
 
 		self.flags = b2DebugDraw::e_shapeBit | b2DebugDraw::e_centerOfMassBit | b2DebugDraw::e_jointBit;
 		self.physicsWorld = _physicsWorld;
-		
+
 		touchPicker = nil;
 	}
 
@@ -197,9 +197,9 @@ void PKB2DebugDraw::DrawTransform(const b2Transform& xf)
 - (void) dealloc
 {
 	self.touchPicking = NO;
-	
+
 	self.physicsWorld = NULL;
-	
+
 	delete debugDrawer;
 	debugDrawer = NULL;
 

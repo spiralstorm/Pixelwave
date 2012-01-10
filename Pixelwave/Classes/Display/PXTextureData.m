@@ -748,14 +748,14 @@ BOOL pxTextureDataExpandEdges = YES;
 {
 	[self release];
 	self = nil;
-	
+
 	PXCGTextureParser *parser = [[PXCGTextureParser alloc] initWithCGImage:cgImage
 															   scaleFactor:(float)scaleFactor
 															   orientation:cgImageOrientation
 																  modifier:modifier];
-	
+
 	PXTextureData *newTextureData = [parser newTextureData];
-	
+
 	[parser release];
 
 	self = newTextureData;
@@ -771,29 +771,29 @@ BOOL pxTextureDataExpandEdges = YES;
 - (UIImage *)UIImage
 {
 	CGImageRef imageRef = PXCGUtilsCreateCGImageFromTextureData(self);
-	
+
 	// Texture datas are always oriented up.
 	UIImage *image = [UIImage imageWithCGImage:imageRef
 										 scale:self.contentScaleFactor
 								   orientation:UIImageOrientationUp];
 	CGImageRelease(imageRef);
-	
+
 	return image;
 }
 
 - (CGImageRef) CGImage
 {
 	CGImageRef imageRef = PXCGUtilsCreateCGImageFromTextureData(self);
-	
+
 	// Dark voodo magic...
 	[(id)imageRef autorelease];
-	
+
 	// "Any sufficiently advanced technology is indistinguishable from magic"
 	//		- Arthur C. Clarke
 	//
 	// Discussion about autoreleasing CGImageRef:
 	// http://www.cocoabuilder.com/archive/cocoa/215004-autorelease-cgimageref.html
-	
+
 	return imageRef;
 }
 

@@ -289,7 +289,7 @@ inkInline void inkSetMaxUlps(int maxUlps)
 	assert(maxUlps > 0 && maxUlps < 4 * 1024 * 1024);
 	inkMaxUlps = maxUlps;
 }
-	
+
 inkInline bool inkIsNearlyEqualf(float a, float b, int maxUlps)
 {
 	// Make sure maxUlps is non-negative and small enough that the
@@ -339,7 +339,7 @@ inkInline float inkAngleOrient(float angle)
 	{
 		return angle + M_TAU;
 	}
-	
+
 	return angle;
 }
 
@@ -512,7 +512,7 @@ inkInline float inkPointDistance(inkPoint pointA, inkPoint pointB)
 inkInline float inkPointDistanceSq(inkPoint pointA, inkPoint pointB)
 {
 	inkPoint diff = inkPointMake(pointA.x - pointB.x, pointA.y - pointB.y);
-	
+
 	return ((diff.x * diff.x) + (diff.y * diff.y));
 }
 
@@ -677,7 +677,7 @@ inkInline inkRect inkRectFromMinMaxBox(inkBox box)
 	rect.origin.y = fminf(box.pointA.y, fminf(box.pointB.y, fminf(box.pointC.y, box.pointD.y)));
 	rect.size.width  = fmaxf(box.pointA.x, fmaxf(box.pointB.x, fmaxf(box.pointC.x, box.pointD.x)));
 	rect.size.height = fmaxf(box.pointA.y, fmaxf(box.pointB.y, fmaxf(box.pointC.y, box.pointD.y)));
-	
+
 	rect.size.width  -= rect.origin.x;
 	rect.size.height -= rect.origin.y;
 

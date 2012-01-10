@@ -52,7 +52,7 @@
 	id displayLink;
 	short displayLinkInterval;
 	BOOL displayLinkSupported;
-	
+
 	NSTimer *animationTimer;
 }
 
@@ -580,7 +580,7 @@ void PXEngineAddRenderListener(PXDisplayObject *displayObject)
 		pxEngineRenderListeners = [[PXLinkedList alloc] init];
 		pxEngineRenderEvent = [[PXEvent alloc] initWithType:PXEvent_Render bubbles:NO cancelable:NO];
 	}
-	
+
 	[pxEngineRenderListeners addObject:displayObject];
 }
 
@@ -588,16 +588,16 @@ void PXEngineRemoveRenderListener(PXDisplayObject *displayObject)
 {
 	if (pxEngineRenderListeners == nil)
 		return;
-	
+
 	[pxEngineRenderListeners removeObject:displayObject];
-	
+
 	// If that was the last listener, get rid of the list
 	// and the shared event object.
 	if (pxEngineRenderListeners.count == 0)
 	{
 		[pxEngineRenderListeners release];
 		pxEngineRenderListeners = nil;
-		
+
 		[pxEngineRenderEvent release];
 		pxEngineRenderEvent = nil;
 	}
@@ -607,9 +607,9 @@ void PXEngineDispatchRenderEvents()
 {
 	if (pxEngineRenderEvent == nil)
 		return;
-	
+
 	PXDisplayObject *child = nil;
-	
+
 	// Dispatch it on all listeners (listeners must be PXDisplayObjects, but
 	// aren't necessarily on the display list, don't have to have a non-nil
 	// 'parent').
@@ -617,7 +617,7 @@ void PXEngineDispatchRenderEvents()
 	{
 		[pxEngineCachedListeners addObject:child];
 	}
-	
+
 	PXLinkedListForEach(pxEngineCachedListeners, child)
 	{
 		// The enterFrame event doesn't follow the usual event flow
@@ -625,7 +625,7 @@ void PXEngineDispatchRenderEvents()
 		// into the display list in some cases.
 		[child _dispatchEventNoFlow:pxEngineRenderEvent];
 	}
-	
+
 	[pxEngineCachedListeners removeAllObjects];
 }
 
@@ -771,7 +771,7 @@ void PXEngineRender()
 		CGPoint topRight;
 		CGPoint bottomLeft;
 		CGPoint bottomRight;
-	
+
 		PXGLShadeModel(GL_SMOOTH);
 		PXGLDisable(GL_TEXTURE_2D);
 		//PXGLColor4ub(0, 0, 0xFF, 0xFF);
@@ -831,11 +831,11 @@ void PXEngineRender()
 /*
  if (pxEngineRenderDT <= 0)
  return;
- 
+
  pxEngineRenderDTAccum += pxEngineMainDT;
  if (pxEngineRenderDTAccum < pxEngineRenderDT)
  return;
- 
+
  pxEngineRenderDTAccum = 0.0f;
  */
 
@@ -945,11 +945,11 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 	//////////////////////
 	// Quick exit tests //
 	//////////////////////
-	
+
 	float doScaleX = 1.0f;
 	float doScaleY = 1.0f;
 	float doAlpha = 1.0f;
-	
+
 	if (transformationsEnabled)
 	{
 		doScaleX = displayObject->_scaleX;
@@ -1097,7 +1097,7 @@ void PXEngineRenderDisplayObject(PXDisplayObject *displayObject, bool transforma
 			PXGLAABBMult(aabb);
 		}
 		 */
-		
+
 		// Is usable refers to if the display object even drew anything, which
 		// will change the AABB from max/min ints (the reset state) to what was
 		// drawn. IsAABBVisable is true when the aabb is within the current
@@ -1204,7 +1204,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	{
 		return;
 	}
-	
+
 	// Finish any rendering queued up to the main buffer
 	PXGLFlush();
 
@@ -1288,7 +1288,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 		// in POINTS
 		PXGLClipRect(0, 0, textureDataSizeInPoints.width, textureDataSizeInPoints.height);
 	}
-	
+
 	if (bShouldClip)
 	{
 		glEnable(GL_SCISSOR_TEST);
@@ -1391,7 +1391,7 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 {
 	if (!textureData)
 		return;
-	
+
 	// Change the state
 
 	// Bind the Texture FBO
@@ -1404,10 +1404,10 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 
 	float textureDataScaleFactor = textureData.contentScaleFactor;
 	float one_textureDataScaleFactor = 1.0f / textureDataScaleFactor;
-	
+
 	float widthInPoints = width * one_textureDataScaleFactor;
 	float heightInPoints = height * one_textureDataScaleFactor;
-	
+
 	// Update the view size to match the texture's
 	PXGLSetViewSize(widthInPoints, heightInPoints, textureDataScaleFactor, false);
 
@@ -1431,11 +1431,11 @@ void PXTextureDataReadPixels(PXTextureData *textureData, int x, int y, int width
 CGSize PXEngineGetScreenBufferSize()
 {
 	float scaleFactor = PXEngineGetContentScaleFactor();
-	
+
 	CGSize pixelSize = pxEngineViewSize;
 	pixelSize.width *= scaleFactor;
 	pixelSize.height *= scaleFactor;
-	
+
 	return pixelSize;
 }
 
@@ -1451,7 +1451,7 @@ void PXEngineGetScreenBufferPixels(int x, int y, int width, int height, void *pi
 						   width, height,
 						   pixelData);
 	 */
-	
+
 	// Bind the screen buffer back
 	//PXGLBindFramebuffer(GL_FRAMEBUFFER_OES, pxEngineView->_framebuffer);
 	glReadPixels(x, y,
@@ -1468,7 +1468,7 @@ PXObjectPool *PXEngineGetSharedObjectPool()
 	{
 		pxEngineSharedObjectPool = [[PXObjectPool alloc] init];
 	}
-	
+
 	return pxEngineSharedObjectPool;
 }
 
@@ -1555,13 +1555,13 @@ float _PXEngineDBGGetTimeWaiting()
 		[pxEngineSharedObjectPool release];
 		pxEngineSharedObjectPool = nil;
 	}
-		
+
 	if (displayLinkSupported && displayLink)
 	{
 		[displayLink invalidate];
 		displayLink = nil;
 	}
-	
+
 	if (animationTimer)
 	{
 		[animationTimer invalidate];

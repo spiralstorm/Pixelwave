@@ -267,7 +267,7 @@ void inkConvexPolygons(inkCanvas* canvas, inkConvexPolygonGroup* polygonGroup, i
 
 	/*unsigned int startIndex = 1;
 	bool dontIncreaseStartIndex = false;
-	
+
 	inkArrayForEachv(vertices, vertex, index = 0, ++index)
 	{
 		//if (index++ == 0)
@@ -275,7 +275,7 @@ void inkConvexPolygons(inkCanvas* canvas, inkConvexPolygonGroup* polygonGroup, i
 		{
 			continue;
 		}
-		
+
 		if (dontIncreaseStartIndex == false && previousVertex.pos.x == vertex->pos.x && previousVertex.pos.y == vertex->pos.y)
 		{
 			++startIndex;
@@ -285,7 +285,7 @@ void inkConvexPolygons(inkCanvas* canvas, inkConvexPolygonGroup* polygonGroup, i
 		{
 			dontIncreaseStartIndex = true;
 		}
-		
+
 		sum += (vertex->pos.x - previousVertex.pos.x) * (vertex->pos.y + previousVertex.pos.y);
 		previousVertex = *vertex;
 	}*/
@@ -360,7 +360,7 @@ void inkConvexPolygons(inkCanvas* canvas, inkConvexPolygonGroup* polygonGroup, i
 					inkConvexPolygonsAddPoint(points, triangle.pointA);
 					inkConvexPolygonsAddPoint(points, triangle.pointB);
 					inkConvexPolygonsAddPoint(points, triangle.pointC);
-	
+
 					inkConvexPolygonAddPolygonFromPoint(points, polygonGroup);
 					break;
 				default:
@@ -442,7 +442,7 @@ void inkConvexPolygons(inkCanvas* canvas, inkConvexPolygonGroup* polygonGroup, i
 				}
 			}
 				break;
-				
+
 			default:
 				break;
 		}*/

@@ -87,7 +87,7 @@
 
 		textureModifier = nil;
 	}
-	
+
 	return self;
 }
 

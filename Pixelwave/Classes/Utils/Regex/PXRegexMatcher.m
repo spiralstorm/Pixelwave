@@ -81,7 +81,7 @@
 - (id) init
 {
 	PXThrow(PXException, @"RegexMatcher must be initialized with non-nil pattern");
-	
+
 	[self release];
 	return nil;
 }
@@ -164,10 +164,10 @@
 
 	pattern = [_pattern retain];
 	[_pattern release];
-	
+
 	// We have 0 matches, as we just changed patterns.
 	pMatchesCount = 0;
-	
+
 	// If the pattern exists, free the last pointer we had and set the matches
 	// count.
 	if (pattern)
@@ -175,7 +175,7 @@
 		pMatchesCount = pattern.capturingGroupCount + 1;
 		pMatchesPtr = calloc(pMatchesCount, sizeof(regmatch_t));
 	}
-	
+
 	// Restart the regex info, new data has arrived!
 	[self restart];
 }
@@ -184,7 +184,7 @@
 {
 	[pattern release];
 	pattern = nil;
-	
+
 	// If the matches pointer exists currently, free it so we can make a new
 	// one.
 	if (pMatchesPtr)
@@ -212,14 +212,14 @@
 {
 	// Make a new list to store the 
 	NSMutableArray *groups = [[NSMutableArray alloc] init];
-	
+
 	// Add each match.
 	int index;
 	for (index = 0; index < pMatchesCount; ++index)
 	{
 		[groups addObject:[self groupAtIndex:index]];
 	}
-	
+
 	return [groups autorelease];
 }
 
@@ -454,7 +454,7 @@
 	// Get the match as a regex match, then get the regex match at index.
 	regmatch_t *pMatches = (regmatch_t *)pMatchesPtr;
 	regmatch_t *pMatch = &(pMatches[index]);
-	
+
 	// rm_so is the start offset, we add the oldCurDist to correctly offset the
 	// string's position.
 	return pMatch->rm_so + oldCurDist;
@@ -707,10 +707,10 @@
 	//PXRegexMatcher *matcher = [pattern matcherWithString:string];
 	//[pattern release];
 	//return [matcher autorelease];
-	
+
 	PXRegexPattern *pattern = [PXRegexPattern patternWithRegex:regex flags:flags];
 	PXRegexMatcher *matcher = [pattern matcherWithInput:input];
-	
+
 	return matcher;
 }
 

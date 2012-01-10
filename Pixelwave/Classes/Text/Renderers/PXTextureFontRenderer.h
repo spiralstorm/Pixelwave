@@ -48,7 +48,7 @@
 	PXTextureFont *font;
 
 	unsigned int smoothingType;
-	
+
 	BOOL enableColors;
 }
 

@@ -50,7 +50,7 @@
 typedef struct
 {
 	void *bytes;
-	
+
 	int64_t byteCount;
 } PXALByteData;
 
@@ -234,7 +234,7 @@ OSStatus PXALSoundLoaderFileSetSize(void *inClientData,
 														  PXALSoundLoaderFileSetSize,
 														  0,
 														  &afID);
-	
+
 
 	if (didAnErrorOccur)
 	{

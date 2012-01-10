@@ -54,7 +54,7 @@
 @public
 	// gl handle
 	GLuint _glName;
-	
+
 	// Content Size
 	float _contentWidth;
 	float _contentHeight;
@@ -63,7 +63,7 @@
 	// uv coords to pixels conversion
 	float _sPerPixel;
 	float _tPerPixel;
-	
+
 	// Fill color
 	unsigned _fillColor;
 

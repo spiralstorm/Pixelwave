@@ -69,27 +69,27 @@
 {
 	if (!data)
 		return NO;
-	
+
 	// If this file came straight from memory (not loaded from a URL), we don't
 	// know what it's called and as such can't figure out the name of the image.
 	// This is only a restriction with the current JSON file, and can be removed
 	// when the file format changes.
 	if (!origin)
 		return NO;
-	
+
 	NSString *ext = [[origin pathExtension] lowercaseString];
 	if (![ext isEqualToString:@"json"])
 		return NO;
-	
+
 	// Check for a string we know has to be in there
 	NSString *str = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 	NSRange range = [str rangeOfString:@"\"spriteSourceSize\":"];
-	
+
 	[str release];
-	
+
 	if (range.length == 0)
 		return NO;
-	
+
 	return YES;
 }
 + (void) appendSupportedFileExtensions:(PXLinkedList *)extensions
@@ -102,10 +102,10 @@
 	/////////////////////////
 	// Parse the JSON data //
 	/////////////////////////
-	
+
 	NSError *error = nil;
 	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:data error:&error];
-	
+
 	if (error)
 	{
 		NSString *localOrigin = self.origin;
@@ -114,21 +114,21 @@
 		PXDebugLog(@"Couldn't parse file:%@ reason:%@\n", localOrigin ? localOrigin : @"JSON", error);
 		return NO;
 	}
-	
+
 	NSDictionary *framesDict = [dict objectForKey:@"frames"];
-	
+
 	if (!framesDict)
 		return NO;
-	
+
 	int numFrames = [framesDict count];
-	
+
 	// No frames, no service.
 	if (numFrames <= 0)
 		return NO;
-	
+
 	[self _setupWithTotalFrames:numFrames];
-	
-	
+
+
 	////////////////////////////////
 	// Read the texture data info //
 	////////////////////////////////
@@ -136,7 +136,7 @@
 	// Release the old one if it exists
 
 	NSString *imagePath = nil;
-	
+
 	// Limitations due to current JSON file not storing the image name:
 	{
 		// Since the current JSON file format doesn't tell us the name of the image
@@ -173,7 +173,7 @@
 	// We'll have to divide all the coordinate  values stored in the file by
 	// the content scale factor to convert them from PIXELS to POINTS.
 	float invScaleFactor = 1.0f / contentScaleFactor;
-	
+
 	// Start parsing
 	PXGenericAtlasParserFrame *cFrame = NULL;
 
@@ -215,7 +215,7 @@
 		if (rotated)
 		{
 			float tmp = frame.size.width;
-			
+
 			frame.size.width = frame.size.height;
 			frame.size.height = tmp;
 		}

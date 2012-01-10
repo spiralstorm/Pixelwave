@@ -88,7 +88,7 @@ void inkDrawPath(inkCanvas* canvas, inkArray* commands, inkArray* points, inkWin
 		return;
 
 	inkPoint* pointPtr = (inkPoint*)(points->elements);
-	
+
 	unsigned int pointIndex = 0;
     inkPoint* p1;
     inkPoint* p2;
@@ -178,7 +178,7 @@ float inkPathGetFloat(char ** path_ptr)
 {
     char* path = *path_ptr;
     float result = 0.0f;
-    while ( !isdigit(*path) && *path != '-' ) ++path;
+    while (!isdigit(*path) && *path != '-') ++path;
     result = strtod(path, path_ptr);
     return result;
 }
@@ -190,17 +190,19 @@ inkPoint inkPathGetPoint(char** path_ptr)
     return inkPointMake(x,y);
 }
 
-
-
 void inkDrawSVGPathv(inkCanvas* canvas, const char* path, inkPoint offset)
 {
-    char cmd;
     inkPoint p1, p2, p3;
     bool relative;
-    while ( *path ) {
+	char cmd;
+
+    while (*path)
+	{
         cmd = inkPathGetCommand((char**)&path);
         relative = islower(cmd);
-        switch ( cmd ) {
+
+        switch (cmd)
+		{
 			case 'z':
 				break;
 			case 'C':
@@ -208,11 +210,11 @@ void inkDrawSVGPathv(inkCanvas* canvas, const char* path, inkPoint offset)
 				p1 = inkPathGetPoint((char**)&path);
 				p2 = inkPathGetPoint((char**)&path);
 				p3 = inkPathGetPoint((char**)&path);
-				
+
 				if (!relative) p1 = inkPointAdd(p1, offset);
 				if (!relative) p2 = inkPointAdd(p2, offset);
 				if (!relative) p3 = inkPointAdd(p3, offset);
-				
+
 				break;
 			case 'Q':
 			case 'q':
@@ -220,7 +222,7 @@ void inkDrawSVGPathv(inkCanvas* canvas, const char* path, inkPoint offset)
 			case 'S':
 				p1 = inkPathGetPoint((char**)&path);
 				p2 = inkPathGetPoint((char**)&path);
-				
+
 				if (!relative) p1 = inkPointAdd(p1, offset);
 				if (!relative) p2 = inkPointAdd(p2, offset);
 				break;
@@ -231,7 +233,7 @@ void inkDrawSVGPathv(inkCanvas* canvas, const char* path, inkPoint offset)
 			case 'T':
 			case 't':
 				p1 = inkPathGetPoint((char**)&path);
-				
+
 				if (!relative) p1 = inkPointAdd(p1, offset);
 				break;
 			case 'H':
@@ -245,8 +247,9 @@ void inkDrawSVGPathv(inkCanvas* canvas, const char* path, inkPoint offset)
 				if (!relative) p1.y += offset.y;
 				break;
         }
-		
-        switch ( cmd ) {
+
+        switch (cmd)
+		{
 			case 'm':
 			case 'M':
 				inkMoveTov(canvas, p1,relative);
@@ -310,9 +313,9 @@ int inkDrawHersheyFont(inkCanvas* canvas, const char* path)
 		float xf = xc - 'R';
 		float yf = yc - 'R';
 
-		if ( xf > xmax || first ) xmax = xf;
-		if ( xf < xmin || first ) xmin = xf;
-		if ( pen )
+		if (xf > xmax || first) xmax = xf;
+		if (xf < xmin || first) xmin = xf;
+		if (pen)
 		{
 			inkLineTov(canvas,inkPointAdd(inkPointMake(xf, yf), base), false);
 		}

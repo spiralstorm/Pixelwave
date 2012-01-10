@@ -226,7 +226,7 @@ typedef struct _PVRTexHeader
 			{
 				widthBlocks = 2;
 			}
-			
+
 			if (heightBlocks < 2)
 			{
 				heightBlocks = 2;

@@ -22,7 +22,7 @@ typedef NSUInteger EJSONWritingOptions;
 
 
 @interface CJSONSerialization : NSObject {
-    
+
 }
 
 + (BOOL) isValidJSONObject:(id)obj;

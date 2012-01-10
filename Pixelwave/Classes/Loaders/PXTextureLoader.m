@@ -243,7 +243,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 				[self release];
 				return nil;
 			}
-			
+
 			[self _setOrigin:path];
 		}
 
@@ -313,7 +313,7 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 {
 	// If no file extension was provided, try to find one
 	NSString *resolvedPath = [PXTextureLoader resolvePathForImageFile:path];
-	
+
 	if (resolvedPath)
 		path = resolvedPath;
 
@@ -355,17 +355,17 @@ id<PXTextureModifier> pxTextureLoaderDefaultModifier = nil;
 	// If the provided file exists, no need to look further
 	if ([PXLoader fileExistsAtPath:fileName])
 		return fileName;
-	
+
 	// Otherwise, try to see if there's a different sibling file with the
 	// same name but a different extension that we can read.
-	
+
 	// Grab the path components.
 	NSString *basePath = [fileName stringByDeletingLastPathComponent];
 	NSString *baseName = [fileName lastPathComponent];
-	
+
 	// Grab all the valid extensions (all lower case).
 	NSArray *extensions = [PXTextureParser supportedFileExtensions];
-	
+
 	// Check away...
 	return [PXLoader findFileAtPath:basePath withBaseName:baseName validExtensions:extensions];
 }

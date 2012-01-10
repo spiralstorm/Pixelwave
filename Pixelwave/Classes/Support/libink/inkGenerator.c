@@ -34,7 +34,7 @@ inkGenerator* inkGeneratorCreate(inkTessellator* tessellator, void* fill, inkMat
 		generator->fill = fill;
 		generator->invGLMatrix = invGLMatrix;
 	}
-	
+
 	return generator;
 }
 

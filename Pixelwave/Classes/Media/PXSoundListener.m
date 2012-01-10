@@ -253,7 +253,7 @@ BOOL pxSoundListenerInitialized = NO;
 - (void) setDefaultLogarithmicExponent:(float)logarithmicExponent
 {
 	transform.logarithmicExponent = logarithmicExponent;
-	
+
 }
 - (float) defaultLogarithmicExponent
 {

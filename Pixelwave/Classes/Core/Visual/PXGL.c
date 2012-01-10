@@ -129,7 +129,7 @@ void PXGLInit(unsigned width, unsigned height, float scaleFactor)
 
 	pxGLDefaultState.blendSource = GL_SRC_ALPHA;
 	pxGLDefaultState.blendDestination = GL_ONE_MINUS_SRC_ALPHA;
-	
+
 	glBlendFunc(pxGLDefaultState.blendSource, pxGLDefaultState.blendDestination);
 	// TODO:	This function should be used to make rendering to texture work
 	//			better. It doesn't really make a difference when just rendering
@@ -1618,7 +1618,7 @@ void PXGLPopMatrix()
 {
 	//PXDebugLog(@"PXGLPopMatrix has failed: There is no matrix to pop.");
 	assert(pxGLCurrentMatrixIndex);
-	
+
 	pxGLCurrentMatrix = &pxGLMatrices[--pxGLCurrentMatrixIndex];
 }
 
@@ -2096,7 +2096,7 @@ PXInline_c void PXGLSetupEnables()
 		if (blendModeNotEqual)
 		{
 			glBlendFunc(pxGLState.blendSource, pxGLState.blendDestination);
-			
+
 			// glBlendFuncSeparateOES(pxGLState.blendSource, pxGLState.blendDestination,
 			//					   GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 		}

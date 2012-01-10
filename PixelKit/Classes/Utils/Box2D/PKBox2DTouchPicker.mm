@@ -48,29 +48,29 @@ public:
 	b2Vec2 m_point;
 	b2Fixture* m_fixture;
 	bool m_precise;
-	
+
 	PKTouchPickerQueryCallback(const b2Vec2& point, bool precise)
 	{
 		m_point = point;
 		m_fixture = NULL;
 		m_precise = precise;
 	}
-	
+
 	bool ReportFixture(b2Fixture* fixture)
 	{
 		b2Body *body = fixture->GetBody();
-		
+
 		if (body->GetType() != b2_staticBody)
 		{
 			bool inside = !m_precise || fixture->TestPoint(m_point);
 			if (inside)
 			{
 				m_fixture = fixture;
-				
+
 				return false;
 			}
 		}
-		
+
 		return true;
 	}
 };
@@ -81,7 +81,7 @@ public:
 {
 @private
 	UITouch *nativeTouch;
-	
+
 	b2World *physicsWorld;
 	b2MouseJoint *touchJoint;
 	b2Body *jointBody;
@@ -116,13 +116,13 @@ public:
 
 - (id) initWithWorld:(b2World *)_physicsWorld fixture:(b2Fixture *)fixture nativeTouch:(UITouch *)_nativeTouch
 {
-	
+
 	if(!_physicsWorld || !fixture || !_nativeTouch)
 	{
 		[self release];
 		return nil;
 	}
-	
+
 	if (self = [super init])
 	{
 		// Save the native touch for comparison.
@@ -130,10 +130,10 @@ public:
 
 		// Set the world and the joint
 		physicsWorld = _physicsWorld;
-		
+
 		touchedFixture = fixture;
 		touchedBody = fixture->GetBody();
-		
+
 		touchJoint = NULL;
 		jointBody = NULL;
 	}
@@ -151,13 +151,13 @@ public:
 		if (jointBody)
 			physicsWorld->DestroyBody(jointBody);
 	}
-	
+
 	touchJoint = NULL;
 	jointBody = NULL;
 	physicsWorld = NULL;
 	touchedFixture = NULL;
 	touchedBody = NULL;
-	
+
 	[super dealloc];
 }
 
@@ -170,20 +170,20 @@ public:
 		b2BodyDef bodyDef;
 		bodyDef.position.Set(0, 0);
 		jointBody = physicsWorld->CreateBody(&bodyDef);
-		
+
 		// Find the body that was touched.
 		//b2Body *body = fixture->GetBody();
-		
+
 		// Define the mouse joint
 		b2MouseJointDef jointDef;
 		jointDef.bodyA = jointBody;
 		jointDef.bodyB = touchedBody;
 		jointDef.target = pos;
 		jointDef.maxForce = 16000.0f;
-		
+
 		// Create a joint to move the body
 		touchJoint = (b2MouseJoint*)(physicsWorld->CreateJoint(&jointDef));
-		
+
 		// Wake the body
 		touchedBody->SetAwake(true);
 	}
@@ -194,7 +194,7 @@ public:
 	}
 }
 
-- (b2Vec2)position
+- (b2Vec2) position
 {
 	// If no joint was created, then we can't find it's position.
 	if (!touchJoint)
@@ -208,8 +208,8 @@ public:
 
 @interface PKBox2DTouchPicker(Private)
 //
-- (void)onAddedToStage;
-- (void)onRemovedFromStage;
+- (void) onAddedToStage;
+- (void) onRemovedFromStage;
 
 // Define the touch events
 - (void) onTouchDown:(PXTouchEvent *)event;
@@ -231,10 +231,10 @@ public:
 
 		[self addEventListenerOfType:PXEvent_AddedToStage listener:PXListener(onAddedToStage)];
 		[self addEventListenerOfType:PXEvent_RemovedFromStage listener:PXListener(onRemovedFromStage)];
-		
+
 		// Create a list of touches
 		touches = [[PXLinkedList alloc] init];
-		
+
 		precise = YES;
 	}
 
@@ -258,28 +258,29 @@ public:
  */
 - (void) resetTouches
 {	
-	while(touches.count > 0){
+	while (touches.count > 0)
+	{
 		PKBox2DTouch *touch = [touches lastObject];
 		[self removeTouch:touch];
 	}
 }
 
-- (void)onAddedToStage
+- (void) onAddedToStage
 {
 	PXStage *stage = self.stage;
-	
+
 	[stage addEventListenerOfType:PXTouchEvent_TouchDown		listener:PXListener(onTouchDown:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchMove		listener:PXListener(onTouchMove:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchUp		listener:PXListener(onTouchUp:)];
 //	[stage addEventListenerOfType:PXTouchEvent_TouchOut		listener:PXListener(onTouchUp:)];
 	[stage addEventListenerOfType:PXTouchEvent_TouchCancel	listener:PXListener(onTouchUp:)];
 }
-- (void)onRemovedFromStage
+- (void) onRemovedFromStage
 {
 	PXStage *stage = self.stage;
-	
+
 	if(!stage) return;
-	
+
 	[stage removeEventListenerOfType:PXTouchEvent_TouchDown	listener:PXListener(onTouchDown:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchMove	listener:PXListener(onTouchMove:)];
 	[stage removeEventListenerOfType:PXTouchEvent_TouchUp		listener:PXListener(onTouchUp:)];
@@ -289,14 +290,14 @@ public:
 
 - (void) onTouchDown:(PXTouchEvent *)event
 {
-	
+
 	PXPoint *stagePos = event.stagePosition;
 	PXPoint *localPos = [self globalToLocal:stagePos];
-	
+
 	// Check if we touched a Box2D fixture //////////////////////
 
 	b2Vec2 pos = b2Vec2(localPos.x, localPos.y);
-	
+
 	b2AABB aabb;
 	b2Vec2 size_2;
 	//if(precise)
@@ -312,17 +313,17 @@ public:
 	//	size_2 = b2Vec2(radius / sx, radius / sy);
 	//}
 
-	
+
 	aabb.lowerBound = pos - size_2;
 	aabb.upperBound = pos + size_2;
-	
+
 	// Query the world for overlapping shapes.
 	PKTouchPickerQueryCallback callback(pos, precise);
-	
+
 	physicsWorld->QueryAABB(&callback, aabb);
-	
+
 	b2Fixture *fixture = callback.m_fixture;
-		
+
 	//////////////////////////////////////////////////////////////
 
 	// If no fixture was 'picked', return
@@ -330,17 +331,17 @@ public:
 	{
 		return;
 	}
-	
+
 	// Let's tell the user about this, and give them a chance to cancel
 	// this pick.
 	PKBox2DTouchPickerEvent *pickerEvent = [[PKBox2DTouchPickerEvent alloc] initWithType:PKBox2DTouchPickerEvent_PickStart
 																			cancelable:YES
 																				 fixture:fixture
 																			 nativeTouch:event.nativeTouch];
-	
+
 	[self dispatchEvent:pickerEvent];
 	BOOL defaultPrevented = [pickerEvent isDefaultPrevented];
-	
+
 	[pickerEvent release];
 
 	// We gave the user a chance to ignore this pick. If they did, exit.
@@ -355,7 +356,7 @@ public:
 												  nativeTouch:event.nativeTouch];
 
 	[touch setPosition:pos];
-	
+
 	[touches addObject:touch];
 	[touch release];
 }
@@ -371,7 +372,7 @@ public:
 		if (touch.nativeTouch == event.nativeTouch)
 		{
 			PXPoint *localPos = [self globalToLocal:event.stagePosition];
-						
+
 			b2Vec2 pos = b2Vec2(localPos.x, localPos.y);
 			[touch setPosition:pos];
 			break;
@@ -399,12 +400,12 @@ public:
 {
 	// Touch end can't be cancelled, we just let the user know in this case.
 	PKBox2DTouchPickerEvent *pickerEvent = nil;
-	
+
 	pickerEvent = [[PKBox2DTouchPickerEvent alloc] initWithType:PKBox2DTouchPickerEvent_PickEnd cancelable:NO fixture:touch.fixture nativeTouch:touch.nativeTouch];
-	
+
 	[self dispatchEvent:pickerEvent];
 	[pickerEvent release];
-	
+
 	[touches removeObject:touch];
 }
 

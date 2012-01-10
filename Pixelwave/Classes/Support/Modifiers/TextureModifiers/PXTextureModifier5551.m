@@ -81,7 +81,7 @@
 	newTextureInfo->pixelFormat = PXTextureDataPixelFormat_RGBA5551;
 
 	PXTF_RGBA_5551 *writePixels = (PXTF_RGBA_5551 *)(newTextureInfo->bytes);
-	
+
 	switch (oldPixelFormat)
 	{
 		case PXTextureDataPixelFormat_RGBA8888:

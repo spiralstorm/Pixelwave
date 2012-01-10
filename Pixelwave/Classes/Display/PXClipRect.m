@@ -59,7 +59,7 @@
 	{
 		[self setX:_x y:_y width:_width height:_height rotation:_rotation];
 	}
-	
+
 	return self;
 }
 
@@ -73,7 +73,7 @@
 
 	// Just in case...
 	_numVertices = 0;
-	
+
 	[super dealloc];
 }
 
@@ -132,7 +132,7 @@
 		return;
 
 	PXGLTextureVertex *vert;
-	
+
 	// This code is specific to the rectangle clip shape
 	{
 		// TODO: Once we agree that clipRect will never be a clip-shape, turn
@@ -165,7 +165,7 @@
 		vert->s = x + width;
 		vert->t = y + height;
 	}
-	
+
 	// This code will work with any amount of vertices (any clip shape)
 	{
 		// Screen coordinates (in pixels)
@@ -179,38 +179,38 @@
 				vert->x = vert->s;
 				vert->y = vert->t;
 			}
-			
+
 		}
 		else
 		// With rotation
 		{
 			// Construct a rotation matrix
-			
+
 			float rad = -_contentRotation * M_PI / 180.0f;
-			
+
 			float cosVal = cosf(rad);
 			float sinVal = sinf(rad);
-		
+
 			float a, b, c, d;
 			a = cosVal;	b = sinVal;
 			c = -sinVal; d = cosVal;
-			
+
 			float origX, origY;
-			
+
 			for (i = 0, vert = &_vertices[0]; i < _numVertices; ++i, ++vert)
 			{
 				origX = vert->s;
 				origY = vert->t;
-				
+
 				// newPos = orig.x * xVector + orig.y * yVector
-				
+
 				vert->x = (origX * a) + (origY * c);
 				vert->y = (origX * b) + (origY * d);
 			}
-			
+
 		}
 	}
-	
+
 	invalidated = NO;
 }
 
@@ -228,7 +228,7 @@
 															   width:width
 															  height:height
 															rotation:_contentRotation];
-	
+
 	return newRect;
 }
 

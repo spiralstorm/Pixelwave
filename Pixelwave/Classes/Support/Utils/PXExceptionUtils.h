@@ -59,5 +59,5 @@ extern "C" {
 #ifdef __cplusplus
 }
 #endif
-	
+
 #endif // _PX_EXCEPTION_UTILS_H_

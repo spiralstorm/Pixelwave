@@ -17,7 +17,7 @@ typedef struct
 	inkLineScaleMode scaleMode;
 	inkCapsStyle caps;
 	inkJointStyle joints;
-	
+
 	float miterLimit;
 	float thickness;
 	float origThickness;

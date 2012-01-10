@@ -288,7 +288,7 @@
 - (BOOL) dispatchEvent:(PXEvent *)event
 {
 	[self retain];
-	
+
 	BOOL wasEnabled = enabled;
 
 	BOOL didDispatch = [super dispatchEvent:event];

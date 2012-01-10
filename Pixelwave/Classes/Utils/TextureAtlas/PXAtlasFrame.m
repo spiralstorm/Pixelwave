@@ -60,7 +60,7 @@
 - (id) init
 {
 	PXThrow(PXException, @"PXAtlasFrame must be initialized with a clipRect and textureData");
-	
+
 	[self release];
 	return nil;
 }
@@ -118,7 +118,7 @@
 		self.anchor = _anchor;
 		self.padding = _padding;
 	}
-	
+
 	return self;
 }
 
@@ -187,7 +187,7 @@
 	{
 		[texture setAnchorWithX:anchor.x y:anchor.y];
 	}
-	
+
 	if (padding)
 	{
 		texture.padding = padding;

@@ -107,7 +107,7 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 				   @"changed. Note: This is an extremely slow method, and is",
 				   @"advised that instead of using system fonts for",
 				   @"production, you use a loaded font.");
-		
+
 		return NO;
 	}
 	else
@@ -133,14 +133,14 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 {
 	[textureData release];
 	textureData = nil;
-	
+
 	if (vTextureFontInfo)
 	{
 		PXTextureFontTextureInfo *textureFontInfo = (PXTextureFontTextureInfo *)(vTextureFontInfo);
 		PXTextureFontTextureInfoFree(textureFontInfo);
 		vTextureFontInfo = NULL;
 	}
-	
+
 	[super dealloc];
 }
 
@@ -149,7 +149,7 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 	if (!pxSystemTextureFontFuserInitialCheck)
 	{
 		pxSystemTextureFontFuserInitialCheck = YES;
-		
+
 #ifdef __IPHONE_3_2
 		NSString *reqSysVer = @"3.2";
 		NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
@@ -159,7 +159,7 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 		}
 #endif
 	}
-	
+
 	return pxSystemTextureFontFuserCanUseCoreText;
 }
 
@@ -199,7 +199,7 @@ static short pxSystemTextureFontFuserCanUseCoreText = NO;
 	if (!uiFont)
 	{
 		PXDebugLog (@"PXSystemFontLoader Error - Could not load system font:%@\n", systemFontName);
-		
+
 		return NO;
 	}
 

@@ -181,7 +181,7 @@ NSString * const PXTouchEvent_TouchCancel = @"touchCancel";
 	{
 		return [((PXDisplayObject *)_target) positionOfTouch:_nativeTouch];
 	}
-	
+
 	return nil;
 }
 

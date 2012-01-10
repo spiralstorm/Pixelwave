@@ -238,7 +238,7 @@ void b2Island::Solve(const b2TimeStep& step, const b2Vec2& gravity, bool allowSl
 	{
 		contactSolver.WarmStart();
 	}
-	
+
 	for (int32 i = 0; i < m_jointCount; ++i)
 	{
 		m_joints[i]->InitVelocityConstraints(step);
@@ -499,7 +499,7 @@ void b2Island::Report(const b2ContactConstraint* constraints)
 		b2Contact* c = m_contacts[i];
 
 		const b2ContactConstraint* cc = constraints + i;
-		
+
 		b2ContactImpulse impulse;
 		for (int32 j = 0; j < cc->pointCount; ++j)
 		{

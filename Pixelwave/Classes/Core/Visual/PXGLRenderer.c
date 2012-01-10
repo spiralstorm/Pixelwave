@@ -81,7 +81,7 @@ typedef struct
 {
 	unsigned int size;
 	unsigned int maxSize;
-	
+
 	PXGLElementBucket *array;
 } _PXGLElementBucketBuffer;
 
@@ -648,7 +648,7 @@ PXInline void PXGLDraw()
 				type = GL_UNSIGNED_SHORT;
 				break;
 		}
-		
+
 		for (start = 0; amountToDraw > 0; start += PX_GL_RENDERER_MAX_VERTICES_MINUS_2, amountToDraw -= PX_GL_RENDERER_MAX_VERTICES_MINUS_2)
 			glDrawElements(pxGLDrawMode, ((amountToDraw < PX_GL_RENDERER_MAX_VERTICES) ? amountToDraw : PX_GL_RENDERER_MAX_VERTICES), type, pxGLIndexBuffer.array + start);
 	}
@@ -738,7 +738,7 @@ void PXGLFlushBufferToGL()
 		glTexCoordPointer(2, GL_FLOAT, sizeof(PXGLColoredTextureVertex), &(pxGLVertexBuffer.array->s));
 	if (pxGLIsColorArrayEnabled)
 		glColorPointer(4, GL_UNSIGNED_BYTE, sizeof(PXGLColoredTextureVertex), &(pxGLVertexBuffer.array->r));
-	
+
 	// Have to call draw here because we are using stack memory
 	PXGLDraw();
 #else

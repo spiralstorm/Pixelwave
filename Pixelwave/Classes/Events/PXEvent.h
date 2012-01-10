@@ -151,11 +151,11 @@ typedef enum
 - (BOOL) isDefaultPrevented;
 
 //-- ScriptIgnore
-+ (id)eventWithType:(NSString *)type;
++ (id) eventWithType:(NSString *)type;
 //-- ScriptName: make
 //-- ScriptArg[0]: required
 //-- ScriptArg[1]: NO
 //-- ScriptArg[2]: NO
-+ (id)eventWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable;
++ (id) eventWithType:(NSString *)type bubbles:(BOOL)bubbles cancelable:(BOOL)cancelable;
 
 @end

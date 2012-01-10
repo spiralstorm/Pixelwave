@@ -117,7 +117,7 @@
 	{
 		frames = [NSMutableDictionary new];
 	}
-	
+
 	return self;
 }
 
@@ -163,21 +163,21 @@
 {
 	// Convert to an absolute path
 	path = [PXLoader absolutePathFromPath:path];
-	
+
 	// Figure out if there's an @#x version of the file (Ex. Atlas@2x.json).
 	// If so, use its path and content scaling factor.
-	
+
 	float scaleFactor = 1.0f;
 	path = [PXLoader pathForRetinaVersionOfFile:path retScale:&scaleFactor];
-	
+
 	// Load the data from the HD
 	NSData *data = [NSData dataWithContentsOfFile:path];
-	
+
 	return [self initWithData:data
 				  scaleFactor:scaleFactor
 					 modifier:modifier
 					   origin:path];
-	
+
 }
 
 /**
@@ -234,7 +234,7 @@
 {
 	[frames release];
 	frames = nil;
-	
+
 	[super dealloc];
 }
 
@@ -257,24 +257,24 @@
 {
 	// Loops through all the frames and creates a unique list of all the
 	// texture datas used
-	
+
 	NSMutableArray *arr = [NSMutableArray new];
-	
+
 	NSEnumerator *e = [frames objectEnumerator];
-	
+
 	PXAtlasFrame *frame;
 	PXTextureData *td;
-	
+
 	while ((frame = [e nextObject]))
 	{
 		td = frame.textureData;
-		
+
 		if (![arr containsObject:td])
 		{
 			[arr addObject:td];
 		}
 	}
-	
+
 	return [arr autorelease];
 }
 
@@ -305,7 +305,7 @@
 {
 	// If one already exists, remove it
 	[self removeFrame:name];
-	
+
 	[frames setObject:frame forKey:name];
 }
 
@@ -323,7 +323,7 @@
 
 	if (frame == nil)
 		return;
-	
+
 	[frames removeObjectForKey:name];
 }
 
@@ -363,11 +363,11 @@
 	PXAtlasFrame *frame = [[PXAtlasFrame alloc] initWithClipRect:clipRect
 													 textureData:textureData
 														  anchor:nil];
-	
+
 	[self addFrame:frame withName:name];
-	
+
 	[frame release];
-	
+
 	return frame;
 }
 
@@ -396,14 +396,14 @@
 	PXAtlasFrame *frame = [[PXAtlasFrame alloc] initWithClipRect:clipRect
 													 textureData:textureData
 														  anchor:anchor];
-	
+
 	[self addFrame:frame withName:name];
-	
+
 	[frame release];
 	[anchor release];
-	
+
 	return frame;
-	
+
 }
 
 // Reading
@@ -426,10 +426,10 @@
 
 	if (frame == nil)
 		return nil;
-	
+
 	PXTexture *texture = [PXTexture texture];
 	[frame setToTexture:texture];
-	
+
 	return texture;
 }
 
@@ -512,11 +512,11 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 {
 	if (names == nil)
 		return nil;
-	
+
 	NSMutableArray *array = [[NSMutableArray alloc] initWithCapacity:[names count]];
-	
+
 	PXAtlasFrame *frame;
-	
+
 	for (NSString *name in names)
 	{
 		frame = [self frameWithName:name];
@@ -526,7 +526,7 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 			[array addObject:frame];
 		}
 	}
-	
+
 	return [array autorelease];
 }
 
@@ -544,27 +544,27 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 {
 	PXRegexMatcher *matcher = [[PXRegexMatcher alloc] initWithPattern:pattern];
 	BOOL matched;
-	
+
 	NSMutableArray *array = [[NSMutableArray alloc] init];
 	PXAtlasFrame *frame;
-	
+
 	for (NSString *frameName in frames)
 	{
 		matcher.input = frameName;
 		matched = [matcher next];
-		
+
 		if (matched == NO)
 			continue;
-		
+
 		frame = [self frameWithName:frameName];
-		
+
 		// Just to be extra cautious:
 		if (frame == nil)
 			continue;
-		
+
 		[array addObject:frame];
 	}
-	
+
 	return [array autorelease];
 }
 
@@ -599,23 +599,23 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 - (NSArray *)sequentialFramesWithPrefix:(NSString *)prefix suffix:(NSString *)suffix inRange:(NSRange)inRange
 {
 	BOOL checkRange = (inRange.location != NSNotFound);
-	
+
 	NSString *frameName;
 	PXAtlasFrame *frame;
-	
+
 	NSRange range;
-	
+
 	int numberStartIndex, numberEndIndex;
 	int frameNameLength;
-	
+
 	NSString *numberString;
 	int frameIndex;
-	
+
 	// For keeping the results
 	NSDictionary *dictionary;
 	NSNumber *frameIndexNumber;
 	NSMutableArray *arrayOfDicts = [[NSMutableArray alloc] init];
-	
+
 	for (frameName in frames)
 	{
 		// Find the location of the index string, if any.
@@ -627,16 +627,16 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 				continue;
 			if (range.location != 0)
 				continue;
-			
+
 			numberStartIndex = range.location + range.length;
 		}
 		else
 		{
 			numberStartIndex = 0;
 		}
-		
+
 		frameNameLength = [frameName length];
-		
+
 		if (suffix != nil)
 		{
 			range = [frameName rangeOfString:suffix options:(NSCaseInsensitiveSearch | NSBackwardsSearch)];
@@ -645,67 +645,67 @@ NSInteger pxAtlasFrameSorter(NSDictionary *frameA, NSDictionary *frameB, void *c
 				continue;
 			if (range.location + range.length != frameNameLength)
 				continue;
-			
+
 			numberEndIndex = range.location;
 		}
 		else
 		{
 			numberEndIndex = frameNameLength;
 		}
-		
+
 		// Get the index string given its location
-		
+
 		range.location = numberStartIndex;
 		range.length = numberEndIndex - numberStartIndex;
 		numberString = [frameName substringWithRange:range];
-		
+
 		// Convert the string to a number we can use
-		
+
 		frameIndex = [numberString intValue];
-		
+
 		if (frameIndex == 0 && ([numberString isEqualToString:@"0"] == NO || [numberString isEqualToString:@"-0"] == NO))
 		{
 			// Invalid number
 			continue;
 		}
-		
+
 		// Check if the index is in range (inclusive)
 		if (checkRange && (frameIndex < inRange.location || frameIndex  > (inRange.location + inRange.length)))
 		{
 			continue;
 		}
-		
+
 		frame = [self frameWithName:frameName];
-		
+
 		if (frame == nil)
 			continue;
-		
+
 		// Found the frame. We wrap the frame inside a dictionary, along with its index.
 		// Then we add it to a list, which will be sorter at the end.
-		
+
 		frameIndexNumber = [[NSNumber alloc] initWithInt:frameIndex];
 		dictionary = [[NSDictionary alloc] initWithObjectsAndKeys:frame, @"frame", frameIndexNumber, @"index", nil];
-		
+
 		[arrayOfDicts addObject:dictionary];
-		
+
 		[frameIndexNumber release];
 		[dictionary release];
 	}
-	
+
 	// Sort the frame wrappers.
 	[arrayOfDicts sortUsingFunction:pxAtlasFrameSorter context:nil];
-	
+
 	// Extract all the frames out of the sorted array of dictionaries
 	NSMutableArray *array = [[NSMutableArray alloc] init];
-	
+
 	for (dictionary in arrayOfDicts)
 	{
 		//NSLog(@"%@", [dictionary objectForKey:@"index"]);
 		[array addObject:[dictionary objectForKey:@"frame"]];
 	}
-	
+
 	[arrayOfDicts release];
-	
+
 	return [array autorelease];
 }
 
