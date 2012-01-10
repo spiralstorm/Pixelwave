@@ -140,6 +140,8 @@ typedef enum
 - (void) drawCircleWithX:(float)x y:(float)y radius:(float)radius;
 - (void) drawEllipseWithX:(float)x y:(float)y width:(float)width height:(float)height;
 
+- (BOOL) buildWithDisplayObject:(PXDisplayObject *)obj;
+- (BOOL) build:(PXGLMatrix)matrix;
 @end
 
 @interface PXGraphics(PrivateButPublic)

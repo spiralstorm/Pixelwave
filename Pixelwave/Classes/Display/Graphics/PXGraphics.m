@@ -141,8 +141,6 @@ inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType typ
 }
 
 @interface PXGraphics(Private)
-- (BOOL) buildWithDisplayObject:(PXDisplayObject *)obj;
-- (BOOL) build:(PXGLMatrix)matrix;
 - (inkPoint) pxPointToInkPoint:(inkPoint)point displayObject:(PXDisplayObject *)displayObject;
 - (inkPoint) pxPointToInkPoint:(inkPoint)point displayObject:(PXDisplayObject *)displayObject;
 @end
