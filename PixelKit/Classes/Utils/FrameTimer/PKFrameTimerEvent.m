@@ -70,7 +70,7 @@ NSString * const PKFrameTimerEvent_Tick = @"tick";
 	event->_eventPhase = _eventPhase;
 
 	event->_defaultPrevented = _defaultPrevented;
-	event->_stopPropegationLevel = _stopPropegationLevel;
+	event->_stopPropagationLevel = _stopPropagationLevel;
 
 	event->_bubbles = _bubbles;
 	event->_cancelable = _cancelable;
