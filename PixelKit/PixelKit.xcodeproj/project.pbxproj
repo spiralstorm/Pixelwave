@@ -9,10 +9,142 @@
 /* Begin PBXBuildFile section */
 		2D0D876B12CD41BC00A887AF /* PKBox2DTouchPicker.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D0D876912CD41BC00A887AF /* PKBox2DTouchPicker.h */; };
 		2D0D876C12CD41BC00A887AF /* PKBox2DTouchPicker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2D0D876A12CD41BC00A887AF /* PKBox2DTouchPicker.mm */; };
+		2D74AE75143F4D2B00D7B84E /* PixelKitBox2DUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 2D74AE74143F4D2B00D7B84E /* PixelKitBox2DUtils.h */; };
 		2DC35AB812CBC4BF00B2F195 /* PKBox2DDebugLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DC35AB612CBC4BF00B2F195 /* PKBox2DDebugLayer.h */; };
 		2DC35AB912CBC4BF00B2F195 /* PKBox2DDebugLayer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DC35AB712CBC4BF00B2F195 /* PKBox2DDebugLayer.mm */; };
 		2DF9AF5913E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DF9AF5713E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h */; };
 		2DF9AF5A13E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */; };
+		2DFA0146143A4D8500307EA5 /* PKParticleFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0143143A4D8500307EA5 /* PKParticleFactory.h */; };
+		2DFA0147143A4D8500307EA5 /* PKParticleCreator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0144143A4D8500307EA5 /* PKParticleCreator.h */; };
+		2DFA0148143A4D8500307EA5 /* PKParticleCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0145143A4D8500307EA5 /* PKParticleCreator.m */; };
+		2DFA0151143A4D9A00307EA5 /* PKParticle.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0149143A4D9A00307EA5 /* PKParticle.h */; };
+		2DFA0152143A4D9A00307EA5 /* PKParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA014A143A4D9A00307EA5 /* PKParticle.m */; };
+		2DFA0153143A4D9A00307EA5 /* PKParticleEmitter.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA014B143A4D9A00307EA5 /* PKParticleEmitter.h */; };
+		2DFA0154143A4D9A00307EA5 /* PKParticleEmitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA014C143A4D9A00307EA5 /* PKParticleEmitter.m */; };
+		2DFA0155143A4D9A00307EA5 /* PKParticleBehavior.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA014D143A4D9A00307EA5 /* PKParticleBehavior.h */; };
+		2DFA0156143A4D9A00307EA5 /* PKParticleEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA014E143A4D9A00307EA5 /* PKParticleEffect.h */; };
+		2DFA0157143A4D9A00307EA5 /* PKParticleEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA014F143A4D9A00307EA5 /* PKParticleEffect.m */; };
+		2DFA0158143A4D9A00307EA5 /* PKParticleEffectLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0150143A4D9A00307EA5 /* PKParticleEffectLoader.h */; };
+		2DFA0164143A4DA500307EA5 /* PKParticleFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0159143A4DA500307EA5 /* PKParticleFlow.h */; };
+		2DFA0165143A4DA500307EA5 /* PKParticleFlowBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA015A143A4DA500307EA5 /* PKParticleFlowBase.h */; };
+		2DFA0166143A4DA500307EA5 /* PKParticleFlowBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA015B143A4DA500307EA5 /* PKParticleFlowBase.m */; };
+		2DFA0167143A4DA500307EA5 /* PKSteadyFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA015C143A4DA500307EA5 /* PKSteadyFlow.h */; };
+		2DFA0168143A4DA500307EA5 /* PKSteadyFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA015D143A4DA500307EA5 /* PKSteadyFlow.m */; };
+		2DFA0169143A4DA500307EA5 /* PKBlastFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA015E143A4DA500307EA5 /* PKBlastFlow.h */; };
+		2DFA016A143A4DA500307EA5 /* PKBlastFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA015F143A4DA500307EA5 /* PKBlastFlow.m */; };
+		2DFA016B143A4DA500307EA5 /* PKTimePeriodFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0160143A4DA500307EA5 /* PKTimePeriodFlow.h */; };
+		2DFA016C143A4DA500307EA5 /* PKTimePeriodFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0161143A4DA500307EA5 /* PKTimePeriodFlow.m */; };
+		2DFA016D143A4DA500307EA5 /* PKPulseFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0162143A4DA500307EA5 /* PKPulseFlow.h */; };
+		2DFA016E143A4DA500307EA5 /* PKPulseFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0163143A4DA500307EA5 /* PKPulseFlow.m */; };
+		2DFA0189143A4DAD00307EA5 /* PKParticleInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA016F143A4DAD00307EA5 /* PKParticleInitializer.h */; };
+		2DFA018A143A4DAD00307EA5 /* PKParticleInitializerBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0170143A4DAD00307EA5 /* PKParticleInitializerBase.h */; };
+		2DFA018B143A4DAD00307EA5 /* PKParticleInitializerBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0171143A4DAD00307EA5 /* PKParticleInitializerBase.m */; };
+		2DFA018C143A4DAD00307EA5 /* PKGraphicInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0172143A4DAD00307EA5 /* PKGraphicInitializer.h */; };
+		2DFA018D143A4DAD00307EA5 /* PKSharedGraphicInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0173143A4DAD00307EA5 /* PKSharedGraphicInitializer.h */; };
+		2DFA018E143A4DAD00307EA5 /* PKSharedGraphicInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0174143A4DAD00307EA5 /* PKSharedGraphicInitializer.m */; };
+		2DFA018F143A4DAD00307EA5 /* PKGraphicInstanceInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0175143A4DAD00307EA5 /* PKGraphicInstanceInitializer.h */; };
+		2DFA0190143A4DAD00307EA5 /* PKGraphicInstanceInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0176143A4DAD00307EA5 /* PKGraphicInstanceInitializer.m */; };
+		2DFA0191143A4DAD00307EA5 /* PKLifetimeInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0177143A4DAD00307EA5 /* PKLifetimeInitializer.h */; };
+		2DFA0192143A4DAD00307EA5 /* PKLifetimeInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0178143A4DAD00307EA5 /* PKLifetimeInitializer.m */; };
+		2DFA0193143A4DAD00307EA5 /* PKPositionInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0179143A4DAD00307EA5 /* PKPositionInitializer.h */; };
+		2DFA0194143A4DAD00307EA5 /* PKPositionInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA017A143A4DAD00307EA5 /* PKPositionInitializer.m */; };
+		2DFA0195143A4DAD00307EA5 /* PKVelocityInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA017B143A4DAD00307EA5 /* PKVelocityInitializer.h */; };
+		2DFA0196143A4DAD00307EA5 /* PKVelocityInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA017C143A4DAD00307EA5 /* PKVelocityInitializer.m */; };
+		2DFA0197143A4DAD00307EA5 /* PKAlphaInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA017D143A4DAD00307EA5 /* PKAlphaInitializer.h */; };
+		2DFA0198143A4DAD00307EA5 /* PKAlphaInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA017E143A4DAD00307EA5 /* PKAlphaInitializer.m */; };
+		2DFA0199143A4DAD00307EA5 /* PKColorInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA017F143A4DAD00307EA5 /* PKColorInitializer.h */; };
+		2DFA019A143A4DAD00307EA5 /* PKColorInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0180143A4DAD00307EA5 /* PKColorInitializer.m */; };
+		2DFA019B143A4DAD00307EA5 /* PKScaleInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0181143A4DAD00307EA5 /* PKScaleInitializer.h */; };
+		2DFA019C143A4DAD00307EA5 /* PKScaleInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0182143A4DAD00307EA5 /* PKScaleInitializer.m */; };
+		2DFA019D143A4DAD00307EA5 /* PKBlendInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0183143A4DAD00307EA5 /* PKBlendInitializer.h */; };
+		2DFA019E143A4DAD00307EA5 /* PKBlendInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0184143A4DAD00307EA5 /* PKBlendInitializer.m */; };
+		2DFA019F143A4DAD00307EA5 /* PKRotationInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0185143A4DAD00307EA5 /* PKRotationInitializer.h */; };
+		2DFA01A0143A4DAD00307EA5 /* PKRotationInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0186143A4DAD00307EA5 /* PKRotationInitializer.m */; };
+		2DFA01A1143A4DAD00307EA5 /* PKAngularSpeedInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0187143A4DAD00307EA5 /* PKAngularSpeedInitializer.h */; };
+		2DFA01A2143A4DAD00307EA5 /* PKAngularSpeedInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0188143A4DAD00307EA5 /* PKAngularSpeedInitializer.m */; };
+		2DFA01B2143A4DDC00307EA5 /* PKParticleRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01A3143A4DDB00307EA5 /* PKParticleRenderer.h */; };
+		2DFA01B3143A4DDC00307EA5 /* PKParticleRendererBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01A4143A4DDB00307EA5 /* PKParticleRendererBase.h */; };
+		2DFA01B4143A4DDC00307EA5 /* PKParticleRendererBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01A5143A4DDB00307EA5 /* PKParticleRendererBase.m */; };
+		2DFA01B5143A4DDC00307EA5 /* PKDisplayObjectRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01A6143A4DDB00307EA5 /* PKDisplayObjectRenderer.h */; };
+		2DFA01B6143A4DDC00307EA5 /* PKDisplayObjectRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01A7143A4DDB00307EA5 /* PKDisplayObjectRenderer.m */; };
+		2DFA01B7143A4DDC00307EA5 /* PKPointRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01A8143A4DDB00307EA5 /* PKPointRenderer.h */; };
+		2DFA01B8143A4DDC00307EA5 /* PKPointRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01A9143A4DDB00307EA5 /* PKPointRenderer.m */; };
+		2DFA01BB143A4DDC00307EA5 /* PKQuadRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01AC143A4DDB00307EA5 /* PKQuadRenderer.h */; };
+		2DFA01BC143A4DDC00307EA5 /* PKQuadRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01AD143A4DDB00307EA5 /* PKQuadRenderer.m */; };
+		2DFA01BD143A4DDC00307EA5 /* PKSharedDisplayObjectRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01AE143A4DDB00307EA5 /* PKSharedDisplayObjectRenderer.h */; };
+		2DFA01BE143A4DDC00307EA5 /* PKSharedDisplayObjectRenderer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01AF143A4DDB00307EA5 /* PKSharedDisplayObjectRenderer.m */; };
+		2DFA01EB143A4E6100307EA5 /* PKParticleAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01D0143A4E6100307EA5 /* PKParticleAction.h */; };
+		2DFA01EC143A4E6100307EA5 /* PKParticleActionBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01D1143A4E6100307EA5 /* PKParticleActionBase.h */; };
+		2DFA01ED143A4E6100307EA5 /* PKParticleActionBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01D2143A4E6100307EA5 /* PKParticleActionBase.m */; };
+		2DFA01EE143A4E6100307EA5 /* PKMoveAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01D3143A4E6100307EA5 /* PKMoveAction.h */; };
+		2DFA01EF143A4E6100307EA5 /* PKMoveAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01D4143A4E6100307EA5 /* PKMoveAction.m */; };
+		2DFA01F0143A4E6100307EA5 /* PKAgeAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01D5143A4E6100307EA5 /* PKAgeAction.h */; };
+		2DFA01F1143A4E6100307EA5 /* PKAgeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01D6143A4E6100307EA5 /* PKAgeAction.m */; };
+		2DFA01F2143A4E6100307EA5 /* PKAccelerateAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01D7143A4E6100307EA5 /* PKAccelerateAction.h */; };
+		2DFA01F3143A4E6100307EA5 /* PKAccelerateAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01D8143A4E6100307EA5 /* PKAccelerateAction.m */; };
+		2DFA01F4143A4E6100307EA5 /* PKFadeAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01D9143A4E6100307EA5 /* PKFadeAction.h */; };
+		2DFA01F5143A4E6100307EA5 /* PKFadeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01DA143A4E6100307EA5 /* PKFadeAction.m */; };
+		2DFA01F6143A4E6100307EA5 /* PKColorChangeAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01DB143A4E6100307EA5 /* PKColorChangeAction.h */; };
+		2DFA01F7143A4E6100307EA5 /* PKColorChangeAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01DC143A4E6100307EA5 /* PKColorChangeAction.m */; };
+		2DFA01F8143A4E6100307EA5 /* PKScaleAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01DD143A4E6100307EA5 /* PKScaleAction.h */; };
+		2DFA01F9143A4E6100307EA5 /* PKScaleAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01DE143A4E6100307EA5 /* PKScaleAction.m */; };
+		2DFA01FA143A4E6100307EA5 /* PKSpeedLimitAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01DF143A4E6100307EA5 /* PKSpeedLimitAction.h */; };
+		2DFA01FB143A4E6100307EA5 /* PKSpeedLimitAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01E0143A4E6100307EA5 /* PKSpeedLimitAction.m */; };
+		2DFA01FC143A4E6100307EA5 /* PKRotateToDirectionAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01E1143A4E6100307EA5 /* PKRotateToDirectionAction.h */; };
+		2DFA01FD143A4E6100307EA5 /* PKRotateToDirectionAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01E2143A4E6100307EA5 /* PKRotateToDirectionAction.m */; };
+		2DFA01FE143A4E6100307EA5 /* PKRotateAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01E3143A4E6100307EA5 /* PKRotateAction.h */; };
+		2DFA01FF143A4E6100307EA5 /* PKRotateAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01E4143A4E6100307EA5 /* PKRotateAction.m */; };
+		2DFA0200143A4E6100307EA5 /* PKLinearDragAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01E5143A4E6100307EA5 /* PKLinearDragAction.h */; };
+		2DFA0201143A4E6100307EA5 /* PKLinearDragAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01E6143A4E6100307EA5 /* PKLinearDragAction.m */; };
+		2DFA0202143A4E6100307EA5 /* PKRandomDriftAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01E7143A4E6100307EA5 /* PKRandomDriftAction.h */; };
+		2DFA0203143A4E6100307EA5 /* PKRandomDriftAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01E8143A4E6100307EA5 /* PKRandomDriftAction.m */; };
+		2DFA0204143A4E6100307EA5 /* PKDestroyAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA01E9143A4E6100307EA5 /* PKDestroyAction.h */; };
+		2DFA0205143A4E6100307EA5 /* PKDestroyAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA01EA143A4E6100307EA5 /* PKDestroyAction.m */; };
+		2DFA021B143A4EDF00307EA5 /* PKDesignerParticleEmissionType.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0210143A4EDF00307EA5 /* PKDesignerParticleEmissionType.h */; };
+		2DFA021C143A4EDF00307EA5 /* PKDesignerParticle.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0211143A4EDF00307EA5 /* PKDesignerParticle.h */; };
+		2DFA021D143A4EDF00307EA5 /* PKDesignerParticle.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0212143A4EDF00307EA5 /* PKDesignerParticle.m */; };
+		2DFA021E143A4EDF00307EA5 /* PKDesignerFlow.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0213143A4EDF00307EA5 /* PKDesignerFlow.h */; };
+		2DFA021F143A4EDF00307EA5 /* PKDesignerFlow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0214143A4EDF00307EA5 /* PKDesignerFlow.m */; };
+		2DFA0220143A4EDF00307EA5 /* PKDesignerInitializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0215143A4EDF00307EA5 /* PKDesignerInitializer.h */; };
+		2DFA0221143A4EDF00307EA5 /* PKDesignerInitializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0216143A4EDF00307EA5 /* PKDesignerInitializer.m */; };
+		2DFA0222143A4EDF00307EA5 /* PKDesignerAction.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0217143A4EDF00307EA5 /* PKDesignerAction.h */; };
+		2DFA0223143A4EDF00307EA5 /* PKDesignerAction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0218143A4EDF00307EA5 /* PKDesignerAction.m */; };
+		2DFA0224143A4EDF00307EA5 /* PKDesignerParticleEffect.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0219143A4EDF00307EA5 /* PKDesignerParticleEffect.h */; };
+		2DFA0225143A4EDF00307EA5 /* PKDesignerParticleEffect.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA021A143A4EDF00307EA5 /* PKDesignerParticleEffect.m */; };
+		2DFA0228143A4EE900307EA5 /* TBXMLParticleAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0226143A4EE900307EA5 /* TBXMLParticleAdditions.h */; };
+		2DFA0229143A4EE900307EA5 /* TBXMLParticleAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0227143A4EE900307EA5 /* TBXMLParticleAdditions.m */; };
+		2DFA022C143A4EF200307EA5 /* PKParticleEffectParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA022A143A4EF200307EA5 /* PKParticleEffectParser.h */; };
+		2DFA022D143A4EF200307EA5 /* PKParticleEffectParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA022B143A4EF200307EA5 /* PKParticleEffectParser.m */; };
+		2DFA0234143A4EFB00307EA5 /* PKDesignerParticleEffectParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA022E143A4EFB00307EA5 /* PKDesignerParticleEffectParser.h */; };
+		2DFA0235143A4EFB00307EA5 /* PKDesignerParticleEffectParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA022F143A4EFB00307EA5 /* PKDesignerParticleEffectParser.m */; };
+		2DFA0236143A4EFB00307EA5 /* PKPEXParticleEffectParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0230143A4EFB00307EA5 /* PKPEXParticleEffectParser.h */; };
+		2DFA0237143A4EFB00307EA5 /* PKPEXParticleEffectParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0231143A4EFB00307EA5 /* PKPEXParticleEffectParser.m */; };
+		2DFA0238143A4EFB00307EA5 /* PKPListParticleEffectParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0232143A4EFB00307EA5 /* PKPListParticleEffectParser.h */; };
+		2DFA0239143A4EFB00307EA5 /* PKPListParticleEffectParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0233143A4EFB00307EA5 /* PKPListParticleEffectParser.m */; };
+		2DFA023B143A4F0100307EA5 /* PKDesignerParticleEmitterLoadedData.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA023A143A4F0100307EA5 /* PKDesignerParticleEmitterLoadedData.h */; };
+		2DFA0241143A4F2300307EA5 /* PKFrameTimer.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA023D143A4F2300307EA5 /* PKFrameTimer.h */; };
+		2DFA0242143A4F2300307EA5 /* PKFrameTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA023E143A4F2300307EA5 /* PKFrameTimer.m */; };
+		2DFA0243143A4F2300307EA5 /* PKFrameTimerEvent.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA023F143A4F2300307EA5 /* PKFrameTimerEvent.h */; };
+		2DFA0244143A4F2300307EA5 /* PKFrameTimerEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0240143A4F2300307EA5 /* PKFrameTimerEvent.m */; };
+		2DFA0257143A4F4200307EA5 /* PKZone.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0246143A4F4200307EA5 /* PKZone.h */; };
+		2DFA0258143A4F4200307EA5 /* PKMultiZone.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0247143A4F4200307EA5 /* PKMultiZone.h */; };
+		2DFA0259143A4F4200307EA5 /* PKMultiZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0248143A4F4200307EA5 /* PKMultiZone.m */; };
+		2DFA025A143A4F4200307EA5 /* PKPointZone.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0249143A4F4200307EA5 /* PKPointZone.h */; };
+		2DFA025B143A4F4200307EA5 /* PKPointZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA024A143A4F4200307EA5 /* PKPointZone.m */; };
+		2DFA025C143A4F4200307EA5 /* PKRectangleZone.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA024B143A4F4200307EA5 /* PKRectangleZone.h */; };
+		2DFA025D143A4F4200307EA5 /* PKRectangleZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA024C143A4F4200307EA5 /* PKRectangleZone.m */; };
+		2DFA025E143A4F4200307EA5 /* PKElipticalDiscZone.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA024D143A4F4200307EA5 /* PKElipticalDiscZone.h */; };
+		2DFA025F143A4F4200307EA5 /* PKElipticalDiscZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA024E143A4F4200307EA5 /* PKElipticalDiscZone.m */; };
+		2DFA0260143A4F4200307EA5 /* PKLineZone.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA024F143A4F4200307EA5 /* PKLineZone.h */; };
+		2DFA0261143A4F4200307EA5 /* PKLineZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0250143A4F4200307EA5 /* PKLineZone.m */; };
+		2DFA0262143A4F4200307EA5 /* PKDiscZone.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0251143A4F4200307EA5 /* PKDiscZone.h */; };
+		2DFA0263143A4F4200307EA5 /* PKDiscZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0252143A4F4200307EA5 /* PKDiscZone.m */; };
+		2DFA0264143A4F4200307EA5 /* PKDiscSectorZone.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0253143A4F4200307EA5 /* PKDiscSectorZone.h */; };
+		2DFA0265143A4F4200307EA5 /* PKDiscSectorZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0254143A4F4200307EA5 /* PKDiscSectorZone.m */; };
+		2DFA0266143A4F4200307EA5 /* PKDisplayObjectZone.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0255143A4F4200307EA5 /* PKDisplayObjectZone.h */; };
+		2DFA0267143A4F4200307EA5 /* PKDisplayObjectZone.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0256143A4F4200307EA5 /* PKDisplayObjectZone.m */; };
+		2DFA0269143A4F4B00307EA5 /* PKRange.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFA0268143A4F4B00307EA5 /* PKRange.h */; };
+		2DFA0297143A512900307EA5 /* PKParticleEffectLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DFA0296143A512900307EA5 /* PKParticleEffectLoader.m */; };
 		2DFFF7C212CD2820009AA3C3 /* Box2D.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFFF76912CD2820009AA3C3 /* Box2D.h */; };
 		2DFFF7C312CD2820009AA3C3 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DFFF76B12CD2820009AA3C3 /* b2BroadPhase.cpp */; };
 		2DFFF7C412CD2820009AA3C3 /* b2BroadPhase.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFFF76C12CD2820009AA3C3 /* b2BroadPhase.h */; };
@@ -97,7 +229,7 @@
 		2DFFF81312CD2821009AA3C3 /* b2WeldJoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DFFF7C012CD2820009AA3C3 /* b2WeldJoint.cpp */; };
 		2DFFF81412CD2821009AA3C3 /* b2WeldJoint.h in Headers */ = {isa = PBXBuildFile; fileRef = 2DFFF7C112CD2820009AA3C3 /* b2WeldJoint.h */; };
 		5297FE121337B82B009856BE /* PKColor.h in Headers */ = {isa = PBXBuildFile; fileRef = 5297FE091337B82B009856BE /* PKColor.h */; };
-		9002411C111E04C700764A57 /* PixelKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 9002411B111E04C700764A57 /* PixelKit.h */; };
+		52C9EE1E14460AD300EEE33A /* PixelKitParticles.h in Headers */ = {isa = PBXBuildFile; fileRef = 52C9EE1D14460AD300EEE33A /* PixelKitParticles.h */; };
 		AA747D9F0F9514B9006C5449 /* PixelKit_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* PixelKit_Prefix.pch */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
@@ -123,10 +255,142 @@
 		17C52DAC10DC000C00A7001D /* Pixelwave.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = Pixelwave.xcodeproj; sourceTree = PIXELWAVE_SRC; };
 		2D0D876912CD41BC00A887AF /* PKBox2DTouchPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBox2DTouchPicker.h; sourceTree = "<group>"; };
 		2D0D876A12CD41BC00A887AF /* PKBox2DTouchPicker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = PKBox2DTouchPicker.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2D74AE74143F4D2B00D7B84E /* PixelKitBox2DUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKitBox2DUtils.h; sourceTree = "<group>"; };
 		2DC35AB612CBC4BF00B2F195 /* PKBox2DDebugLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBox2DDebugLayer.h; sourceTree = "<group>"; };
 		2DC35AB712CBC4BF00B2F195 /* PKBox2DDebugLayer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PKBox2DDebugLayer.mm; sourceTree = "<group>"; };
 		2DF9AF5713E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = PKBox2DTouchPickerEvent.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; lineEnding = 0; path = PKBox2DTouchPickerEvent.mm; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		2DFA0143143A4D8500307EA5 /* PKParticleFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleFactory.h; sourceTree = "<group>"; };
+		2DFA0144143A4D8500307EA5 /* PKParticleCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleCreator.h; sourceTree = "<group>"; };
+		2DFA0145143A4D8500307EA5 /* PKParticleCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleCreator.m; sourceTree = "<group>"; };
+		2DFA0149143A4D9A00307EA5 /* PKParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticle.h; sourceTree = "<group>"; };
+		2DFA014A143A4D9A00307EA5 /* PKParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticle.m; sourceTree = "<group>"; };
+		2DFA014B143A4D9A00307EA5 /* PKParticleEmitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleEmitter.h; sourceTree = "<group>"; };
+		2DFA014C143A4D9A00307EA5 /* PKParticleEmitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleEmitter.m; sourceTree = "<group>"; };
+		2DFA014D143A4D9A00307EA5 /* PKParticleBehavior.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleBehavior.h; sourceTree = "<group>"; };
+		2DFA014E143A4D9A00307EA5 /* PKParticleEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleEffect.h; sourceTree = "<group>"; };
+		2DFA014F143A4D9A00307EA5 /* PKParticleEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleEffect.m; sourceTree = "<group>"; };
+		2DFA0150143A4D9A00307EA5 /* PKParticleEffectLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleEffectLoader.h; sourceTree = "<group>"; };
+		2DFA0159143A4DA500307EA5 /* PKParticleFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleFlow.h; sourceTree = "<group>"; };
+		2DFA015A143A4DA500307EA5 /* PKParticleFlowBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleFlowBase.h; sourceTree = "<group>"; };
+		2DFA015B143A4DA500307EA5 /* PKParticleFlowBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleFlowBase.m; sourceTree = "<group>"; };
+		2DFA015C143A4DA500307EA5 /* PKSteadyFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKSteadyFlow.h; sourceTree = "<group>"; };
+		2DFA015D143A4DA500307EA5 /* PKSteadyFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKSteadyFlow.m; sourceTree = "<group>"; };
+		2DFA015E143A4DA500307EA5 /* PKBlastFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBlastFlow.h; sourceTree = "<group>"; };
+		2DFA015F143A4DA500307EA5 /* PKBlastFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKBlastFlow.m; sourceTree = "<group>"; };
+		2DFA0160143A4DA500307EA5 /* PKTimePeriodFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKTimePeriodFlow.h; sourceTree = "<group>"; };
+		2DFA0161143A4DA500307EA5 /* PKTimePeriodFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKTimePeriodFlow.m; sourceTree = "<group>"; };
+		2DFA0162143A4DA500307EA5 /* PKPulseFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPulseFlow.h; sourceTree = "<group>"; };
+		2DFA0163143A4DA500307EA5 /* PKPulseFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPulseFlow.m; sourceTree = "<group>"; };
+		2DFA016F143A4DAD00307EA5 /* PKParticleInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleInitializer.h; sourceTree = "<group>"; };
+		2DFA0170143A4DAD00307EA5 /* PKParticleInitializerBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleInitializerBase.h; sourceTree = "<group>"; };
+		2DFA0171143A4DAD00307EA5 /* PKParticleInitializerBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleInitializerBase.m; sourceTree = "<group>"; };
+		2DFA0172143A4DAD00307EA5 /* PKGraphicInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKGraphicInitializer.h; sourceTree = "<group>"; };
+		2DFA0173143A4DAD00307EA5 /* PKSharedGraphicInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKSharedGraphicInitializer.h; sourceTree = "<group>"; };
+		2DFA0174143A4DAD00307EA5 /* PKSharedGraphicInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKSharedGraphicInitializer.m; sourceTree = "<group>"; };
+		2DFA0175143A4DAD00307EA5 /* PKGraphicInstanceInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKGraphicInstanceInitializer.h; sourceTree = "<group>"; };
+		2DFA0176143A4DAD00307EA5 /* PKGraphicInstanceInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKGraphicInstanceInitializer.m; sourceTree = "<group>"; };
+		2DFA0177143A4DAD00307EA5 /* PKLifetimeInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKLifetimeInitializer.h; sourceTree = "<group>"; };
+		2DFA0178143A4DAD00307EA5 /* PKLifetimeInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKLifetimeInitializer.m; sourceTree = "<group>"; };
+		2DFA0179143A4DAD00307EA5 /* PKPositionInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPositionInitializer.h; sourceTree = "<group>"; };
+		2DFA017A143A4DAD00307EA5 /* PKPositionInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPositionInitializer.m; sourceTree = "<group>"; };
+		2DFA017B143A4DAD00307EA5 /* PKVelocityInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKVelocityInitializer.h; sourceTree = "<group>"; };
+		2DFA017C143A4DAD00307EA5 /* PKVelocityInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKVelocityInitializer.m; sourceTree = "<group>"; };
+		2DFA017D143A4DAD00307EA5 /* PKAlphaInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKAlphaInitializer.h; sourceTree = "<group>"; };
+		2DFA017E143A4DAD00307EA5 /* PKAlphaInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKAlphaInitializer.m; sourceTree = "<group>"; };
+		2DFA017F143A4DAD00307EA5 /* PKColorInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKColorInitializer.h; sourceTree = "<group>"; };
+		2DFA0180143A4DAD00307EA5 /* PKColorInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKColorInitializer.m; sourceTree = "<group>"; };
+		2DFA0181143A4DAD00307EA5 /* PKScaleInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKScaleInitializer.h; sourceTree = "<group>"; };
+		2DFA0182143A4DAD00307EA5 /* PKScaleInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKScaleInitializer.m; sourceTree = "<group>"; };
+		2DFA0183143A4DAD00307EA5 /* PKBlendInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKBlendInitializer.h; sourceTree = "<group>"; };
+		2DFA0184143A4DAD00307EA5 /* PKBlendInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKBlendInitializer.m; sourceTree = "<group>"; };
+		2DFA0185143A4DAD00307EA5 /* PKRotationInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRotationInitializer.h; sourceTree = "<group>"; };
+		2DFA0186143A4DAD00307EA5 /* PKRotationInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKRotationInitializer.m; sourceTree = "<group>"; };
+		2DFA0187143A4DAD00307EA5 /* PKAngularSpeedInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKAngularSpeedInitializer.h; sourceTree = "<group>"; };
+		2DFA0188143A4DAD00307EA5 /* PKAngularSpeedInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKAngularSpeedInitializer.m; sourceTree = "<group>"; };
+		2DFA01A3143A4DDB00307EA5 /* PKParticleRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleRenderer.h; sourceTree = "<group>"; };
+		2DFA01A4143A4DDB00307EA5 /* PKParticleRendererBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleRendererBase.h; sourceTree = "<group>"; };
+		2DFA01A5143A4DDB00307EA5 /* PKParticleRendererBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleRendererBase.m; sourceTree = "<group>"; };
+		2DFA01A6143A4DDB00307EA5 /* PKDisplayObjectRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDisplayObjectRenderer.h; sourceTree = "<group>"; };
+		2DFA01A7143A4DDB00307EA5 /* PKDisplayObjectRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDisplayObjectRenderer.m; sourceTree = "<group>"; };
+		2DFA01A8143A4DDB00307EA5 /* PKPointRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPointRenderer.h; sourceTree = "<group>"; };
+		2DFA01A9143A4DDB00307EA5 /* PKPointRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPointRenderer.m; sourceTree = "<group>"; };
+		2DFA01AC143A4DDB00307EA5 /* PKQuadRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKQuadRenderer.h; sourceTree = "<group>"; };
+		2DFA01AD143A4DDB00307EA5 /* PKQuadRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKQuadRenderer.m; sourceTree = "<group>"; };
+		2DFA01AE143A4DDB00307EA5 /* PKSharedDisplayObjectRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKSharedDisplayObjectRenderer.h; sourceTree = "<group>"; };
+		2DFA01AF143A4DDB00307EA5 /* PKSharedDisplayObjectRenderer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKSharedDisplayObjectRenderer.m; sourceTree = "<group>"; };
+		2DFA01D0143A4E6100307EA5 /* PKParticleAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleAction.h; sourceTree = "<group>"; };
+		2DFA01D1143A4E6100307EA5 /* PKParticleActionBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleActionBase.h; sourceTree = "<group>"; };
+		2DFA01D2143A4E6100307EA5 /* PKParticleActionBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleActionBase.m; sourceTree = "<group>"; };
+		2DFA01D3143A4E6100307EA5 /* PKMoveAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKMoveAction.h; sourceTree = "<group>"; };
+		2DFA01D4143A4E6100307EA5 /* PKMoveAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKMoveAction.m; sourceTree = "<group>"; };
+		2DFA01D5143A4E6100307EA5 /* PKAgeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKAgeAction.h; sourceTree = "<group>"; };
+		2DFA01D6143A4E6100307EA5 /* PKAgeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKAgeAction.m; sourceTree = "<group>"; };
+		2DFA01D7143A4E6100307EA5 /* PKAccelerateAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKAccelerateAction.h; sourceTree = "<group>"; };
+		2DFA01D8143A4E6100307EA5 /* PKAccelerateAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKAccelerateAction.m; sourceTree = "<group>"; };
+		2DFA01D9143A4E6100307EA5 /* PKFadeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKFadeAction.h; sourceTree = "<group>"; };
+		2DFA01DA143A4E6100307EA5 /* PKFadeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKFadeAction.m; sourceTree = "<group>"; };
+		2DFA01DB143A4E6100307EA5 /* PKColorChangeAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKColorChangeAction.h; sourceTree = "<group>"; };
+		2DFA01DC143A4E6100307EA5 /* PKColorChangeAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKColorChangeAction.m; sourceTree = "<group>"; };
+		2DFA01DD143A4E6100307EA5 /* PKScaleAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKScaleAction.h; sourceTree = "<group>"; };
+		2DFA01DE143A4E6100307EA5 /* PKScaleAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKScaleAction.m; sourceTree = "<group>"; };
+		2DFA01DF143A4E6100307EA5 /* PKSpeedLimitAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKSpeedLimitAction.h; sourceTree = "<group>"; };
+		2DFA01E0143A4E6100307EA5 /* PKSpeedLimitAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKSpeedLimitAction.m; sourceTree = "<group>"; };
+		2DFA01E1143A4E6100307EA5 /* PKRotateToDirectionAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRotateToDirectionAction.h; sourceTree = "<group>"; };
+		2DFA01E2143A4E6100307EA5 /* PKRotateToDirectionAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKRotateToDirectionAction.m; sourceTree = "<group>"; };
+		2DFA01E3143A4E6100307EA5 /* PKRotateAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRotateAction.h; sourceTree = "<group>"; };
+		2DFA01E4143A4E6100307EA5 /* PKRotateAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKRotateAction.m; sourceTree = "<group>"; };
+		2DFA01E5143A4E6100307EA5 /* PKLinearDragAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKLinearDragAction.h; sourceTree = "<group>"; };
+		2DFA01E6143A4E6100307EA5 /* PKLinearDragAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKLinearDragAction.m; sourceTree = "<group>"; };
+		2DFA01E7143A4E6100307EA5 /* PKRandomDriftAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRandomDriftAction.h; sourceTree = "<group>"; };
+		2DFA01E8143A4E6100307EA5 /* PKRandomDriftAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKRandomDriftAction.m; sourceTree = "<group>"; };
+		2DFA01E9143A4E6100307EA5 /* PKDestroyAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDestroyAction.h; sourceTree = "<group>"; };
+		2DFA01EA143A4E6100307EA5 /* PKDestroyAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDestroyAction.m; sourceTree = "<group>"; };
+		2DFA0210143A4EDF00307EA5 /* PKDesignerParticleEmissionType.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDesignerParticleEmissionType.h; sourceTree = "<group>"; };
+		2DFA0211143A4EDF00307EA5 /* PKDesignerParticle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDesignerParticle.h; sourceTree = "<group>"; };
+		2DFA0212143A4EDF00307EA5 /* PKDesignerParticle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDesignerParticle.m; sourceTree = "<group>"; };
+		2DFA0213143A4EDF00307EA5 /* PKDesignerFlow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDesignerFlow.h; sourceTree = "<group>"; };
+		2DFA0214143A4EDF00307EA5 /* PKDesignerFlow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDesignerFlow.m; sourceTree = "<group>"; };
+		2DFA0215143A4EDF00307EA5 /* PKDesignerInitializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDesignerInitializer.h; sourceTree = "<group>"; };
+		2DFA0216143A4EDF00307EA5 /* PKDesignerInitializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDesignerInitializer.m; sourceTree = "<group>"; };
+		2DFA0217143A4EDF00307EA5 /* PKDesignerAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDesignerAction.h; sourceTree = "<group>"; };
+		2DFA0218143A4EDF00307EA5 /* PKDesignerAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDesignerAction.m; sourceTree = "<group>"; };
+		2DFA0219143A4EDF00307EA5 /* PKDesignerParticleEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDesignerParticleEffect.h; sourceTree = "<group>"; };
+		2DFA021A143A4EDF00307EA5 /* PKDesignerParticleEffect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDesignerParticleEffect.m; sourceTree = "<group>"; };
+		2DFA0226143A4EE900307EA5 /* TBXMLParticleAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXMLParticleAdditions.h; sourceTree = "<group>"; };
+		2DFA0227143A4EE900307EA5 /* TBXMLParticleAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXMLParticleAdditions.m; sourceTree = "<group>"; };
+		2DFA022A143A4EF200307EA5 /* PKParticleEffectParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKParticleEffectParser.h; sourceTree = "<group>"; };
+		2DFA022B143A4EF200307EA5 /* PKParticleEffectParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleEffectParser.m; sourceTree = "<group>"; };
+		2DFA022E143A4EFB00307EA5 /* PKDesignerParticleEffectParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDesignerParticleEffectParser.h; sourceTree = "<group>"; };
+		2DFA022F143A4EFB00307EA5 /* PKDesignerParticleEffectParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDesignerParticleEffectParser.m; sourceTree = "<group>"; };
+		2DFA0230143A4EFB00307EA5 /* PKPEXParticleEffectParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPEXParticleEffectParser.h; sourceTree = "<group>"; };
+		2DFA0231143A4EFB00307EA5 /* PKPEXParticleEffectParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPEXParticleEffectParser.m; sourceTree = "<group>"; };
+		2DFA0232143A4EFB00307EA5 /* PKPListParticleEffectParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPListParticleEffectParser.h; sourceTree = "<group>"; };
+		2DFA0233143A4EFB00307EA5 /* PKPListParticleEffectParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPListParticleEffectParser.m; sourceTree = "<group>"; };
+		2DFA023A143A4F0100307EA5 /* PKDesignerParticleEmitterLoadedData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDesignerParticleEmitterLoadedData.h; sourceTree = "<group>"; };
+		2DFA023D143A4F2300307EA5 /* PKFrameTimer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKFrameTimer.h; sourceTree = "<group>"; };
+		2DFA023E143A4F2300307EA5 /* PKFrameTimer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKFrameTimer.m; sourceTree = "<group>"; };
+		2DFA023F143A4F2300307EA5 /* PKFrameTimerEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKFrameTimerEvent.h; sourceTree = "<group>"; };
+		2DFA0240143A4F2300307EA5 /* PKFrameTimerEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKFrameTimerEvent.m; sourceTree = "<group>"; };
+		2DFA0246143A4F4200307EA5 /* PKZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKZone.h; sourceTree = "<group>"; };
+		2DFA0247143A4F4200307EA5 /* PKMultiZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKMultiZone.h; sourceTree = "<group>"; };
+		2DFA0248143A4F4200307EA5 /* PKMultiZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKMultiZone.m; sourceTree = "<group>"; };
+		2DFA0249143A4F4200307EA5 /* PKPointZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKPointZone.h; sourceTree = "<group>"; };
+		2DFA024A143A4F4200307EA5 /* PKPointZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKPointZone.m; sourceTree = "<group>"; };
+		2DFA024B143A4F4200307EA5 /* PKRectangleZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRectangleZone.h; sourceTree = "<group>"; };
+		2DFA024C143A4F4200307EA5 /* PKRectangleZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKRectangleZone.m; sourceTree = "<group>"; };
+		2DFA024D143A4F4200307EA5 /* PKElipticalDiscZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKElipticalDiscZone.h; sourceTree = "<group>"; };
+		2DFA024E143A4F4200307EA5 /* PKElipticalDiscZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKElipticalDiscZone.m; sourceTree = "<group>"; };
+		2DFA024F143A4F4200307EA5 /* PKLineZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKLineZone.h; sourceTree = "<group>"; };
+		2DFA0250143A4F4200307EA5 /* PKLineZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKLineZone.m; sourceTree = "<group>"; };
+		2DFA0251143A4F4200307EA5 /* PKDiscZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDiscZone.h; sourceTree = "<group>"; };
+		2DFA0252143A4F4200307EA5 /* PKDiscZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDiscZone.m; sourceTree = "<group>"; };
+		2DFA0253143A4F4200307EA5 /* PKDiscSectorZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDiscSectorZone.h; sourceTree = "<group>"; };
+		2DFA0254143A4F4200307EA5 /* PKDiscSectorZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDiscSectorZone.m; sourceTree = "<group>"; };
+		2DFA0255143A4F4200307EA5 /* PKDisplayObjectZone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKDisplayObjectZone.h; sourceTree = "<group>"; };
+		2DFA0256143A4F4200307EA5 /* PKDisplayObjectZone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKDisplayObjectZone.m; sourceTree = "<group>"; };
+		2DFA0268143A4F4B00307EA5 /* PKRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKRange.h; sourceTree = "<group>"; };
+		2DFA0296143A512900307EA5 /* PKParticleEffectLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PKParticleEffectLoader.m; sourceTree = "<group>"; };
 		2DFFF76912CD2820009AA3C3 /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
 		2DFFF76B12CD2820009AA3C3 /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
 		2DFFF76C12CD2820009AA3C3 /* b2BroadPhase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2BroadPhase.h; sourceTree = "<group>"; };
@@ -211,7 +475,7 @@
 		2DFFF7C012CD2820009AA3C3 /* b2WeldJoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2WeldJoint.cpp; sourceTree = "<group>"; };
 		2DFFF7C112CD2820009AA3C3 /* b2WeldJoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = b2WeldJoint.h; sourceTree = "<group>"; };
 		5297FE091337B82B009856BE /* PKColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PKColor.h; sourceTree = "<group>"; };
-		9002411B111E04C700764A57 /* PixelKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKit.h; sourceTree = "<group>"; };
+		52C9EE1D14460AD300EEE33A /* PixelKitParticles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKitParticles.h; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* PixelKit_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PixelKit_Prefix.pch; sourceTree = SOURCE_ROOT; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libPixelKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPixelKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -262,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				2DFFF76812CD2820009AA3C3 /* Box2D */,
+				2DFA00F5143A4C3E00307EA5 /* Particles */,
 				2DC35AB412CBC4BF00B2F195 /* Utils */,
 			);
 			path = Classes;
@@ -270,7 +535,8 @@
 		2D7BB8F110EAB88B00BF87C1 /* Include */ = {
 			isa = PBXGroup;
 			children = (
-				9002411B111E04C700764A57 /* PixelKit.h */,
+				52C9EE1D14460AD300EEE33A /* PixelKitParticles.h */,
+				2D74AE74143F4D2B00D7B84E /* PixelKitBox2DUtils.h */,
 			);
 			path = Include;
 			sourceTree = "<group>";
@@ -278,8 +544,11 @@
 		2DC35AB412CBC4BF00B2F195 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2DFA0268143A4F4B00307EA5 /* PKRange.h */,
 				5297FE091337B82B009856BE /* PKColor.h */,
 				2DC35AB512CBC4BF00B2F195 /* Box2D */,
+				2DFA023C143A4F1A00307EA5 /* FrameTimer */,
+				2DFA0245143A4F3800307EA5 /* Zones */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -295,6 +564,245 @@
 				2DF9AF5813E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm */,
 			);
 			path = Box2D;
+			sourceTree = "<group>";
+		};
+		2DFA00F5143A4C3E00307EA5 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA0129143A4D6000307EA5 /* Core */,
+				2DFA012C143A4D6000307EA5 /* Particles */,
+				2DFA012A143A4D6000307EA5 /* Flows */,
+				2DFA012B143A4D6000307EA5 /* Initializers */,
+				2DFA01C9143A4E5400307EA5 /* Actions */,
+				2DFA012D143A4D6000307EA5 /* Renderers */,
+				2DFA020B143A4ECF00307EA5 /* Support */,
+			);
+			path = Particles;
+			sourceTree = "<group>";
+		};
+		2DFA0129143A4D6000307EA5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA0149143A4D9A00307EA5 /* PKParticle.h */,
+				2DFA014A143A4D9A00307EA5 /* PKParticle.m */,
+				2DFA014B143A4D9A00307EA5 /* PKParticleEmitter.h */,
+				2DFA014C143A4D9A00307EA5 /* PKParticleEmitter.m */,
+				2DFA014D143A4D9A00307EA5 /* PKParticleBehavior.h */,
+				2DFA014E143A4D9A00307EA5 /* PKParticleEffect.h */,
+				2DFA014F143A4D9A00307EA5 /* PKParticleEffect.m */,
+				2DFA0150143A4D9A00307EA5 /* PKParticleEffectLoader.h */,
+				2DFA0296143A512900307EA5 /* PKParticleEffectLoader.m */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		2DFA012A143A4D6000307EA5 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA0159143A4DA500307EA5 /* PKParticleFlow.h */,
+				2DFA015A143A4DA500307EA5 /* PKParticleFlowBase.h */,
+				2DFA015B143A4DA500307EA5 /* PKParticleFlowBase.m */,
+				2DFA015C143A4DA500307EA5 /* PKSteadyFlow.h */,
+				2DFA015D143A4DA500307EA5 /* PKSteadyFlow.m */,
+				2DFA015E143A4DA500307EA5 /* PKBlastFlow.h */,
+				2DFA015F143A4DA500307EA5 /* PKBlastFlow.m */,
+				2DFA0160143A4DA500307EA5 /* PKTimePeriodFlow.h */,
+				2DFA0161143A4DA500307EA5 /* PKTimePeriodFlow.m */,
+				2DFA0162143A4DA500307EA5 /* PKPulseFlow.h */,
+				2DFA0163143A4DA500307EA5 /* PKPulseFlow.m */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		2DFA012B143A4D6000307EA5 /* Initializers */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA016F143A4DAD00307EA5 /* PKParticleInitializer.h */,
+				2DFA0170143A4DAD00307EA5 /* PKParticleInitializerBase.h */,
+				2DFA0171143A4DAD00307EA5 /* PKParticleInitializerBase.m */,
+				2DFA0172143A4DAD00307EA5 /* PKGraphicInitializer.h */,
+				2DFA0173143A4DAD00307EA5 /* PKSharedGraphicInitializer.h */,
+				2DFA0174143A4DAD00307EA5 /* PKSharedGraphicInitializer.m */,
+				2DFA0175143A4DAD00307EA5 /* PKGraphicInstanceInitializer.h */,
+				2DFA0176143A4DAD00307EA5 /* PKGraphicInstanceInitializer.m */,
+				2DFA0177143A4DAD00307EA5 /* PKLifetimeInitializer.h */,
+				2DFA0178143A4DAD00307EA5 /* PKLifetimeInitializer.m */,
+				2DFA0179143A4DAD00307EA5 /* PKPositionInitializer.h */,
+				2DFA017A143A4DAD00307EA5 /* PKPositionInitializer.m */,
+				2DFA017B143A4DAD00307EA5 /* PKVelocityInitializer.h */,
+				2DFA017C143A4DAD00307EA5 /* PKVelocityInitializer.m */,
+				2DFA017D143A4DAD00307EA5 /* PKAlphaInitializer.h */,
+				2DFA017E143A4DAD00307EA5 /* PKAlphaInitializer.m */,
+				2DFA017F143A4DAD00307EA5 /* PKColorInitializer.h */,
+				2DFA0180143A4DAD00307EA5 /* PKColorInitializer.m */,
+				2DFA0181143A4DAD00307EA5 /* PKScaleInitializer.h */,
+				2DFA0182143A4DAD00307EA5 /* PKScaleInitializer.m */,
+				2DFA0183143A4DAD00307EA5 /* PKBlendInitializer.h */,
+				2DFA0184143A4DAD00307EA5 /* PKBlendInitializer.m */,
+				2DFA0185143A4DAD00307EA5 /* PKRotationInitializer.h */,
+				2DFA0186143A4DAD00307EA5 /* PKRotationInitializer.m */,
+				2DFA0187143A4DAD00307EA5 /* PKAngularSpeedInitializer.h */,
+				2DFA0188143A4DAD00307EA5 /* PKAngularSpeedInitializer.m */,
+			);
+			path = Initializers;
+			sourceTree = "<group>";
+		};
+		2DFA012C143A4D6000307EA5 /* Particles */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA0143143A4D8500307EA5 /* PKParticleFactory.h */,
+				2DFA0144143A4D8500307EA5 /* PKParticleCreator.h */,
+				2DFA0145143A4D8500307EA5 /* PKParticleCreator.m */,
+			);
+			path = Particles;
+			sourceTree = "<group>";
+		};
+		2DFA012D143A4D6000307EA5 /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA01A3143A4DDB00307EA5 /* PKParticleRenderer.h */,
+				2DFA01A4143A4DDB00307EA5 /* PKParticleRendererBase.h */,
+				2DFA01A5143A4DDB00307EA5 /* PKParticleRendererBase.m */,
+				2DFA01A6143A4DDB00307EA5 /* PKDisplayObjectRenderer.h */,
+				2DFA01A7143A4DDB00307EA5 /* PKDisplayObjectRenderer.m */,
+				2DFA01A8143A4DDB00307EA5 /* PKPointRenderer.h */,
+				2DFA01A9143A4DDB00307EA5 /* PKPointRenderer.m */,
+				2DFA01AC143A4DDB00307EA5 /* PKQuadRenderer.h */,
+				2DFA01AD143A4DDB00307EA5 /* PKQuadRenderer.m */,
+				2DFA01AE143A4DDB00307EA5 /* PKSharedDisplayObjectRenderer.h */,
+				2DFA01AF143A4DDB00307EA5 /* PKSharedDisplayObjectRenderer.m */,
+			);
+			path = Renderers;
+			sourceTree = "<group>";
+		};
+		2DFA01C9143A4E5400307EA5 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA01D0143A4E6100307EA5 /* PKParticleAction.h */,
+				2DFA01D1143A4E6100307EA5 /* PKParticleActionBase.h */,
+				2DFA01D2143A4E6100307EA5 /* PKParticleActionBase.m */,
+				2DFA01D3143A4E6100307EA5 /* PKMoveAction.h */,
+				2DFA01D4143A4E6100307EA5 /* PKMoveAction.m */,
+				2DFA01D5143A4E6100307EA5 /* PKAgeAction.h */,
+				2DFA01D6143A4E6100307EA5 /* PKAgeAction.m */,
+				2DFA01D7143A4E6100307EA5 /* PKAccelerateAction.h */,
+				2DFA01D8143A4E6100307EA5 /* PKAccelerateAction.m */,
+				2DFA01D9143A4E6100307EA5 /* PKFadeAction.h */,
+				2DFA01DA143A4E6100307EA5 /* PKFadeAction.m */,
+				2DFA01DB143A4E6100307EA5 /* PKColorChangeAction.h */,
+				2DFA01DC143A4E6100307EA5 /* PKColorChangeAction.m */,
+				2DFA01DD143A4E6100307EA5 /* PKScaleAction.h */,
+				2DFA01DE143A4E6100307EA5 /* PKScaleAction.m */,
+				2DFA01DF143A4E6100307EA5 /* PKSpeedLimitAction.h */,
+				2DFA01E0143A4E6100307EA5 /* PKSpeedLimitAction.m */,
+				2DFA01E1143A4E6100307EA5 /* PKRotateToDirectionAction.h */,
+				2DFA01E2143A4E6100307EA5 /* PKRotateToDirectionAction.m */,
+				2DFA01E3143A4E6100307EA5 /* PKRotateAction.h */,
+				2DFA01E4143A4E6100307EA5 /* PKRotateAction.m */,
+				2DFA01E5143A4E6100307EA5 /* PKLinearDragAction.h */,
+				2DFA01E6143A4E6100307EA5 /* PKLinearDragAction.m */,
+				2DFA01E7143A4E6100307EA5 /* PKRandomDriftAction.h */,
+				2DFA01E8143A4E6100307EA5 /* PKRandomDriftAction.m */,
+				2DFA01E9143A4E6100307EA5 /* PKDestroyAction.h */,
+				2DFA01EA143A4E6100307EA5 /* PKDestroyAction.m */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
+		2DFA020B143A4ECF00307EA5 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA0226143A4EE900307EA5 /* TBXMLParticleAdditions.h */,
+				2DFA0227143A4EE900307EA5 /* TBXMLParticleAdditions.m */,
+				2DFA020C143A4ECF00307EA5 /* Parsers */,
+				2DFA020F143A4ECF00307EA5 /* ParticleDesigner */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		2DFA020C143A4ECF00307EA5 /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA022A143A4EF200307EA5 /* PKParticleEffectParser.h */,
+				2DFA022B143A4EF200307EA5 /* PKParticleEffectParser.m */,
+				2DFA020D143A4ECF00307EA5 /* ParsedData */,
+				2DFA020E143A4ECF00307EA5 /* ParticleEffect */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		2DFA020D143A4ECF00307EA5 /* ParsedData */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA023A143A4F0100307EA5 /* PKDesignerParticleEmitterLoadedData.h */,
+			);
+			path = ParsedData;
+			sourceTree = "<group>";
+		};
+		2DFA020E143A4ECF00307EA5 /* ParticleEffect */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA022E143A4EFB00307EA5 /* PKDesignerParticleEffectParser.h */,
+				2DFA022F143A4EFB00307EA5 /* PKDesignerParticleEffectParser.m */,
+				2DFA0230143A4EFB00307EA5 /* PKPEXParticleEffectParser.h */,
+				2DFA0231143A4EFB00307EA5 /* PKPEXParticleEffectParser.m */,
+				2DFA0232143A4EFB00307EA5 /* PKPListParticleEffectParser.h */,
+				2DFA0233143A4EFB00307EA5 /* PKPListParticleEffectParser.m */,
+			);
+			path = ParticleEffect;
+			sourceTree = "<group>";
+		};
+		2DFA020F143A4ECF00307EA5 /* ParticleDesigner */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA0210143A4EDF00307EA5 /* PKDesignerParticleEmissionType.h */,
+				2DFA0211143A4EDF00307EA5 /* PKDesignerParticle.h */,
+				2DFA0212143A4EDF00307EA5 /* PKDesignerParticle.m */,
+				2DFA0213143A4EDF00307EA5 /* PKDesignerFlow.h */,
+				2DFA0214143A4EDF00307EA5 /* PKDesignerFlow.m */,
+				2DFA0215143A4EDF00307EA5 /* PKDesignerInitializer.h */,
+				2DFA0216143A4EDF00307EA5 /* PKDesignerInitializer.m */,
+				2DFA0217143A4EDF00307EA5 /* PKDesignerAction.h */,
+				2DFA0218143A4EDF00307EA5 /* PKDesignerAction.m */,
+				2DFA0219143A4EDF00307EA5 /* PKDesignerParticleEffect.h */,
+				2DFA021A143A4EDF00307EA5 /* PKDesignerParticleEffect.m */,
+			);
+			path = ParticleDesigner;
+			sourceTree = "<group>";
+		};
+		2DFA023C143A4F1A00307EA5 /* FrameTimer */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA023D143A4F2300307EA5 /* PKFrameTimer.h */,
+				2DFA023E143A4F2300307EA5 /* PKFrameTimer.m */,
+				2DFA023F143A4F2300307EA5 /* PKFrameTimerEvent.h */,
+				2DFA0240143A4F2300307EA5 /* PKFrameTimerEvent.m */,
+			);
+			path = FrameTimer;
+			sourceTree = "<group>";
+		};
+		2DFA0245143A4F3800307EA5 /* Zones */ = {
+			isa = PBXGroup;
+			children = (
+				2DFA0246143A4F4200307EA5 /* PKZone.h */,
+				2DFA0247143A4F4200307EA5 /* PKMultiZone.h */,
+				2DFA0248143A4F4200307EA5 /* PKMultiZone.m */,
+				2DFA0249143A4F4200307EA5 /* PKPointZone.h */,
+				2DFA024A143A4F4200307EA5 /* PKPointZone.m */,
+				2DFA024B143A4F4200307EA5 /* PKRectangleZone.h */,
+				2DFA024C143A4F4200307EA5 /* PKRectangleZone.m */,
+				2DFA024D143A4F4200307EA5 /* PKElipticalDiscZone.h */,
+				2DFA024E143A4F4200307EA5 /* PKElipticalDiscZone.m */,
+				2DFA024F143A4F4200307EA5 /* PKLineZone.h */,
+				2DFA0250143A4F4200307EA5 /* PKLineZone.m */,
+				2DFA0251143A4F4200307EA5 /* PKDiscZone.h */,
+				2DFA0252143A4F4200307EA5 /* PKDiscZone.m */,
+				2DFA0253143A4F4200307EA5 /* PKDiscSectorZone.h */,
+				2DFA0254143A4F4200307EA5 /* PKDiscSectorZone.m */,
+				2DFA0255143A4F4200307EA5 /* PKDisplayObjectZone.h */,
+				2DFA0256143A4F4200307EA5 /* PKDisplayObjectZone.m */,
+			);
+			path = Zones;
 			sourceTree = "<group>";
 		};
 		2DFFF76812CD2820009AA3C3 /* Box2D */ = {
@@ -460,7 +968,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA747D9F0F9514B9006C5449 /* PixelKit_Prefix.pch in Headers */,
-				9002411C111E04C700764A57 /* PixelKit.h in Headers */,
 				2DC35AB812CBC4BF00B2F195 /* PKBox2DDebugLayer.h in Headers */,
 				2DFFF7C212CD2820009AA3C3 /* Box2D.h in Headers */,
 				2DFFF7C412CD2820009AA3C3 /* b2BroadPhase.h in Headers */,
@@ -507,6 +1014,79 @@
 				2D0D876B12CD41BC00A887AF /* PKBox2DTouchPicker.h in Headers */,
 				5297FE121337B82B009856BE /* PKColor.h in Headers */,
 				2DF9AF5913E5E7FD006BF50F /* PKBox2DTouchPickerEvent.h in Headers */,
+				2DFA0146143A4D8500307EA5 /* PKParticleFactory.h in Headers */,
+				2DFA0147143A4D8500307EA5 /* PKParticleCreator.h in Headers */,
+				2DFA0151143A4D9A00307EA5 /* PKParticle.h in Headers */,
+				2DFA0153143A4D9A00307EA5 /* PKParticleEmitter.h in Headers */,
+				2DFA0155143A4D9A00307EA5 /* PKParticleBehavior.h in Headers */,
+				2DFA0156143A4D9A00307EA5 /* PKParticleEffect.h in Headers */,
+				2DFA0158143A4D9A00307EA5 /* PKParticleEffectLoader.h in Headers */,
+				2DFA0164143A4DA500307EA5 /* PKParticleFlow.h in Headers */,
+				2DFA0165143A4DA500307EA5 /* PKParticleFlowBase.h in Headers */,
+				2DFA0167143A4DA500307EA5 /* PKSteadyFlow.h in Headers */,
+				2DFA0169143A4DA500307EA5 /* PKBlastFlow.h in Headers */,
+				2DFA016B143A4DA500307EA5 /* PKTimePeriodFlow.h in Headers */,
+				2DFA016D143A4DA500307EA5 /* PKPulseFlow.h in Headers */,
+				2DFA0189143A4DAD00307EA5 /* PKParticleInitializer.h in Headers */,
+				2DFA018A143A4DAD00307EA5 /* PKParticleInitializerBase.h in Headers */,
+				2DFA018C143A4DAD00307EA5 /* PKGraphicInitializer.h in Headers */,
+				2DFA018D143A4DAD00307EA5 /* PKSharedGraphicInitializer.h in Headers */,
+				2DFA018F143A4DAD00307EA5 /* PKGraphicInstanceInitializer.h in Headers */,
+				2DFA0191143A4DAD00307EA5 /* PKLifetimeInitializer.h in Headers */,
+				2DFA0193143A4DAD00307EA5 /* PKPositionInitializer.h in Headers */,
+				2DFA0195143A4DAD00307EA5 /* PKVelocityInitializer.h in Headers */,
+				2DFA0197143A4DAD00307EA5 /* PKAlphaInitializer.h in Headers */,
+				2DFA0199143A4DAD00307EA5 /* PKColorInitializer.h in Headers */,
+				2DFA019B143A4DAD00307EA5 /* PKScaleInitializer.h in Headers */,
+				2DFA019D143A4DAD00307EA5 /* PKBlendInitializer.h in Headers */,
+				2DFA019F143A4DAD00307EA5 /* PKRotationInitializer.h in Headers */,
+				2DFA01A1143A4DAD00307EA5 /* PKAngularSpeedInitializer.h in Headers */,
+				2DFA01B2143A4DDC00307EA5 /* PKParticleRenderer.h in Headers */,
+				2DFA01B3143A4DDC00307EA5 /* PKParticleRendererBase.h in Headers */,
+				2DFA01B5143A4DDC00307EA5 /* PKDisplayObjectRenderer.h in Headers */,
+				2DFA01B7143A4DDC00307EA5 /* PKPointRenderer.h in Headers */,
+				2DFA01BB143A4DDC00307EA5 /* PKQuadRenderer.h in Headers */,
+				2DFA01BD143A4DDC00307EA5 /* PKSharedDisplayObjectRenderer.h in Headers */,
+				2DFA01EB143A4E6100307EA5 /* PKParticleAction.h in Headers */,
+				2DFA01EC143A4E6100307EA5 /* PKParticleActionBase.h in Headers */,
+				2DFA01EE143A4E6100307EA5 /* PKMoveAction.h in Headers */,
+				2DFA01F0143A4E6100307EA5 /* PKAgeAction.h in Headers */,
+				2DFA01F2143A4E6100307EA5 /* PKAccelerateAction.h in Headers */,
+				2DFA01F4143A4E6100307EA5 /* PKFadeAction.h in Headers */,
+				2DFA01F6143A4E6100307EA5 /* PKColorChangeAction.h in Headers */,
+				2DFA01F8143A4E6100307EA5 /* PKScaleAction.h in Headers */,
+				2DFA01FA143A4E6100307EA5 /* PKSpeedLimitAction.h in Headers */,
+				2DFA01FC143A4E6100307EA5 /* PKRotateToDirectionAction.h in Headers */,
+				2DFA01FE143A4E6100307EA5 /* PKRotateAction.h in Headers */,
+				2DFA0200143A4E6100307EA5 /* PKLinearDragAction.h in Headers */,
+				2DFA0202143A4E6100307EA5 /* PKRandomDriftAction.h in Headers */,
+				2DFA0204143A4E6100307EA5 /* PKDestroyAction.h in Headers */,
+				2DFA021B143A4EDF00307EA5 /* PKDesignerParticleEmissionType.h in Headers */,
+				2DFA021C143A4EDF00307EA5 /* PKDesignerParticle.h in Headers */,
+				2DFA021E143A4EDF00307EA5 /* PKDesignerFlow.h in Headers */,
+				2DFA0220143A4EDF00307EA5 /* PKDesignerInitializer.h in Headers */,
+				2DFA0222143A4EDF00307EA5 /* PKDesignerAction.h in Headers */,
+				2DFA0224143A4EDF00307EA5 /* PKDesignerParticleEffect.h in Headers */,
+				2DFA0228143A4EE900307EA5 /* TBXMLParticleAdditions.h in Headers */,
+				2DFA022C143A4EF200307EA5 /* PKParticleEffectParser.h in Headers */,
+				2DFA0234143A4EFB00307EA5 /* PKDesignerParticleEffectParser.h in Headers */,
+				2DFA0236143A4EFB00307EA5 /* PKPEXParticleEffectParser.h in Headers */,
+				2DFA0238143A4EFB00307EA5 /* PKPListParticleEffectParser.h in Headers */,
+				2DFA023B143A4F0100307EA5 /* PKDesignerParticleEmitterLoadedData.h in Headers */,
+				2DFA0241143A4F2300307EA5 /* PKFrameTimer.h in Headers */,
+				2DFA0243143A4F2300307EA5 /* PKFrameTimerEvent.h in Headers */,
+				2DFA0257143A4F4200307EA5 /* PKZone.h in Headers */,
+				2DFA0258143A4F4200307EA5 /* PKMultiZone.h in Headers */,
+				2DFA025A143A4F4200307EA5 /* PKPointZone.h in Headers */,
+				2DFA025C143A4F4200307EA5 /* PKRectangleZone.h in Headers */,
+				2DFA025E143A4F4200307EA5 /* PKElipticalDiscZone.h in Headers */,
+				2DFA0260143A4F4200307EA5 /* PKLineZone.h in Headers */,
+				2DFA0262143A4F4200307EA5 /* PKDiscZone.h in Headers */,
+				2DFA0264143A4F4200307EA5 /* PKDiscSectorZone.h in Headers */,
+				2DFA0266143A4F4200307EA5 /* PKDisplayObjectZone.h in Headers */,
+				2DFA0269143A4F4B00307EA5 /* PKRange.h in Headers */,
+				2D74AE75143F4D2B00D7B84E /* PixelKitBox2DUtils.h in Headers */,
+				52C9EE1E14460AD300EEE33A /* PixelKitParticles.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -624,6 +1204,66 @@
 				2DFFF81312CD2821009AA3C3 /* b2WeldJoint.cpp in Sources */,
 				2D0D876C12CD41BC00A887AF /* PKBox2DTouchPicker.mm in Sources */,
 				2DF9AF5A13E5E7FD006BF50F /* PKBox2DTouchPickerEvent.mm in Sources */,
+				2DFA0148143A4D8500307EA5 /* PKParticleCreator.m in Sources */,
+				2DFA0152143A4D9A00307EA5 /* PKParticle.m in Sources */,
+				2DFA0154143A4D9A00307EA5 /* PKParticleEmitter.m in Sources */,
+				2DFA0157143A4D9A00307EA5 /* PKParticleEffect.m in Sources */,
+				2DFA0166143A4DA500307EA5 /* PKParticleFlowBase.m in Sources */,
+				2DFA0168143A4DA500307EA5 /* PKSteadyFlow.m in Sources */,
+				2DFA016A143A4DA500307EA5 /* PKBlastFlow.m in Sources */,
+				2DFA016C143A4DA500307EA5 /* PKTimePeriodFlow.m in Sources */,
+				2DFA016E143A4DA500307EA5 /* PKPulseFlow.m in Sources */,
+				2DFA018B143A4DAD00307EA5 /* PKParticleInitializerBase.m in Sources */,
+				2DFA018E143A4DAD00307EA5 /* PKSharedGraphicInitializer.m in Sources */,
+				2DFA0190143A4DAD00307EA5 /* PKGraphicInstanceInitializer.m in Sources */,
+				2DFA0192143A4DAD00307EA5 /* PKLifetimeInitializer.m in Sources */,
+				2DFA0194143A4DAD00307EA5 /* PKPositionInitializer.m in Sources */,
+				2DFA0196143A4DAD00307EA5 /* PKVelocityInitializer.m in Sources */,
+				2DFA0198143A4DAD00307EA5 /* PKAlphaInitializer.m in Sources */,
+				2DFA019A143A4DAD00307EA5 /* PKColorInitializer.m in Sources */,
+				2DFA019C143A4DAD00307EA5 /* PKScaleInitializer.m in Sources */,
+				2DFA019E143A4DAD00307EA5 /* PKBlendInitializer.m in Sources */,
+				2DFA01A0143A4DAD00307EA5 /* PKRotationInitializer.m in Sources */,
+				2DFA01A2143A4DAD00307EA5 /* PKAngularSpeedInitializer.m in Sources */,
+				2DFA01B4143A4DDC00307EA5 /* PKParticleRendererBase.m in Sources */,
+				2DFA01B6143A4DDC00307EA5 /* PKDisplayObjectRenderer.m in Sources */,
+				2DFA01B8143A4DDC00307EA5 /* PKPointRenderer.m in Sources */,
+				2DFA01BC143A4DDC00307EA5 /* PKQuadRenderer.m in Sources */,
+				2DFA01BE143A4DDC00307EA5 /* PKSharedDisplayObjectRenderer.m in Sources */,
+				2DFA01ED143A4E6100307EA5 /* PKParticleActionBase.m in Sources */,
+				2DFA01EF143A4E6100307EA5 /* PKMoveAction.m in Sources */,
+				2DFA01F1143A4E6100307EA5 /* PKAgeAction.m in Sources */,
+				2DFA01F3143A4E6100307EA5 /* PKAccelerateAction.m in Sources */,
+				2DFA01F5143A4E6100307EA5 /* PKFadeAction.m in Sources */,
+				2DFA01F7143A4E6100307EA5 /* PKColorChangeAction.m in Sources */,
+				2DFA01F9143A4E6100307EA5 /* PKScaleAction.m in Sources */,
+				2DFA01FB143A4E6100307EA5 /* PKSpeedLimitAction.m in Sources */,
+				2DFA01FD143A4E6100307EA5 /* PKRotateToDirectionAction.m in Sources */,
+				2DFA01FF143A4E6100307EA5 /* PKRotateAction.m in Sources */,
+				2DFA0201143A4E6100307EA5 /* PKLinearDragAction.m in Sources */,
+				2DFA0203143A4E6100307EA5 /* PKRandomDriftAction.m in Sources */,
+				2DFA0205143A4E6100307EA5 /* PKDestroyAction.m in Sources */,
+				2DFA021D143A4EDF00307EA5 /* PKDesignerParticle.m in Sources */,
+				2DFA021F143A4EDF00307EA5 /* PKDesignerFlow.m in Sources */,
+				2DFA0221143A4EDF00307EA5 /* PKDesignerInitializer.m in Sources */,
+				2DFA0223143A4EDF00307EA5 /* PKDesignerAction.m in Sources */,
+				2DFA0225143A4EDF00307EA5 /* PKDesignerParticleEffect.m in Sources */,
+				2DFA0229143A4EE900307EA5 /* TBXMLParticleAdditions.m in Sources */,
+				2DFA022D143A4EF200307EA5 /* PKParticleEffectParser.m in Sources */,
+				2DFA0235143A4EFB00307EA5 /* PKDesignerParticleEffectParser.m in Sources */,
+				2DFA0237143A4EFB00307EA5 /* PKPEXParticleEffectParser.m in Sources */,
+				2DFA0239143A4EFB00307EA5 /* PKPListParticleEffectParser.m in Sources */,
+				2DFA0242143A4F2300307EA5 /* PKFrameTimer.m in Sources */,
+				2DFA0244143A4F2300307EA5 /* PKFrameTimerEvent.m in Sources */,
+				2DFA0259143A4F4200307EA5 /* PKMultiZone.m in Sources */,
+				2DFA025B143A4F4200307EA5 /* PKPointZone.m in Sources */,
+				2DFA025D143A4F4200307EA5 /* PKRectangleZone.m in Sources */,
+				2DFA025F143A4F4200307EA5 /* PKElipticalDiscZone.m in Sources */,
+				2DFA0261143A4F4200307EA5 /* PKLineZone.m in Sources */,
+				2DFA0263143A4F4200307EA5 /* PKDiscZone.m in Sources */,
+				2DFA0265143A4F4200307EA5 /* PKDiscSectorZone.m in Sources */,
+				2DFA0267143A4F4200307EA5 /* PKDisplayObjectZone.m in Sources */,
+				2DFA0297143A512900307EA5 /* PKParticleEffectLoader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

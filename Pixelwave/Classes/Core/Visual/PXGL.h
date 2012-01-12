@@ -48,6 +48,8 @@ extern "C" {
 #include "PXGLState.h"
 #include "PXHeaderUtils.h"
 
+PXExtern const PXGLMatrix pxGLMatrixIdentity;
+
 GLfloat PXGLGetContentScaleFactor();
 GLfloat PXGLGetOneOverContentScaleFactor();
 GLuint PXGLDBGGetRenderCallCount();

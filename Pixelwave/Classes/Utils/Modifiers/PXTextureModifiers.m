@@ -52,6 +52,8 @@
 #import "PXTextureModifierL8.h"
 #import "PXTextureModifierLA88.h"
 
+#import "PXTextureModifierPremultiplyAlpha.h"
+
 /**
  * PXTextureModifiers creates a texture modifier from a premade list of
  * modifiers.
@@ -99,6 +101,11 @@
 	PXDebugLog(@"Converting to the pixel format [%d] is not supported at this time.\n", format);
 
 	return nil;
+}
+
++ (id<PXTextureModifier>) textureModifierToPremultiplyAlpha
+{
+	return [[[PXTextureModifierPremultiplyAlpha alloc] init] autorelease];
 }
 
 @end

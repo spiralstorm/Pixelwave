@@ -847,7 +847,7 @@ void PXEngineRender()
 	}
 #endif
 
-	PXGLPostRender();
+	PXGLPostRender(true);
 	PXGLConsolidateBuffers();
 
 	/*
@@ -1387,7 +1387,7 @@ void PXEngineRenderToTexture(PXTextureData *textureData, PXDisplayObject *source
 	PXEngineRenderDisplayObject(source, false, false);
 
 	// Flush anything, render any queued up commands
-	PXGLPostRender();
+	PXGLPostRender(false);
 
 	////////////////////////////////////
 	// Restore screen rendering state //

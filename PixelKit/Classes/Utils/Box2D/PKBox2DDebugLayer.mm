@@ -37,9 +37,9 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#import "Box2D.h"
 #import "PKBox2DDebugLayer.h"
 
+#include "Box2D.h"
 #include "PXGL.h"
 
 // This class implements debug drawing callbacks that are invoked inside
