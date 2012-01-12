@@ -99,6 +99,9 @@ PXExtern NSString * const PXTextFieldDefaultFont;
 // Using libpng or CoreImage
 #define PX_TEXTURE_PARSER_USE_LIBPNG 1
 
+// Use CADisplayLink for updates instead of NSTimer
+#define PX_USE_DISPLAY_LINK 1
+
 ///////////////////
 // Screen colors //
 ///////////////////

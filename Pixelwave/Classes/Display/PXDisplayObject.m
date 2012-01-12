@@ -171,6 +171,10 @@ static unsigned int _pxDisplayObjectCount = 0;
 	{
 		PXEngineRemoveRenderListener(self);
 	}
+	if ([self hasEventListenerOfType:PXEvent_PostRender])
+	{
+		PXEngineRemovePostRenderListener(self);
+	}
 
 	// Have to manually do this because setName forces name to be a value - it
 	// can not be null.
@@ -983,6 +987,7 @@ static unsigned int _pxDisplayObjectCount = 0;
 
 	// 1 = enterFrame
 	// 2 = render
+	// 3 = post render
 	
 	if (!useCapture)
 	{
@@ -997,6 +1002,11 @@ static unsigned int _pxDisplayObjectCount = 0;
 		{
 			if (![self hasEventListenerOfType:type])
 				engineListenerToAdd = 2;
+		}
+		else if ([type isEqualToString:PXEvent_PostRender])
+		{
+			if (![self hasEventListenerOfType:type])
+				engineListenerToAdd = 3;
 		}
 	}
 	
@@ -1022,6 +1032,9 @@ static unsigned int _pxDisplayObjectCount = 0;
 				break;
 			case 2:
 				PXEngineAddRenderListener(self);
+				break;
+			case 3:
+				PXEngineAddPostRenderListener(self);
 				break;
 			default:
 				break;
@@ -1057,6 +1070,13 @@ static unsigned int _pxDisplayObjectCount = 0;
 			if (![self hasEventListenerOfType:type])
 			{
 				PXEngineRemoveRenderListener(self);
+			}
+		}
+		else if ([type isEqualToString:PXEvent_PostRender])
+		{
+			if (![self hasEventListenerOfType:type])
+			{
+				PXEngineRemovePostRenderListener(self);
 			}
 		}
 	}

@@ -68,9 +68,11 @@ PXObjectPool *pxEngineSharedObjectPool = nil;
 PXLinkedList *pxEngineCachedListeners = nil;			//Strongly referenced
 PXLinkedList *pxEngineFrameListeners = nil;				//Strongly referenced
 PXLinkedList *pxEngineRenderListeners = nil;			//Strongly referenced
+PXLinkedList *pxEnginePostRenderListeners = nil;		//Strongly referenced
 
 PXEvent *pxEngineEnterFrameEvent = nil;					//Strongly referenced
 PXEvent *pxEngineRenderEvent = nil;						//Strongly referenced
+PXEvent *pxEnginePostRenderEvent = nil;					//Strongly referenced
 
 bool pxEngineInitialized = false;
 bool pxEngineShouldClear = false;
@@ -235,6 +237,8 @@ void PXEngineDealloc()
 	pxEngineEnterFrameEvent = nil;
 	[pxEngineRenderEvent release];
 	pxEngineRenderEvent = nil;
+	[pxEnginePostRenderEvent release];
+	pxEnginePostRenderEvent = nil;
 
 	[pxEngineCachedListeners release];
 	pxEngineCachedListeners = nil;
@@ -242,6 +246,8 @@ void PXEngineDealloc()
 	pxEngineFrameListeners = nil;
 	[pxEngineRenderListeners release];
 	pxEngineRenderListeners = nil;
+	[pxEnginePostRenderListeners release];
+	pxEnginePostRenderListeners = nil;
 
 	// Get rid of the render-to-texture buffer
 	if (pxEngineRTTFBO != 0)
@@ -617,6 +623,62 @@ void PXEngineDispatchRenderEvents()
 	[pxEngineCachedListeners removeAllObjects];
 }
 
+void PXEngineAddPostRenderListener(PXDisplayObject *displayObject)
+{
+	if (pxEnginePostRenderListeners == nil)
+	{
+		pxEnginePostRenderListeners = [[PXLinkedList alloc] initWithWeakReferences:YES];
+		pxEnginePostRenderEvent = [[PXEvent alloc] initWithType:PXEvent_PostRender bubbles:NO cancelable:NO];
+	}
+	
+	[pxEnginePostRenderListeners addObject:displayObject];
+}
+
+void PXEngineRemovePostRenderListener(PXDisplayObject *displayObject)
+{
+	if (pxEnginePostRenderListeners == nil)
+		return;
+	
+	[pxEnginePostRenderListeners removeObject:displayObject];
+	
+	// If that was the last listener, get rid of the list
+	// and the shared event object.
+	if (pxEnginePostRenderListeners.count == 0)
+	{
+		[pxEnginePostRenderListeners release];
+		pxEnginePostRenderListeners = nil;
+		
+		[pxEnginePostRenderEvent release];
+		pxEnginePostRenderEvent = nil;
+	}
+}
+
+void PXEngineDispatchPostRenderEvents()
+{
+	if (pxEnginePostRenderEvent == nil)
+		return;
+	
+	PXDisplayObject *child = nil;
+	
+	// Dispatch it on all listeners (listeners must be PXDisplayObjects, but
+	// aren't necessarily on the display list, don't have to have a non-nil
+	// 'parent').
+	PXLinkedListForEach(pxEnginePostRenderListeners, child)
+	{
+		[pxEngineCachedListeners addObject:child];
+	}
+	
+	PXLinkedListForEach(pxEngineCachedListeners, child)
+	{
+		// The enterFrame event doesn't follow the usual event flow
+		// (capture, target, bubble), even though it's dispatched
+		// into the display list in some cases.
+		[child _dispatchEventNoFlow:pxEnginePostRenderEvent];
+	}
+	
+	[pxEngineCachedListeners removeAllObjects];
+}
+
 /**
  * The main rendering function. This renders the entire display list, starting
  * at the stage, to the screen.
@@ -796,6 +858,12 @@ void PXEngineRender()
 	}
 #endif
 	 */
+
+	// Dispatch post render events.  This gives client code an opportunity
+	// to overlay its own OpenGL operations.
+	PXEngineDispatchPostRenderEvents();
+
+	[pxEngineView _swapBuffers];
 }
 
 /*
@@ -1502,7 +1570,7 @@ float _PXEngineDBGGetTimeWaiting()
 	{
 		displayLinkSupported = NO;
 
-#ifdef __IPHONE_3_1
+#if PX_USE_DISPLAY_LINK && defined __IPHONE_3_1
 		NSString *reqSysVer = @"3.1";
 		NSString *currSysVer = [[UIDevice currentDevice] systemVersion];
 		if ([currSysVer compare:reqSysVer options:NSNumericSearch] != NSOrderedAscending)
