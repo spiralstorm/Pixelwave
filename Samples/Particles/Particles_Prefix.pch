@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'PXParticles' target in the 'PXParticles' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+    #import <UIKit/UIKit.h>
+#endif

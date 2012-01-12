@@ -45,5 +45,6 @@
 
 //-- ScriptName: modifierToFormat
 + (id<PXTextureModifier>) textureModifierToPixelFormat:(PXTextureDataPixelFormat)format;
++ (id<PXTextureModifier>) textureModifierToPremultiplyAlpha;
 
 @end

@@ -1,0 +1,27 @@
+{"frames": {
+
+"ArrowButton.png":
+{
+	"frame": {"x":0,"y":640,"w":94,"h":95},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":94,"h":95},
+	"sourceSize": {"w":94,"h":95}
+},
+"Background.png":
+{
+	"frame": {"x":0,"y":0,"w":960,"h":640},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":960,"h":640},
+	"sourceSize": {"w":960,"h":640}
+}
+}, 
+"meta": {
+	"app": "http://www.texturepacker.com",
+	"version": "1.0",
+	"image": "Assets@2x.png",
+	"format": "RGBA8888",
+	"size": {"w":1024,"h":1024}
+}
+}
