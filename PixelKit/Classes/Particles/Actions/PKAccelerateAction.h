@@ -37,9 +37,20 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#ifndef _PIXEL_KIT_H_
-#define _PIXEL_KIT_H_
+#import "PKParticleActionBase.h"
 
-// ...
+@interface PKAccelerateAction : PKParticleActionBase
+{
+@private
+	float x;
+	float y;
+}
 
-#endif
+@property (nonatomic, assign) float x;
+@property (nonatomic, assign) float y;
+
+- (id) initWithX:(float)accelX y:(float)accelY;
+
++ (PKAccelerateAction *)accelerateActionWithX:(float)x y:(float)y;
+
+@end

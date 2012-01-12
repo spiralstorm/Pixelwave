@@ -38,8 +38,8 @@
  */
 
 #import "PKBox2DTouchPicker.h"
+
 #import "PXMathUtils.h"
-#import "PKBox2DTouchPickerEvent.h"
 
 // Query Callback
 class PKTouchPickerQueryCallback : public b2QueryCallback

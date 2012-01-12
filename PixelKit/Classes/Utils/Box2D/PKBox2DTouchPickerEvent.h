@@ -37,10 +37,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  */
 
-#import "PXEvent.h"
+#import "Pixelwave.h"
 #import "Box2D.h"
-
-#import <UIKit/UIKit.h>
 
 PXExtern NSString * const PKBox2DTouchPickerEvent_PickStart;
 PXExtern NSString * const PKBox2DTouchPickerEvent_PickEnd;

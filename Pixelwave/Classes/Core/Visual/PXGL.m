@@ -49,6 +49,8 @@
 #import "PXGLUtils.h"
 #include "PXGLStatePrivate.h"
 
+const PXGLMatrix pxGLMatrixIdentity = {1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f};
+
 GLuint pxGLFrameBuffer = 0;
 GLuint pxGLRenderBuffer = 0;
 
@@ -75,6 +77,7 @@ GLuint pxGLRenderCallCount;
 
 float pxGLScaleFactor = 1.0f;
 float pxGLOne_ScaleFactor = 1.0f;
+
 unsigned pxGLWidthInPoints  = 0;
 unsigned pxGLHeightInPoints = 0;
 
@@ -454,15 +457,20 @@ void PXGLPreRender()
  * This method finishes both PXGL and GL rendering cycle (flushing the buffer,
  * etc.).
  */
-void PXGLPostRender()
+void PXGLPostRender(bool resetCounter)
 {
 	PXGLRendererPostRender();
 	glPopMatrix();
 
 #ifdef PX_DEBUG_MODE
-	if (PXDebugIsEnabled(PXDebugSetting_CountGLCalls))
+	if (resetCounter == true)
 	{
-		pxGLRenderCallCount = PXGLGetDrawCountThenResetIt();
+		int count = PXGLGetDrawCountThenResetIt();
+
+		if (PXDebugIsEnabled(PXDebugSetting_CountGLCalls))
+		{
+			pxGLRenderCallCount = count;
+		}
 	}
 #endif
 }
@@ -662,9 +670,9 @@ void PXGLColor4f(GLfloat red, GLfloat green, GLfloat blue, GLfloat alpha)
  * PXGLColor4ub sets a new four-valued current RGBA color.  Current color values
  * are stored in bytes.
  *
- * PXGLColor4ub does a check to see if the color you are setting has is the
- * same as the one that is currently set, if it is then it does not set the
- * color; this is done to help stop redundant gl state changes.
+ * PXGLColor4ub does a check to see if the color you are setting has is the same
+ * as the one that is currently set, if it is then it does not set the color;
+ * this is done to help stop redundant gl state changes.
  *
  * @param GLfloat red   - The red value for the current color.
  * @param GLfloat green - The green value for the current color.
