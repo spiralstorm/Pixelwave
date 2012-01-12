@@ -50,6 +50,7 @@ NSString * const PXEvent_Removed = @"removed";
 NSString * const PXEvent_AddedToStage = @"addedToStage";
 NSString * const PXEvent_RemovedFromStage = @"removedFromStage";
 NSString * const PXEvent_Render = @"render";
+NSString * const PXEvent_PostRender = @"postRender";
 NSString * const PXEvent_SoundComplete = @"soundComplete";
 
 @interface PXEvent(Private)

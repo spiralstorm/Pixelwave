@@ -49,6 +49,7 @@ PXExtern NSString * const PXEvent_Removed;
 PXExtern NSString * const PXEvent_AddedToStage;
 PXExtern NSString * const PXEvent_RemovedFromStage;
 PXExtern NSString * const PXEvent_Render;
+PXExtern NSString * const PXEvent_PostRender;
 PXExtern NSString * const PXEvent_SoundComplete;
 
 //@ Event Phases
