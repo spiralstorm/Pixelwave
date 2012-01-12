@@ -99,7 +99,7 @@
 {
 	//Render the graphics object
 	if (_graphics)
-		[_graphics _renderGL];
+		[_graphics _renderGLWithDisplayObject:self];
 }
 
 @end

@@ -257,6 +257,11 @@ inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType typ
 // MARK: Lines
 // MARK: -
 
+- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha
+{
+	[self lineStyleWithThickness:thickness color:color alpha:alpha pixelHinting:false scaleMode:PXLineScaleMode_Normal caps:PXCapsStyle_Round joints:PXJointStyle_Bevel miterLimit:3.0f];
+}
+
 - (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit
 {
 	inkStroke stroke = inkStrokeMake(thickness, pixelHinting, (inkLineScaleMode)scaleMode, (inkCapsStyle)caps, (inkJointStyle)joints, miterLimit);
@@ -559,10 +564,20 @@ inkGradientFill PXGraphicsGradientInfoMake(inkCanvas* canvas, PXGradientType typ
 - (void) _postFrame:(PXDisplayObject *)displayObject
 {
 	[self buildWithDisplayObject:displayObject];
+	justBuilt = true;
 }
 
-- (void) _renderGL
+- (void) _renderGLWithDisplayObject:(PXDisplayObject *)displayObject
 {
+	// In most cases, this shouldn't do anything as the post frame will take
+	// care of it during the 'frame time', however this is useful if this was
+	// not on the display hierarchy and therefore did not receieve the post
+	// frame.
+	if (justBuilt == false)
+		[self buildWithDisplayObject:displayObject];
+	else
+		justBuilt = false;
+
 	if (buildStyle == PXGraphicsBuildStyle_GL)
 	{
 		vertexCount = inkDrawv((inkCanvas*)vCanvas, (inkRenderer*)&pxGraphicsInkRenderer);

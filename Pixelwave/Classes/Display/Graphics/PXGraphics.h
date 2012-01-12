@@ -94,6 +94,7 @@ typedef enum
 
 	PXGraphicsBuildStyle buildStyle;
 	bool wasBuilt;
+	bool justBuilt;
 	//bool convertTrianglesIntoStrips;
 }
 
@@ -114,6 +115,7 @@ typedef enum
 
 - (void) endFill;
 
+- (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha;
 - (void) lineStyleWithThickness:(float)thickness color:(unsigned int)color alpha:(float)alpha pixelHinting:(BOOL)pixelHinting scaleMode:(PXLineScaleMode)scaleMode caps:(PXCapsStyle)caps joints:(PXJointStyle)joints miterLimit:(float)miterLimit;
 - (void) lineStyleWithTextureData:(PXTextureData *)textureData matrix:(PXMatrix *)matrix repeat:(BOOL)repeat smooth:(BOOL)smooth;
 // Colors must be of type 'NSNumber' that are unsigned integers
@@ -151,5 +153,5 @@ typedef enum
 - (BOOL) _containsLocalPoint:(CGPoint)point displayObject:(PXDisplayObject *)displayObject shapeFlag:(BOOL)shapeFlag useStroke:(BOOL)useStroke;
 
 - (void) _postFrame:(PXDisplayObject *)displayObject;
-- (void) _renderGL;
+- (void) _renderGLWithDisplayObject:(PXDisplayObject *)displayObject;
 @end

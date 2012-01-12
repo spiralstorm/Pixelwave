@@ -49,7 +49,8 @@
 #include "PXEngineUtils.h"
 
 /**
- * A PXSprite is a concrete display object that can contain children and has a graphics object.
+ * A PXSprite is a concrete display object that can contain children and has a
+ * graphics object.
  *
  * @see PXSimpleSprite
  * @see PXGraphics
@@ -182,9 +183,7 @@
 {
 	// Render the graphics object
 	if (_graphics)
-	{
-		[_graphics _renderGL];
-	}
+		[_graphics _renderGLWithDisplayObject:self];
 }
 
 /**
