@@ -124,6 +124,7 @@ typedef struct
 #pragma mark -
 
 BOOL PXMathIsNan(float val);
+int PXMathSignbit(float val);
 
 float PXMathRandom();
 float PXMathFloatInRange(float min, float max);

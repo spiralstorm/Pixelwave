@@ -49,6 +49,11 @@ BOOL PXMathIsNan(float val)
 	return isnan(val);
 }
 
+int PXMathSignbit(float val)
+{
+	return signbit(val);
+}
+
 float PXMathRandom()
 {
 	return rand() * pxMathUtilsOneOverMaxRand;
