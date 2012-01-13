@@ -629,13 +629,6 @@ CGPoint PXTouchEngineTouchToScreenCoordinates(UITouch *touch)
 	// Grab the location of the touch in the view
 	CGPoint point = [touch locationInView:pxEngineView];
 
-	CAEAGLLayer *eaglLayer = (CAEAGLLayer *)[pxEngineView layer];
-	CGPoint pos = eaglLayer.position;
-
-	// Add the layer's position, this way we are always in the correct spot.
-	point.x += pos.x;
-	point.y += pos.y;
-
 	// Convert it to stage coordinates.
 	PX_ENGINE_CONVERT_POINT_TO_STAGE_ORIENTATION(point.x, point.y, pxEngineStage);
 
