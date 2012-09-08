@@ -53,25 +53,25 @@ NSString *_alGetErrorString(ALenum error)
 {
 	if (error == AL_NO_ERROR)
 	{
-		return [NSString stringWithString:@"no error"];
+		return @"No error";
 	}
 
 	switch (error)
 	{
 		case AL_INVALID_NAME:
-			return [NSString stringWithString:@"invalid name"];
+			return @"Invalid name";
 		case AL_INVALID_ENUM:
-			return [NSString stringWithString:@"invalid enum"];
+			return @"Invalid enum";
 		case AL_INVALID_VALUE:
-			return [NSString stringWithString:@"invalid value"];
+			return @"Invalid value";
 		case AL_INVALID_OPERATION:
-			return [NSString stringWithString:@"invalid operation"];
+			return @"Invalid operation";
 		case AL_OUT_OF_MEMORY:
-			return [NSString stringWithString:@"out of memory"];
+			return @"Out of memory";
 		case 0xFFFFFFFF:
-			return [NSString stringWithString:@"too many sounds playing"];
+			return @"Too many sounds playing";
 		default:
-			return [NSString stringWithString:@"unknown error"];
+			return @"Unknown error";
 	}
 
 	return nil;
@@ -644,23 +644,23 @@ NSString *_alcGetErrorString(ALCenum error)
 {
 	if (error == ALC_NO_ERROR)
 	{
-		return [NSString stringWithString:@"no error"];
+		return @"No error";
 	}
 	
 	switch (error)
 	{
 		case ALC_INVALID_DEVICE:
-			return [NSString stringWithString:@"invalid device"];
+			return @"Invalid device";
 		case ALC_INVALID_CONTEXT:
-			return [NSString stringWithString:@"invalid context"];
+			return @"Invalid context";
 		case ALC_INVALID_ENUM:
-			return [NSString stringWithString:@"invalid enum"];
+			return @"Invalid enum";
 		case ALC_INVALID_VALUE:
-			return [NSString stringWithString:@"invalid value"];
+			return @"Invalid value";
 		case ALC_OUT_OF_MEMORY:
-			return [NSString stringWithString:@"out of memory"];
+			return @"Out of memory";
 		default:
-			return [NSString stringWithString:@"unknown error"];
+			return @"Unknown error";
 	}
 	
 	return nil;

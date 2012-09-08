@@ -232,7 +232,7 @@ static PXObjectPool *pxSharedObjectPool = nil;
 {
 	NSMutableString *str = [NSMutableString new];
 
-	[str appendFormat:@"[ObjectPool numTypes = %i]"];
+	[str appendFormat:@"[ObjectPool numTypes = %i]", [pools count]];
 
 	return [str autorelease];
 }
