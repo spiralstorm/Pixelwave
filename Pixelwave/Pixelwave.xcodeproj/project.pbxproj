@@ -506,6 +506,8 @@
 		52DE2A2B12FB26BA00E25924 /* PXTextureLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DE2A2912FB26BA00E25924 /* PXTextureLoader.m */; };
 		52DE2A2E12FB26CC00E25924 /* PXSoundLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 52DE2A2C12FB26CC00E25924 /* PXSoundLoader.h */; };
 		52DE2A2F12FB26CC00E25924 /* PXSoundLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = 52DE2A2D12FB26CC00E25924 /* PXSoundLoader.m */; };
+		649D5503164AE3050032998E /* PXAnimationAtlasParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 649D5501164AE3030032998E /* PXAnimationAtlasParser.h */; };
+		649D5504164AE3050032998E /* PXAnimationAtlasParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 649D5502164AE3040032998E /* PXAnimationAtlasParser.m */; };
 		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -1009,6 +1011,8 @@
 		52DE2A2912FB26BA00E25924 /* PXTextureLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXTextureLoader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		52DE2A2C12FB26CC00E25924 /* PXSoundLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXSoundLoader.h; sourceTree = "<group>"; };
 		52DE2A2D12FB26CC00E25924 /* PXSoundLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PXSoundLoader.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		649D5501164AE3030032998E /* PXAnimationAtlasParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PXAnimationAtlasParser.h; sourceTree = "<group>"; };
+		649D5502164AE3040032998E /* PXAnimationAtlasParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PXAnimationAtlasParser.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* Pixelwave_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pixelwave_Prefix.pch; sourceTree = "<group>"; };
 		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D2AAC07E0554694100DB518D /* libPixelwave.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPixelwave.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1234,6 +1238,8 @@
 		2D0E8D0D1353F78100A42B3D /* TextureAtlasParsers */ = {
 			isa = PBXGroup;
 			children = (
+				649D5501164AE3030032998E /* PXAnimationAtlasParser.h */,
+				649D5502164AE3040032998E /* PXAnimationAtlasParser.m */,
 				2D543D2D1360F48D004AA569 /* PXSimpleAtlasParser.h */,
 				2D543D2E1360F48D004AA569 /* PXSimpleAtlasParser.m */,
 				2D0E8D1C1353F8A900A42B3D /* PXTPAtlasParser.h */,
@@ -2430,6 +2436,7 @@
 				2DFA00E9143A4B4900307EA5 /* TBXML.h in Headers */,
 				2DFA00EB143A4B4900307EA5 /* TBXMLNSDataAdditions.h in Headers */,
 				521FC507143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.h in Headers */,
+				649D5503164AE3050032998E /* PXAnimationAtlasParser.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2674,6 +2681,7 @@
 				2DFA00EA143A4B4900307EA5 /* TBXML.m in Sources */,
 				2DFA00EC143A4B4900307EA5 /* TBXMLNSDataAdditions.m in Sources */,
 				521FC508143CA6ED00D9D7BF /* PXTextureModifierPremultiplyAlpha.m in Sources */,
+				649D5504164AE3050032998E /* PXAnimationAtlasParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
