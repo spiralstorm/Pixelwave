@@ -419,7 +419,7 @@ _PXLLNode pxLinkedListBadNode;
 		}
 	}
 
-	NSAssert(NO, @"Linked List: Weird error... objectAtIndex:%i");
+	NSAssert(NO, @"Linked List: Weird error... objectAtIndex:%i", indexOfObject);
 
 	PXDebugLog (@"Linked List: Weird error... objectAtIndex:%i", indexOfObject);
 

@@ -77,6 +77,8 @@
 	// Set up the callbacks
 	destructionListener = NULL;
 	contactListener = NULL;
+	
+	NSLog(@"%f", self.stage.renderFrameRate);
 
 	// Uncomment these to listen to Box2D events:
 
