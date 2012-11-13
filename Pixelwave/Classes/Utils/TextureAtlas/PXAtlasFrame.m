@@ -182,7 +182,7 @@
 {
 	texture.textureData = textureData;
 	texture.clipRect = clipRect;
-
+    
 	if (anchor)
 	{
 		[texture setAnchorWithX:anchor.x y:anchor.y];

@@ -156,7 +156,7 @@
 
 		if (!absPath)
 		{
-			[self _log:[NSString stringWithFormat:@"file not found."]];
+//			[self _log:[NSString stringWithFormat:@"file not found."]];
 			return NO;
 		}
 
